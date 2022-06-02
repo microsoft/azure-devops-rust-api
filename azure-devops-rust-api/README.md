@@ -1,6 +1,8 @@
 # Azure DevOps Rust API
 
 > This is an unofficial Rust API crate for Azure DevOps.
+> It is in early development and only a small subset of function has been tested, so there will be issues and breaking changes.
+> If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
 
 ## Overview
 

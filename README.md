@@ -1,6 +1,7 @@
-# Azure DevOps Rust API
+# Azure DevOps Rust API Generator
 
-> This is an unofficial Rust API crate for Azure DevOps.
+> This is an unofficial Rust API crate generator for Azure DevOps.
+> It is in early development and only a small subset of function has been tested, so there will be issues and breaking changes.
 
 This repo auto-generates a Rust Azure DevOps API crate (`azure-devops-rust-api`) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
 
@@ -12,7 +13,7 @@ This repo auto-generates a Rust Azure DevOps API crate (`azure-devops-rust-api`)
 
 ## Notes
 
-- The Azure DevOps OpenAPI spec `vsts-rest-api-specs` is included as a git submodule.
+- The Azure DevOps OpenAPI spec `vsts-rest-api-specs` is pulled in at build time via a git submodule.
 - There are issues/bugs with the OpenAPI spec, so it is patched using `vsts-api-patcher` to generate `vsts-rest-api-specs.patched`.
 - The client code generation is done using a modified version of `autorust`, a component from [azure-sdk-for-rust](https://github.com/Azure/azure-sdk-for-rust).
 - Currently generates crate only for API version 7.1 (latest API version).
