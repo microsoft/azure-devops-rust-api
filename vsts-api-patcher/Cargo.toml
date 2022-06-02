@@ -1,0 +1,10 @@
+[package]
+name = "vsts-api-patcher"
+version = "0.1.0"
+edition = "2021"
+publish = ["metaswitch"]
+
+[dependencies]
+anyhow = "1.0.56"
+json = "0.12"
+walkdir = "2"

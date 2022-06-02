@@ -1,0 +1,3 @@
+[submodule "vsts-rest-api-specs"]
+	path = vsts-rest-api-specs
+	url = https://github.com/MicrosoftDocs/vsts-rest-api-specs
