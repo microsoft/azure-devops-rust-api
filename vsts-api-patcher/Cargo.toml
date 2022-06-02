@@ -2,7 +2,13 @@
 name = "vsts-api-patcher"
 version = "0.1.0"
 edition = "2021"
-publish = ["metaswitch"]
+authors = ["John Batty <johnbatty@microsoft.com>"]
+description = "vsts-rest-api-specs patcher"
+documentation = "https://docs.rs/azure_devops_rust_api"
+homepage = "https://github.com/microsoft/azure-devops-rust-api"
+repository = "https://github.com/microsoft/azure-devops-rust-api"
+keywords = ["azure", "devops", "vsts-rest-api-specs", "ado", "patcher"]
+license = "MIT"
 
 [dependencies]
 anyhow = "1.0.56"
