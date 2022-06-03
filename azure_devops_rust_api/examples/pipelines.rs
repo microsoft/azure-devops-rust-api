@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+// pipelines.rs
+// Pipelines example.
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::{Pipeline, RunPipelineParameters};
 use std::env;

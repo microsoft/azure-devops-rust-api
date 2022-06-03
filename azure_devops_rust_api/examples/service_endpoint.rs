@@ -1,3 +1,8 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+// service_endpoint.rs
+// Service Endpoint example.
 use azure_devops_rust_api::service_endpoint;
 use std::env;
 use std::error::Error;

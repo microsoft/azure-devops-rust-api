@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 #[cfg(feature = "accounts")]
 pub mod accounts;
 #[cfg(feature = "artifacts")]

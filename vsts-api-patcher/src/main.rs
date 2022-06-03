@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 use anyhow::{Context, Result};
 use json::JsonValue;
 use std::collections::BTreeMap;

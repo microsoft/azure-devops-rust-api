@@ -1,6 +1,8 @@
-// cargo run --example storage_mgmt
-// https://github.com/Azure/azure-rest-api-specs/tree/master/specification/storage/resource-manager
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 
+// gen_ado.rs
+// Main Azure DevOps crate code generation entry point
 use autorust_codegen::*;
 use std::collections::HashSet;
 use std::path::PathBuf;

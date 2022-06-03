@@ -147,7 +147,9 @@ fn write_file<P: AsRef<Path>>(
     if print_writing_file {
         println!("writing file {}", &file.display());
     }
-    let code = tokens.to_string();
+    let copyright =
+        "// Copyright (c) Microsoft Corporation.\n// Licensed under the MIT License.".to_string();
+    let code = format!("{}\n{}", copyright, tokens);
     let mut buffer = File::create(&file).map_err(|source| Error::CreateFile {
         source,
         file: file.into(),

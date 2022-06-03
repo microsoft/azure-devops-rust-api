@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 [package]
 name = "azure_devops_rust_api"
 version = "0.1.0"
@@ -9,7 +12,6 @@ homepage = "https://github.com/microsoft/azure-devops-rust-api"
 repository = "https://github.com/microsoft/azure-devops-rust-api"
 keywords = ["azure", "devops", "api", "ado"]
 license = "MIT"
-license-file = "LICENSE"
 readme = "README.md"
 publish = ["crates-io"]
 
