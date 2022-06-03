@@ -17,10 +17,23 @@ struct Patcher {
     new_definitions: BTreeMap<String, JsonValue>,
 }
 
-/// Return true if the specified `entry` appears to be a an OpenAPI specification filename
+// Return true if the specified `entry` appears to be a an OpenAPI specification filename
 fn is_spec(entry: &DirEntry) -> bool {
     let path = entry.path().to_string_lossy().to_string();
     path.ends_with(".json") && !path.contains("httpExamples")
+}
+
+// Performs preprocessing of spec text immediately after loading
+fn preprocess_spec(spec_path: &PathBuf, data: String) -> String {
+    if spec_path.ends_with("workItemTracking.json") {
+        // Fix up formatting of `$filter` query parameter - codegen fails with the $ prefix in the template.
+        data.replace(
+            "/{organization}/{project}/_apis/wit/queries?$filter={$filter}",
+            "/{organization}/{project}/_apis/wit/queries?$filter={filter}",
+        )
+    } else {
+        data
+    }
 }
 
 fn main() -> Result<()> {
@@ -48,7 +61,9 @@ fn main() -> Result<()> {
         let data =
             std::str::from_utf8(bytes).context(format!("File is not valid UTF8: {spec_path:?}"))?;
 
-        let mut json = json::parse(data)?;
+        let data = preprocess_spec(spec_path, data.to_string());
+
+        let mut json = json::parse(&data)?;
         let mut patcher = Patcher::new(spec_path);
         patcher.run(&mut json);
 
