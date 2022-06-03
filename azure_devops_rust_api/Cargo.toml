@@ -1,0 +1,82 @@
+[package]
+name = "azure_devops_rust_api"
+version = "0.1.0"
+edition = "2021"
+authors = ["John Batty <johnbatty@microsoft.com>"]
+description = "Rust API library for Azure DevOps"
+documentation = "https://docs.rs/azure_devops_rust_api"
+homepage = "https://github.com/microsoft/azure-devops-rust-api"
+repository = "https://github.com/microsoft/azure-devops-rust-api"
+keywords = ["azure", "devops", "api", "ado"]
+license = "MIT"
+license-file = "LICENSE"
+readme = "README.md"
+publish = ["crates-io"]
+
+[dependencies]
+azure_core = { version = "0.1", default-features = true }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bytes = "1.0"
+thiserror = "1.0"
+http = "0.2"
+url = "2.2"
+futures = "0.3"
+
+[dev-dependencies]
+azure_identity = "0.1"
+tokio = { version = "1.0", features = ["full"] }
+
+[features]
+accounts = []
+artifacts = []
+artifacts_package_types = []
+audit = []
+build = []
+clt = []
+core = []
+dashboard = []
+distributed_task = []
+extension_management = []
+git = []
+graph = []
+hooks = []
+ims = []
+member_entitlement_management = []
+operations = []
+permissions_report = []
+pipelines = []
+policy = []
+processadmin = []
+processes = []
+profile = []
+release = []
+search = []
+security = []
+service_endpoint = []
+status = []
+symbol = []
+test = []
+test_plan = []
+test_results = []
+tfvc = []
+token_admin = []
+wiki = []
+wit = []
+work = []
+
+[[example]]
+name = "repo_get"
+required-features = ["git"]
+
+[[example]]
+name = "repo_list"
+required-features = ["git"]
+
+[[example]]
+name = "pipelines"
+required-features = ["pipelines"]
+
+[[example]]
+name = "service_endpoint"
+required-features = ["service_endpoint"]

@@ -78,6 +78,7 @@ impl Patcher {
         Patcher::patch_pipelines_reference_links,
         Patcher::patch_pipelines_pipeline_configuration,
         Patcher::patch_pipeline,
+        Patcher::patch_json_reference_links,
     ];
 
     fn new(spec_path: &PathBuf) -> Patcher {
@@ -87,31 +88,22 @@ impl Patcher {
         }
     }
 
-    // fn patch_pipelines_reference_links(
-    //     &mut self,
-    //     key: &[&str],
-    //     _value: &JsonValue,
-    // ) -> Option<JsonValue> {
-    //     // Only applies to pipelines specs
-    //     if !self.spec_path.ends_with("pipelines.json") {
-    //         return None;
-    //     }
-    //     match key {
-    //         ["definitions", "Pipeline", "properties", "_links"] => Some(json::object! {
-    //             "description": "",
-    //             "type": "object",
-    //         }),
-    //         // ["definitions", "ReferenceLinks"] => {
-    //         //     println!("Replace pipelines ReferenceLinks definition");
-    //         //     Some(json::object! {
-    //         //         "description": "Links",
-    //         //         "type": "object",
-    //         //     })
-    //         // }
-
-    //         _ => None,
-    //     }
-    // }
+    fn patch_json_reference_links(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        match key {
+            ["definitions", schema_name, "properties", "_links"] => {
+                println!("Replace _links definition for {}", schema_name);
+                Some(json::object! {
+                    "description": "Links",
+                    "type": "object",
+                })
+            }
+            _ => None,
+        }
+    }
 
     fn add_link_definition(&mut self) {
         // Add `Link` definition
@@ -332,7 +324,60 @@ impl Patcher {
         value: &JsonValue,
     ) -> Option<JsonValue> {
         let patches = [
-            //("pipelines.json", "Pipeline", r#"["_links", "url"]"#),
+            (
+                "serviceEndpoint.json",
+                "ServiceEndpoint",
+                // Excluded:
+                // - administratorsGroup
+                // - operationStatus
+                r#"[
+                    "authorization",
+                    "createdBy",
+                    "data",
+                    "description",
+                    "id",
+                    "isReady",
+                    "isShared",
+                    "name",
+                    "owner",
+                    "type",
+                    "url"
+                ]"#,
+            ),
+            (
+                "serviceEndpoint.json",
+                "ServiceEndpointProjectReference",
+                r#"[
+                    "description",
+                    "name",
+                    "projectReference"
+                ]"#,
+            ),
+            (
+                "serviceEndpoint.json",
+                "ProjectReference",
+                r#"[
+                    "id",
+                    "name"
+                ]"#,
+            ),
+            (
+                "serviceEndpoint.json",
+                "GraphSubjectBase",
+                r#"[
+                    "links",
+                    "descriptor",
+                    "displayName",
+                    "url"
+                ]"#,
+            ),
+            (
+                "serviceEndpoint.json",
+                "IdentityRef",
+                r#"[
+                    "id"
+                ]"#,
+            ),
             (
                 "pipelines.json",
                 "PipelineBase",

@@ -9,6 +9,7 @@ homepage = "https://github.com/microsoft/azure-devops-rust-api"
 repository = "https://github.com/microsoft/azure-devops-rust-api"
 keywords = ["azure", "devops", "vsts-rest-api-specs", "ado", "patcher"]
 license = "MIT"
+publish = false
 
 [dependencies]
 anyhow = "1.0.56"

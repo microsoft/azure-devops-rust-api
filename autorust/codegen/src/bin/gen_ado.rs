@@ -114,7 +114,7 @@ const BOX_PROPERTIES: &[(&str, &str, &str)] = &[
 
 fn main() -> Result<()> {
     let root_spec_folder: std::path::PathBuf = format!("{ROOT_SPEC_DIR}").into();
-    let root_output_folder: std::path::PathBuf = "../../azure-devops-rust-api/src".into();
+    let root_output_folder: std::path::PathBuf = "../../azure_devops_rust_api/src".into();
     let modules = [
         (vec!["account/{VERSION}/accounts.json"], "accounts"),
         (

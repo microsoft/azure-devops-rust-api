@@ -17,16 +17,16 @@ cd ..
 
 # Autogen the Rust crate
 echo "Autogen Rust crate"
-rm -rf azure-devops-rust-api/target
+rm -rf azure_devops_rust_api/target
 cd autorust/codegen
 cargo run
 cd ../..
 
 # Format and build Rust crate
-cd azure-devops-rust-api
-echo "Format azure-devops-rust-api"
+cd azure_devops_rust_api
+echo "Format azure_devops_rust_api"
 cargo fmt
-echo "Build azure-devops-rust-api"
+echo "Build azure_devops_rust_api"
 cargo build
 cd ..
 
