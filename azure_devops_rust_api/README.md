@@ -6,7 +6,7 @@
 
 ## Overview
 
-`azure-devops-rust-api` implements a Rust interface to the Azure DevOps REST API (version 7.1).
+`azure_devops_rust_api` implements a Rust interface to the Azure DevOps REST API (version 7.1).
 
 ## Usage
 
