@@ -438,31 +438,69 @@ impl Patcher {
             (
                 "git.json",
                 "GitRepository",
+                // Excluded
+                // - "_links"
+                // - "defaultBranch"
+                // - "isDisabled"
+                // - "remoteUrl"
+                // - "size"
+                // - "sshUrl"
+                // - "webUrl"
                 r#"[
-                    "_links",
-                    "defaultBranch",
                     "id",
-                    "isDisabled",
                     "name",
                     "project",
-                    "remoteUrl",
-                    "size",
-                    "sshUrl",
-                    "url",
-                    "webUrl"
+                    "url"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "GitPullRequest",
+                // Excluded
+                // - "_links"
+                // - artifactId
+                // - autoCompleteSetBy
+                // - closedBy
+                // - closedDate
+                // - completionOptions
+                // - completionQueueTime
+                // - forkSource
+                // - hasMultipleMergeBases
+                // - mergeFailureMessage
+                // - mergeFailureType
+                // - mergeOptions
+                // - remoteUrl
+                r#"[
+                    "createdBy",
+                    "creationDate",
+                    "isDraft",
+                    "pullRequestId",
+                    "repository",
+                    "status",
+                    "source_ref_name",
+                    "target_ref_name",
+                    "url"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "IdentityRef",
+                r#"[
+                    "id"
                 ]"#,
             ),
             (
                 "git.json",
                 "TeamProjectReference",
+                // Excluded
+                // - description
+                // - revision
+                // - url
                 r#"[
-                    "description",
                     "id",
                     "lastUpdateTime",
                     "name",
-                    "revision",
                     "state",
-                    "url",
                     "visibility"
                 ]"#,
             ),
@@ -484,7 +522,7 @@ impl Patcher {
         }
     }
 
-    // Add missing "organization" value to the TeamProjectReference `visibility` enum
+    // Add missing "organization" and "unchanged" values to the TeamProjectReference `visibility` enum
     //
     // Before patch:
     // enum: [
@@ -496,7 +534,8 @@ impl Patcher {
     // enum: [
     //    "private",
     //    "public",
-    //    "organization"
+    //    "organization",
+    //    "unchanged"
     // ]
     fn patch_teamproject_visibility_enum(
         &mut self,
@@ -506,8 +545,13 @@ impl Patcher {
         match key {
             ["definitions", "TeamProjectReference", "properties", "visibility", "enum"] => {
                 if value.len() == 2 {
-                    println!("Add 'organization' to TeamProjectReference visibility enum");
-                    Some(json::array!["private", "public", "organization"])
+                    println!("Add 'organization' and 'unchanged' to TeamProjectReference visibility enum");
+                    Some(json::array![
+                        "private",
+                        "public",
+                        "organization",
+                        "unchanged"
+                    ])
                 } else {
                     None
                 }

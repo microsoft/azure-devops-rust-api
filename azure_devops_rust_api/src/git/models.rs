@@ -2052,14 +2052,10 @@ pub struct GitPullRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub completion_queue_time: Option<String>,
-    #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
-    pub created_by: Option<IdentityRef>,
-    #[serde(
-        rename = "creationDate",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub creation_date: Option<String>,
+    #[serde(rename = "createdBy")]
+    pub created_by: IdentityRef,
+    #[serde(rename = "creationDate")]
+    pub creation_date: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -2074,8 +2070,8 @@ pub struct GitPullRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub has_multiple_merge_bases: Option<bool>,
-    #[serde(rename = "isDraft", default, skip_serializing_if = "Option::is_none")]
-    pub is_draft: Option<bool>,
+    #[serde(rename = "isDraft")]
+    pub is_draft: bool,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub labels: Vec<WebApiTagDefinition>,
     #[serde(
@@ -2122,16 +2118,11 @@ pub struct GitPullRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub merge_status: Option<git_pull_request::MergeStatus>,
-    #[serde(
-        rename = "pullRequestId",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub pull_request_id: Option<i32>,
+    #[serde(rename = "pullRequestId")]
+    pub pull_request_id: i32,
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
     pub remote_url: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub repository: Option<GitRepository>,
+    pub repository: GitRepository,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub reviewers: Vec<IdentityRefWithVote>,
     #[serde(
@@ -2140,8 +2131,7 @@ pub struct GitPullRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_ref_name: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<git_pull_request::Status>,
+    pub status: git_pull_request::Status,
     #[serde(
         rename = "supportsIterations",
         default,
@@ -2156,8 +2146,7 @@ pub struct GitPullRequest {
     pub target_ref_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
     #[serde(
         rename = "workItemRefs",
         default,
@@ -2927,13 +2916,21 @@ pub mod git_ref_update_result {
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRepository {
-    #[serde(rename = "_links")]
-    pub links: serde_json::Value,
-    #[serde(rename = "defaultBranch")]
-    pub default_branch: String,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<serde_json::Value>,
+    #[serde(
+        rename = "defaultBranch",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub default_branch: Option<String>,
     pub id: String,
-    #[serde(rename = "isDisabled")]
-    pub is_disabled: bool,
+    #[serde(
+        rename = "isDisabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_disabled: Option<bool>,
     #[serde(rename = "isFork", default, skip_serializing_if = "Option::is_none")]
     pub is_fork: Option<bool>,
     pub name: String,
@@ -2944,11 +2941,12 @@ pub struct GitRepository {
     )]
     pub parent_repository: Option<GitRepositoryRef>,
     pub project: TeamProjectReference,
-    #[serde(rename = "remoteUrl")]
-    pub remote_url: String,
-    pub size: i64,
-    #[serde(rename = "sshUrl")]
-    pub ssh_url: String,
+    #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
+    pub remote_url: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub size: Option<i64>,
+    #[serde(rename = "sshUrl", default, skip_serializing_if = "Option::is_none")]
+    pub ssh_url: Option<String>,
     pub url: String,
     #[serde(
         rename = "validRemoteUrls",
@@ -2956,8 +2954,8 @@ pub struct GitRepository {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub valid_remote_urls: Vec<String>,
-    #[serde(rename = "webUrl")]
-    pub web_url: String,
+    #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
+    pub web_url: Option<String>,
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRepositoryCreateOptions {
@@ -3566,8 +3564,7 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4100,14 +4097,17 @@ pub struct TeamProjectReference {
         skip_serializing_if = "Option::is_none"
     )]
     pub default_team_image_url: Option<String>,
-    pub description: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     pub id: String,
     #[serde(rename = "lastUpdateTime")]
     pub last_update_time: String,
     pub name: String,
-    pub revision: i64,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub revision: Option<i64>,
     pub state: team_project_reference::State,
-    pub url: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
     pub visibility: team_project_reference::Visibility,
 }
 pub mod team_project_reference {
@@ -4137,6 +4137,8 @@ pub mod team_project_reference {
         Public,
         #[serde(rename = "organization")]
         Organization,
+        #[serde(rename = "unchanged")]
+        Unchanged,
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

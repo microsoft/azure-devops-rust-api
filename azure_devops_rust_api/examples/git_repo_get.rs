@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// repo_list.rs
-// Repository list example.
+// repo_get.rs
+// Repository get example.
 use azure_devops_rust_api::git;
 use std::env;
 use std::error::Error;
@@ -16,21 +16,31 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
+    let repo_name = env::args()
+        .nth(1)
+        .expect("Usage: repo_get <repository-name>");
 
     let client = git::operations::Client::new(service_endpoint, credential, vec![]);
 
-    let repos = client
+    let repo = client
         .repositories()
-        .list(organization, project)
+        .get_repository(&organization, &repo_name, &project)
         .into_future()
-        .await
-        .unwrap()
+        .await?;
+    println!("{:#?}", repo);
+
+    let prs = client
+        .pull_requests()
+        .get_pull_requests(&organization, &repo.id, &project)
+        .into_future()
+        .await?
         .value;
 
-    for repo in repos.iter() {
-        println!("{}", repo.name.as_ref().unwrap_or(&"<unknown>".to_string()));
+    println!("Found {} pull requests", prs.len());
+    if let Some(pr) = prs.iter().next() {
+        println!("Example PR:");
+        println!("{:#?}", pr);
     }
-    println!("{} repos found", repos.len());
 
     Ok(())
 }

@@ -1587,6 +1587,8 @@ pub mod team_project_reference {
         Public,
         #[serde(rename = "organization")]
         Organization,
+        #[serde(rename = "unchanged")]
+        Unchanged,
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

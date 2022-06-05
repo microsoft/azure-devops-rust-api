@@ -38,7 +38,7 @@ Note that you need to authenticate via `az login` before running the examples.
 
 ```sh
 az login
-cargo run --example repo_get --features="git" <repo-name>
+cargo run --example git_repo_get --features="git" <repo-name>
 ```
 
 ## Useful links

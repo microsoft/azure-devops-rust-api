@@ -68,11 +68,11 @@ wit = []
 work = []
 
 [[example]]
-name = "repo_get"
+name = "git_repo_get"
 required-features = ["git"]
 
 [[example]]
-name = "repo_list"
+name = "git_repo_list"
 required-features = ["git"]
 
 [[example]]
