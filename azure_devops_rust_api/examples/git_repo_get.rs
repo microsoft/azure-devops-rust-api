@@ -18,7 +18,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
     let repo_name = env::args()
         .nth(1)
-        .expect("Usage: repo_get <repository-name>");
+        .expect("Usage: git_repo_get <repository-name>");
 
     let client = git::operations::Client::new(service_endpoint, credential, vec![]);
 

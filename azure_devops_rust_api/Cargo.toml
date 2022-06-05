@@ -82,3 +82,7 @@ required-features = ["pipelines"]
 [[example]]
 name = "service_endpoint"
 required-features = ["service_endpoint"]
+
+[[example]]
+name = "graph_query"
+required-features = ["graph"]
