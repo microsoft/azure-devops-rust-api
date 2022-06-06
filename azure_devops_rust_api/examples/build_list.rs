@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// git_repo_list.rs
+// build_list.rs
 // Repository list example.
-use azure_devops_rust_api::git;
+use azure_devops_rust_api::build;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;
@@ -17,20 +17,20 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    let client = git::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = build::operations::Client::new(service_endpoint, credential, vec![]);
 
-    let repos = client
-        .repositories()
+    let builds = client
+        .builds()
         .list(organization, project)
         .into_future()
         .await
         .unwrap()
         .value;
 
-    for repo in repos.iter() {
-        println!("{}", repo.name);
+    println!("Found {} builds", builds.len());
+    if let Some(build) = builds.iter().next() {
+        println!("build: {:#?}", build);
     }
-    println!("{} repos found", repos.len());
 
     Ok(())
 }

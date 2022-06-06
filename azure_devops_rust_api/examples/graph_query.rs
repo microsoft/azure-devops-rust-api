@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// graph.rs
+// graph_query.rs
 // Graph example.
 use azure_devops_rust_api::graph;
 use azure_devops_rust_api::graph::models::GraphSubjectQuery;

@@ -86,3 +86,7 @@ required-features = ["service_endpoint"]
 [[example]]
 name = "graph_query"
 required-features = ["graph"]
+
+[[example]]
+name = "build_list"
+required-features = ["build"]
