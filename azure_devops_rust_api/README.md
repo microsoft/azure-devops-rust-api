@@ -19,7 +19,7 @@ Example application `Cargo.toml` dependency spec showing how to specify desired 
 ```toml
 [dependencies]
 ...
-azure-devops-rust-api = { version = "0.1.0", features = ["git", "pipelines"] }
+azure_devops_rust_api = { version = "0.1.0", features = ["git", "pipelines"] }
 ```
 
 ## Examples
@@ -30,8 +30,8 @@ Define environment variables:
 
 ```sh
 export ADO_SERVICE_ENDPOINT=https://dev.azure.com
-export ADO_ORGANIZATION=msazuredev
-export ADO_PROJECT=AzureForOperators
+export ADO_ORGANIZATION=<organization-name>
+export ADO_PROJECT=<project-name>
 ```
 
 Note that you need to authenticate via `az login` before running the examples.
