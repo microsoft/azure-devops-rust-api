@@ -11,7 +11,7 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    let credential = Arc::new(azure_identity::token_credentials::AzureCliCredential {});
+    let credential = Arc::new(azure_identity::AzureCliCredential {});
 
     // Service endpoint is different from most ADO APIs - it has to have "vssps" prefix, e.g. https://vssps.dev.azure.com/
     let service_endpoint = "https://vssps.dev.azure.com";

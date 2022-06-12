@@ -51,6 +51,12 @@ impl<T> ReferenceOr<T> {
     }
 }
 
+/// a `$ref` URI
+/// https://swagger.io/docs/specification/using-ref/
+/// examples:
+///   "$ref": "#/definitions/CloudError"
+///   "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+///   "$ref": "#/parameters/privateCloudName"
 #[derive(Clone, Debug, PartialEq)]
 pub struct Reference {
     pub file: Option<String>,
@@ -120,7 +126,7 @@ impl Serialize for Reference {
     where
         S: Serializer,
     {
-        let mut str = self.file.clone().unwrap_or_else(String::new);
+        let mut str = self.file.clone().unwrap_or_default();
         let path = &self.path.join("/");
         if !path.is_empty() {
             str.push_str("#/");

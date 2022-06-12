@@ -3,120 +3,19 @@
 
 // gen_ado.rs
 // Main Azure DevOps crate code generation entry point
-use autorust_codegen::*;
-use std::collections::HashSet;
-use std::path::PathBuf;
+use autorust_codegen::{self, Result, RunConfig, CrateConfig};
+use autorust_codegen::autorust_toml;
+use camino::Utf8PathBuf;
 
 const API_VERSION: &str = "7.1";
 const ROOT_SPEC_DIR: &str = "../../vsts-rest-api-specs.patched/specification";
 
-const BOX_PROPERTIES: &[(&str, &str, &str)] = &[
-    // build
-    (
-        "{ROOT_SPEC_DIR}/build/{VERSION}/build.json",
-        "Build",
-        "triggeredByBuild",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "TaskOrchestrationContainer",
-        "rollback",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "first",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "item",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "last",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "next",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "previous",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/distributedTask/{VERSION}/taskAgent.json",
-        "JToken",
-        "root",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "first",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "item",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "last",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "next",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "previous",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/graph/{VERSION}/graph.json",
-        "JToken",
-        "root",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "first",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "item",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "last",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "next",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "previous",
-    ),
-    (
-        "{ROOT_SPEC_DIR}/serviceEndpoint/{VERSION}/serviceEndpoint.json",
-        "JToken",
-        "root",
-    ),
-];
-
 fn main() -> Result<()> {
-    let root_spec_folder: std::path::PathBuf = format!("{ROOT_SPEC_DIR}").into();
-    let root_output_folder: std::path::PathBuf = "../../azure_devops_rust_api/src".into();
+    let package_config = autorust_toml::read("autorust.toml".into())?;
+
+    let run_config = &mut RunConfig::new("azure_devops_rust_api_");
+    let root_spec_folder: Utf8PathBuf = format!("{ROOT_SPEC_DIR}").into();
+    let root_output_folder: Utf8PathBuf = "../../azure_devops_rust_api/src".into();
     let modules = [
         (vec!["account/{VERSION}/accounts.json"], "accounts"),
         (
@@ -197,39 +96,31 @@ fn main() -> Result<()> {
         (vec!["work/{VERSION}/work.json"], "work"),
     ];
 
-    let mut box_properties = HashSet::new();
-    for (file_path, schema_name, property_name) in BOX_PROPERTIES {
-        box_properties.insert(PropertyName {
-            file_path: PathBuf::from(
-                file_path
-                    .replace("{VERSION}", API_VERSION)
-                    .replace("{ROOT_SPEC_DIR}", ROOT_SPEC_DIR),
-            ),
-            schema_name: schema_name.to_string(),
-            property_name: property_name.to_string(),
-        });
-    }
-
     for (input_files, module_name) in modules {
         let mut output_folder = root_output_folder.clone();
+
+        let input_files = input_files
+        .iter()
+        .map(|filename| {
+            let mut input_file = root_spec_folder.clone();
+            input_file.push(
+                filename
+                    .replace("{VERSION}", API_VERSION)
+                    .replace("{ROOT_SPEC_DIR}", ROOT_SPEC_DIR),
+            );
+            input_file
+        })
+        .collect();
+
         output_folder.push(module_name);
-        run(Config {
+        let crate_config = CrateConfig {
+            run_config,
             output_folder,
-            input_files: input_files
-                .iter()
-                .map(|filename| {
-                    let mut input_file = root_spec_folder.clone();
-                    input_file.push(
-                        filename
-                            .replace("{VERSION}", API_VERSION)
-                            .replace("{ROOT_SPEC_DIR}", ROOT_SPEC_DIR),
-                    );
-                    input_file
-                })
-                .collect(),
-            box_properties: box_properties.clone(),
-            ..Config::default()
-        })?;
+            input_files
+        };
+
+        // Generate module
+        let _cg = crate::autorust_codegen::run(&crate_config, &package_config)?;
     }
 
     Ok(())

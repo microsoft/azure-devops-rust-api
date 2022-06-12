@@ -29,11 +29,7 @@ pub struct OpenAPI {
     // #[serde(default, skip_serializing_if = "IndexMap::is_empty")] // do not skip
     pub paths: IndexMap<String, ReferenceOr<PathItem>>,
     /// Relative paths to the individual endpoints. They must be relative to the 'basePath'.
-    #[serde(
-        default,
-        rename = "x-ms-paths",
-        skip_serializing_if = "IndexMap::is_empty"
-    )]
+    #[serde(default, rename = "x-ms-paths", skip_serializing_if = "IndexMap::is_empty")]
     pub x_ms_paths: IndexMap<String, ReferenceOr<PathItem>>,
     #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
     pub definitions: IndexMap<String, ReferenceOr<Schema>>,
@@ -53,27 +49,24 @@ pub struct OpenAPI {
 
     /// replaces the fixed host with a host template that can be replaced with variable parameters
     /// https://github.com/Azure/autorest/blob/master/docs/extensions/readme.md#x-ms-parameterized-host
-    #[serde(
-        rename = "x-ms-parameterized-host",
-        skip_serializing_if = "Option::is_none"
-    )]
+    #[serde(rename = "x-ms-parameterized-host", skip_serializing_if = "Option::is_none")]
     pub x_ms_parameterized_host: Option<MsParameterizedHost>,
 }
 
 impl OpenAPI {
-    pub fn x_ms_paths_or_paths(&self) -> &IndexMap<String, ReferenceOr<PathItem>> {
-        if !self.x_ms_paths.is_empty() {
-            &self.x_ms_paths
-        } else {
-            &self.paths
+    pub fn paths(&self) -> IndexMap<String, ReferenceOr<PathItem>> {
+        let mut result = IndexMap::new();
+        for (k, v) in self.x_ms_paths.iter() {
+            result.insert(k.clone(), v.clone());
         }
+        for (k, v) in self.paths.iter() {
+            if !self.x_ms_paths.contains_key(k) {
+                result.insert(k.clone(), v.clone());
+            }
+        }
+        result
     }
-
-    pub fn all_paths(&self) -> IndexMap<String, ReferenceOr<PathItem>> {
-        let mut paths = self.paths.clone();
-        for (k, v) in self.x_ms_paths.clone().into_iter() {
-            paths.insert(k, v);
-        }
-        paths
+    pub fn version(&self) -> Result<&str, Error> {
+        Ok(self.info.version.as_ref().ok_or(Error::MissingApiVersion)?.as_str())
     }
 }

@@ -11,7 +11,7 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    let credential = Arc::new(azure_identity::token_credentials::AzureCliCredential {});
+    let credential = Arc::new(azure_identity::AzureCliCredential {});
 
     let service_endpoint =
         env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
