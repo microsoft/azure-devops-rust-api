@@ -16,11 +16,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build codegen and autogenerate crate
+    - name: codegen clippy
+      run: cd autorust && cargo clippy
+    - name: vsts-api-patcher clippy
+      run: cd vsts-api-patcher && cargo clippy
+    - name: codegen build and run autogeneration
       run: ./build.sh
-    - name: Switch to generated crate
-      run: cd azure_devops_rust_api
-    - name: Build crate
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+    - name: azure_devops_rust_api clippy
+      run: cd azure_devops_rust_api && cargo clippy --all-features
+    - name: azure_devops_rust_api build
+      run: cd azure_devops_rust_api && cargo build --all-features
+    - name: azure_devops_rust_api test
+      run: cd azure_devops_rust_api && cargo test --all-features
