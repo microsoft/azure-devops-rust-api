@@ -24,7 +24,7 @@ fn is_spec(entry: &DirEntry) -> bool {
 }
 
 // Performs preprocessing of spec text immediately after loading
-fn preprocess_spec(spec_path: &PathBuf, data: String) -> String {
+fn preprocess_spec(spec_path: &Path, data: String) -> String {
     if spec_path.ends_with("workItemTracking.json") {
         // Fix up formatting of `$filter` query parameter - codegen fails with the $ prefix in the template.
         data.replace(
@@ -85,8 +85,10 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+type PatcherFn = fn(&mut Patcher, &[&str], &JsonValue) -> Option<JsonValue>;
+
 impl Patcher {
-    const PATCH_FNS: &'static [fn(&mut Patcher, &[&str], &JsonValue) -> Option<JsonValue>] = &[
+    const PATCH_FNS: &'static [PatcherFn] = &[
         Patcher::patch_teamproject_visibility_enum,
         Patcher::patch_array_array_schema,
         Patcher::patch_response_schema,
@@ -98,9 +100,9 @@ impl Patcher {
         Patcher::patch_json_reference_links,
     ];
 
-    fn new(spec_path: &PathBuf) -> Patcher {
+    fn new(spec_path: &Path) -> Patcher {
         Patcher {
-            spec_path: spec_path.clone(),
+            spec_path: spec_path.into(),
             new_definitions: BTreeMap::new(),
         }
     }

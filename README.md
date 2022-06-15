@@ -9,7 +9,7 @@ This repo auto-generates a Rust Azure DevOps API crate (`azure_devops_rust_api`)
 
 - Checkout this repo
 - Run `build.sh`
-- The API crate is generated into the `azure-devops-rust-api` directory.
+- The API crate is generated into the [`azure_devops_rust_api`](azure_devops_rust_api) directory.
 
 ## Publishing
 
