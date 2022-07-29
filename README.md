@@ -11,7 +11,7 @@ This repo auto-generates a Rust Azure DevOps API crate (`azure_devops_rust_api`)
 
 - Checkout this repo
 - Run `build.sh`
-- The API crate is generated into the [`azure_devops_rust_api`](azure_devops_rust_api) directory.
+- The API crate is generated into the [`azure_devops_rust_api`](azure_devops_rust_api/) directory.
 
 ## Publishing
 
@@ -19,9 +19,9 @@ The generated crate is manually published to the public Rust crate registry ([cr
 
 ## Notes
 
-- The Azure DevOps OpenAPI spec `vsts-rest-api-specs` is pulled in at build time via a git submodule.
-- There are issues/bugs with the OpenAPI spec, so it is patched using `vsts-api-patcher` to generate `vsts-rest-api-specs.patched`, which is used for the code generation.
-- The client code generation is done using a modified version of `autorust`, a component from [azure-sdk-for-rust](https://github.com/Azure/azure-sdk-for-rust).
+- The Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs) is pulled in at build time via a git submodule.
+- There are issues/bugs with the OpenAPI spec, so it is patched using [`vsts-api-patcher`](vsts-api-patcher/) to generate `vsts-rest-api-specs.patched`, which is used for the code generation.
+- The client code generation is done using a [modified version of `autorust`](autorust/), a component from [azure-sdk-for-rust](https://github.com/Azure/azure-sdk-for-rust).
   - `autorust` is MIT licensed
   - `autorust` includes an `openapi` module, which is also MIT licensed
 - Generates crate for API version 7.1 (latest API version).
