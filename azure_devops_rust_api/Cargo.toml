@@ -69,7 +69,6 @@ work = []
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--no-deps"]
 
 [[example]]
 name = "git_repo_get"
