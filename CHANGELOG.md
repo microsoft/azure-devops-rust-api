@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2022-07-29
+
+Set `--no-deps` flag for docs.rs documentation generation.
+
 ## [0.1.1] - 2022-07-29
 
 Enable `all-features` flag for docs.rs documentation generation.
@@ -14,6 +18,7 @@ Enable `all-features` flag for docs.rs documentation generation.
 
 Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.2...HEAD
+[0.1.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/microsoft/azure-devops-rust-api/tree/0.1.0
