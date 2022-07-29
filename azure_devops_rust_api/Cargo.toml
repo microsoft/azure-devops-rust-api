@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"
@@ -66,6 +66,9 @@ token_admin = []
 wiki = []
 wit = []
 work = []
+
+[package.metadata.docs.rs]
+all-features = true
 
 [[example]]
 name = "git_repo_get"
