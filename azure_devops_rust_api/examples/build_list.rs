@@ -23,8 +23,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .builds()
         .list(organization, project)
         .into_future()
-        .await
-        .unwrap()
+        .await?
         .value;
 
     println!("Found {} builds", builds.len());

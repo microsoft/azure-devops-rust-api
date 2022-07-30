@@ -3,9 +3,17 @@
 > This is an unofficial Azure DevOps Rust API crate generator.
 > It is in early development and only a small subset of function has been tested, so there will be issues and breaking changes.
 
-This repo auto-generates a Rust Azure DevOps API crate (`azure_devops_rust_api`) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
+This repo auto-generates a Rust Azure DevOps API crate ([`azure_devops_rust_api`](azure_devops_rust_api/)) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
 
-![Status](https://github.com/microsoft/azure-devops-rust-api/actions/workflows/rust.yml/badge.svg)
+![Status](https://github.com/microsoft/azure-devops-rust-api/actions/workflows/build.yml/badge.svg)
+
+## Usage of generated `azure_devops_rust_api` crate
+
+For documentation on usage of the generated crate, see:
+
+- azure_devops_rust_api [README.md](azure_devops_rust_api/README.md)
+- azure_devops_rust_api [examples](azure_devops_rust_api/examples/)
+- [API documentation](https://docs.rs/azure_devops_rust_api)
 
 ## Build
 
@@ -15,7 +23,7 @@ This repo auto-generates a Rust Azure DevOps API crate (`azure_devops_rust_api`)
 
 ## Publishing
 
-The generated crate is manually published to the public Rust crate registry ([crates.io](https://crates.io/)) as `azure_devops_rust_api`.
+The generated crate is manually published to the public Rust crate registry ([crates.io](https://crates.io/)) as [`azure_devops_rust_api`](https://crates.io/crates/azure_devops_rust_api).
 
 ## Notes
 

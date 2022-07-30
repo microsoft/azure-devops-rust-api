@@ -6,21 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Remove use of `unwrap()` from examples.
+- Updated READMEs.
+
 ## [0.1.3] - 2022-07-29
 
-Remove `--no-deps` flag for docs.rs documentation generation.
+- Remove `--no-deps` flag for docs.rs documentation generation.
 
 ## [0.1.2] - 2022-07-29
 
-Set `--no-deps` flag for docs.rs documentation generation.
+- Set `--no-deps` flag for docs.rs documentation generation.
 
 ## [0.1.1] - 2022-07-29
 
-Enable `all-features` flag for docs.rs documentation generation.
+- Enable `all-features` flag for docs.rs documentation generation.
 
 ## [0.1.0] - 2022-07-29
 
-Initial release.
+- Initial release.
 
 [Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.3...HEAD
 [0.1.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.2...0.1.3

@@ -23,8 +23,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .repositories()
         .list(organization, project)
         .into_future()
-        .await
-        .unwrap()
+        .await?
         .value;
 
     for repo in repos.iter() {

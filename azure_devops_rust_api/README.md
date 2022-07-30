@@ -34,7 +34,7 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a "git" client
+    // Create a `git` client
     let client = git::operations::Client::new(service_endpoint, credential, vec![]);
 
     // Use the client to list all repositories in the specified organization/project
@@ -42,8 +42,7 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
         .repositories()
         .list(organization, project)
         .into_future()
-        .await
-        .unwrap()
+        .await?
         .value;
 
     // Output repo names
