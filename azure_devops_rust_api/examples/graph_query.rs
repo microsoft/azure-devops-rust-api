@@ -11,22 +11,27 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
+    // Get authentication credentials via the az cli
     let credential = Arc::new(azure_identity::AzureCliCredential {});
 
+    // Get ADO server configuration via environment variables
     // Service endpoint is different from most ADO APIs - it has to have "vssps" prefix, e.g. https://vssps.dev.azure.com/
     let service_endpoint = "https://vssps.dev.azure.com";
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let name = env::args().nth(1).expect("Usage: graph_query <name>");
 
+    // Create a `graph` client
     let client =
         graph::operations::Client::new(service_endpoint, credential, vec![]).subject_query();
 
+    // Create a query for a `User` with the specified name
     let query = GraphSubjectQuery {
         query: Some(name.to_string()),
         scope_descriptor: None,
         subject_kind: vec!["User".to_string()],
     };
 
+    // Use the client to query the specified user
     let subjects = client
         .query(&organization, query)
         .into_future()

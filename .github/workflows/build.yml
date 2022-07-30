@@ -28,5 +28,7 @@ jobs:
       run: cd azure_devops_rust_api && cargo clippy --all-features
     - name: azure_devops_rust_api build
       run: cd azure_devops_rust_api && cargo build --all-features
+    - name: azure_devops_rust_api examples build
+      run: cd azure_devops_rust_api && cargo build --examples --all-features
     - name: azure_devops_rust_api test
       run: cd azure_devops_rust_api && cargo test --all-features
