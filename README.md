@@ -6,7 +6,7 @@
 >
 > If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
 
-This repo auto-generates a Rust Azure DevOps API crate ([`azure_devops_rust_api`](azure_devops_rust_api/) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
+This repo auto-generates a Rust Azure DevOps API crate ([`azure_devops_rust_api`](azure_devops_rust_api/)) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
 
 ![Status](https://github.com/microsoft/azure-devops-rust-api/actions/workflows/build.yml/badge.svg)
 
