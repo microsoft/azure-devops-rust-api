@@ -67,14 +67,14 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
         #[derive(Clone)]
         pub struct Client {
             endpoint: String,
-            credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>,
+            credential: crate::auth::Credential,
             scopes: Vec<String>,
             pipeline: azure_core::Pipeline,
         }
 
         #[derive(Clone)]
         pub struct ClientBuilder {
-            credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>,
+            credential: crate::auth::Credential,
             endpoint: Option<String>,
             scopes: Option<Vec<String>>,
         }
@@ -82,7 +82,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
         #default_endpoint_code
 
         impl ClientBuilder {
-            pub fn new(credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>) -> Self {
+            pub fn new(credential: crate::auth::Credential) -> Self {
                 Self {
                     credential,
                     endpoint: None,
@@ -111,18 +111,15 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             pub(crate) fn endpoint(&self) -> &str {
                 self.endpoint.as_str()
             }
-            pub(crate) fn token_credential(&self) -> &dyn azure_core::auth::TokenCredential {
-                self.credential.as_ref()
-            }
-            pub(crate) fn scopes(&self) -> Vec<&str> {
-                self.scopes.iter().map(String::as_str).collect()
+            pub(crate) fn credential(&self) -> &crate::auth::Credential {
+                &self.credential
             }
             pub(crate) async fn send(&self, request: impl Into<azure_core::Request>) -> azure_core::error::Result<azure_core::Response> {
                 let mut context = azure_core::Context::default();
                 let mut request = request.into();
                 self.pipeline.send(&mut context, &mut request).await
             }
-            pub fn new(endpoint: impl Into<String>, credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>, scopes: Vec<String>) -> Self {
+            pub fn new(endpoint: impl Into<String>, credential: crate::auth::Credential, scopes: Vec<String>) -> Self {
                 let endpoint = endpoint.into();
                 let pipeline = azure_core::Pipeline::new(
                     option_env!("CARGO_PKG_NAME"),
@@ -297,12 +294,7 @@ struct AuthCode {}
 impl ToTokens for AuthCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(quote! {
-            let credential = this.client.token_credential();
-            let token_response = credential
-                .get_token(&this.client.scopes().join(" "))
-                .await
-                .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
-            req_builder = req_builder.header(http::header::AUTHORIZATION, format!("Bearer {}", token_response.token.secret()));
+            req_builder = req_builder.header(http::header::AUTHORIZATION, &this.client.credential().http_authorization_header(&this.client.scopes).await?);
         })
     }
 }

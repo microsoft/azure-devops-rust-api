@@ -3,6 +3,7 @@
 
 // git_repo_get.rs
 // Repository get example.
+use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::git;
 use std::env;
 use std::error::Error;
@@ -10,8 +11,17 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    // Get authentication credentials via the az cli
-    let credential = Arc::new(azure_identity::AzureCliCredential {});
+    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
+    let credential = match env::var("ADO_TOKEN") {
+        Ok(token) => {
+            println!("Authenticate using PAT provided via $ADO_TOKEN");
+            Credential::from_pat(token)
+        }
+        Err(_) => {
+            println!("Authenticate using Azure CLI");
+            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential {}))
+        }
+    };
 
     // Get ADO server configuration via environment variables
     let service_endpoint =
@@ -22,7 +32,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         .nth(1)
         .expect("Usage: git_repo_get <repository-name>");
 
-    // Create a `git` client
+    // Create a "git" client
     let client = git::operations::Client::new(service_endpoint, credential, vec![]);
 
     // Use the client to get the specified repo

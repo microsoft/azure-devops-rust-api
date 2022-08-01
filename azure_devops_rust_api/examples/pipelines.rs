@@ -3,6 +3,7 @@
 
 // pipelines.rs
 // Pipelines example.
+use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::{Pipeline, RunPipelineParameters};
 use std::env;
@@ -11,8 +12,17 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
-    // Get authentication credentials via the az cli
-    let credential = Arc::new(azure_identity::AzureCliCredential {});
+    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
+    let credential = match env::var("ADO_TOKEN") {
+        Ok(token) => {
+            println!("Authenticate using PAT provided via $ADO_TOKEN");
+            Credential::from_pat(token)
+        }
+        Err(_) => {
+            println!("Authenticate using Azure CLI");
+            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential {}))
+        }
+    };
 
     // Get ADO server configuration via environment variables
     let service_endpoint =

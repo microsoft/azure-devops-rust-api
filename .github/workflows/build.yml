@@ -32,3 +32,5 @@ jobs:
       run: cd azure_devops_rust_api && cargo build --examples --all-features
     - name: azure_devops_rust_api test
       run: cd azure_devops_rust_api && cargo test --all-features
+    - name: azure_devops_rust_api documentation generation
+      run: cd azure_devops_rust_api && cargo doc --all-features --no-deps

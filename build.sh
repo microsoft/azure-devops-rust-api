@@ -29,7 +29,7 @@ cd azure_devops_rust_api
 echo "Format azure_devops_rust_api"
 cargo fmt
 echo "Build azure_devops_rust_api"
-cargo build
+cargo build --all-features
 cd ..
 
 echo "Done"

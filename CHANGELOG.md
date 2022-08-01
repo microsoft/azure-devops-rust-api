@@ -6,18 +6,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking change
+
+- Credentials now need to be provided via a new type `auth::Credential` that supports
+  both PAT and TokenCredential types. For more details see examples and docs.
+
+### Added
+
+- Support for PAT authentication
+
+### Fixed
+
 - Remove use of `unwrap()` from examples.
 - Updated READMEs.
 
 ## [0.1.3] - 2022-07-29
 
+### Fixed
+
 - Remove `--no-deps` flag for docs.rs documentation generation.
 
 ## [0.1.2] - 2022-07-29
 
+### Fixed
+
 - Set `--no-deps` flag for docs.rs documentation generation.
 
 ## [0.1.1] - 2022-07-29
+
+### Fixed
 
 - Enable `all-features` flag for docs.rs documentation generation.
 

@@ -9,19 +9,19 @@ use super::models;
 #[derive(Clone)]
 pub struct Client {
     endpoint: String,
-    credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>,
+    credential: crate::auth::Credential,
     scopes: Vec<String>,
     pipeline: azure_core::Pipeline,
 }
 #[derive(Clone)]
 pub struct ClientBuilder {
-    credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>,
+    credential: crate::auth::Credential,
     endpoint: Option<String>,
     scopes: Option<Vec<String>>,
 }
 pub const DEFAULT_ENDPOINT: &str = "https://dev.azure.com";
 impl ClientBuilder {
-    pub fn new(credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>) -> Self {
+    pub fn new(credential: crate::auth::Credential) -> Self {
         Self {
             credential,
             endpoint: None,
@@ -48,11 +48,8 @@ impl Client {
     pub(crate) fn endpoint(&self) -> &str {
         self.endpoint.as_str()
     }
-    pub(crate) fn token_credential(&self) -> &dyn azure_core::auth::TokenCredential {
-        self.credential.as_ref()
-    }
-    pub(crate) fn scopes(&self) -> Vec<&str> {
-        self.scopes.iter().map(String::as_str).collect()
+    pub(crate) fn credential(&self) -> &crate::auth::Credential {
+        &self.credential
     }
     pub(crate) async fn send(
         &self,
@@ -64,7 +61,7 @@ impl Client {
     }
     pub fn new(
         endpoint: impl Into<String>,
-        credential: std::sync::Arc<dyn azure_core::auth::TokenCredential>,
+        credential: crate::auth::Credential,
         scopes: Vec<String>,
     ) -> Self {
         let endpoint = endpoint.into();
@@ -311,14 +308,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -396,14 +392,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -479,14 +474,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -558,14 +552,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -634,14 +627,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -714,14 +706,13 @@ pub mod classification_nodes {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -910,14 +901,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1007,14 +997,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1110,14 +1099,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1203,14 +1191,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1286,14 +1273,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1365,14 +1351,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1430,14 +1415,13 @@ pub mod queries {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1574,14 +1558,13 @@ pub mod recyclebin {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1646,14 +1629,13 @@ pub mod recyclebin {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1718,14 +1700,13 @@ pub mod recyclebin {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1791,14 +1772,13 @@ pub mod recyclebin {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -1864,14 +1844,13 @@ pub mod recyclebin {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2060,14 +2039,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2160,14 +2138,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2242,14 +2219,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2326,14 +2302,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2407,14 +2382,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2481,14 +2455,13 @@ pub mod comments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2555,14 +2528,13 @@ pub mod artifact_link_types {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2648,14 +2620,13 @@ pub mod work_item_icons {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2728,14 +2699,13 @@ pub mod work_item_icons {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2825,14 +2795,13 @@ pub mod work_item_relation_types {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2895,14 +2864,13 @@ pub mod work_item_relation_types {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -2987,14 +2955,13 @@ pub mod work_item_transitions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3072,14 +3039,13 @@ pub mod account_my_work_recent_activity {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3162,14 +3128,13 @@ pub mod artifact_uri_query {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3304,14 +3269,13 @@ pub mod attachments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3396,14 +3360,13 @@ pub mod attachments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3481,14 +3444,13 @@ pub mod attachments {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PUT);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3634,14 +3596,13 @@ pub mod fields {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3708,14 +3669,13 @@ pub mod fields {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3781,14 +3741,13 @@ pub mod fields {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3854,14 +3813,13 @@ pub mod fields {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -3927,14 +3885,13 @@ pub mod fields {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4011,14 +3968,13 @@ pub mod project_process_migration {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4123,14 +4079,13 @@ pub mod reporting_work_item_links {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4309,14 +4264,13 @@ pub mod reporting_work_item_revisions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4442,14 +4396,13 @@ pub mod reporting_work_item_revisions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4553,14 +4506,13 @@ pub mod work_item_revisions_discussions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4651,14 +4603,13 @@ pub mod send_mail {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4774,14 +4725,13 @@ pub mod tags {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4846,14 +4796,13 @@ pub mod tags {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4919,14 +4868,13 @@ pub mod tags {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -4992,14 +4940,13 @@ pub mod tags {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5197,14 +5144,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5299,14 +5245,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5401,14 +5346,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5506,14 +5450,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5608,14 +5551,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PATCH);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5703,14 +5645,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5778,14 +5719,13 @@ pub mod work_items {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5904,14 +5844,13 @@ pub mod revisions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -5993,14 +5932,13 @@ pub mod revisions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6114,14 +6052,13 @@ pub mod updates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6195,14 +6132,13 @@ pub mod updates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6324,14 +6260,13 @@ pub mod comments_reactions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6400,14 +6335,13 @@ pub mod comments_reactions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PUT);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6476,14 +6410,13 @@ pub mod comments_reactions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6587,14 +6520,13 @@ pub mod comment_reactions_engaged_users {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6706,14 +6638,13 @@ pub mod comments_versions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6782,14 +6713,13 @@ pub mod comments_versions {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6882,14 +6812,13 @@ pub mod work_item_type_categories {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -6954,14 +6883,13 @@ pub mod work_item_type_categories {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7054,14 +6982,13 @@ pub mod work_item_types {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7126,14 +7053,13 @@ pub mod work_item_types {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7239,14 +7165,13 @@ pub mod work_item_types_field {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7321,14 +7246,13 @@ pub mod work_item_types_field {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7415,14 +7339,13 @@ pub mod work_item_type_states {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7574,14 +7497,13 @@ pub mod templates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7651,14 +7573,13 @@ pub mod templates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7726,14 +7647,13 @@ pub mod templates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7801,14 +7721,13 @@ pub mod templates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::PUT);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -7876,14 +7795,13 @@ pub mod templates {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::DELETE);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -8010,14 +7928,13 @@ pub mod wiql {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::POST);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -8102,14 +8019,13 @@ pub mod wiql {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::GET);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");
@@ -8193,14 +8109,13 @@ pub mod wiql {
                             .context(azure_core::error::ErrorKind::DataConversion, "parse url")?;
                         let mut req_builder = http::request::Builder::new();
                         req_builder = req_builder.method(http::Method::HEAD);
-                        let credential = this.client.token_credential();
-                        let token_response = credential
-                            .get_token(&this.client.scopes().join(" "))
-                            .await
-                            .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                         req_builder = req_builder.header(
                             http::header::AUTHORIZATION,
-                            format!("Bearer {}", token_response.token.secret()),
+                            &this
+                                .client
+                                .credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
                         );
                         url.query_pairs_mut()
                             .append_pair("api-version", "7.1-preview");

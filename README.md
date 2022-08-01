@@ -6,7 +6,7 @@
 >
 > If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
 
-This repo auto-generates a Rust Azure DevOps API crate ([`azure_devops_rust_api`](azure_devops_rust_api/)) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
+This repo auto-generates a Rust Azure DevOps API crate ([`azure_devops_rust_api`](azure_devops_rust_api/) from the Azure DevOps OpenAPI spec [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
 
 ![Status](https://github.com/microsoft/azure-devops-rust-api/actions/workflows/build.yml/badge.svg)
 
@@ -35,6 +35,33 @@ For documentation on usage of the generated crate, see the `azure_devops_rust_ap
 ## Publishing
 
 The generated crate is manually published to the public Rust crate registry ([crates.io](https://crates.io/)) as [`azure_devops_rust_api`](https://crates.io/crates/azure_devops_rust_api).
+
+## Managing the version of the OpenAPI spec
+
+The Azure DevOps OpenAPI spec is included as a git submodule linked to a specific version
+of [`vsts-rest-api-specs`](https://github.com/MicrosoftDocs/vsts-rest-api-specs).
+
+You can view the current version (commit id) being used:
+
+```shell
+$ git submodule status
+ 312bb8d4aabf70f096b3357ce382b5d91ce38574 vsts-rest-api-specs (heads/master)
+```
+
+To update the version to the latest revision:
+
+```shell
+git submodule update --remote vsts-rest-api-specs
+# Build and test!
+./build.sh
+```
+
+Once you are happy with the update, commit the changes:
+
+```shell
+git add .
+git commit -m "Updated vsts-rest-api-specs to latest revision"
+```
 
 ## Notes
 
