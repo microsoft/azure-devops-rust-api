@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.1.3"
+version = "0.2.0"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"

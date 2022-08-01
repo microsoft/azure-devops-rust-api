@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0]
+
 ### Breaking change
 
 - Credentials now need to be provided via a new type `auth::Credential` that supports
-  both PAT and TokenCredential types. For more details see examples and docs.
+  both PAT and TokenCredential types. For more details see examples and docs.rs.
 
 ### Added
 
@@ -18,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Remove use of `unwrap()` from examples.
-- Updated READMEs.
 
 ## [0.1.3] - 2022-07-29
 
@@ -42,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.3...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.3...0.2.0
 [0.1.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.2...0.1.3
 [0.1.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.1.0...0.1.1
