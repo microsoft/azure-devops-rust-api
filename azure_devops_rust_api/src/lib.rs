@@ -85,4 +85,5 @@ pub mod wit;
 #[cfg(feature = "work")]
 pub mod work;
 
-pub mod auth;
+mod auth;
+pub use auth::Credential;

@@ -3,8 +3,8 @@
 
 // git_repo_get.rs
 // Repository get example.
-use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::git;
+use azure_devops_rust_api::Credential;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;

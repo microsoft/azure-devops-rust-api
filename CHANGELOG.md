@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking change
+
+- Move `Credential` definition from `auth` module to root, to separate it from all the
+  feature modules. `auth` module is now private.
+  - To migrate change `use azure_devops_rust_api::auth::Credential` to `use azure_devops_rust_api::Credential`
+
 ### Added
 
 - API documentation: autogenerate function description and parameter descriptions from fields

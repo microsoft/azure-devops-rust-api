@@ -3,8 +3,8 @@
 
 // build_list.rs
 // Repository list example.
-use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::build;
+use azure_devops_rust_api::Credential;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;

@@ -9,19 +9,19 @@ use super::models;
 #[derive(Clone)]
 pub struct Client {
     endpoint: String,
-    credential: crate::auth::Credential,
+    credential: crate::Credential,
     scopes: Vec<String>,
     pipeline: azure_core::Pipeline,
 }
 #[derive(Clone)]
 pub struct ClientBuilder {
-    credential: crate::auth::Credential,
+    credential: crate::Credential,
     endpoint: Option<String>,
     scopes: Option<Vec<String>>,
 }
 pub const DEFAULT_ENDPOINT: &str = "https://vsrm.dev.azure.com";
 impl ClientBuilder {
-    pub fn new(credential: crate::auth::Credential) -> Self {
+    pub fn new(credential: crate::Credential) -> Self {
         Self {
             credential,
             endpoint: None,
@@ -48,7 +48,7 @@ impl Client {
     pub(crate) fn endpoint(&self) -> &str {
         self.endpoint.as_str()
     }
-    pub(crate) fn credential(&self) -> &crate::auth::Credential {
+    pub(crate) fn credential(&self) -> &crate::Credential {
         &self.credential
     }
     pub(crate) async fn send(
@@ -61,7 +61,7 @@ impl Client {
     }
     pub fn new(
         endpoint: impl Into<String>,
-        credential: crate::auth::Credential,
+        credential: crate::Credential,
         scopes: Vec<String>,
     ) -> Self {
         let endpoint = endpoint.into();
