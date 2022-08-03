@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Upgrade Azure SDK dependencies:
+  - azure_core: 0.3
+  - azure_identity: 0.4
+
 ## [0.3.0]
 
 ### Breaking change
