@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- API documentation: autogenerate function description and parameter descriptions from fields
+  in the OpenAPI spec.
+
 ## [0.2.0]
 
 ### Breaking change
