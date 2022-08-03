@@ -3,8 +3,8 @@
 
 // service_endpoint.rs
 // Service Endpoint (aka "Service Connection") example.
-use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::service_endpoint;
+use azure_devops_rust_api::Credential;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;

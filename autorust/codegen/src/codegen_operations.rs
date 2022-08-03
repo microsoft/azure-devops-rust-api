@@ -67,14 +67,14 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
         #[derive(Clone)]
         pub struct Client {
             endpoint: String,
-            credential: crate::auth::Credential,
+            credential: crate::Credential,
             scopes: Vec<String>,
             pipeline: azure_core::Pipeline,
         }
 
         #[derive(Clone)]
         pub struct ClientBuilder {
-            credential: crate::auth::Credential,
+            credential: crate::Credential,
             endpoint: Option<String>,
             scopes: Option<Vec<String>>,
         }
@@ -82,7 +82,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
         #default_endpoint_code
 
         impl ClientBuilder {
-            pub fn new(credential: crate::auth::Credential) -> Self {
+            pub fn new(credential: crate::Credential) -> Self {
                 Self {
                     credential,
                     endpoint: None,
@@ -111,7 +111,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             pub(crate) fn endpoint(&self) -> &str {
                 self.endpoint.as_str()
             }
-            pub(crate) fn credential(&self) -> &crate::auth::Credential {
+            pub(crate) fn credential(&self) -> &crate::Credential {
                 &self.credential
             }
             pub(crate) async fn send(&self, request: impl Into<azure_core::Request>) -> azure_core::error::Result<azure_core::Response> {
@@ -119,7 +119,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                 let mut request = request.into();
                 self.pipeline.send(&mut context, &mut request).await
             }
-            pub fn new(endpoint: impl Into<String>, credential: crate::auth::Credential, scopes: Vec<String>) -> Self {
+            pub fn new(endpoint: impl Into<String>, credential: crate::Credential, scopes: Vec<String>) -> Self {
                 let endpoint = endpoint.into();
                 let pipeline = azure_core::Pipeline::new(
                     option_env!("CARGO_PKG_NAME"),

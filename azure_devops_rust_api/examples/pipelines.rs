@@ -3,9 +3,9 @@
 
 // pipelines.rs
 // Pipelines example.
-use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::{Pipeline, RunPipelineParameters};
+use azure_devops_rust_api::Credential;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;

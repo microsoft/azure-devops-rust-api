@@ -3,9 +3,9 @@
 
 // graph_query.rs
 // Graph example.
-use azure_devops_rust_api::auth::Credential;
 use azure_devops_rust_api::graph;
 use azure_devops_rust_api::graph::models::GraphSubjectQuery;
+use azure_devops_rust_api::Credential;
 use std::env;
 use std::error::Error;
 use std::sync::Arc;
