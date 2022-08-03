@@ -192,6 +192,13 @@ pub mod repositories {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve a git repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `include_parent`: True to include parent repository. Only available in authenticated calls."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_repository_with_parent(
             &self,
             organization: impl Into<String>,
@@ -207,6 +214,11 @@ pub mod repositories {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve deleted git repositories."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_deleted_repositories(
             &self,
             organization: impl Into<String>,
@@ -218,6 +230,11 @@ pub mod repositories {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve soft-deleted git repositories from the recycle bin."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_recycle_bin_repositories(
             &self,
             organization: impl Into<String>,
@@ -229,6 +246,12 @@ pub mod repositories {
                 project: project.into(),
             }
         }
+        #[doc = "Recover a soft-deleted Git repository. Recently deleted repositories go into a soft-delete state for a period of time before they are hard deleted and become unrecoverable."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The ID of the repository."]
         pub fn restore_repository_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -244,6 +267,12 @@ pub mod repositories {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Destroy (hard delete) a soft-deleted Git repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The ID of the repository."]
         pub fn delete_repository_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -257,6 +286,11 @@ pub mod repositories {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Retrieve git repositories."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -271,6 +305,12 @@ pub mod repositories {
                 include_hidden: None,
             }
         }
+        #[doc = "Create a git repository in a team project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Specify the repo name, team project and/or parent repository. Team project information can be omitted from gitRepositoryToCreate if the request is project-scoped (i.e., includes project Id)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -285,6 +325,12 @@ pub mod repositories {
                 source_ref: None,
             }
         }
+        #[doc = "Retrieve a git repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_repository(
             &self,
             organization: impl Into<String>,
@@ -298,6 +344,13 @@ pub mod repositories {
                 project: project.into(),
             }
         }
+        #[doc = "Updates the Git repository with either a new repo name or a new default branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Specify a new repo name or a new default branch of the repository"]
+        #[doc = "* `repository_id`: The ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -313,6 +366,12 @@ pub mod repositories {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a git repository"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1068,6 +1127,12 @@ pub mod commits {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve git commits for a project\n\nParameters that use the searchCriteria prefix in their name can be specified without it as query parameters, e.g. searchCriteria.$top -> $top"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The id or friendly name of the repository. To use the friendly name, projectId must also be specified."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_commits(
             &self,
             organization: impl Into<String>,
@@ -1104,6 +1169,13 @@ pub mod commits {
                 search_criteria_user: None,
             }
         }
+        #[doc = "Retrieve a list of commits associated with a particular push."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The id or friendly name of the repository. To use the friendly name, projectId must also be specified."]
+        #[doc = "* `push_id`: The id of the push."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_push_commits(
             &self,
             organization: impl Into<String>,
@@ -1122,6 +1194,13 @@ pub mod commits {
                 include_links: None,
             }
         }
+        #[doc = "Retrieve a particular commit."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `commit_id`: The id of the commit."]
+        #[doc = "* `repository_id`: The id or friendly name of the repository. To use the friendly name, projectId must also be specified."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1138,6 +1217,13 @@ pub mod commits {
                 change_count: None,
             }
         }
+        #[doc = "Retrieve changes for a particular commit."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `commit_id`: The id of the commit."]
+        #[doc = "* `repository_id`: The id or friendly name of the repository. To use the friendly name, projectId must also be specified."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_changes(
             &self,
             organization: impl Into<String>,
@@ -1155,6 +1241,13 @@ pub mod commits {
                 skip: None,
             }
         }
+        #[doc = "Retrieve git commits for a project matching the search criteria"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Search options"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_commits_batch(
             &self,
             organization: impl Into<String>,
@@ -1952,6 +2045,13 @@ pub mod items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content, which is always returned as a download."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `path`: The item path."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1979,6 +2079,12 @@ pub mod items {
                 sanitize: None,
             }
         }
+        #[doc = "Get Item Metadata and/or Content for a collection of items. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2002,6 +2108,13 @@ pub mod items {
                 version_descriptor_version_type: None,
             }
         }
+        #[doc = "Post for retrieving a creating a batch out of a set of items in a repo / project given a list of paths or a long path"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Request data attributes: ItemDescriptors, IncludeContentMetadata, LatestProcessedChange, IncludeLinks. ItemDescriptors: Collection of items to fetch, including path, version, and recursion level. IncludeContentMetadata: Whether to include metadata for all items LatestProcessedChange: Whether to include shallow ref to commit that last changed each item. IncludeLinks: Whether to include the _links field on the shallow references."]
+        #[doc = "* `repository_id`: The name or ID of the repository"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_items_batch(
             &self,
             organization: impl Into<String>,
@@ -2482,6 +2595,13 @@ pub mod stats {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve statistics about a single branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `name`: Name of the branch."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2500,6 +2620,12 @@ pub mod stats {
                 base_version_descriptor_version_type: None,
             }
         }
+        #[doc = "Retrieve statistics about all branches within a repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2768,6 +2894,11 @@ pub mod refs_favorites {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the refs favorites for a repo and an identity."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2781,6 +2912,12 @@ pub mod refs_favorites {
                 identity_id: None,
             }
         }
+        #[doc = "Creates a ref favorite"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The ref favorite to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -2794,6 +2931,12 @@ pub mod refs_favorites {
                 project: project.into(),
             }
         }
+        #[doc = "Gets the refs favorite for a favorite Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `favorite_id`: The Id of the requested ref favorite."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2807,6 +2950,12 @@ pub mod refs_favorites {
                 favorite_id,
             }
         }
+        #[doc = "Deletes the refs favorite specified"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `favorite_id`: The Id of the ref favorite to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3119,6 +3268,11 @@ pub mod policy_configurations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve a list of policy configurations by a given set of scope/filtering criteria.\n\nBelow is a short description of how all of the query parameters interact with each other:\n- repositoryId set, refName set: returns all policy configurations that *apply* to a particular branch in a repository\n- repositoryId set, refName unset: returns all policy configurations that *apply* to a particular repository\n- repositoryId unset, refName unset: returns all policy configurations that are *defined* at the project level\n- repositoryId unset, refName set: returns all project-level branch policies, plus the project level configurations\nFor all of the examples above, when policyType is set, it'll restrict results to the given policy type"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3252,6 +3406,11 @@ pub mod pull_requests {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all pull requests matching a specified criteria.\n\nPlease note that description field will be truncated up to 400 symbols in the result."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_requests_by_project(
             &self,
             organization: impl Into<String>,
@@ -3274,6 +3433,12 @@ pub mod pull_requests {
                 top: None,
             }
         }
+        #[doc = "Retrieve a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pull_request_id`: The ID of the pull request to retrieve."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_request_by_id(
             &self,
             organization: impl Into<String>,
@@ -3287,6 +3452,12 @@ pub mod pull_requests {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve all pull requests matching a specified criteria.\n\nPlease note that description field will be truncated up to 400 symbols in the result."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_requests(
             &self,
             organization: impl Into<String>,
@@ -3311,6 +3482,13 @@ pub mod pull_requests {
                 top: None,
             }
         }
+        #[doc = "Create a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The pull request to create."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3327,6 +3505,13 @@ pub mod pull_requests {
                 supports_iterations: None,
             }
         }
+        #[doc = "Retrieve a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: The ID of the pull request to retrieve."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_request(
             &self,
             organization: impl Into<String>,
@@ -3347,6 +3532,14 @@ pub mod pull_requests {
                 include_work_item_refs: None,
             }
         }
+        #[doc = "Update a pull request\n\nThese are the properties that can be updated with the API:\n - Status\n - Title\n - Description (up to 4000 characters)\n - CompletionOptions\n - MergeOptions\n - AutoCompleteSetBy.Id\n - TargetRefName (when the PR retargeting feature is enabled)\n Attempting to update other properties outside of this list will either cause the server to throw an `InvalidArgumentValueException`,\n or to silently ignore the update."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The pull request content that should be updated."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4155,6 +4348,13 @@ pub mod annotated_tags {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Create an annotated tag.\n\nRepositories have both a name and an identifier. Identifiers are globally unique, but several projects\nmay contain a repository of the same name. You don't need to include the project if you specify a\nrepository by ID. However, if you specify a repository by name, you must also specify the project (by name or ID)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Object containing details of tag to be created."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID or name of the repository."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -4170,6 +4370,13 @@ pub mod annotated_tags {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Get an annotated tag.\n\nRepositories have both a name and an identifier. Identifiers are globally unique, but several projects\nmay contain a repository of the same name. You don't need to include the project if you specify a\nrepository by ID. However, if you specify a repository by name, you must also specify the project (by name or ID)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `object_id`: ObjectId (Sha1Id) of tag to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4337,6 +4544,13 @@ pub mod blobs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets one or more blobs in a zip file download."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Blob IDs (SHA1 hashes) to be returned in the zip file."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_blobs_zip(
             &self,
             organization: impl Into<String>,
@@ -4353,6 +4567,13 @@ pub mod blobs {
                 filename: None,
             }
         }
+        #[doc = "Get a single blob.\n\nRepositories have both a name and an identifier. Identifiers are globally unique,\nbut several projects may contain a repository of the same name. You don't need to include\nthe project if you specify a repository by ID. However, if you specify a repository by name,\nyou must also specify the project (by name or ID)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `sha1`: SHA1 hash of the file. You can get the SHA1 of a file using the \"Git/Items/Get Item\" endpoint."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_blob(
             &self,
             organization: impl Into<String>,
@@ -4565,6 +4786,13 @@ pub mod cherry_picks {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve information about a cherry pick operation for a specific branch. This operation is expensive due to the underlying object structure, so this API only looks at the 1000 most recent cherry pick operations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID of the repository."]
+        #[doc = "* `ref_name`: The GitAsyncRefOperationParameters generatedRefName used for the cherry pick operation."]
         pub fn get_cherry_pick_for_ref_name(
             &self,
             organization: impl Into<String>,
@@ -4580,6 +4808,12 @@ pub mod cherry_picks {
                 ref_name: ref_name.into(),
             }
         }
+        #[doc = "Cherry pick a specific commit or commits that are associated to a pull request into a new branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID of the repository."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -4595,6 +4829,13 @@ pub mod cherry_picks {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Retrieve information about a cherry pick operation by cherry pick Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `cherry_pick_id`: ID of the cherry pick."]
+        #[doc = "* `repository_id`: ID of the repository."]
         pub fn get_cherry_pick(
             &self,
             organization: impl Into<String>,
@@ -4836,6 +5077,13 @@ pub mod statuses {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get statuses associated with the Git commit."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `commit_id`: ID of the Git commit."]
+        #[doc = "* `repository_id`: ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4854,6 +5102,14 @@ pub mod statuses {
                 latest_only: None,
             }
         }
+        #[doc = "Create Git commit status."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Git commit status object to create."]
+        #[doc = "* `commit_id`: ID of the Git commit."]
+        #[doc = "* `repository_id`: ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -5050,6 +5306,12 @@ pub mod diffs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Find the closest common commit (the merge base) between base and target commits, and get the diff between either the base and target commits or common and target commits."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5232,6 +5494,12 @@ pub mod import_requests {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve import requests for a repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -5246,6 +5514,13 @@ pub mod import_requests {
                 include_abandoned: None,
             }
         }
+        #[doc = "Create an import request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The import request to create."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -5261,6 +5536,13 @@ pub mod import_requests {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Retrieve a particular import request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `import_request_id`: The unique identifier for the import request."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5276,6 +5558,14 @@ pub mod import_requests {
                 import_request_id,
             }
         }
+        #[doc = "Retry or abandon a failed import request.\n\nThere can only be one active import request associated with a repository. Marking a failed import request abandoned makes it inactive."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updated version of the import request. Currently, the only change allowed is setting the Status to Queued or Abandoned."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `import_request_id`: The unique identifier for the import request to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5600,6 +5890,13 @@ pub mod pull_request_query {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "This API is used to find what pull requests are related to a given commit.  It can be used to either find the pull request that created a particular merge commit or it can be used to find all pull requests that have ever merged a particular commit.  The input is a list of queries which each contain a list of commits. For each commit that you search against, you will get back a dictionary of commit -> pull requests."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The list of queries to perform."]
+        #[doc = "* `repository_id`: ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5694,6 +5991,13 @@ pub mod pull_request_attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of files attached to a given pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -5709,6 +6013,14 @@ pub mod pull_request_attachments {
                 project: project.into(),
             }
         }
+        #[doc = "Get the file content of a pull request attachment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `file_name`: The name of the attachment."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5726,6 +6038,15 @@ pub mod pull_request_attachments {
                 project: project.into(),
             }
         }
+        #[doc = "Attach a new file to a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
+        #[doc = "* `file_name`: The name of the file."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -5745,6 +6066,14 @@ pub mod pull_request_attachments {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a pull request attachment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `file_name`: The name of the attachment to delete."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -6072,6 +6401,13 @@ pub mod pull_request_commits {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the commits for the specified pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_request_commits(
             &self,
             organization: impl Into<String>,
@@ -6089,6 +6425,14 @@ pub mod pull_request_commits {
                 continuation_token: None,
             }
         }
+        #[doc = "Get the commits for the specified iteration of a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the iteration from which to get the commits."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_pull_request_iteration_commits(
             &self,
             organization: impl Into<String>,
@@ -6287,6 +6631,13 @@ pub mod pull_request_iterations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the list of iterations for the specified pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6303,6 +6654,14 @@ pub mod pull_request_iterations {
                 include_commits: None,
             }
         }
+        #[doc = "Get the specified iteration for a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration to return."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6483,6 +6842,14 @@ pub mod pull_request_iteration_changes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve the changes made in a pull request between two iterations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration. <br /> Iteration one is the head of the source branch at the time the pull request is created and subsequent iterations are created when there are pushes to the source branch. Allowed values are between 1 and the maximum iteration on this pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6602,6 +6969,14 @@ pub mod pull_request_iteration_statuses {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the statuses associated with a pull request iteration."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6619,6 +6994,15 @@ pub mod pull_request_iteration_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Create a pull request status on the iteration. This operation will have the same result as Create status on pull request with specified iteration ID in the request body.\n\nThe only required field for the status is `Context.Name` that uniquely identifies the status.\nNote that `iterationId` in the request body is optional since `iterationId` can be specified in the URL.\nA conflict between `iterationId` in the URL and `iterationId` in the request body will result in status code 400."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Pull request status to create."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -6638,6 +7022,15 @@ pub mod pull_request_iteration_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Update pull request iteration statuses collection. The only supported operation type is `remove`.\n\nThis operation allows to delete multiple statuses in one call.\nThe path of the `remove` operation should refer to the ID of the pull request status.\nFor example `path=\"/1\"` refers to the pull request status with ID 1."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Operations to apply to the pull request statuses in JSON Patch format."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -6657,6 +7050,15 @@ pub mod pull_request_iteration_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Get the specific pull request iteration status by ID. The status ID is unique within the pull request across all iterations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration."]
+        #[doc = "* `status_id`: ID of the pull request status."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6676,6 +7078,15 @@ pub mod pull_request_iteration_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Delete pull request iteration status.\n\nYou can remove multiple statuses in one call by using Update operation."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `iteration_id`: ID of the pull request iteration."]
+        #[doc = "* `status_id`: ID of the pull request status."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7030,6 +7441,13 @@ pub mod pull_request_labels {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the labels assigned to a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7046,6 +7464,14 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
+        #[doc = "Create a label for a specified pull request. The only required field is the name of the new label."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Label to assign to the pull request."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -7064,6 +7490,14 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
+        #[doc = "Retrieves a single label that has been assigned to a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `label_id_or_name`: The name or ID of the label requested."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7082,6 +7516,14 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
+        #[doc = "Removes a label from the set of those assigned to the pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `label_id_or_name`: The name or ID of the label requested."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7430,6 +7872,13 @@ pub mod pull_request_properties {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get external properties of the pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7445,6 +7894,14 @@ pub mod pull_request_properties {
                 project: project.into(),
             }
         }
+        #[doc = "Create or update pull request external properties. The patch operation can be `add`, `replace` or `remove`. For `add` operation, the path can be empty. If the path is empty, the value must be a list of key value pairs. For `replace` operation, the path cannot be empty. If the path does not exist, the property will be added to the collection. For `remove` operation, the path cannot be empty. If the path does not exist, no action will be performed."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Properties to add, replace or remove in JSON Patch format."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -7616,6 +8073,13 @@ pub mod pull_request_reviewers {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve the reviewers for a pull request"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7631,6 +8095,14 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Add reviewers to a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Reviewers to add to the pull request."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_pull_request_reviewers(
             &self,
             organization: impl Into<String>,
@@ -7648,6 +8120,14 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Add an unmaterialized identity to the reviewers of a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Reviewer to add to the pull request."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_unmaterialized_pull_request_reviewer(
             &self,
             organization: impl Into<String>,
@@ -7665,6 +8145,14 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Reset the votes of multiple reviewers on a pull request.  NOTE: This endpoint only supports updating votes, but does not support updating required reviewers (use policy) or display names."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: IDs of the reviewers whose votes will be reset to zero"]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_pull_request_reviewers(
             &self,
             organization: impl Into<String>,
@@ -7682,6 +8170,14 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve information about a particular reviewer on a pull request"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `reviewer_id`: ID of the reviewer."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7699,6 +8195,15 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Add a reviewer to a pull request or cast a vote."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Reviewer's vote.<br />If the reviewer's ID is included here, it must match the reviewerID parameter.<br />Reviewers can set their own vote with this method.  When adding other reviewers, vote must be set to zero."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `reviewer_id`: ID of the reviewer."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_pull_request_reviewer(
             &self,
             organization: impl Into<String>,
@@ -7718,6 +8223,15 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Edit a reviewer entry. These fields are patchable: isFlagged, hasDeclined"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Reviewer data.<br />If the reviewer's ID is included here, it must match the reviewerID parameter."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `reviewer_id`: ID of the reviewer."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_pull_request_reviewer(
             &self,
             organization: impl Into<String>,
@@ -7737,6 +8251,14 @@ pub mod pull_request_reviewers {
                 project: project.into(),
             }
         }
+        #[doc = "Remove a reviewer from a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `reviewer_id`: ID of the reviewer to remove."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -8350,6 +8872,13 @@ pub mod pull_request_share {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Sends an e-mail notification about a specific pull request to a set of recipients"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID of the git repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn share_pull_request(
             &self,
             organization: impl Into<String>,
@@ -8442,6 +8971,13 @@ pub mod pull_request_statuses {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the statuses associated with a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -8457,6 +8993,14 @@ pub mod pull_request_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Create a pull request status.\n\nThe only required field for the status is `Context.Name` that uniquely identifies the status.\nNote that you can specify iterationId in the request body to post the status on the iteration."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Pull request status to create."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -8474,6 +9018,14 @@ pub mod pull_request_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Update pull request statuses collection. The only supported operation type is `remove`.\n\nThis operation allows to delete multiple statuses in one call.\nThe path of the `remove` operation should refer to the ID of the pull request status.\nFor example `path=\"/1\"` refers to the pull request status with ID 1."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Operations to apply to the pull request statuses in JSON Patch format."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -8491,6 +9043,14 @@ pub mod pull_request_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Get the specific pull request status by ID. The status ID is unique within the pull request across all iterations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `status_id`: ID of the pull request status."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -8508,6 +9068,14 @@ pub mod pull_request_statuses {
                 project: project.into(),
             }
         }
+        #[doc = "Delete pull request status.\n\nYou can remove multiple statuses in one call by using Update operation."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request’s target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `status_id`: ID of the pull request status."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -8892,6 +9460,13 @@ pub mod pull_request_threads {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all threads in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -8909,6 +9484,14 @@ pub mod pull_request_threads {
                 base_iteration: None,
             }
         }
+        #[doc = "Create a thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The thread to create. Thread must contain at least one comment."]
+        #[doc = "* `repository_id`: Repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -8926,6 +9509,14 @@ pub mod pull_request_threads {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve a thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -8945,6 +9536,15 @@ pub mod pull_request_threads {
                 base_iteration: None,
             }
         }
+        #[doc = "Update a thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The thread content that should be updated."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -9306,6 +9906,14 @@ pub mod pull_request_thread_comments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all comments associated with a specific thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -9323,6 +9931,15 @@ pub mod pull_request_thread_comments {
                 project: project.into(),
             }
         }
+        #[doc = "Create a comment on a specific thread in a pull request (up to 500 comments can be created per thread)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The comment to create. Comments can be up to 150,000 characters."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread that the desired comment is in."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -9342,6 +9959,15 @@ pub mod pull_request_thread_comments {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve a comment associated with a specific thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread that the desired comment is in."]
+        #[doc = "* `comment_id`: ID of the comment."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -9361,6 +9987,16 @@ pub mod pull_request_thread_comments {
                 project: project.into(),
             }
         }
+        #[doc = "Update a comment associated with a specific thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The comment content that should be updated. Comments can be up to 150,000 characters."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread that the desired comment is in."]
+        #[doc = "* `comment_id`: ID of the comment to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -9382,6 +10018,15 @@ pub mod pull_request_thread_comments {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a comment associated with a specific thread in a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: ID of the thread that the desired comment is in."]
+        #[doc = "* `comment_id`: ID of the comment."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -9740,6 +10385,15 @@ pub mod pull_request_comment_likes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get likes for a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: The ID of the thread that contains the comment."]
+        #[doc = "* `comment_id`: The ID of the comment."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -9759,6 +10413,15 @@ pub mod pull_request_comment_likes {
                 project: project.into(),
             }
         }
+        #[doc = "Add a like on a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: The ID of the thread that contains the comment."]
+        #[doc = "* `comment_id`: The ID of the comment."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -9778,6 +10441,15 @@ pub mod pull_request_comment_likes {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a like on a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `thread_id`: The ID of the thread that contains the comment."]
+        #[doc = "* `comment_id`: The ID of the comment."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -9996,6 +10668,13 @@ pub mod pull_request_work_items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve a list of work items associated with a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID or name of the repository."]
+        #[doc = "* `pull_request_id`: ID of the pull request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -10090,6 +10769,12 @@ pub mod pushes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieves pushes associated with the specified repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -10111,6 +10796,12 @@ pub mod pushes {
                 search_criteria_to_date: None,
             }
         }
+        #[doc = "Push changes to the repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -10126,6 +10817,13 @@ pub mod pushes {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieves a particular push."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `push_id`: ID of the push."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -10480,6 +11178,12 @@ pub mod refs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Queries the provided repository for its refs and returns them."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -10502,6 +11206,13 @@ pub mod refs {
                 continuation_token: None,
             }
         }
+        #[doc = "Creating, updating, or deleting refs(branches).\n\nUpdating a ref means making it point at a different commit than it used to. You must specify both the old and new commit to avoid race conditions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of ref updates to attempt to perform"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_refs(
             &self,
             organization: impl Into<String>,
@@ -10518,6 +11229,14 @@ pub mod refs {
                 project_id: None,
             }
         }
+        #[doc = "Lock or Unlock a branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The ref update action (lock/unlock) to perform"]
+        #[doc = "* `repository_id`: The name or ID of the repository."]
+        #[doc = "* `filter`: The name of the branch to lock/unlock"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_ref(
             &self,
             organization: impl Into<String>,
@@ -10858,6 +11577,13 @@ pub mod reverts {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve information about a revert operation for a specific branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID of the repository."]
+        #[doc = "* `ref_name`: The GitAsyncRefOperationParameters generatedRefName used for the revert operation."]
         pub fn get_revert_for_ref_name(
             &self,
             organization: impl Into<String>,
@@ -10873,6 +11599,12 @@ pub mod reverts {
                 ref_name: ref_name.into(),
             }
         }
+        #[doc = "Starts the operation to create a new branch which reverts changes introduced by either a specific commit or commits that are associated to a pull request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_id`: ID of the repository."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -10888,6 +11620,13 @@ pub mod reverts {
                 repository_id: repository_id.into(),
             }
         }
+        #[doc = "Retrieve information about a revert operation by revert Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `revert_id`: ID of the revert operation."]
+        #[doc = "* `repository_id`: ID of the repository."]
         pub fn get_revert(
             &self,
             organization: impl Into<String>,
@@ -11129,6 +11868,12 @@ pub mod suggestions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve a pull request suggestion for a particular repository or team project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: ID of the git repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -11219,6 +11964,13 @@ pub mod trees {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "The Tree endpoint returns the collection of objects underneath the specified tree. Trees are folders in a Git repository.\n\nRepositories have both a name and an identifier. Identifiers are globally unique, but several projects may contain a repository of the same name. You don't need to include the project if you specify a repository by ID. However, if you specify a repository by name, you must also specify the project (by name or ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_id`: Repository Id."]
+        #[doc = "* `sha1`: SHA1 hash of the tree object."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -11350,6 +12102,14 @@ pub mod merge_bases {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Find the merge bases of two commits, optionally across forks. If otherRepositoryId is not specified, the merge bases will only be calculated within the context of the local repositoryNameOrId."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_name_or_id`: ID or name of the local repository."]
+        #[doc = "* `commit_id`: First commit, usually the tip of the target branch of the potential merge."]
+        #[doc = "* `other_commit_id`: Other commit, usually the tip of the source branch of the potential merge."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -11470,6 +12230,13 @@ pub mod forks {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all forks of a repository in the collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
+        #[doc = "* `collection_id`: Team project collection ID."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -11486,6 +12253,12 @@ pub mod forks {
                 include_links: None,
             }
         }
+        #[doc = "Retrieve all requested fork sync operations on this repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_fork_sync_requests(
             &self,
             organization: impl Into<String>,
@@ -11501,6 +12274,13 @@ pub mod forks {
                 include_links: None,
             }
         }
+        #[doc = "Request that another repository's refs be fetched into this one. It syncs two existing forks. To create a fork, please see the <a href=\"https://docs.microsoft.com/en-us/rest/api/vsts/git/repositories/create?view=azure-devops-rest-5.1\"> repositories endpoint</a>"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Source repository and ref mapping."]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_fork_sync_request(
             &self,
             organization: impl Into<String>,
@@ -11517,6 +12297,13 @@ pub mod forks {
                 include_links: None,
             }
         }
+        #[doc = "Get a specific fork sync operation's details."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
+        #[doc = "* `fork_sync_operation_id`: OperationId of the sync request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_fork_sync_request(
             &self,
             organization: impl Into<String>,
@@ -11874,6 +12661,13 @@ pub mod merges {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Request a git merge operation. Currently we support merging only 2 commits."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Parents commitIds and merge commit messsage."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -11890,6 +12684,13 @@ pub mod merges {
                 include_links: None,
             }
         }
+        #[doc = "Get a specific merge operation's details."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository_name_or_id`: The name or ID of the repository."]
+        #[doc = "* `merge_operation_id`: OperationId of the merge request."]
         pub fn get(
             &self,
             organization: impl Into<String>,

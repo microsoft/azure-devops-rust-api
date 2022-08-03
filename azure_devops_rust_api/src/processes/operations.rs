@@ -123,6 +123,18 @@ pub mod groups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Moves a group to a different page and section."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updated group."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `page_id`: The ID of the page the group is in."]
+        #[doc = "* `section_id`: The ID of the section the group is i.n"]
+        #[doc = "* `group_id`: The ID of the group."]
+        #[doc = "* `remove_from_page_id`: ID of the page to remove the group from."]
+        #[doc = "* `remove_from_section_id`: ID of the section to remove the group from."]
         pub fn move_group_to_page(
             &self,
             organization: impl Into<String>,
@@ -148,6 +160,15 @@ pub mod groups {
                 remove_from_section_id: remove_from_section_id.into(),
             }
         }
+        #[doc = "Adds a group to the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The group."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `page_id`: The ID of the page to add the group to."]
+        #[doc = "* `section_id`: The ID of the section to add the group to."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -167,6 +188,17 @@ pub mod groups {
                 section_id: section_id.into(),
             }
         }
+        #[doc = "Moves a group to a different section."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updated group."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `page_id`: The ID of the page the group is in."]
+        #[doc = "* `section_id`: The ID of the section the group is in."]
+        #[doc = "* `group_id`: The ID of the group."]
+        #[doc = "* `remove_from_section_id`: ID of the section to remove the group from."]
         pub fn move_group_to_section(
             &self,
             organization: impl Into<String>,
@@ -190,6 +222,16 @@ pub mod groups {
                 remove_from_section_id: remove_from_section_id.into(),
             }
         }
+        #[doc = "Updates a group in the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updated group."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `page_id`: The ID of the page the group is in."]
+        #[doc = "* `section_id`: The ID of the section the group is in."]
+        #[doc = "* `group_id`: The ID of the group."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -211,6 +253,15 @@ pub mod groups {
                 group_id: group_id.into(),
             }
         }
+        #[doc = "Removes a group from the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `page_id`: The ID of the page the group is in"]
+        #[doc = "* `section_id`: The ID of the section to the group is in"]
+        #[doc = "* `group_id`: The ID of the group"]
         pub fn remove_group(
             &self,
             organization: impl Into<String>,
@@ -585,6 +636,10 @@ pub mod processes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get list of all processes including system and inherited."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -592,6 +647,11 @@ pub mod processes {
                 expand: None,
             }
         }
+        #[doc = "Creates a process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: CreateProcessModel."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -603,6 +663,10 @@ pub mod processes {
                 body: body.into(),
             }
         }
+        #[doc = "Get a single process of a specified ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -615,6 +679,10 @@ pub mod processes {
                 expand: None,
             }
         }
+        #[doc = "Edit a process of a specific ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn edit_process(
             &self,
             organization: impl Into<String>,
@@ -628,6 +696,10 @@ pub mod processes {
                 process_type_id: process_type_id.into(),
             }
         }
+        #[doc = "Removes a process of a specific ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1000,6 +1072,11 @@ pub mod behaviors {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all behaviors in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1012,6 +1089,11 @@ pub mod behaviors {
                 expand: None,
             }
         }
+        #[doc = "Creates a single behavior in the given process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1025,6 +1107,12 @@ pub mod behaviors {
                 process_id: process_id.into(),
             }
         }
+        #[doc = "Returns a behavior of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1039,6 +1127,12 @@ pub mod behaviors {
                 expand: None,
             }
         }
+        #[doc = "Replaces a behavior in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1054,6 +1148,12 @@ pub mod behaviors {
                 behavior_ref_name: behavior_ref_name.into(),
             }
         }
+        #[doc = "Removes a behavior in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1438,6 +1538,11 @@ pub mod work_item_types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all work item types in a process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1450,6 +1555,11 @@ pub mod work_item_types {
                 expand: None,
             }
         }
+        #[doc = "Creates a work item type in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process on which to create work item type."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1463,6 +1573,12 @@ pub mod work_item_types {
                 process_id: process_id.into(),
             }
         }
+        #[doc = "Returns a single work item type in a process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1477,6 +1593,12 @@ pub mod work_item_types {
                 expand: None,
             }
         }
+        #[doc = "Updates a work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1492,6 +1614,12 @@ pub mod work_item_types {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Removes a work itewm type in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1876,6 +2004,12 @@ pub mod fields {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all fields in a work item type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1889,6 +2023,12 @@ pub mod fields {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Adds a field to a work item type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -1904,6 +2044,13 @@ pub mod fields {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Returns a field in a work item type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `field_ref_name`: The reference name of the field."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1920,6 +2067,13 @@ pub mod fields {
                 expand: None,
             }
         }
+        #[doc = "Updates a field in a work item type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `field_ref_name`: The reference name of the field."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1937,6 +2091,13 @@ pub mod fields {
                 field_ref_name: field_ref_name.into(),
             }
         }
+        #[doc = "Removes a field from a work item type. Does not permanently delete the field."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `field_ref_name`: The reference name of the field."]
         pub fn remove_work_item_type_field(
             &self,
             organization: impl Into<String>,
@@ -2325,6 +2486,12 @@ pub mod layout {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the form layout."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2415,6 +2582,14 @@ pub mod controls {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Creates a control in a group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The control."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `group_id`: The ID of the group to add the control to."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -2432,6 +2607,15 @@ pub mod controls {
                 group_id: group_id.into(),
             }
         }
+        #[doc = "Moves a control to a specified group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The control."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `group_id`: The ID of the group to move the control to."]
+        #[doc = "* `control_id`: The ID of the control."]
         pub fn move_control_to_group(
             &self,
             organization: impl Into<String>,
@@ -2452,6 +2636,15 @@ pub mod controls {
                 remove_from_group_id: None,
             }
         }
+        #[doc = "Updates a control on the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updated control."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `group_id`: The ID of the group."]
+        #[doc = "* `control_id`: The ID of the control."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2471,6 +2664,14 @@ pub mod controls {
                 control_id: control_id.into(),
             }
         }
+        #[doc = "Removes a control from the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `group_id`: The ID of the group."]
+        #[doc = "* `control_id`: The ID of the control to remove."]
         pub fn remove_control_from_group(
             &self,
             organization: impl Into<String>,
@@ -2767,6 +2968,13 @@ pub mod pages {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Adds a page to the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The page."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -2782,6 +2990,13 @@ pub mod pages {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Updates a page on the work item form"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The page"]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2797,6 +3012,13 @@ pub mod pages {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Removes a page from the work item form"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `page_id`: The ID of the page"]
         pub fn remove_page(
             &self,
             organization: impl Into<String>,
@@ -3029,6 +3251,12 @@ pub mod system_controls {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets edited system controls for a work item type in a process. To get all system controls (base + edited) use layout API(s)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3042,6 +3270,13 @@ pub mod system_controls {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Updates/adds a system control on the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `control_id`: The ID of the control."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3059,6 +3294,13 @@ pub mod system_controls {
                 control_id: control_id.into(),
             }
         }
+        #[doc = "Deletes a system control modification on the work item form."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process."]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type."]
+        #[doc = "* `control_id`: The ID of the control."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3284,6 +3526,12 @@ pub mod rules {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all rules in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3297,6 +3545,12 @@ pub mod rules {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Adds a rule to work item type in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -3312,6 +3566,13 @@ pub mod rules {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Returns a single rule in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `rule_id`: The ID of the rule"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3327,6 +3588,13 @@ pub mod rules {
                 rule_id: rule_id.into(),
             }
         }
+        #[doc = "Updates a rule in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `rule_id`: The ID of the rule"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3344,6 +3612,13 @@ pub mod rules {
                 rule_id: rule_id.into(),
             }
         }
+        #[doc = "Removes a rule from the work item type in the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `rule_id`: The ID of the rule"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3724,6 +3999,12 @@ pub mod states {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all state definitions in a work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3737,6 +4018,12 @@ pub mod states {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Creates a state definition in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3752,6 +4039,13 @@ pub mod states {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
+        #[doc = "Returns a single state definition in a work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `state_id`: The ID of the state"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3767,6 +4061,13 @@ pub mod states {
                 state_id: state_id.into(),
             }
         }
+        #[doc = "Hides a state definition in the work item type of the process.Only states with customizationType:System can be hidden."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `state_id`: The ID of the state"]
         pub fn hide_state_definition(
             &self,
             organization: impl Into<String>,
@@ -3784,6 +4085,13 @@ pub mod states {
                 state_id: state_id.into(),
             }
         }
+        #[doc = "Updates a given state definition in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `state_id`: ID of the state"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3801,6 +4109,13 @@ pub mod states {
                 state_id: state_id.into(),
             }
         }
+        #[doc = "Removes a state definition in the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: ID of the process"]
+        #[doc = "* `wit_ref_name`: The reference name of the work item type"]
+        #[doc = "* `state_id`: ID of the state"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4256,6 +4571,12 @@ pub mod work_item_types_behaviors {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of all behaviors for the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name_for_behaviors`: Work item type reference name for the behavior"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4269,6 +4590,12 @@ pub mod work_item_types_behaviors {
                 wit_ref_name_for_behaviors: wit_ref_name_for_behaviors.into(),
             }
         }
+        #[doc = "Adds a behavior to the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name_for_behaviors`: Work item type reference name for the behavior"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -4284,6 +4611,12 @@ pub mod work_item_types_behaviors {
                 wit_ref_name_for_behaviors: wit_ref_name_for_behaviors.into(),
             }
         }
+        #[doc = "Updates a behavior for the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name_for_behaviors`: Work item type reference name for the behavior"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4299,6 +4632,13 @@ pub mod work_item_types_behaviors {
                 wit_ref_name_for_behaviors: wit_ref_name_for_behaviors.into(),
             }
         }
+        #[doc = "Returns a behavior for the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name_for_behaviors`: Work item type reference name for the behavior"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4314,6 +4654,13 @@ pub mod work_item_types_behaviors {
                 behavior_ref_name: behavior_ref_name.into(),
             }
         }
+        #[doc = "Removes a behavior for the work item type of the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `wit_ref_name_for_behaviors`: Work item type reference name for the behavior"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn remove_behavior_from_work_item_type(
             &self,
             organization: impl Into<String>,
@@ -4692,12 +5039,21 @@ pub mod lists {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns meta data of the picklist."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Creates a picklist."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Picklist"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -4709,6 +5065,11 @@ pub mod lists {
                 body: body.into(),
             }
         }
+        #[doc = "Returns a picklist."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `list_id`: The ID of the list"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4720,6 +5081,11 @@ pub mod lists {
                 list_id: list_id.into(),
             }
         }
+        #[doc = "Updates a list."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `list_id`: The ID of the list"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4733,6 +5099,11 @@ pub mod lists {
                 list_id: list_id.into(),
             }
         }
+        #[doc = "Removes a picklist."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `list_id`: The ID of the list"]
         pub fn delete(
             &self,
             organization: impl Into<String>,

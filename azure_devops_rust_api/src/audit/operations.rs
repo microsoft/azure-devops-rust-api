@@ -96,6 +96,10 @@ pub mod actions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all auditable actions filterable by area."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -184,6 +188,10 @@ pub mod audit_log {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Queries audit log entries"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query(&self, organization: impl Into<String>) -> query::Builder {
             query::Builder {
                 client: self.0.clone(),
@@ -311,6 +319,11 @@ pub mod download_log {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Downloads audit log entries."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `format`: File format for download. Can be \"json\" or \"csv\"."]
         pub fn download_log(
             &self,
             organization: impl Into<String>,
@@ -415,6 +428,10 @@ pub mod streams {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Return all Audit Streams scoped to an organization"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query_all_streams(
             &self,
             organization: impl Into<String>,
@@ -424,6 +441,12 @@ pub mod streams {
                 organization: organization.into(),
             }
         }
+        #[doc = "Create new Audit Stream"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream entry"]
+        #[doc = "* `days_to_backfill`: The number of days of previously recorded audit data that will be replayed into the stream. A value of zero will result in only new events being streamed."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -437,6 +460,11 @@ pub mod streams {
                 days_to_backfill,
             }
         }
+        #[doc = "Update existing Audit Stream"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream entry"]
         pub fn update_stream(
             &self,
             organization: impl Into<String>,
@@ -448,6 +476,11 @@ pub mod streams {
                 body: body.into(),
             }
         }
+        #[doc = "Return Audit Stream with id of streamId if one exists otherwise throw"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `stream_id`: Id of stream entry to retrieve"]
         pub fn query_stream_by_id(
             &self,
             organization: impl Into<String>,
@@ -459,6 +492,12 @@ pub mod streams {
                 stream_id,
             }
         }
+        #[doc = "Update existing Audit Stream status"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `stream_id`: Id of stream entry to be updated"]
+        #[doc = "* `status`: Status of the stream"]
         pub fn update_status(
             &self,
             organization: impl Into<String>,
@@ -472,6 +511,11 @@ pub mod streams {
                 status: status.into(),
             }
         }
+        #[doc = "Delete Audit Stream"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `stream_id`: Id of stream entry to delete"]
         pub fn delete(&self, organization: impl Into<String>, stream_id: i32) -> delete::Builder {
             delete::Builder {
                 client: self.0.clone(),

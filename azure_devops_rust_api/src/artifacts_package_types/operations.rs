@@ -99,6 +99,14 @@ pub mod maven {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the upstreaming behavior of a package within the context of a feed"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: The name or id of the feed"]
+        #[doc = "* `group_id`: The group id of the package"]
+        #[doc = "* `artifact_id`: The artifact id of the package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -116,6 +124,13 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Set the upstreaming behavior of a package within the context of a feed\n\nThe package does not need to necessarily exist in the feed prior to setting the behavior.\nThis assists with packages that are not yet ingested from an upstream, yet the feed owner wants\nto apply a specific behavior on the first ingestion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: The name or id of the feed"]
+        #[doc = "* `body`: The behavior to apply to the package within the scope of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -135,6 +150,15 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -155,6 +179,16 @@ pub mod maven {
                 show_deleted: None,
             }
         }
+        #[doc = "Update state for a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Details to be updated."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_version(
             &self,
             organization: impl Into<String>,
@@ -176,6 +210,15 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version from the feed and move it to the feed's recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version(
             &self,
             organization: impl Into<String>,
@@ -195,6 +238,15 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version in the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -214,6 +266,16 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version from the recycle bin to its associated feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Set the 'Deleted' property to false to restore the package."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -235,6 +297,15 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Permanently delete a package from a feed's recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed`: Name or ID of the feed."]
+        #[doc = "* `group_id`: Group ID of the package."]
+        #[doc = "* `artifact_id`: Artifact ID of the package."]
+        #[doc = "* `version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -254,6 +325,12 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Delete or restore several package versions from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_recycle_bin_packages(
             &self,
             organization: impl Into<String>,
@@ -269,6 +346,16 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Fulfills Maven package file download requests by either returning the URL of the requested package file or, in the case of Azure DevOps Server (OnPrem), returning the content as a stream.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `group_id`: GroupId of the maven package"]
+        #[doc = "* `artifact_id`: ArtifactId of the maven package"]
+        #[doc = "* `version`: Version of the package"]
+        #[doc = "* `file_name`: File name to download"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn download_package(
             &self,
             organization: impl Into<String>,
@@ -290,6 +377,13 @@ pub mod maven {
                 project: project.into(),
             }
         }
+        #[doc = "Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Feed which contains the packages to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_versions(
             &self,
             organization: impl Into<String>,
@@ -1049,6 +1143,15 @@ pub mod npm {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get information about a scoped package version (such as @scope/name).\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope/name)."]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope/name)."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_scoped_package_version(
             &self,
             organization: impl Into<String>,
@@ -1068,6 +1171,9 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_scoped_package(
             &self,
             organization: impl Into<String>,
@@ -1089,6 +1195,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Unpublish a scoped package version (such as @scope/name).\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope/name)."]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope/name)."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn unpublish_scoped_package(
             &self,
             organization: impl Into<String>,
@@ -1108,6 +1223,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about an unscoped package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -1125,6 +1248,9 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package(
             &self,
             organization: impl Into<String>,
@@ -1144,6 +1270,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Unpublish an unscoped package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn unpublish_package(
             &self,
             organization: impl Into<String>,
@@ -1161,6 +1295,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get the upstreaming behavior of the (scoped) package within the context of a feed"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_scope`: The scope of the package"]
+        #[doc = "* `unscoped_package_name`: The name of the scoped package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -1178,6 +1320,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Set the upstreaming behavior of a (scoped) package within the context of a feed\n\nThe package does not need to necessarily exist in the feed prior to setting the behavior.\nThis assists with packages that are not yet ingested from an upstream, yet the feed owner wants\nto apply a specific behavior on the first ingestion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_scope`: The scope of the package"]
+        #[doc = "* `unscoped_package_name`: The name of the scoped package"]
+        #[doc = "* `body`: The behavior to apply to the scoped package within the scope of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_scoped_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -1197,6 +1348,9 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn download_scoped_package(
             &self,
             organization: impl Into<String>,
@@ -1216,6 +1370,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get the Readme for a package version with an npm scope.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope\\name)"]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope\\name)"]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_scoped_package_readme(
             &self,
             organization: impl Into<String>,
@@ -1235,6 +1398,13 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get the upstreaming behavior of the (unscoped) package within the context of a feed"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_scoped_package_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -1250,6 +1420,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Set the upstreaming behavior of a (scoped) package within the context of a feed\n\nThe package does not need to necessarily exist in the feed prior to setting the behavior.\nThis assists with packages that are not yet ingested from an upstream, yet the feed owner wants\nto apply a specific behavior on the first ingestion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `body`: The behavior to apply to the scoped package within the scope of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -1267,6 +1445,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get an unscoped npm package.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn download_package(
             &self,
             organization: impl Into<String>,
@@ -1284,6 +1470,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get the Readme for a package version that has no npm scope.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_readme(
             &self,
             organization: impl Into<String>,
@@ -1301,6 +1495,13 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_packages(
             &self,
             organization: impl Into<String>,
@@ -1316,6 +1517,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a scoped package version in the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope/name)"]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope/name)."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_scoped_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1335,6 +1545,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version with an npm scope from the recycle bin to its feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope/name)."]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope/name)."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_scoped_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1356,6 +1575,15 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version with an npm scope from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_scope`: Scope of the package (the 'scope' part of @scope/name)."]
+        #[doc = "* `unscoped_package_name`: Name of the package (the 'name' part of @scope/name)."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_scoped_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1375,6 +1603,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about an unscoped package version in the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1392,6 +1628,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version without an npm scope from the recycle bin to its feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1411,6 +1655,14 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version without an npm scope from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -1428,6 +1680,13 @@ pub mod npm {
                 project: project.into(),
             }
         }
+        #[doc = "Delete or restore several package versions from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_recycle_bin_packages(
             &self,
             organization: impl Into<String>,
@@ -2992,6 +3251,13 @@ pub mod nu_get {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the upstreaming behavior of a package within the context of a feed"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -3007,6 +3273,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Set the upstreaming behavior of a package within the context of a feed\n\nThe package does not need to necessarily exist in the feed prior to setting the behavior.\nThis assists with packages that are not yet ingested from an upstream, yet the feed owner wants\nto apply a specific behavior on the first ingestion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `body`: The behavior to apply to the package within the scope of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -3024,6 +3298,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -3042,6 +3324,15 @@ pub mod nu_get {
                 show_deleted: None,
             }
         }
+        #[doc = "Set mutable state on a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: New state to apply to the referenced package."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package to update."]
+        #[doc = "* `package_version`: Version of the package to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_version(
             &self,
             organization: impl Into<String>,
@@ -3061,6 +3352,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Send a package version from the feed to its paired recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package to delete."]
+        #[doc = "* `package_version`: Version of the package to delete."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version(
             &self,
             organization: impl Into<String>,
@@ -3078,6 +3377,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Download a package version directly.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn download_package(
             &self,
             organization: impl Into<String>,
@@ -3096,6 +3403,13 @@ pub mod nu_get {
                 source_protocol_version: None,
             }
         }
+        #[doc = "Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_versions(
             &self,
             organization: impl Into<String>,
@@ -3111,6 +3425,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "View a package version's deletion/recycled status\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -3128,6 +3450,15 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version from a feed's recycle bin back into the active feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Set the 'Deleted' member to 'false' to apply the restore operation"]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -3147,6 +3478,14 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version from a feed's recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -3164,6 +3503,13 @@ pub mod nu_get {
                 project: project.into(),
             }
         }
+        #[doc = "Delete or restore several package versions from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data. <c>Operation</c> must be <c>PermanentDelete</c> or <c>RestoreToFeed</c>"]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_recycle_bin_package_versions(
             &self,
             organization: impl Into<String>,
@@ -3958,6 +4304,13 @@ pub mod python {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the upstreaming behavior of a package within the context of a feed"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -3973,6 +4326,14 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Set the upstreaming behavior of a package within the context of a feed\n\nThe package does not need to necessarily exist in the feed prior to setting the behavior.\nThis assists with packages that are not yet ingested from an upstream, yet the feed owner wants\nto apply a specific behavior on the first ingestion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: The name or id of the feed"]
+        #[doc = "* `package_name`: The name of the package"]
+        #[doc = "* `body`: The behavior to apply to the package within the scope of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_upstreaming_behavior(
             &self,
             organization: impl Into<String>,
@@ -3990,6 +4351,14 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -4008,6 +4377,15 @@ pub mod python {
                 show_deleted: None,
             }
         }
+        #[doc = "Update state for a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Details to be updated."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_version(
             &self,
             organization: impl Into<String>,
@@ -4027,6 +4405,14 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version, moving it to the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version(
             &self,
             organization: impl Into<String>,
@@ -4044,6 +4430,15 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Download a python package file directly. This API is intended for manual UI download options, not for programmatic access and scripting.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `file_name`: Name of the file in the package"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn download_package(
             &self,
             organization: impl Into<String>,
@@ -4063,6 +4458,13 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_versions(
             &self,
             organization: impl Into<String>,
@@ -4078,6 +4480,14 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version in the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -4095,6 +4505,15 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version from the recycle bin to its associated feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Set the 'Deleted' state to 'false' to restore the package to its feed."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -4114,6 +4533,14 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version from the feed, moving it to the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -4131,6 +4558,13 @@ pub mod python {
                 project: project.into(),
             }
         }
+        #[doc = "Delete or restore several package versions from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data. <c>Operation</c> must be <c>PermanentDelete</c> or <c>RestoreToFeed</c>"]
+        #[doc = "* `feed_id`: Feed which contains the packages to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_recycle_bin_package_versions(
             &self,
             organization: impl Into<String>,
@@ -4914,6 +5348,14 @@ pub mod universal {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Show information about a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -4932,6 +5374,14 @@ pub mod universal {
                 show_deleted: None,
             }
         }
+        #[doc = "Update information for a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_version(
             &self,
             organization: impl Into<String>,
@@ -4951,6 +5401,14 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version from a feed's recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version(
             &self,
             organization: impl Into<String>,
@@ -4968,6 +5426,13 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Update several packages from a single feed in a single request. The updates to the packages do not happen atomically.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_package_versions(
             &self,
             organization: impl Into<String>,
@@ -4983,6 +5448,14 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package version in the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -5000,6 +5473,15 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Restore a package version from the recycle bin to its associated feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Set the 'Deleted' property to 'false' to restore the package."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -5019,6 +5501,14 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a package version from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `package_name`: Name of the package."]
+        #[doc = "* `package_version`: Version of the package."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_package_version_from_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -5036,6 +5526,13 @@ pub mod universal {
                 project: project.into(),
             }
         }
+        #[doc = "Delete or restore several package versions from the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Information about the packages to update, the operation to perform, and its associated data. <c>Operation</c> must be <c>PermanentDelete</c> or <c>RestoreToFeed</c>"]
+        #[doc = "* `feed_id`: Feed which contains the packages to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_recycle_bin_package_versions(
             &self,
             organization: impl Into<String>,

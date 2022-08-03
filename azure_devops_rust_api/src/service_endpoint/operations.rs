@@ -96,6 +96,13 @@ pub mod endpointproxy {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Proxy for a GET request defined by a service endpoint."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Service endpoint request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `endpoint_id`: Id of the service endpoint."]
         pub fn execute_service_endpoint_request(
             &self,
             organization: impl Into<String>,
@@ -111,6 +118,12 @@ pub mod endpointproxy {
                 endpoint_id: endpoint_id.into(),
             }
         }
+        #[doc = "Use ExecuteServiceEndpointRequest API Instead"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Describes the data source to fetch."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -275,6 +288,11 @@ pub mod endpoints {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the service endpoints."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_service_endpoints(
             &self,
             organization: impl Into<String>,
@@ -292,6 +310,11 @@ pub mod endpoints {
                 include_details: None,
             }
         }
+        #[doc = "Creates a new service endpoint"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Service endpoint to create"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -303,6 +326,11 @@ pub mod endpoints {
                 body: body.into(),
             }
         }
+        #[doc = "Update the service endpoints."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Names of the service endpoints to update."]
         pub fn update_service_endpoints(
             &self,
             organization: impl Into<String>,
@@ -314,6 +342,12 @@ pub mod endpoints {
                 body,
             }
         }
+        #[doc = "Update the service endpoint"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Updated data for the endpoint"]
+        #[doc = "* `endpoint_id`: Endpoint Id of the endpoint to update"]
         pub fn update_service_endpoint(
             &self,
             organization: impl Into<String>,
@@ -328,6 +362,12 @@ pub mod endpoints {
                 operation: None,
             }
         }
+        #[doc = "Share service endpoint across projects"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Project reference details of the target project"]
+        #[doc = "* `endpoint_id`: Endpoint Id of the endpoint to share"]
         pub fn share_service_endpoint(
             &self,
             organization: impl Into<String>,
@@ -341,6 +381,12 @@ pub mod endpoints {
                 endpoint_id: endpoint_id.into(),
             }
         }
+        #[doc = "Delete a service endpoint"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `endpoint_id`: Endpoint Id of endpoint to delete"]
+        #[doc = "* `project_ids`: project Ids from which endpoint needs to be deleted"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -355,6 +401,12 @@ pub mod endpoints {
                 deep: None,
             }
         }
+        #[doc = "Get the service endpoints by name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `endpoint_names`: Names of the service endpoints."]
         pub fn get_service_endpoints_by_names(
             &self,
             organization: impl Into<String>,
@@ -373,6 +425,13 @@ pub mod endpoints {
                 include_details: None,
             }
         }
+        #[doc = "Gets the service endpoints and patch new authorization parameters"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Scope, Validity of Token requested."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `endpoint_ids`: Ids of the service endpoints."]
         pub fn get_service_endpoints_with_refreshed_authentication(
             &self,
             organization: impl Into<String>,
@@ -388,6 +447,12 @@ pub mod endpoints {
                 endpoint_ids: endpoint_ids.into(),
             }
         }
+        #[doc = "Get the service endpoint details."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `endpoint_id`: Id of the service endpoint."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1156,6 +1221,10 @@ pub mod types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get service endpoint types."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -1253,6 +1322,12 @@ pub mod executionhistory {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get service endpoint execution records."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `endpoint_id`: Id of the service endpoint."]
         pub fn list(
             &self,
             organization: impl Into<String>,

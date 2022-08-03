@@ -87,6 +87,10 @@ pub mod installed_extensions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "List the installed extensions in the account / project collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -97,6 +101,10 @@ pub mod installed_extensions {
                 include_installation_issues: None,
             }
         }
+        #[doc = "Update an installed extension. Typically this API is used to enable or disable an extension."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -108,6 +116,12 @@ pub mod installed_extensions {
                 body: body.into(),
             }
         }
+        #[doc = "Get an installed extension by its publisher and extension name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_name`: Name of the publisher. Example: \"fabrikam\"."]
+        #[doc = "* `extension_name`: Name of the extension. Example: \"ops-tools\"."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -122,6 +136,12 @@ pub mod installed_extensions {
                 asset_types: None,
             }
         }
+        #[doc = "Uninstall the specified extension from the account / project collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_name`: Name of the publisher. Example: \"fabrikam\"."]
+        #[doc = "* `extension_name`: Name of the extension. Example: \"ops-tools\"."]
         pub fn uninstall_extension_by_name(
             &self,
             organization: impl Into<String>,
@@ -137,6 +157,12 @@ pub mod installed_extensions {
                 reason_code: None,
             }
         }
+        #[doc = "Install the specified extension into the account / project collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_name`: Name of the publisher. Example: \"fabrikam\"."]
+        #[doc = "* `extension_name`: Name of the extension. Example: \"ops-tools\"."]
         pub fn install_extension_by_name(
             &self,
             organization: impl Into<String>,

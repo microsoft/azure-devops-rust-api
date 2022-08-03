@@ -90,6 +90,12 @@ pub mod behaviors {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a behavior for the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
+        #[doc = "* `behavior_ref_name`: The reference name of the behavior"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -103,6 +109,11 @@ pub mod behaviors {
                 behavior_ref_name: behavior_ref_name.into(),
             }
         }
+        #[doc = "Returns a list of behaviors for the process."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: The ID of the process"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -263,6 +274,11 @@ pub mod processes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns requested process template."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The ID of the process"]
         pub fn export_process_template(
             &self,
             organization: impl Into<String>,
@@ -274,6 +290,11 @@ pub mod processes {
                 id: id.into(),
             }
         }
+        #[doc = "Imports a process from zip file."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
         pub fn import_process_template(
             &self,
             organization: impl Into<String>,
@@ -287,6 +308,11 @@ pub mod processes {
                 replace_existing_template: None,
             }
         }
+        #[doc = "Tells whether promote has completed for the specified promote job ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The ID of the promote job operation"]
         pub fn import_process_template_status(
             &self,
             organization: impl Into<String>,

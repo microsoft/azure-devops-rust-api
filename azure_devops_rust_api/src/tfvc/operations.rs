@@ -99,6 +99,10 @@ pub mod shelvesets {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Return a collection of shallow shelveset references."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -114,6 +118,11 @@ pub mod shelvesets {
                 skip: None,
             }
         }
+        #[doc = "Get a single deep shelveset."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `shelveset_id`: Shelveset's unique ID"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -132,6 +141,11 @@ pub mod shelvesets {
                 request_data_owner: None,
             }
         }
+        #[doc = "Get changes included in a shelveset."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `shelveset_id`: Shelveset's unique ID"]
         pub fn get_shelveset_changes(
             &self,
             organization: impl Into<String>,
@@ -145,6 +159,11 @@ pub mod shelvesets {
                 skip: None,
             }
         }
+        #[doc = "Get work items associated with a shelveset."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `shelveset_id`: Shelveset's unique ID"]
         pub fn get_shelveset_work_items(
             &self,
             organization: impl Into<String>,
@@ -662,6 +681,12 @@ pub mod branches {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a single branch hierarchy at the given path with parents or children as specified."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `path`: Full path to the branch.  Default: $/ Examples: $/, $/MyProject, $/MyProject/SomeFolder."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -677,6 +702,11 @@ pub mod branches {
                 include_children: None,
             }
         }
+        #[doc = "Get a collection of branch roots -- first-level children, branches with no parents."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_branches(
             &self,
             organization: impl Into<String>,
@@ -692,6 +722,12 @@ pub mod branches {
                 include_links: None,
             }
         }
+        #[doc = "Get branch hierarchies below the specified scopePath"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `scope_path`: Full path to the branch.  Default: $/ Examples: $/, $/MyProject, $/MyProject/SomeFolder."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_branch_refs(
             &self,
             organization: impl Into<String>,
@@ -999,6 +1035,12 @@ pub mod items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `path`: Version control path of an individual item to return."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1020,6 +1062,11 @@ pub mod items {
                 include_content: None,
             }
         }
+        #[doc = "Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_items_batch(
             &self,
             organization: impl Into<String>,
@@ -1033,6 +1080,11 @@ pub mod items {
                 project: project.into(),
             }
         }
+        #[doc = "Get a list of Tfvc items"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1431,6 +1483,11 @@ pub mod changesets {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve Tfvc changes for a given changeset."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: ID of the changeset. Default: null"]
         pub fn get_changeset_changes(
             &self,
             organization: impl Into<String>,
@@ -1445,6 +1502,11 @@ pub mod changesets {
                 continuation_token: None,
             }
         }
+        #[doc = "Retrieves the work items associated with a particular changeset."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: ID of the changeset."]
         pub fn get_changeset_work_items(
             &self,
             organization: impl Into<String>,
@@ -1456,6 +1518,11 @@ pub mod changesets {
                 id,
             }
         }
+        #[doc = "Returns changesets for a given list of changeset Ids."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of changeset IDs."]
         pub fn get_batched_changesets(
             &self,
             organization: impl Into<String>,
@@ -1467,6 +1534,11 @@ pub mod changesets {
                 body: body.into(),
             }
         }
+        #[doc = "Retrieve Tfvc Changesets\n\nNote: This is a new version of the GetChangesets API that doesn't expose the unneeded queryParams\npresent in the 1.0 version of the API."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_changesets(
             &self,
             organization: impl Into<String>,
@@ -1491,6 +1563,11 @@ pub mod changesets {
                 search_criteria_to_id: None,
             }
         }
+        #[doc = "Create a new changeset.\n\nAccepts TfvcChangeset as JSON body"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1504,6 +1581,12 @@ pub mod changesets {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve a Tfvc Changeset"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: Changeset Id to retrieve."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2310,6 +2393,11 @@ pub mod labels {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get items under a label."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `label_id`: Unique identifier of label"]
         pub fn get_label_items(
             &self,
             organization: impl Into<String>,
@@ -2323,6 +2411,11 @@ pub mod labels {
                 skip: None,
             }
         }
+        #[doc = "Get a collection of shallow label references."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2342,6 +2435,12 @@ pub mod labels {
                 skip: None,
             }
         }
+        #[doc = "Get a single deep label."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `label_id`: Unique identifier of label"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,

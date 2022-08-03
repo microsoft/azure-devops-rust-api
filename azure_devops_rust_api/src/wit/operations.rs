@@ -174,6 +174,12 @@ pub mod classification_nodes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets root classification nodes or list of classification nodes for a given list of nodes ids, for a given project. In case ids parameter is supplied you will  get list of classification nodes for those ids. Otherwise you will get root classification nodes for this project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `ids`: Comma separated integer classification nodes ids. It's not required, if you want root nodes."]
         pub fn get_classification_nodes(
             &self,
             organization: impl Into<String>,
@@ -189,6 +195,11 @@ pub mod classification_nodes {
                 error_policy: None,
             }
         }
+        #[doc = "Gets root classification nodes under the project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_root_nodes(
             &self,
             organization: impl Into<String>,
@@ -201,6 +212,13 @@ pub mod classification_nodes {
                 depth: None,
             }
         }
+        #[doc = "Gets the classification node for a given node path."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `structure_group`: Structure group of the classification node, area or iteration."]
+        #[doc = "* `path`: Path of the classification node."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -217,6 +235,14 @@ pub mod classification_nodes {
                 depth: None,
             }
         }
+        #[doc = "Create new or update an existing classification node."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Node to create or update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `structure_group`: Structure group of the classification node, area or iteration."]
+        #[doc = "* `path`: Path of the classification node."]
         pub fn create_or_update(
             &self,
             organization: impl Into<String>,
@@ -234,6 +260,14 @@ pub mod classification_nodes {
                 path: path.into(),
             }
         }
+        #[doc = "Update an existing classification node."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Node to create or update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `structure_group`: Structure group of the classification node, area or iteration."]
+        #[doc = "* `path`: Path of the classification node."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -251,6 +285,13 @@ pub mod classification_nodes {
                 path: path.into(),
             }
         }
+        #[doc = "Delete an existing classification node."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `structure_group`: Structure group of the classification node, area or iteration."]
+        #[doc = "* `path`: Path of the classification node."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -750,6 +791,12 @@ pub mod queries {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Searches all queries the user has access to in the current project"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `filter`: The text to filter the queries with."]
         pub fn search_queries(
             &self,
             organization: impl Into<String>,
@@ -766,6 +813,11 @@ pub mod queries {
                 include_deleted: None,
             }
         }
+        #[doc = "Gets the root queries and their children"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -780,6 +832,12 @@ pub mod queries {
                 include_deleted: None,
             }
         }
+        #[doc = "Retrieves an individual query and its children"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `query`: ID or path of the query."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -797,6 +855,13 @@ pub mod queries {
                 use_iso_date_format: None,
             }
         }
+        #[doc = "Creates a query, or moves a query.\n\nLearn more about Work Item Query Language (WIQL) syntax [here](https://docs.microsoft.com/en-us/vsts/collaborate/wiql-syntax?toc=/vsts/work/track/toc.json&bc=/vsts/work/track/breadcrumb/toc.json&view=vsts)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The query to create."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `query`: The parent id or path under which the query is to be created."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -813,6 +878,13 @@ pub mod queries {
                 validate_wiql_only: None,
             }
         }
+        #[doc = "Update a query or a folder. This allows you to update, rename and move queries and folders."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The query to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `query`: The ID or path for the query to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -829,6 +901,12 @@ pub mod queries {
                 undelete_descendants: None,
             }
         }
+        #[doc = "Delete a query or a folder. This deletes any permission change on the deleted query or folder and any of its descendants if it is a folder. It is important to note that the deleted permission changes cannot be recovered upon undeleting the query or folder."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `query`: ID or path of the query or folder to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -842,6 +920,11 @@ pub mod queries {
                 query: query.into(),
             }
         }
+        #[doc = "Gets a list of queries by ids (Maximum 1000)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_queries_batch(
             &self,
             organization: impl Into<String>,
@@ -1462,6 +1545,12 @@ pub mod recyclebin {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the work items from the recycle bin, whose IDs have been specified in the parameters"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `ids`: Comma separated list of IDs of the deleted work items to be returned"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_deleted_work_items(
             &self,
             organization: impl Into<String>,
@@ -1475,6 +1564,11 @@ pub mod recyclebin {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a list of the IDs and the URLs of the deleted the work items in the Recycle Bin."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_deleted_work_item_shallow_references(
             &self,
             organization: impl Into<String>,
@@ -1486,6 +1580,12 @@ pub mod recyclebin {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a deleted work item from Recycle Bin."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: ID of the work item to be returned"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1499,6 +1599,13 @@ pub mod recyclebin {
                 project: project.into(),
             }
         }
+        #[doc = "Restores the deleted work item from Recycle Bin."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Paylod with instructions to update the IsDeleted flag to false"]
+        #[doc = "* `id`: ID of the work item to be restored"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_work_item(
             &self,
             organization: impl Into<String>,
@@ -1514,6 +1621,12 @@ pub mod recyclebin {
                 project: project.into(),
             }
         }
+        #[doc = "Destroys the specified work item permanently from the Recycle Bin. This action can not be undone."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: ID of the work item to be destroyed permanently"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn destroy_work_item(
             &self,
             organization: impl Into<String>,
@@ -1884,6 +1997,12 @@ pub mod comments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of work item comments, pageable."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item to get comments for."]
         pub fn get_comments(
             &self,
             organization: impl Into<String>,
@@ -1902,6 +2021,13 @@ pub mod comments {
                 order: None,
             }
         }
+        #[doc = "Returns a list of work item comments by ids."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item to get comments for."]
+        #[doc = "* `ids`: Comma-separated list of comment ids to return."]
         pub fn get_comments_batch(
             &self,
             organization: impl Into<String>,
@@ -1919,6 +2045,13 @@ pub mod comments {
                 expand: None,
             }
         }
+        #[doc = "Add a comment on a work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Comment create request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -1934,6 +2067,13 @@ pub mod comments {
                 work_item_id,
             }
         }
+        #[doc = "Returns a work item comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item to get the comment."]
+        #[doc = "* `comment_id`: Id of the comment to return."]
         pub fn get_comment(
             &self,
             organization: impl Into<String>,
@@ -1951,6 +2091,13 @@ pub mod comments {
                 expand: None,
             }
         }
+        #[doc = "Update a comment on a work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Comment update request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1968,6 +2115,12 @@ pub mod comments {
                 comment_id,
             }
         }
+        #[doc = "Delete a comment on a work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -2495,6 +2648,10 @@ pub mod artifact_link_types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the list of work item tracking outbound artifact link types."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -2574,12 +2731,21 @@ pub mod work_item_icons {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of all work item icons."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Get a work item icon given the friendly name and icon color."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `icon`: The name of the icon"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             icon: impl Into<String>,
@@ -2751,12 +2917,21 @@ pub mod work_item_relation_types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the work item relation types."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Gets the work item relation type definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `relation`: The relation name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2910,6 +3085,11 @@ pub mod work_item_transitions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the next state on the given work item IDs."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `ids`: list of work item ids"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3006,6 +3186,10 @@ pub mod account_my_work_recent_activity {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets recent work item activities"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -3085,6 +3269,12 @@ pub mod artifact_uri_query {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Queries work items linked to a given list of artifact URI."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Defines a list of artifact URI for querying work items."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -3175,6 +3365,12 @@ pub mod attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Uploads an attachment.\n\nOn accounts with higher attachment upload limits (>130MB), you will need to use chunked upload.\nTo upload an attachment in multiple chunks, you first need to [**Start a Chunked Upload**](#start_a_chunked_upload) and then follow the example from the **Upload Chunk** section."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3191,6 +3387,12 @@ pub mod attachments {
                 area_path: None,
             }
         }
+        #[doc = "Downloads an attachment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: Attachment ID"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3206,6 +3408,14 @@ pub mod attachments {
                 download: None,
             }
         }
+        #[doc = "Uploads an attachment chunk.\n\nBefore performing [**Upload a Chunk**](#upload_a_chunk), make sure to have an attachment id returned in **Start a Chunked Upload** example on **Create** section. Specify the byte range of the chunk using Content-Length. For example: \"Content - Length\": \"bytes 0 - 39999 / 50000\" for the first 40000 bytes of a 50000 byte file."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
+        #[doc = "* `id`: The id of the attachment"]
+        #[doc = "* `content_range_header`: starting and ending byte positions for chunked file upload, format is \"Content-Range\": \"bytes 0-10000/50000\""]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn upload_chunk(
             &self,
             organization: impl Into<String>,
@@ -3496,6 +3706,11 @@ pub mod fields {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns information for all fields. The project ID/name parameter is optional."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3508,6 +3723,12 @@ pub mod fields {
                 expand: None,
             }
         }
+        #[doc = "Create a new field."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: New field definition"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3521,6 +3742,12 @@ pub mod fields {
                 project: project.into(),
             }
         }
+        #[doc = "Gets information on a specific field."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `field_name_or_ref_name`: Field simple name or reference name"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3534,6 +3761,13 @@ pub mod fields {
                 project: project.into(),
             }
         }
+        #[doc = "Update a field."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Payload contains desired value of the field's properties"]
+        #[doc = "* `field_name_or_ref_name`: Name/reference name of the field to be updated"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3549,6 +3783,12 @@ pub mod fields {
                 project: project.into(),
             }
         }
+        #[doc = "Deletes the field. To undelete a filed, see \"Update Field\" API."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `field_name_or_ref_name`: Field simple name or reference name"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3925,6 +4165,11 @@ pub mod project_process_migration {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Migrates a project to a different process within the same OOB type. For example, you can only migrate a project from agile/custom-agile to agile/custom-agile."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn migrate_projects_process(
             &self,
             organization: impl Into<String>,
@@ -4015,6 +4260,11 @@ pub mod reporting_work_item_links {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a batch of work item links"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4139,6 +4389,11 @@ pub mod reporting_work_item_revisions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a batch of work item revisions with the option of including deleted items"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn read_reporting_revisions_get(
             &self,
             organization: impl Into<String>,
@@ -4161,6 +4416,12 @@ pub mod reporting_work_item_revisions {
                 max_page_size: None,
             }
         }
+        #[doc = "Get a batch of work item revisions. This request may be used if your list of fields is large enough that it may run the URL over the length limit."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: An object that contains request settings: field filter, type filter, identity format"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn read_reporting_revisions_post(
             &self,
             organization: impl Into<String>,
@@ -4454,6 +4715,9 @@ pub mod work_item_revisions_discussions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn read_reporting_discussions(
             &self,
             organization: impl Into<String>,
@@ -4560,6 +4824,11 @@ pub mod send_mail {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "RESTful method to send mail for selected/queried work items."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn send_mail(
             &self,
             organization: impl Into<String>,
@@ -4644,6 +4913,9 @@ pub mod tags {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4655,6 +4927,9 @@ pub mod tags {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4668,6 +4943,9 @@ pub mod tags {
                 tag_id_or_name: tag_id_or_name.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4683,6 +4961,9 @@ pub mod tags {
                 tag_id_or_name: tag_id_or_name.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4980,6 +5261,12 @@ pub mod work_items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a list of work items (Maximum 200)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `ids`: The comma-separated list of requested work item ids. (Maximum 200 ids allowed)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4997,6 +5284,12 @@ pub mod work_items {
                 error_policy: None,
             }
         }
+        #[doc = "Returns a single work item from a template."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: The work item type name"]
         pub fn get_work_item_template(
             &self,
             organization: impl Into<String>,
@@ -5013,6 +5306,13 @@ pub mod work_items {
                 expand: None,
             }
         }
+        #[doc = "Creates a single work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The JSON Patch document representing the work item"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: The work item type of the work item to create"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -5032,6 +5332,12 @@ pub mod work_items {
                 expand: None,
             }
         }
+        #[doc = "Returns a single work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The work item id"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_work_item(
             &self,
             organization: impl Into<String>,
@@ -5048,6 +5354,13 @@ pub mod work_items {
                 expand: None,
             }
         }
+        #[doc = "Updates a single work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The JSON Patch document representing the update"]
+        #[doc = "* `id`: The id of the work item to update"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5067,6 +5380,12 @@ pub mod work_items {
                 expand: None,
             }
         }
+        #[doc = "Deletes the specified work item and sends it to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently. WARNING: If the destroy parameter is set to true, work items deleted by this command will NOT go to recycle-bin and there is no way to restore/recover them after deletion. It is recommended NOT to use this parameter. If you do, please use this parameter with extreme caution."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: ID of the work item to be deleted"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -5081,6 +5400,11 @@ pub mod work_items {
                 destroy: None,
             }
         }
+        #[doc = "Gets work items for a list of work item ids (Maximum 200)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_work_items_batch(
             &self,
             organization: impl Into<String>,
@@ -5766,6 +6090,11 @@ pub mod revisions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the list of fully hydrated work item revisions, paged."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -5782,6 +6111,11 @@ pub mod revisions {
                 expand: None,
             }
         }
+        #[doc = "Returns a fully hydrated work item for the requested revision"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5981,6 +6315,11 @@ pub mod updates {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns a the deltas between work item revisions"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -5996,6 +6335,11 @@ pub mod updates {
                 skip: None,
             }
         }
+        #[doc = "Returns a single update for a work item"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6178,6 +6522,13 @@ pub mod comments_reactions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets reactions of a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: WorkItem ID"]
+        #[doc = "* `comment_id`: Comment ID"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6193,6 +6544,14 @@ pub mod comments_reactions {
                 comment_id,
             }
         }
+        #[doc = "Adds a new reaction to a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: WorkItem ID"]
+        #[doc = "* `comment_id`: Comment ID"]
+        #[doc = "* `reaction_type`: Type of the reaction"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -6210,6 +6569,14 @@ pub mod comments_reactions {
                 reaction_type: reaction_type.into(),
             }
         }
+        #[doc = "Deletes an existing reaction on a comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: WorkItem ID"]
+        #[doc = "* `comment_id`: Comment ID"]
+        #[doc = "* `reaction_type`: Type of the reaction"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -6456,6 +6823,14 @@ pub mod comment_reactions_engaged_users {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get users who reacted on the comment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: WorkItem ID."]
+        #[doc = "* `comment_id`: Comment ID."]
+        #[doc = "* `reaction_type`: Type of the reaction."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6573,6 +6948,9 @@ pub mod comments_versions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6588,6 +6966,9 @@ pub mod comments_versions {
                 comment_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6759,6 +7140,11 @@ pub mod work_item_type_categories {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all work item type categories."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6770,6 +7156,12 @@ pub mod work_item_type_categories {
                 project: project.into(),
             }
         }
+        #[doc = "Get specific work item type category by name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `category`: The category name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6929,6 +7321,11 @@ pub mod work_item_types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the list of work item types"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6940,6 +7337,12 @@ pub mod work_item_types {
                 project: project.into(),
             }
         }
+        #[doc = "Returns a work item type definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: Work item type name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7099,6 +7502,12 @@ pub mod work_item_types_field {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of fields for a work item type with detailed references."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: Work item type."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7113,6 +7522,12 @@ pub mod work_item_types_field {
                 expand: None,
             }
         }
+        #[doc = "Get a field for a work item type with detailed references."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: Work item type."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7295,6 +7710,12 @@ pub mod work_item_type_states {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the state names and colors for a work item type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_`: The state name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7385,6 +7806,12 @@ pub mod templates {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets template"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7399,6 +7826,13 @@ pub mod templates {
                 workitemtypename: None,
             }
         }
+        #[doc = "Creates a template"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Template contents"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -7414,6 +7848,13 @@ pub mod templates {
                 team: team.into(),
             }
         }
+        #[doc = "Gets the template with specified id"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `template_id`: Template Id"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7429,6 +7870,14 @@ pub mod templates {
                 template_id: template_id.into(),
             }
         }
+        #[doc = "Replace template contents"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Template contents to replace with"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `template_id`: Template id"]
         pub fn replace_template(
             &self,
             organization: impl Into<String>,
@@ -7446,6 +7895,13 @@ pub mod templates {
                 template_id: template_id.into(),
             }
         }
+        #[doc = "Deletes the template with given id"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `template_id`: Template id"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7835,6 +8291,13 @@ pub mod wiql {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the results of the query given its WIQL."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The query containing the WIQL."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn query_by_wiql(
             &self,
             organization: impl Into<String>,
@@ -7852,6 +8315,13 @@ pub mod wiql {
                 top: None,
             }
         }
+        #[doc = "Gets the results of the query given the query ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The query ID."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn query_by_id(
             &self,
             organization: impl Into<String>,
@@ -7869,6 +8339,13 @@ pub mod wiql {
                 top: None,
             }
         }
+        #[doc = "Gets the results of the query given the query ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The query ID."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,

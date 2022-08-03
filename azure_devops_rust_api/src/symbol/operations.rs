@@ -99,6 +99,13 @@ pub mod requests {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Create debug entries for a symbol request as specified by its name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A batch that contains debug entries to create."]
+        #[doc = "* `request_name`: The symbol request name."]
+        #[doc = "* `collection`: A valid debug entry collection name. Must be \"debugentries\"."]
         pub fn create_requests_request_name_debug_entries(
             &self,
             organization: impl Into<String>,
@@ -114,6 +121,11 @@ pub mod requests {
                 collection: collection.into(),
             }
         }
+        #[doc = "Get a symbol request by request name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `request_name`: The symbol request name."]
         pub fn get_requests_request_name(
             &self,
             organization: impl Into<String>,
@@ -125,6 +137,11 @@ pub mod requests {
                 request_name: request_name.into(),
             }
         }
+        #[doc = "Create a new symbol request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The symbol request to create."]
         pub fn create_requests(
             &self,
             organization: impl Into<String>,
@@ -136,6 +153,12 @@ pub mod requests {
                 body: body.into(),
             }
         }
+        #[doc = "Update a symbol request by request name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The symbol request."]
+        #[doc = "* `request_name`: The symbol request name."]
         pub fn update_requests_request_name(
             &self,
             organization: impl Into<String>,
@@ -149,6 +172,11 @@ pub mod requests {
                 request_name: request_name.into(),
             }
         }
+        #[doc = "Delete a symbol request by request name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `request_name`: The symbol request name."]
         pub fn delete_requests_request_name(
             &self,
             organization: impl Into<String>,
@@ -161,6 +189,11 @@ pub mod requests {
                 synchronous: None,
             }
         }
+        #[doc = "Get a symbol request by request identifier."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `request_id`: The symbol request identifier."]
         pub fn get_requests_request_id(
             &self,
             organization: impl Into<String>,
@@ -172,6 +205,13 @@ pub mod requests {
                 request_id: request_id.into(),
             }
         }
+        #[doc = "Create debug entries for a symbol request as specified by its identifier."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A batch that contains debug entries to create."]
+        #[doc = "* `request_id`: The symbol request identifier."]
+        #[doc = "* `collection`: A valid debug entry collection name. Must be \"debugentries\"."]
         pub fn create_requests_request_id_debug_entries(
             &self,
             organization: impl Into<String>,
@@ -187,6 +227,12 @@ pub mod requests {
                 collection: collection.into(),
             }
         }
+        #[doc = "Update a symbol request by request identifier."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The symbol request."]
+        #[doc = "* `request_id`: The symbol request identifier."]
         pub fn update_requests_request_id(
             &self,
             organization: impl Into<String>,
@@ -200,6 +246,11 @@ pub mod requests {
                 request_id: request_id.into(),
             }
         }
+        #[doc = "Delete a symbol request by request identifier."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `request_id`: The symbol request identifier."]
         pub fn delete_requests_request_id(
             &self,
             organization: impl Into<String>,
@@ -864,6 +915,10 @@ pub mod availability {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Check the availability of symbol service. This includes checking for feature flag, and possibly license in future. Note this is NOT an anonymous endpoint, and the caller will be redirected to authentication before hitting it."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn check_availability(
             &self,
             organization: impl Into<String>,
@@ -940,12 +995,21 @@ pub mod client {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get client version information."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn head_client(&self, organization: impl Into<String>) -> head_client::Builder {
             head_client::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Get the client package."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `client_type`: Either \"EXE\" for a zip file containing a Windows symbol client (a.k.a. symbol.exe) along with dependencies, or \"TASK\" for a VSTS task that can be run on a VSTS build agent. All the other values are invalid. The parameter is case-insensitive."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1092,6 +1156,12 @@ pub mod contents {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a stitched debug entry for a symbol request as specified by symbol request identifier and debug entry identifier."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `request_id`: The symbol request identifier."]
+        #[doc = "* `debug_entry_id`: The debug entry identifier."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1176,6 +1246,11 @@ pub mod symsrv {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Given a client key, returns the best matched debug entry."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `debug_entry_client_key`: A \"client key\" used by both ends of Microsoft's symbol protocol to identify a debug entry. The semantics of client key is governed by symsrv and is beyond the scope of this documentation."]
         pub fn get(
             &self,
             organization: impl Into<String>,

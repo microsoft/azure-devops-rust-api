@@ -96,12 +96,21 @@ pub mod group_entitlements {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the group entitlements for an account."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Create a group entitlement with license rule, extension rule."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: GroupEntitlement object specifying License Rule, Extensions Rule for the group. Based on the rules the members of the group will be given licenses and extensions. The Group Entitlement can be used to add the group to another project level groups"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -114,6 +123,11 @@ pub mod group_entitlements {
                 rule_option: None,
             }
         }
+        #[doc = "Get a group entitlement.\n\nIf the group entitlement does not exist, returns null."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: ID of the group."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -125,6 +139,12 @@ pub mod group_entitlements {
                 group_id: group_id.into(),
             }
         }
+        #[doc = "Update entitlements (License Rule, Extensions Rule, Project memberships etc.) for a group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: JsonPatchDocument containing the operations to perform on the group."]
+        #[doc = "* `group_id`: ID of the group."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -139,6 +159,11 @@ pub mod group_entitlements {
                 rule_option: None,
             }
         }
+        #[doc = "Delete a group entitlement."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: ID of the group to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -538,6 +563,11 @@ pub mod members {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get direct members of a Group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: Id of the Group."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -551,6 +581,12 @@ pub mod members {
                 paging_token: None,
             }
         }
+        #[doc = "Add a member to a Group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: Id of the Group."]
+        #[doc = "* `member_id`: Id of the member to add."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -564,6 +600,12 @@ pub mod members {
                 member_id: member_id.into(),
             }
         }
+        #[doc = "Remove a member from a Group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: Id of the group."]
+        #[doc = "* `member_id`: Id of the member to remove."]
         pub fn remove_member_from_group(
             &self,
             organization: impl Into<String>,
@@ -800,6 +842,10 @@ pub mod user_entitlements {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a paged set of user entitlements matching the filter and sort criteria built with properties that match the select input."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn search_user_entitlements(
             &self,
             organization: impl Into<String>,
@@ -813,6 +859,11 @@ pub mod user_entitlements {
                 order_by: None,
             }
         }
+        #[doc = "Add a user, assign license and extensions and make them a member of a project group in an account."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: UserEntitlement object specifying License, Extensions and Project/Team groups the user should be added to."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -824,6 +875,11 @@ pub mod user_entitlements {
                 body: body.into(),
             }
         }
+        #[doc = "Edit the entitlements (License, Extensions, Projects, Teams etc) for one or more users."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: JsonPatchDocument containing the operations to perform."]
         pub fn update_user_entitlements(
             &self,
             organization: impl Into<String>,
@@ -836,6 +892,11 @@ pub mod user_entitlements {
                 do_not_send_invite_for_new_users: None,
             }
         }
+        #[doc = "Get User Entitlement for a user."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `user_id`: ID of the user."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -847,6 +908,12 @@ pub mod user_entitlements {
                 user_id: user_id.into(),
             }
         }
+        #[doc = "Edit the entitlements (License, Extensions, Projects, Teams etc) for a user."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: JsonPatchDocument containing the operations to perform on the user."]
+        #[doc = "* `user_id`: ID of the user."]
         pub fn update_user_entitlement(
             &self,
             organization: impl Into<String>,
@@ -860,6 +927,11 @@ pub mod user_entitlements {
                 user_id: user_id.into(),
             }
         }
+        #[doc = "Delete a user from the account.\n\nThe delete operation includes unassigning Extensions and Licenses and removing the user from all project memberships.\nThe user would continue to have access to the account if she is member of an AAD group, that is added directly to the account."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `user_id`: ID of the user."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1334,6 +1406,10 @@ pub mod user_entitlement_summary {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get summary of Licenses, Extension, Projects, Groups and their assignments in the collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),

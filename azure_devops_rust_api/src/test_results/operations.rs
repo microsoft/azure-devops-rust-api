@@ -93,6 +93,15 @@ pub mod testlog {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get list of test subresult attachments reference"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run that contains the results"]
+        #[doc = "* `result_id`: Id of the test result that contains subresult"]
+        #[doc = "* `sub_result_id`: Id of the test subresult"]
+        #[doc = "* `type_`: type of the attachments to get"]
         pub fn get_test_sub_result_logs(
             &self,
             organization: impl Into<String>,
@@ -117,6 +126,14 @@ pub mod testlog {
                 continuation_token: None,
             }
         }
+        #[doc = "Get list of test result attachments reference"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run that contains the result"]
+        #[doc = "* `result_id`: Id of the test result"]
+        #[doc = "* `type_`: type of attachments to get"]
         pub fn get_test_result_logs(
             &self,
             organization: impl Into<String>,
@@ -139,6 +156,13 @@ pub mod testlog {
                 continuation_token: None,
             }
         }
+        #[doc = "Get list of test run attachments reference"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run"]
+        #[doc = "* `type_`: type of the attachments to get"]
         pub fn get_test_run_logs(
             &self,
             organization: impl Into<String>,
@@ -520,6 +544,16 @@ pub mod testlogstoreendpoint {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get SAS Uri of a test subresults attachment"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run that contains result"]
+        #[doc = "* `result_id`: Id of the test result that contains subresult"]
+        #[doc = "* `sub_result_id`: Id of the test subresult whose file sas uri is needed"]
+        #[doc = "* `type_`: type of the file"]
+        #[doc = "* `file_path`: filePath for which sas uri is needed"]
         pub fn get_test_log_store_endpoint_details_for_sub_result_log(
             &self,
             organization: impl Into<String>,
@@ -541,6 +575,15 @@ pub mod testlogstoreendpoint {
                 file_path: file_path.into(),
             }
         }
+        #[doc = "Get SAS Uri of a test results attachment"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run that contains result"]
+        #[doc = "* `result_id`: Id of the test result whose files need to be downloaded"]
+        #[doc = "* `type_`: type of the file"]
+        #[doc = "* `file_path`: filePath for which sas uri is needed"]
         pub fn get_test_log_store_endpoint_details_for_result_log(
             &self,
             organization: impl Into<String>,
@@ -560,6 +603,16 @@ pub mod testlogstoreendpoint {
                 file_path: file_path.into(),
             }
         }
+        #[doc = "Create empty file for a result and Get Sas uri for the file"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run that contains the result"]
+        #[doc = "* `result_id`: Id of the test results that contains sub result"]
+        #[doc = "* `sub_result_id`: Id of the test sub result whose file sas uri is needed"]
+        #[doc = "* `file_path`: file path inside the sub result for which sas uri is needed"]
+        #[doc = "* `type_`: Type of the file for download"]
         pub fn test_log_store_endpoint_details_for_result(
             &self,
             organization: impl Into<String>,
@@ -581,6 +634,14 @@ pub mod testlogstoreendpoint {
                 type_: type_.into(),
             }
         }
+        #[doc = "Get SAS Uri of a test run attachment"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the test run whose file has to be downloaded"]
+        #[doc = "* `type_`: type of the file"]
+        #[doc = "* `file_path`: filePath for which sas uri is needed"]
         pub fn get_test_log_store_endpoint_details_for_run_log(
             &self,
             organization: impl Into<String>,
@@ -598,6 +659,13 @@ pub mod testlogstoreendpoint {
                 file_path: file_path.into(),
             }
         }
+        #[doc = "Create empty file for a run and Get Sas uri for the file"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Id of the run to get endpoint details"]
+        #[doc = "* `test_log_store_operation_type`: Type of operation to perform using sas uri"]
         pub fn test_log_store_endpoint_details_for_run(
             &self,
             organization: impl Into<String>,
@@ -1031,6 +1099,12 @@ pub mod result_meta_data {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get list of test Result meta data details for corresponding testcasereferenceId"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestCaseReference Ids of the test Result to be queried, comma separated list of valid ids (limit no. of ids 200)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -1045,6 +1119,13 @@ pub mod result_meta_data {
                 details_to_include: None,
             }
         }
+        #[doc = "Update properties of test result meta data"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestResultMetaData update input TestResultMetaDataUpdateInput"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_case_reference_id`: TestCaseReference Id of Test Result to be updated."]
         pub fn update(
             &self,
             organization: impl Into<String>,

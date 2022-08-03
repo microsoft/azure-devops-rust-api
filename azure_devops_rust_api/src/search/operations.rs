@@ -102,6 +102,11 @@ pub mod package_search_results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides a set of results for the search text."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The Package Search Request."]
         pub fn fetch_package_search_results(
             &self,
             organization: impl Into<String>,
@@ -188,6 +193,12 @@ pub mod code_search_results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides a set of results for the search text."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The Code Search Request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn fetch_code_search_results(
             &self,
             organization: impl Into<String>,
@@ -278,6 +289,12 @@ pub mod repositories {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides status of Repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repository`: Repository ID or repository name."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -368,6 +385,11 @@ pub mod tfvc {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides status of TFVC Repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -454,6 +476,12 @@ pub mod wiki_search_results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides a set of results for the search request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The Wiki Search Request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn fetch_wiki_search_results(
             &self,
             organization: impl Into<String>,
@@ -544,6 +572,12 @@ pub mod work_item_search_results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Provides a set of results for the search text."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The Work Item Search Request."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn fetch_work_item_search_results(
             &self,
             organization: impl Into<String>,

@@ -126,6 +126,10 @@ pub mod pools {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of agent pools."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_agent_pools(&self, organization: impl Into<String>) -> get_agent_pools::Builder {
             get_agent_pools::Builder {
                 client: self.0.clone(),
@@ -136,6 +140,11 @@ pub mod pools {
                 action_filter: None,
             }
         }
+        #[doc = "Get a list of agent pools."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_ids`: pool Ids to fetch"]
         pub fn get_agent_pools_by_ids(
             &self,
             organization: impl Into<String>,
@@ -148,6 +157,11 @@ pub mod pools {
                 action_filter: None,
             }
         }
+        #[doc = "Create an agent pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Details about the new agent pool"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -159,6 +173,11 @@ pub mod pools {
                 body: body.into(),
             }
         }
+        #[doc = "Get information about an agent pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: An agent pool ID"]
         pub fn get(&self, organization: impl Into<String>, pool_id: i32) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -168,6 +187,12 @@ pub mod pools {
                 action_filter: None,
             }
         }
+        #[doc = "Update properties on an agent pool"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Updated agent pool details"]
+        #[doc = "* `pool_id`: The agent pool to update"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -181,6 +206,11 @@ pub mod pools {
                 pool_id,
             }
         }
+        #[doc = "Delete an agent pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: ID of the agent pool to delete"]
         pub fn delete(&self, organization: impl Into<String>, pool_id: i32) -> delete::Builder {
             delete::Builder {
                 client: self.0.clone(),
@@ -662,6 +692,12 @@ pub mod queues {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of agent queues by their names"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `queue_names`: A comma-separated list of agent names to retrieve"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_agent_queues_by_names(
             &self,
             organization: impl Into<String>,
@@ -676,6 +712,12 @@ pub mod queues {
                 action_filter: None,
             }
         }
+        #[doc = "Get a list of agent queues by their IDs"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `queue_ids`: A comma-separated list of agent queue IDs to retrieve"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_agent_queues_by_ids(
             &self,
             organization: impl Into<String>,
@@ -690,6 +732,11 @@ pub mod queues {
                 action_filter: None,
             }
         }
+        #[doc = "Get a list of agent queues."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_agent_queues(
             &self,
             organization: impl Into<String>,
@@ -703,6 +750,12 @@ pub mod queues {
                 action_filter: None,
             }
         }
+        #[doc = "Get a list of agent queues by pool ids"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_ids`: A comma-separated list of pool ids to get the corresponding queues for"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_agent_queues_for_pools(
             &self,
             organization: impl Into<String>,
@@ -717,6 +770,12 @@ pub mod queues {
                 action_filter: None,
             }
         }
+        #[doc = "Create a new agent queue to connect a project to an agent pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Details about the queue to create"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -731,6 +790,12 @@ pub mod queues {
                 authorize_pipelines: None,
             }
         }
+        #[doc = "Get information about an agent queue."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `queue_id`: The agent queue to get information about"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -745,6 +810,12 @@ pub mod queues {
                 action_filter: None,
             }
         }
+        #[doc = "Removes an agent queue from a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `queue_id`: The agent queue to remove"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1322,6 +1393,11 @@ pub mod variablegroups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get variable groups."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_variable_groups(
             &self,
             organization: impl Into<String>,
@@ -1338,6 +1414,10 @@ pub mod variablegroups {
                 query_order: None,
             }
         }
+        #[doc = "Add a variable group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -1349,6 +1429,10 @@ pub mod variablegroups {
                 body: body.into(),
             }
         }
+        #[doc = "Add a variable group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn share_variable_group(
             &self,
             organization: impl Into<String>,
@@ -1362,6 +1446,11 @@ pub mod variablegroups {
                 variable_group_id,
             }
         }
+        #[doc = "Update a variable group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: Id of the variable group to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1375,6 +1464,11 @@ pub mod variablegroups {
                 group_id,
             }
         }
+        #[doc = "Delete a variable group"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_id`: Id of the variable group."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1388,6 +1482,12 @@ pub mod variablegroups {
                 project_ids: project_ids.into(),
             }
         }
+        #[doc = "Get variable groups by ids."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `group_ids`: Comma separated list of Ids of variable groups."]
         pub fn get_variable_groups_by_id(
             &self,
             organization: impl Into<String>,
@@ -1401,6 +1501,12 @@ pub mod variablegroups {
                 group_ids: group_ids.into(),
             }
         }
+        #[doc = "Get a variable group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `group_id`: Id of the variable group."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1947,12 +2053,16 @@ pub mod agentclouds {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -1964,6 +2074,8 @@ pub mod agentclouds {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>, agent_cloud_id: i32) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -1971,6 +2083,8 @@ pub mod agentclouds {
                 agent_cloud_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1984,6 +2098,8 @@ pub mod agentclouds {
                 agent_cloud_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -2346,6 +2462,8 @@ pub mod requests {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>, agent_cloud_id: i32) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -2428,6 +2546,10 @@ pub mod agentcloudtypes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get agent cloud types."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -2507,6 +2629,11 @@ pub mod agents {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of agents."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: The agent pool containing the agents"]
         pub fn list(&self, organization: impl Into<String>, pool_id: i32) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -2520,6 +2647,12 @@ pub mod agents {
                 demands: None,
             }
         }
+        #[doc = "Adds an agent to a pool.  You probably don't want to call this endpoint directly. Instead, [configure an agent](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) using the agent download package."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Details about the agent being added"]
+        #[doc = "* `pool_id`: The agent pool in which to add the agent"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -2533,6 +2666,12 @@ pub mod agents {
                 pool_id,
             }
         }
+        #[doc = "Get information about an agent."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: The agent pool containing the agent"]
+        #[doc = "* `agent_id`: The agent ID to get information about"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2550,6 +2689,13 @@ pub mod agents {
                 property_filters: None,
             }
         }
+        #[doc = "Replace an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove and reconfigure an agent from your organization."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Updated details about the replacing agent"]
+        #[doc = "* `pool_id`: The agent pool to use"]
+        #[doc = "* `agent_id`: The agent to replace"]
         pub fn replace_agent(
             &self,
             organization: impl Into<String>,
@@ -2565,6 +2711,13 @@ pub mod agents {
                 agent_id,
             }
         }
+        #[doc = "Update agent details."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Updated details about the agent"]
+        #[doc = "* `pool_id`: The agent pool to use"]
+        #[doc = "* `agent_id`: The agent to update"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2580,6 +2733,12 @@ pub mod agents {
                 agent_id,
             }
         }
+        #[doc = "Delete an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove an agent from your organization."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: The pool ID to remove the agent from"]
+        #[doc = "* `agent_id`: The agent ID to remove"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3131,6 +3290,10 @@ pub mod yamlschema {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "GET the Yaml schema used for Yaml file validation."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -3220,6 +3383,11 @@ pub mod deploymentgroups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of deployment groups by name or IDs."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3237,6 +3405,12 @@ pub mod deploymentgroups {
                 ids: None,
             }
         }
+        #[doc = "Create a deployment group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Deployment group to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -3250,6 +3424,12 @@ pub mod deploymentgroups {
                 project: project.into(),
             }
         }
+        #[doc = "Get a deployment group by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3265,6 +3445,13 @@ pub mod deploymentgroups {
                 expand: None,
             }
         }
+        #[doc = "Update a deployment group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Deployment group to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3280,6 +3467,12 @@ pub mod deploymentgroups {
                 deployment_group_id,
             }
         }
+        #[doc = "Delete a deployment group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group to be deleted."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3715,6 +3908,12 @@ pub mod targets {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of deployment targets in a deployment group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3738,6 +3937,13 @@ pub mod targets {
                 property_filters: None,
             }
         }
+        #[doc = "Update tags of a list of deployment targets in a deployment group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Deployment targets with tags to udpdate."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group in which deployment targets are updated."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3753,6 +3959,13 @@ pub mod targets {
                 deployment_group_id,
             }
         }
+        #[doc = "Get a deployment target by its ID in a deployment group"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group to which deployment target belongs."]
+        #[doc = "* `target_id`: ID of the deployment target to return."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3769,6 +3982,13 @@ pub mod targets {
                 expand: None,
             }
         }
+        #[doc = "Delete a deployment target in a deployment group. This deletes the agent from associated deployment pool too."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `deployment_group_id`: ID of the deployment group in which deployment target is deleted."]
+        #[doc = "* `target_id`: ID of the deployment target to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4168,6 +4388,11 @@ pub mod environments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all environments."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4182,6 +4407,12 @@ pub mod environments {
                 top: None,
             }
         }
+        #[doc = "Create an environment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Environment to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -4195,6 +4426,12 @@ pub mod environments {
                 project: project.into(),
             }
         }
+        #[doc = "Get an environment by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `environment_id`: ID of the environment."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4209,6 +4446,13 @@ pub mod environments {
                 expands: None,
             }
         }
+        #[doc = "Update the specified environment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Environment data to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `environment_id`: ID of the environment."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4224,6 +4468,12 @@ pub mod environments {
                 environment_id,
             }
         }
+        #[doc = "Delete the specified environment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `environment_id`: ID of the environment."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4625,6 +4875,11 @@ pub mod environmentdeployment_records {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get environment deployment execution history"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4728,6 +4983,9 @@ pub mod kubernetes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -4743,6 +5001,9 @@ pub mod kubernetes {
                 environment_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4758,6 +5019,9 @@ pub mod kubernetes {
                 resource_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4978,6 +5242,12 @@ pub mod taskgroups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Create a task group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Task group object to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -4991,6 +5261,12 @@ pub mod taskgroups {
                 project: project.into(),
             }
         }
+        #[doc = "List task groups."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `task_group_id`: Id of the task group."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -5010,6 +5286,13 @@ pub mod taskgroups {
                 query_order: None,
             }
         }
+        #[doc = "Update a task group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Task group to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `task_group_id`: Id of the task group to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5025,6 +5308,12 @@ pub mod taskgroups {
                 task_group_id: task_group_id.into(),
             }
         }
+        #[doc = "Delete a task group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `task_group_id`: Id of the task group to be deleted."]
         pub fn delete(
             &self,
             organization: impl Into<String>,

@@ -99,6 +99,10 @@ pub mod consumers {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of available service hook consumer services. Optionally filter by consumers that support at least one event type from the specific publisher."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -106,6 +110,11 @@ pub mod consumers {
                 publisher_id: None,
             }
         }
+        #[doc = "Get a specific consumer service. Optionally filter out consumer actions that do not support any event types for the specified publisher."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `consumer_id`: ID for a consumer."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -118,6 +127,11 @@ pub mod consumers {
                 publisher_id: None,
             }
         }
+        #[doc = "Get a list of consumer actions for a specific consumer."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `consumer_id`: ID for a consumer."]
         pub fn list_consumer_actions(
             &self,
             organization: impl Into<String>,
@@ -130,6 +144,12 @@ pub mod consumers {
                 publisher_id: None,
             }
         }
+        #[doc = "Get details about a specific consumer action."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `consumer_id`: ID for a consumer."]
+        #[doc = "* `consumer_action_id`: ID for a consumerActionId."]
         pub fn get_consumer_action(
             &self,
             organization: impl Into<String>,
@@ -462,6 +482,10 @@ pub mod notifications {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Query for notifications. A notification includes details about the event, the request to and the response from the consumer service."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -473,6 +497,11 @@ pub mod notifications {
                 body: body.into(),
             }
         }
+        #[doc = "Get a list of notifications for a specific subscription. A notification includes details about the event, the request to and the response from the consumer service."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subscription_id`: ID for a subscription."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -487,6 +516,11 @@ pub mod notifications {
                 result: None,
             }
         }
+        #[doc = "Get a specific notification for a subscription."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subscription_id`: ID for a subscription."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -500,6 +534,10 @@ pub mod notifications {
                 notification_id,
             }
         }
+        #[doc = "Sends a test notification. This is useful for verifying the configuration of an updated or new service hooks subscription."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -830,12 +868,21 @@ pub mod publishers {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of publishers."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Get a specific service hooks publisher."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_id`: ID for a publisher."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -847,6 +894,11 @@ pub mod publishers {
                 publisher_id: publisher_id.into(),
             }
         }
+        #[doc = "Get the event types for a specific publisher."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_id`: ID for a publisher."]
         pub fn list_event_types(
             &self,
             organization: impl Into<String>,
@@ -858,6 +910,11 @@ pub mod publishers {
                 publisher_id: publisher_id.into(),
             }
         }
+        #[doc = "Get a specific event type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `publisher_id`: ID for a publisher."]
         pub fn get_event_type(
             &self,
             organization: impl Into<String>,
@@ -871,6 +928,8 @@ pub mod publishers {
                 event_type_id: event_type_id.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query_input_values(
             &self,
             organization: impl Into<String>,
@@ -884,6 +943,10 @@ pub mod publishers {
                 publisher_id: publisher_id.into(),
             }
         }
+        #[doc = "Query for service hook publishers."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query_publishers(
             &self,
             organization: impl Into<String>,
@@ -1317,6 +1380,10 @@ pub mod subscriptions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of subscriptions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -1327,6 +1394,11 @@ pub mod subscriptions {
                 consumer_action_id: None,
             }
         }
+        #[doc = "Create a subscription."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Subscription to be created."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1338,6 +1410,11 @@ pub mod subscriptions {
                 body: body.into(),
             }
         }
+        #[doc = "Get a specific service hooks subscription."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subscription_id`: ID for a subscription."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1349,6 +1426,10 @@ pub mod subscriptions {
                 subscription_id: subscription_id.into(),
             }
         }
+        #[doc = "Update a subscription. <param name=\"subscriptionId\">ID for a subscription that you wish to update.</param>"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn replace_subscription(
             &self,
             organization: impl Into<String>,
@@ -1362,6 +1443,11 @@ pub mod subscriptions {
                 subscription_id: subscription_id.into(),
             }
         }
+        #[doc = "Delete a specific service hooks subscription."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subscription_id`: ID for a subscription."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1373,6 +1459,10 @@ pub mod subscriptions {
                 subscription_id: subscription_id.into(),
             }
         }
+        #[doc = "Query for service hook subscriptions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn create_subscriptions_query(
             &self,
             organization: impl Into<String>,
@@ -1832,6 +1922,8 @@ pub mod diagnostics {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1843,6 +1935,8 @@ pub mod diagnostics {
                 subscription_id: subscription_id.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
             &self,
             organization: impl Into<String>,

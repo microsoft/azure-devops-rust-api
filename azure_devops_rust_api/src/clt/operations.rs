@@ -123,6 +123,9 @@ pub mod agent_groups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Agent group to be created"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -134,6 +137,9 @@ pub mod agent_groups {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `agent_group_id`: The agent group identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -331,6 +337,9 @@ pub mod agents {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `agent_group_id`: The agent group identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -343,6 +352,10 @@ pub mod agents {
                 agent_name: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `agent_group_id`: The agent group identifier"]
+        #[doc = "* `agent_name`: Name of the static agent"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -510,6 +523,8 @@ pub mod applications {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -517,6 +532,9 @@ pub mod applications {
                 type_: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `application_id`: Filter by APM application identifier."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -678,6 +696,8 @@ pub mod counters {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -776,12 +796,17 @@ pub mod plugins {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `type_`: Currently ApplicationInsights is the only available plugin type."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -935,6 +960,8 @@ pub mod test_definitions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -944,6 +971,9 @@ pub mod test_definitions {
                 top: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Test definition to be created"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -955,6 +985,8 @@ pub mod test_definitions {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -966,6 +998,9 @@ pub mod test_definitions {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_definition_id`: The test definition identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1281,6 +1316,9 @@ pub mod test_drops {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Test drop to be created"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1292,6 +1330,9 @@ pub mod test_drops {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_drop_id`: The test drop identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1447,6 +1488,10 @@ pub mod test_runs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns test runs based on the filter specified. Returns all runs of the tenant if there is no filter."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_test_runs(&self, organization: impl Into<String>) -> get_test_runs::Builder {
             get_test_runs::Builder {
                 client: self.0.clone(),
@@ -1463,6 +1508,8 @@ pub mod test_runs {
                 retention_state: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1474,6 +1521,9 @@ pub mod test_runs {
                 body: body.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: Unique ID of the test run"]
         pub fn get_test_run(
             &self,
             organization: impl Into<String>,
@@ -1485,6 +1535,8 @@ pub mod test_runs {
                 test_run_id: test_run_id.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1856,6 +1908,10 @@ pub mod counter_instances {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: The test run identifier"]
+        #[doc = "* `group_names`: Comma separated names of counter groups, such as 'Application', 'Performance' and 'Throughput'"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1957,6 +2013,9 @@ pub mod counter_samples {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: The test run identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2047,6 +2106,9 @@ pub mod errors {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: The test run identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2161,6 +2223,9 @@ pub mod messages {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: Id of the test run"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2247,6 +2312,9 @@ pub mod results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_run_id`: The test run identifier"]
         pub fn get(
             &self,
             organization: impl Into<String>,
