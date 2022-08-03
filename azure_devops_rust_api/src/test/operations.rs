@@ -117,6 +117,13 @@ pub mod runs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Query Test Runs based on filters. Mandatory fields are minLastUpdatedDate and maxLastUpdatedDate."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `min_last_updated_date`: Minimum Last Modified Date of run to be queried (Mandatory)."]
+        #[doc = "* `max_last_updated_date`: Maximum Last Modified Date of run to be queried (Mandatory, difference between min and max date can be atmost 7 days)."]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -146,6 +153,11 @@ pub mod runs {
                 continuation_token: None,
             }
         }
+        #[doc = "Get a list of test runs."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -165,6 +177,12 @@ pub mod runs {
                 top: None,
             }
         }
+        #[doc = "Create new test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Run details RunCreateModel"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -178,6 +196,12 @@ pub mod runs {
                 project: project.into(),
             }
         }
+        #[doc = "Get a test run by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the run to get."]
         pub fn get_test_run_by_id(
             &self,
             organization: impl Into<String>,
@@ -192,6 +216,13 @@ pub mod runs {
                 include_details: None,
             }
         }
+        #[doc = "Update test run by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Run details RunUpdateModel"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the run to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -207,6 +238,12 @@ pub mod runs {
                 run_id,
             }
         }
+        #[doc = "Delete a test run by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the run to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -220,6 +257,12 @@ pub mod runs {
                 run_id,
             }
         }
+        #[doc = "Get test run statistics , used when we want to get summary of a run by outcome."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the run to get."]
         pub fn get_test_run_statistics(
             &self,
             organization: impl Into<String>,
@@ -931,6 +974,14 @@ pub mod attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get list of test sub result attachments"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test results that contains sub result."]
+        #[doc = "* `test_sub_result_id`: ID of the test sub result whose attachment has to be downloaded"]
         pub fn get_test_sub_result_attachments(
             &self,
             organization: impl Into<String>,
@@ -948,6 +999,15 @@ pub mod attachments {
                 test_sub_result_id,
             }
         }
+        #[doc = "Attach a file to a test result"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Attachment Request Model."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test results that contains sub result."]
+        #[doc = "* `test_sub_result_id`: ID of the test sub results against which attachment has to be uploaded."]
         pub fn create_test_sub_result_attachment(
             &self,
             organization: impl Into<String>,
@@ -967,6 +1027,15 @@ pub mod attachments {
                 test_sub_result_id,
             }
         }
+        #[doc = "Download a test sub result attachment"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test results that contains sub result."]
+        #[doc = "* `attachment_id`: ID of the test result attachment to be downloaded"]
+        #[doc = "* `test_sub_result_id`: ID of the test sub result whose attachment has to be downloaded"]
         pub fn get_test_sub_result_attachment_zip(
             &self,
             organization: impl Into<String>,
@@ -986,6 +1055,12 @@ pub mod attachments {
                 test_sub_result_id,
             }
         }
+        #[doc = "Get list of test run attachments reference."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run."]
         pub fn get_test_run_attachments(
             &self,
             organization: impl Into<String>,
@@ -999,6 +1074,13 @@ pub mod attachments {
                 run_id,
             }
         }
+        #[doc = "Attach a file to a test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Attachment details TestAttachmentRequestModel"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run against which attachment has to be uploaded."]
         pub fn create_test_run_attachment(
             &self,
             organization: impl Into<String>,
@@ -1014,6 +1096,13 @@ pub mod attachments {
                 run_id,
             }
         }
+        #[doc = "Download a test run attachment by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run whose attachment has to be downloaded."]
+        #[doc = "* `attachment_id`: ID of the test run attachment to be downloaded."]
         pub fn get_test_run_attachment_zip(
             &self,
             organization: impl Into<String>,
@@ -1029,6 +1118,13 @@ pub mod attachments {
                 attachment_id,
             }
         }
+        #[doc = "Get list of test result attachments reference."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test result."]
         pub fn get_test_result_attachments(
             &self,
             organization: impl Into<String>,
@@ -1044,6 +1140,14 @@ pub mod attachments {
                 test_case_result_id,
             }
         }
+        #[doc = "Attach a file to a test result."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Attachment details TestAttachmentRequestModel"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test result against which attachment has to be uploaded."]
         pub fn create_test_result_attachment(
             &self,
             organization: impl Into<String>,
@@ -1061,6 +1165,14 @@ pub mod attachments {
                 test_case_result_id,
             }
         }
+        #[doc = "Download a test result attachment by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the testCaseResultId."]
+        #[doc = "* `test_case_result_id`: ID of the test result whose attachment has to be downloaded."]
+        #[doc = "* `attachment_id`: ID of the test result attachment to be downloaded."]
         pub fn get_test_result_attachment_zip(
             &self,
             organization: impl Into<String>,
@@ -1750,6 +1862,13 @@ pub mod code_coverage {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get code coverage data for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: ID of the build for which code coverage data needs to be fetched."]
+        #[doc = "* `flags`: Value of flags determine the level of code coverage details to be fetched. Flags are additive. Expected Values are 1 for Modules, 2 for Functions, 4 for BlockData."]
         pub fn get_build_code_coverage(
             &self,
             organization: impl Into<String>,
@@ -1765,6 +1884,13 @@ pub mod code_coverage {
                 flags,
             }
         }
+        #[doc = "Get code coverage data for a test run"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run for which code coverage data needs to be fetched."]
+        #[doc = "* `flags`: Value of flags determine the level of code coverage details to be fetched. Flags are additive. Expected Values are 1 for Modules, 2 for Functions, 4 for BlockData."]
         pub fn get_test_run_code_coverage(
             &self,
             organization: impl Into<String>,
@@ -1938,6 +2064,13 @@ pub mod points {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test points."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan."]
+        #[doc = "* `suite_id`: ID of the suite that contains the points."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1960,6 +2093,14 @@ pub mod points {
                 top: None,
             }
         }
+        #[doc = "Get a test point."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan."]
+        #[doc = "* `suite_id`: ID of the suite that contains the point."]
+        #[doc = "* `point_ids`: ID of the test point to get."]
         pub fn get_point(
             &self,
             organization: impl Into<String>,
@@ -1978,6 +2119,15 @@ pub mod points {
                 wit_fields: None,
             }
         }
+        #[doc = "Update test points."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Data to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan."]
+        #[doc = "* `suite_id`: ID of the suite that contains the points."]
+        #[doc = "* `point_ids`: ID of the test point to get. Use a comma-separated list of IDs to update multiple test points."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1997,6 +2147,12 @@ pub mod points {
                 point_ids: point_ids.into(),
             }
         }
+        #[doc = "Get test points using query."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestPointsQuery to get test points."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_points_by_query(
             &self,
             organization: impl Into<String>,
@@ -2402,6 +2558,13 @@ pub mod test_suites {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all test cases in a suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suites."]
+        #[doc = "* `suite_id`: ID of the suite to get."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2417,6 +2580,14 @@ pub mod test_suites {
                 suite_id,
             }
         }
+        #[doc = "Get a specific test case in a test suite with test case id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suites."]
+        #[doc = "* `suite_id`: ID of the suite that contains the test case."]
+        #[doc = "* `test_case_ids`: ID of the test case to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2434,6 +2605,14 @@ pub mod test_suites {
                 test_case_ids,
             }
         }
+        #[doc = "Add test cases to suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suite."]
+        #[doc = "* `suite_id`: ID of the test suite to which the test cases must be added."]
+        #[doc = "* `test_case_ids`: IDs of the test cases to add to the suite. Ids are specified in comma separated format."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -2451,6 +2630,15 @@ pub mod test_suites {
                 test_case_ids: test_case_ids.into(),
             }
         }
+        #[doc = "Updates the properties of the test case association in a suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Model for updation of the properties of test case suite association."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suite."]
+        #[doc = "* `suite_id`: ID of the test suite to which the test cases must be added."]
+        #[doc = "* `test_case_ids`: IDs of the test cases to add to the suite. Ids are specified in comma separated format."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2470,6 +2658,14 @@ pub mod test_suites {
                 test_case_ids: test_case_ids.into(),
             }
         }
+        #[doc = "The test points associated with the test cases are removed from the test suite. The test case work item is not deleted from the system. See test cases resource to delete a test case permanently."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suite."]
+        #[doc = "* `suite_id`: ID of the suite to get."]
+        #[doc = "* `test_case_ids`: IDs of the test cases to remove from the suite."]
         pub fn remove_test_cases_from_suite_url(
             &self,
             organization: impl Into<String>,
@@ -2863,6 +3059,11 @@ pub mod result_retention_settings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get test result retention settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2874,6 +3075,12 @@ pub mod result_retention_settings {
                 project: project.into(),
             }
         }
+        #[doc = "Update test result retention settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Test result retention settings details to be updated"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3033,6 +3240,12 @@ pub mod test_history {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get history of a test method using TestHistoryQuery"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestHistoryQuery to get history"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -3123,6 +3336,12 @@ pub mod results {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get test results for a test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Test run ID of test results to fetch."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3140,6 +3359,13 @@ pub mod results {
                 outcomes: None,
             }
         }
+        #[doc = "Add test results to a test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of test results to add."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Test run ID into which test results to add."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -3155,6 +3381,13 @@ pub mod results {
                 run_id,
             }
         }
+        #[doc = "Update test results in a test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of test results to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Test run ID whose test results to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3170,6 +3403,13 @@ pub mod results {
                 run_id,
             }
         }
+        #[doc = "Get a test result for a test run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: Test run ID of a test result to fetch."]
+        #[doc = "* `test_case_result_id`: Test result ID."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3525,6 +3765,13 @@ pub mod iterations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get iterations for a result"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test result that contains the iterations."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3541,6 +3788,14 @@ pub mod iterations {
                 include_action_results: None,
             }
         }
+        #[doc = "Get iteration for a result"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `run_id`: ID of the test run that contains the result."]
+        #[doc = "* `test_case_result_id`: ID of the test result that contains the iterations."]
+        #[doc = "* `iteration_id`: Id of the test results Iteration."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3735,6 +3990,12 @@ pub mod test_cases {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Delete a test case."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_case_id`: Id of test case to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3819,6 +4080,12 @@ pub mod session {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test sessions"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3837,6 +4104,13 @@ pub mod session {
                 include_only_completed_sessions: None,
             }
         }
+        #[doc = "Create a test session"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Test session details for creation"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3852,6 +4126,13 @@ pub mod session {
                 team: team.into(),
             }
         }
+        #[doc = "Update a test session"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Test session details for update"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,

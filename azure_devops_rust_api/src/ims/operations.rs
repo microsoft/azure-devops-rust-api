@@ -87,6 +87,10 @@ pub mod identities {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Resolve legacy identity information for use with older APIs such as the Security APIs"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn read_identities(&self, organization: impl Into<String>) -> read_identities::Builder {
             read_identities::Builder {
                 client: self.0.clone(),

@@ -117,6 +117,14 @@ pub mod suite_test_case {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Removes test cases from a suite based on the list of test case Ids provided."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan from which test cases are to be removed."]
+        #[doc = "* `suite_id`: ID of the test suite from which test cases are to be removed."]
+        #[doc = "* `test_case_ids`: Test Case Ids to be removed."]
         pub fn remove_test_cases_from_suite(
             &self,
             organization: impl Into<String>,
@@ -134,6 +142,13 @@ pub mod suite_test_case {
                 test_case_ids: test_case_ids.into(),
             }
         }
+        #[doc = "Get Test Case List return those test cases which have all the configuration Ids as mentioned in the optional parameter. If configuration Ids is null, it return all the test cases"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which test cases are requested."]
+        #[doc = "* `suite_id`: ID of the test suite for which test cases are requested."]
         pub fn get_test_case_list(
             &self,
             organization: impl Into<String>,
@@ -157,6 +172,14 @@ pub mod suite_test_case {
                 is_recursive: None,
             }
         }
+        #[doc = "Add test cases to a suite with specified configurations"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: SuiteTestCaseCreateUpdateParameters object."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan to which test cases are to be added."]
+        #[doc = "* `suite_id`: ID of the test suite to which test cases are to be added."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -174,6 +197,14 @@ pub mod suite_test_case {
                 suite_id,
             }
         }
+        #[doc = "Update the configurations for test cases"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A SuiteTestCaseCreateUpdateParameters object."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan to which test cases are to be updated."]
+        #[doc = "* `suite_id`: ID of the test suite to which test cases are to be updated."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -191,6 +222,14 @@ pub mod suite_test_case {
                 suite_id,
             }
         }
+        #[doc = "Removes test cases from a suite based on the list of test case Ids provided. This API can be used to remove a larger number of test cases."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan from which test cases are to be removed."]
+        #[doc = "* `suite_id`: ID of the test suite from which test cases are to be removed."]
+        #[doc = "* `test_ids`: Comma separated string of Test Case Ids to be removed."]
         pub fn remove_test_cases_list_from_suite(
             &self,
             organization: impl Into<String>,
@@ -208,6 +247,14 @@ pub mod suite_test_case {
                 test_ids: test_ids.into(),
             }
         }
+        #[doc = "Get a particular Test Case from a Suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which test cases are requested."]
+        #[doc = "* `suite_id`: ID of the test suite for which test cases are requested."]
+        #[doc = "* `test_case_id`: Test Case Id to be fetched."]
         pub fn get_test_case(
             &self,
             organization: impl Into<String>,
@@ -760,6 +807,13 @@ pub mod test_point {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the points inside a suite based on some filters"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which test points are requested."]
+        #[doc = "* `suite_id`: ID of the test suite for which test points are requested"]
         pub fn get_points_list(
             &self,
             organization: impl Into<String>,
@@ -781,6 +835,14 @@ pub mod test_point {
                 is_recursive: None,
             }
         }
+        #[doc = "Get a particular Test Point from a suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which test points are requested."]
+        #[doc = "* `suite_id`: ID of the test suite for which test points are requested."]
+        #[doc = "* `point_id`: ID of test point to be fetched."]
         pub fn get_points(
             &self,
             organization: impl Into<String>,
@@ -800,6 +862,14 @@ pub mod test_point {
                 include_point_details: None,
             }
         }
+        #[doc = "Update Test Points. This is used to Reset test point to active, update the outcome of a test point or update the tester of a test point"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A TestPointUpdateParams Object."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which test points are requested."]
+        #[doc = "* `suite_id`: ID of the test suite for which test points are requested."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1145,6 +1215,11 @@ pub mod test_suites {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Find the list of all test suites in which a given test case is present. This is helpful if you need to find out which test suites are using a test case, when you need to make changes to a test case."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `test_case_id`: ID of the test case for which suites need to be fetched."]
         pub fn get_suites_by_test_case_id(
             &self,
             organization: impl Into<String>,
@@ -1156,6 +1231,12 @@ pub mod test_suites {
                 test_case_id,
             }
         }
+        #[doc = "Get test suites for plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan for which suites are requested."]
         pub fn get_test_suites_for_plan(
             &self,
             organization: impl Into<String>,
@@ -1172,6 +1253,13 @@ pub mod test_suites {
                 as_tree_view: None,
             }
         }
+        #[doc = "Create test suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Parameters for suite creation"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suites."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1187,6 +1275,13 @@ pub mod test_suites {
                 plan_id,
             }
         }
+        #[doc = "Get test suite by suite id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suites."]
+        #[doc = "* `suite_id`: ID of the suite to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1203,6 +1298,14 @@ pub mod test_suites {
                 expand: None,
             }
         }
+        #[doc = "Update test suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Parameters for suite updation"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suites."]
+        #[doc = "* `suite_id`: ID of the parent suite."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1220,6 +1323,13 @@ pub mod test_suites {
                 suite_id,
             }
         }
+        #[doc = "Delete test suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan that contains the suite."]
+        #[doc = "* `suite_id`: ID of the test suite to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1705,6 +1815,11 @@ pub mod configurations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test configurations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1717,6 +1832,12 @@ pub mod configurations {
                 continuation_token: None,
             }
         }
+        #[doc = "Create a test configuration."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestConfigurationCreateUpdateParameters"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1730,6 +1851,13 @@ pub mod configurations {
                 project: project.into(),
             }
         }
+        #[doc = "Update a test configuration by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestConfigurationCreateUpdateParameters"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_configuartion_id`: ID of the test configuration to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1745,6 +1873,12 @@ pub mod configurations {
                 test_configuartion_id,
             }
         }
+        #[doc = "Delete a test configuration by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_configuartion_id`: ID of the test configuration to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1758,6 +1892,12 @@ pub mod configurations {
                 test_configuartion_id,
             }
         }
+        #[doc = "Get a test configuration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_configuration_id`: ID of the test configuration to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2139,6 +2279,11 @@ pub mod test_plans {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test plans"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2154,6 +2299,12 @@ pub mod test_plans {
                 filter_active_plans: None,
             }
         }
+        #[doc = "Create a test plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A testPlanCreateParams object.TestPlanCreateParams"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -2167,6 +2318,12 @@ pub mod test_plans {
                 project: project.into(),
             }
         }
+        #[doc = "Get a test plan by Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2180,6 +2337,13 @@ pub mod test_plans {
                 plan_id,
             }
         }
+        #[doc = "Update a test plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A testPlanUpdateParams object.TestPlanUpdateParams"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan to be updated."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2195,6 +2359,12 @@ pub mod test_plans {
                 plan_id,
             }
         }
+        #[doc = "Delete a test plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `plan_id`: ID of the test plan to be deleted."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -2600,6 +2770,12 @@ pub mod test_plan_clone {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Clone test plan"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Plan Clone Request Body detail TestPlanCloneRequest"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn clone_test_plan(
             &self,
             organization: impl Into<String>,
@@ -2614,6 +2790,12 @@ pub mod test_plan_clone {
                 deep_clone: None,
             }
         }
+        #[doc = "Get clone information."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `clone_operation_id`: Operation ID returned when we queue a clone operation"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2784,6 +2966,12 @@ pub mod test_suite_entry {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test suite entries in the test suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `suite_id`: Id of the parent suite."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2798,6 +2986,13 @@ pub mod test_suite_entry {
                 suite_entry_type: None,
             }
         }
+        #[doc = "Reorder test suite entries in the test suite."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of SuiteEntry to reorder."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `suite_id`: Id of the parent test suite."]
         pub fn reorder_suite_entries(
             &self,
             organization: impl Into<String>,
@@ -2972,6 +3167,12 @@ pub mod test_suite_clone {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Clone test suite"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Suite Clone Request Body detail TestSuiteCloneRequest"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn clone_test_suite(
             &self,
             organization: impl Into<String>,
@@ -2986,6 +3187,12 @@ pub mod test_suite_clone {
                 deep_clone: None,
             }
         }
+        #[doc = "Get clone information."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `clone_operation_id`: Operation ID returned when we queue a clone operation"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3156,6 +3363,12 @@ pub mod test_cases {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Delete a test case."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_case_id`: Id of test case to be deleted."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -3240,6 +3453,9 @@ pub mod test_case_clone {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn clone_test_case(
             &self,
             organization: impl Into<String>,
@@ -3253,6 +3469,12 @@ pub mod test_case_clone {
                 project: project.into(),
             }
         }
+        #[doc = "Get clone information."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `clone_operation_id`: Operation ID returned when we queue a clone operation"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3414,6 +3636,11 @@ pub mod variables {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of test variables."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3426,6 +3653,12 @@ pub mod variables {
                 continuation_token: None,
             }
         }
+        #[doc = "Create a test variable."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestVariableCreateUpdateParameters"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -3439,6 +3672,12 @@ pub mod variables {
                 project: project.into(),
             }
         }
+        #[doc = "Get a test variable by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_variable_id`: ID of the test variable to get."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3452,6 +3691,13 @@ pub mod variables {
                 test_variable_id,
             }
         }
+        #[doc = "Update a test variable by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TestVariableCreateUpdateParameters"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_variable_id`: ID of the test variable to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3467,6 +3713,12 @@ pub mod variables {
                 test_variable_id,
             }
         }
+        #[doc = "Delete a test variable by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `test_variable_id`: ID of the test variable to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,

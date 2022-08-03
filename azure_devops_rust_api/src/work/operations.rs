@@ -159,6 +159,11 @@ pub mod boardcolumns {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get available board columns in a project"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -245,6 +250,11 @@ pub mod boardrows {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get available board rows in a project"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -331,6 +341,12 @@ pub mod iterationcapacities {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get an iteration's capacity for all teams in iteration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -421,6 +437,11 @@ pub mod plans {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the information for all the plans configured for the given team"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -432,6 +453,12 @@ pub mod plans {
                 project: project.into(),
             }
         }
+        #[doc = "Add a new plan for the team"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Plan definition"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -445,6 +472,12 @@ pub mod plans {
                 project: project.into(),
             }
         }
+        #[doc = "Get the information for the specified plan"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: Identifier of the plan"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -458,6 +491,13 @@ pub mod plans {
                 id: id.into(),
             }
         }
+        #[doc = "Update the information for the specified plan"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Plan definition to be updated"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: Identifier of the plan"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -473,6 +513,12 @@ pub mod plans {
                 id: id.into(),
             }
         }
+        #[doc = "Delete the specified plan"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: Identifier of the plan"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -838,6 +884,12 @@ pub mod deliverytimeline {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get Delivery View Data"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: Identifier for delivery view"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -956,6 +1008,11 @@ pub mod processconfiguration {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get process configuration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1042,6 +1099,12 @@ pub mod backlogconfiguration {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets backlog configuration for a team"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1132,6 +1195,12 @@ pub mod backlogs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "List all backlog levels"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1145,6 +1214,12 @@ pub mod backlogs {
                 team: team.into(),
             }
         }
+        #[doc = "Get a list of work items within a backlog level"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_backlog_level_work_items(
             &self,
             organization: impl Into<String>,
@@ -1160,6 +1235,13 @@ pub mod backlogs {
                 backlog_id: backlog_id.into(),
             }
         }
+        #[doc = "Get a backlog level"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `id`: The id of the backlog level"]
         pub fn get_backlog(
             &self,
             organization: impl Into<String>,
@@ -1398,6 +1480,12 @@ pub mod boards {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get boards"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1411,6 +1499,13 @@ pub mod boards {
                 team: team.into(),
             }
         }
+        #[doc = "Get board"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: identifier for board, either board's backlog level name (Eg:\"Stories\") or Id"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1426,6 +1521,14 @@ pub mod boards {
                 team: team.into(),
             }
         }
+        #[doc = "Update board options"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: options to updated"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: identifier for board, either category plural name (Eg:\"Stories\") or guid"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn set_board_options(
             &self,
             organization: impl Into<String>,
@@ -1667,6 +1770,13 @@ pub mod boardusersettings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get board user settings for a board id"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Board ID or Name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1682,6 +1792,12 @@ pub mod boardusersettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update board user settings for the board id\n\nWe don't want stakeholders to update board settings (currently just autorefresh). The BacklogManagement feature check validates this."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1853,6 +1969,12 @@ pub mod cardrulesettings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get board card Rule settings for the board id or board by name"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1868,6 +1990,12 @@ pub mod cardrulesettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update board card Rule settings for the board id or board by name"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_board_card_rule_settings(
             &self,
             organization: impl Into<String>,
@@ -1885,6 +2013,12 @@ pub mod cardrulesettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update taskboard card Rule settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_taskboard_card_rule_settings(
             &self,
             organization: impl Into<String>,
@@ -2121,6 +2255,12 @@ pub mod cardsettings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get board card settings for the board id or board by name"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2136,6 +2276,12 @@ pub mod cardsettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update board card settings for the board id or board by name"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_board_card_settings(
             &self,
             organization: impl Into<String>,
@@ -2153,6 +2299,12 @@ pub mod cardsettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update taskboard card settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_taskboard_card_settings(
             &self,
             organization: impl Into<String>,
@@ -2389,6 +2541,14 @@ pub mod chartimages {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a board chart image."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `board`: Identifier for board, either board's backlog level name (e.g. \"Issues\") or Id."]
+        #[doc = "* `name`: The chart name. e.g. CumulativeFlow."]
         pub fn get_board_chart_image(
             &self,
             organization: impl Into<String>,
@@ -2410,6 +2570,14 @@ pub mod chartimages {
                 title: None,
             }
         }
+        #[doc = "Get an iteration chart image."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `iteration_id`: ID of the iteration."]
+        #[doc = "* `name`: The chart name. e.g. Burndown."]
         pub fn get_iteration_chart_image(
             &self,
             organization: impl Into<String>,
@@ -2431,6 +2599,13 @@ pub mod chartimages {
                 title: None,
             }
         }
+        #[doc = "Get an iterations chart image."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `name`: The chart name. e.g. Velocity."]
         pub fn get_iterations_chart_image(
             &self,
             organization: impl Into<String>,
@@ -2791,6 +2966,13 @@ pub mod charts {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get board charts"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Identifier for board, either board's backlog level name (Eg:\"Stories\") or Id"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2806,6 +2988,14 @@ pub mod charts {
                 team: team.into(),
             }
         }
+        #[doc = "Get a board chart"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Identifier for board, either board's backlog level name (Eg:\"Stories\") or Id"]
+        #[doc = "* `name`: The chart name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -2823,6 +3013,14 @@ pub mod charts {
                 team: team.into(),
             }
         }
+        #[doc = "Update a board chart"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Identifier for board, either board's backlog level name (Eg:\"Stories\") or Id"]
+        #[doc = "* `name`: The chart name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3073,6 +3271,13 @@ pub mod columns {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get columns on a board"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Name or ID of the specific board"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3088,6 +3293,14 @@ pub mod columns {
                 team: team.into(),
             }
         }
+        #[doc = "Update columns on a board"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of board columns to update"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Name or ID of the specific board"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3259,6 +3472,13 @@ pub mod rows {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get rows on a board"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Name or ID of the specific board"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3274,6 +3494,14 @@ pub mod rows {
                 team: team.into(),
             }
         }
+        #[doc = "Update rows on a board"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: List of board rows to update"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `board`: Name or ID of the specific board"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3445,6 +3673,12 @@ pub mod boardparents {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the list of parent field filter model for the given list of workitem ids"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3551,6 +3785,13 @@ pub mod workitemsorder {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Reorder Sprint Backlog/Taskboard Work Items"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
+        #[doc = "* `iteration_id`: The id of the iteration"]
         pub fn reorder_iteration_work_items(
             &self,
             organization: impl Into<String>,
@@ -3568,6 +3809,12 @@ pub mod workitemsorder {
                 iteration_id: iteration_id.into(),
             }
         }
+        #[doc = "Reorder Product Backlog/Boards Work Items"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn reorder_backlog_work_items(
             &self,
             organization: impl Into<String>,
@@ -3737,6 +3984,10 @@ pub mod taskboard_columns {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3750,6 +4001,10 @@ pub mod taskboard_columns {
                 team: team.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -3915,6 +4170,10 @@ pub mod taskboard_work_items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3930,6 +4189,10 @@ pub mod taskboard_work_items {
                 iteration_id: iteration_id.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4099,6 +4362,12 @@ pub mod teamsettings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a team's settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4112,6 +4381,13 @@ pub mod teamsettings {
                 team: team.into(),
             }
         }
+        #[doc = "Update a team's settings"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: TeamSettings changes"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4277,6 +4553,12 @@ pub mod iterations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a team's iterations using timeframe filter"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -4291,6 +4573,13 @@ pub mod iterations {
                 timeframe: None,
             }
         }
+        #[doc = "Add an iteration to the team"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Iteration to add"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn post_team_iteration(
             &self,
             organization: impl Into<String>,
@@ -4306,6 +4595,13 @@ pub mod iterations {
                 team: team.into(),
             }
         }
+        #[doc = "Get team's iteration by iterationId"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4321,6 +4617,13 @@ pub mod iterations {
                 team: team.into(),
             }
         }
+        #[doc = "Delete a team's iteration by iterationId"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -4336,6 +4639,13 @@ pub mod iterations {
                 team: team.into(),
             }
         }
+        #[doc = "Get work items for iteration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_iteration_work_items(
             &self,
             organization: impl Into<String>,
@@ -4722,6 +5032,13 @@ pub mod capacities {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a team's capacity including total capacity and days off"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_capacities_with_identity_ref_and_totals(
             &self,
             organization: impl Into<String>,
@@ -4737,6 +5054,14 @@ pub mod capacities {
                 team: team.into(),
             }
         }
+        #[doc = "Replace a team's capacity"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Team capacity to replace"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn replace_capacities_with_identity_ref(
             &self,
             organization: impl Into<String>,
@@ -4754,6 +5079,14 @@ pub mod capacities {
                 team: team.into(),
             }
         }
+        #[doc = "Get a team member's capacity"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team_member_id`: ID of the team member"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_capacity_with_identity_ref(
             &self,
             organization: impl Into<String>,
@@ -4771,6 +5104,15 @@ pub mod capacities {
                 team: team.into(),
             }
         }
+        #[doc = "Update a team member's capacity"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Updated capacity"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team_member_id`: ID of the team member"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5096,6 +5438,13 @@ pub mod teamdaysoff {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get team's days off for an iteration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5111,6 +5460,14 @@ pub mod teamdaysoff {
                 team: team.into(),
             }
         }
+        #[doc = "Set a team's days off for an iteration"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Team's days off patch containing a list of start and end dates"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `iteration_id`: ID of the iteration"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5282,6 +5639,12 @@ pub mod teamfieldvalues {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a collection of team field values"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5295,6 +5658,12 @@ pub mod teamfieldvalues {
                 team: team.into(),
             }
         }
+        #[doc = "Update team field values"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update(
             &self,
             organization: impl Into<String>,

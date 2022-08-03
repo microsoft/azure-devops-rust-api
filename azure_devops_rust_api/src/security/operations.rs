@@ -96,6 +96,11 @@ pub mod access_control_entries {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Add or update ACEs in the ACL for the provided token. The request body contains the target token, a list of [ACEs](https://docs.microsoft.com/en-us/rest/api/azure/devops/security/access%20control%20entries/set%20access%20control%20entries?#accesscontrolentry) and a optional merge parameter. In the case of a collision (by identity descriptor) with an existing ACE in the ACL, the \"merge\" parameter determines the behavior. If set, the existing ACE has its allow and deny merged with the incoming ACE's allow and deny. If unset, the existing ACE is displaced."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn set_access_control_entries(
             &self,
             body: impl Into<models::JObject>,
@@ -109,6 +114,11 @@ pub mod access_control_entries {
                 organization: organization.into(),
             }
         }
+        #[doc = "Remove the specified ACEs from the ACL belonging to the specified token."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn remove_access_control_entries(
             &self,
             security_namespace_id: impl Into<String>,
@@ -284,6 +294,11 @@ pub mod access_control_lists {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Return a list of access control lists for the specified security namespace and token. All ACLs in the security namespace will be retrieved if no optional parameters are provided."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query(
             &self,
             security_namespace_id: impl Into<String>,
@@ -299,6 +314,12 @@ pub mod access_control_lists {
                 recurse: None,
             }
         }
+        #[doc = "Create or update one or more access control lists. All data that currently exists for the ACLs supplied will be overwritten."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `body`: A list of ACLs to create or update."]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn set_access_control_lists(
             &self,
             body: impl Into<models::VssJsonCollectionWrapper>,
@@ -312,6 +333,11 @@ pub mod access_control_lists {
                 organization: organization.into(),
             }
         }
+        #[doc = "Remove access control lists under the specfied security namespace."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn remove_access_control_lists(
             &self,
             security_namespace_id: impl Into<String>,
@@ -587,6 +613,12 @@ pub mod permissions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Evaluates whether the caller has the specified permissions on the specified set of security tokens."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `permissions`: Permissions to evaluate."]
         pub fn has_permissions(
             &self,
             security_namespace_id: impl Into<String>,
@@ -603,6 +635,13 @@ pub mod permissions {
                 delimiter: None,
             }
         }
+        #[doc = "Removes the specified permissions on a security token for a user or group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
+        #[doc = "* `descriptor`: Identity descriptor of the user to remove permissions for."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `permissions`: Permissions to remove."]
         pub fn remove_permission(
             &self,
             security_namespace_id: impl Into<String>,
@@ -619,6 +658,11 @@ pub mod permissions {
                 token: None,
             }
         }
+        #[doc = "Evaluates multiple permissions for the calling user.  Note: This method does not aggregate the results, nor does it short-circuit if one of the permissions evaluates to false."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `body`: The set of evaluation requests."]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn has_permissions_batch(
             &self,
             body: impl Into<models::PermissionEvaluationBatch>,
@@ -888,6 +932,11 @@ pub mod security_namespaces {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "List all security namespaces or just the specified namespace."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `security_namespace_id`: Security namespace identifier."]
         pub fn query(
             &self,
             organization: impl Into<String>,

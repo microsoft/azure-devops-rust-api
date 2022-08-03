@@ -108,6 +108,10 @@ pub mod service_settings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all service-wide feed creation and administration permissions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_global_permissions(
             &self,
             organization: impl Into<String>,
@@ -118,6 +122,11 @@ pub mod service_settings {
                 include_ids: None,
             }
         }
+        #[doc = "Set service-wide permissions that govern feed creation and administration."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: New permissions for the organization."]
         pub fn set_global_permissions(
             &self,
             organization: impl Into<String>,
@@ -280,6 +289,11 @@ pub mod change_tracking {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Query to determine which feeds have changed since the last call, tracked through the provided continuationToken. Only changes to a feed itself are returned and impact the continuationToken, not additions or alterations to packages within the feeds.\n\nIf the project parameter is present, gets all feed changes in the given project.\nIf omitted, gets all feed changes in the organization."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed_changes(
             &self,
             organization: impl Into<String>,
@@ -294,6 +308,12 @@ pub mod change_tracking {
                 batch_size: None,
             }
         }
+        #[doc = "Query a feed to determine its current state.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed_change(
             &self,
             organization: impl Into<String>,
@@ -307,6 +327,12 @@ pub mod change_tracking {
                 project: project.into(),
             }
         }
+        #[doc = "Get a batch of package changes made to a feed.  The changes returned are 'most recent change' so if an Add is followed by an Update before you begin enumerating, you'll only see one change in the batch.  While consuming batches using the continuation token, you may see changes to the same package version multiple times if they are happening as you enumerate.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_changes(
             &self,
             organization: impl Into<String>,
@@ -584,6 +610,11 @@ pub mod feed_recycle_bin {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Query for feeds within the recycle bin.\n\nIf the project parameter is present, gets all feeds in recycle bin in the given project.\nIf omitted, gets all feeds in recycle bin in the organization."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -595,6 +626,9 @@ pub mod feed_recycle_bin {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn restore_deleted_feed(
             &self,
             organization: impl Into<String>,
@@ -610,6 +644,9 @@ pub mod feed_recycle_bin {
                 project: project.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn permanent_delete_feed(
             &self,
             organization: impl Into<String>,
@@ -830,6 +867,11 @@ pub mod feed_management {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all feeds in an account where you have the provided role access.\n\nIf the project parameter is present, gets all feeds in the given project.\nIf omitted, gets all feeds in the organization."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feeds(
             &self,
             organization: impl Into<String>,
@@ -844,6 +886,12 @@ pub mod feed_management {
                 include_urls: None,
             }
         }
+        #[doc = "Create a feed, a container for various package types.\n\nFeeds can be created in a project if the project parameter is included in the request url.\nIf the project parameter is omitted, the feed will not be associated with a project and will be created at the organization level."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A JSON object containing both required and optional attributes for the feed. Name is the only required value."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_feed(
             &self,
             organization: impl Into<String>,
@@ -857,6 +905,12 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Get the settings for a specific feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed(
             &self,
             organization: impl Into<String>,
@@ -871,6 +925,13 @@ pub mod feed_management {
                 include_deleted_upstreams: None,
             }
         }
+        #[doc = "Change the attributes of a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A JSON object containing the feed settings to be updated."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_feed(
             &self,
             organization: impl Into<String>,
@@ -886,6 +947,12 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Remove a feed and all its packages. The feed moves to the recycle bin and is reversible.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_feed(
             &self,
             organization: impl Into<String>,
@@ -899,6 +966,12 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Get the permissions for a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed_permissions(
             &self,
             organization: impl Into<String>,
@@ -916,6 +989,13 @@ pub mod feed_management {
                 include_deleted_feeds: None,
             }
         }
+        #[doc = "Update the permissions on a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Permissions to set."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_feed_permissions(
             &self,
             organization: impl Into<String>,
@@ -931,6 +1011,12 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Get all views for a feed.\n\nThe project parameter must be supplied if the feed was created in a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed_views(
             &self,
             organization: impl Into<String>,
@@ -944,6 +1030,13 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Create a new view on the referenced feed.\n\nThe project parameter must be supplied if the feed was created in a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: View to be created."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_feed_view(
             &self,
             organization: impl Into<String>,
@@ -959,6 +1052,13 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Get a view by Id.\n\nThe project parameter must be supplied if the feed was created in a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `view_id`: Name or Id of the view."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_feed_view(
             &self,
             organization: impl Into<String>,
@@ -974,6 +1074,14 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Update a view.\n\nThe project parameter must be supplied if the feed was created in a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: New settings to apply to the specified view."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `view_id`: Name or Id of the view."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_feed_view(
             &self,
             organization: impl Into<String>,
@@ -991,6 +1099,13 @@ pub mod feed_management {
                 project: project.into(),
             }
         }
+        #[doc = "Delete a feed view.\n\nThe project parameter must be supplied if the feed was created in a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `view_id`: Name or Id of the view."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_feed_view(
             &self,
             organization: impl Into<String>,
@@ -1945,6 +2060,9 @@ pub mod artifact_details {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query_package_metrics(
             &self,
             organization: impl Into<String>,
@@ -1960,6 +2078,12 @@ pub mod artifact_details {
                 project: project.into(),
             }
         }
+        #[doc = "Get details about all of the packages in the feed. Use the various filters to include or exclude information from the result set.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_packages(
             &self,
             organization: impl Into<String>,
@@ -1987,6 +2111,13 @@ pub mod artifact_details {
                 direct_upstream_id: None,
             }
         }
+        #[doc = "Get details about a specific package.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: The package Id (GUID Id, not the package name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package(
             &self,
             organization: impl Into<String>,
@@ -2008,6 +2139,9 @@ pub mod artifact_details {
                 include_description: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn query_package_version_metrics(
             &self,
             organization: impl Into<String>,
@@ -2025,6 +2159,13 @@ pub mod artifact_details {
                 project: project.into(),
             }
         }
+        #[doc = "Get a list of package versions, optionally filtering by state.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: Id of the package (GUID Id, not name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_versions(
             &self,
             organization: impl Into<String>,
@@ -2043,6 +2184,14 @@ pub mod artifact_details {
                 is_deleted: None,
             }
         }
+        #[doc = "Get details about a specific package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: Id of the package (GUID Id, not name)."]
+        #[doc = "* `package_version_id`: Id of the package version (GUID Id, not name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version(
             &self,
             organization: impl Into<String>,
@@ -2063,6 +2212,14 @@ pub mod artifact_details {
                 is_deleted: None,
             }
         }
+        #[doc = "Gets provenance for a package version.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: Id of the package (GUID Id, not name)."]
+        #[doc = "* `package_version_id`: Id of the package version (GUID Id, not name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_package_version_provenance(
             &self,
             organization: impl Into<String>,
@@ -2080,6 +2237,13 @@ pub mod artifact_details {
                 project: project.into(),
             }
         }
+        #[doc = "Generate a SVG badge for the latest version of a package.  The generated SVG is typically used as the image in an HTML link which takes users to the feed containing the package to accelerate discovery and consumption.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: Id of the package (GUID Id, not name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_badge(
             &self,
             organization: impl Into<String>,
@@ -2933,6 +3097,12 @@ pub mod recycle_bin {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Query for packages within the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_recycle_bin_packages(
             &self,
             organization: impl Into<String>,
@@ -2952,6 +3122,12 @@ pub mod recycle_bin {
                 include_all_versions: None,
             }
         }
+        #[doc = "Queues a job to remove all package versions from a feed's recycle bin"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn empty_recycle_bin(
             &self,
             organization: impl Into<String>,
@@ -2965,6 +3141,13 @@ pub mod recycle_bin {
                 project: project.into(),
             }
         }
+        #[doc = "Get information about a package and all its versions within the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: The package Id (GUID Id, not the package name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_recycle_bin_package(
             &self,
             organization: impl Into<String>,
@@ -2981,6 +3164,13 @@ pub mod recycle_bin {
                 include_urls: None,
             }
         }
+        #[doc = "Get a list of package versions within the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: The package Id (GUID Id, not the package name)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_recycle_bin_package_versions(
             &self,
             organization: impl Into<String>,
@@ -2997,6 +3187,14 @@ pub mod recycle_bin {
                 include_urls: None,
             }
         }
+        #[doc = "Get information about a package version within the recycle bin.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or Id of the feed."]
+        #[doc = "* `package_id`: The package Id (GUID Id, not the package name)."]
+        #[doc = "* `package_version_id`: The package version Id 9guid Id, not the version string)."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_recycle_bin_package_version(
             &self,
             organization: impl Into<String>,
@@ -3465,6 +3663,12 @@ pub mod retention_policies {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the retention policy for a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_retention_policy(
             &self,
             organization: impl Into<String>,
@@ -3478,6 +3682,13 @@ pub mod retention_policies {
                 project: project.into(),
             }
         }
+        #[doc = "Set the retention policy for a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Feed retention policy."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn set_retention_policy(
             &self,
             organization: impl Into<String>,
@@ -3493,6 +3704,12 @@ pub mod retention_policies {
                 project: project.into(),
             }
         }
+        #[doc = "Delete the retention policy for a feed.\n\nThe project parameter must be supplied if the feed was created in a project.\nIf the feed is not associated with any project, omit the project parameter from the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `feed_id`: Name or ID of the feed."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete_retention_policy(
             &self,
             organization: impl Into<String>,
@@ -3721,6 +3938,13 @@ pub mod provenance {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Creates a session, a wrapper around a feed that can store additional metadata on the packages published to it."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The feed and metadata for the session"]
+        #[doc = "* `protocol`: The protocol that the session will target"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create_session(
             &self,
             organization: impl Into<String>,

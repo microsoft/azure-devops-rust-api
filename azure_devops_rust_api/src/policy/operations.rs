@@ -96,6 +96,11 @@ pub mod configurations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of policy configurations in a project.\n\nThe 'scope' parameter for this API should not be used, except for legacy compatability reasons. It returns specifically\nscoped policies and does not support heirarchical nesting. Instead, use the /_apis/git/policy/configurations API, which provides\nfirst class scope filtering support.\n\nThe optional `policyType` parameter can be used to filter the set of policies returned from this method."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -111,6 +116,12 @@ pub mod configurations {
                 policy_type: None,
             }
         }
+        #[doc = "Get a policy configuration by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `configuration_id`: ID of the policy configuration"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -124,6 +135,12 @@ pub mod configurations {
                 configuration_id,
             }
         }
+        #[doc = "Create a policy configuration of a given policy type."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The policy configuration to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -139,6 +156,13 @@ pub mod configurations {
                 configuration_id,
             }
         }
+        #[doc = "Update a policy configuration by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The policy configuration to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `configuration_id`: ID of the existing policy configuration to be updated."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -154,6 +178,12 @@ pub mod configurations {
                 configuration_id,
             }
         }
+        #[doc = "Delete a policy configuration by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `configuration_id`: ID of the policy configuration to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -557,6 +587,12 @@ pub mod revisions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all revisions for a given policy."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `configuration_id`: The policy configuration ID."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -572,6 +608,13 @@ pub mod revisions {
                 skip: None,
             }
         }
+        #[doc = "Retrieve a specific revision of a given policy by ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `configuration_id`: The policy configuration ID."]
+        #[doc = "* `revision_id`: The revision ID."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -754,6 +797,12 @@ pub mod evaluations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieves a list of all the policy evaluation statuses for a specific pull request.\n\nEvaluations are retrieved using an artifact ID which uniquely identifies the pull request.\nTo generate an artifact ID for a pull request, use this template:\n```\nvstfs:///CodeReview/CodeReviewId/{projectId}/{pullRequestId}\n```"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `artifact_id`: A string which uniquely identifies the target of a policy evaluation."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -770,6 +819,12 @@ pub mod evaluations {
                 skip: None,
             }
         }
+        #[doc = "Gets the present evaluation state of a policy.\n\nEach policy which applies to a pull request will have an evaluation state which is specific to that policy running\nin the context of that pull request. Each evaluation is uniquely identified via a Guid. You can find all the policy\nevaluations for a specific pull request using the List operation of this controller."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `evaluation_id`: ID of the policy evaluation to be retrieved."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -783,6 +838,12 @@ pub mod evaluations {
                 evaluation_id: evaluation_id.into(),
             }
         }
+        #[doc = "Requeue the policy evaluation.\n\nSome policies define a \"requeue\" action which performs some policy-specific operation.\nYou can trigger this operation by updating an existing policy evaluation and setting the\nPolicyEvaluationRecord.Status field to Queued.\nAlthough any policy evaluation can be requeued, at present only build policies perform any action\nin response. Requeueing a build policy will queue a new build to run (cancelling any existing build which\nis running)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `evaluation_id`: ID of the policy evaluation to be retrieved."]
         pub fn requeue_policy_evaluation(
             &self,
             organization: impl Into<String>,
@@ -1044,6 +1105,11 @@ pub mod types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Retrieve all available policy types."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1055,6 +1121,12 @@ pub mod types {
                 project: project.into(),
             }
         }
+        #[doc = "Retrieve a specific policy type by ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `type_id`: The policy ID."]
         pub fn get(
             &self,
             organization: impl Into<String>,

@@ -108,6 +108,12 @@ pub mod releases {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a Release"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
         pub fn get_release(
             &self,
             organization: impl Into<String>,
@@ -125,6 +131,11 @@ pub mod releases {
                 top_gate_records: None,
             }
         }
+        #[doc = "Get a list of releases"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -157,6 +168,12 @@ pub mod releases {
                 path: None,
             }
         }
+        #[doc = "Create a release."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Metadata to create a release."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -170,6 +187,13 @@ pub mod releases {
                 project: project.into(),
             }
         }
+        #[doc = "Get release for a given revision number."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `definition_snapshot_revision`: Definition snapshot revision number."]
         pub fn get_release_revision(
             &self,
             organization: impl Into<String>,
@@ -185,6 +209,13 @@ pub mod releases {
                 definition_snapshot_revision,
             }
         }
+        #[doc = "Update a complete release object."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Release object for update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release to update."]
         pub fn update_release(
             &self,
             organization: impl Into<String>,
@@ -200,6 +231,13 @@ pub mod releases {
                 release_id,
             }
         }
+        #[doc = "Update few properties of a release."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Properties of release to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release to update."]
         pub fn update_release_resource(
             &self,
             organization: impl Into<String>,
@@ -215,6 +253,13 @@ pub mod releases {
                 release_id,
             }
         }
+        #[doc = "Get a release environment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of the release environment."]
         pub fn get_release_environment(
             &self,
             organization: impl Into<String>,
@@ -231,6 +276,14 @@ pub mod releases {
                 expand: None,
             }
         }
+        #[doc = "Update the status of a release environment"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Environment update meta data."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of release environment."]
         pub fn update_release_environment(
             &self,
             organization: impl Into<String>,
@@ -248,6 +301,15 @@ pub mod releases {
                 environment_id,
             }
         }
+        #[doc = "Gets the task log of a release as a plain text file."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of release environment."]
+        #[doc = "* `release_deploy_phase_id`: Release deploy phase Id."]
+        #[doc = "* `task_id`: ReleaseTask Id for the log."]
         pub fn get_task_log(
             &self,
             organization: impl Into<String>,
@@ -269,6 +331,12 @@ pub mod releases {
                 end_line: None,
             }
         }
+        #[doc = "Get logs for a release Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
         pub fn get_logs(
             &self,
             organization: impl Into<String>,
@@ -1248,6 +1316,11 @@ pub mod approvals {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of approvals"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1267,6 +1340,13 @@ pub mod approvals {
                 include_my_group_approvals: None,
             }
         }
+        #[doc = "Update status of an approval"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: ReleaseApproval object having status, approver and comments."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `approval_id`: Id of the approval."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1501,6 +1581,11 @@ pub mod definitions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of release definitions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1526,6 +1611,12 @@ pub mod definitions {
                 search_text_contains_folder_name: None,
             }
         }
+        #[doc = "Create a release definition"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: release definition object to create."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1539,6 +1630,12 @@ pub mod definitions {
                 project: project.into(),
             }
         }
+        #[doc = "Update a release definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Release definition object to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1552,6 +1649,12 @@ pub mod definitions {
                 project: project.into(),
             }
         }
+        #[doc = "Get a release definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: Id of the release definition."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1566,6 +1669,12 @@ pub mod definitions {
                 property_filters: None,
             }
         }
+        #[doc = "Delete a release definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: Id of the release definition."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1581,6 +1690,12 @@ pub mod definitions {
                 force_delete: None,
             }
         }
+        #[doc = "Get revision history for a release definition"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: Id of the definition."]
         pub fn get_release_definition_history(
             &self,
             organization: impl Into<String>,
@@ -1594,6 +1709,13 @@ pub mod definitions {
                 definition_id,
             }
         }
+        #[doc = "Get release definition for a given definitionId and revision"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: Id of the definition."]
+        #[doc = "* `revision`: Id of the revision."]
         pub fn get_definition_revision(
             &self,
             organization: impl Into<String>,
@@ -2258,6 +2380,9 @@ pub mod deployments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2494,6 +2619,12 @@ pub mod folders {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets folders."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: Path of the folder."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -2508,6 +2639,13 @@ pub mod folders {
                 query_order: None,
             }
         }
+        #[doc = "This method is no longer supported. Use CreateFolder with folder parameter API."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: folder."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: Path of the folder."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -2523,6 +2661,13 @@ pub mod folders {
                 path: path.into(),
             }
         }
+        #[doc = "Updates an existing folder at given existing path."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: folder."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: Path of the folder to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2538,6 +2683,12 @@ pub mod folders {
                 path: path.into(),
             }
         }
+        #[doc = "Deletes a definition folder for given folder name and path and all it's existing definitions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: Path of the folder to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -2845,6 +2996,13 @@ pub mod gates {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Updates the gate for a deployment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Metadata to patch the Release Gates."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `gate_step_id`: Gate step Id."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2939,6 +3097,16 @@ pub mod attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get the release task attachments."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of the release environment."]
+        #[doc = "* `attempt_id`: Attempt number of deployment."]
+        #[doc = "* `plan_id`: Plan Id of the deploy phase."]
+        #[doc = "* `type_`: Type of the attachment."]
         pub fn get_release_task_attachments(
             &self,
             organization: impl Into<String>,
@@ -2960,6 +3128,19 @@ pub mod attachments {
                 type_: type_.into(),
             }
         }
+        #[doc = "Get a release task attachment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of the release environment."]
+        #[doc = "* `attempt_id`: Attempt number of deployment."]
+        #[doc = "* `plan_id`: Plan Id of the deploy phase."]
+        #[doc = "* `timeline_id`: Timeline Id of the task."]
+        #[doc = "* `record_id`: Record Id of attachment."]
+        #[doc = "* `type_`: Type of the attachment."]
+        #[doc = "* `name`: Name of the attachment."]
         pub fn get_release_task_attachment_content(
             &self,
             organization: impl Into<String>,
@@ -2987,6 +3168,16 @@ pub mod attachments {
                 name: name.into(),
             }
         }
+        #[doc = "GetTaskAttachments API is deprecated. Use GetReleaseTaskAttachments API instead."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of the release environment."]
+        #[doc = "* `attempt_id`: Attempt number of deployment."]
+        #[doc = "* `timeline_id`: Timeline Id of the task."]
+        #[doc = "* `type_`: Type of the attachment."]
         pub fn get_task_attachments(
             &self,
             organization: impl Into<String>,
@@ -3008,6 +3199,18 @@ pub mod attachments {
                 type_: type_.into(),
             }
         }
+        #[doc = "GetTaskAttachmentContent API is deprecated. Use GetReleaseTaskAttachmentContent API instead."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `environment_id`: Id of the release environment."]
+        #[doc = "* `attempt_id`: Attempt number of deployment."]
+        #[doc = "* `timeline_id`: Timeline Id of the task."]
+        #[doc = "* `record_id`: Record Id of attachment."]
+        #[doc = "* `type_`: Type of the attachment."]
+        #[doc = "* `name`: Name of the attachment."]
         pub fn get_task_attachment_content(
             &self,
             organization: impl Into<String>,
@@ -3318,6 +3521,12 @@ pub mod manual_interventions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "List all manual interventions for a given release."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3331,6 +3540,13 @@ pub mod manual_interventions {
                 release_id,
             }
         }
+        #[doc = "Get manual intervention for a given release and manual intervention id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `manual_intervention_id`: Id of the manual intervention."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3346,6 +3562,14 @@ pub mod manual_interventions {
                 manual_intervention_id,
             }
         }
+        #[doc = "Update manual intervention."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Meta data to update manual intervention."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `release_id`: Id of the release."]
+        #[doc = "* `manual_intervention_id`: Id of the manual intervention."]
         pub fn update(
             &self,
             organization: impl Into<String>,

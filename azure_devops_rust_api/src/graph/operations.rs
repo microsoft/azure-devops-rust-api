@@ -120,6 +120,11 @@ pub mod descriptors {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Resolve a storage key to a descriptor"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `storage_key`: Storage key of the subject (user, group, scope, etc.) to resolve"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             storage_key: impl Into<String>,
@@ -206,6 +211,10 @@ pub mod groups {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a list of all groups in the current scope (usually organization or account).\n\nThe optional parameters are used to filter down the returned results. Returned results are in no guaranteed order.\n\n Since the list of groups may be large, results are returned in pages of groups.  If there are more results\n than can be returned in a single page, the result set will contain a continuation token for retrieval of the\n next set of results."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -215,6 +224,11 @@ pub mod groups {
                 continuation_token: None,
             }
         }
+        #[doc = "Create a new Azure DevOps group or materialize an existing AAD group.\n\nThe body of the request must be a derived type of GraphGroupCreationContext:\n  * GraphGroupVstsCreationContext - Create a new Azure DevOps group that is not backed by an external provider.\n  * GraphGroupMailAddressCreationContext - Create a new group using the mail address as a reference to an existing group from an external AD or AAD backed provider.\n  * GraphGroupOriginIdCreationContext - Create a new group using the OriginID as a reference to a group from an external AD or AAD backed provider.\n\n Optionally, you can add the newly created group as a member of an existing Azure DevOps group and/or specify a custom storage key for the group."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The subset of the full graph group used to uniquely find the graph subject in an external provider."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -228,6 +242,11 @@ pub mod groups {
                 group_descriptors: None,
             }
         }
+        #[doc = "Get a group by its descriptor.\n\nThe group will be returned even if it has been deleted from the account or has had all its memberships\ndeleted."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_descriptor`: The descriptor of the desired graph group."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -239,6 +258,12 @@ pub mod groups {
                 group_descriptor: group_descriptor.into(),
             }
         }
+        #[doc = "Update the properties of an Azure DevOps group.\n\nCurrently limited to only changing the description and account name."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_descriptor`: The descriptor of the group to modify."]
+        #[doc = "* `body`: The JSON+Patch document containing the fields to alter."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -252,6 +277,11 @@ pub mod groups {
                 body: body.into(),
             }
         }
+        #[doc = "Removes an Azure DevOps group from all of its parent groups.\n\nThe group will still be visible, but membership\n checks for the group, and all descendants which derive membership through it, will return false.”"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `group_descriptor`: The descriptor of the group to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -653,6 +683,8 @@ pub mod identity_translation {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn translate(&self, organization: impl Into<String>) -> translate::Builder {
             translate::Builder {
                 client: self.0.clone(),
@@ -749,6 +781,11 @@ pub mod memberships {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the memberships where this descriptor is a member in the relationship.\n\nThe default value for direction is 'up' meaning return all memberships where the subject is a member (e.g. all groups the subject is a member of).\n Alternatively, passing the direction as 'down' will return all memberships where the subject is a container (e.g. all members of the subject group)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: Fetch all direct memberships of this descriptor."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -762,6 +799,12 @@ pub mod memberships {
                 depth: None,
             }
         }
+        #[doc = "Get a membership relationship between a container and subject."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: A descriptor to the child subject in the relationship."]
+        #[doc = "* `container_descriptor`: A descriptor to the container in the relationship."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -775,6 +818,12 @@ pub mod memberships {
                 container_descriptor: container_descriptor.into(),
             }
         }
+        #[doc = "Create a new membership between a container and subject."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: A descriptor to a group or user that can be the child subject in the relationship."]
+        #[doc = "* `container_descriptor`: A descriptor to a group that can be the container in the relationship."]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -788,6 +837,12 @@ pub mod memberships {
                 container_descriptor: container_descriptor.into(),
             }
         }
+        #[doc = "Deletes a membership between a container and subject."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: A descriptor to a group or user that is the child subject in the relationship."]
+        #[doc = "* `container_descriptor`: A descriptor to a group that is the container in the relationship."]
         pub fn remove_membership(
             &self,
             organization: impl Into<String>,
@@ -801,6 +856,12 @@ pub mod memberships {
                 container_descriptor: container_descriptor.into(),
             }
         }
+        #[doc = "Check to see if a membership relationship between a container and subject exists."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: The group or user that is a child subject of the relationship."]
+        #[doc = "* `container_descriptor`: The group that is the container in the relationship."]
         pub fn check_membership_existence(
             &self,
             organization: impl Into<String>,
@@ -1178,6 +1239,11 @@ pub mod membership_states {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Check whether a subject is active or inactive."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: Descriptor of the subject (user, group, scope, etc.) to check state of"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1264,6 +1330,8 @@ pub mod request_access {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn request_access(
             &self,
             organization: impl Into<String>,
@@ -1344,6 +1412,10 @@ pub mod storage_keys {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Resolve a descriptor to a storage key."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             subject_descriptor: impl Into<String>,
@@ -1430,6 +1502,11 @@ pub mod subject_lookup {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Resolve descriptors to users, groups or scopes (Subjects) in a batch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A list of descriptors that specifies a subset of subjects to retrieve. Each descriptor uniquely identifies the subject across all instance scopes, but only at a single point in time."]
         pub fn lookup_subjects(
             &self,
             organization: impl Into<String>,
@@ -1516,6 +1593,11 @@ pub mod subject_query {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Search for Azure Devops users, or/and groups. Results will be returned in a batch with no more than 100 graph subjects."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The query that we'll be using to search includes the following: Query: the search term. The search will be prefix matching only. SubjectKind: \"User\" or \"Group\" can be specified, both or either ScopeDescriptor: Non-default scope can be specified, i.e. project scope descriptor"]
         pub fn query(
             &self,
             organization: impl Into<String>,
@@ -1602,6 +1684,8 @@ pub mod avatars {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             subject_descriptor: impl Into<String>,
@@ -1615,6 +1699,8 @@ pub mod avatars {
                 format: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn set_avatar(
             &self,
             body: impl Into<models::Avatar>,
@@ -1628,6 +1714,8 @@ pub mod avatars {
                 organization: organization.into(),
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete(
             &self,
             subject_descriptor: impl Into<String>,
@@ -1857,6 +1945,10 @@ pub mod users {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of all users in a given scope.\n\nSince the list of users may be large, results are returned in pages of users.  If there are more results\n than can be returned in a single page, the result set will contain a continuation token for retrieval of the\n next set of results."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -1866,6 +1958,11 @@ pub mod users {
                 scope_descriptor: None,
             }
         }
+        #[doc = "Materialize an existing AAD or MSA user into the VSTS account.\n\nNOTE: Created users are not active in an account unless they have been explicitly assigned a parent group at creation time or have signed in\n  and been autolicensed through AAD group memberships.\n\n Adding a user to an account is required before the user can be added to VSTS groups or assigned an asset.\n\n The body of the request must be a derived type of GraphUserCreationContext:\n  * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an existing user from an external AD or AAD backed provider.\n\n If the user to be added corresponds to a user that was previously deleted, then that user will be restored.\n\n Optionally, you can add the newly created user as a member of an existing VSTS group and/or specify a custom storage key for the user."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The subset of the full graph user used to uniquely find the graph subject in an external provider."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1878,6 +1975,11 @@ pub mod users {
                 group_descriptors: None,
             }
         }
+        #[doc = "Get a user by its descriptor."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `user_descriptor`: The descriptor of the desired user."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1889,6 +1991,12 @@ pub mod users {
                 user_descriptor: user_descriptor.into(),
             }
         }
+        #[doc = "Map an existing user to a different identity"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The subset of the full graph user used to uniquely find the graph subject in an external provider."]
+        #[doc = "* `user_descriptor`: the descriptor of the user to update"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1902,6 +2010,11 @@ pub mod users {
                 user_descriptor: user_descriptor.into(),
             }
         }
+        #[doc = "Disables a user.\n\nThe user will still be visible, but membership checks for the user will return false.”"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `user_descriptor`: The descriptor of the user to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -2294,6 +2407,8 @@ pub mod provider_info {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             user_descriptor: impl Into<String>,

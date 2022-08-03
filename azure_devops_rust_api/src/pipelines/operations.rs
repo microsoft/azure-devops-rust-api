@@ -99,6 +99,11 @@ pub mod pipelines {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of pipelines."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -113,6 +118,12 @@ pub mod pipelines {
                 continuation_token: None,
             }
         }
+        #[doc = "Create a pipeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Input parameters."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -126,6 +137,12 @@ pub mod pipelines {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a pipeline, optionally at the specified version"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: The pipeline ID"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -391,6 +408,13 @@ pub mod preview {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Queues a dry run of the pipeline and returns an object containing the final yaml."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Optional additional parameters for this run."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: The pipeline ID."]
         pub fn preview(
             &self,
             organization: impl Into<String>,
@@ -495,6 +519,12 @@ pub mod runs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets top 10000 runs for a particular pipeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: The pipeline id"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -508,6 +538,13 @@ pub mod runs {
                 pipeline_id,
             }
         }
+        #[doc = "Runs a pipeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Optional additional parameters for this run."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: The pipeline ID."]
         pub fn run_pipeline(
             &self,
             organization: impl Into<String>,
@@ -524,6 +561,13 @@ pub mod runs {
                 pipeline_version: None,
             }
         }
+        #[doc = "Gets a run for a particular pipeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: The pipeline id"]
+        #[doc = "* `run_id`: The run id"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -768,6 +812,14 @@ pub mod artifacts {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a specific artifact from a pipeline run"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: ID of the pipeline."]
+        #[doc = "* `run_id`: ID of the run of that pipeline."]
+        #[doc = "* `artifact_name`: Name of the artifact."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -877,6 +929,13 @@ pub mod logs {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of logs from a pipeline run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: ID of the pipeline."]
+        #[doc = "* `run_id`: ID of the run of that pipeline."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -893,6 +952,14 @@ pub mod logs {
                 expand: None,
             }
         }
+        #[doc = "Get a specific log from a pipeline run"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pipeline_id`: ID of the pipeline."]
+        #[doc = "* `run_id`: ID of the run of that pipeline."]
+        #[doc = "* `log_id`: ID of the log."]
         pub fn get(
             &self,
             organization: impl Into<String>,

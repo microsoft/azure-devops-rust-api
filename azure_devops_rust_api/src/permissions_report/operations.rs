@@ -90,12 +90,21 @@ pub mod permissions_report {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of permissions reports"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Request a permissions report to be created asyncronously"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Request configuration to be included in the permissions report"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -107,6 +116,11 @@ pub mod permissions_report {
                 body: body.into(),
             }
         }
+        #[doc = "Get a specific permissions report"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The ID (GUID) of the permissions report"]
         pub fn get(&self, organization: impl Into<String>, id: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -325,6 +339,11 @@ pub mod permissions_report_download {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Download the json results of a permissions report"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `id`: The ID (GUID) of the permissions report"]
         pub fn download(
             &self,
             organization: impl Into<String>,

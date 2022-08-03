@@ -165,6 +165,13 @@ pub mod artifacts {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a specific artifact for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `artifact_name`: The name of the artifact."]
         pub fn get_artifact(
             &self,
             organization: impl Into<String>,
@@ -180,6 +187,15 @@ pub mod artifacts {
                 artifact_name: artifact_name.into(),
             }
         }
+        #[doc = "Gets a file from the build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `artifact_name`: The name of the artifact."]
+        #[doc = "* `file_id`: The primary key for the file."]
+        #[doc = "* `file_name`: The name that the file will be set to."]
         pub fn get_file(
             &self,
             organization: impl Into<String>,
@@ -199,6 +215,12 @@ pub mod artifacts {
                 file_name: file_name.into(),
             }
         }
+        #[doc = "Gets all artifacts for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -212,6 +234,13 @@ pub mod artifacts {
                 build_id,
             }
         }
+        #[doc = "Associates an artifact with a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The artifact."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -527,6 +556,12 @@ pub mod leases {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns any leases owned by the specified user, optionally scoped to a single pipeline definition and run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `user_owner_id`: The user id to search for."]
         pub fn get_retention_leases_by_user_id(
             &self,
             organization: impl Into<String>,
@@ -542,6 +577,11 @@ pub mod leases {
                 run_id: None,
             }
         }
+        #[doc = "Returns any leases owned by the specified entity, optionally scoped to a single pipeline definition and run."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_retention_leases_by_owner_id(
             &self,
             organization: impl Into<String>,
@@ -556,6 +596,12 @@ pub mod leases {
                 run_id: None,
             }
         }
+        #[doc = "Returns any leases matching the specified MinimalRetentionLeases"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `leases_to_fetch`: List of JSON-serialized MinimalRetentionLeases separated by '|'"]
         pub fn get_retention_leases_by_minimal_retention_leases(
             &self,
             organization: impl Into<String>,
@@ -569,6 +615,11 @@ pub mod leases {
                 leases_to_fetch: leases_to_fetch.into(),
             }
         }
+        #[doc = "Adds new leases for pipeline runs."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn add(
             &self,
             organization: impl Into<String>,
@@ -582,6 +633,11 @@ pub mod leases {
                 project: project.into(),
             }
         }
+        #[doc = "Removes specific retention leases."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -595,6 +651,11 @@ pub mod leases {
                 ids: ids.into(),
             }
         }
+        #[doc = "Returns the details of the retention lease given a lease id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -608,6 +669,13 @@ pub mod leases {
                 lease_id,
             }
         }
+        #[doc = "Updates the duration or pipeline protection status of a retention lease."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The new data for the retention lease."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `lease_id`: The ID of the lease to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1170,6 +1238,10 @@ pub mod controllers {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets controller, optionally filtered by name"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -1177,6 +1249,10 @@ pub mod controllers {
                 name: None,
             }
         }
+        #[doc = "Gets a controller"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>, controller_id: i32) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -1334,6 +1410,10 @@ pub mod resource_usage {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets information about build resources in the system."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -1413,6 +1493,10 @@ pub mod history {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns the retention history for the project collection. This includes pipelines that have custom retention rules that may prevent the retention job from cleaning them up, runs per pipeline with retention type, files associated with pipelines owned by the collection with retention type, and the number of files per pipeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(&self, organization: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),
@@ -1502,6 +1586,12 @@ pub mod badge {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "This endpoint is deprecated. Please see the Build Status REST endpoint."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: The project ID or name."]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1516,6 +1606,12 @@ pub mod badge {
                 branch_name: None,
             }
         }
+        #[doc = "Gets a badge that indicates the status of the most recent build for the specified branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `repo_type`: The repository type."]
         pub fn get_build_badge_data(
             &self,
             organization: impl Into<String>,
@@ -1701,6 +1797,9 @@ pub mod authorizedresources {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1714,6 +1813,9 @@ pub mod authorizedresources {
                 id: None,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn authorize_project_resources(
             &self,
             organization: impl Into<String>,
@@ -1889,6 +1991,11 @@ pub mod builds {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a list of builds."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -1920,6 +2027,11 @@ pub mod builds {
                 repository_type: None,
             }
         }
+        #[doc = "Queues a build"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn queue(
             &self,
             organization: impl Into<String>,
@@ -1937,6 +2049,12 @@ pub mod builds {
                 definition_id: None,
             }
         }
+        #[doc = "Updates multiple builds."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The builds to update."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update_builds(
             &self,
             organization: impl Into<String>,
@@ -1950,6 +2068,11 @@ pub mod builds {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a build"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1964,6 +2087,13 @@ pub mod builds {
                 property_filters: None,
             }
         }
+        #[doc = "Updates a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The build."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn update_build(
             &self,
             organization: impl Into<String>,
@@ -1980,6 +2110,12 @@ pub mod builds {
                 retry: None,
             }
         }
+        #[doc = "Deletes a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1993,6 +2129,11 @@ pub mod builds {
                 build_id,
             }
         }
+        #[doc = "Gets the changes associated with a build"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_build_changes(
             &self,
             organization: impl Into<String>,
@@ -2009,6 +2150,12 @@ pub mod builds {
                 include_source_change: None,
             }
         }
+        #[doc = "Gets all retention leases that apply to a specific build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_retention_leases_for_build(
             &self,
             organization: impl Into<String>,
@@ -2022,6 +2169,12 @@ pub mod builds {
                 build_id,
             }
         }
+        #[doc = "Gets the logs for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_build_logs(
             &self,
             organization: impl Into<String>,
@@ -2035,6 +2188,13 @@ pub mod builds {
                 build_id,
             }
         }
+        #[doc = "Gets an individual log file for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `log_id`: The ID of the log file."]
         pub fn get_build_log(
             &self,
             organization: impl Into<String>,
@@ -2052,6 +2212,12 @@ pub mod builds {
                 end_line: None,
             }
         }
+        #[doc = "Gets the work items associated with a build. Only work items in the same project are returned."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_build_work_items_refs(
             &self,
             organization: impl Into<String>,
@@ -2066,6 +2232,13 @@ pub mod builds {
                 top: None,
             }
         }
+        #[doc = "Gets the work items associated with a build, filtered to specific commits."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A comma-delimited list of commit IDs."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_build_work_items_refs_from_commits(
             &self,
             organization: impl Into<String>,
@@ -2082,6 +2255,11 @@ pub mod builds {
                 top: None,
             }
         }
+        #[doc = "Gets the changes made to the repository between two given builds."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_changes_between_builds(
             &self,
             organization: impl Into<String>,
@@ -2096,6 +2274,13 @@ pub mod builds {
                 top: None,
             }
         }
+        #[doc = "Gets all the work items between two builds."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `from_build_id`: The ID of the first build."]
+        #[doc = "* `to_build_id`: The ID of the last build."]
         pub fn get_work_items_between_builds(
             &self,
             organization: impl Into<String>,
@@ -3433,6 +3618,16 @@ pub mod attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a specific attachment."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `timeline_id`: The ID of the timeline."]
+        #[doc = "* `record_id`: The ID of the timeline record."]
+        #[doc = "* `type_`: The type of the attachment."]
+        #[doc = "* `name`: The name of the attachment."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -3454,6 +3649,13 @@ pub mod attachments {
                 name: name.into(),
             }
         }
+        #[doc = "Gets the list of attachments of a specific type that are associated with a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `type_`: The type of attachment."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -3626,6 +3828,12 @@ pub mod properties {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets properties for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_build_properties(
             &self,
             organization: impl Into<String>,
@@ -3640,6 +3848,13 @@ pub mod properties {
                 filter: None,
             }
         }
+        #[doc = "Updates properties for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A json-patch document describing the properties to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn update_build_properties(
             &self,
             organization: impl Into<String>,
@@ -3655,6 +3870,12 @@ pub mod properties {
                 build_id,
             }
         }
+        #[doc = "Gets properties for a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get_definition_properties(
             &self,
             organization: impl Into<String>,
@@ -3669,6 +3890,13 @@ pub mod properties {
                 filter: None,
             }
         }
+        #[doc = "Updates properties for a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: A json-patch document describing the properties to update."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn update_definition_properties(
             &self,
             organization: impl Into<String>,
@@ -3994,6 +4222,12 @@ pub mod report {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a build report."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -4093,6 +4327,11 @@ pub mod stages {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Update a build stage"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -4185,6 +4424,12 @@ pub mod tags {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the tags for a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn get_build_tags(
             &self,
             organization: impl Into<String>,
@@ -4198,6 +4443,13 @@ pub mod tags {
                 build_id,
             }
         }
+        #[doc = "Adds tags to a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The tags to add."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn add_build_tags(
             &self,
             organization: impl Into<String>,
@@ -4213,6 +4465,13 @@ pub mod tags {
                 build_id,
             }
         }
+        #[doc = "Adds/Removes tags from a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The tags to add/remove."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
         pub fn update_build_tags(
             &self,
             organization: impl Into<String>,
@@ -4228,6 +4487,13 @@ pub mod tags {
                 build_id,
             }
         }
+        #[doc = "Adds a tag to a build."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `tag`: The tag to add."]
         pub fn add_build_tag(
             &self,
             organization: impl Into<String>,
@@ -4243,6 +4509,13 @@ pub mod tags {
                 tag: tag.into(),
             }
         }
+        #[doc = "Removes a tag from a build. NOTE: This API will not work for tags with special characters. To remove tags with special characters, use the PATCH method instead (in 6.0+)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `build_id`: The ID of the build."]
+        #[doc = "* `tag`: The tag to remove."]
         pub fn delete_build_tag(
             &self,
             organization: impl Into<String>,
@@ -4258,6 +4531,12 @@ pub mod tags {
                 tag: tag.into(),
             }
         }
+        #[doc = "Gets the tags for a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get_definition_tags(
             &self,
             organization: impl Into<String>,
@@ -4272,6 +4551,13 @@ pub mod tags {
                 revision: None,
             }
         }
+        #[doc = "Adds multiple tags to a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The tags to add."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn add_definition_tags(
             &self,
             organization: impl Into<String>,
@@ -4287,6 +4573,13 @@ pub mod tags {
                 definition_id,
             }
         }
+        #[doc = "Adds/Removes tags from a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The tags to add/remove."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn update_definition_tags(
             &self,
             organization: impl Into<String>,
@@ -4302,6 +4595,13 @@ pub mod tags {
                 definition_id,
             }
         }
+        #[doc = "Adds a tag to a definition"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
+        #[doc = "* `tag`: The tag to add."]
         pub fn add_definition_tag(
             &self,
             organization: impl Into<String>,
@@ -4317,6 +4617,13 @@ pub mod tags {
                 tag: tag.into(),
             }
         }
+        #[doc = "Removes a tag from a definition. NOTE: This API will not work for tags with special characters. To remove tags with special characters, use the PATCH method instead (in 6.0+)"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
+        #[doc = "* `tag`: The tag to remove."]
         pub fn delete_definition_tag(
             &self,
             organization: impl Into<String>,
@@ -4332,6 +4639,11 @@ pub mod tags {
                 tag: tag.into(),
             }
         }
+        #[doc = "Gets a list of all build tags in the project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_tags(
             &self,
             organization: impl Into<String>,
@@ -4343,6 +4655,12 @@ pub mod tags {
                 project: project.into(),
             }
         }
+        #[doc = "Removes a tag from builds, definitions, and from the tag store"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `tag`: The tag to remove."]
         pub fn delete_tag(
             &self,
             organization: impl Into<String>,
@@ -5225,6 +5543,11 @@ pub mod timeline {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets details for a build"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5338,6 +5661,11 @@ pub mod definitions {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a list of definitions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -5365,6 +5693,12 @@ pub mod definitions {
                 yaml_filename: None,
             }
         }
+        #[doc = "Creates a new definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The definition."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -5380,6 +5714,12 @@ pub mod definitions {
                 definition_to_clone_revision: None,
             }
         }
+        #[doc = "Gets a definition, optionally at a specific revision."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -5397,6 +5737,13 @@ pub mod definitions {
                 include_latest_builds: None,
             }
         }
+        #[doc = "Updates an existing build definition.  In order for this operation to succeed, the value of the \"Revision\" property of the request body must match the existing build definition's. It is recommended that you obtain the existing build definition by using GET, modify the build definition as necessary, and then submit the modified definition with PUT."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The new version of the definition. Its \"Revision\" property must match the existing definition for the update to be accepted."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -5414,6 +5761,13 @@ pub mod definitions {
                 secrets_source_definition_revision: None,
             }
         }
+        #[doc = "Restores a deleted definition"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The identifier of the definition to restore."]
+        #[doc = "* `deleted`: When false, restores a deleted definition."]
         pub fn restore_definition(
             &self,
             organization: impl Into<String>,
@@ -5429,6 +5783,12 @@ pub mod definitions {
                 deleted,
             }
         }
+        #[doc = "Deletes a definition and all associated builds."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -5442,6 +5802,12 @@ pub mod definitions {
                 definition_id,
             }
         }
+        #[doc = "Gets all revisions of a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get_definition_revisions(
             &self,
             organization: impl Into<String>,
@@ -6196,6 +6562,12 @@ pub mod metrics {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets build metrics for a definition."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get_definition_metrics(
             &self,
             organization: impl Into<String>,
@@ -6210,6 +6582,12 @@ pub mod metrics {
                 min_metrics_time: None,
             }
         }
+        #[doc = "Gets build metrics for a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `metric_aggregation_type`: The aggregation type to use (hourly, daily)."]
         pub fn get_project_metrics(
             &self,
             organization: impl Into<String>,
@@ -6390,6 +6768,9 @@ pub mod resources {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6403,6 +6784,9 @@ pub mod resources {
                 definition_id,
             }
         }
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn authorize_definition_resources(
             &self,
             organization: impl Into<String>,
@@ -6568,6 +6952,12 @@ pub mod yaml {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Converts a definition to YAML, optionally at a specific revision."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition_id`: The ID of the definition."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6700,6 +7090,11 @@ pub mod templates {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets all definition templates."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -6711,6 +7106,12 @@ pub mod templates {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a specific build definition template."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `template_id`: The ID of the requested template."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6724,6 +7125,13 @@ pub mod templates {
                 template_id: template_id.into(),
             }
         }
+        #[doc = "Updates an existing build definition template."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The new version of the template."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `template_id`: The ID of the template."]
         pub fn save_template(
             &self,
             organization: impl Into<String>,
@@ -6739,6 +7147,12 @@ pub mod templates {
                 template_id: template_id.into(),
             }
         }
+        #[doc = "Deletes a build definition template."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `template_id`: The ID of the template."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7036,6 +7450,13 @@ pub mod folders {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Updates an existing folder at given  existing path"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The new version of the folder."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: The full path to the folder."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -7051,6 +7472,13 @@ pub mod folders {
                 path: path.into(),
             }
         }
+        #[doc = "Creates a new folder."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The folder."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: The full path of the folder."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -7066,6 +7494,12 @@ pub mod folders {
                 path: path.into(),
             }
         }
+        #[doc = "Deletes a definition folder. Definitions and their corresponding builds will also be deleted."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: The full path to the folder."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7079,6 +7513,12 @@ pub mod folders {
                 path: path.into(),
             }
         }
+        #[doc = "Gets a list of build definition folders."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `path`: The path to start with."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7390,6 +7830,11 @@ pub mod general_settings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets pipeline general settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7401,6 +7846,11 @@ pub mod general_settings {
                 project: project.into(),
             }
         }
+        #[doc = "Updates pipeline general settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -7560,6 +8010,12 @@ pub mod latest {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the latest build for a definition, optionally scoped to a specific branch."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition`: definition name with optional leading folder path, or the definition id"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7658,6 +8114,11 @@ pub mod options {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets all build definition options supported by the system."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -7744,6 +8205,11 @@ pub mod retention {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the project's retention settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7755,6 +8221,11 @@ pub mod retention {
                 project: project.into(),
             }
         }
+        #[doc = "Updates the project's retention settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -7914,6 +8385,11 @@ pub mod settings {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets the build settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -7925,6 +8401,12 @@ pub mod settings {
                 project: project.into(),
             }
         }
+        #[doc = "Updates the build settings."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The new settings."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -8084,6 +8566,12 @@ pub mod status {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "<p>Gets the build status for a definition, optionally scoped to a specific branch, stage, job, and configuration.</p> <p>If there are more than one, then it is required to pass in a stageName value when specifying a jobName, and the same rule then applies for both if passing a configuration parameter.</p>"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `definition`: Either the definition name with optional leading folder path, or the definition id."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -8219,6 +8707,11 @@ pub mod source_providers {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of source providers and their capabilities."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -8230,6 +8723,12 @@ pub mod source_providers {
                 project: project.into(),
             }
         }
+        #[doc = "Gets a list of branches for the given source code repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn list_branches(
             &self,
             organization: impl Into<String>,
@@ -8246,6 +8745,12 @@ pub mod source_providers {
                 branch_name: None,
             }
         }
+        #[doc = "Gets the contents of a file in the given source code repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn get_file_contents(
             &self,
             organization: impl Into<String>,
@@ -8263,6 +8768,12 @@ pub mod source_providers {
                 path: None,
             }
         }
+        #[doc = "Gets the contents of a directory in the given source code repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn get_path_contents(
             &self,
             organization: impl Into<String>,
@@ -8280,6 +8791,13 @@ pub mod source_providers {
                 path: None,
             }
         }
+        #[doc = "Gets a pull request object from source provider."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
+        #[doc = "* `pull_request_id`: Vendor-specific id of the pull request."]
         pub fn get_pull_request(
             &self,
             organization: impl Into<String>,
@@ -8297,6 +8815,12 @@ pub mod source_providers {
                 service_endpoint_id: None,
             }
         }
+        #[doc = "Gets a list of source code repositories."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn list_repositories(
             &self,
             organization: impl Into<String>,
@@ -8315,6 +8839,12 @@ pub mod source_providers {
                 continuation_token: None,
             }
         }
+        #[doc = "Gets a list of webhooks installed in the given source code repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn list_webhooks(
             &self,
             organization: impl Into<String>,
@@ -8330,6 +8860,13 @@ pub mod source_providers {
                 repository: None,
             }
         }
+        #[doc = "Recreates the webhooks for the specified triggers in the given source code repository."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The types of triggers to restore webhooks for."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `provider_name`: The name of the source provider."]
         pub fn restore_webhooks(
             &self,
             organization: impl Into<String>,

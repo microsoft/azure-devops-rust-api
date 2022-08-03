@@ -802,6 +802,7 @@ impl From<&ParameterType> for ParamKind {
 
 struct FunctionParam {
     name: String,
+    description: Option<String>,
     variable_name: Ident,
     type_name: TypeNameCode,
     kind: ParamKind,
@@ -860,12 +861,14 @@ fn create_function_params_code(parameters: &[&WebParameter]) -> Result<FunctionP
     let mut params = Vec::new();
     for param in parameters.iter() {
         let name = param.name().to_owned();
+        let description = param.description().to_owned();
         let variable_name = name.to_snake_case_ident().map_err(Error::ParamName)?;
         let type_name = type_name_gen(&param.type_name()?)?.qualify_models(true).optional(!param.required());
         let kind = ParamKind::from(param.type_());
         let collection_format = param.collection_format().clone();
         params.push(FunctionParam {
             name,
+            description,
             variable_name,
             type_name,
             kind,
@@ -909,16 +912,36 @@ fn create_builder_instance_code(
             params.push(quote! { #variable_name: None });
         }
     }
-    let summary = if let Some(summary) = &operation.0.summary {
-        quote! {
-            #[doc = #summary]
+    let summary = match &operation.0.summary {
+        Some(summary) if !summary.is_empty() => quote! { #[doc = #summary] },
+        _ => quote! {}
+    };
+    let description = match &operation.0.description {
+        Some(desc) if !desc.is_empty() => quote! { #[doc = #desc] },
+        _ => quote! {}
+    };
+
+    let mut param_descriptions: Vec<TokenStream> = Vec::new();
+    if parameters.required_params().into_iter().any(|param| param.description.is_some()) {
+        // Add a blank link before the arguments if there is a summary or description.
+        if !summary.is_empty() || !description.is_empty() {
+            param_descriptions.push(quote! { #[doc = ""] });
         }
-    } else {
-        quote! {}
+        param_descriptions.push(quote! { #[doc = "Arguments:"] });
+        for required_param in parameters.required_params().iter() {
+            if let Some(desc) = &required_param.description {
+                if !desc.is_empty() {
+                    let doc_comment = format!("* `{}`: {}", required_param.variable_name, desc);
+                    param_descriptions.push(quote! { #[doc = #doc_comment] });
+                }
+            }
+        }
     };
     let fname = operation.function_name()?;
     Ok(quote! {
         #summary
+        #description
+        #(#param_descriptions)*
         pub fn #fname(#parameters) -> #fname::Builder {
             #fname::Builder {
                 #(#params),*

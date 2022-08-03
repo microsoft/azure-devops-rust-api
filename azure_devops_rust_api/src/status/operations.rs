@@ -87,6 +87,7 @@ pub mod health {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Queries status information for the service all-up, or scoped to a particular service and/or geography"]
         pub fn get(&self) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),

@@ -93,6 +93,11 @@ pub mod personal_access_tokens {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Lists of all the session token details of the personal access tokens (PATs) for a particular user."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `subject_descriptor`: The descriptor of the target user."]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -209,6 +214,11 @@ pub mod revocation_rules {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Creates a revocation rule to prevent the further usage of any OAuth authorizations that were created before the current point in time and which match the conditions in the rule.\n\nNot all kinds of OAuth authorizations can be revoked directly.\nSome, such as self-describing session tokens, must instead by revoked by creating a rule\nwhich will be evaluated and used to reject matching OAuth credentials at authentication time.\nRevocation rules created through this endpoint will apply to all credentials that were issued\nbefore the datetime at which the rule was created and which match one or more additional conditions."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The revocation rule to create. The rule must specify a space-separated list of scopes, after which preexisting OAuth authorizations that match that any of the scopes will be rejected. For a list of all OAuth scopes supported by VSTS, see: https://docs.microsoft.com/en-us/vsts/integrate/get-started/authentication/oauth?view=vsts#scopes The rule may also specify the time before which to revoke tokens."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -289,6 +299,11 @@ pub mod revocations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Revokes the listed OAuth authorizations."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The list of objects containing the authorization IDs of the OAuth authorizations, such as session tokens retrieved by listed a users PATs, that should be revoked."]
         pub fn revoke_authorizations(
             &self,
             organization: impl Into<String>,

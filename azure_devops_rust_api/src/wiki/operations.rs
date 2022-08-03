@@ -102,6 +102,11 @@ pub mod wikis {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets all wikis in a project or collection."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -113,6 +118,12 @@ pub mod wikis {
                 project: project.into(),
             }
         }
+        #[doc = "Creates the wiki resource."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Parameters for the wiki creation."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -126,6 +137,12 @@ pub mod wikis {
                 project: project.into(),
             }
         }
+        #[doc = "Gets the wiki corresponding to the wiki ID or wiki name provided."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -139,6 +156,13 @@ pub mod wikis {
                 project: project.into(),
             }
         }
+        #[doc = "Updates the wiki corresponding to the wiki ID or wiki name provided using the update parameters."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Update parameters."]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -154,6 +178,12 @@ pub mod wikis {
                 project: project.into(),
             }
         }
+        #[doc = "Deletes the wiki corresponding to the wiki ID or wiki name provided."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -524,6 +554,14 @@ pub mod attachments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Creates an attachment in the wiki."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `name`: Wiki attachment name."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -673,6 +711,13 @@ pub mod page_moves {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Creates a page move operation that updates the path and order of the page as provided in the parameters."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Page more operation parameters."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -826,6 +871,12 @@ pub mod pages {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets metadata or content of the wiki page for the provided path. Content negotiation is done based on the `Accept` header sent in the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
         pub fn get_page(
             &self,
             organization: impl Into<String>,
@@ -845,6 +896,15 @@ pub mod pages {
                 include_content: None,
             }
         }
+        #[doc = "Creates or edits a wiki page."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Wiki create or update operation parameters."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `path`: Wiki page path."]
+        #[doc = "* `version`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
         pub fn create_or_update(
             &self,
             organization: impl Into<String>,
@@ -868,6 +928,13 @@ pub mod pages {
                 version_descriptor_version_type: None,
             }
         }
+        #[doc = "Deletes a wiki page."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `path`: Wiki page path."]
         pub fn delete_page(
             &self,
             organization: impl Into<String>,
@@ -887,6 +954,13 @@ pub mod pages {
                 version_descriptor_version_type: None,
             }
         }
+        #[doc = "Gets metadata or content of the wiki page for the provided page id. Content negotiation is done based on the `Accept` header sent in the request."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name.."]
+        #[doc = "* `id`: Wiki page ID."]
         pub fn get_page_by_id(
             &self,
             organization: impl Into<String>,
@@ -904,6 +978,15 @@ pub mod pages {
                 include_content: None,
             }
         }
+        #[doc = "Edits a wiki page."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Wiki update operation parameters."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `id`: Wiki page ID."]
+        #[doc = "* `version`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -924,6 +1007,13 @@ pub mod pages {
                 comment: None,
             }
         }
+        #[doc = "Deletes a wiki page."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `id`: Wiki page ID."]
         pub fn delete_page_by_id(
             &self,
             organization: impl Into<String>,
@@ -1620,6 +1710,13 @@ pub mod page_stats {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns page detail corresponding to Page ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
+        #[doc = "* `page_id`: Wiki page ID."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1724,6 +1821,13 @@ pub mod pages_batch {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Returns pageable list of Wiki Pages"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Wiki batch page request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
         pub fn get(
             &self,
             organization: impl Into<String>,

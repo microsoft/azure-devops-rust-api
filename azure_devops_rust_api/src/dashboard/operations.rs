@@ -93,6 +93,11 @@ pub mod widget_types {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all available widget metadata in alphabetical order, including widgets marked with isVisibleFromCatalog == false."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_widget_types(
             &self,
             organization: impl Into<String>,
@@ -106,6 +111,12 @@ pub mod widget_types {
                 project: project.into(),
             }
         }
+        #[doc = "Get the widget metadata satisfying the specified contribution ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `contribution_id`: The ID of Contribution for the Widget"]
+        #[doc = "* `project`: Project ID or project name"]
         pub fn get_widget_metadata(
             &self,
             organization: impl Into<String>,
@@ -268,6 +279,12 @@ pub mod dashboards {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of dashboards under a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn list(
             &self,
             organization: impl Into<String>,
@@ -281,6 +298,13 @@ pub mod dashboards {
                 team: team.into(),
             }
         }
+        #[doc = "Create the supplied dashboard."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The initial state of the dashboard"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -296,6 +320,12 @@ pub mod dashboards {
                 team: team.into(),
             }
         }
+        #[doc = "Update the name and position of dashboards in the supplied group, and remove omitted dashboards. Does not modify dashboard content."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn replace_dashboards(
             &self,
             organization: impl Into<String>,
@@ -311,6 +341,12 @@ pub mod dashboards {
                 team: team.into(),
             }
         }
+        #[doc = "Get a dashboard by its ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -326,6 +362,14 @@ pub mod dashboards {
                 team: team.into(),
             }
         }
+        #[doc = "Replace configuration for the specified dashboard. Replaces Widget list on Dashboard, only if property is supplied."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The Configuration of the dashboard to replace."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard to replace."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn replace_dashboard(
             &self,
             organization: impl Into<String>,
@@ -343,6 +387,13 @@ pub mod dashboards {
                 team: team.into(),
             }
         }
+        #[doc = "Delete a dashboard given its ID. This also deletes the widgets associated with this dashboard."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard to delete."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -796,6 +847,13 @@ pub mod widgets {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get widgets contained on the specified dashboard."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard to read."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_widgets(
             &self,
             organization: impl Into<String>,
@@ -812,6 +870,14 @@ pub mod widgets {
                 e_tag: None,
             }
         }
+        #[doc = "Create a widget on the specified dashboard."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: State of the widget to add"]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of dashboard the widget will be added to."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -829,6 +895,14 @@ pub mod widgets {
                 team: team.into(),
             }
         }
+        #[doc = "Replace the widgets on specified dashboard with the supplied widgets."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Revised state of widgets to store for the dashboard."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the Dashboard to modify."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn replace_widgets(
             &self,
             organization: impl Into<String>,
@@ -847,6 +921,14 @@ pub mod widgets {
                 e_tag: None,
             }
         }
+        #[doc = "Update the supplied widgets on the dashboard using supplied state. State of existing Widgets not passed in the widget list is preserved."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The set of widget states to update on the dashboard."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the Dashboard to modify."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_widgets(
             &self,
             organization: impl Into<String>,
@@ -865,6 +947,14 @@ pub mod widgets {
                 e_tag: None,
             }
         }
+        #[doc = "Get the current state of the specified widget."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard containing the widget."]
+        #[doc = "* `widget_id`: ID of the widget to read."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn get_widget(
             &self,
             organization: impl Into<String>,
@@ -882,6 +972,15 @@ pub mod widgets {
                 team: team.into(),
             }
         }
+        #[doc = "Override the  state of the specified widget."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: State to be written for the widget."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard containing the widget."]
+        #[doc = "* `widget_id`: ID of the widget to update."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn replace_widget(
             &self,
             organization: impl Into<String>,
@@ -901,6 +1000,15 @@ pub mod widgets {
                 team: team.into(),
             }
         }
+        #[doc = "Perform a partial update of the specified widget."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Description of the widget changes to apply. All non-null fields will be replaced."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard containing the widget."]
+        #[doc = "* `widget_id`: ID of the widget to update."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn update_widget(
             &self,
             organization: impl Into<String>,
@@ -920,6 +1028,14 @@ pub mod widgets {
                 team: team.into(),
             }
         }
+        #[doc = "Delete the specified widget."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `dashboard_id`: ID of the dashboard containing the widget."]
+        #[doc = "* `widget_id`: ID of the widget to update."]
+        #[doc = "* `team`: Team ID or team name"]
         pub fn delete(
             &self,
             organization: impl Into<String>,

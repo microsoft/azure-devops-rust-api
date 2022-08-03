@@ -87,6 +87,7 @@ pub mod accounts {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of accounts for a specific owner or a specific member. One of the following parameters is required: ownerId, memberId."]
         pub fn list(&self) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),

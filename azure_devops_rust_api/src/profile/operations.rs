@@ -87,6 +87,10 @@ pub mod profiles {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Gets a user profile."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `id`: The ID of the target user profile within the same organization, or 'me' to get the profile of the current authenticated user."]
         pub fn get(&self, id: impl Into<String>) -> get::Builder {
             get::Builder {
                 client: self.0.clone(),

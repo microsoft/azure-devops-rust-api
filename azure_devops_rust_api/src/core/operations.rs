@@ -96,12 +96,21 @@ pub mod processes {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of processes."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
         }
+        #[doc = "Get a process by ID."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `process_id`: ID for a process."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -254,6 +263,10 @@ pub mod projects {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all projects in the organization that the authenticated user has access to."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::Builder {
             list::Builder {
                 client: self.0.clone(),
@@ -265,6 +278,11 @@ pub mod projects {
                 get_default_team_image_url: None,
             }
         }
+        #[doc = "Queues a project to be created. Use the [GetOperation](../../operations/operations/get) to periodically check for create project status."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The project to create."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -276,6 +294,10 @@ pub mod projects {
                 body: body.into(),
             }
         }
+        #[doc = "Get project with the specified id or name, optionally including capabilities."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -289,6 +311,12 @@ pub mod projects {
                 include_history: None,
             }
         }
+        #[doc = "Update an existing project's name, abbreviation, description, or restore a project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The updates for the project. The state must be set to wellFormed to restore the project."]
+        #[doc = "* `project_id`: The project id of the project to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -302,6 +330,11 @@ pub mod projects {
                 project_id: project_id.into(),
             }
         }
+        #[doc = "Queues a project to be deleted. Use the [GetOperation](../../operations/operations/get) to periodically check for delete project status."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The project id of the project to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -313,6 +346,11 @@ pub mod projects {
                 project_id: project_id.into(),
             }
         }
+        #[doc = "Get a collection of team project properties."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The team project ID."]
         pub fn get_project_properties(
             &self,
             organization: impl Into<String>,
@@ -325,6 +363,12 @@ pub mod projects {
                 keys: None,
             }
         }
+        #[doc = "Create, update, and delete team project properties."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The team project ID."]
+        #[doc = "* `body`: A JSON Patch document that represents an array of property operations. See RFC 6902 for more details on JSON Patch. The accepted operation verbs are Add and Remove, where Add is used for both creating and updating properties. The path consists of a forward slash and a property name."]
         pub fn set_project_properties(
             &self,
             organization: impl Into<String>,
@@ -897,6 +941,12 @@ pub mod avatar {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Sets the avatar for the project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The avatar blob data object to upload."]
+        #[doc = "* `project_id`: The ID or name of the project."]
         pub fn set_project_avatar(
             &self,
             organization: impl Into<String>,
@@ -910,6 +960,11 @@ pub mod avatar {
                 project_id: project_id.into(),
             }
         }
+        #[doc = "Removes the avatar for the project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The ID or name of the project."]
         pub fn remove_project_avatar(
             &self,
             organization: impl Into<String>,
@@ -1055,6 +1110,10 @@ pub mod teams {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get a list of teams."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_teams(
             &self,
             organization: impl Into<String>,
@@ -1070,6 +1129,12 @@ pub mod teams {
                 expand_identity: None,
             }
         }
+        #[doc = "Create a team in a team project.\n\nPossible failure scenarios\nInvalid project name/ID (project doesn't exist) 404\nInvalid team name or description 400\nTeam already exists 400\nInsufficient privileges 400"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The team data used to create the team."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project in which to create the team."]
         pub fn create(
             &self,
             organization: impl Into<String>,
@@ -1083,6 +1148,12 @@ pub mod teams {
                 project_id: project_id.into(),
             }
         }
+        #[doc = "Get a specific team."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project containing the team."]
+        #[doc = "* `team_id`: The name or ID (GUID) of the team."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -1097,6 +1168,12 @@ pub mod teams {
                 expand_identity: None,
             }
         }
+        #[doc = "Update a team's name and/or description."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project containing the team to update."]
+        #[doc = "* `team_id`: The name of ID of the team to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1112,6 +1189,12 @@ pub mod teams {
                 team_id: team_id.into(),
             }
         }
+        #[doc = "Delete a team."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project containing the team to delete."]
+        #[doc = "* `team_id`: The name or ID of the team to delete."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -1125,6 +1208,12 @@ pub mod teams {
                 team_id: team_id.into(),
             }
         }
+        #[doc = "Get a list of members for a specific team."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project the team belongs to."]
+        #[doc = "* `team_id`: The name or ID (GUID) of the team ."]
         pub fn get_team_members_with_extended_properties(
             &self,
             organization: impl Into<String>,
@@ -1140,6 +1229,10 @@ pub mod teams {
                 skip: None,
             }
         }
+        #[doc = "Get a list of all teams."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_all_teams(&self, organization: impl Into<String>) -> get_all_teams::Builder {
             get_all_teams::Builder {
                 client: self.0.clone(),
