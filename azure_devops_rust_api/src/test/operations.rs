@@ -369,7 +369,7 @@ pub mod runs {
                 self.top = Some(top);
                 self
             }
-            #[doc = "continuationToken received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user."]
+            #[doc = "continuation token received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -2236,7 +2236,7 @@ pub mod points {
                 self.include_point_details = Some(include_point_details);
                 self
             }
-            #[doc = "Number of test points to skip.."]
+            #[doc = "Number of test points to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -2509,7 +2509,7 @@ pub mod points {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
-            #[doc = "Number of test points to skip.."]
+            #[doc = "Number of test points to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -3485,7 +3485,7 @@ pub mod results {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Number of test results to return. Maximum is 1000 when detailsToInclude is None and 200 otherwise."]
+            #[doc = "Number of test results to return. Maximum is 1000 when details_to_include is None and 200 otherwise."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self

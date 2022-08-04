@@ -290,7 +290,7 @@ pub mod change_tracking {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = "Query to determine which feeds have changed since the last call, tracked through the provided continuationToken. Only changes to a feed itself are returned and impact the continuationToken, not additions or alterations to packages within the feeds.\n\nIf the project parameter is present, gets all feed changes in the given project.\nIf omitted, gets all feed changes in the organization."]
+        #[doc = "Query to determine which feeds have changed since the last call, tracked through the provided continuation token. Only changes to a feed itself are returned and impact the continuation token, not additions or alterations to packages within the feeds.\n\nIf the project parameter is present, gets all feed changes in the given project.\nIf omitted, gets all feed changes in the organization."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]

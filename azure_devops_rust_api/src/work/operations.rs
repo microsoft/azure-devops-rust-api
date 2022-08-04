@@ -2663,7 +2663,7 @@ pub mod chartimages {
                 self.show_details = Some(show_details);
                 self
             }
-            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
+            #[doc = "The title of the chart. Can only be displayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self
@@ -2776,7 +2776,7 @@ pub mod chartimages {
                 self.show_details = Some(show_details);
                 self
             }
-            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
+            #[doc = "The title of the chart. Can only be displayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self
@@ -2894,7 +2894,7 @@ pub mod chartimages {
                 self.show_details = Some(show_details);
                 self
             }
-            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
+            #[doc = "The title of the chart. Can only be displayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self

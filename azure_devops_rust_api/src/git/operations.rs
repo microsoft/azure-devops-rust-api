@@ -11454,7 +11454,7 @@ pub mod refs {
                 self.filter_contains = Some(filter_contains.into());
                 self
             }
-            #[doc = "[optional] Maximum number of refs to return. It cannot be bigger than 1000. If it is not provided but continuationToken is, top will default to 100."]
+            #[doc = "[optional] Maximum number of refs to return. It cannot be bigger than 1000. If it is not provided but continuation token is, top will default to 100."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self

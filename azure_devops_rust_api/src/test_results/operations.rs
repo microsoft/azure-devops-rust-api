@@ -209,7 +209,7 @@ pub mod testlog {
                 self.directory_path = Some(directory_path.into());
                 self
             }
-            #[doc = "file name prefix to filter the list of attachments"]
+            #[doc = "Filename prefix to filter the list of attachmentss"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
@@ -219,12 +219,12 @@ pub mod testlog {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
-            #[doc = "Number of attachments reference to return"]
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Header to pass the continuationToken"]
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -325,12 +325,12 @@ pub mod testlog {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
-            #[doc = "directory path of attachments to get"]
+            #[doc = "Directory path of attachments to get"]
             pub fn directory_path(mut self, directory_path: impl Into<String>) -> Self {
                 self.directory_path = Some(directory_path.into());
                 self
             }
-            #[doc = "file name prefix to filter the list of attachment"]
+            #[doc = "Filename prefix to filter the list of attachments"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
@@ -340,12 +340,12 @@ pub mod testlog {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
-            #[doc = "Numbe of attachments reference to return"]
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Header to pass the continuationToken"]
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -454,7 +454,7 @@ pub mod testlog {
                 self.directory_path = Some(directory_path.into());
                 self
             }
-            #[doc = "file name prefix to filter the list of attachment"]
+            #[doc = "Filename prefix to filter the list of attachments"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
@@ -464,12 +464,12 @@ pub mod testlog {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
-            #[doc = "Number of attachments reference to return"]
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Header to pass the continuationToken"]
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self

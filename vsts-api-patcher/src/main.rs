@@ -22,7 +22,15 @@ const DOC_PATCHES: &'static[(&'static str, &'static str)] = &[
     ("fileName", "filename"),
     ("True to", "Set to true to"),
     ("getTopPackageVersions", "get_top_package_versions"),
-    ("includeAllVersions", "include_all_versions")
+    ("includeAllVersions", "include_all_versions"),
+    ("detailsToInclude", "details_to_include"),
+    ("continuationToken", "continuation token"),
+    ("dislayed", "displayed"),
+    ("Numbe of attachments reference", "Number of attachment references"),
+    ("Number of attachments reference to return", "Number of attachment references to return"),
+    ("directory path of attachments to get", "Directory path of attachments to get"),
+    ("file name prefix to filter the list of attachment", "Filename prefix to filter the list of attachments"),
+    ("Number of test points to skip..", "Number of test points to skip.")
 ];
 
 struct Patcher {

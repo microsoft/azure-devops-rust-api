@@ -3549,7 +3549,7 @@ pub mod deploymentgroups {
                 self.expand = Some(expand.into());
                 self
             }
-            #[doc = "Get deployment groups with names greater than this continuationToken lexicographically."]
+            #[doc = "Get deployment groups with names greater than this continuation token lexicographically."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -4095,7 +4095,7 @@ pub mod targets {
                 self.agent_job_result = Some(agent_job_result.into());
                 self
             }
-            #[doc = "Get deployment targets with names greater than this continuationToken lexicographically."]
+            #[doc = "Get deployment targets with names greater than this continuation token lexicographically."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self

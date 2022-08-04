@@ -4340,7 +4340,7 @@ pub mod reporting_work_item_links {
                 self.types = Some(types.into());
                 self
             }
-            #[doc = "Specifies the continuationToken to start the batch from. Omit this parameter to get the first batch of links."]
+            #[doc = "Specifies the continuation token to start the batch from. Omit this parameter to get the first batch of links."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
