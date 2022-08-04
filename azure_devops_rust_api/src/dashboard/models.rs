@@ -256,7 +256,7 @@ pub struct LightboxOptions {
     #[doc = "Height of desired lightbox, in pixels"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub height: Option<i32>,
-    #[doc = "True to allow lightbox resizing, false to disallow lightbox resizing, defaults to false."]
+    #[doc = "Set to true to allow lightbox resizing, false to disallow lightbox resizing, defaults to false."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resizable: Option<bool>,
     #[doc = "Width of desired lightbox, in pixels"]

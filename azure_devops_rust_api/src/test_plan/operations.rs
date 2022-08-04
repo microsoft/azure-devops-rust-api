@@ -368,30 +368,37 @@ pub mod suite_test_case {
             pub(crate) is_recursive: Option<bool>,
         }
         impl Builder {
+            #[doc = "Test Case Ids to be fetched."]
             pub fn test_ids(mut self, test_ids: impl Into<String>) -> Self {
                 self.test_ids = Some(test_ids.into());
                 self
             }
+            #[doc = "Fetch Test Cases which contains all the configuration Ids specified."]
             pub fn configuration_ids(mut self, configuration_ids: impl Into<String>) -> Self {
                 self.configuration_ids = Some(configuration_ids.into());
                 self
             }
+            #[doc = "Get the list of witFields."]
             pub fn wit_fields(mut self, wit_fields: impl Into<String>) -> Self {
                 self.wit_fields = Some(wit_fields.into());
                 self
             }
+            #[doc = "If the list of test cases returned is not complete, a continuation token to query next batch of test cases is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test cases."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default."]
             pub fn return_identity_ref(mut self, return_identity_ref: bool) -> Self {
                 self.return_identity_ref = Some(return_identity_ref);
                 self
             }
+            #[doc = "If set to false, will get a smaller payload containing only basic details about the suite test case object"]
             pub fn expand(mut self, expand: bool) -> Self {
                 self.expand = Some(expand);
                 self
             }
+            #[doc = "Flag to exclude various values from payload. For example to remove point assignments pass exclude = 1. To remove extra information (links, test plan , test suite) pass exclude = 2. To remove both extra information and point assignments pass exclude = 3 (1 + 2)."]
             pub fn exclude_flags(mut self, exclude_flags: impl Into<String>) -> Self {
                 self.exclude_flags = Some(exclude_flags.into());
                 self
@@ -726,10 +733,12 @@ pub mod suite_test_case {
             pub(crate) return_identity_ref: Option<bool>,
         }
         impl Builder {
+            #[doc = "Get the list of witFields."]
             pub fn wit_fields(mut self, wit_fields: impl Into<String>) -> Self {
                 self.wit_fields = Some(wit_fields.into());
                 self
             }
+            #[doc = "If set to true, returns all identity fields, like AssignedTo, ActivatedBy etc., as IdentityRef objects. If set to false, these fields are returned as unique names in string format. This is false by default."]
             pub fn return_identity_ref(mut self, return_identity_ref: bool) -> Self {
                 self.return_identity_ref = Some(return_identity_ref);
                 self
@@ -909,26 +918,32 @@ pub mod test_point {
             pub(crate) is_recursive: Option<bool>,
         }
         impl Builder {
+            #[doc = "ID of test points to fetch."]
             pub fn test_point_ids(mut self, test_point_ids: impl Into<String>) -> Self {
                 self.test_point_ids = Some(test_point_ids.into());
                 self
             }
+            #[doc = "Get Test Points for specific test case Ids."]
             pub fn test_case_id(mut self, test_case_id: impl Into<String>) -> Self {
                 self.test_case_id = Some(test_case_id.into());
                 self
             }
+            #[doc = "If the list of test point returned is not complete, a continuation token to query next batch of test points is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test points."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object."]
             pub fn return_identity_ref(mut self, return_identity_ref: bool) -> Self {
                 self.return_identity_ref = Some(return_identity_ref);
                 self
             }
+            #[doc = "If set to false, will get a smaller payload containing only basic details about the test point object"]
             pub fn include_point_details(mut self, include_point_details: bool) -> Self {
                 self.include_point_details = Some(include_point_details);
                 self
             }
+            #[doc = "If set to true, will also fetch test points belonging to child suites recursively."]
             pub fn is_recursive(mut self, is_recursive: bool) -> Self {
                 self.is_recursive = Some(is_recursive);
                 self
@@ -1035,10 +1050,12 @@ pub mod test_point {
             pub(crate) include_point_details: Option<bool>,
         }
         impl Builder {
+            #[doc = "If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object."]
             pub fn return_identity_ref(mut self, return_identity_ref: bool) -> Self {
                 self.return_identity_ref = Some(return_identity_ref);
                 self
             }
+            #[doc = "If set to false, will get a smaller payload containing only basic details about the test point object"]
             pub fn include_point_details(mut self, include_point_details: bool) -> Self {
                 self.include_point_details = Some(include_point_details);
                 self
@@ -1131,10 +1148,12 @@ pub mod test_point {
             pub(crate) return_identity_ref: Option<bool>,
         }
         impl Builder {
+            #[doc = "If set to false, will get a smaller payload containing only basic details about the test point object"]
             pub fn include_point_details(mut self, include_point_details: bool) -> Self {
                 self.include_point_details = Some(include_point_details);
                 self
             }
+            #[doc = "If set to true, returns the AssignedTo field in TestCaseReference as IdentityRef object."]
             pub fn return_identity_ref(mut self, return_identity_ref: bool) -> Self {
                 self.return_identity_ref = Some(return_identity_ref);
                 self
@@ -1432,14 +1451,17 @@ pub mod test_suites {
             pub(crate) as_tree_view: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include the children suites and testers details."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "If the list of suites returned is not complete, a continuation token to query next batch of suites is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test suites."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "If the suites returned should be in a tree structure."]
             pub fn as_tree_view(mut self, as_tree_view: bool) -> Self {
                 self.as_tree_view = Some(as_tree_view);
                 self
@@ -1601,6 +1623,7 @@ pub mod test_suites {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Include the children suites and testers details"]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -1924,6 +1947,7 @@ pub mod configurations {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "If the list of configurations returned is not complete, a continuation token to query next batch of configurations is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test configurations."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -2394,18 +2418,22 @@ pub mod test_plans {
             pub(crate) filter_active_plans: Option<bool>,
         }
         impl Builder {
+            #[doc = "Filter for test plan by owner ID or name"]
             pub fn owner(mut self, owner: impl Into<String>) -> Self {
                 self.owner = Some(owner.into());
                 self
             }
+            #[doc = "If the list of plans returned is not complete, a continuation token to query next batch of plans is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test plans."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Get all properties of the test plan"]
             pub fn include_plan_details(mut self, include_plan_details: bool) -> Self {
                 self.include_plan_details = Some(include_plan_details);
                 self
             }
+            #[doc = "Get just the active plans"]
             pub fn filter_active_plans(mut self, filter_active_plans: bool) -> Self {
                 self.filter_active_plans = Some(filter_active_plans);
                 self
@@ -2823,6 +2851,7 @@ pub mod test_plan_clone {
             pub(crate) deep_clone: Option<bool>,
         }
         impl Builder {
+            #[doc = "Clones all the associated test cases as well"]
             pub fn deep_clone(mut self, deep_clone: bool) -> Self {
                 self.deep_clone = Some(deep_clone);
                 self
@@ -3220,6 +3249,7 @@ pub mod test_suite_clone {
             pub(crate) deep_clone: Option<bool>,
         }
         impl Builder {
+            #[doc = "Clones all the associated test cases as well"]
             pub fn deep_clone(mut self, deep_clone: bool) -> Self {
                 self.deep_clone = Some(deep_clone);
                 self
@@ -3745,6 +3775,7 @@ pub mod variables {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "If the list of variables returned is not complete, a continuation token to query next batch of variables is included in the response header as \"x-ms-continuationtoken\". Omit this parameter to get the first batch of test variables."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self

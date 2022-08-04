@@ -706,10 +706,12 @@ pub mod leases {
             pub(crate) run_id: Option<i32>,
         }
         impl Builder {
+            #[doc = "An optional parameter to limit the search to a specific pipeline definition."]
             pub fn definition_id(mut self, definition_id: i32) -> Self {
                 self.definition_id = Some(definition_id);
                 self
             }
+            #[doc = "An optional parameter to limit the search to a single pipeline run. Requires definition_id."]
             pub fn run_id(mut self, run_id: i32) -> Self {
                 self.run_id = Some(run_id);
                 self
@@ -802,10 +804,12 @@ pub mod leases {
                 self.owner_id = Some(owner_id.into());
                 self
             }
+            #[doc = "An optional parameter to limit the search to a specific pipeline definition."]
             pub fn definition_id(mut self, definition_id: i32) -> Self {
                 self.definition_id = Some(definition_id);
                 self
             }
+            #[doc = "An optional parameter to limit the search to a single pipeline run. Requires definition_id."]
             pub fn run_id(mut self, run_id: i32) -> Self {
                 self.run_id = Some(run_id);
                 self
@@ -1641,6 +1645,7 @@ pub mod badge {
             pub(crate) branch_name: Option<String>,
         }
         impl Builder {
+            #[doc = "The name of the branch."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
@@ -1720,10 +1725,12 @@ pub mod badge {
             pub(crate) branch_name: Option<String>,
         }
         impl Builder {
+            #[doc = "The repository ID."]
             pub fn repo_id(mut self, repo_id: impl Into<String>) -> Self {
                 self.repo_id = Some(repo_id.into());
                 self
             }
+            #[doc = "The branch name."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
@@ -2329,82 +2336,102 @@ pub mod builds {
             pub(crate) repository_type: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-delimited list of definition IDs. If specified, filters to builds for these definitions."]
             pub fn definitions(mut self, definitions: impl Into<String>) -> Self {
                 self.definitions = Some(definitions.into());
                 self
             }
+            #[doc = "A comma-delimited list of queue IDs. If specified, filters to builds that ran against these queues."]
             pub fn queues(mut self, queues: impl Into<String>) -> Self {
                 self.queues = Some(queues.into());
                 self
             }
+            #[doc = "If specified, filters to builds that match this build number. Append * to do a prefix search."]
             pub fn build_number(mut self, build_number: impl Into<String>) -> Self {
                 self.build_number = Some(build_number.into());
                 self
             }
+            #[doc = "If specified, filters to builds that finished/started/queued after this date based on the queryOrder specified."]
             pub fn min_time(mut self, min_time: impl Into<String>) -> Self {
                 self.min_time = Some(min_time.into());
                 self
             }
+            #[doc = "If specified, filters to builds that finished/started/queued before this date based on the queryOrder specified."]
             pub fn max_time(mut self, max_time: impl Into<String>) -> Self {
                 self.max_time = Some(max_time.into());
                 self
             }
+            #[doc = "If specified, filters to builds requested for the specified user."]
             pub fn requested_for(mut self, requested_for: impl Into<String>) -> Self {
                 self.requested_for = Some(requested_for.into());
                 self
             }
+            #[doc = "If specified, filters to builds that match this reason."]
             pub fn reason_filter(mut self, reason_filter: impl Into<String>) -> Self {
                 self.reason_filter = Some(reason_filter.into());
                 self
             }
+            #[doc = "If specified, filters to builds that match this status."]
             pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
             }
+            #[doc = "If specified, filters to builds that match this result."]
             pub fn result_filter(mut self, result_filter: impl Into<String>) -> Self {
                 self.result_filter = Some(result_filter.into());
                 self
             }
+            #[doc = "A comma-delimited list of tags. If specified, filters to builds that have the specified tags."]
             pub fn tag_filters(mut self, tag_filters: impl Into<String>) -> Self {
                 self.tag_filters = Some(tag_filters.into());
                 self
             }
+            #[doc = "A comma-delimited list of properties to retrieve."]
             pub fn properties(mut self, properties: impl Into<String>) -> Self {
                 self.properties = Some(properties.into());
                 self
             }
+            #[doc = "The maximum number of builds to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "A continuation token, returned by a previous call to this method, that can be used to return the next set of builds."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "The maximum number of builds to return per definition."]
             pub fn max_builds_per_definition(mut self, max_builds_per_definition: i32) -> Self {
                 self.max_builds_per_definition = Some(max_builds_per_definition);
                 self
             }
+            #[doc = "Indicates whether to exclude, include, or only return deleted builds."]
             pub fn deleted_filter(mut self, deleted_filter: impl Into<String>) -> Self {
                 self.deleted_filter = Some(deleted_filter.into());
                 self
             }
+            #[doc = "The order in which builds should be returned."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
+            #[doc = "If specified, filters to builds that built branches that built this branch."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
             }
+            #[doc = "A comma-delimited list that specifies the IDs of builds to retrieve."]
             pub fn build_ids(mut self, build_ids: impl Into<String>) -> Self {
                 self.build_ids = Some(build_ids.into());
                 self
             }
+            #[doc = "If specified, filters to builds that built from this repository."]
             pub fn repository_id(mut self, repository_id: impl Into<String>) -> Self {
                 self.repository_id = Some(repository_id.into());
                 self
             }
+            #[doc = "If specified, filters to builds that built from repositories of this type."]
             pub fn repository_type(mut self, repository_type: impl Into<String>) -> Self {
                 self.repository_type = Some(repository_type.into());
                 self
@@ -2568,6 +2595,7 @@ pub mod builds {
                 self.source_build_id = Some(source_build_id);
                 self
             }
+            #[doc = "Optional definition id to queue a build without a body. Ignored if there's a valid body"]
             pub fn definition_id(mut self, definition_id: i32) -> Self {
                 self.definition_id = Some(definition_id);
                 self
@@ -2961,6 +2989,7 @@ pub mod builds {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "The maximum number of changes to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3198,10 +3227,12 @@ pub mod builds {
             pub(crate) end_line: Option<i64>,
         }
         impl Builder {
+            #[doc = "The start line."]
             pub fn start_line(mut self, start_line: i64) -> Self {
                 self.start_line = Some(start_line);
                 self
             }
+            #[doc = "The end line."]
             pub fn end_line(mut self, end_line: i64) -> Self {
                 self.end_line = Some(end_line);
                 self
@@ -3286,6 +3317,7 @@ pub mod builds {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "The maximum number of work items to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3366,6 +3398,7 @@ pub mod builds {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "The maximum number of work items to return, or the number of commits to consider if no commit IDs are specified."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3447,14 +3480,17 @@ pub mod builds {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "The ID of the first build."]
             pub fn from_build_id(mut self, from_build_id: i32) -> Self {
                 self.from_build_id = Some(from_build_id);
                 self
             }
+            #[doc = "The ID of the last build."]
             pub fn to_build_id(mut self, to_build_id: i32) -> Self {
                 self.to_build_id = Some(to_build_id);
                 self
             }
+            #[doc = "The maximum number of changes to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3542,6 +3578,7 @@ pub mod builds {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "The maximum number of work items to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3926,6 +3963,7 @@ pub mod properties {
             pub(crate) filter: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-delimited list of properties. If specified, filters to these specific properties."]
             pub fn filter(mut self, filter: impl Into<String>) -> Self {
                 self.filter = Some(filter.into());
                 self
@@ -4078,6 +4116,7 @@ pub mod properties {
             pub(crate) filter: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-delimited list of properties. If specified, filters to these specific properties."]
             pub fn filter(mut self, filter: impl Into<String>) -> Self {
                 self.filter = Some(filter.into());
                 self
@@ -5046,6 +5085,7 @@ pub mod tags {
             pub(crate) revision: Option<i32>,
         }
         impl Builder {
+            #[doc = "The definition revision number. If not specified, uses the latest revision of the definition."]
             pub fn revision(mut self, revision: i32) -> Self {
                 self.revision = Some(revision);
                 self
@@ -5849,66 +5889,82 @@ pub mod definitions {
             pub(crate) yaml_filename: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, filters to definitions whose names match this pattern."]
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
                 self
             }
+            #[doc = "A repository ID. If specified, filters to definitions that use this repository."]
             pub fn repository_id(mut self, repository_id: impl Into<String>) -> Self {
                 self.repository_id = Some(repository_id.into());
                 self
             }
+            #[doc = "If specified, filters to definitions that have a repository of this type."]
             pub fn repository_type(mut self, repository_type: impl Into<String>) -> Self {
                 self.repository_type = Some(repository_type.into());
                 self
             }
+            #[doc = "Indicates the order in which definitions should be returned."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
+            #[doc = "The maximum number of definitions to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "A continuation token, returned by a previous call to this method, that can be used to return the next set of definitions."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "If specified, indicates the date from which metrics should be included."]
             pub fn min_metrics_time(mut self, min_metrics_time: impl Into<String>) -> Self {
                 self.min_metrics_time = Some(min_metrics_time.into());
                 self
             }
+            #[doc = "A comma-delimited list that specifies the IDs of definitions to retrieve."]
             pub fn definition_ids(mut self, definition_ids: impl Into<String>) -> Self {
                 self.definition_ids = Some(definition_ids.into());
                 self
             }
+            #[doc = "If specified, filters to definitions under this folder."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
             }
+            #[doc = "If specified, filters to definitions that have builds after this date."]
             pub fn built_after(mut self, built_after: impl Into<String>) -> Self {
                 self.built_after = Some(built_after.into());
                 self
             }
+            #[doc = "If specified, filters to definitions that do not have builds after this date."]
             pub fn not_built_after(mut self, not_built_after: impl Into<String>) -> Self {
                 self.not_built_after = Some(not_built_after.into());
                 self
             }
+            #[doc = "Indicates whether the full definitions should be returned. By default, shallow representations of the definitions are returned."]
             pub fn include_all_properties(mut self, include_all_properties: bool) -> Self {
                 self.include_all_properties = Some(include_all_properties);
                 self
             }
+            #[doc = "Indicates whether to return the latest and latest completed builds for this definition."]
             pub fn include_latest_builds(mut self, include_latest_builds: bool) -> Self {
                 self.include_latest_builds = Some(include_latest_builds);
                 self
             }
+            #[doc = "If specified, filters to definitions that use the specified task."]
             pub fn task_id_filter(mut self, task_id_filter: impl Into<String>) -> Self {
                 self.task_id_filter = Some(task_id_filter.into());
                 self
             }
+            #[doc = "If specified, filters to definitions with the given process type."]
             pub fn process_type(mut self, process_type: i32) -> Self {
                 self.process_type = Some(process_type);
                 self
             }
+            #[doc = "If specified, filters to YAML definitions that match the given filename. To use this filter includeAllProperties should be set to true"]
             pub fn yaml_filename(mut self, yaml_filename: impl Into<String>) -> Self {
                 self.yaml_filename = Some(yaml_filename.into());
                 self
@@ -6148,14 +6204,17 @@ pub mod definitions {
             pub(crate) include_latest_builds: Option<bool>,
         }
         impl Builder {
+            #[doc = "The revision number to retrieve. If this is not specified, the latest version will be returned."]
             pub fn revision(mut self, revision: i32) -> Self {
                 self.revision = Some(revision);
                 self
             }
+            #[doc = "If specified, indicates the date from which metrics should be included."]
             pub fn min_metrics_time(mut self, min_metrics_time: impl Into<String>) -> Self {
                 self.min_metrics_time = Some(min_metrics_time.into());
                 self
             }
+            #[doc = "A comma-delimited list of properties to include in the results."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
@@ -6616,6 +6675,7 @@ pub mod metrics {
             pub(crate) min_metrics_time: Option<String>,
         }
         impl Builder {
+            #[doc = "The date from which to calculate metrics."]
             pub fn min_metrics_time(mut self, min_metrics_time: impl Into<String>) -> Self {
                 self.min_metrics_time = Some(min_metrics_time.into());
                 self
@@ -6696,6 +6756,7 @@ pub mod metrics {
             pub(crate) min_metrics_time: Option<String>,
         }
         impl Builder {
+            #[doc = "The date from which to calculate metrics."]
             pub fn min_metrics_time(mut self, min_metrics_time: impl Into<String>) -> Self {
                 self.min_metrics_time = Some(min_metrics_time.into());
                 self
@@ -6992,14 +7053,17 @@ pub mod yaml {
             pub(crate) include_latest_builds: Option<bool>,
         }
         impl Builder {
+            #[doc = "The revision number to retrieve. If this is not specified, the latest version will be returned."]
             pub fn revision(mut self, revision: i32) -> Self {
                 self.revision = Some(revision);
                 self
             }
+            #[doc = "If specified, indicates the date from which metrics should be included."]
             pub fn min_metrics_time(mut self, min_metrics_time: impl Into<String>) -> Self {
                 self.min_metrics_time = Some(min_metrics_time.into());
                 self
             }
+            #[doc = "A comma-delimited list of properties to include in the results."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
@@ -7759,6 +7823,7 @@ pub mod folders {
             pub(crate) query_order: Option<String>,
         }
         impl Builder {
+            #[doc = "The order in which folders should be returned."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
@@ -8044,6 +8109,7 @@ pub mod latest {
             pub(crate) branch_name: Option<String>,
         }
         impl Builder {
+            #[doc = "optional parameter that indicates the specific branch to use. If not specified, the default branch is used."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
@@ -8608,22 +8674,27 @@ pub mod status {
             pub(crate) label: Option<String>,
         }
         impl Builder {
+            #[doc = "Only consider the most recent build for this branch. If not specified, the default branch is used."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
             }
+            #[doc = "Use this stage within the pipeline to render the status."]
             pub fn stage_name(mut self, stage_name: impl Into<String>) -> Self {
                 self.stage_name = Some(stage_name.into());
                 self
             }
+            #[doc = "Use this job within a stage of the pipeline to render the status."]
             pub fn job_name(mut self, job_name: impl Into<String>) -> Self {
                 self.job_name = Some(job_name.into());
                 self
             }
+            #[doc = "Use this job configuration to render the status"]
             pub fn configuration(mut self, configuration: impl Into<String>) -> Self {
                 self.configuration = Some(configuration.into());
                 self
             }
+            #[doc = "Replaces the default text on the left side of the badge."]
             pub fn label(mut self, label: impl Into<String>) -> Self {
                 self.label = Some(label.into());
                 self
@@ -8969,14 +9040,17 @@ pub mod source_providers {
             pub(crate) branch_name: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "The vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self
             }
+            #[doc = "If supplied, the name of the branch to check for specifically."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
@@ -9065,18 +9139,22 @@ pub mod source_providers {
             pub(crate) path: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "If specified, the vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self
             }
+            #[doc = "The identifier of the commit or branch from which a file's contents are retrieved."]
             pub fn commit_or_branch(mut self, commit_or_branch: impl Into<String>) -> Self {
                 self.commit_or_branch = Some(commit_or_branch.into());
                 self
             }
+            #[doc = "The path to the file to retrieve, relative to the root of the repository."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
@@ -9169,18 +9247,22 @@ pub mod source_providers {
             pub(crate) path: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "If specified, the vendor-specific identifier or the name of the repository to get branches. Can only be omitted for providers that do not support multiple repositories."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self
             }
+            #[doc = "The identifier of the commit or branch from which a file's contents are retrieved."]
             pub fn commit_or_branch(mut self, commit_or_branch: impl Into<String>) -> Self {
                 self.commit_or_branch = Some(commit_or_branch.into());
                 self
             }
+            #[doc = "The path contents to list, relative to the root of the repository."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
@@ -9273,10 +9355,12 @@ pub mod source_providers {
             pub(crate) service_endpoint_id: Option<String>,
         }
         impl Builder {
+            #[doc = "Vendor-specific identifier or the name of the repository that contains the pull request."]
             pub fn repository_id(mut self, repository_id: impl Into<String>) -> Self {
                 self.repository_id = Some(repository_id.into());
                 self
             }
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
@@ -9366,22 +9450,27 @@ pub mod source_providers {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "If specified, the vendor-specific identifier or the name of a single repository to get."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self
             }
+            #[doc = "'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set."]
             pub fn result_set(mut self, result_set: impl Into<String>) -> Self {
                 self.result_set = Some(result_set.into());
                 self
             }
+            #[doc = "If set to true, this will limit the set of results and will return a continuation token to continue the query."]
             pub fn page_results(mut self, page_results: bool) -> Self {
                 self.page_results = Some(page_results);
                 self
             }
+            #[doc = "When paging results, this is a continuation token, returned by a previous call to this method, that can be used to return the next set of repositories."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -9477,10 +9566,12 @@ pub mod source_providers {
             pub(crate) repository: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "If specified, the vendor-specific identifier or the name of the repository to get webhooks. Can only be omitted for providers that do not support multiple repositories."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self
@@ -9566,10 +9657,12 @@ pub mod source_providers {
             pub(crate) repository: Option<String>,
         }
         impl Builder {
+            #[doc = "If specified, the ID of the service endpoint to query. Can only be omitted for providers that do not use service endpoints, e.g. TFVC or TFGit."]
             pub fn service_endpoint_id(mut self, service_endpoint_id: impl Into<String>) -> Self {
                 self.service_endpoint_id = Some(service_endpoint_id.into());
                 self
             }
+            #[doc = "If specified, the vendor-specific identifier or the name of the repository to get webhooks. Can only be omitted for providers that do not support multiple repositories."]
             pub fn repository(mut self, repository: impl Into<String>) -> Self {
                 self.repository = Some(repository.into());
                 self

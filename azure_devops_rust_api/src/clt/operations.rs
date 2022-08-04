@@ -252,6 +252,7 @@ pub mod agent_groups {
                 self.outgoing_request_urls = Some(outgoing_request_urls);
                 self
             }
+            #[doc = "Name of the agent group"]
             pub fn agent_group_name(mut self, agent_group_name: impl Into<String>) -> Self {
                 self.agent_group_name = Some(agent_group_name.into());
                 self
@@ -382,6 +383,7 @@ pub mod agents {
             pub(crate) agent_name: Option<String>,
         }
         impl Builder {
+            #[doc = "Name of the static agent"]
             pub fn agent_name(mut self, agent_name: impl Into<String>) -> Self {
                 self.agent_name = Some(agent_name.into());
                 self
@@ -558,6 +560,7 @@ pub mod applications {
             pub(crate) type_: Option<String>,
         }
         impl Builder {
+            #[doc = "Filters the results based on the plugin type."]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
@@ -719,10 +722,12 @@ pub mod counters {
             pub(crate) plugintype: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by APM application identifier."]
             pub fn application_id(mut self, application_id: impl Into<String>) -> Self {
                 self.application_id = Some(application_id.into());
                 self
             }
+            #[doc = "Currently ApplicationInsights is the only available plugin type."]
             pub fn plugintype(mut self, plugintype: impl Into<String>) -> Self {
                 self.plugintype = Some(plugintype.into());
                 self
@@ -1026,10 +1031,12 @@ pub mod test_definitions {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Date after which test definitions were created"]
             pub fn from_date(mut self, from_date: impl Into<String>) -> Self {
                 self.from_date = Some(from_date.into());
                 self
             }
+            #[doc = "Date before which test definitions were crated"]
             pub fn to_date(mut self, to_date: impl Into<String>) -> Self {
                 self.to_date = Some(to_date.into());
                 self
@@ -1571,34 +1578,42 @@ pub mod test_runs {
             pub(crate) retention_state: Option<String>,
         }
         impl Builder {
+            #[doc = "Name for the test run. Names are not unique. Test runs with same name are assigned sequential rolling numbers."]
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
                 self
             }
+            #[doc = "Filter by the user who requested the test run. Here requestedBy should be the display name of the user."]
             pub fn requested_by(mut self, requested_by: impl Into<String>) -> Self {
                 self.requested_by = Some(requested_by.into());
                 self
             }
+            #[doc = "Filter by the test run status."]
             pub fn status(mut self, status: impl Into<String>) -> Self {
                 self.status = Some(status.into());
                 self
             }
+            #[doc = "Valid values include: null, one of TestRunType, or \"*\""]
             pub fn run_type(mut self, run_type: impl Into<String>) -> Self {
                 self.run_type = Some(run_type.into());
                 self
             }
+            #[doc = "Filter by the test runs that have been modified after the fromDate timestamp."]
             pub fn from_date(mut self, from_date: impl Into<String>) -> Self {
                 self.from_date = Some(from_date.into());
                 self
             }
+            #[doc = "Filter by the test runs that have been modified before the toDate timestamp."]
             pub fn to_date(mut self, to_date: impl Into<String>) -> Self {
                 self.to_date = Some(to_date.into());
                 self
             }
+            #[doc = "Include the detailed test run attributes."]
             pub fn detailed(mut self, detailed: bool) -> Self {
                 self.detailed = Some(detailed);
                 self
             }
+            #[doc = "The maximum number of test runs to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -2138,14 +2153,17 @@ pub mod errors {
             pub(crate) detailed: Option<bool>,
         }
         impl Builder {
+            #[doc = "Filter for the particular type of errors."]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
             }
+            #[doc = "Filter for a particular subtype of errors. You should not provide error subtype without error type."]
             pub fn sub_type(mut self, sub_type: impl Into<String>) -> Self {
                 self.sub_type = Some(sub_type.into());
                 self
             }
+            #[doc = "To include the details of test errors such as messagetext, request, stacktrace, testcasename, scenarioname, and lasterrordate."]
             pub fn detailed(mut self, detailed: bool) -> Self {
                 self.detailed = Some(detailed);
                 self

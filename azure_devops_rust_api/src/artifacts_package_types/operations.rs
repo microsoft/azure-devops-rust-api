@@ -546,6 +546,7 @@ pub mod maven {
             pub(crate) show_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to show information for deleted packages."]
             pub fn show_deleted(mut self, show_deleted: bool) -> Self {
                 self.show_deleted = Some(show_deleted);
                 self
@@ -3683,6 +3684,7 @@ pub mod nu_get {
             pub(crate) show_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include deleted packages in the response."]
             pub fn show_deleted(mut self, show_deleted: bool) -> Self {
                 self.show_deleted = Some(show_deleted);
                 self
@@ -3911,6 +3913,7 @@ pub mod nu_get {
             pub(crate) source_protocol_version: Option<String>,
         }
         impl Builder {
+            #[doc = "Unused"]
             pub fn source_protocol_version(
                 mut self,
                 source_protocol_version: impl Into<String>,
@@ -4738,6 +4741,7 @@ pub mod python {
             pub(crate) show_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to show information for deleted package versions."]
             pub fn show_deleted(mut self, show_deleted: bool) -> Self {
                 self.show_deleted = Some(show_deleted);
                 self
@@ -5564,6 +5568,7 @@ pub mod universal {
             pub(crate) show_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to show information for deleted versions"]
             pub fn show_deleted(mut self, show_deleted: bool) -> Self {
                 self.show_deleted = Some(show_deleted);
                 self

@@ -307,14 +307,17 @@ pub mod groups {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Specify a non-default scope (collection, project) to search for groups."]
             pub fn scope_descriptor(mut self, scope_descriptor: impl Into<String>) -> Self {
                 self.scope_descriptor = Some(scope_descriptor.into());
                 self
             }
+            #[doc = "A comma separated list of user subject subtypes to reduce the retrieved results, e.g. Microsoft.IdentityModel.Claims.ClaimsIdentity"]
             pub fn subject_types(mut self, subject_types: impl Into<String>) -> Self {
                 self.subject_types = Some(subject_types.into());
                 self
             }
+            #[doc = "An opaque data blob that allows the next page of data to resume immediately after where the previous page ended. The only reliable way to know if there is more data left is the presence of a continuation token."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -401,10 +404,12 @@ pub mod groups {
             pub(crate) group_descriptors: Option<String>,
         }
         impl Builder {
+            #[doc = "A descriptor referencing the scope (collection, project) in which the group should be created. If omitted, will be created in the scope of the enclosing account or organization. Valid only for VSTS groups."]
             pub fn scope_descriptor(mut self, scope_descriptor: impl Into<String>) -> Self {
                 self.scope_descriptor = Some(scope_descriptor.into());
                 self
             }
+            #[doc = "A comma separated list of descriptors referencing groups you want the graph group to join"]
             pub fn group_descriptors(mut self, group_descriptors: impl Into<String>) -> Self {
                 self.group_descriptors = Some(group_descriptors.into());
                 self
@@ -889,10 +894,12 @@ pub mod memberships {
             pub(crate) depth: Option<i32>,
         }
         impl Builder {
+            #[doc = "Defaults to Up."]
             pub fn direction(mut self, direction: impl Into<String>) -> Self {
                 self.direction = Some(direction.into());
                 self
             }
+            #[doc = "The maximum number of edges to traverse up or down the membership tree. Currently the only supported value is '1'."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
@@ -2040,14 +2047,17 @@ pub mod users {
             pub(crate) scope_descriptor: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma separated list of user subject subtypes to reduce the retrieved results, e.g. msa’, ‘aad’, ‘svc’ (service identity), ‘imp’ (imported identity), etc."]
             pub fn subject_types(mut self, subject_types: impl Into<String>) -> Self {
                 self.subject_types = Some(subject_types.into());
                 self
             }
+            #[doc = "An opaque data blob that allows the next page of data to resume immediately after where the previous page ended. The only reliable way to know if there is more data left is the presence of a continuation token."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Specify a non-default scope (collection, project) to search for users."]
             pub fn scope_descriptor(mut self, scope_descriptor: impl Into<String>) -> Self {
                 self.scope_descriptor = Some(scope_descriptor.into());
                 self
@@ -2133,6 +2143,7 @@ pub mod users {
             pub(crate) group_descriptors: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma separated list of descriptors of groups you want the graph user to join"]
             pub fn group_descriptors(mut self, group_descriptors: impl Into<String>) -> Self {
                 self.group_descriptors = Some(group_descriptors.into());
                 self

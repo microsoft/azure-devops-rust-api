@@ -120,26 +120,32 @@ pub mod identities {
             pub(crate) query_membership: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma separated list of identity descriptors to resolve"]
             pub fn descriptors(mut self, descriptors: impl Into<String>) -> Self {
                 self.descriptors = Some(descriptors.into());
                 self
             }
+            #[doc = "A comma seperated list of storage keys to resolve"]
             pub fn identity_ids(mut self, identity_ids: impl Into<String>) -> Self {
                 self.identity_ids = Some(identity_ids.into());
                 self
             }
+            #[doc = "A comma seperated list of subject descriptors to resolve"]
             pub fn subject_descriptors(mut self, subject_descriptors: impl Into<String>) -> Self {
                 self.subject_descriptors = Some(subject_descriptors.into());
                 self
             }
+            #[doc = "The type of search to perform. Values can be AccountName (domain\\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups)."]
             pub fn search_filter(mut self, search_filter: impl Into<String>) -> Self {
                 self.search_filter = Some(search_filter.into());
                 self
             }
+            #[doc = "The search value, as specified by the searchFilter."]
             pub fn filter_value(mut self, filter_value: impl Into<String>) -> Self {
                 self.filter_value = Some(filter_value.into());
                 self
             }
+            #[doc = "The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)"]
             pub fn query_membership(mut self, query_membership: impl Into<String>) -> Self {
                 self.query_membership = Some(query_membership.into());
                 self

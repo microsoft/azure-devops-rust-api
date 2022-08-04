@@ -398,6 +398,7 @@ pub mod projects {
             pub(crate) get_default_team_image_url: Option<bool>,
         }
         impl Builder {
+            #[doc = "Filter on team projects in a specific team project state (default: WellFormed)."]
             pub fn state_filter(mut self, state_filter: impl Into<String>) -> Self {
                 self.state_filter = Some(state_filter.into());
                 self
@@ -578,10 +579,12 @@ pub mod projects {
             pub(crate) include_history: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include capabilities (such as source control) in the team project result (default: false)."]
             pub fn include_capabilities(mut self, include_capabilities: bool) -> Self {
                 self.include_capabilities = Some(include_capabilities);
                 self
             }
+            #[doc = "Search within renamed projects (that had such name in the past)."]
             pub fn include_history(mut self, include_history: bool) -> Self {
                 self.include_history = Some(include_history);
                 self
@@ -806,6 +809,7 @@ pub mod projects {
             pub(crate) keys: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-delimited string of team project property names. Wildcard characters (\"?\" and \"*\") are supported. If no key is specified, all properties will be returned."]
             pub fn keys(mut self, keys: impl Into<String>) -> Self {
                 self.keys = Some(keys.into());
                 self
@@ -1259,18 +1263,22 @@ pub mod teams {
             pub(crate) expand_identity: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true return all the teams requesting user is member, otherwise return all the teams user has read access."]
             pub fn mine(mut self, mine: bool) -> Self {
                 self.mine = Some(mine);
                 self
             }
+            #[doc = "Maximum number of teams to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of teams to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "A value indicating whether or not to expand Identity information in the result WebApiTeam object."]
             pub fn expand_identity(mut self, expand_identity: bool) -> Self {
                 self.expand_identity = Some(expand_identity);
                 self
@@ -1432,6 +1440,7 @@ pub mod teams {
             pub(crate) expand_identity: Option<bool>,
         }
         impl Builder {
+            #[doc = "A value indicating whether or not to expand Identity information in the result WebApiTeam object."]
             pub fn expand_identity(mut self, expand_identity: bool) -> Self {
                 self.expand_identity = Some(expand_identity);
                 self
@@ -1739,18 +1748,22 @@ pub mod teams {
             pub(crate) expand_identity: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, then return all teams requesting user is member. Otherwise return all teams user has read access."]
             pub fn mine(mut self, mine: bool) -> Self {
                 self.mine = Some(mine);
                 self
             }
+            #[doc = "Maximum number of teams to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of teams to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "A value indicating whether or not to expand Identity information in the result WebApiTeam object."]
             pub fn expand_identity(mut self, expand_identity: bool) -> Self {
                 self.expand_identity = Some(expand_identity);
                 self

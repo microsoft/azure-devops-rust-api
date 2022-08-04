@@ -367,18 +367,22 @@ pub mod releases {
             pub(crate) top_gate_records: Option<i32>,
         }
         impl Builder {
+            #[doc = "A filter which would allow fetching approval steps selectively based on whether it is automated, or manual. This would also decide whether we should fetch pre and post approval snapshots. Assumes All by default"]
             pub fn approval_filters(mut self, approval_filters: impl Into<String>) -> Self {
                 self.approval_filters = Some(approval_filters.into());
                 self
             }
+            #[doc = "A comma-delimited list of extended properties to be retrieved. If set, the returned Release will contain values for the specified property Ids (if they exist). If not set, properties will not be included."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
             }
+            #[doc = "A property that should be expanded in the release."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Number of release gate records to get. Default is 5."]
             pub fn top_gate_records(mut self, top_gate_records: i32) -> Self {
                 self.top_gate_records = Some(top_gate_records);
                 self
@@ -488,6 +492,7 @@ pub mod releases {
             pub(crate) path: Option<String>,
         }
         impl Builder {
+            #[doc = "Releases from this release definition Id."]
             pub fn definition_id(mut self, definition_id: i32) -> Self {
                 self.definition_id = Some(definition_id);
                 self
@@ -496,14 +501,17 @@ pub mod releases {
                 self.definition_environment_id = Some(definition_environment_id);
                 self
             }
+            #[doc = "Releases with names containing searchText."]
             pub fn search_text(mut self, search_text: impl Into<String>) -> Self {
                 self.search_text = Some(search_text.into());
                 self
             }
+            #[doc = "Releases created by this user."]
             pub fn created_by(mut self, created_by: impl Into<String>) -> Self {
                 self.created_by = Some(created_by.into());
                 self
             }
+            #[doc = "Releases that have this status."]
             pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
@@ -512,62 +520,77 @@ pub mod releases {
                 self.environment_status_filter = Some(environment_status_filter);
                 self
             }
+            #[doc = "Releases that were created after this time."]
             pub fn min_created_time(mut self, min_created_time: impl Into<String>) -> Self {
                 self.min_created_time = Some(min_created_time.into());
                 self
             }
+            #[doc = "Releases that were created before this time."]
             pub fn max_created_time(mut self, max_created_time: impl Into<String>) -> Self {
                 self.max_created_time = Some(max_created_time.into());
                 self
             }
+            #[doc = "Gets the results in the defined order of created date for releases. Default is descending."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
+            #[doc = "Number of releases to get. Default is 50."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Gets the releases after the continuation token provided."]
             pub fn continuation_token(mut self, continuation_token: i32) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self
             }
+            #[doc = "The property that should be expanded in the list of releases."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Releases with given artifactTypeId will be returned. Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild."]
             pub fn artifact_type_id(mut self, artifact_type_id: impl Into<String>) -> Self {
                 self.artifact_type_id = Some(artifact_type_id.into());
                 self
             }
+            #[doc = "Unique identifier of the artifact used. e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions."]
             pub fn source_id(mut self, source_id: impl Into<String>) -> Self {
                 self.source_id = Some(source_id.into());
                 self
             }
+            #[doc = "Releases with given artifactVersionId will be returned. E.g. in case of Build artifactType, it is buildId."]
             pub fn artifact_version_id(mut self, artifact_version_id: impl Into<String>) -> Self {
                 self.artifact_version_id = Some(artifact_version_id.into());
                 self
             }
+            #[doc = "Releases with given sourceBranchFilter will be returned."]
             pub fn source_branch_filter(mut self, source_branch_filter: impl Into<String>) -> Self {
                 self.source_branch_filter = Some(source_branch_filter.into());
                 self
             }
+            #[doc = "Gets the soft deleted releases, if true."]
             pub fn is_deleted(mut self, is_deleted: bool) -> Self {
                 self.is_deleted = Some(is_deleted);
                 self
             }
+            #[doc = "A comma-delimited list of tags. Only releases with these tags will be returned."]
             pub fn tag_filter(mut self, tag_filter: impl Into<String>) -> Self {
                 self.tag_filter = Some(tag_filter.into());
                 self
             }
+            #[doc = "A comma-delimited list of extended properties to be retrieved. If set, the returned Releases will contain values for the specified property Ids (if they exist). If not set, properties will not be included. Note that this will not filter out any Release from results irrespective of whether it has property set or not."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
             }
+            #[doc = "A comma-delimited list of releases Ids. Only releases with these Ids will be returned."]
             pub fn release_id_filter(mut self, release_id_filter: impl Into<String>) -> Self {
                 self.release_id_filter = Some(release_id_filter.into());
                 self
             }
+            #[doc = "Releases under this folder path will be returned"]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
@@ -1014,6 +1037,7 @@ pub mod releases {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "A property that should be expanded in the environment."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -1173,10 +1197,12 @@ pub mod releases {
             pub(crate) end_line: Option<i64>,
         }
         impl Builder {
+            #[doc = "Starting line number for logs"]
             pub fn start_line(mut self, start_line: i64) -> Self {
                 self.start_line = Some(start_line);
                 self
             }
+            #[doc = "Ending line number for logs"]
             pub fn end_line(mut self, end_line: i64) -> Self {
                 self.end_line = Some(end_line);
                 self
@@ -1382,34 +1408,42 @@ pub mod approvals {
             pub(crate) include_my_group_approvals: Option<bool>,
         }
         impl Builder {
+            #[doc = "Approvals assigned to this user."]
             pub fn assigned_to_filter(mut self, assigned_to_filter: impl Into<String>) -> Self {
                 self.assigned_to_filter = Some(assigned_to_filter.into());
                 self
             }
+            #[doc = "Approvals with this status. Default is 'pending'."]
             pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
             }
+            #[doc = "Approvals for release id(s) mentioned in the filter. Multiple releases can be mentioned by separating them with ',' e.g. releaseIdsFilter=1,2,3,4."]
             pub fn release_ids_filter(mut self, release_ids_filter: impl Into<String>) -> Self {
                 self.release_ids_filter = Some(release_ids_filter.into());
                 self
             }
+            #[doc = "Approval with this type."]
             pub fn type_filter(mut self, type_filter: impl Into<String>) -> Self {
                 self.type_filter = Some(type_filter.into());
                 self
             }
+            #[doc = "Number of approvals to get. Default is 50."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Gets the approvals after the continuation token provided."]
             pub fn continuation_token(mut self, continuation_token: i32) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self
             }
+            #[doc = "Gets the results in the defined order of created approvals. Default is 'descending'."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
+            #[doc = "'true' to include my group approvals. Default is 'false'."]
             pub fn include_my_group_approvals(mut self, include_my_group_approvals: bool) -> Self {
                 self.include_my_group_approvals = Some(include_my_group_approvals);
                 self
@@ -1709,7 +1743,7 @@ pub mod definitions {
                 definition_id,
             }
         }
-        #[doc = "Get release definition for a given definitionId and revision"]
+        #[doc = "Get release definition for a given definition_id and revision"]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -1757,58 +1791,72 @@ pub mod definitions {
             pub(crate) search_text_contains_folder_name: Option<bool>,
         }
         impl Builder {
+            #[doc = "Get release definitions with names containing searchText."]
             pub fn search_text(mut self, search_text: impl Into<String>) -> Self {
                 self.search_text = Some(search_text.into());
                 self
             }
+            #[doc = "The properties that should be expanded in the list of Release definitions."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Release definitions with given artifactType will be returned. Values can be Build, Jenkins, GitHub, Nuget, Team Build (external), ExternalTFSBuild, Git, TFVC, ExternalTfsXamlBuild."]
             pub fn artifact_type(mut self, artifact_type: impl Into<String>) -> Self {
                 self.artifact_type = Some(artifact_type.into());
                 self
             }
+            #[doc = "Release definitions with given artifactSourceId will be returned. e.g. For build it would be {projectGuid}:{BuildDefinitionId}, for Jenkins it would be {JenkinsConnectionId}:{JenkinsDefinitionId}, for TfsOnPrem it would be {TfsOnPremConnectionId}:{ProjectName}:{TfsOnPremDefinitionId}. For third-party artifacts e.g. TeamCity, BitBucket you may refer 'uniqueSourceIdentifier' inside vss-extension.json at https://github.com/Microsoft/vsts-rm-extensions/blob/master/Extensions."]
             pub fn artifact_source_id(mut self, artifact_source_id: impl Into<String>) -> Self {
                 self.artifact_source_id = Some(artifact_source_id.into());
                 self
             }
+            #[doc = "Number of release definitions to get."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Gets the release definitions after the continuation token provided."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Gets the results in the defined order. Default is 'IdAscending'."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
+            #[doc = "Gets the release definitions under the specified path."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
             }
+            #[doc = "'true'to gets the release definitions with exact match as specified in searchText. Default is 'false'."]
             pub fn is_exact_name_match(mut self, is_exact_name_match: bool) -> Self {
                 self.is_exact_name_match = Some(is_exact_name_match);
                 self
             }
+            #[doc = "A comma-delimited list of tags. Only release definitions with these tags will be returned."]
             pub fn tag_filter(mut self, tag_filter: impl Into<String>) -> Self {
                 self.tag_filter = Some(tag_filter.into());
                 self
             }
+            #[doc = "A comma-delimited list of extended properties to be retrieved. If set, the returned Release Definitions will contain values for the specified property Ids (if they exist). If not set, properties will not be included. Note that this will not filter out any Release Definition from results irrespective of whether it has property set or not."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
             }
+            #[doc = "A comma-delimited list of release definitions to retrieve."]
             pub fn definition_id_filter(mut self, definition_id_filter: impl Into<String>) -> Self {
                 self.definition_id_filter = Some(definition_id_filter.into());
                 self
             }
+            #[doc = "'true' to get release definitions that has been deleted. Default is 'false'"]
             pub fn is_deleted(mut self, is_deleted: bool) -> Self {
                 self.is_deleted = Some(is_deleted);
                 self
             }
+            #[doc = "'true' to get the release definitions under the folder with name as specified in searchText. Default is 'false'."]
             pub fn search_text_contains_folder_name(
                 mut self,
                 search_text_contains_folder_name: bool,
@@ -2083,6 +2131,7 @@ pub mod definitions {
             pub(crate) property_filters: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-delimited list of extended properties to be retrieved. If set, the returned Release Definition will contain values for the specified property Ids (if they exist). If not set, properties will not be included."]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
@@ -2164,10 +2213,12 @@ pub mod definitions {
             pub(crate) force_delete: Option<bool>,
         }
         impl Builder {
+            #[doc = "Comment for deleting a release definition."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
+            #[doc = "'true' to automatically cancel any in-progress release deployments and proceed with release definition deletion . Default is 'false'."]
             pub fn force_delete(mut self, force_delete: bool) -> Self {
                 self.force_delete = Some(force_delete);
                 self
@@ -2716,6 +2767,7 @@ pub mod folders {
             pub(crate) query_order: Option<String>,
         }
         impl Builder {
+            #[doc = "Gets the results in the defined order. Default is 'None'."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self

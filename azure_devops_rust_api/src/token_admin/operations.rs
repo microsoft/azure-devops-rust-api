@@ -127,14 +127,17 @@ pub mod personal_access_tokens {
             pub(crate) is_public: Option<bool>,
         }
         impl Builder {
+            #[doc = "The maximum number of results to return on each page."]
             pub fn page_size(mut self, page_size: i32) -> Self {
                 self.page_size = Some(page_size);
                 self
             }
+            #[doc = "An opaque data blob that allows the next page of data to resume immediately after where the previous page ended. The only reliable way to know if there is more data left is the presence of a continuation token."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Set to false for PAT tokens and true for SSH tokens."]
             pub fn is_public(mut self, is_public: bool) -> Self {
                 self.is_public = Some(is_public);
                 self
@@ -329,6 +332,7 @@ pub mod revocations {
             pub(crate) is_public: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to false for PAT tokens and true for SSH tokens."]
             pub fn is_public(mut self, is_public: bool) -> Self {
                 self.is_public = Some(is_public);
                 self

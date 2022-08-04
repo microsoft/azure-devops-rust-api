@@ -204,22 +204,27 @@ pub mod testlog {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "directory path of the attachment to get"]
             pub fn directory_path(mut self, directory_path: impl Into<String>) -> Self {
                 self.directory_path = Some(directory_path.into());
                 self
             }
+            #[doc = "Filename prefix to filter the list of attachmentss"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
             }
+            #[doc = "Default is false, set if metadata is needed"]
             pub fn fetch_meta_data(mut self, fetch_meta_data: bool) -> Self {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -320,22 +325,27 @@ pub mod testlog {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Directory path of attachments to get"]
             pub fn directory_path(mut self, directory_path: impl Into<String>) -> Self {
                 self.directory_path = Some(directory_path.into());
                 self
             }
+            #[doc = "Filename prefix to filter the list of attachments"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
             }
+            #[doc = "Default is false, set if metadata is needed"]
             pub fn fetch_meta_data(mut self, fetch_meta_data: bool) -> Self {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -439,22 +449,27 @@ pub mod testlog {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "directory path for which attachments are needed"]
             pub fn directory_path(mut self, directory_path: impl Into<String>) -> Self {
                 self.directory_path = Some(directory_path.into());
                 self
             }
+            #[doc = "Filename prefix to filter the list of attachments"]
             pub fn file_name_prefix(mut self, file_name_prefix: impl Into<String>) -> Self {
                 self.file_name_prefix = Some(file_name_prefix.into());
                 self
             }
+            #[doc = "Default is false, set if metadata is needed"]
             pub fn fetch_meta_data(mut self, fetch_meta_data: bool) -> Self {
                 self.fetch_meta_data = Some(fetch_meta_data);
                 self
             }
+            #[doc = "Number of attachment references to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Header to pass the continuation token"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -1015,10 +1030,12 @@ pub mod testlogstoreendpoint {
             pub(crate) type_: Option<String>,
         }
         impl Builder {
+            #[doc = "file path to create an empty file"]
             pub fn file_path(mut self, file_path: impl Into<String>) -> Self {
                 self.file_path = Some(file_path.into());
                 self
             }
+            #[doc = "Default is GeneralAttachment, type of empty file to be created"]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
@@ -1155,6 +1172,7 @@ pub mod result_meta_data {
             pub(crate) details_to_include: Option<String>,
         }
         impl Builder {
+            #[doc = "Details to include with test results metadata. Default is None. Other values are FlakyIdentifiers."]
             pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self

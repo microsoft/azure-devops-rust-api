@@ -233,18 +233,22 @@ pub mod pools {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by name"]
             pub fn pool_name(mut self, pool_name: impl Into<String>) -> Self {
                 self.pool_name = Some(pool_name.into());
                 self
             }
+            #[doc = "Filter by agent pool properties (comma-separated)"]
             pub fn properties(mut self, properties: impl Into<String>) -> Self {
                 self.properties = Some(properties.into());
                 self
             }
+            #[doc = "Filter by pool type"]
             pub fn pool_type(mut self, pool_type: impl Into<String>) -> Self {
                 self.pool_type = Some(pool_type.into());
                 self
             }
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -331,6 +335,7 @@ pub mod pools {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -480,10 +485,12 @@ pub mod pools {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Agent pool properties (comma-separated)"]
             pub fn properties(mut self, properties: impl Into<String>) -> Self {
                 self.properties = Some(properties.into());
                 self
             }
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -843,6 +850,7 @@ pub mod queues {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -925,6 +933,7 @@ pub mod queues {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -1007,10 +1016,12 @@ pub mod queues {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter on the agent queue name"]
             pub fn queue_name(mut self, queue_name: impl Into<String>) -> Self {
                 self.queue_name = Some(queue_name.into());
                 self
             }
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -1093,6 +1104,7 @@ pub mod queues {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -1174,6 +1186,7 @@ pub mod queues {
             pub(crate) authorize_pipelines: Option<bool>,
         }
         impl Builder {
+            #[doc = "Automatically authorize this queue when using YAML"]
             pub fn authorize_pipelines(mut self, authorize_pipelines: bool) -> Self {
                 self.authorize_pipelines = Some(authorize_pipelines);
                 self
@@ -1256,6 +1269,7 @@ pub mod queues {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -1537,22 +1551,27 @@ pub mod variablegroups {
             pub(crate) query_order: Option<String>,
         }
         impl Builder {
+            #[doc = "Name of variable group."]
             pub fn group_name(mut self, group_name: impl Into<String>) -> Self {
                 self.group_name = Some(group_name.into());
                 self
             }
+            #[doc = "Action filter for the variable group. It specifies the action which can be performed on the variable groups."]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
+            #[doc = "Number of variable groups to get."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Gets the variable groups after the continuation token provided."]
             pub fn continuation_token(mut self, continuation_token: i32) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self
             }
+            #[doc = "Gets the results in the defined order. Default is 'IdDescending'."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
@@ -2770,18 +2789,22 @@ pub mod agents {
             pub(crate) demands: Option<String>,
         }
         impl Builder {
+            #[doc = "Filter on agent name"]
             pub fn agent_name(mut self, agent_name: impl Into<String>) -> Self {
                 self.agent_name = Some(agent_name.into());
                 self
             }
+            #[doc = "Whether to include the agents' capabilities in the response"]
             pub fn include_capabilities(mut self, include_capabilities: bool) -> Self {
                 self.include_capabilities = Some(include_capabilities);
                 self
             }
+            #[doc = "Whether to include details about the agents' current work"]
             pub fn include_assigned_request(mut self, include_assigned_request: bool) -> Self {
                 self.include_assigned_request = Some(include_assigned_request);
                 self
             }
+            #[doc = "Whether to include details about the agents' most recent completed work"]
             pub fn include_last_completed_request(
                 mut self,
                 include_last_completed_request: bool,
@@ -2789,10 +2812,12 @@ pub mod agents {
                 self.include_last_completed_request = Some(include_last_completed_request);
                 self
             }
+            #[doc = "Filter which custom properties will be returned"]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
             }
+            #[doc = "Filter by demands the agents can satisfy"]
             pub fn demands(mut self, demands: impl Into<String>) -> Self {
                 self.demands = Some(demands.into());
                 self
@@ -2972,14 +2997,17 @@ pub mod agents {
             pub(crate) property_filters: Option<String>,
         }
         impl Builder {
+            #[doc = "Whether to include the agent's capabilities in the response"]
             pub fn include_capabilities(mut self, include_capabilities: bool) -> Self {
                 self.include_capabilities = Some(include_capabilities);
                 self
             }
+            #[doc = "Whether to include details about the agent's current work"]
             pub fn include_assigned_request(mut self, include_assigned_request: bool) -> Self {
                 self.include_assigned_request = Some(include_assigned_request);
                 self
             }
+            #[doc = "Whether to include details about the agents' most recent completed work"]
             pub fn include_last_completed_request(
                 mut self,
                 include_last_completed_request: bool,
@@ -2987,6 +3015,7 @@ pub mod agents {
                 self.include_last_completed_request = Some(include_last_completed_request);
                 self
             }
+            #[doc = "Filter which custom properties will be returned"]
             pub fn property_filters(mut self, property_filters: impl Into<String>) -> Self {
                 self.property_filters = Some(property_filters.into());
                 self
@@ -3313,6 +3342,7 @@ pub mod yamlschema {
             pub(crate) validate_task_names: Option<bool>,
         }
         impl Builder {
+            #[doc = "Whether the schema should validate that tasks are actually installed (useful for offline tools where you don't want validation)."]
             pub fn validate_task_names(mut self, validate_task_names: bool) -> Self {
                 self.validate_task_names = Some(validate_task_names);
                 self
@@ -3504,26 +3534,32 @@ pub mod deploymentgroups {
             pub(crate) ids: Option<String>,
         }
         impl Builder {
+            #[doc = "Name of the deployment group."]
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
                 self
             }
+            #[doc = "Get only deployment groups on which this action can be performed."]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
+            #[doc = "Include these additional details in the returned objects."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Get deployment groups with names greater than this continuation token lexicographically."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Maximum number of deployment groups to return. Default is **1000**."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Comma separated list of IDs of the deployment groups."]
             pub fn ids(mut self, ids: impl Into<String>) -> Self {
                 self.ids = Some(ids.into());
                 self
@@ -3691,10 +3727,12 @@ pub mod deploymentgroups {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Get the deployment group only if this action can be performed on it."]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
+            #[doc = "Include these additional details in the returned object."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -4027,38 +4065,47 @@ pub mod targets {
             pub(crate) property_filters: Option<String>,
         }
         impl Builder {
+            #[doc = "Get only the deployment targets that contain all these comma separted list of tags."]
             pub fn tags(mut self, tags: impl Into<String>) -> Self {
                 self.tags = Some(tags.into());
                 self
             }
+            #[doc = "Name pattern of the deployment targets to return."]
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
                 self
             }
+            #[doc = "When set to true, treats **name** as pattern. Else treats it as absolute match. Default is **false**."]
             pub fn partial_name_match(mut self, partial_name_match: bool) -> Self {
                 self.partial_name_match = Some(partial_name_match);
                 self
             }
+            #[doc = "Include these additional details in the returned objects."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Get only deployment targets that have this status."]
             pub fn agent_status(mut self, agent_status: impl Into<String>) -> Self {
                 self.agent_status = Some(agent_status.into());
                 self
             }
+            #[doc = "Get only deployment targets that have this last job result."]
             pub fn agent_job_result(mut self, agent_job_result: impl Into<String>) -> Self {
                 self.agent_job_result = Some(agent_job_result.into());
                 self
             }
+            #[doc = "Get deployment targets with names greater than this continuation token lexicographically."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Maximum number of deployment targets to return. Default is **1000**."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Get only deployment targets that are enabled or disabled. Default is 'null' which returns all the targets."]
             pub fn enabled(mut self, enabled: bool) -> Self {
                 self.enabled = Some(enabled);
                 self
@@ -4249,6 +4296,7 @@ pub mod targets {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Include these additional details in the returned objects."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -4666,6 +4714,7 @@ pub mod environments {
             pub(crate) expands: Option<String>,
         }
         impl Builder {
+            #[doc = "Include these additional details in the returned objects."]
             pub fn expands(mut self, expands: impl Into<String>) -> Self {
                 self.expands = Some(expands.into());
                 self
@@ -5418,26 +5467,32 @@ pub mod taskgroups {
             pub(crate) query_order: Option<String>,
         }
         impl Builder {
+            #[doc = "'true' to recursively expand task groups. Default is 'false'."]
             pub fn expanded(mut self, expanded: bool) -> Self {
                 self.expanded = Some(expanded);
                 self
             }
+            #[doc = "Guid of the taskId to filter."]
             pub fn task_id_filter(mut self, task_id_filter: impl Into<String>) -> Self {
                 self.task_id_filter = Some(task_id_filter.into());
                 self
             }
+            #[doc = "'true'to include deleted task groups. Default is 'false'."]
             pub fn deleted(mut self, deleted: bool) -> Self {
                 self.deleted = Some(deleted);
                 self
             }
+            #[doc = "Number of task groups to get."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Gets the task groups after the continuation token provided."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Gets the results in the defined order. Default is 'CreatedOnDescending'."]
             pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
@@ -5609,6 +5664,7 @@ pub mod taskgroups {
             pub(crate) comment: Option<String>,
         }
         impl Builder {
+            #[doc = "Comments to delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self

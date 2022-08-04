@@ -304,58 +304,72 @@ pub mod runs {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Current state of the Runs to be queried."]
             pub fn state(mut self, state: impl Into<String>) -> Self {
                 self.state = Some(state.into());
                 self
             }
+            #[doc = "Plan Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn plan_ids(mut self, plan_ids: impl Into<String>) -> Self {
                 self.plan_ids = Some(plan_ids.into());
                 self
             }
+            #[doc = "Automation type of the Runs to be queried."]
             pub fn is_automated(mut self, is_automated: bool) -> Self {
                 self.is_automated = Some(is_automated);
                 self
             }
+            #[doc = "PublishContext of the Runs to be queried."]
             pub fn publish_context(mut self, publish_context: impl Into<String>) -> Self {
                 self.publish_context = Some(publish_context.into());
                 self
             }
+            #[doc = "Build Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn build_ids(mut self, build_ids: impl Into<String>) -> Self {
                 self.build_ids = Some(build_ids.into());
                 self
             }
+            #[doc = "Build Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn build_def_ids(mut self, build_def_ids: impl Into<String>) -> Self {
                 self.build_def_ids = Some(build_def_ids.into());
                 self
             }
+            #[doc = "Source Branch name of the Runs to be queried."]
             pub fn branch_name(mut self, branch_name: impl Into<String>) -> Self {
                 self.branch_name = Some(branch_name.into());
                 self
             }
+            #[doc = "Release Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn release_ids(mut self, release_ids: impl Into<String>) -> Self {
                 self.release_ids = Some(release_ids.into());
                 self
             }
+            #[doc = "Release Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn release_def_ids(mut self, release_def_ids: impl Into<String>) -> Self {
                 self.release_def_ids = Some(release_def_ids.into());
                 self
             }
+            #[doc = "Release Environment Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn release_env_ids(mut self, release_env_ids: impl Into<String>) -> Self {
                 self.release_env_ids = Some(release_env_ids.into());
                 self
             }
+            #[doc = "Release Environment Definition Ids of the Runs to be queried, comma separated list of valid ids (limit no. of ids 10)."]
             pub fn release_env_def_ids(mut self, release_env_def_ids: impl Into<String>) -> Self {
                 self.release_env_def_ids = Some(release_env_def_ids.into());
                 self
             }
+            #[doc = "Run Title of the Runs to be queried."]
             pub fn run_title(mut self, run_title: impl Into<String>) -> Self {
                 self.run_title = Some(run_title.into());
                 self
             }
+            #[doc = "Number of runs to be queried. Limit is 100"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "continuation token received from previous batch or null for first batch. It is not supposed to be created (or altered, if received from last batch) by user."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -494,10 +508,12 @@ pub mod runs {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "URI of the build that the runs used."]
             pub fn build_uri(mut self, build_uri: impl Into<String>) -> Self {
                 self.build_uri = Some(build_uri.into());
                 self
             }
+            #[doc = "Team foundation ID of the owner of the runs."]
             pub fn owner(mut self, owner: impl Into<String>) -> Self {
                 self.owner = Some(owner.into());
                 self
@@ -506,22 +522,27 @@ pub mod runs {
                 self.tmi_run_id = Some(tmi_run_id.into());
                 self
             }
+            #[doc = "ID of the test plan that the runs are a part of."]
             pub fn plan_id(mut self, plan_id: i32) -> Self {
                 self.plan_id = Some(plan_id);
                 self
             }
+            #[doc = "If true, include all the properties of the runs."]
             pub fn include_run_details(mut self, include_run_details: bool) -> Self {
                 self.include_run_details = Some(include_run_details);
                 self
             }
+            #[doc = "If true, only returns automated runs."]
             pub fn automated(mut self, automated: bool) -> Self {
                 self.automated = Some(automated);
                 self
             }
+            #[doc = "Number of test runs to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Number of test runs to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -695,6 +716,7 @@ pub mod runs {
             pub(crate) include_details: Option<bool>,
         }
         impl Builder {
+            #[doc = "Default value is true. It includes details like run statistics, release, build, test environment, post process state, and more."]
             pub fn include_details(mut self, include_details: bool) -> Self {
                 self.include_details = Some(include_details);
                 self
@@ -2189,30 +2211,37 @@ pub mod points {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Comma-separated list of work item field names."]
             pub fn wit_fields(mut self, wit_fields: impl Into<String>) -> Self {
                 self.wit_fields = Some(wit_fields.into());
                 self
             }
+            #[doc = "Get test points for specific configuration."]
             pub fn configuration_id(mut self, configuration_id: impl Into<String>) -> Self {
                 self.configuration_id = Some(configuration_id.into());
                 self
             }
+            #[doc = "Get test points for a specific test case, valid when configurationId is not set."]
             pub fn test_case_id(mut self, test_case_id: impl Into<String>) -> Self {
                 self.test_case_id = Some(test_case_id.into());
                 self
             }
+            #[doc = "Get test points for comma-separated list of test point IDs, valid only when configurationId and testCaseId are not set."]
             pub fn test_point_ids(mut self, test_point_ids: impl Into<String>) -> Self {
                 self.test_point_ids = Some(test_point_ids.into());
                 self
             }
+            #[doc = "Include all properties for the test point."]
             pub fn include_point_details(mut self, include_point_details: bool) -> Self {
                 self.include_point_details = Some(include_point_details);
                 self
             }
+            #[doc = "Number of test points to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Number of test points to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -2320,6 +2349,7 @@ pub mod points {
             pub(crate) wit_fields: Option<String>,
         }
         impl Builder {
+            #[doc = "Comma-separated list of work item field names."]
             pub fn wit_fields(mut self, wit_fields: impl Into<String>) -> Self {
                 self.wit_fields = Some(wit_fields.into());
                 self
@@ -2479,10 +2509,12 @@ pub mod points {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Number of test points to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Number of test points to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3443,18 +3475,22 @@ pub mod results {
             pub(crate) outcomes: Option<String>,
         }
         impl Builder {
+            #[doc = "Details to include with test results. Default is None. Other values are Iterations and WorkItems."]
             pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
+            #[doc = "Number of test results to skip from beginning."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Number of test results to return. Maximum is 1000 when details_to_include is None and 200 otherwise."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Comma separated list of test outcomes to filter test results."]
             pub fn outcomes(mut self, outcomes: impl Into<String>) -> Self {
                 self.outcomes = Some(outcomes.into());
                 self
@@ -3692,6 +3728,7 @@ pub mod results {
             pub(crate) details_to_include: Option<String>,
         }
         impl Builder {
+            #[doc = "Details to include with test results. Default is None. Other values are Iterations, WorkItems and SubResults."]
             pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
@@ -3829,6 +3866,7 @@ pub mod iterations {
             pub(crate) include_action_results: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include result details for each action performed in the test iteration. ActionResults refer to outcome (pass/fail) of test steps that are executed as part of a running a manual test. Including the ActionResults flag gets the outcome of test steps in the actionResults section and test parameters in the parameters section for each test iteration."]
             pub fn include_action_results(mut self, include_action_results: bool) -> Self {
                 self.include_action_results = Some(include_action_results);
                 self
@@ -3914,6 +3952,7 @@ pub mod iterations {
             pub(crate) include_action_results: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include result details for each action performed in the test iteration. ActionResults refer to outcome (pass/fail) of test steps that are executed as part of a running a manual test. Including the ActionResults flag gets the outcome of test steps in the actionResults section and test parameters in the parameters section for each test iteration."]
             pub fn include_action_results(mut self, include_action_results: bool) -> Self {
                 self.include_action_results = Some(include_action_results);
                 self
@@ -4166,22 +4205,27 @@ pub mod session {
             pub(crate) include_only_completed_sessions: Option<bool>,
         }
         impl Builder {
+            #[doc = "Period in days from now, for which test sessions are fetched."]
             pub fn period(mut self, period: i32) -> Self {
                 self.period = Some(period);
                 self
             }
+            #[doc = "If false, returns test sessions for current user. Otherwise, it returns test sessions for all users"]
             pub fn all_sessions(mut self, all_sessions: bool) -> Self {
                 self.all_sessions = Some(all_sessions);
                 self
             }
+            #[doc = "If true, it returns all properties of the test sessions. Otherwise, it returns the skinny version."]
             pub fn include_all_properties(mut self, include_all_properties: bool) -> Self {
                 self.include_all_properties = Some(include_all_properties);
                 self
             }
+            #[doc = "Source of the test session."]
             pub fn source(mut self, source: impl Into<String>) -> Self {
                 self.source = Some(source.into());
                 self
             }
+            #[doc = "If true, it returns test sessions in completed state. Otherwise, it returns test sessions for all states"]
             pub fn include_only_completed_sessions(
                 mut self,
                 include_only_completed_sessions: bool,

@@ -119,6 +119,7 @@ pub mod actions {
             pub(crate) area_name: Option<String>,
         }
         impl Builder {
+            #[doc = "Optional. Get actions scoped to area"]
             pub fn area_name(mut self, area_name: impl Into<String>) -> Self {
                 self.area_name = Some(area_name.into());
                 self
@@ -219,22 +220,27 @@ pub mod audit_log {
             pub(crate) skip_aggregation: Option<bool>,
         }
         impl Builder {
+            #[doc = "Start time of download window. Optional"]
             pub fn start_time(mut self, start_time: impl Into<String>) -> Self {
                 self.start_time = Some(start_time.into());
                 self
             }
+            #[doc = "End time of download window. Optional"]
             pub fn end_time(mut self, end_time: impl Into<String>) -> Self {
                 self.end_time = Some(end_time.into());
                 self
             }
+            #[doc = "Max number of results to return. Optional"]
             pub fn batch_size(mut self, batch_size: i32) -> Self {
                 self.batch_size = Some(batch_size);
                 self
             }
+            #[doc = "Token used for returning next set of results from previous query. Optional"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Skips aggregating events and leaves them as individual entries instead. By default events are aggregated. Event types that are aggregated: AuditLog.AccessLog."]
             pub fn skip_aggregation(mut self, skip_aggregation: bool) -> Self {
                 self.skip_aggregation = Some(skip_aggregation);
                 self
@@ -351,10 +357,12 @@ pub mod download_log {
             pub(crate) end_time: Option<String>,
         }
         impl Builder {
+            #[doc = "Start time of download window. Optional"]
             pub fn start_time(mut self, start_time: impl Into<String>) -> Self {
                 self.start_time = Some(start_time.into());
                 self
             }
+            #[doc = "End time of download window. Optional"]
             pub fn end_time(mut self, end_time: impl Into<String>) -> Self {
                 self.end_time = Some(end_time.into());
                 self

@@ -117,6 +117,7 @@ pub mod operations {
             pub(crate) plugin_id: Option<String>,
         }
         impl Builder {
+            #[doc = "The ID for the plugin."]
             pub fn plugin_id(mut self, plugin_id: impl Into<String>) -> Self {
                 self.plugin_id = Some(plugin_id.into());
                 self

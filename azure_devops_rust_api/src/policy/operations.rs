@@ -213,18 +213,22 @@ pub mod configurations {
             pub(crate) policy_type: Option<String>,
         }
         impl Builder {
+            #[doc = "[Provided for legacy reasons] The scope on which a subset of policies is defined."]
             pub fn scope(mut self, scope: impl Into<String>) -> Self {
                 self.scope = Some(scope.into());
                 self
             }
+            #[doc = "Maximum number of policies to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The continuation token used for pagination."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Filter returned policies to only this type"]
             pub fn policy_type(mut self, policy_type: impl Into<String>) -> Self {
                 self.policy_type = Some(policy_type.into());
                 self
@@ -645,10 +649,12 @@ pub mod revisions {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "The number of revisions to retrieve."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The number of revisions to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -873,14 +879,17 @@ pub mod evaluations {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Some policies might determine that they do not apply to a specific pull request. Setting this parameter to true will return evaluation records even for policies which don't apply to this pull request."]
             pub fn include_not_applicable(mut self, include_not_applicable: bool) -> Self {
                 self.include_not_applicable = Some(include_not_applicable);
                 self
             }
+            #[doc = "The number of policy evaluation records to retrieve."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The number of policy evaluation records to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self

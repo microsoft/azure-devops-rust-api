@@ -406,10 +406,12 @@ pub mod processes {
             pub(crate) replace_existing_template: Option<bool>,
         }
         impl Builder {
+            #[doc = "Ignores validation warnings. Default value is false."]
             pub fn ignore_warnings(mut self, ignore_warnings: bool) -> Self {
                 self.ignore_warnings = Some(ignore_warnings);
                 self
             }
+            #[doc = "Replaces the existing template. Default value is true."]
             pub fn replace_existing_template(mut self, replace_existing_template: bool) -> Self {
                 self.replace_existing_template = Some(replace_existing_template);
                 self

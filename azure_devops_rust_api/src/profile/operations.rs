@@ -118,22 +118,27 @@ pub mod profiles {
             pub(crate) force_refresh: Option<bool>,
         }
         impl Builder {
+            #[doc = "Return public profile information such as display name, email address, country, etc. If false, the withAttributes parameter is ignored."]
             pub fn details(mut self, details: bool) -> Self {
                 self.details = Some(details);
                 self
             }
+            #[doc = "If true, gets the attributes (named key-value pairs of arbitrary data) associated with the profile. The partition parameter must also have a value."]
             pub fn with_attributes(mut self, with_attributes: bool) -> Self {
                 self.with_attributes = Some(with_attributes);
                 self
             }
+            #[doc = "The partition (named group) of attributes to return."]
             pub fn partition(mut self, partition: impl Into<String>) -> Self {
                 self.partition = Some(partition.into());
                 self
             }
+            #[doc = "A comma-delimited list of core profile attributes to return. Valid values are Email, Avatar, DisplayName, and ContactWithOffers."]
             pub fn core_attributes(mut self, core_attributes: impl Into<String>) -> Self {
                 self.core_attributes = Some(core_attributes.into());
                 self
             }
+            #[doc = "Not used in this version of the API."]
             pub fn force_refresh(mut self, force_refresh: bool) -> Self {
                 self.force_refresh = Some(force_refresh);
                 self

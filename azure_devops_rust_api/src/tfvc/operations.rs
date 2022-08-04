@@ -195,6 +195,7 @@ pub mod shelvesets {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
             pub fn request_data_include_details(
                 mut self,
                 request_data_include_details: bool,
@@ -202,10 +203,12 @@ pub mod shelvesets {
                 self.request_data_include_details = Some(request_data_include_details);
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references. Does not apply when requesting a single deep shelveset object. Links will always be included in the deep shelveset."]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
                 self
             }
+            #[doc = "Whether to include workItems"]
             pub fn request_data_include_work_items(
                 mut self,
                 request_data_include_work_items: bool,
@@ -213,6 +216,7 @@ pub mod shelvesets {
                 self.request_data_include_work_items = Some(request_data_include_work_items);
                 self
             }
+            #[doc = "Max number of changes to include"]
             pub fn request_data_max_change_count(
                 mut self,
                 request_data_max_change_count: i32,
@@ -220,6 +224,7 @@ pub mod shelvesets {
                 self.request_data_max_change_count = Some(request_data_max_change_count);
                 self
             }
+            #[doc = "Max length of comment"]
             pub fn request_data_max_comment_length(
                 mut self,
                 request_data_max_comment_length: i32,
@@ -227,18 +232,22 @@ pub mod shelvesets {
                 self.request_data_max_comment_length = Some(request_data_max_comment_length);
                 self
             }
+            #[doc = "Shelveset name"]
             pub fn request_data_name(mut self, request_data_name: impl Into<String>) -> Self {
                 self.request_data_name = Some(request_data_name.into());
                 self
             }
+            #[doc = "Owner's ID. Could be a name or a guid."]
             pub fn request_data_owner(mut self, request_data_owner: impl Into<String>) -> Self {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
             }
+            #[doc = "Max number of shelvesets to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of shelvesets to skip"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -371,6 +380,7 @@ pub mod shelvesets {
             pub(crate) request_data_owner: Option<String>,
         }
         impl Builder {
+            #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
             pub fn request_data_include_details(
                 mut self,
                 request_data_include_details: bool,
@@ -378,10 +388,12 @@ pub mod shelvesets {
                 self.request_data_include_details = Some(request_data_include_details);
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references. Does not apply when requesting a single deep shelveset object. Links will always be included in the deep shelveset."]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
                 self
             }
+            #[doc = "Whether to include workItems"]
             pub fn request_data_include_work_items(
                 mut self,
                 request_data_include_work_items: bool,
@@ -389,6 +401,7 @@ pub mod shelvesets {
                 self.request_data_include_work_items = Some(request_data_include_work_items);
                 self
             }
+            #[doc = "Max number of changes to include"]
             pub fn request_data_max_change_count(
                 mut self,
                 request_data_max_change_count: i32,
@@ -396,6 +409,7 @@ pub mod shelvesets {
                 self.request_data_max_change_count = Some(request_data_max_change_count);
                 self
             }
+            #[doc = "Max length of comment"]
             pub fn request_data_max_comment_length(
                 mut self,
                 request_data_max_comment_length: i32,
@@ -403,10 +417,12 @@ pub mod shelvesets {
                 self.request_data_max_comment_length = Some(request_data_max_comment_length);
                 self
             }
+            #[doc = "Shelveset name"]
             pub fn request_data_name(mut self, request_data_name: impl Into<String>) -> Self {
                 self.request_data_name = Some(request_data_name.into());
                 self
             }
+            #[doc = "Owner's ID. Could be a name or a guid."]
             pub fn request_data_owner(mut self, request_data_owner: impl Into<String>) -> Self {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
@@ -530,10 +546,12 @@ pub mod shelvesets {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Max number of changes to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of changes to skip"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -758,10 +776,12 @@ pub mod branches {
             pub(crate) include_children: Option<bool>,
         }
         impl Builder {
+            #[doc = "Return the parent branch, if there is one. Default: False"]
             pub fn include_parent(mut self, include_parent: bool) -> Self {
                 self.include_parent = Some(include_parent);
                 self
             }
+            #[doc = "Return child branches, if there are any. Default: False"]
             pub fn include_children(mut self, include_children: bool) -> Self {
                 self.include_children = Some(include_children);
                 self
@@ -850,18 +870,22 @@ pub mod branches {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Return the parent branch, if there is one. Default: False"]
             pub fn include_parent(mut self, include_parent: bool) -> Self {
                 self.include_parent = Some(include_parent);
                 self
             }
+            #[doc = "Return the child branches for each root branch. Default: False"]
             pub fn include_children(mut self, include_children: bool) -> Self {
                 self.include_children = Some(include_children);
                 self
             }
+            #[doc = "Return deleted branches. Default: False"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Return links. Default: False"]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -954,10 +978,12 @@ pub mod branches {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Return deleted branches. Default: False"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Return links. Default: False"]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -1123,22 +1149,27 @@ pub mod items {
             pub(crate) include_content: Option<bool>,
         }
         impl Builder {
+            #[doc = "File name of item returned."]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
                 self
             }
+            #[doc = "If true, create a downloadable attachment."]
             pub fn download(mut self, download: bool) -> Self {
                 self.download = Some(download);
                 self
             }
+            #[doc = "Version control path of a folder to return multiple items."]
             pub fn scope_path(mut self, scope_path: impl Into<String>) -> Self {
                 self.scope_path = Some(scope_path.into());
                 self
             }
+            #[doc = "None (just the item), or OneLevel (contents of a folder)."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Version object."]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1146,6 +1177,7 @@ pub mod items {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version descriptor.  Default is null."]
             pub fn version_descriptor_version_option(
                 mut self,
                 version_descriptor_version_option: impl Into<String>,
@@ -1154,6 +1186,7 @@ pub mod items {
                     Some(version_descriptor_version_option.into());
                 self
             }
+            #[doc = "Version descriptor.  Default is null."]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -1161,6 +1194,7 @@ pub mod items {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
+            #[doc = "Set to true to include item content when requesting json.  Default is false."]
             pub fn include_content(mut self, include_content: bool) -> Self {
                 self.include_content = Some(include_content);
                 self
@@ -1353,18 +1387,22 @@ pub mod items {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Version control path of a folder to return multiple items."]
             pub fn scope_path(mut self, scope_path: impl Into<String>) -> Self {
                 self.scope_path = Some(scope_path.into());
                 self
             }
+            #[doc = "None (just the item), or OneLevel (contents of a folder)."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Set to true to include links."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
             }
+            #[doc = "Version object."]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1632,14 +1670,17 @@ pub mod changesets {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Number of results to skip. Default: null"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The maximum number of results to return. Default: null"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Return the next page of results. Default: null"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -1875,22 +1916,27 @@ pub mod changesets {
             pub(crate) search_criteria_to_id: Option<i32>,
         }
         impl Builder {
+            #[doc = "Include details about associated work items in the response. Default: null"]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
                 self
             }
+            #[doc = "Number of results to skip. Default: null"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The maximum number of results to return. Default: null"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Results are sorted by ID in descending order by default. Use id asc to sort by ID in ascending order."]
             pub fn orderby(mut self, orderby: impl Into<String>) -> Self {
                 self.orderby = Some(orderby.into());
                 self
             }
+            #[doc = "Alias or display name of user who made the changes."]
             pub fn search_criteria_author(
                 mut self,
                 search_criteria_author: impl Into<String>,
@@ -1898,6 +1944,7 @@ pub mod changesets {
                 self.search_criteria_author = Some(search_criteria_author.into());
                 self
             }
+            #[doc = "Whether or not to follow renames for the given item being queried."]
             pub fn search_criteria_follow_renames(
                 mut self,
                 search_criteria_follow_renames: bool,
@@ -1905,6 +1952,7 @@ pub mod changesets {
                 self.search_criteria_follow_renames = Some(search_criteria_follow_renames);
                 self
             }
+            #[doc = "If provided, only include changesets created after this date (string)."]
             pub fn search_criteria_from_date(
                 mut self,
                 search_criteria_from_date: impl Into<String>,
@@ -1912,10 +1960,12 @@ pub mod changesets {
                 self.search_criteria_from_date = Some(search_criteria_from_date.into());
                 self
             }
+            #[doc = "If provided, only include changesets after this changesetID."]
             pub fn search_criteria_from_id(mut self, search_criteria_from_id: i32) -> Self {
                 self.search_criteria_from_id = Some(search_criteria_from_id);
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references."]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -1923,6 +1973,7 @@ pub mod changesets {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "Path of item to search under."]
             pub fn search_criteria_item_path(
                 mut self,
                 search_criteria_item_path: impl Into<String>,
@@ -1930,6 +1981,7 @@ pub mod changesets {
                 self.search_criteria_item_path = Some(search_criteria_item_path.into());
                 self
             }
+            #[doc = "Following criteria available (.itemPath, .version, .versionType, .versionOption, .author, .fromId, .toId, .fromDate, .toDate) Default: null"]
             pub fn search_criteria_mappings(
                 mut self,
                 search_criteria_mappings: Vec<models::TfvcMappingFilter>,
@@ -1937,6 +1989,7 @@ pub mod changesets {
                 self.search_criteria_mappings = search_criteria_mappings;
                 self
             }
+            #[doc = "If provided, only include changesets created before this date (string)."]
             pub fn search_criteria_to_date(
                 mut self,
                 search_criteria_to_date: impl Into<String>,
@@ -1944,6 +1997,7 @@ pub mod changesets {
                 self.search_criteria_to_date = Some(search_criteria_to_date.into());
                 self
             }
+            #[doc = "If provided, a version descriptor for the latest change list to include."]
             pub fn search_criteria_to_id(mut self, search_criteria_to_id: i32) -> Self {
                 self.search_criteria_to_id = Some(search_criteria_to_id);
                 self
@@ -2164,38 +2218,47 @@ pub mod changesets {
             pub(crate) search_criteria_to_id: Option<i32>,
         }
         impl Builder {
+            #[doc = "Number of changes to return (maximum 100 changes) Default: 0"]
             pub fn max_change_count(mut self, max_change_count: i32) -> Self {
                 self.max_change_count = Some(max_change_count);
                 self
             }
+            #[doc = "Include policy details and check-in notes in the response. Default: false"]
             pub fn include_details(mut self, include_details: bool) -> Self {
                 self.include_details = Some(include_details);
                 self
             }
+            #[doc = "Include workitems. Default: false"]
             pub fn include_work_items(mut self, include_work_items: bool) -> Self {
                 self.include_work_items = Some(include_work_items);
                 self
             }
+            #[doc = "Include details about associated work items in the response. Default: null"]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
                 self
             }
+            #[doc = "Include renames.  Default: false"]
             pub fn include_source_rename(mut self, include_source_rename: bool) -> Self {
                 self.include_source_rename = Some(include_source_rename);
                 self
             }
+            #[doc = "Number of results to skip. Default: null"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The maximum number of results to return. Default: null"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Results are sorted by ID in descending order by default. Use id asc to sort by ID in ascending order."]
             pub fn orderby(mut self, orderby: impl Into<String>) -> Self {
                 self.orderby = Some(orderby.into());
                 self
             }
+            #[doc = "Alias or display name of user who made the changes."]
             pub fn search_criteria_author(
                 mut self,
                 search_criteria_author: impl Into<String>,
@@ -2203,6 +2266,7 @@ pub mod changesets {
                 self.search_criteria_author = Some(search_criteria_author.into());
                 self
             }
+            #[doc = "Whether or not to follow renames for the given item being queried."]
             pub fn search_criteria_follow_renames(
                 mut self,
                 search_criteria_follow_renames: bool,
@@ -2210,6 +2274,7 @@ pub mod changesets {
                 self.search_criteria_follow_renames = Some(search_criteria_follow_renames);
                 self
             }
+            #[doc = "If provided, only include changesets created after this date (string)."]
             pub fn search_criteria_from_date(
                 mut self,
                 search_criteria_from_date: impl Into<String>,
@@ -2217,10 +2282,12 @@ pub mod changesets {
                 self.search_criteria_from_date = Some(search_criteria_from_date.into());
                 self
             }
+            #[doc = "If provided, only include changesets after this changesetID."]
             pub fn search_criteria_from_id(mut self, search_criteria_from_id: i32) -> Self {
                 self.search_criteria_from_id = Some(search_criteria_from_id);
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references."]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -2228,6 +2295,7 @@ pub mod changesets {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "Path of item to search under."]
             pub fn search_criteria_item_path(
                 mut self,
                 search_criteria_item_path: impl Into<String>,
@@ -2235,6 +2303,7 @@ pub mod changesets {
                 self.search_criteria_item_path = Some(search_criteria_item_path.into());
                 self
             }
+            #[doc = "Following criteria available (.itemPath, .version, .versionType, .versionOption, .author, .fromId, .toId, .fromDate, .toDate) Default: null"]
             pub fn search_criteria_mappings(
                 mut self,
                 search_criteria_mappings: Vec<models::TfvcMappingFilter>,
@@ -2242,6 +2311,7 @@ pub mod changesets {
                 self.search_criteria_mappings = search_criteria_mappings;
                 self
             }
+            #[doc = "If provided, only include changesets created before this date (string)."]
             pub fn search_criteria_to_date(
                 mut self,
                 search_criteria_to_date: impl Into<String>,
@@ -2249,6 +2319,7 @@ pub mod changesets {
                 self.search_criteria_to_date = Some(search_criteria_to_date.into());
                 self
             }
+            #[doc = "If provided, a version descriptor for the latest change list to include."]
             pub fn search_criteria_to_id(mut self, search_criteria_to_id: i32) -> Self {
                 self.search_criteria_to_id = Some(search_criteria_to_id);
                 self
@@ -2474,10 +2545,12 @@ pub mod labels {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Max number of items to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of items to skip"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -2566,10 +2639,12 @@ pub mod labels {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
                 self
             }
+            #[doc = "labelScope, name, owner, and itemLabelFilter"]
             pub fn request_data_item_label_filter(
                 mut self,
                 request_data_item_label_filter: impl Into<String>,
@@ -2577,6 +2652,7 @@ pub mod labels {
                 self.request_data_item_label_filter = Some(request_data_item_label_filter.into());
                 self
             }
+            #[doc = "labelScope, name, owner, and itemLabelFilter"]
             pub fn request_data_label_scope(
                 mut self,
                 request_data_label_scope: impl Into<String>,
@@ -2584,22 +2660,27 @@ pub mod labels {
                 self.request_data_label_scope = Some(request_data_label_scope.into());
                 self
             }
+            #[doc = "labelScope, name, owner, and itemLabelFilter"]
             pub fn request_data_max_item_count(mut self, request_data_max_item_count: i32) -> Self {
                 self.request_data_max_item_count = Some(request_data_max_item_count);
                 self
             }
+            #[doc = "labelScope, name, owner, and itemLabelFilter"]
             pub fn request_data_name(mut self, request_data_name: impl Into<String>) -> Self {
                 self.request_data_name = Some(request_data_name.into());
                 self
             }
+            #[doc = "labelScope, name, owner, and itemLabelFilter"]
             pub fn request_data_owner(mut self, request_data_owner: impl Into<String>) -> Self {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
             }
+            #[doc = "Max number of labels to return, defaults to 100 when undefined"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of labels to skip"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -2720,10 +2801,12 @@ pub mod labels {
             pub(crate) request_data_owner: Option<String>,
         }
         impl Builder {
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
                 self
             }
+            #[doc = "maxItemCount"]
             pub fn request_data_item_label_filter(
                 mut self,
                 request_data_item_label_filter: impl Into<String>,
@@ -2731,6 +2814,7 @@ pub mod labels {
                 self.request_data_item_label_filter = Some(request_data_item_label_filter.into());
                 self
             }
+            #[doc = "maxItemCount"]
             pub fn request_data_label_scope(
                 mut self,
                 request_data_label_scope: impl Into<String>,
@@ -2738,14 +2822,17 @@ pub mod labels {
                 self.request_data_label_scope = Some(request_data_label_scope.into());
                 self
             }
+            #[doc = "maxItemCount"]
             pub fn request_data_max_item_count(mut self, request_data_max_item_count: i32) -> Self {
                 self.request_data_max_item_count = Some(request_data_max_item_count);
                 self
             }
+            #[doc = "maxItemCount"]
             pub fn request_data_name(mut self, request_data_name: impl Into<String>) -> Self {
                 self.request_data_name = Some(request_data_name.into());
                 self
             }
+            #[doc = "maxItemCount"]
             pub fn request_data_owner(mut self, request_data_owner: impl Into<String>) -> Self {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
