@@ -150,6 +150,7 @@ pub mod service_settings {
             pub(crate) include_ids: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to add IdentityIds to the permission objects."]
             pub fn include_ids(mut self, include_ids: bool) -> Self {
                 self.include_ids = Some(include_ids);
                 self
@@ -363,14 +364,17 @@ pub mod change_tracking {
             pub(crate) batch_size: Option<i32>,
         }
         impl Builder {
+            #[doc = "If true, get changes for all feeds including deleted feeds. The default value is false."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "A continuation token which acts as a bookmark to a previously retrieved change. This token allows the user to continue retrieving changes in batches, picking up where the previous batch left off. If specified, all the changes that occur strictly after the token will be returned. If not specified or 0, iteration will start with the first change."]
             pub fn continuation_token(mut self, continuation_token: i64) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self
             }
+            #[doc = "Number of package changes to fetch. The default value is 1000. The maximum value is 2000."]
             pub fn batch_size(mut self, batch_size: i32) -> Self {
                 self.batch_size = Some(batch_size);
                 self
@@ -530,10 +534,12 @@ pub mod change_tracking {
             pub(crate) batch_size: Option<i32>,
         }
         impl Builder {
+            #[doc = "A continuation token which acts as a bookmark to a previously retrieved change. This token allows the user to continue retrieving changes in batches, picking up where the previous batch left off. If specified, all the changes that occur strictly after the token will be returned. If not specified or 0, iteration will start with the first change."]
             pub fn continuation_token(mut self, continuation_token: i64) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self
             }
+            #[doc = "Number of package changes to fetch. The default value is 1000. The maximum value is 2000."]
             pub fn batch_size(mut self, batch_size: i32) -> Self {
                 self.batch_size = Some(batch_size);
                 self
@@ -1136,14 +1142,17 @@ pub mod feed_management {
             pub(crate) include_urls: Option<bool>,
         }
         impl Builder {
+            #[doc = "Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions."]
             pub fn feed_role(mut self, feed_role: impl Into<String>) -> Self {
                 self.feed_role = Some(feed_role.into());
                 self
             }
+            #[doc = "Include upstreams that have been deleted in the response."]
             pub fn include_deleted_upstreams(mut self, include_deleted_upstreams: bool) -> Self {
                 self.include_deleted_upstreams = Some(include_deleted_upstreams);
                 self
             }
+            #[doc = "Resolve names if true"]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
@@ -1302,6 +1311,7 @@ pub mod feed_management {
             pub(crate) include_deleted_upstreams: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include upstreams that have been deleted in the response."]
             pub fn include_deleted_upstreams(mut self, include_deleted_upstreams: bool) -> Self {
                 self.include_deleted_upstreams = Some(include_deleted_upstreams);
                 self
@@ -1523,10 +1533,12 @@ pub mod feed_management {
             pub(crate) include_deleted_feeds: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include user Ids in the response.  Default is false."]
             pub fn include_ids(mut self, include_ids: bool) -> Self {
                 self.include_ids = Some(include_ids);
                 self
             }
+            #[doc = "Set to true to only return explicitly set permissions on the feed.  Default is false."]
             pub fn exclude_inherited_permissions(
                 mut self,
                 exclude_inherited_permissions: bool,
@@ -1534,10 +1546,12 @@ pub mod feed_management {
                 self.exclude_inherited_permissions = Some(exclude_inherited_permissions);
                 self
             }
+            #[doc = "Filter permissions to the provided identity."]
             pub fn identity_descriptor(mut self, identity_descriptor: impl Into<String>) -> Self {
                 self.identity_descriptor = Some(identity_descriptor.into());
                 self
             }
+            #[doc = "If includeDeletedFeeds is true, then feedId must be specified by name and not by Guid."]
             pub fn include_deleted_feeds(mut self, include_deleted_feeds: bool) -> Self {
                 self.include_deleted_feeds = Some(include_deleted_feeds);
                 self
@@ -2359,14 +2373,17 @@ pub mod artifact_details {
             pub(crate) direct_upstream_id: Option<String>,
         }
         impl Builder {
+            #[doc = "One of the supported artifact package types."]
             pub fn protocol_type(mut self, protocol_type: impl Into<String>) -> Self {
                 self.protocol_type = Some(protocol_type.into());
                 self
             }
+            #[doc = "Filter to packages that contain the provided string. Characters in the string must conform to the package name constraints."]
             pub fn package_name_query(mut self, package_name_query: impl Into<String>) -> Self {
                 self.package_name_query = Some(package_name_query.into());
                 self
             }
+            #[doc = "[Obsolete] Used for legacy scenarios and may be removed in future versions."]
             pub fn normalized_package_name(
                 mut self,
                 normalized_package_name: impl Into<String>,
@@ -2374,46 +2391,57 @@ pub mod artifact_details {
                 self.normalized_package_name = Some(normalized_package_name.into());
                 self
             }
+            #[doc = "Set to true to return REST Urls with the response. Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
             }
+            #[doc = "Set to true to return all versions of the package in the response. Default is false (latest version only)."]
             pub fn include_all_versions(mut self, include_all_versions: bool) -> Self {
                 self.include_all_versions = Some(include_all_versions);
                 self
             }
+            #[doc = "Only applicable for NuGet packages, setting it for other package types will result in a 404. If false, delisted package versions will be returned. Use this to filter the response when include_all_versions is set to true. Default is unset (do not return delisted packages)."]
             pub fn is_listed(mut self, is_listed: bool) -> Self {
                 self.is_listed = Some(is_listed);
                 self
             }
+            #[doc = "Changes the behavior of $top and $skip to return all versions of each package up to $top. Must be used in conjunction with include_all_versions=true"]
             pub fn get_top_package_versions(mut self, get_top_package_versions: bool) -> Self {
                 self.get_top_package_versions = Some(get_top_package_versions);
                 self
             }
+            #[doc = "Only applicable for Nuget packages. Use this to filter the response when include_all_versions is set to true. Default is True (only return packages without prerelease versioning)."]
             pub fn is_release(mut self, is_release: bool) -> Self {
                 self.is_release = Some(is_release);
                 self
             }
+            #[doc = "Return the description for every version of each package in the response. Default is False."]
             pub fn include_description(mut self, include_description: bool) -> Self {
                 self.include_description = Some(include_description);
                 self
             }
+            #[doc = "Get the top N packages (or package versions where get_top_package_versions=true)"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Skip the first N packages (or package versions where get_top_package_versions=true)"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Return deleted or unpublished versions of packages in the response. Default is False."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "[Obsolete] Used for legacy scenarios and may be removed in future versions."]
             pub fn is_cached(mut self, is_cached: bool) -> Self {
                 self.is_cached = Some(is_cached);
                 self
             }
+            #[doc = "Filter results to return packages from a specific upstream."]
             pub fn direct_upstream_id(mut self, direct_upstream_id: impl Into<String>) -> Self {
                 self.direct_upstream_id = Some(direct_upstream_id.into());
                 self
@@ -2557,26 +2585,32 @@ pub mod artifact_details {
             pub(crate) include_description: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to return all versions of the package in the response. Default is false (latest version only)."]
             pub fn include_all_versions(mut self, include_all_versions: bool) -> Self {
                 self.include_all_versions = Some(include_all_versions);
                 self
             }
+            #[doc = "Set to true to return REST Urls with the response. Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
             }
+            #[doc = "Only applicable for NuGet packages, setting it for other package types will result in a 404. If false, delisted package versions will be returned. Use this to filter the response when include_all_versions is set to true. Default is unset (do not return delisted packages)."]
             pub fn is_listed(mut self, is_listed: bool) -> Self {
                 self.is_listed = Some(is_listed);
                 self
             }
+            #[doc = "Only applicable for Nuget packages. Use this to filter the response when include_all_versions is set to true.  Default is True (only return packages without prerelease versioning)."]
             pub fn is_release(mut self, is_release: bool) -> Self {
                 self.is_release = Some(is_release);
                 self
             }
+            #[doc = "Return deleted or unpublished versions of packages in the response. Default is False."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Return the description for every version of each package in the response. Default is False."]
             pub fn include_description(mut self, include_description: bool) -> Self {
                 self.include_description = Some(include_description);
                 self
@@ -2759,14 +2793,17 @@ pub mod artifact_details {
             pub(crate) is_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include urls for each version. Default is true."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
             }
+            #[doc = "Only applicable for NuGet packages. If false, delisted package versions will be returned."]
             pub fn is_listed(mut self, is_listed: bool) -> Self {
                 self.is_listed = Some(is_listed);
                 self
             }
+            #[doc = "If set specifies whether to return only deleted or non-deleted versions of packages in the response. Default is unset (return all versions)."]
             pub fn is_deleted(mut self, is_deleted: bool) -> Self {
                 self.is_deleted = Some(is_deleted);
                 self
@@ -2860,14 +2897,17 @@ pub mod artifact_details {
             pub(crate) is_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include urls for each version. Default is true."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
             }
+            #[doc = "Only applicable for NuGet packages. If false, delisted package versions will be returned."]
             pub fn is_listed(mut self, is_listed: bool) -> Self {
                 self.is_listed = Some(is_listed);
                 self
             }
+            #[doc = "This does not have any effect on the requested package version, for other versions returned specifies whether to return only deleted or non-deleted versions of packages in the response. Default is unset (return all versions)."]
             pub fn is_deleted(mut self, is_deleted: bool) -> Self {
                 self.is_deleted = Some(is_deleted);
                 self
@@ -3232,26 +3272,32 @@ pub mod recycle_bin {
             pub(crate) include_all_versions: Option<bool>,
         }
         impl Builder {
+            #[doc = "Type of package (e.g. NuGet, npm, ...)."]
             pub fn protocol_type(mut self, protocol_type: impl Into<String>) -> Self {
                 self.protocol_type = Some(protocol_type.into());
                 self
             }
+            #[doc = "Filter to packages matching this name."]
             pub fn package_name_query(mut self, package_name_query: impl Into<String>) -> Self {
                 self.package_name_query = Some(package_name_query.into());
                 self
             }
+            #[doc = "Set to true to return REST Urls with the response.  Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
             }
+            #[doc = "Get the top N packages."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Skip the first N packages."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Set to true to return all versions of the package in the response.  Default is false (latest version only)."]
             pub fn include_all_versions(mut self, include_all_versions: bool) -> Self {
                 self.include_all_versions = Some(include_all_versions);
                 self
@@ -3425,6 +3471,7 @@ pub mod recycle_bin {
             pub(crate) include_urls: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to return REST Urls with the response.  Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
@@ -3506,6 +3553,7 @@ pub mod recycle_bin {
             pub(crate) include_urls: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to return REST Urls with the response.  Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self
@@ -3589,6 +3637,7 @@ pub mod recycle_bin {
             pub(crate) include_urls: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to return REST Urls with the response.  Default is True."]
             pub fn include_urls(mut self, include_urls: bool) -> Self {
                 self.include_urls = Some(include_urls);
                 self

@@ -193,6 +193,7 @@ pub mod installed_extensions {
             pub(crate) include_installation_issues: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true (the default), include disabled extensions in the results."]
             pub fn include_disabled_extensions(
                 mut self,
                 include_disabled_extensions: bool,
@@ -200,10 +201,12 @@ pub mod installed_extensions {
                 self.include_disabled_extensions = Some(include_disabled_extensions);
                 self
             }
+            #[doc = "If true, include installed extensions with errors."]
             pub fn include_errors(mut self, include_errors: bool) -> Self {
                 self.include_errors = Some(include_errors);
                 self
             }
+            #[doc = "Determines which files are returned in the files array.  Provide the wildcard '*' to return all files, or a colon separated list to retrieve files with specific asset types."]
             pub fn asset_types(mut self, asset_types: impl Into<String>) -> Self {
                 self.asset_types = Some(asset_types.into());
                 self
@@ -375,6 +378,7 @@ pub mod installed_extensions {
             pub(crate) asset_types: Option<String>,
         }
         impl Builder {
+            #[doc = "Determines which files are returned in the files array.  Provide the wildcard '*' to return all files, or a colon separated list to retrieve files with specific asset types."]
             pub fn asset_types(mut self, asset_types: impl Into<String>) -> Self {
                 self.asset_types = Some(asset_types.into());
                 self

@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1]
+
+### Added
+
+- API documentation: autogenerate builder function descriptions.
+
+### Fixed
+
 - Upgrade Azure SDK dependencies:
   - azure_core: 0.3
   - azure_identity: 0.4

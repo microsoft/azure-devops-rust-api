@@ -323,10 +323,12 @@ pub mod classification_nodes {
             pub(crate) error_policy: Option<String>,
         }
         impl Builder {
+            #[doc = "Depth of children to fetch."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
             }
+            #[doc = "Flag to handle errors in getting some nodes. Possible options are Fail and Omit."]
             pub fn error_policy(mut self, error_policy: impl Into<String>) -> Self {
                 self.error_policy = Some(error_policy.into());
                 self
@@ -412,6 +414,7 @@ pub mod classification_nodes {
             pub(crate) depth: Option<i32>,
         }
         impl Builder {
+            #[doc = "Depth of children to fetch."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
@@ -492,6 +495,7 @@ pub mod classification_nodes {
             pub(crate) depth: Option<i32>,
         }
         impl Builder {
+            #[doc = "Depth of children to fetch."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
@@ -724,6 +728,7 @@ pub mod classification_nodes {
             pub(crate) reclassify_id: Option<i32>,
         }
         impl Builder {
+            #[doc = "Id of the target classification node for reclassification."]
             pub fn reclassify_id(mut self, reclassify_id: i32) -> Self {
                 self.reclassify_id = Some(reclassify_id);
                 self
@@ -954,6 +959,7 @@ pub mod queries {
             pub(crate) include_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "The number of queries to return (Default is 50 and maximum is 200)."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -962,6 +968,7 @@ pub mod queries {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Include deleted queries and folders"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
@@ -1051,14 +1058,17 @@ pub mod queries {
             pub(crate) include_deleted: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include the query string (wiql), clauses, query result columns, and sort options in the results."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "In the folder of queries, return child queries and folders to this depth."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
             }
+            #[doc = "Include deleted queries and folders"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
@@ -1148,18 +1158,22 @@ pub mod queries {
             pub(crate) use_iso_date_format: Option<bool>,
         }
         impl Builder {
+            #[doc = "Include the query string (wiql), clauses, query result columns, and sort options in the results."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "In the folder of queries, return child queries and folders to this depth."]
             pub fn depth(mut self, depth: i32) -> Self {
                 self.depth = Some(depth);
                 self
             }
+            #[doc = "Include deleted queries and folders"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "DateTime query clauses will be formatted using a ISO 8601 compliant format"]
             pub fn use_iso_date_format(mut self, use_iso_date_format: bool) -> Self {
                 self.use_iso_date_format = Some(use_iso_date_format);
                 self
@@ -1252,6 +1266,7 @@ pub mod queries {
             pub(crate) validate_wiql_only: Option<bool>,
         }
         impl Builder {
+            #[doc = "If you only want to validate your WIQL query without actually creating one, set it to true. Default is false."]
             pub fn validate_wiql_only(mut self, validate_wiql_only: bool) -> Self {
                 self.validate_wiql_only = Some(validate_wiql_only);
                 self
@@ -1334,6 +1349,7 @@ pub mod queries {
             pub(crate) undelete_descendants: Option<bool>,
         }
         impl Builder {
+            #[doc = "Undelete the children of this folder. It is important to note that this will not bring back the permission changes that were previously applied to the descendants."]
             pub fn undelete_descendants(mut self, undelete_descendants: bool) -> Self {
                 self.undelete_descendants = Some(undelete_descendants);
                 self
@@ -2154,22 +2170,27 @@ pub mod comments {
             pub(crate) order: Option<String>,
         }
         impl Builder {
+            #[doc = "Max number of comments to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Used to query for the next page of comments."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Specify if the deleted comments should be retrieved."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Specifies the additional data retrieval options for work item comments."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Order in which the comments should be returned."]
             pub fn order(mut self, order: impl Into<String>) -> Self {
                 self.order = Some(order.into());
                 self
@@ -2265,10 +2286,12 @@ pub mod comments {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Specify if the deleted comments should be retrieved."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Specifies the additional data retrieval options for work item comments."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -2428,10 +2451,12 @@ pub mod comments {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Specify if the deleted comment should be retrieved."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Specifies the additional data retrieval options for work item comments."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -2840,10 +2865,12 @@ pub mod work_item_icons {
             pub(crate) v: Option<i32>,
         }
         impl Builder {
+            #[doc = "The 6-digit hex color for the icon"]
             pub fn color(mut self, color: impl Into<String>) -> Self {
                 self.color = Some(color.into());
                 self
             }
+            #[doc = "The version of the icon (used only for cache invalidation)"]
             pub fn v(mut self, v: i32) -> Self {
                 self.v = Some(v);
                 self
@@ -3115,6 +3142,7 @@ pub mod work_item_transitions {
             pub(crate) action: Option<String>,
         }
         impl Builder {
+            #[doc = "possible actions. Currently only supports checkin"]
             pub fn action(mut self, action: impl Into<String>) -> Self {
                 self.action = Some(action.into());
                 self
@@ -3450,14 +3478,17 @@ pub mod attachments {
             pub(crate) area_path: Option<String>,
         }
         impl Builder {
+            #[doc = "The name of the file"]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
                 self
             }
+            #[doc = "Attachment upload type: Simple or Chunked"]
             pub fn upload_type(mut self, upload_type: impl Into<String>) -> Self {
                 self.upload_type = Some(upload_type.into());
                 self
             }
+            #[doc = "Target project Area Path"]
             pub fn area_path(mut self, area_path: impl Into<String>) -> Self {
                 self.area_path = Some(area_path.into());
                 self
@@ -3544,10 +3575,12 @@ pub mod attachments {
             pub(crate) download: Option<bool>,
         }
         impl Builder {
+            #[doc = "Name of the file"]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
                 self
             }
+            #[doc = "If set to <c>true</c> always download attachment"]
             pub fn download(mut self, download: bool) -> Self {
                 self.download = Some(download);
                 self
@@ -3815,6 +3848,7 @@ pub mod fields {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Use ExtensionFields to include extension fields, otherwise exclude them. Unless the feature flag for this parameter is enabled, extension fields are always included."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -4296,18 +4330,22 @@ pub mod reporting_work_item_links {
             pub(crate) start_date_time: Option<String>,
         }
         impl Builder {
+            #[doc = "A list of types to filter the results to specific link types. Omit this parameter to get work item links of all link types."]
             pub fn link_types(mut self, link_types: impl Into<String>) -> Self {
                 self.link_types = Some(link_types.into());
                 self
             }
+            #[doc = "A list of types to filter the results to specific work item types. Omit this parameter to get work item links of all work item types."]
             pub fn types(mut self, types: impl Into<String>) -> Self {
                 self.types = Some(types.into());
                 self
             }
+            #[doc = "Specifies the continuationToken to start the batch from. Omit this parameter to get the first batch of links."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Date/time to use as a starting point for link changes. Only link changes that occurred after that date/time will be returned. Cannot be used in conjunction with 'watermark' parameter."]
             pub fn start_date_time(mut self, start_date_time: impl Into<String>) -> Self {
                 self.start_date_time = Some(start_date_time.into());
                 self
@@ -4461,42 +4499,52 @@ pub mod reporting_work_item_revisions {
             pub(crate) max_page_size: Option<i32>,
         }
         impl Builder {
+            #[doc = "A list of fields to return in work item revisions. Omit this parameter to get all reportable fields."]
             pub fn fields(mut self, fields: impl Into<String>) -> Self {
                 self.fields = Some(fields.into());
                 self
             }
+            #[doc = "A list of types to filter the results to specific work item types. Omit this parameter to get work item revisions of all work item types."]
             pub fn types(mut self, types: impl Into<String>) -> Self {
                 self.types = Some(types.into());
                 self
             }
+            #[doc = "Specifies the watermark to start the batch from. Omit this parameter to get the first batch of revisions."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Date/time to use as a starting point for revisions, all revisions will occur after this date/time. Cannot be used in conjunction with 'watermark' parameter."]
             pub fn start_date_time(mut self, start_date_time: impl Into<String>) -> Self {
                 self.start_date_time = Some(start_date_time.into());
                 self
             }
+            #[doc = "Return an identity reference instead of a string value for identity fields."]
             pub fn include_identity_ref(mut self, include_identity_ref: bool) -> Self {
                 self.include_identity_ref = Some(include_identity_ref);
                 self
             }
+            #[doc = "Specify if the deleted item should be returned."]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
                 self
             }
+            #[doc = "Specify if the tag objects should be returned for System.Tags field."]
             pub fn include_tag_ref(mut self, include_tag_ref: bool) -> Self {
                 self.include_tag_ref = Some(include_tag_ref);
                 self
             }
+            #[doc = "Return only the latest revisions of work items, skipping all historical revisions"]
             pub fn include_latest_only(mut self, include_latest_only: bool) -> Self {
                 self.include_latest_only = Some(include_latest_only);
                 self
             }
+            #[doc = "Return all the fields in work item revisions, including long text fields which are not returned by default"]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "Return only the those revisions of work items, where only history field was changed"]
             pub fn include_discussion_changes_only(
                 mut self,
                 include_discussion_changes_only: bool,
@@ -4504,6 +4552,7 @@ pub mod reporting_work_item_revisions {
                 self.include_discussion_changes_only = Some(include_discussion_changes_only);
                 self
             }
+            #[doc = "The maximum number of results to return in this batch"]
             pub fn max_page_size(mut self, max_page_size: i32) -> Self {
                 self.max_page_size = Some(max_page_size);
                 self
@@ -4628,10 +4677,12 @@ pub mod reporting_work_item_revisions {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Specifies the watermark to start the batch from. Omit this parameter to get the first batch of revisions."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Date/time to use as a starting point for revisions, all revisions will occur after this date/time. Cannot be used in conjunction with 'watermark' parameter."]
             pub fn start_date_time(mut self, start_date_time: impl Into<String>) -> Self {
                 self.start_date_time = Some(start_date_time.into());
                 self
@@ -5435,18 +5486,22 @@ pub mod work_items {
             pub(crate) error_policy: Option<String>,
         }
         impl Builder {
+            #[doc = "Comma-separated list of requested fields"]
             pub fn fields(mut self, fields: impl Into<String>) -> Self {
                 self.fields = Some(fields.into());
                 self
             }
+            #[doc = "AsOf UTC date time string"]
             pub fn as_of(mut self, as_of: impl Into<String>) -> Self {
                 self.as_of = Some(as_of.into());
                 self
             }
+            #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
+            #[doc = "The flag to control error policy in a bulk get work items request. Possible options are {Fail, Omit}."]
             pub fn error_policy(mut self, error_policy: impl Into<String>) -> Self {
                 self.error_policy = Some(error_policy.into());
                 self
@@ -5539,14 +5594,17 @@ pub mod work_items {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Comma-separated list of requested fields"]
             pub fn fields(mut self, fields: impl Into<String>) -> Self {
                 self.fields = Some(fields.into());
                 self
             }
+            #[doc = "AsOf UTC date time string"]
             pub fn as_of(mut self, as_of: impl Into<String>) -> Self {
                 self.as_of = Some(as_of.into());
                 self
             }
+            #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -5636,18 +5694,22 @@ pub mod work_items {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Indicate if you only want to validate the changes without saving the work item"]
             pub fn validate_only(mut self, validate_only: bool) -> Self {
                 self.validate_only = Some(validate_only);
                 self
             }
+            #[doc = "Do not enforce the work item type rules on this update"]
             pub fn bypass_rules(mut self, bypass_rules: bool) -> Self {
                 self.bypass_rules = Some(bypass_rules);
                 self
             }
+            #[doc = "Do not fire any notifications for this change"]
             pub fn suppress_notifications(mut self, suppress_notifications: bool) -> Self {
                 self.suppress_notifications = Some(suppress_notifications);
                 self
             }
+            #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -5744,14 +5806,17 @@ pub mod work_items {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Comma-separated list of requested fields"]
             pub fn fields(mut self, fields: impl Into<String>) -> Self {
                 self.fields = Some(fields.into());
                 self
             }
+            #[doc = "AsOf UTC date time string"]
             pub fn as_of(mut self, as_of: impl Into<String>) -> Self {
                 self.as_of = Some(as_of.into());
                 self
             }
+            #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -5841,18 +5906,22 @@ pub mod work_items {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Indicate if you only want to validate the changes without saving the work item"]
             pub fn validate_only(mut self, validate_only: bool) -> Self {
                 self.validate_only = Some(validate_only);
                 self
             }
+            #[doc = "Do not enforce the work item type rules on this update"]
             pub fn bypass_rules(mut self, bypass_rules: bool) -> Self {
                 self.bypass_rules = Some(bypass_rules);
                 self
             }
+            #[doc = "Do not fire any notifications for this change"]
             pub fn suppress_notifications(mut self, suppress_notifications: bool) -> Self {
                 self.suppress_notifications = Some(suppress_notifications);
                 self
             }
+            #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -5947,6 +6016,7 @@ pub mod work_items {
             pub(crate) destroy: Option<bool>,
         }
         impl Builder {
+            #[doc = "Optional parameter, if set to true, the work item is deleted permanently. Please note: the destroy action is PERMANENT and cannot be undone."]
             pub fn destroy(mut self, destroy: bool) -> Self {
                 self.destroy = Some(destroy);
                 self
@@ -7558,6 +7628,7 @@ pub mod work_item_types_field {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Expand level for the API response. Properties: to include allowedvalues, default value, isRequired etc. as a part of response; None: to skip these properties."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -7638,6 +7709,7 @@ pub mod work_item_types_field {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Expand level for the API response. Properties: to include allowedvalues, default value, isRequired etc. as a part of response; None: to skip these properties."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -7931,6 +8003,7 @@ pub mod templates {
             pub(crate) workitemtypename: Option<String>,
         }
         impl Builder {
+            #[doc = "Optional, When specified returns templates for given Work item type."]
             pub fn workitemtypename(mut self, workitemtypename: impl Into<String>) -> Self {
                 self.workitemtypename = Some(workitemtypename.into());
                 self
@@ -8379,10 +8452,12 @@ pub mod wiql {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Whether or not to use time precision."]
             pub fn time_precision(mut self, time_precision: bool) -> Self {
                 self.time_precision = Some(time_precision);
                 self
             }
+            #[doc = "The max number of results to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -8469,10 +8544,12 @@ pub mod wiql {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Whether or not to use time precision."]
             pub fn time_precision(mut self, time_precision: bool) -> Self {
                 self.time_precision = Some(time_precision);
                 self
             }
+            #[doc = "The max number of results to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -8559,10 +8636,12 @@ pub mod wiql {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "Whether or not to use time precision."]
             pub fn time_precision(mut self, time_precision: bool) -> Self {
                 self.time_precision = Some(time_precision);
                 self
             }
+            #[doc = "The max number of results to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self

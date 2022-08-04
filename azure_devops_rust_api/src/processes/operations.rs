@@ -1646,6 +1646,7 @@ pub mod work_item_types {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Flag to determine what properties of work item type to return"]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -1795,6 +1796,7 @@ pub mod work_item_types {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Flag to determine what properties of work item type to return"]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -2773,6 +2775,7 @@ pub mod controls {
             pub(crate) remove_from_group_id: Option<String>,
         }
         impl Builder {
+            #[doc = "The group ID to remove the control from."]
             pub fn remove_from_group_id(mut self, remove_from_group_id: impl Into<String>) -> Self {
                 self.remove_from_group_id = Some(remove_from_group_id.into());
                 self

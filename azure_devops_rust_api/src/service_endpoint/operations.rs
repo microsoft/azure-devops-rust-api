@@ -485,26 +485,32 @@ pub mod endpoints {
             pub(crate) include_details: Option<bool>,
         }
         impl Builder {
+            #[doc = "Type of the service endpoints."]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
             }
+            #[doc = "Authorization schemes used for service endpoints."]
             pub fn auth_schemes(mut self, auth_schemes: impl Into<String>) -> Self {
                 self.auth_schemes = Some(auth_schemes.into());
                 self
             }
+            #[doc = "Ids of the service endpoints."]
             pub fn endpoint_ids(mut self, endpoint_ids: impl Into<String>) -> Self {
                 self.endpoint_ids = Some(endpoint_ids.into());
                 self
             }
+            #[doc = "Owner for service endpoints."]
             pub fn owner(mut self, owner: impl Into<String>) -> Self {
                 self.owner = Some(owner.into());
                 self
             }
+            #[doc = "Failed flag for service endpoints."]
             pub fn include_failed(mut self, include_failed: bool) -> Self {
                 self.include_failed = Some(include_failed);
                 self
             }
+            #[doc = "Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests"]
             pub fn include_details(mut self, include_details: bool) -> Self {
                 self.include_details = Some(include_details);
                 self
@@ -740,6 +746,7 @@ pub mod endpoints {
             pub(crate) operation: Option<String>,
         }
         impl Builder {
+            #[doc = "operation type"]
             pub fn operation(mut self, operation: impl Into<String>) -> Self {
                 self.operation = Some(operation.into());
                 self
@@ -884,6 +891,7 @@ pub mod endpoints {
             pub(crate) deep: Option<bool>,
         }
         impl Builder {
+            #[doc = "delete the spn created by endpoint"]
             pub fn deep(mut self, deep: bool) -> Self {
                 self.deep = Some(deep);
                 self
@@ -962,22 +970,27 @@ pub mod endpoints {
             pub(crate) include_details: Option<bool>,
         }
         impl Builder {
+            #[doc = "Type of the service endpoints."]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
             }
+            #[doc = "Authorization schemes used for service endpoints."]
             pub fn auth_schemes(mut self, auth_schemes: impl Into<String>) -> Self {
                 self.auth_schemes = Some(auth_schemes.into());
                 self
             }
+            #[doc = "Owner for service endpoints."]
             pub fn owner(mut self, owner: impl Into<String>) -> Self {
                 self.owner = Some(owner.into());
                 self
             }
+            #[doc = "Failed flag for service endpoints."]
             pub fn include_failed(mut self, include_failed: bool) -> Self {
                 self.include_failed = Some(include_failed);
                 self
             }
+            #[doc = "Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests"]
             pub fn include_details(mut self, include_details: bool) -> Self {
                 self.include_details = Some(include_details);
                 self
@@ -1149,6 +1162,7 @@ pub mod endpoints {
             pub(crate) action_filter: Option<String>,
         }
         impl Builder {
+            #[doc = "Action filter for the service connection. It specifies the action which can be performed on the service connection."]
             pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
@@ -1246,10 +1260,12 @@ pub mod types {
             pub(crate) scheme: Option<String>,
         }
         impl Builder {
+            #[doc = "Type of service endpoint."]
             pub fn type_(mut self, type_: impl Into<String>) -> Self {
                 self.type_ = Some(type_.into());
                 self
             }
+            #[doc = "Scheme of service endpoint."]
             pub fn scheme(mut self, scheme: impl Into<String>) -> Self {
                 self.scheme = Some(scheme.into());
                 self
@@ -1358,10 +1374,12 @@ pub mod executionhistory {
             pub(crate) continuation_token: Option<i64>,
         }
         impl Builder {
+            #[doc = "Number of service endpoint execution records to get."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "A continuation token, returned by a previous call to this method, that can be used to return the next set of records"]
             pub fn continuation_token(mut self, continuation_token: i64) -> Self {
                 self.continuation_token = Some(continuation_token);
                 self

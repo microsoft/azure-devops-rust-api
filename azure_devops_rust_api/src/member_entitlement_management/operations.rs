@@ -257,6 +257,7 @@ pub mod group_entitlements {
             pub(crate) rule_option: Option<String>,
         }
         impl Builder {
+            #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be created and applied to it’s members (default option) or just be tested"]
             pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
@@ -404,6 +405,7 @@ pub mod group_entitlements {
             pub(crate) rule_option: Option<String>,
         }
         impl Builder {
+            #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be updated and the changes are applied to it’s members (default option) or just be tested"]
             pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
@@ -483,10 +485,12 @@ pub mod group_entitlements {
             pub(crate) remove_group_membership: Option<bool>,
         }
         impl Builder {
+            #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be deleted and the changes are applied to it’s members (default option) or just be tested"]
             pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
             }
+            #[doc = "Optional parameter that specifies whether the group with the given ID should be removed from all other groups"]
             pub fn remove_group_membership(mut self, remove_group_membership: bool) -> Self {
                 self.remove_group_membership = Some(remove_group_membership);
                 self
@@ -633,10 +637,12 @@ pub mod members {
             pub(crate) paging_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Maximum number of results to retrieve."]
             pub fn max_results(mut self, max_results: i32) -> Self {
                 self.max_results = Some(max_results);
                 self
             }
+            #[doc = "Paging Token from the previous page fetched. If the 'pagingToken' is null, the results would be fetched from the beginning of the Members List."]
             pub fn paging_token(mut self, paging_token: impl Into<String>) -> Self {
                 self.paging_token = Some(paging_token.into());
                 self
@@ -958,18 +964,22 @@ pub mod user_entitlements {
             pub(crate) order_by: Option<String>,
         }
         impl Builder {
+            #[doc = "Continuation token for getting the next page of data set. If null is passed, gets the first page."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
+            #[doc = "Comma (\",\") separated list of properties to select in the result entitlements. names of the properties are - 'Projects, 'Extensions' and 'Grouprules'."]
             pub fn select(mut self, select: impl Into<String>) -> Self {
                 self.select = Some(select.into());
                 self
             }
+            #[doc = "Equality operators relating to searching user entitlements seperated by and clauses. Valid filters include: licenseId, licenseStatus, userType, and name. licenseId: filters based on license assignment using license names. i.e. licenseId eq 'Account-Stakeholder' or licenseId eq 'Account-Express'. licenseStatus: filters based on license status. currently only supports disabled. i.e. licenseStatus eq 'Disabled'. To get disabled basic licenses, you would pass (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled') userType: filters off identity type. Suppored types are member or guest i.e. userType eq 'member'. name: filters on if the user's display name or email contians given input. i.e. get all users with \"test\" in email or displayname is \"name eq 'test'\". A valid query could be: (licenseId eq 'Account-Stakeholder' or (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled')) and name eq 'test' and userType eq 'guest'."]
             pub fn filter(mut self, filter: impl Into<String>) -> Self {
                 self.filter = Some(filter.into());
                 self
             }
+            #[doc = "PropertyName and Order (separated by a space ( )) to sort on (e.g. lastAccessed desc). Order defaults to ascending. valid properties to order by are dateCreated, lastAccessed, and name"]
             pub fn order_by(mut self, order_by: impl Into<String>) -> Self {
                 self.order_by = Some(order_by.into());
                 self
@@ -1125,6 +1135,7 @@ pub mod user_entitlements {
             pub(crate) do_not_send_invite_for_new_users: Option<bool>,
         }
         impl Builder {
+            #[doc = "Whether to send email invites to new users or not"]
             pub fn do_not_send_invite_for_new_users(
                 mut self,
                 do_not_send_invite_for_new_users: bool,
@@ -1429,6 +1440,7 @@ pub mod user_entitlement_summary {
             pub(crate) select: Option<String>,
         }
         impl Builder {
+            #[doc = "Comma (\",\") separated list of properties to select. Supported property names are {AccessLevels, Licenses, Projects, Groups}."]
             pub fn select(mut self, select: impl Into<String>) -> Self {
                 self.select = Some(select.into());
                 self

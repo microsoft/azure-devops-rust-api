@@ -634,14 +634,17 @@ pub mod notifications {
             pub(crate) result: Option<String>,
         }
         impl Builder {
+            #[doc = "Maximum number of notifications to return. Default is **100**."]
             pub fn max_results(mut self, max_results: i32) -> Self {
                 self.max_results = Some(max_results);
                 self
             }
+            #[doc = "Get only notifications with this status."]
             pub fn status(mut self, status: impl Into<String>) -> Self {
                 self.status = Some(status.into());
                 self
             }
+            #[doc = "Get only notifications with this result type."]
             pub fn result(mut self, result: impl Into<String>) -> Self {
                 self.result = Some(result.into());
                 self
@@ -797,6 +800,7 @@ pub mod notifications {
             pub(crate) use_real_data: Option<bool>,
         }
         impl Builder {
+            #[doc = "Only allow testing with real data in existing subscriptions."]
             pub fn use_real_data(mut self, use_real_data: bool) -> Self {
                 self.use_real_data = Some(use_real_data);
                 self
@@ -1489,18 +1493,22 @@ pub mod subscriptions {
             pub(crate) consumer_action_id: Option<String>,
         }
         impl Builder {
+            #[doc = "ID for a subscription."]
             pub fn publisher_id(mut self, publisher_id: impl Into<String>) -> Self {
                 self.publisher_id = Some(publisher_id.into());
                 self
             }
+            #[doc = "The event type to filter on (if any)."]
             pub fn event_type(mut self, event_type: impl Into<String>) -> Self {
                 self.event_type = Some(event_type.into());
                 self
             }
+            #[doc = "ID for a consumer."]
             pub fn consumer_id(mut self, consumer_id: impl Into<String>) -> Self {
                 self.consumer_id = Some(consumer_id.into());
                 self
             }
+            #[doc = "ID for a consumerActionId."]
             pub fn consumer_action_id(mut self, consumer_action_id: impl Into<String>) -> Self {
                 self.consumer_action_id = Some(consumer_action_id.into());
                 self

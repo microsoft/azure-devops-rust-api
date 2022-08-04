@@ -197,7 +197,7 @@ pub mod repositories {
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `repository_id`: The name or ID of the repository."]
-        #[doc = "* `include_parent`: True to include parent repository. Only available in authenticated calls."]
+        #[doc = "* `include_parent`: Set to true to include parent repository. Only available in authenticated calls."]
         #[doc = "* `project`: Project ID or project name"]
         pub fn get_repository_with_parent(
             &self,
@@ -752,14 +752,17 @@ pub mod repositories {
             pub(crate) include_hidden: Option<bool>,
         }
         impl Builder {
+            #[doc = "(optional) Set to true to include reference links. The default value is false."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
             }
+            #[doc = "(optional) Set to true to include all remote URLs. The default value is false."]
             pub fn include_all_urls(mut self, include_all_urls: bool) -> Self {
                 self.include_all_urls = Some(include_all_urls);
                 self
             }
+            #[doc = "(optional) Set to true to include hidden repositories. The default value is false."]
             pub fn include_hidden(mut self, include_hidden: bool) -> Self {
                 self.include_hidden = Some(include_hidden);
                 self
@@ -847,6 +850,7 @@ pub mod repositories {
             pub(crate) source_ref: Option<String>,
         }
         impl Builder {
+            #[doc = "[optional] Specify the source refs to use while creating a fork repo"]
             pub fn source_ref(mut self, source_ref: impl Into<String>) -> Self {
                 self.source_ref = Some(source_ref.into());
                 self
@@ -1302,14 +1306,17 @@ pub mod commits {
             pub(crate) search_criteria_user: Option<String>,
         }
         impl Builder {
+            #[doc = "Number of entries to skip"]
             pub fn search_criteria_skip(mut self, search_criteria_skip: i32) -> Self {
                 self.search_criteria_skip = Some(search_criteria_skip);
                 self
             }
+            #[doc = "Maximum number of entries to retrieve"]
             pub fn search_criteria_top(mut self, search_criteria_top: i32) -> Self {
                 self.search_criteria_top = Some(search_criteria_top);
                 self
             }
+            #[doc = "Alias or display name of the author"]
             pub fn search_criteria_author(
                 mut self,
                 search_criteria_author: impl Into<String>,
@@ -1317,6 +1324,7 @@ pub mod commits {
                 self.search_criteria_author = Some(search_criteria_author.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn search_criteria_compare_version_version(
                 mut self,
                 search_criteria_compare_version_version: impl Into<String>,
@@ -1325,6 +1333,7 @@ pub mod commits {
                     Some(search_criteria_compare_version_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn search_criteria_compare_version_version_options(
                 mut self,
                 search_criteria_compare_version_version_options: impl Into<String>,
@@ -1333,6 +1342,7 @@ pub mod commits {
                     Some(search_criteria_compare_version_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn search_criteria_compare_version_version_type(
                 mut self,
                 search_criteria_compare_version_version_type: impl Into<String>,
@@ -1341,6 +1351,7 @@ pub mod commits {
                     Some(search_criteria_compare_version_version_type.into());
                 self
             }
+            #[doc = "Only applies when an itemPath is specified. This determines whether to exclude delete entries of the specified path."]
             pub fn search_criteria_exclude_deletes(
                 mut self,
                 search_criteria_exclude_deletes: bool,
@@ -1348,6 +1359,7 @@ pub mod commits {
                 self.search_criteria_exclude_deletes = Some(search_criteria_exclude_deletes);
                 self
             }
+            #[doc = "If provided, a lower bound for filtering commits alphabetically"]
             pub fn search_criteria_from_commit_id(
                 mut self,
                 search_criteria_from_commit_id: impl Into<String>,
@@ -1355,6 +1367,7 @@ pub mod commits {
                 self.search_criteria_from_commit_id = Some(search_criteria_from_commit_id.into());
                 self
             }
+            #[doc = "If provided, only include history entries created after this date (string)"]
             pub fn search_criteria_from_date(
                 mut self,
                 search_criteria_from_date: impl Into<String>,
@@ -1362,6 +1375,7 @@ pub mod commits {
                 self.search_criteria_from_date = Some(search_criteria_from_date.into());
                 self
             }
+            #[doc = "What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified."]
             pub fn search_criteria_history_mode(
                 mut self,
                 search_criteria_history_mode: impl Into<String>,
@@ -1369,10 +1383,12 @@ pub mod commits {
                 self.search_criteria_history_mode = Some(search_criteria_history_mode.into());
                 self
             }
+            #[doc = "If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters."]
             pub fn search_criteria_ids(mut self, search_criteria_ids: Vec<String>) -> Self {
                 self.search_criteria_ids = search_criteria_ids;
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -1380,6 +1396,7 @@ pub mod commits {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "Whether to include the push information"]
             pub fn search_criteria_include_push_data(
                 mut self,
                 search_criteria_include_push_data: bool,
@@ -1387,6 +1404,7 @@ pub mod commits {
                 self.search_criteria_include_push_data = Some(search_criteria_include_push_data);
                 self
             }
+            #[doc = "Whether to include the image Url for committers and authors"]
             pub fn search_criteria_include_user_image_url(
                 mut self,
                 search_criteria_include_user_image_url: bool,
@@ -1395,6 +1413,7 @@ pub mod commits {
                     Some(search_criteria_include_user_image_url);
                 self
             }
+            #[doc = "Whether to include linked work items"]
             pub fn search_criteria_include_work_items(
                 mut self,
                 search_criteria_include_work_items: bool,
@@ -1402,6 +1421,7 @@ pub mod commits {
                 self.search_criteria_include_work_items = Some(search_criteria_include_work_items);
                 self
             }
+            #[doc = "Path of item to search under"]
             pub fn search_criteria_item_path(
                 mut self,
                 search_criteria_item_path: impl Into<String>,
@@ -1409,6 +1429,7 @@ pub mod commits {
                 self.search_criteria_item_path = Some(search_criteria_item_path.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn search_criteria_item_version_version(
                 mut self,
                 search_criteria_item_version_version: impl Into<String>,
@@ -1417,6 +1438,7 @@ pub mod commits {
                     Some(search_criteria_item_version_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn search_criteria_item_version_version_options(
                 mut self,
                 search_criteria_item_version_version_options: impl Into<String>,
@@ -1425,6 +1447,7 @@ pub mod commits {
                     Some(search_criteria_item_version_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn search_criteria_item_version_version_type(
                 mut self,
                 search_criteria_item_version_version_type: impl Into<String>,
@@ -1433,6 +1456,7 @@ pub mod commits {
                     Some(search_criteria_item_version_version_type.into());
                 self
             }
+            #[doc = "If enabled, this option will ignore the itemVersion and compareVersion parameters"]
             pub fn search_criteria_show_oldest_commits_first(
                 mut self,
                 search_criteria_show_oldest_commits_first: bool,
@@ -1441,6 +1465,7 @@ pub mod commits {
                     Some(search_criteria_show_oldest_commits_first);
                 self
             }
+            #[doc = "If provided, an upper bound for filtering commits alphabetically"]
             pub fn search_criteria_to_commit_id(
                 mut self,
                 search_criteria_to_commit_id: impl Into<String>,
@@ -1448,6 +1473,7 @@ pub mod commits {
                 self.search_criteria_to_commit_id = Some(search_criteria_to_commit_id.into());
                 self
             }
+            #[doc = "If provided, only include history entries created before this date (string)"]
             pub fn search_criteria_to_date(
                 mut self,
                 search_criteria_to_date: impl Into<String>,
@@ -1455,6 +1481,7 @@ pub mod commits {
                 self.search_criteria_to_date = Some(search_criteria_to_date.into());
                 self
             }
+            #[doc = "Alias or display name of the committer"]
             pub fn search_criteria_user(mut self, search_criteria_user: impl Into<String>) -> Self {
                 self.search_criteria_user = Some(search_criteria_user.into());
                 self
@@ -1686,14 +1713,17 @@ pub mod commits {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "The maximum number of commits to return (\"get the top x commits\")."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The number of commits to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Set to false to avoid including REST Url links for resources. Defaults to true."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -1784,6 +1814,7 @@ pub mod commits {
             pub(crate) change_count: Option<i32>,
         }
         impl Builder {
+            #[doc = "The number of changes to include in the result."]
             pub fn change_count(mut self, change_count: i32) -> Self {
                 self.change_count = Some(change_count);
                 self
@@ -1867,10 +1898,12 @@ pub mod commits {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "The maximum number of changes to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The number of changes to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -1957,14 +1990,17 @@ pub mod commits {
             pub(crate) include_statuses: Option<bool>,
         }
         impl Builder {
+            #[doc = "Number of commits to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Maximum number of commits to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Set to true to include additional commit status information."]
             pub fn include_statuses(mut self, include_statuses: bool) -> Self {
                 self.include_statuses = Some(include_statuses);
                 self
@@ -2156,30 +2192,37 @@ pub mod items {
             pub(crate) sanitize: Option<bool>,
         }
         impl Builder {
+            #[doc = "The path scope.  The default is null."]
             pub fn scope_path(mut self, scope_path: impl Into<String>) -> Self {
                 self.scope_path = Some(scope_path.into());
                 self
             }
+            #[doc = "The recursion level of this request. The default is 'none', no recursion."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Set to true to include content metadata.  Default is false."]
             pub fn include_content_metadata(mut self, include_content_metadata: bool) -> Self {
                 self.include_content_metadata = Some(include_content_metadata);
                 self
             }
+            #[doc = "Set to true to include the latest changes.  Default is false."]
             pub fn latest_processed_change(mut self, latest_processed_change: bool) -> Self {
                 self.latest_processed_change = Some(latest_processed_change);
                 self
             }
+            #[doc = "Set to true to download the response as a file.  Default is false."]
             pub fn download(mut self, download: bool) -> Self {
                 self.download = Some(download);
                 self
             }
+            #[doc = "If specified, this overrides the HTTP Accept request header to return either 'json' or 'zip'. If format is specified, then api-version should also be specified as a query parameter."]
             pub fn format(mut self, format: impl Into<String>) -> Self {
                 self.format = Some(format.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -2187,6 +2230,7 @@ pub mod items {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -2195,6 +2239,7 @@ pub mod items {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -2202,14 +2247,17 @@ pub mod items {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
+            #[doc = "Set to true to include item content when requesting json.  Default is false."]
             pub fn include_content(mut self, include_content: bool) -> Self {
                 self.include_content = Some(include_content);
                 self
             }
+            #[doc = "Set to true to resolve Git LFS pointer files to return actual content from Git LFS.  Default is false."]
             pub fn resolve_lfs(mut self, resolve_lfs: bool) -> Self {
                 self.resolve_lfs = Some(resolve_lfs);
                 self
             }
+            #[doc = "Set to true to sanitize an svg file and return it as image. Useful only if requested for svg file. Default is false."]
             pub fn sanitize(mut self, sanitize: bool) -> Self {
                 self.sanitize = Some(sanitize);
                 self
@@ -2357,34 +2405,42 @@ pub mod items {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "The path scope.  The default is null."]
             pub fn scope_path(mut self, scope_path: impl Into<String>) -> Self {
                 self.scope_path = Some(scope_path.into());
                 self
             }
+            #[doc = "The recursion level of this request. The default is 'none', no recursion."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Set to true to include content metadata.  Default is false."]
             pub fn include_content_metadata(mut self, include_content_metadata: bool) -> Self {
                 self.include_content_metadata = Some(include_content_metadata);
                 self
             }
+            #[doc = "Set to true to include the latest changes.  Default is false."]
             pub fn latest_processed_change(mut self, latest_processed_change: bool) -> Self {
                 self.latest_processed_change = Some(latest_processed_change);
                 self
             }
+            #[doc = "Set to true to download the response as a file.  Default is false."]
             pub fn download(mut self, download: bool) -> Self {
                 self.download = Some(download);
                 self
             }
+            #[doc = "Set to true to include links to items.  Default is false."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
             }
+            #[doc = "If specified, this overrides the HTTP Accept request header to return either 'json' or 'zip'. If format is specified, then api-version should also be specified as a query parameter."]
             pub fn format(mut self, format: impl Into<String>) -> Self {
                 self.format = Some(format.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -2392,6 +2448,7 @@ pub mod items {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -2400,6 +2457,7 @@ pub mod items {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -2659,6 +2717,7 @@ pub mod stats {
             pub(crate) base_version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn base_version_descriptor_version(
                 mut self,
                 base_version_descriptor_version: impl Into<String>,
@@ -2666,6 +2725,7 @@ pub mod stats {
                 self.base_version_descriptor_version = Some(base_version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn base_version_descriptor_version_options(
                 mut self,
                 base_version_descriptor_version_options: impl Into<String>,
@@ -2674,6 +2734,7 @@ pub mod stats {
                     Some(base_version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn base_version_descriptor_version_type(
                 mut self,
                 base_version_descriptor_version_type: impl Into<String>,
@@ -2783,6 +2844,7 @@ pub mod stats {
             pub(crate) base_version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn base_version_descriptor_version(
                 mut self,
                 base_version_descriptor_version: impl Into<String>,
@@ -2790,6 +2852,7 @@ pub mod stats {
                 self.base_version_descriptor_version = Some(base_version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn base_version_descriptor_version_options(
                 mut self,
                 base_version_descriptor_version_options: impl Into<String>,
@@ -2798,6 +2861,7 @@ pub mod stats {
                     Some(base_version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn base_version_descriptor_version_type(
                 mut self,
                 base_version_descriptor_version_type: impl Into<String>,
@@ -2983,10 +3047,12 @@ pub mod refs_favorites {
             pub(crate) identity_id: Option<String>,
         }
         impl Builder {
+            #[doc = "The id of the repository."]
             pub fn repository_id(mut self, repository_id: impl Into<String>) -> Self {
                 self.repository_id = Some(repository_id.into());
                 self
             }
+            #[doc = "The id of the identity whose favorites are to be retrieved. If null, the requesting identity is used."]
             pub fn identity_id(mut self, identity_id: impl Into<String>) -> Self {
                 self.identity_id = Some(identity_id.into());
                 self
@@ -3306,22 +3372,27 @@ pub mod policy_configurations {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "The repository id."]
             pub fn repository_id(mut self, repository_id: impl Into<String>) -> Self {
                 self.repository_id = Some(repository_id.into());
                 self
             }
+            #[doc = "The fully-qualified Git ref name (e.g. refs/heads/master)."]
             pub fn ref_name(mut self, ref_name: impl Into<String>) -> Self {
                 self.ref_name = Some(ref_name.into());
                 self
             }
+            #[doc = "The policy type filter."]
             pub fn policy_type(mut self, policy_type: impl Into<String>) -> Self {
                 self.policy_type = Some(policy_type.into());
                 self
             }
+            #[doc = "Maximum number of policies to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Pass a policy configuration ID to fetch the next page of results, up to top number of results, for this endpoint."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -3580,6 +3651,7 @@ pub mod pull_requests {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "If set, search for pull requests that were created by this identity."]
             pub fn search_criteria_creator_id(
                 mut self,
                 search_criteria_creator_id: impl Into<String>,
@@ -3587,6 +3659,7 @@ pub mod pull_requests {
                 self.search_criteria_creator_id = Some(search_criteria_creator_id.into());
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -3594,6 +3667,7 @@ pub mod pull_requests {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "If set, search for pull requests whose target branch is in this repository."]
             pub fn search_criteria_repository_id(
                 mut self,
                 search_criteria_repository_id: impl Into<String>,
@@ -3601,6 +3675,7 @@ pub mod pull_requests {
                 self.search_criteria_repository_id = Some(search_criteria_repository_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests that have this identity as a reviewer."]
             pub fn search_criteria_reviewer_id(
                 mut self,
                 search_criteria_reviewer_id: impl Into<String>,
@@ -3608,6 +3683,7 @@ pub mod pull_requests {
                 self.search_criteria_reviewer_id = Some(search_criteria_reviewer_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests from this branch."]
             pub fn search_criteria_source_ref_name(
                 mut self,
                 search_criteria_source_ref_name: impl Into<String>,
@@ -3615,6 +3691,7 @@ pub mod pull_requests {
                 self.search_criteria_source_ref_name = Some(search_criteria_source_ref_name.into());
                 self
             }
+            #[doc = "If set, search for pull requests whose source branch is in this repository."]
             pub fn search_criteria_source_repository_id(
                 mut self,
                 search_criteria_source_repository_id: impl Into<String>,
@@ -3623,6 +3700,7 @@ pub mod pull_requests {
                     Some(search_criteria_source_repository_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
             pub fn search_criteria_status(
                 mut self,
                 search_criteria_status: impl Into<String>,
@@ -3630,6 +3708,7 @@ pub mod pull_requests {
                 self.search_criteria_status = Some(search_criteria_status.into());
                 self
             }
+            #[doc = "If set, search for pull requests into this branch."]
             pub fn search_criteria_target_ref_name(
                 mut self,
                 search_criteria_target_ref_name: impl Into<String>,
@@ -3637,14 +3716,17 @@ pub mod pull_requests {
                 self.search_criteria_target_ref_name = Some(search_criteria_target_ref_name.into());
                 self
             }
+            #[doc = "Not used."]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
                 self
             }
+            #[doc = "The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The number of pull requests to retrieve."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -3869,6 +3951,7 @@ pub mod pull_requests {
             pub(crate) top: Option<i32>,
         }
         impl Builder {
+            #[doc = "If set, search for pull requests that were created by this identity."]
             pub fn search_criteria_creator_id(
                 mut self,
                 search_criteria_creator_id: impl Into<String>,
@@ -3876,6 +3959,7 @@ pub mod pull_requests {
                 self.search_criteria_creator_id = Some(search_criteria_creator_id.into());
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -3883,6 +3967,7 @@ pub mod pull_requests {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "If set, search for pull requests whose target branch is in this repository."]
             pub fn search_criteria_repository_id(
                 mut self,
                 search_criteria_repository_id: impl Into<String>,
@@ -3890,6 +3975,7 @@ pub mod pull_requests {
                 self.search_criteria_repository_id = Some(search_criteria_repository_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests that have this identity as a reviewer."]
             pub fn search_criteria_reviewer_id(
                 mut self,
                 search_criteria_reviewer_id: impl Into<String>,
@@ -3897,6 +3983,7 @@ pub mod pull_requests {
                 self.search_criteria_reviewer_id = Some(search_criteria_reviewer_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests from this branch."]
             pub fn search_criteria_source_ref_name(
                 mut self,
                 search_criteria_source_ref_name: impl Into<String>,
@@ -3904,6 +3991,7 @@ pub mod pull_requests {
                 self.search_criteria_source_ref_name = Some(search_criteria_source_ref_name.into());
                 self
             }
+            #[doc = "If set, search for pull requests whose source branch is in this repository."]
             pub fn search_criteria_source_repository_id(
                 mut self,
                 search_criteria_source_repository_id: impl Into<String>,
@@ -3912,6 +4000,7 @@ pub mod pull_requests {
                     Some(search_criteria_source_repository_id.into());
                 self
             }
+            #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
             pub fn search_criteria_status(
                 mut self,
                 search_criteria_status: impl Into<String>,
@@ -3919,6 +4008,7 @@ pub mod pull_requests {
                 self.search_criteria_status = Some(search_criteria_status.into());
                 self
             }
+            #[doc = "If set, search for pull requests into this branch."]
             pub fn search_criteria_target_ref_name(
                 mut self,
                 search_criteria_target_ref_name: impl Into<String>,
@@ -3926,14 +4016,17 @@ pub mod pull_requests {
                 self.search_criteria_target_ref_name = Some(search_criteria_target_ref_name.into());
                 self
             }
+            #[doc = "Not used."]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
                 self
             }
+            #[doc = "The number of pull requests to ignore. For example, to retrieve results 101-150, set top to 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The number of pull requests to retrieve."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
@@ -4079,6 +4172,7 @@ pub mod pull_requests {
             pub(crate) supports_iterations: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, subsequent pushes to the pull request will be individually reviewable. Set this to false for large pull requests for performance reasons if this functionality is not needed."]
             pub fn supports_iterations(mut self, supports_iterations: bool) -> Self {
                 self.supports_iterations = Some(supports_iterations);
                 self
@@ -4167,22 +4261,27 @@ pub mod pull_requests {
             pub(crate) include_work_item_refs: Option<bool>,
         }
         impl Builder {
+            #[doc = "Not used."]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
                 self
             }
+            #[doc = "Not used."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Not used."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "If true, the pull request will be returned with the associated commits."]
             pub fn include_commits(mut self, include_commits: bool) -> Self {
                 self.include_commits = Some(include_commits);
                 self
             }
+            #[doc = "If true, the pull request will be returned with the associated work item references."]
             pub fn include_work_item_refs(mut self, include_work_item_refs: bool) -> Self {
                 self.include_work_item_refs = Some(include_work_item_refs);
                 self
@@ -4691,18 +4790,22 @@ pub mod blobs {
             pub(crate) resolve_lfs: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, prompt for a download rather than rendering in a browser. Note: this value defaults to true if format is zip"]
             pub fn download(mut self, download: bool) -> Self {
                 self.download = Some(download);
                 self
             }
+            #[doc = "Provide a filename to use for a download."]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
                 self
             }
+            #[doc = "Options: json, zip, text, octetstream. If not set, defaults to the MIME type set in the Accept header."]
             pub fn format(mut self, format: impl Into<String>) -> Self {
                 self.format = Some(format.into());
                 self
             }
+            #[doc = "If true, try to resolve a blob to its LFS contents, if it's an LFS pointer file. Only compatible with octet-stream Accept headers or format types"]
             pub fn resolve_lfs(mut self, resolve_lfs: bool) -> Self {
                 self.resolve_lfs = Some(resolve_lfs);
                 self
@@ -5144,14 +5247,17 @@ pub mod statuses {
             pub(crate) latest_only: Option<bool>,
         }
         impl Builder {
+            #[doc = "Optional. The number of statuses to retrieve. Default is 1000."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Optional. The number of statuses to ignore. Default is 0. For example, to retrieve results 101-150, set top to 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "The flag indicates whether to get only latest statuses grouped by `Context.Name` and `Context.Genre`."]
             pub fn latest_only(mut self, latest_only: bool) -> Self {
                 self.latest_only = Some(latest_only);
                 self
@@ -5356,34 +5462,42 @@ pub mod diffs {
             pub(crate) target_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "If true, diff between common and target commits. If false, diff between base and target commits."]
             pub fn diff_common_commit(mut self, diff_common_commit: bool) -> Self {
                 self.diff_common_commit = Some(diff_common_commit);
                 self
             }
+            #[doc = "Maximum number of changes to return. Defaults to 100."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of changes to skip"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn base_version(mut self, base_version: impl Into<String>) -> Self {
                 self.base_version = Some(base_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn base_version_options(mut self, base_version_options: impl Into<String>) -> Self {
                 self.base_version_options = Some(base_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn base_version_type(mut self, base_version_type: impl Into<String>) -> Self {
                 self.base_version_type = Some(base_version_type.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn target_version(mut self, target_version: impl Into<String>) -> Self {
                 self.target_version = Some(target_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn target_version_options(
                 mut self,
                 target_version_options: impl Into<String>,
@@ -5391,6 +5505,7 @@ pub mod diffs {
                 self.target_version_options = Some(target_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn target_version_type(mut self, target_version_type: impl Into<String>) -> Self {
                 self.target_version_type = Some(target_version_type.into());
                 self
@@ -5597,6 +5712,7 @@ pub mod import_requests {
             pub(crate) include_abandoned: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include abandoned import requests in the results."]
             pub fn include_abandoned(mut self, include_abandoned: bool) -> Self {
                 self.include_abandoned = Some(include_abandoned);
                 self
@@ -6468,10 +6584,12 @@ pub mod pull_request_commits {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "Maximum number of commits to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The continuation token used for pagination."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -6559,10 +6677,12 @@ pub mod pull_request_commits {
             pub(crate) skip: Option<i32>,
         }
         impl Builder {
+            #[doc = "Maximum number of commits to return. The maximum number of commits that can be returned per batch is 500."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Number of commits to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
@@ -6694,6 +6814,7 @@ pub mod pull_request_iterations {
             pub(crate) include_commits: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, include the commits associated with each iteration in the response."]
             pub fn include_commits(mut self, include_commits: bool) -> Self {
                 self.include_commits = Some(include_commits);
                 self
@@ -6888,14 +7009,17 @@ pub mod pull_request_iteration_changes {
             pub(crate) compare_to: Option<i32>,
         }
         impl Builder {
+            #[doc = "Optional. The number of changes to retrieve.  The default value is 100 and the maximum value is 2000."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Optional. The number of changes to ignore.  For example, to retrieve changes 101-150, set top 50 and skip to 100."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "ID of the pull request iteration to compare against.  The default value is zero which indicates the comparison is made against the common commit between the source and target branches"]
             pub fn compare_to(mut self, compare_to: i32) -> Self {
                 self.compare_to = Some(compare_to);
                 self
@@ -7557,6 +7681,7 @@ pub mod pull_request_labels {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "Project ID or project name."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -7639,6 +7764,7 @@ pub mod pull_request_labels {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "Project ID or project name."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -7722,6 +7848,7 @@ pub mod pull_request_labels {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "Project ID or project name."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -7805,6 +7932,7 @@ pub mod pull_request_labels {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "Project ID or project name."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -9580,10 +9708,12 @@ pub mod pull_request_threads {
             pub(crate) base_iteration: Option<i32>,
         }
         impl Builder {
+            #[doc = "If specified, thread positions will be tracked using this iteration as the right side of the diff."]
             pub fn iteration(mut self, iteration: i32) -> Self {
                 self.iteration = Some(iteration);
                 self
             }
+            #[doc = "If specified, thread positions will be tracked using this iteration as the left side of the diff."]
             pub fn base_iteration(mut self, base_iteration: i32) -> Self {
                 self.base_iteration = Some(base_iteration);
                 self
@@ -9747,10 +9877,12 @@ pub mod pull_request_threads {
             pub(crate) base_iteration: Option<i32>,
         }
         impl Builder {
+            #[doc = "If specified, thread position will be tracked using this iteration as the right side of the diff."]
             pub fn iteration(mut self, iteration: i32) -> Self {
                 self.iteration = Some(iteration);
                 self
             }
+            #[doc = "If specified, thread position will be tracked using this iteration as the left side of the diff."]
             pub fn base_iteration(mut self, base_iteration: i32) -> Self {
                 self.base_iteration = Some(base_iteration);
                 self
@@ -10862,14 +10994,17 @@ pub mod pushes {
             pub(crate) search_criteria_to_date: Option<String>,
         }
         impl Builder {
+            #[doc = "Number of pushes to skip."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
+            #[doc = "Number of pushes to return."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "Search criteria attributes: fromDate, toDate, pusherId, refName, includeRefUpdates or includeLinks. fromDate: Start date to search from. toDate: End date to search to. pusherId: Identity of the person who submitted the push. refName: Branch name to consider. includeRefUpdates: If true, include the list of refs that were updated by the push. includeLinks: Whether to include the _links field on the shallow references."]
             pub fn search_criteria_from_date(
                 mut self,
                 search_criteria_from_date: impl Into<String>,
@@ -10877,6 +11012,7 @@ pub mod pushes {
                 self.search_criteria_from_date = Some(search_criteria_from_date.into());
                 self
             }
+            #[doc = "Whether to include the _links field on the shallow references"]
             pub fn search_criteria_include_links(
                 mut self,
                 search_criteria_include_links: bool,
@@ -10884,6 +11020,7 @@ pub mod pushes {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
                 self
             }
+            #[doc = "Search criteria attributes: fromDate, toDate, pusherId, refName, includeRefUpdates or includeLinks. fromDate: Start date to search from. toDate: End date to search to. pusherId: Identity of the person who submitted the push. refName: Branch name to consider. includeRefUpdates: If true, include the list of refs that were updated by the push. includeLinks: Whether to include the _links field on the shallow references."]
             pub fn search_criteria_include_ref_updates(
                 mut self,
                 search_criteria_include_ref_updates: bool,
@@ -10892,6 +11029,7 @@ pub mod pushes {
                     Some(search_criteria_include_ref_updates);
                 self
             }
+            #[doc = "Search criteria attributes: fromDate, toDate, pusherId, refName, includeRefUpdates or includeLinks. fromDate: Start date to search from. toDate: End date to search to. pusherId: Identity of the person who submitted the push. refName: Branch name to consider. includeRefUpdates: If true, include the list of refs that were updated by the push. includeLinks: Whether to include the _links field on the shallow references."]
             pub fn search_criteria_pusher_id(
                 mut self,
                 search_criteria_pusher_id: impl Into<String>,
@@ -10899,6 +11037,7 @@ pub mod pushes {
                 self.search_criteria_pusher_id = Some(search_criteria_pusher_id.into());
                 self
             }
+            #[doc = "Search criteria attributes: fromDate, toDate, pusherId, refName, includeRefUpdates or includeLinks. fromDate: Start date to search from. toDate: End date to search to. pusherId: Identity of the person who submitted the push. refName: Branch name to consider. includeRefUpdates: If true, include the list of refs that were updated by the push. includeLinks: Whether to include the _links field on the shallow references."]
             pub fn search_criteria_ref_name(
                 mut self,
                 search_criteria_ref_name: impl Into<String>,
@@ -10906,6 +11045,7 @@ pub mod pushes {
                 self.search_criteria_ref_name = Some(search_criteria_ref_name.into());
                 self
             }
+            #[doc = "Search criteria attributes: fromDate, toDate, pusherId, refName, includeRefUpdates or includeLinks. fromDate: Start date to search from. toDate: End date to search to. pusherId: Identity of the person who submitted the push. refName: Branch name to consider. includeRefUpdates: If true, include the list of refs that were updated by the push. includeLinks: Whether to include the _links field on the shallow references."]
             pub fn search_criteria_to_date(
                 mut self,
                 search_criteria_to_date: impl Into<String>,
@@ -11098,10 +11238,12 @@ pub mod pushes {
             pub(crate) include_ref_updates: Option<bool>,
         }
         impl Builder {
+            #[doc = "The number of commits to include in the result."]
             pub fn include_commits(mut self, include_commits: i32) -> Self {
                 self.include_commits = Some(include_commits);
                 self
             }
+            #[doc = "If true, include the list of refs that were updated by the push."]
             pub fn include_ref_updates(mut self, include_ref_updates: bool) -> Self {
                 self.include_ref_updates = Some(include_ref_updates);
                 self
@@ -11277,38 +11419,47 @@ pub mod refs {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "[optional] A filter to apply to the refs (starts with)."]
             pub fn filter(mut self, filter: impl Into<String>) -> Self {
                 self.filter = Some(filter.into());
                 self
             }
+            #[doc = "[optional] Specifies if referenceLinks should be included in the result. default is false."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
             }
+            #[doc = "[optional] Includes up to the first 1000 commit statuses for each ref. The default value is false."]
             pub fn include_statuses(mut self, include_statuses: bool) -> Self {
                 self.include_statuses = Some(include_statuses);
                 self
             }
+            #[doc = "[optional] Includes only branches that the user owns, the branches the user favorites, and the default branch. The default value is false. Cannot be combined with the filter parameter."]
             pub fn include_my_branches(mut self, include_my_branches: bool) -> Self {
                 self.include_my_branches = Some(include_my_branches);
                 self
             }
+            #[doc = "(optional) Set to true to include only the tip commit status for each ref. This option requires `includeStatuses` to be true. The default value is false."]
             pub fn latest_statuses_only(mut self, latest_statuses_only: bool) -> Self {
                 self.latest_statuses_only = Some(latest_statuses_only);
                 self
             }
+            #[doc = "[optional] Annotated tags will populate the PeeledObjectId property. default is false."]
             pub fn peel_tags(mut self, peel_tags: bool) -> Self {
                 self.peel_tags = Some(peel_tags);
                 self
             }
+            #[doc = "[optional] A filter to apply to the refs (contains)."]
             pub fn filter_contains(mut self, filter_contains: impl Into<String>) -> Self {
                 self.filter_contains = Some(filter_contains.into());
                 self
             }
+            #[doc = "[optional] Maximum number of refs to return. It cannot be bigger than 1000. If it is not provided but continuationToken is, top will default to 100."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "The continuation token used for pagination."]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -11422,6 +11573,7 @@ pub mod refs {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "ID or name of the team project. Optional if specifying an ID for repository."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -11504,6 +11656,7 @@ pub mod refs {
             pub(crate) project_id: Option<String>,
         }
         impl Builder {
+            #[doc = "ID or name of the team project. Optional if specifying an ID for repository."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
@@ -12008,18 +12161,22 @@ pub mod trees {
             pub(crate) format: Option<String>,
         }
         impl Builder {
+            #[doc = "Project Id."]
             pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
                 self.project_id = Some(project_id.into());
                 self
             }
+            #[doc = "Search recursively. Include trees underneath this tree. Default is false."]
             pub fn recursive(mut self, recursive: bool) -> Self {
                 self.recursive = Some(recursive);
                 self
             }
+            #[doc = "Name to use if a .zip file is returned. Default is the object ID."]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
                 self
             }
+            #[doc = "Use \"zip\". Defaults to the MIME type set in the Accept header."]
             pub fn format(mut self, format: impl Into<String>) -> Self {
                 self.format = Some(format.into());
                 self
@@ -12146,10 +12303,12 @@ pub mod merge_bases {
             pub(crate) other_repository_id: Option<String>,
         }
         impl Builder {
+            #[doc = "The collection ID where otherCommitId lives."]
             pub fn other_collection_id(mut self, other_collection_id: impl Into<String>) -> Self {
                 self.other_collection_id = Some(other_collection_id.into());
                 self
             }
+            #[doc = "The repository ID where otherCommitId lives."]
             pub fn other_repository_id(mut self, other_repository_id: impl Into<String>) -> Self {
                 self.other_repository_id = Some(other_repository_id.into());
                 self
@@ -12335,6 +12494,7 @@ pub mod forks {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include links."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -12417,10 +12577,12 @@ pub mod forks {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include abandoned requests."]
             pub fn include_abandoned(mut self, include_abandoned: bool) -> Self {
                 self.include_abandoned = Some(include_abandoned);
                 self
             }
+            #[doc = "Set to true to include links."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -12506,6 +12668,7 @@ pub mod forks {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include links"]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -12588,6 +12751,7 @@ pub mod forks {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include links."]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -12722,6 +12886,7 @@ pub mod merges {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include links"]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self
@@ -12804,6 +12969,7 @@ pub mod merges {
             pub(crate) include_links: Option<bool>,
         }
         impl Builder {
+            #[doc = "Set to true to include links"]
             pub fn include_links(mut self, include_links: bool) -> Self {
                 self.include_links = Some(include_links);
                 self

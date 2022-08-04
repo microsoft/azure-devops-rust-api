@@ -12,6 +12,19 @@ use walkdir::{DirEntry, WalkDir};
 const ORIGINAL_VSTS_SPECS_DIR: &str = "../vsts-rest-api-specs/";
 const JSON_INDENT: u16 = 2;
 
+// List of documentation patches.
+// Any matches of the first string are replaced with the second.
+const DOC_PATCHES: &'static[(&'static str, &'static str)] = &[
+    ("file name of item returned.", "File name of item returned."),
+    ("definitionId", "definition_id"),
+    ("[optional] True", "(optional) Set to true"),
+    ("$format", "format"),
+    ("fileName", "filename"),
+    ("True to", "Set to true to"),
+    ("getTopPackageVersions", "get_top_package_versions"),
+    ("includeAllVersions", "include_all_versions")
+];
+
 struct Patcher {
     spec_path: PathBuf,
     new_definitions: BTreeMap<String, JsonValue>,
@@ -98,6 +111,7 @@ impl Patcher {
         Patcher::patch_pipelines_pipeline_configuration,
         Patcher::patch_pipeline,
         Patcher::patch_json_reference_links,
+        Patcher::patch_docs,
     ];
 
     fn new(spec_path: &Path) -> Patcher {
@@ -646,6 +660,51 @@ impl Patcher {
                 }
             }
             _ => None,
+        }
+    }
+
+    // Applies all patches from DOC_PATCHES to supplied string.
+    fn patch_docstring(&self, s: &str) -> String {
+        let mut patched_s: String = s.to_string();
+        for r in DOC_PATCHES {
+            patched_s = patched_s.replace(r.0, r.1);
+        }
+        if patched_s != s {
+            format!("[patched]{}", patched_s);
+            println!("patch_docstring: {} => {}", s, patched_s);
+        }
+        patched_s
+    }
+
+    // Patch documentation
+    //
+    // Does simple text replacement on description and summary fields.
+    fn patch_docs(
+        &mut self,
+        key: &[&str],
+        value: &JsonValue,
+    ) -> Option<JsonValue> {
+        match key {
+            [.., "parameters"] => {
+                // Parameters is an array of `JsonValue`s, each of which may have a `description` field
+                let mut value = value.clone();
+                for param in value.members_mut() {
+                    match param["description"].as_str() {
+                        Some(s) => param["description"] = self.patch_docstring(s).into(),
+                        _ => {}
+                    }
+                }
+                Some(value)
+            }
+            [.., "description" | "summary"] => {
+                if let Some(v) = value.as_str() {
+                    Some(self.patch_docstring(&v).into())
+                }
+                else {
+                    None
+                }
+            },
+            _ => None
         }
     }
 

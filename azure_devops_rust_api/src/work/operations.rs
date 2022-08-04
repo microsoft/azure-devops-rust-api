@@ -922,14 +922,17 @@ pub mod deliverytimeline {
             pub(crate) end_date: Option<String>,
         }
         impl Builder {
+            #[doc = "Revision of the plan for which you want data. If the current plan is a different revision you will get an ViewRevisionMismatchException exception. If you do not supply a revision you will get data for the latest revision."]
             pub fn revision(mut self, revision: i32) -> Self {
                 self.revision = Some(revision);
                 self
             }
+            #[doc = "The start date of timeline"]
             pub fn start_date(mut self, start_date: impl Into<String>) -> Self {
                 self.start_date = Some(start_date.into());
                 self
             }
+            #[doc = "The end date of timeline"]
             pub fn end_date(mut self, end_date: impl Into<String>) -> Self {
                 self.end_date = Some(end_date.into());
                 self
@@ -2645,18 +2648,22 @@ pub mod chartimages {
             pub(crate) title: Option<String>,
         }
         impl Builder {
+            #[doc = "The width of the chart in pixels. Must be greater than 0."]
             pub fn width(mut self, width: i32) -> Self {
                 self.width = Some(width);
                 self
             }
+            #[doc = "The height of the chart in pixels. Must be greater than 0."]
             pub fn height(mut self, height: i32) -> Self {
                 self.height = Some(height);
                 self
             }
+            #[doc = "Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.)."]
             pub fn show_details(mut self, show_details: bool) -> Self {
                 self.show_details = Some(show_details);
                 self
             }
+            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self
@@ -2754,18 +2761,22 @@ pub mod chartimages {
             pub(crate) title: Option<String>,
         }
         impl Builder {
+            #[doc = "The width of the chart in pixels. Must be greater than 0."]
             pub fn width(mut self, width: i32) -> Self {
                 self.width = Some(width);
                 self
             }
+            #[doc = "The height of the chart in pixels. Must be greater than 0."]
             pub fn height(mut self, height: i32) -> Self {
                 self.height = Some(height);
                 self
             }
+            #[doc = "Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.)"]
             pub fn show_details(mut self, show_details: bool) -> Self {
                 self.show_details = Some(show_details);
                 self
             }
+            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self
@@ -2863,22 +2874,27 @@ pub mod chartimages {
             pub(crate) title: Option<String>,
         }
         impl Builder {
+            #[doc = "Number of iterations the chart is for."]
             pub fn iterations_number(mut self, iterations_number: i32) -> Self {
                 self.iterations_number = Some(iterations_number);
                 self
             }
+            #[doc = "The width of the chart in pixels. Must be greater than 0."]
             pub fn width(mut self, width: i32) -> Self {
                 self.width = Some(width);
                 self
             }
+            #[doc = "The height of the chart in pixels. Must be greater than 0."]
             pub fn height(mut self, height: i32) -> Self {
                 self.height = Some(height);
                 self
             }
+            #[doc = "Whether or not the chart should include detailed information (e.g. axis labels, titles, trend lines, etc.)"]
             pub fn show_details(mut self, show_details: bool) -> Self {
                 self.show_details = Some(show_details);
                 self
             }
+            #[doc = "The title of the chart. Can only be dislayed if ShowLabels is true."]
             pub fn title(mut self, title: impl Into<String>) -> Self {
                 self.title = Some(title.into());
                 self
@@ -4675,6 +4691,7 @@ pub mod iterations {
             pub(crate) timeframe: Option<String>,
         }
         impl Builder {
+            #[doc = "A filter for which iterations are returned based on relative time. Only Current is supported currently."]
             pub fn timeframe(mut self, timeframe: impl Into<String>) -> Self {
                 self.timeframe = Some(timeframe.into());
                 self

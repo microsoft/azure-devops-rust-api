@@ -107,10 +107,12 @@ pub mod health {
             pub(crate) geographies: Option<String>,
         }
         impl Builder {
+            #[doc = "A comma-separated list of services for which to get status information for. Supported values: Artifacts, Boards, Core services, Other services, Pipelines, Repos, Test Plans."]
             pub fn services(mut self, services: impl Into<String>) -> Self {
                 self.services = Some(services.into());
                 self
             }
+            #[doc = "A comma-separated list of geographies for which to get status information for. Supported values: APAC, AU, BR, CA, EU, IN, UK, US."]
             pub fn geographies(mut self, geographies: impl Into<String>) -> Self {
                 self.geographies = Some(geographies.into());
                 self

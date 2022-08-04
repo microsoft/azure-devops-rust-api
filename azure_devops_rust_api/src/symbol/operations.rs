@@ -564,6 +564,7 @@ pub mod requests {
             pub(crate) synchronous: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, delete all the debug entries under this request synchronously in the current session. If false, the deletion will be postponed to a later point and be executed automatically by the system."]
             pub fn synchronous(mut self, synchronous: bool) -> Self {
                 self.synchronous = Some(synchronous);
                 self
@@ -850,6 +851,7 @@ pub mod requests {
             pub(crate) synchronous: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, delete all the debug entries under this request synchronously in the current session. If false, the deletion will be postponed to a later point and be executed automatically by the system."]
             pub fn synchronous(mut self, synchronous: bool) -> Self {
                 self.synchronous = Some(synchronous);
                 self

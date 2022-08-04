@@ -172,14 +172,17 @@ pub mod pipelines {
             pub(crate) continuation_token: Option<String>,
         }
         impl Builder {
+            #[doc = "A sort expression. Defaults to \"name asc\""]
             pub fn order_by(mut self, order_by: impl Into<String>) -> Self {
                 self.order_by = Some(order_by.into());
                 self
             }
+            #[doc = "The maximum number of pipelines to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
+            #[doc = "A continuation token from a previous request, to retrieve the next page of results"]
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -336,6 +339,7 @@ pub mod pipelines {
             pub(crate) pipeline_version: Option<i32>,
         }
         impl Builder {
+            #[doc = "The pipeline version"]
             pub fn pipeline_version(mut self, pipeline_version: i32) -> Self {
                 self.pipeline_version = Some(pipeline_version);
                 self
@@ -446,6 +450,7 @@ pub mod preview {
             pub(crate) pipeline_version: Option<i32>,
         }
         impl Builder {
+            #[doc = "The pipeline version."]
             pub fn pipeline_version(mut self, pipeline_version: i32) -> Self {
                 self.pipeline_version = Some(pipeline_version);
                 self
@@ -668,6 +673,7 @@ pub mod runs {
             pub(crate) pipeline_version: Option<i32>,
         }
         impl Builder {
+            #[doc = "The pipeline version."]
             pub fn pipeline_version(mut self, pipeline_version: i32) -> Self {
                 self.pipeline_version = Some(pipeline_version);
                 self
@@ -854,6 +860,7 @@ pub mod artifacts {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Expand options. Default is None."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -993,6 +1000,7 @@ pub mod logs {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Expand options. Default is None."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self
@@ -1075,6 +1083,7 @@ pub mod logs {
             pub(crate) expand: Option<String>,
         }
         impl Builder {
+            #[doc = "Expand options. Default is None."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
                 self

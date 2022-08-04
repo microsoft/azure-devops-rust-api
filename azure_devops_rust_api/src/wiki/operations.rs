@@ -600,6 +600,7 @@ pub mod attachments {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -607,6 +608,7 @@ pub mod attachments {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -615,6 +617,7 @@ pub mod attachments {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -755,10 +758,12 @@ pub mod page_moves {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Comment that is to be associated with this page move."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -766,6 +771,7 @@ pub mod page_moves {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -774,6 +780,7 @@ pub mod page_moves {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -1049,14 +1056,17 @@ pub mod pages {
             pub(crate) include_content: Option<bool>,
         }
         impl Builder {
+            #[doc = "Wiki page path."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
                 self
             }
+            #[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1064,6 +1074,7 @@ pub mod pages {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -1072,6 +1083,7 @@ pub mod pages {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -1079,6 +1091,7 @@ pub mod pages {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
+            #[doc = "Set to true to include the content of the page in the response for Json content type. Defaults to false (Optional)"]
             pub fn include_content(mut self, include_content: bool) -> Self {
                 self.include_content = Some(include_content);
                 self
@@ -1198,10 +1211,12 @@ pub mod pages {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Comment to be associated with the page operation."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1209,6 +1224,7 @@ pub mod pages {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -1217,6 +1233,7 @@ pub mod pages {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -1336,10 +1353,12 @@ pub mod pages {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Comment to be associated with this page delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1347,6 +1366,7 @@ pub mod pages {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -1355,6 +1375,7 @@ pub mod pages {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,
@@ -1463,10 +1484,12 @@ pub mod pages {
             pub(crate) include_content: Option<bool>,
         }
         impl Builder {
+            #[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
+            #[doc = "Set to true to include the content of the page in the response for Json content type. Defaults to false (Optional)"]
             pub fn include_content(mut self, include_content: bool) -> Self {
                 self.include_content = Some(include_content);
                 self
@@ -1555,6 +1578,7 @@ pub mod pages {
             pub(crate) comment: Option<String>,
         }
         impl Builder {
+            #[doc = "Comment to be associated with the page operation."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
@@ -1638,6 +1662,7 @@ pub mod pages {
             pub(crate) comment: Option<String>,
         }
         impl Builder {
+            #[doc = "Comment to be associated with this page delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
@@ -1748,6 +1773,7 @@ pub mod page_stats {
             pub(crate) page_views_for_days: Option<i32>,
         }
         impl Builder {
+            #[doc = "last N days from the current day for which page views is to be returned. It's inclusive of current day."]
             pub fn page_views_for_days(mut self, page_views_for_days: i32) -> Self {
                 self.page_views_for_days = Some(page_views_for_days);
                 self
@@ -1863,6 +1889,7 @@ pub mod pages_batch {
             pub(crate) version_descriptor_version_type: Option<String>,
         }
         impl Builder {
+            #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
                 version_descriptor_version: impl Into<String>,
@@ -1870,6 +1897,7 @@ pub mod pages_batch {
                 self.version_descriptor_version = Some(version_descriptor_version.into());
                 self
             }
+            #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
                 version_descriptor_version_options: impl Into<String>,
@@ -1878,6 +1906,7 @@ pub mod pages_batch {
                     Some(version_descriptor_version_options.into());
                 self
             }
+            #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
                 version_descriptor_version_type: impl Into<String>,

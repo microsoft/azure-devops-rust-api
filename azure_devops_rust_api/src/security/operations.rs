@@ -217,10 +217,12 @@ pub mod access_control_entries {
             pub(crate) descriptors: Option<String>,
         }
         impl Builder {
+            #[doc = "The token whose ACL should be modified."]
             pub fn token(mut self, token: impl Into<String>) -> Self {
                 self.token = Some(token.into());
                 self
             }
+            #[doc = "String containing a list of identity descriptors separated by ',' whose entries should be removed."]
             pub fn descriptors(mut self, descriptors: impl Into<String>) -> Self {
                 self.descriptors = Some(descriptors.into());
                 self
@@ -367,18 +369,22 @@ pub mod access_control_lists {
             pub(crate) recurse: Option<bool>,
         }
         impl Builder {
+            #[doc = "Security token"]
             pub fn token(mut self, token: impl Into<String>) -> Self {
                 self.token = Some(token.into());
                 self
             }
+            #[doc = "An optional filter string containing a list of identity descriptors separated by ',' whose ACEs should be retrieved. If this is left null, entire ACLs will be returned."]
             pub fn descriptors(mut self, descriptors: impl Into<String>) -> Self {
                 self.descriptors = Some(descriptors.into());
                 self
             }
+            #[doc = "If true, populate the extended information properties for the access control entries contained in the returned lists."]
             pub fn include_extended_info(mut self, include_extended_info: bool) -> Self {
                 self.include_extended_info = Some(include_extended_info);
                 self
             }
+            #[doc = "If true and this is a hierarchical namespace, return child ACLs of the specified token."]
             pub fn recurse(mut self, recurse: bool) -> Self {
                 self.recurse = Some(recurse);
                 self
@@ -536,10 +542,12 @@ pub mod access_control_lists {
             pub(crate) recurse: Option<bool>,
         }
         impl Builder {
+            #[doc = "One or more comma-separated security tokens"]
             pub fn tokens(mut self, tokens: impl Into<String>) -> Self {
                 self.tokens = Some(tokens.into());
                 self
             }
+            #[doc = "If true and this is a hierarchical namespace, also remove child ACLs of the specified tokens."]
             pub fn recurse(mut self, recurse: bool) -> Self {
                 self.recurse = Some(recurse);
                 self
@@ -690,10 +698,12 @@ pub mod permissions {
             pub(crate) delimiter: Option<String>,
         }
         impl Builder {
+            #[doc = "One or more security tokens to evaluate."]
             pub fn tokens(mut self, tokens: impl Into<String>) -> Self {
                 self.tokens = Some(tokens.into());
                 self
             }
+            #[doc = "If true and if the caller is an administrator, always return true."]
             pub fn always_allow_administrators(
                 mut self,
                 always_allow_administrators: bool,
@@ -701,6 +711,7 @@ pub mod permissions {
                 self.always_allow_administrators = Some(always_allow_administrators);
                 self
             }
+            #[doc = "Optional security token separator. Defaults to \",\"."]
             pub fn delimiter(mut self, delimiter: impl Into<String>) -> Self {
                 self.delimiter = Some(delimiter.into());
                 self
@@ -790,6 +801,7 @@ pub mod permissions {
             pub(crate) token: Option<String>,
         }
         impl Builder {
+            #[doc = "Security token to remove permissions for."]
             pub fn token(mut self, token: impl Into<String>) -> Self {
                 self.token = Some(token.into());
                 self
@@ -962,6 +974,7 @@ pub mod security_namespaces {
             pub(crate) local_only: Option<bool>,
         }
         impl Builder {
+            #[doc = "If true, retrieve only local security namespaces."]
             pub fn local_only(mut self, local_only: bool) -> Self {
                 self.local_only = Some(local_only);
                 self

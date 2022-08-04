@@ -109,10 +109,12 @@ pub mod accounts {
             pub(crate) properties: Option<String>,
         }
         impl Builder {
+            #[doc = "ID for the owner of the accounts."]
             pub fn owner_id(mut self, owner_id: impl Into<String>) -> Self {
                 self.owner_id = Some(owner_id.into());
                 self
             }
+            #[doc = "ID for a member of the accounts."]
             pub fn member_id(mut self, member_id: impl Into<String>) -> Self {
                 self.member_id = Some(member_id.into());
                 self

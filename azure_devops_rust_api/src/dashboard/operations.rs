@@ -1068,6 +1068,7 @@ pub mod widgets {
             pub(crate) e_tag: Option<String>,
         }
         impl Builder {
+            #[doc = "Dashboard Widgets Version"]
             pub fn e_tag(mut self, e_tag: impl Into<String>) -> Self {
                 self.e_tag = Some(e_tag.into());
                 self
@@ -1224,6 +1225,7 @@ pub mod widgets {
             pub(crate) e_tag: Option<String>,
         }
         impl Builder {
+            #[doc = "Dashboard Widgets Version"]
             pub fn e_tag(mut self, e_tag: impl Into<String>) -> Self {
                 self.e_tag = Some(e_tag.into());
                 self
@@ -1307,6 +1309,7 @@ pub mod widgets {
             pub(crate) e_tag: Option<String>,
         }
         impl Builder {
+            #[doc = "Dashboard Widgets Version"]
             pub fn e_tag(mut self, e_tag: impl Into<String>) -> Self {
                 self.e_tag = Some(e_tag.into());
                 self
