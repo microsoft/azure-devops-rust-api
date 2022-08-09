@@ -14,7 +14,7 @@ const JSON_INDENT: u16 = 2;
 
 // List of documentation patches.
 // Any matches of the first string are replaced with the second.
-const DOC_PATCHES: &'static[(&'static str, &'static str)] = &[
+const DOC_PATCHES: &[(&str, &str)] = &[
     ("file name of item returned.", "File name of item returned."),
     ("definitionId", "definition_id"),
     ("[optional] True", "(optional) Set to true"),
@@ -26,11 +26,26 @@ const DOC_PATCHES: &'static[(&'static str, &'static str)] = &[
     ("detailsToInclude", "details_to_include"),
     ("continuationToken", "continuation token"),
     ("dislayed", "displayed"),
-    ("Numbe of attachments reference", "Number of attachment references"),
-    ("Number of attachments reference to return", "Number of attachment references to return"),
-    ("directory path of attachments to get", "Directory path of attachments to get"),
-    ("file name prefix to filter the list of attachment", "Filename prefix to filter the list of attachments"),
-    ("Number of test points to skip..", "Number of test points to skip.")
+    (
+        "Numbe of attachments reference",
+        "Number of attachment references",
+    ),
+    (
+        "Number of attachments reference to return",
+        "Number of attachment references to return",
+    ),
+    (
+        "directory path of attachments to get",
+        "Directory path of attachments to get",
+    ),
+    (
+        "file name prefix to filter the list of attachment",
+        "Filename prefix to filter the list of attachments",
+    ),
+    (
+        "Number of test points to skip..",
+        "Number of test points to skip.",
+    ),
 ];
 
 struct Patcher {
@@ -687,32 +702,22 @@ impl Patcher {
     // Patch documentation
     //
     // Does simple text replacement on description and summary fields.
-    fn patch_docs(
-        &mut self,
-        key: &[&str],
-        value: &JsonValue,
-    ) -> Option<JsonValue> {
+    fn patch_docs(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
         match key {
             [.., "parameters"] => {
                 // Parameters is an array of `JsonValue`s, each of which may have a `description` field
                 let mut value = value.clone();
                 for param in value.members_mut() {
-                    match param["description"].as_str() {
-                        Some(s) => param["description"] = self.patch_docstring(s).into(),
-                        _ => {}
+                    if let Some(s) = param["description"].as_str() {
+                        param["description"] = self.patch_docstring(s).into()
                     }
                 }
                 Some(value)
             }
             [.., "description" | "summary"] => {
-                if let Some(v) = value.as_str() {
-                    Some(self.patch_docstring(&v).into())
-                }
-                else {
-                    None
-                }
-            },
-            _ => None
+                value.as_str().map(|v| self.patch_docstring(v).into())
+            }
+            _ => None,
         }
     }
 
