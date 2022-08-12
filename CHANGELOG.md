@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated some struct fields to remove Option wrappers to make the values easier to use.
 - Updated some `links` fields to have a struct with known fields, rather than a Json `Value`.
 
+### Added
+- `pipeline_preview` example
+
 ## [0.3.1]
 
 ### Added

@@ -1361,7 +1361,7 @@ pub struct GitCommitRef {
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new(commit_id: String) -> Self {
+    pub fn new(commit_id: String, url: String) -> Self {
         Self {
             links: None,
             author: None,
@@ -1369,13 +1369,13 @@ impl GitCommitRef {
             changes: Vec::new(),
             comment: None,
             comment_truncated: None,
-            commit_id: None,
+            commit_id,
             committer: None,
             parents: Vec::new(),
             push: None,
             remote_url: None,
             statuses: Vec::new(),
-            url: None,
+            url,
             work_items: Vec::new(),
         }
     }
@@ -3051,12 +3051,8 @@ pub struct GitPullRequest {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub reviewers: Vec<IdentityRefWithVote>,
     #[doc = "The name of the source branch of the pull request."]
-    #[serde(
-        rename = "sourceRefName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_ref_name: Option<String>,
+    #[serde(rename = "sourceRefName")]
+    pub source_ref_name: String,
     #[doc = "The status of the pull request."]
     pub status: git_pull_request::Status,
     #[doc = "If true, this pull request supports multiple iterations. Iteration support means individual pushes to the source branch of the pull request can be reviewed and comments left in one iteration will be tracked across future iterations."]
@@ -3067,12 +3063,8 @@ pub struct GitPullRequest {
     )]
     pub supports_iterations: Option<bool>,
     #[doc = "The name of the target branch of the pull request."]
-    #[serde(
-        rename = "targetRefName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub target_ref_name: Option<String>,
+    #[serde(rename = "targetRefName")]
+    pub target_ref_name: String,
     #[doc = "The title of the pull request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -3093,7 +3085,9 @@ impl GitPullRequest {
         is_draft: bool,
         pull_request_id: i32,
         repository: GitRepository,
+        source_ref_name: String,
         status: git_pull_request::Status,
+        target_ref_name: String,
         url: String,
     ) -> Self {
         Self {
@@ -3125,10 +3119,10 @@ impl GitPullRequest {
             remote_url: None,
             repository,
             reviewers: Vec::new(),
-            source_ref_name: None,
+            source_ref_name,
             status,
             supports_iterations: None,
-            target_ref_name: None,
+            target_ref_name,
             title: None,
             url,
             work_item_refs: Vec::new(),
@@ -4015,8 +4009,8 @@ pub struct GitRef {
     )]
     pub is_locked_by: Option<IdentityRef>,
     pub name: String,
-    #[serde(rename = "objectId", default, skip_serializing_if = "Option::is_none")]
-    pub object_id: Option<String>,
+    #[serde(rename = "objectId")]
+    pub object_id: String,
     #[serde(
         rename = "peeledObjectId",
         default,
@@ -4029,14 +4023,14 @@ pub struct GitRef {
     pub url: Option<String>,
 }
 impl GitRef {
-    pub fn new(name: String) -> Self {
+    pub fn new(name: String, object_id: String) -> Self {
         Self {
             links: None,
             creator: None,
             is_locked: None,
             is_locked_by: None,
             name,
-            object_id: None,
+            object_id,
             peeled_object_id: None,
             statuses: Vec::new(),
             url: None,

@@ -73,9 +73,7 @@ async fn main() -> Result<()> {
 
     println!("\nGot {} refs", git_refs.len());
     for git_ref in &git_refs {
-        if let Some(object_id) = &git_ref.object_id {
-            println!("{:<50}{}", git_ref.name, object_id);
-        }
+        println!("{:<50}{}", git_ref.name, git_ref.object_id);
     }
 
     if let Some(git_ref) = git_refs.iter().next() {
