@@ -1995,28 +1995,32 @@ impl ExpressionValidationItem {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<String>,
+    pub descriptor: String,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl GraphSubjectBase {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: serde_json::Value,
+        descriptor: String,
+        display_name: String,
+        url: String,
+    ) -> Self {
+        Self {
+            links,
+            descriptor,
+            display_name,
+            url,
+        }
     }
 }
 #[doc = ""]
@@ -2033,7 +2037,7 @@ impl HelpLink {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -2044,8 +2048,7 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -2080,16 +2083,23 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(
-        rename = "uniqueName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub unique_name: Option<String>,
+    #[serde(rename = "uniqueName")]
+    pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+        Self {
+            graph_subject_base,
+            directory_alias: None,
+            id,
+            image_url: None,
+            inactive: None,
+            is_aad_identity: None,
+            is_container: None,
+            is_deleted_in_origin: None,
+            profile_url: None,
+            unique_name,
+        }
     }
 }
 #[doc = ""]
@@ -5096,9 +5106,9 @@ impl TaskAgentQueueList {
 #[doc = "A reference to an agent."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentReference {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "This agent's access point."]
     #[serde(
         rename = "accessPoint",
@@ -5282,9 +5292,9 @@ impl TaskAssignedEvent {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAttachment {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(rename = "createdOn", default, skip_serializing_if = "Option::is_none")]
     pub created_on: Option<String>,
     #[serde(
@@ -6376,9 +6386,9 @@ impl TaskOrchestrationJob {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationOwner {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

@@ -7,27 +7,30 @@ use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
 #[doc = "Represents a queue for running builds."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgentPoolQueue {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The ID of the queue."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = "The name of the queue."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     #[doc = "Represents a reference to an agent pool."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub pool: Option<TaskAgentPoolReference>,
+    pub pool: TaskAgentPoolReference,
     #[doc = "The full http link to the resource."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }
 impl AgentPoolQueue {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: i32, name: String, pool: TaskAgentPoolReference) -> Self {
+        Self {
+            links: None,
+            id,
+            name,
+            pool,
+            url: None,
+        }
     }
 }
 #[doc = "Represents a reference to an agent queue."]
@@ -343,9 +346,9 @@ pub mod aggregated_runs_by_state {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactResource {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Type-specific data about the artifact."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<String>,
@@ -407,9 +410,9 @@ impl AssociatedWorkItem {
 #[doc = "Represents an attachment to a build."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Attachment {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The name of the attachment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -446,11 +449,11 @@ impl AuthorizationHeader {
     }
 }
 #[doc = "Data representation of a build."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Build {
-    #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[doc = "The class to represent a collection of REST reference links."]
+    #[serde(rename = "_links")]
+    pub links: ReferenceLinks,
     #[doc = "Specification of the agent defined by the pool provider."]
     #[serde(
         rename = "agentSpecification",
@@ -459,12 +462,8 @@ pub struct Build {
     )]
     pub agent_specification: Option<AgentSpecification>,
     #[doc = "The build number/name of the build."]
-    #[serde(
-        rename = "buildNumber",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub build_number: Option<String>,
+    #[serde(rename = "buildNumber")]
+    pub build_number: String,
     #[doc = "The build number revision."]
     #[serde(
         rename = "buildNumberRevision",
@@ -476,8 +475,7 @@ pub struct Build {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub controller: Option<BuildController>,
     #[doc = "Represents a reference to a definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub definition: Option<DefinitionReference>,
+    pub definition: DefinitionReference,
     #[doc = "Indicates whether the build has been deleted."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deleted: Option<bool>,
@@ -509,47 +507,29 @@ pub struct Build {
     )]
     pub finish_time: Option<String>,
     #[doc = "The ID of the build."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = ""]
-    #[serde(
-        rename = "lastChangedBy",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_changed_by: Option<IdentityRef>,
+    #[serde(rename = "lastChangedBy")]
+    pub last_changed_by: IdentityRef,
     #[doc = "The date the build was last changed."]
-    #[serde(
-        rename = "lastChangedDate",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_changed_date: Option<String>,
+    #[serde(rename = "lastChangedDate")]
+    pub last_changed_date: String,
     #[doc = "Represents a reference to a build log."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub logs: Option<BuildLogReference>,
+    pub logs: BuildLogReference,
     #[doc = "Represents a reference to an orchestration plan."]
-    #[serde(
-        rename = "orchestrationPlan",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub orchestration_plan: Option<TaskOrchestrationPlanReference>,
+    #[serde(rename = "orchestrationPlan")]
+    pub orchestration_plan: TaskOrchestrationPlanReference,
     #[doc = "The parameters for the build."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub parameters: Option<String>,
     #[doc = "Orchestration plans associated with the build (build, cleanup)"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub plans: Vec<TaskOrchestrationPlanReference>,
     #[doc = "The build's priority."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub priority: Option<build::Priority>,
+    pub priority: build::Priority,
     #[doc = "Represents a shallow reference to a TeamProject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub project: Option<TeamProjectReference>,
+    pub project: TeamProjectReference,
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<PropertiesCollection>,
+    pub properties: PropertiesCollection,
     #[doc = "The quality of the xaml build (good, bad, etc.)"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub quality: Option<String>,
@@ -574,56 +554,32 @@ pub struct Build {
     #[serde(rename = "queueTime", default, skip_serializing_if = "Option::is_none")]
     pub queue_time: Option<String>,
     #[doc = "The reason that the build was created."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub reason: Option<build::Reason>,
+    pub reason: build::Reason,
     #[doc = "Represents a repository used by a build definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub repository: Option<BuildRepository>,
+    pub repository: BuildRepository,
     #[doc = ""]
-    #[serde(
-        rename = "requestedBy",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub requested_by: Option<IdentityRef>,
+    #[serde(rename = "requestedBy")]
+    pub requested_by: IdentityRef,
     #[doc = ""]
-    #[serde(
-        rename = "requestedFor",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub requested_for: Option<IdentityRef>,
+    #[serde(rename = "requestedFor")]
+    pub requested_for: IdentityRef,
     #[doc = "The build result."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<build::Result>,
     #[doc = "Indicates whether the build is retained by a release."]
-    #[serde(
-        rename = "retainedByRelease",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub retained_by_release: Option<bool>,
+    #[serde(rename = "retainedByRelease")]
+    pub retained_by_release: bool,
     #[doc = "The source branch."]
-    #[serde(
-        rename = "sourceBranch",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_branch: Option<String>,
+    #[serde(rename = "sourceBranch")]
+    pub source_branch: String,
     #[doc = "The source version."]
-    #[serde(
-        rename = "sourceVersion",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_version: Option<String>,
+    #[serde(rename = "sourceVersion")]
+    pub source_version: String,
     #[doc = "The time that the build was started."]
     #[serde(rename = "startTime", default, skip_serializing_if = "Option::is_none")]
     pub start_time: Option<String>,
     #[doc = "The status of the build."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<build::Status>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status: build::Status,
     pub tags: Vec<String>,
     #[doc = "Parameters to template expression evaluation"]
     #[serde(
@@ -647,21 +603,85 @@ pub struct Build {
     )]
     pub trigger_info: Option<serde_json::Value>,
     #[doc = "The URI of the build."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub uri: Option<String>,
+    pub uri: String,
     #[doc = "The REST URL of the build."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
-    #[serde(
-        rename = "validationResults",
-        default,
-        skip_serializing_if = "Vec::is_empty"
-    )]
+    pub url: String,
+    #[serde(rename = "validationResults")]
     pub validation_results: Vec<BuildRequestValidationResult>,
 }
 impl Build {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: ReferenceLinks,
+        build_number: String,
+        definition: DefinitionReference,
+        id: i32,
+        last_changed_by: IdentityRef,
+        last_changed_date: String,
+        logs: BuildLogReference,
+        orchestration_plan: TaskOrchestrationPlanReference,
+        plans: Vec<TaskOrchestrationPlanReference>,
+        priority: build::Priority,
+        project: TeamProjectReference,
+        properties: PropertiesCollection,
+        reason: build::Reason,
+        repository: BuildRepository,
+        requested_by: IdentityRef,
+        requested_for: IdentityRef,
+        retained_by_release: bool,
+        source_branch: String,
+        source_version: String,
+        status: build::Status,
+        tags: Vec<String>,
+        uri: String,
+        url: String,
+        validation_results: Vec<BuildRequestValidationResult>,
+    ) -> Self {
+        Self {
+            links,
+            agent_specification: None,
+            build_number,
+            build_number_revision: None,
+            controller: None,
+            definition,
+            deleted: None,
+            deleted_by: None,
+            deleted_date: None,
+            deleted_reason: None,
+            demands: Vec::new(),
+            finish_time: None,
+            id,
+            last_changed_by,
+            last_changed_date,
+            logs,
+            orchestration_plan,
+            parameters: None,
+            plans,
+            priority,
+            project,
+            properties,
+            quality: None,
+            queue: None,
+            queue_options: None,
+            queue_position: None,
+            queue_time: None,
+            reason,
+            repository,
+            requested_by,
+            requested_for,
+            result: None,
+            retained_by_release,
+            source_branch,
+            source_version,
+            start_time: None,
+            status,
+            tags,
+            template_parameters: None,
+            triggered_by_build: Box::new(None),
+            trigger_info: None,
+            uri,
+            url,
+            validation_results,
+        }
     }
 }
 pub mod build {
@@ -966,9 +986,9 @@ impl BuildCompletionTrigger {
 pub struct BuildController {
     #[serde(flatten)]
     pub xaml_build_controller_reference: XamlBuildControllerReference,
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The date the controller was created."]
     #[serde(
         rename = "createdDate",
@@ -1028,7 +1048,7 @@ impl BuildControllerList {
     }
 }
 #[doc = "Represents a build definition."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildDefinition {
     #[serde(flatten)]
     pub build_definition_reference: BuildDefinitionReference,
@@ -1120,8 +1140,29 @@ pub struct BuildDefinition {
     pub variables: Option<serde_json::Value>,
 }
 impl BuildDefinition {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(build_definition_reference: BuildDefinitionReference) -> Self {
+        Self {
+            build_definition_reference,
+            badge_enabled: None,
+            build_number_format: None,
+            comment: None,
+            demands: Vec::new(),
+            description: None,
+            drop_location: None,
+            job_authorization_scope: None,
+            job_cancel_timeout_in_minutes: None,
+            job_timeout_in_minutes: None,
+            options: Vec::new(),
+            process: None,
+            process_parameters: None,
+            properties: None,
+            repository: None,
+            retention_rules: Vec::new(),
+            tags: Vec::new(),
+            triggers: Vec::new(),
+            variable_groups: Vec::new(),
+            variables: None,
+        }
     }
 }
 pub mod build_definition {
@@ -1136,7 +1177,7 @@ pub mod build_definition {
     }
 }
 #[doc = "For back-compat with extensions that use the old Steps format instead of Process and Phases"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildDefinition32 {
     #[serde(flatten)]
     pub build_definition_reference3_2: BuildDefinitionReference32,
@@ -1235,8 +1276,30 @@ pub struct BuildDefinition32 {
     pub variables: Option<serde_json::Value>,
 }
 impl BuildDefinition32 {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(build_definition_reference3_2: BuildDefinitionReference32) -> Self {
+        Self {
+            build_definition_reference3_2,
+            badge_enabled: None,
+            build: Vec::new(),
+            build_number_format: None,
+            comment: None,
+            demands: Vec::new(),
+            description: None,
+            drop_location: None,
+            job_authorization_scope: None,
+            job_cancel_timeout_in_minutes: None,
+            job_timeout_in_minutes: None,
+            latest_build: None,
+            latest_completed_build: None,
+            options: Vec::new(),
+            process_parameters: None,
+            properties: None,
+            repository: None,
+            retention_rules: Vec::new(),
+            tags: Vec::new(),
+            triggers: Vec::new(),
+            variables: None,
+        }
     }
 }
 pub mod build_definition3_2 {
@@ -1251,13 +1314,13 @@ pub mod build_definition3_2 {
     }
 }
 #[doc = "Represents a reference to a build definition."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildDefinitionReference {
     #[serde(flatten)]
     pub definition_reference: DefinitionReference,
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = ""]
     #[serde(
         rename = "authoredBy",
@@ -1295,8 +1358,19 @@ pub struct BuildDefinitionReference {
     pub queue: Option<AgentPoolQueue>,
 }
 impl BuildDefinitionReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(definition_reference: DefinitionReference) -> Self {
+        Self {
+            definition_reference,
+            links: None,
+            authored_by: None,
+            draft_of: None,
+            drafts: Vec::new(),
+            latest_build: None,
+            latest_completed_build: None,
+            metrics: Vec::new(),
+            quality: None,
+            queue: None,
+        }
     }
 }
 pub mod build_definition_reference {
@@ -1311,13 +1385,13 @@ pub mod build_definition_reference {
     }
 }
 #[doc = "For back-compat with extensions that use the old Steps format instead of Process and Phases"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildDefinitionReference32 {
     #[serde(flatten)]
     pub definition_reference: DefinitionReference,
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = ""]
     #[serde(
         rename = "authoredBy",
@@ -1341,8 +1415,17 @@ pub struct BuildDefinitionReference32 {
     pub queue: Option<AgentPoolQueue>,
 }
 impl BuildDefinitionReference32 {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(definition_reference: DefinitionReference) -> Self {
+        Self {
+            definition_reference,
+            links: None,
+            authored_by: None,
+            draft_of: None,
+            drafts: Vec::new(),
+            metrics: Vec::new(),
+            quality: None,
+            queue: None,
+        }
     }
 }
 pub mod build_definition_reference3_2 {
@@ -1731,7 +1814,7 @@ impl BuildList {
     }
 }
 #[doc = "Represents a build log."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildLog {
     #[serde(flatten)]
     pub build_log_reference: BuildLogReference,
@@ -1750,8 +1833,13 @@ pub struct BuildLog {
     pub line_count: Option<i64>,
 }
 impl BuildLog {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(build_log_reference: BuildLogReference) -> Self {
+        Self {
+            build_log_reference,
+            created_on: None,
+            last_changed_on: None,
+            line_count: None,
+        }
     }
 }
 #[doc = ""]
@@ -1768,21 +1856,19 @@ impl BuildLogList {
     }
 }
 #[doc = "Represents a reference to a build log."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildLogReference {
     #[doc = "The ID of the log."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = "The type of the log location."]
-    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
-    pub type_: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: String,
     #[doc = "A full link to the log resource."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl BuildLogReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: i32, type_: String, url: String) -> Self {
+        Self { id, type_, url }
     }
 }
 #[doc = "Represents metadata about builds in the system."]
@@ -2115,9 +2201,9 @@ impl BuildQueuedEvent {
 #[doc = "Represents a reference to a build."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildReference {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The build number."]
     #[serde(
         rename = "buildNumber",
@@ -2217,7 +2303,7 @@ impl BuildReportMetadata {
     }
 }
 #[doc = "Represents a repository used by a build definition."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildRepository {
     #[doc = "Indicates whether to checkout submodules."]
     #[serde(
@@ -2237,8 +2323,7 @@ pub struct BuildRepository {
     )]
     pub default_branch: Option<String>,
     #[doc = "The ID of the repository."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "The friendly name of the repository."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -2252,15 +2337,25 @@ pub struct BuildRepository {
     )]
     pub root_folder: Option<String>,
     #[doc = "The type of the repository."]
-    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
-    pub type_: Option<String>,
+    #[serde(rename = "type")]
+    pub type_: String,
     #[doc = "The URL of the repository."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }
 impl BuildRepository {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: String, type_: String) -> Self {
+        Self {
+            checkout_submodules: None,
+            clean: None,
+            default_branch: None,
+            id,
+            name: None,
+            properties: None,
+            root_folder: None,
+            type_,
+            url: None,
+        }
     }
 }
 #[doc = "Represents the result of validating a build request."]
@@ -2940,7 +3035,7 @@ impl DataSourceBindingBase {
     }
 }
 #[doc = "Represents a reference to a definition."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DefinitionReference {
     #[doc = "The date this version of the definition was created."]
     #[serde(
@@ -2950,40 +3045,50 @@ pub struct DefinitionReference {
     )]
     pub created_date: Option<String>,
     #[doc = "The ID of the referenced definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = "The name of the referenced definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     #[doc = "The folder path of the definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub path: Option<String>,
+    pub path: String,
     #[doc = "Represents a shallow reference to a TeamProject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub project: Option<TeamProjectReference>,
+    pub project: TeamProjectReference,
     #[doc = "A value that indicates whether builds can be queued against this definition."]
-    #[serde(
-        rename = "queueStatus",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub queue_status: Option<definition_reference::QueueStatus>,
+    #[serde(rename = "queueStatus")]
+    pub queue_status: definition_reference::QueueStatus,
     #[doc = "The definition revision number."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub revision: Option<i32>,
+    pub revision: i32,
     #[doc = "The type of the definition."]
-    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
-    pub type_: Option<definition_reference::Type>,
+    #[serde(rename = "type")]
+    pub type_: definition_reference::Type,
     #[doc = "The definition's URI."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub uri: Option<String>,
+    pub uri: String,
     #[doc = "The REST URL of the definition."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl DefinitionReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        id: i32,
+        name: String,
+        path: String,
+        project: TeamProjectReference,
+        queue_status: definition_reference::QueueStatus,
+        revision: i32,
+        type_: definition_reference::Type,
+        uri: String,
+        url: String,
+    ) -> Self {
+        Self {
+            created_date: None,
+            id,
+            name,
+            path,
+            project,
+            queue_status,
+            revision,
+            type_,
+            uri,
+            url,
+        }
     }
 }
 pub mod definition_reference {
@@ -3283,32 +3388,36 @@ impl GatedCheckInTrigger {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<String>,
+    pub descriptor: String,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl GraphSubjectBase {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: serde_json::Value,
+        descriptor: String,
+        display_name: String,
+        url: String,
+    ) -> Self {
+        Self {
+            links,
+            descriptor,
+            display_name,
+            url,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -3319,8 +3428,7 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -3355,16 +3463,23 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(
-        rename = "uniqueName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub unique_name: Option<String>,
+    #[serde(rename = "uniqueName")]
+    pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+        Self {
+            graph_subject_base,
+            directory_alias: None,
+            id,
+            image_url: None,
+            inactive: None,
+            is_aad_identity: None,
+            is_container: None,
+            is_deleted_in_origin: None,
+            profile_url: None,
+            unique_name,
+        }
     }
 }
 #[doc = "Data representation of an information node associated with a build"]
@@ -3505,6 +3620,16 @@ pub struct JustInTimeProcess {
 impl JustInTimeProcess {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Link URL"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Link {
+    pub href: String,
+}
+impl Link {
+    pub fn new(href: String) -> Self {
+        Self { href }
     }
 }
 #[doc = "Represents an entry in a workspace mapping."]
@@ -3998,9 +4123,25 @@ impl RealtimeBuildEvent {
 #[doc = "The class to represent a collection of REST reference links."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReferenceLinks {
-    #[doc = "The readonly view of the links.  Because Reference links are readonly, we only want to expose them as read only."]
+    #[doc = "Link URL"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub badge: Option<Link>,
+    #[doc = "Link URL"]
+    #[serde(rename = "self", default, skip_serializing_if = "Option::is_none")]
+    pub self_: Option<Link>,
+    #[doc = "Link URL"]
+    #[serde(
+        rename = "sourceVersionDisplayUri",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_version_display_uri: Option<Link>,
+    #[doc = "Link URL"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub timeline: Option<Link>,
+    #[doc = "Link URL"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub web: Option<Link>,
 }
 impl ReferenceLinks {
     pub fn new() -> Self {
@@ -4473,9 +4614,9 @@ impl SourceProviderAttributesList {
 #[doc = "Represents a work item related to some source item. These are retrieved from Source Providers."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceRelatedWorkItem {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = ""]
     #[serde(
         rename = "assignedTo",
@@ -4740,21 +4881,23 @@ impl SvnWorkspace {
     }
 }
 #[doc = "Represents a reference to an agent pool."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TaskAgentPoolReference {
     #[doc = "The pool ID."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = "A value indicating whether or not this pool is managed by the service."]
     #[serde(rename = "isHosted", default, skip_serializing_if = "Option::is_none")]
     pub is_hosted: Option<bool>,
     #[doc = "The pool name."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
 }
 impl TaskAgentPoolReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: i32, name: String) -> Self {
+        Self {
+            id,
+            is_hosted: None,
+            name,
+        }
     }
 }
 #[doc = "A reference to a task definition."]
@@ -4871,7 +5014,7 @@ impl TaskOrchestrationPlanGroupsStartedEvent {
     }
 }
 #[doc = "Represents a reference to an orchestration plan."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TaskOrchestrationPlanReference {
     #[doc = "The type of the plan."]
     #[serde(
@@ -4881,12 +5024,15 @@ pub struct TaskOrchestrationPlanReference {
     )]
     pub orchestration_type: Option<i32>,
     #[doc = "The ID of the plan."]
-    #[serde(rename = "planId", default, skip_serializing_if = "Option::is_none")]
-    pub plan_id: Option<String>,
+    #[serde(rename = "planId")]
+    pub plan_id: String,
 }
 impl TaskOrchestrationPlanReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(plan_id: String) -> Self {
+        Self {
+            orchestration_type: None,
+            plan_id,
+        }
     }
 }
 #[doc = "Represents a reference to a task."]
@@ -4931,7 +5077,7 @@ impl TaskSourceDefinitionBase {
     }
 }
 #[doc = "Represents a shallow reference to a TeamProject."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TeamProjectReference {
     #[doc = "Project abbreviation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4947,34 +5093,43 @@ pub struct TeamProjectReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Project identifier."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "Project last update time."]
-    #[serde(
-        rename = "lastUpdateTime",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_update_time: Option<String>,
+    #[serde(rename = "lastUpdateTime")]
+    pub last_update_time: String,
     #[doc = "Project name."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     #[doc = "Project revision."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i64>,
     #[doc = "Project state."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub state: Option<team_project_reference::State>,
+    pub state: team_project_reference::State,
     #[doc = "Url to the full version of the object."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[doc = "Project visibility."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<team_project_reference::Visibility>,
+    pub visibility: team_project_reference::Visibility,
 }
 impl TeamProjectReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        id: String,
+        last_update_time: String,
+        name: String,
+        state: team_project_reference::State,
+        visibility: team_project_reference::Visibility,
+    ) -> Self {
+        Self {
+            abbreviation: None,
+            default_team_image_url: None,
+            description: None,
+            id,
+            last_update_time,
+            name,
+            revision: None,
+            state,
+            url: None,
+            visibility,
+        }
     }
 }
 pub mod team_project_reference {
@@ -5102,9 +5257,9 @@ impl TimelineAttempt {
 #[doc = "Represents an entry in a build's timeline."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecord {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Attempt number of record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attempt: Option<i32>,
@@ -5620,13 +5775,13 @@ impl XamlBuildControllerReference {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct XamlBuildDefinition {
     #[serde(flatten)]
     pub definition_reference: DefinitionReference,
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Batch size of the definition"]
     #[serde(rename = "batchSize", default, skip_serializing_if = "Option::is_none")]
     pub batch_size: Option<i32>,
@@ -5677,8 +5832,22 @@ pub struct XamlBuildDefinition {
     pub trigger_type: Option<xaml_build_definition::TriggerType>,
 }
 impl XamlBuildDefinition {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(definition_reference: DefinitionReference) -> Self {
+        Self {
+            definition_reference,
+            links: None,
+            batch_size: None,
+            build_args: None,
+            continuous_integration_quiet_period: None,
+            controller: None,
+            created_on: None,
+            default_drop_location: None,
+            description: None,
+            last_build: None,
+            repository: None,
+            supported_reasons: None,
+            trigger_type: None,
+        }
     }
 }
 pub mod xaml_build_definition {

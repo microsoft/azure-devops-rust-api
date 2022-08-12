@@ -474,32 +474,36 @@ impl DestinationTestSuiteInfo {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<String>,
+    pub descriptor: String,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl GraphSubjectBase {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: serde_json::Value,
+        descriptor: String,
+        display_name: String,
+        url: String,
+    ) -> Self {
+        Self {
+            links,
+            descriptor,
+            display_name,
+            url,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -510,8 +514,7 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -546,16 +549,23 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(
-        rename = "uniqueName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub unique_name: Option<String>,
+    #[serde(rename = "uniqueName")]
+    pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+        Self {
+            graph_subject_base,
+            directory_alias: None,
+            id,
+            image_url: None,
+            inactive: None,
+            is_aad_identity: None,
+            is_container: None,
+            is_deleted_in_origin: None,
+            profile_url: None,
+            unique_name,
+        }
     }
 }
 #[doc = "Last result details of test point."]
@@ -986,7 +996,7 @@ impl SuiteTestCaseCreateUpdateParameters {
     }
 }
 #[doc = "Represents a shallow reference to a TeamProject."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TeamProjectReference {
     #[doc = "Project abbreviation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1002,34 +1012,43 @@ pub struct TeamProjectReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Project identifier."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "Project last update time."]
-    #[serde(
-        rename = "lastUpdateTime",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_update_time: Option<String>,
+    #[serde(rename = "lastUpdateTime")]
+    pub last_update_time: String,
     #[doc = "Project name."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
     #[doc = "Project revision."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i64>,
     #[doc = "Project state."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub state: Option<team_project_reference::State>,
+    pub state: team_project_reference::State,
     #[doc = "Url to the full version of the object."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[doc = "Project visibility."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub visibility: Option<team_project_reference::Visibility>,
+    pub visibility: team_project_reference::Visibility,
 }
 impl TeamProjectReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        id: String,
+        last_update_time: String,
+        name: String,
+        state: team_project_reference::State,
+        visibility: team_project_reference::Visibility,
+    ) -> Self {
+        Self {
+            abbreviation: None,
+            default_team_image_url: None,
+            description: None,
+            id,
+            last_update_time,
+            name,
+            revision: None,
+            state,
+            url: None,
+            visibility,
+        }
     }
 }
 pub mod team_project_reference {

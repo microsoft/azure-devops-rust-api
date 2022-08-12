@@ -899,9 +899,9 @@ impl GitAnnotatedTag {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitAsyncRefOperation {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Information about the progress of a cherry pick or revert operation."]
     #[serde(
         rename = "detailedStatus",
@@ -1109,9 +1109,9 @@ pub mod git_base_version_descriptor {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitBlobRef {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "SHA1 hash of git object"]
     #[serde(rename = "objectId", default, skip_serializing_if = "Option::is_none")]
     pub object_id: Option<String>,
@@ -1221,7 +1221,7 @@ impl GitCherryPick {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitCommit {
     #[serde(flatten)]
     pub git_commit_ref: GitCommitRef,
@@ -1229,8 +1229,11 @@ pub struct GitCommit {
     pub tree_id: Option<String>,
 }
 impl GitCommit {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(git_commit_ref: GitCommitRef) -> Self {
+        Self {
+            git_commit_ref,
+            tree_id: None,
+        }
     }
 }
 #[doc = ""]
@@ -1305,7 +1308,7 @@ impl GitCommitDiffs {
     }
 }
 #[doc = "Provides properties that describe a Git commit and associated metadata."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitCommitRef {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
@@ -1334,8 +1337,8 @@ pub struct GitCommitRef {
     )]
     pub comment_truncated: Option<bool>,
     #[doc = "ID (SHA-1) of the commit."]
-    #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
-    pub commit_id: Option<String>,
+    #[serde(rename = "commitId")]
+    pub commit_id: String,
     #[doc = "User info and date for Git operations."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub committer: Option<GitUserDate>,
@@ -1359,8 +1362,23 @@ pub struct GitCommitRef {
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(commit_id: String) -> Self {
+        Self {
+            links: None,
+            author: None,
+            change_counts: None,
+            changes: Vec::new(),
+            comment: None,
+            comment_truncated: None,
+            commit_id,
+            committer: None,
+            parents: Vec::new(),
+            push: None,
+            remote_url: None,
+            statuses: Vec::new(),
+            url: None,
+            work_items: Vec::new(),
+        }
     }
 }
 #[doc = ""]
@@ -1395,9 +1413,9 @@ impl GitCommitToCreate {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitConflict {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(
         rename = "conflictId",
         default,
@@ -3557,9 +3575,9 @@ pub mod git_pull_request_query_input {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestReviewFileContentInfo {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The file change path."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub path: Option<String>,
@@ -3734,9 +3752,9 @@ impl GitPushList {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPushRef {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub date: Option<String>,
     #[doc = ""]
@@ -3979,9 +3997,9 @@ impl GitRecycleBinRepositoryDetails {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRef {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub creator: Option<IdentityRef>,
@@ -4017,9 +4035,9 @@ impl GitRef {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefFavorite {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[serde(
@@ -4230,9 +4248,9 @@ impl GitRefUpdateResultList {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRepository {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(
         rename = "defaultBranch",
         default,
@@ -4954,9 +4972,9 @@ pub mod git_tree_entry_ref {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeRef {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "SHA1 hash of git object"]
     #[serde(rename = "objectId", default, skip_serializing_if = "Option::is_none")]
     pub object_id: Option<String>,
@@ -5072,28 +5090,32 @@ impl GlobalGitRepositoryKey {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<String>,
+    pub descriptor: String,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl GraphSubjectBase {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: serde_json::Value,
+        descriptor: String,
+        display_name: String,
+        url: String,
+    ) -> Self {
+        Self {
+            links,
+            descriptor,
+            display_name,
+            url,
+        }
     }
 }
 #[doc = ""]
@@ -5218,9 +5240,9 @@ pub struct IdentityRef {
     pub unique_name: Option<String>,
 }
 impl IdentityRef {
-    pub fn new(id: String) -> Self {
+    pub fn new(graph_subject_base: GraphSubjectBase, id: String) -> Self {
         Self {
-            graph_subject_base: GraphSubjectBase::default(),
+            graph_subject_base,
             directory_alias: None,
             id,
             image_url: None,
@@ -5439,9 +5461,9 @@ pub mod item_details_options {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ItemModel {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     #[doc = ""]

@@ -516,29 +516,33 @@ impl ErrorDetails {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GraphSubjectBase {
-    #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<String>,
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    #[doc = ""]
+    #[serde(rename = "_links")]
+    pub links: ReferenceLinks,
+    pub descriptor: String,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
+    pub url: String,
 }
 impl GraphSubjectBase {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        links: ReferenceLinks,
+        descriptor: String,
+        display_name: String,
+        url: String,
+    ) -> Self {
+        Self {
+            links,
+            descriptor,
+            display_name,
+            url,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -548,8 +552,7 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -578,16 +581,23 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub profile_url: Option<String>,
-    #[serde(
-        rename = "uniqueName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub unique_name: Option<String>,
+    #[serde(rename = "uniqueName")]
+    pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+        Self {
+            graph_subject_base,
+            directory_alias: None,
+            id,
+            image_url: None,
+            inactive: None,
+            is_aad_identity: None,
+            is_container: None,
+            is_deleted_in_origin: None,
+            profile_url: None,
+            unique_name,
+        }
     }
 }
 #[doc = ""]

@@ -80,9 +80,9 @@ impl CopyDashboardResponse {
 #[doc = "Model of a Dashboard."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Dashboard {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Entity to which the dashboard is scoped."]
     #[serde(
         rename = "dashboardScope",
@@ -145,9 +145,9 @@ pub mod dashboard {
 #[doc = "Describes a list of dashboards associated to an owner. Currently, teams own dashboard groups."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DashboardGroup {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "A list of Dashboards held by the Dashboard Group"]
     #[serde(
         rename = "dashboardEntries",
@@ -346,9 +346,9 @@ impl VssJsonCollectionWrapperBase {
 #[doc = "Widget data"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Widget {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Refers to the allowed sizes for the widget. This gets populated when user wants to configure the widget"]
     #[serde(
         rename = "allowedSizes",
@@ -669,9 +669,9 @@ impl WidgetSize {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetTypesResponse {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub uri: Option<String>,
     #[serde(rename = "widgetTypes", default, skip_serializing_if = "Vec::is_empty")]
