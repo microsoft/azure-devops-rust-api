@@ -125,16 +125,18 @@ type PatcherFn = fn(&mut Patcher, &[&str], &JsonValue) -> Option<JsonValue>;
 
 impl Patcher {
     const PATCH_FNS: &'static [PatcherFn] = &[
+        Patcher::patch_json_reference_links,
         Patcher::patch_teamproject_visibility_enum,
         Patcher::patch_array_array_schema,
         Patcher::patch_response_schema,
-        Patcher::patch_definition_required_fields,
         Patcher::patch_git_reference_links,
         Patcher::patch_pipelines_reference_links,
+        Patcher::patch_build_reference_links,
         Patcher::patch_pipelines_pipeline_configuration,
         Patcher::patch_pipeline,
-        Patcher::patch_json_reference_links,
         Patcher::patch_docs,
+        // This must be done after the other patches
+        Patcher::patch_definition_required_fields,
     ];
 
     fn new(spec_path: &Path) -> Patcher {
@@ -147,15 +149,21 @@ impl Patcher {
     fn patch_json_reference_links(
         &mut self,
         key: &[&str],
-        _value: &JsonValue,
+        value: &JsonValue,
     ) -> Option<JsonValue> {
         match key {
             ["definitions", schema_name, "properties", "_links"] => {
-                println!("Replace _links definition for {}", schema_name);
-                Some(json::object! {
-                    "description": "Links",
-                    "type": "object",
-                })
+                if *value != json::object! { "$ref": "#/definitions/ReferenceLinks" } {
+                    println!("Replace _links definition for {}", schema_name);
+                    Some(json::object! {
+                        "description": "Links",
+                        "type": "object",
+                    })
+                }
+                else {
+                    println!("Skip replacing _links definition for {}", schema_name);
+                    None
+                }
             }
             _ => None,
         }
@@ -374,6 +382,39 @@ impl Patcher {
         }
     }
 
+    fn patch_build_reference_links(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("build.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "ReferenceLinks", "properties"] => {
+                println!("Replace build ReferenceLinks definition");
+                self.add_link_definition();
+
+                // Add all links that we are aware of.
+                Some(json::object! {
+                   "badge": {
+                       "$ref": "#/definitions/Link"
+                     },
+                     "self": {
+                       "$ref": "#/definitions/Link"
+                     },
+                     "sourceVersionDisplayUri": {
+                       "$ref": "#/definitions/Link"
+                     },
+                     "timeline": {
+                       "$ref": "#/definitions/Link"
+                     },
+                     "web": {
+                       "$ref": "#/definitions/Link"
+                     },
+                })
+            }
+            _ => None,
+        }
+    }
+
     fn patch_definition_required_fields(
         &mut self,
         key: &[&str],
@@ -383,9 +424,9 @@ impl Patcher {
             (
                 "serviceEndpoint.json",
                 "ServiceEndpoint",
-                // Excluded:
-                // - administratorsGroup
-                // - operationStatus
+                // Excluded
+                //   administratorsGroup
+                //   operationStatus
                 r#"[
                     "authorization",
                     "createdBy",
@@ -478,13 +519,13 @@ impl Patcher {
                 "git.json",
                 "GitRepository",
                 // Excluded
-                // - "_links"
-                // - "defaultBranch"
-                // - "isDisabled"
-                // - "remoteUrl"
-                // - "size"
-                // - "sshUrl"
-                // - "webUrl"
+                //   _links
+                //   defaultBranch
+                //   isDisabled
+                //   remoteUrl
+                //   size
+                //   sshUrl
+                //   webUrl
                 r#"[
                     "id",
                     "name",
@@ -496,19 +537,19 @@ impl Patcher {
                 "git.json",
                 "GitPullRequest",
                 // Excluded
-                // - "_links"
-                // - artifactId
-                // - autoCompleteSetBy
-                // - closedBy
-                // - closedDate
-                // - completionOptions
-                // - completionQueueTime
-                // - forkSource
-                // - hasMultipleMergeBases
-                // - mergeFailureMessage
-                // - mergeFailureType
-                // - mergeOptions
-                // - remoteUrl
+                //   _links
+                //   artifactId
+                //   autoCompleteSetBy
+                //   closedBy
+                //   closedDate
+                //   completionOptions
+                //   completionQueueTime
+                //   forkSource
+                //   hasMultipleMergeBases
+                //   mergeFailureMessage
+                //   mergeFailureType
+                //   mergeOptions
+                //   remoteUrl
                 r#"[
                     "createdBy",
                     "creationDate",
@@ -530,11 +571,18 @@ impl Patcher {
             ),
             (
                 "git.json",
+                "GitCommitRef",
+                r#"[
+                    "commitId"
+                ]"#,
+            ),
+            (
+                "*",
                 "TeamProjectReference",
                 // Excluded
-                // - description
-                // - revision
-                // - url
+                //   description
+                //   revision
+                //   url
                 r#"[
                     "id",
                     "lastUpdateTime",
@@ -543,12 +591,154 @@ impl Patcher {
                     "visibility"
                 ]"#,
             ),
+            (
+                "build.json",
+                "Build",
+                // Excluded
+                //   agentSpecification
+                //   buildNumberRevision
+                //   controller
+                //   deleted
+                //   deletedBy
+                //   deletedDate
+                //   deletedReason
+                //   demands
+                //   finishTime
+                //   parameters
+                //   quality
+                //   queue
+                //   queueOptions
+                //   queuePosition
+                //   queueTime
+                //   result
+                //   startTime
+                //   templateParameters
+                //   triggeredByBuild
+                //   triggerInfo
+                r#"[
+                    "_links",
+                    "buildNumber",
+                    "definition",
+                    "id",
+                    "lastChangedBy",
+                    "lastChangedDate",
+                    "logs",
+                    "orchestrationPlan",
+                    "plans",
+                    "priority",
+                    "project",
+                    "properties",
+                    "reason",
+                    "repository",
+                    "requestedBy",
+                    "requestedFor",
+                    "retainedByRelease",
+                    "sourceBranch",
+                    "sourceVersion",
+                    "status",
+                    "tags",
+                    "uri",
+                    "url",
+                    "validationResults"
+                ]"#
+            ),
+            (
+                "build.json",
+                "DefinitionReference",
+                // Excluded
+                //   createdDate
+                r#"[
+                    "id",
+                    "name",
+                    "path",
+                    "project",
+                    "queueStatus",
+                    "revision",
+                    "type",
+                    "uri",
+                    "url"
+                ]"#
+            ),
+            (
+                "build.json",
+                "BuildLogReference",
+                r#"[
+                    "id",
+                    "type",
+                    "url"
+                ]"#
+            ),
+            (
+                "build.json",
+                "AgentPoolQueue",
+                // Excluded
+                //   _links
+                //   url
+                r#"[
+                    "id",
+                    "pool",
+                    "name"
+                ]"#
+            ),
+            (
+                "build.json",
+                "TaskAgentPoolReference",
+                // Excluded
+                //   isHosted
+                r#"[
+                    "id",
+                    "name"
+                ]"#
+            ),
+            (
+                "build.json",
+                "TaskOrchestrationPlanReference",
+                // Excluded
+                //   orchestrationType
+                r#"[
+                    "planId"
+                ]"#
+            ),
+            (
+                "build.json",
+                "BuildRepository",
+                // Excluded
+                //   clean
+                //   checkoutSubmodules
+                //   defaultBranch
+                //   properties
+                //   rootFolder
+                //   name
+                //   url
+                r#"[
+                    "id",
+                    "type"
+                ]"#
+            ),
+            (
+                "*",
+                "GraphSubjectBase",
+                r#"[
+                    "_links",
+                    "descriptor",
+                    "displayName",
+                    "url"
+                ]"#
+            ),
+            (
+                "*",
+                "IdentityRef",
+                r#"[
+                    "id",
+                    "uniqueName"
+                ]"#
+            )
         ];
 
         match key {
             ["definitions", def] => {
                 for (filename, def_name, required_fields) in patches.iter() {
-                    if self.spec_path.ends_with(filename) && (def == def_name) {
+                    if (*filename == "*" || self.spec_path.ends_with(filename)) && (def == def_name) {
                         println!("Add required values to {} definition", def_name);
                         let mut value = value.to_owned();
                         value["required"] = json::parse(required_fields).unwrap();
