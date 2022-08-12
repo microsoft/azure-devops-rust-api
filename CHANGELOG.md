@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking change
+
+- Updated some struct fields to remove Option wrappers to make the values easier to use.
+
 ## [0.3.1]
 
 ### Added
