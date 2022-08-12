@@ -3,14 +3,14 @@
 
 // git_repo_list.rs
 // Repository list example.
+use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
 use std::env;
-use std::error::Error;
 use std::sync::Arc;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
+async fn main() -> Result<()> {
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {

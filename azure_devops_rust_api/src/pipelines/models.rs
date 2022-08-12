@@ -177,9 +177,9 @@ impl PackageResourceParameters {
 #[doc = "Definition of a pipeline."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Pipeline {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links")]
-    pub links: serde_json::Value,
+    pub links: ReferenceLinks,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<PipelineConfiguration>,
@@ -196,7 +196,7 @@ pub struct Pipeline {
 }
 impl Pipeline {
     pub fn new(
-        links: serde_json::Value,
+        links: ReferenceLinks,
         url: String,
         folder: String,
         id: i32,
@@ -417,9 +417,9 @@ impl RepositoryResourceParameters {
 pub struct Run {
     #[serde(flatten)]
     pub run_reference: RunReference,
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links")]
-    pub links: serde_json::Value,
+    pub links: ReferenceLinks,
     #[serde(rename = "createdDate")]
     pub created_date: String,
     #[serde(rename = "finalYaml", default, skip_serializing_if = "Option::is_none")]
@@ -440,7 +440,7 @@ pub struct Run {
 impl Run {
     pub fn new(
         run_reference: RunReference,
-        links: serde_json::Value,
+        links: ReferenceLinks,
         created_date: String,
         finished_date: String,
         pipeline: PipelineReference,

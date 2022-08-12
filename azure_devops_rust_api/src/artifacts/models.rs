@@ -200,9 +200,9 @@ pub mod feed_change {
 #[doc = "A result set containing the feed changes for the range that was requested."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedChangesResponse {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "The number of changes in this set."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,

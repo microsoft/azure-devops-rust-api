@@ -1517,9 +1517,9 @@ pub mod service_endpoint_execution_data {
 #[doc = "Represents execution owner of the service endpoint."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionOwner {
-    #[doc = "Links"]
+    #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    pub links: Option<ReferenceLinks>,
     #[doc = "Gets or sets the Id of service endpoint execution owner."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,

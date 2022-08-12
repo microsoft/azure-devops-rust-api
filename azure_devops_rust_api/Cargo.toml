@@ -32,6 +32,7 @@ base64 = "0.13"
 [dev-dependencies]
 azure_identity = "0.4"
 tokio = { version = "1.0", features = ["full"] }
+anyhow = "1"
 
 [features]
 accounts = []
