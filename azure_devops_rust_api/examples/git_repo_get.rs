@@ -43,18 +43,44 @@ async fn main() -> Result<()> {
         .await?;
     println!("{:#?}", repo);
 
-    // Use the client to get all pull requests on the specified repo
+    // Use the client to get up to 10 pull requests on the specified repo
     let prs = client
         .pull_requests()
         .get_pull_requests(&organization, &repo.id, &project)
+        .top(10)
         .into_future()
         .await?
         .value;
 
-    println!("Found {} pull requests", prs.len());
+    println!("\nFound {} pull requests", prs.len());
+    for pr in &prs {
+        println!("{:<8}{}", pr.pull_request_id, pr.title.as_ref().unwrap());
+    }
+
     if let Some(pr) = prs.iter().next() {
-        println!("Example PR struct:");
+        println!("\nExample PR struct:");
         println!("{:#?}", pr);
+    }
+
+    // Use the client to get up to 10 refs on the specified repo
+    let git_refs = client
+        .refs()
+        .list(&organization, &repo.id, &project)
+        .top(10)
+        .into_future()
+        .await?
+        .value;
+
+    println!("\nGot {} refs", git_refs.len());
+    for git_ref in &git_refs {
+        if let Some(object_id) = &git_ref.object_id {
+            println!("{:<50}{}", git_ref.name, object_id);
+        }
+    }
+
+    if let Some(git_ref) = git_refs.iter().next() {
+        println!("\nExample ref struct:");
+        println!("{:#?}", git_ref);
     }
 
     Ok(())

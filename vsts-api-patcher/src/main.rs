@@ -564,6 +564,22 @@ impl Patcher {
             ),
             (
                 "git.json",
+                "GitRef",
+                r#"[
+                    "name",
+                    "object_id"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "GitCommitRef",
+                r#"[
+                    "commit_id",
+                    "url"
+                ]"#,
+            ),
+            (
+                "git.json",
                 "IdentityRef",
                 r#"[
                     "id"
