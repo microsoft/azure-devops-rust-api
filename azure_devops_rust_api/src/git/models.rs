@@ -1355,14 +1355,13 @@ pub struct GitCommitRef {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub statuses: Vec<GitStatus>,
     #[doc = "REST URL for this resource."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
     #[doc = "A list of workitems associated with this commit."]
     #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new(commit_id: String) -> Self {
+    pub fn new(commit_id: String, url: String) -> Self {
         Self {
             links: None,
             author: None,
@@ -1376,7 +1375,7 @@ impl GitCommitRef {
             push: None,
             remote_url: None,
             statuses: Vec::new(),
-            url: None,
+            url,
             work_items: Vec::new(),
         }
     }
@@ -2128,7 +2127,7 @@ impl GitForkOperationStatusDetail {
     }
 }
 #[doc = "Information about a fork ref."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitForkRef {
     #[serde(flatten)]
     pub git_ref: GitRef,
@@ -2137,8 +2136,11 @@ pub struct GitForkRef {
     pub repository: Option<GitRepository>,
 }
 impl GitForkRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(git_ref: GitRef) -> Self {
+        Self {
+            git_ref,
+            repository: None,
+        }
     }
 }
 #[doc = "Request to sync data between two forks."]
@@ -3049,12 +3051,8 @@ pub struct GitPullRequest {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub reviewers: Vec<IdentityRefWithVote>,
     #[doc = "The name of the source branch of the pull request."]
-    #[serde(
-        rename = "sourceRefName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_ref_name: Option<String>,
+    #[serde(rename = "sourceRefName")]
+    pub source_ref_name: String,
     #[doc = "The status of the pull request."]
     pub status: git_pull_request::Status,
     #[doc = "If true, this pull request supports multiple iterations. Iteration support means individual pushes to the source branch of the pull request can be reviewed and comments left in one iteration will be tracked across future iterations."]
@@ -3065,12 +3063,8 @@ pub struct GitPullRequest {
     )]
     pub supports_iterations: Option<bool>,
     #[doc = "The name of the target branch of the pull request."]
-    #[serde(
-        rename = "targetRefName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub target_ref_name: Option<String>,
+    #[serde(rename = "targetRefName")]
+    pub target_ref_name: String,
     #[doc = "The title of the pull request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -3091,7 +3085,9 @@ impl GitPullRequest {
         is_draft: bool,
         pull_request_id: i32,
         repository: GitRepository,
+        source_ref_name: String,
         status: git_pull_request::Status,
+        target_ref_name: String,
         url: String,
     ) -> Self {
         Self {
@@ -3123,10 +3119,10 @@ impl GitPullRequest {
             remote_url: None,
             repository,
             reviewers: Vec::new(),
-            source_ref_name: None,
+            source_ref_name,
             status,
             supports_iterations: None,
-            target_ref_name: None,
+            target_ref_name,
             title: None,
             url,
             work_item_refs: Vec::new(),
@@ -3995,7 +3991,7 @@ impl GitRecycleBinRepositoryDetails {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRef {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
@@ -4012,10 +4008,9 @@ pub struct GitRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_locked_by: Option<IdentityRef>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
-    #[serde(rename = "objectId", default, skip_serializing_if = "Option::is_none")]
-    pub object_id: Option<String>,
+    pub name: String,
+    #[serde(rename = "objectId")]
+    pub object_id: String,
     #[serde(
         rename = "peeledObjectId",
         default,
@@ -4028,8 +4023,18 @@ pub struct GitRef {
     pub url: Option<String>,
 }
 impl GitRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(name: String, object_id: String) -> Self {
+        Self {
+            links: None,
+            creator: None,
+            is_locked: None,
+            is_locked_by: None,
+            name,
+            object_id,
+            peeled_object_id: None,
+            statuses: Vec::new(),
+            url: None,
+        }
     }
 }
 #[doc = ""]

@@ -557,8 +557,24 @@ impl Patcher {
                     "pullRequestId",
                     "repository",
                     "status",
-                    "source_ref_name",
-                    "target_ref_name",
+                    "sourceRefName",
+                    "targetRefName",
+                    "url"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "GitRef",
+                r#"[
+                    "name",
+                    "objectId"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "GitCommitRef",
+                r#"[
+                    "commitId",
                     "url"
                 ]"#,
             ),
