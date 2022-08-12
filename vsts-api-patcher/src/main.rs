@@ -383,7 +383,7 @@ impl Patcher {
     }
 
     fn patch_build_reference_links(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
-        // Only applies to git specs
+        // Only applies to build specs
         if !self.spec_path.ends_with("build.json") {
             return None;
         }
