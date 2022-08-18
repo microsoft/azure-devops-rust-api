@@ -4,6 +4,7 @@
 // service_endpoint.rs
 // Service Endpoint (aka "Service Connection") example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::service_endpoint;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -30,11 +31,16 @@ async fn main() -> Result<()> {
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a "service_endpoint" client
-    let client = service_endpoint::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = service_endpoint::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to list all service endpoints (aka "service connections")
     let service_endpoints = client
-        .endpoints()
+        .endpoints_client()
         .get_service_endpoints(&organization, &project)
         .into_future()
         .await?

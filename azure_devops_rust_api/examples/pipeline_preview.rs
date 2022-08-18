@@ -4,6 +4,7 @@
 // pipeline_preview.rs
 // Pipeline preview example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::{Pipeline, RunPipelineParameters};
 use azure_devops_rust_api::Credential;
@@ -32,11 +33,16 @@ async fn main() -> Result<()> {
     let pipeline_name = env::args().nth(1).expect("Usage: pipeline_preview <name>");
 
     // Create a `pipelines` client
-    let client = pipelines::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = pipelines::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to list all pipelines in the specified organization/project
     let pipelines = client
-        .pipelines()
+        .pipelines_client()
         .list(&organization, &project)
         .into_future()
         .await?
@@ -64,7 +70,7 @@ async fn main() -> Result<()> {
         };
 
         // Create a preview client
-        let preview_client = client.preview();
+        let preview_client = client.preview_client();
 
         // Request a preview of the specified pipeline
         let preview = preview_client

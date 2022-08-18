@@ -4,6 +4,7 @@
 // build_list.rs
 // Repository list example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::build;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -30,12 +31,20 @@ async fn main() -> Result<()> {
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a "build" client
-    let client = build::operations::Client::new(service_endpoint, credential, vec![]);
+    println!("Create client");
+    let client = build::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
+    println!("Get list");
     // Use the client to list all builds in the specified organization/project
     let builds = client
-        .builds()
+        .builds_client()
         .list(organization, project)
+        .top(1)
         .into_future()
         .await?
         .value;

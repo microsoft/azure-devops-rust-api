@@ -4,6 +4,7 @@
 // git_repo_get.rs
 // Repository get example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -33,11 +34,16 @@ async fn main() -> Result<()> {
         .expect("Usage: git_repo_get <repository-name>");
 
     // Create a "git" client
-    let client = git::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = git::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to get the specified repo
     let repo = client
-        .repositories()
+        .repositories_client()
         .get_repository(&organization, &repo_name, &project)
         .into_future()
         .await?;
@@ -45,7 +51,7 @@ async fn main() -> Result<()> {
 
     // Use the client to get up to 10 pull requests on the specified repo
     let prs = client
-        .pull_requests()
+        .pull_requests_client()
         .get_pull_requests(&organization, &repo.id, &project)
         .top(10)
         .into_future()
@@ -64,7 +70,7 @@ async fn main() -> Result<()> {
 
     // Use the client to get up to 10 refs on the specified repo
     let git_refs = client
-        .refs()
+        .refs_client()
         .list(&organization, &repo.id, &project)
         .top(10)
         .into_future()

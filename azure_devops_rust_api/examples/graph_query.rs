@@ -4,6 +4,7 @@
 // graph_query.rs
 // Graph example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::graph;
 use azure_devops_rust_api::graph::models::GraphSubjectQuery;
 use azure_devops_rust_api::Credential;
@@ -31,8 +32,13 @@ async fn main() -> Result<()> {
     let name = env::args().nth(1).expect("Usage: graph_query <name>");
 
     // Create a `graph` client
-    let client =
-        graph::operations::Client::new(service_endpoint, credential, vec![]).subject_query();
+    let client = graph::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    )
+    .subject_query_client();
 
     // Create a query for a `User` with the specified name
     let query = GraphSubjectQuery {

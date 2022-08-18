@@ -127,6 +127,7 @@ impl Patcher {
     const PATCH_FNS: &'static [PatcherFn] = &[
         Patcher::patch_json_reference_links,
         Patcher::patch_teamproject_visibility_enum,
+        Patcher::patch_team_project_reference_last_update_time,
         Patcher::patch_array_array_schema,
         Patcher::patch_response_schema,
         Patcher::patch_git_reference_links,
@@ -331,6 +332,30 @@ impl Patcher {
                      "web": {
                        "$ref": "#/definitions/Link"
                      }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    // TeamProjectReference lastUpdateTime claims to be a "date-time" format,
+    // which according to the OpenApi spec should be RFC3339 compliant.
+    // However, the lastUpdateTime sometimes contains "0000-01-01T00:00:00",
+    // which is non-compliant because it does not include any timezone
+    // (e.g. a terminating "Z").
+    //
+    // We patch it here to be a string to avoid parsing errors.
+    fn patch_team_project_reference_last_update_time(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        match key {
+            ["definitions", "TeamProjectReference", "properties", "lastUpdateTime"] => {
+                println!("Replace TeamProjectReference lastUpdateTime field");
+                Some(json::object! {
+                    "description": "Project last update time.",
+                    "type": "string"
                 })
             }
             _ => None,
