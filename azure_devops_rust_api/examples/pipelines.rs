@@ -4,6 +4,7 @@
 // pipelines.rs
 // Pipelines example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::Pipeline;
 use azure_devops_rust_api::Credential;
@@ -32,11 +33,16 @@ async fn main() -> Result<()> {
     let pipeline_name = env::args().nth(1).expect("Usage: pipelines <name>");
 
     // Create a `pipelines` client
-    let client = pipelines::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = pipelines::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to list all pipelines in the specified organization/project
     let pipelines = client
-        .pipelines()
+        .pipelines_client()
         .list(&organization, &project)
         .into_future()
         .await?
@@ -62,7 +68,7 @@ async fn main() -> Result<()> {
         // The pipeline struct returned from list is different from that returned by get.
         // Query and display the struct returned by get for comparison.
         let pipeline = client
-            .pipelines()
+            .pipelines_client()
             .get(&organization, &project, pipeline.id)
             .into_future()
             .await?;
@@ -71,7 +77,7 @@ async fn main() -> Result<()> {
 
         // Use the client to list all runs of the selected pipeline
         let runs = client
-            .runs()
+            .runs_client()
             .list(&organization, &project, pipeline.id)
             .into_future()
             .await?

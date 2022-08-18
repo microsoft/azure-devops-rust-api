@@ -4,6 +4,7 @@
 // git_repo_list.rs
 // Repository list example.
 use anyhow::Result;
+use azure_core::ClientOptions;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -30,11 +31,16 @@ async fn main() -> Result<()> {
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a `git` client
-    let client = git::operations::Client::new(service_endpoint, credential, vec![]);
+    let client = git::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to list all repositories in the specified organization/project
     let repos = client
-        .repositories()
+        .repositories_client()
         .list(organization, project)
         .into_future()
         .await?

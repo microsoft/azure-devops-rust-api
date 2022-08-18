@@ -20,7 +20,7 @@ The crate has many features/modules, but the general approach is similar for all
 
 - Obtain an authentication credential
 - Create a client for the feature/module that you want to use
-- Use the client to make requests
+- Use the client to make operation requests
 
 ### Code example
 
@@ -44,12 +44,17 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a "git" client
-    let client = git::operations::Client::new(service_endpoint, credential, vec![]);
+    // Create a `git` client
+    let client = git::Client::new(
+        service_endpoint,
+        credential,
+        vec![],
+        ClientOptions::default(),
+    );
 
     // Use the client to list all repositories in the specified organization/project
     let repos = client
-        .repositories()
+        .repositories_client()
         .list(organization, project)
         .into_future()
         .await?
@@ -71,7 +76,7 @@ Example application `Cargo.toml` dependency spec showing how to specify desired 
 ```toml
 [dependencies]
 ...
-azure_devops_rust_api = { version = "0.1.0", features = ["git", "pipelines"] }
+azure_devops_rust_api = { version = "0.5.0", features = ["git", "pipelines"] }
 ```
 
 ## Examples

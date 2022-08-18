@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0]
+
+### Breaking changes
+
+- Upgraded to latest `autorust` code generator from `azure-sdk-for-rust`
+  - Removed `operation` modules - all operations move up one level in the module hierarchy.
+  - Second-level client functions changed to have a `_client` suffix, e.g.
+    - `client.repositories().get_repository(...)` => `client.repositories_client().get_repository(...)`.
+  - New `options`(`azure_core::ClientOptions`) parameter required when creating clients, which allows the HTTP pipeline to be customised with middleware.
+  - Fields declared in the spec as `date-time` format now parsed into Rust `time::OffsetDateTime` types rather than `String`.
+
 ## [0.4.0]
 
 ### Breaking change
@@ -80,7 +91,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.3.1...0.4.0
 [0.3.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.2.0...0.3.0

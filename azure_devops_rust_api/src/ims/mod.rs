@@ -1,4 +1,260 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
+#![allow(unused_mut)]
+#![allow(unused_variables)]
+#![allow(unused_imports)]
+#![allow(clippy::redundant_clone)]
 pub mod models;
-pub mod operations;
+#[derive(Clone)]
+pub struct Client {
+    endpoint: String,
+    credential: crate::Credential,
+    scopes: Vec<String>,
+    pipeline: azure_core::Pipeline,
+}
+#[derive(Clone)]
+pub struct ClientBuilder {
+    credential: crate::Credential,
+    endpoint: Option<String>,
+    scopes: Option<Vec<String>>,
+    options: azure_core::ClientOptions,
+}
+pub const DEFAULT_ENDPOINT: &str = "https://vssps.dev.azure.com";
+impl ClientBuilder {
+    #[doc = "Create a new instance of `ClientBuilder`."]
+    #[must_use]
+    pub fn new(credential: crate::Credential) -> Self {
+        Self {
+            credential,
+            endpoint: None,
+            scopes: None,
+            options: azure_core::ClientOptions::default(),
+        }
+    }
+    #[doc = "Set the endpoint."]
+    #[must_use]
+    pub fn endpoint(mut self, endpoint: impl Into<String>) -> Self {
+        self.endpoint = Some(endpoint.into());
+        self
+    }
+    #[doc = "Set the scopes."]
+    #[must_use]
+    pub fn scopes(mut self, scopes: &[&str]) -> Self {
+        self.scopes = Some(scopes.iter().map(|scope| (*scope).to_owned()).collect());
+        self
+    }
+    #[doc = "Set the retry options."]
+    #[must_use]
+    pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
+        self.options = self.options.retry(retry);
+        self
+    }
+    #[doc = "Set the transport options."]
+    #[must_use]
+    pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
+        self.options = self.options.transport(transport);
+        self
+    }
+    #[doc = "Convert the builder into a `Client` instance."]
+    #[must_use]
+    pub fn build(self) -> Client {
+        let endpoint = self.endpoint.unwrap_or_else(|| DEFAULT_ENDPOINT.to_owned());
+        let scopes = self
+            .scopes
+            .unwrap_or_else(|| vec![format!("{}/", endpoint)]);
+        Client::new(endpoint, self.credential, scopes, self.options)
+    }
+}
+impl Client {
+    pub(crate) fn endpoint(&self) -> &str {
+        self.endpoint.as_str()
+    }
+    pub(crate) fn token_credential(&self) -> &crate::Credential {
+        &self.credential
+    }
+    #[allow(dead_code)]
+    pub(crate) fn scopes(&self) -> Vec<&str> {
+        self.scopes.iter().map(String::as_str).collect()
+    }
+    pub(crate) async fn send(
+        &self,
+        request: &mut azure_core::Request,
+    ) -> azure_core::Result<azure_core::Response> {
+        let mut context = azure_core::Context::default();
+        self.pipeline.send(&mut context, request).await
+    }
+    #[doc = "Create a new `ClientBuilder`."]
+    #[must_use]
+    pub fn builder(credential: crate::Credential) -> ClientBuilder {
+        ClientBuilder::new(credential)
+    }
+    #[doc = "Create a new `Client`."]
+    #[must_use]
+    pub fn new(
+        endpoint: impl Into<String>,
+        credential: crate::Credential,
+        scopes: Vec<String>,
+        options: azure_core::ClientOptions,
+    ) -> Self {
+        let endpoint = endpoint.into();
+        let pipeline = azure_core::Pipeline::new(
+            option_env!("CARGO_PKG_NAME"),
+            option_env!("CARGO_PKG_VERSION"),
+            options,
+            Vec::new(),
+            Vec::new(),
+        );
+        Self {
+            endpoint,
+            credential,
+            scopes,
+            pipeline,
+        }
+    }
+    pub fn identities_client(&self) -> identities::Client {
+        identities::Client(self.clone())
+    }
+}
+pub mod identities {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Resolve legacy identity information for use with older APIs such as the Security APIs"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        pub fn read_identities(&self, organization: impl Into<String>) -> read_identities::Builder {
+            read_identities::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                descriptors: None,
+                identity_ids: None,
+                subject_descriptors: None,
+                search_filter: None,
+                filter_value: None,
+                query_membership: None,
+            }
+        }
+    }
+    pub mod read_identities {
+        use super::models;
+        type Response = models::IdentityList;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) descriptors: Option<String>,
+            pub(crate) identity_ids: Option<String>,
+            pub(crate) subject_descriptors: Option<String>,
+            pub(crate) search_filter: Option<String>,
+            pub(crate) filter_value: Option<String>,
+            pub(crate) query_membership: Option<String>,
+        }
+        impl Builder {
+            #[doc = "A comma separated list of identity descriptors to resolve"]
+            pub fn descriptors(mut self, descriptors: impl Into<String>) -> Self {
+                self.descriptors = Some(descriptors.into());
+                self
+            }
+            #[doc = "A comma seperated list of storage keys to resolve"]
+            pub fn identity_ids(mut self, identity_ids: impl Into<String>) -> Self {
+                self.identity_ids = Some(identity_ids.into());
+                self
+            }
+            #[doc = "A comma seperated list of subject descriptors to resolve"]
+            pub fn subject_descriptors(mut self, subject_descriptors: impl Into<String>) -> Self {
+                self.subject_descriptors = Some(subject_descriptors.into());
+                self
+            }
+            #[doc = "The type of search to perform. Values can be AccountName (domain\\alias), DisplayName, MailAddress, General (display name, account name, or unique name), or LocalGroupName (only search Azure Devops groups)."]
+            pub fn search_filter(mut self, search_filter: impl Into<String>) -> Self {
+                self.search_filter = Some(search_filter.into());
+                self
+            }
+            #[doc = "The search value, as specified by the searchFilter."]
+            pub fn filter_value(mut self, filter_value: impl Into<String>) -> Self {
+                self.filter_value = Some(filter_value.into());
+                self
+            }
+            #[doc = "The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)"]
+            pub fn query_membership(mut self, query_membership: impl Into<String>) -> Self {
+                self.query_membership = Some(query_membership.into());
+                self
+            }
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/identities",
+                            this.client.endpoint(),
+                            &this.organization
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        req.insert_header(
+                            azure_core::headers::AUTHORIZATION,
+                            &this
+                                .client
+                                .token_credential()
+                                .http_authorization_header(&this.client.scopes)
+                                .await?,
+                        );
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(descriptors) = &this.descriptors {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("descriptors", descriptors);
+                        }
+                        if let Some(identity_ids) = &this.identity_ids {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("identityIds", identity_ids);
+                        }
+                        if let Some(subject_descriptors) = &this.subject_descriptors {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("subjectDescriptors", subject_descriptors);
+                        }
+                        if let Some(search_filter) = &this.search_filter {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchFilter", search_filter);
+                        }
+                        if let Some(filter_value) = &this.filter_value {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("filterValue", filter_value);
+                        }
+                        if let Some(query_membership) = &this.query_membership {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("queryMembership", query_membership);
+                        }
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::IdentityList =
+                                    serde_json::from_slice(&rsp_body)?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
