@@ -4,7 +4,6 @@
 // service_endpoint.rs
 // Service Endpoint (aka "Service Connection") example.
 use anyhow::Result;
-use azure_core::ClientOptions;
 use azure_devops_rust_api::service_endpoint;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -12,6 +11,9 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Initialize logging
+    env_logger::init();
+
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
@@ -24,22 +26,15 @@ async fn main() -> Result<()> {
         }
     };
 
-    // Get ADO server configuration via environment variables
-    let service_endpoint =
-        env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
+    // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a "service_endpoint" client
-    let client = service_endpoint::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    );
+    // Create a service_endpoint client
+    let service_endpoint_client = service_endpoint::ClientBuilder::new(credential).build();
 
     // Use the client to list all service endpoints (aka "service connections")
-    let service_endpoints = client
+    let service_endpoints = service_endpoint_client
         .endpoints_client()
         .get_service_endpoints(&organization, &project)
         .into_future()

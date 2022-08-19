@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1]
+
+## Breaking changes
+
+- Removed Option wrappers on selected structs in `wit` and `status`
+
+## Added
+
+- Example improvements:
+  - New examples:
+    - wit (work items)
+    - status
+    - client_pipeline_policy
+  - Updated examples to use `ClientBuilder`, eliminating default client arguments
+  - Added logging via `env_logger`
+- Added `Credential::Unauthenticated` to enable unauthenticated operations
+
 ## [0.5.0]
 
 ### Breaking changes
@@ -91,7 +108,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.3.1...0.4.0
 [0.3.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.3.0...0.3.1

@@ -4,7 +4,6 @@
 // git_repo_get.rs
 // Repository get example.
 use anyhow::Result;
-use azure_core::ClientOptions;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -12,6 +11,9 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Initialize logging
+    env_logger::init();
+
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
@@ -24,9 +26,7 @@ async fn main() -> Result<()> {
         }
     };
 
-    // Get ADO server configuration via environment variables
-    let service_endpoint =
-        env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
+    // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
     let repo_name = env::args()
@@ -34,23 +34,18 @@ async fn main() -> Result<()> {
         .expect("Usage: git_repo_get <repository-name>");
 
     // Create a "git" client
-    let client = git::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    );
+    let git_client = git::ClientBuilder::new(credential).build();
 
-    // Use the client to get the specified repo
-    let repo = client
+    // Get the specified repo
+    let repo = git_client
         .repositories_client()
         .get_repository(&organization, &repo_name, &project)
         .into_future()
         .await?;
     println!("{:#?}", repo);
 
-    // Use the client to get up to 10 pull requests on the specified repo
-    let prs = client
+    // Get up to 10 pull requests on the specified repo
+    let prs = git_client
         .pull_requests_client()
         .get_pull_requests(&organization, &repo.id, &project)
         .top(10)
@@ -68,8 +63,8 @@ async fn main() -> Result<()> {
         println!("{:#?}", pr);
     }
 
-    // Use the client to get up to 10 refs on the specified repo
-    let git_refs = client
+    // Get up to 10 refs on the specified repo
+    let git_refs = git_client
         .refs_client()
         .list(&organization, &repo.id, &project)
         .top(10)

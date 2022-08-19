@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.5.0"
+version = "0.5.1"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"
@@ -31,6 +31,9 @@ time = "0.3"
 azure_identity = "0.5"
 tokio = { version = "1.0", features = ["full"] }
 anyhow = "1"
+log = "0.4"
+env_logger = "0.9"
+async-trait = "0.1"
 
 [features]
 accounts = []
@@ -100,3 +103,11 @@ required-features = ["graph"]
 [[example]]
 name = "build_list"
 required-features = ["build"]
+
+[[example]]
+name = "status"
+required-features = ["status"]
+
+[[example]]
+name = "client_pipeline_policy"
+required-features = ["git"]

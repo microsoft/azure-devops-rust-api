@@ -55,6 +55,15 @@ impl ClientBuilder {
         self.options = self.options.transport(transport);
         self
     }
+    #[doc = "Set per-call policies."]
+    #[must_use]
+    pub fn per_call_policies(
+        mut self,
+        policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
+    ) -> Self {
+        self.options = self.options.per_call_policies(policies);
+        self
+    }
     #[doc = "Convert the builder into a `Client` instance."]
     #[must_use]
     pub fn build(self) -> Client {
@@ -231,14 +240,14 @@ pub mod boardcolumns {
                             &this.project
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -310,14 +319,14 @@ pub mod boardrows {
                             &this.project
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -394,14 +403,14 @@ pub mod iterationcapacities {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -552,14 +561,14 @@ pub mod plans {
                             &this.project
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -610,14 +619,14 @@ pub mod plans {
                             &this.project
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Post);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -669,14 +678,14 @@ pub mod plans {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -728,14 +737,14 @@ pub mod plans {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -787,14 +796,14 @@ pub mod plans {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -887,14 +896,14 @@ pub mod deliverytimeline {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -981,14 +990,14 @@ pub mod processconfiguration {
                             &this.project
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1065,14 +1074,14 @@ pub mod backlogconfiguration {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1192,14 +1201,14 @@ pub mod backlogs {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1253,14 +1262,14 @@ pub mod backlogs {
                             &this.backlog_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1314,14 +1323,14 @@ pub mod backlogs {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1445,14 +1454,14 @@ pub mod boards {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1506,14 +1515,14 @@ pub mod boards {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1567,14 +1576,14 @@ pub mod boards {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1680,14 +1689,14 @@ pub mod boardusersettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1742,14 +1751,14 @@ pub mod boardusersettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1875,14 +1884,14 @@ pub mod cardrulesettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1937,14 +1946,14 @@ pub mod cardrulesettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -1998,14 +2007,14 @@ pub mod cardrulesettings {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2126,14 +2135,14 @@ pub mod cardsettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2188,14 +2197,14 @@ pub mod cardsettings {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2249,14 +2258,14 @@ pub mod cardsettings {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2423,14 +2432,14 @@ pub mod chartimages {
                             &this.name
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2527,14 +2536,14 @@ pub mod chartimages {
                             &this.name
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2635,14 +2644,14 @@ pub mod chartimages {
                             &this.name
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2798,14 +2807,14 @@ pub mod charts {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2861,14 +2870,14 @@ pub mod charts {
                             &this.name
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -2925,14 +2934,14 @@ pub mod charts {
                             &this.name
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3040,14 +3049,14 @@ pub mod columns {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3102,14 +3111,14 @@ pub mod columns {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3217,14 +3226,14 @@ pub mod rows {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3279,14 +3288,14 @@ pub mod rows {
                             &this.board
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3371,14 +3380,14 @@ pub mod boardparents {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3494,14 +3503,14 @@ pub mod workitemsorder {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3555,14 +3564,14 @@ pub mod workitemsorder {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3657,14 +3666,14 @@ pub mod taskboard_columns {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3717,14 +3726,14 @@ pub mod taskboard_columns {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3827,14 +3836,14 @@ pub mod taskboard_work_items {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3891,14 +3900,14 @@ pub mod taskboard_work_items {
                             &this.work_item_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -3993,14 +4002,14 @@ pub mod teamsettings {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4053,14 +4062,14 @@ pub mod teamsettings {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4233,14 +4242,14 @@ pub mod iterations {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4298,14 +4307,14 @@ pub mod iterations {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Post);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4360,14 +4369,14 @@ pub mod iterations {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4421,14 +4430,14 @@ pub mod iterations {
                             &this.id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4477,14 +4486,14 @@ pub mod iterations {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4644,14 +4653,14 @@ pub mod capacities {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4706,14 +4715,14 @@ pub mod capacities {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Put);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4770,14 +4779,14 @@ pub mod capacities {
                             &this.team_member_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4834,14 +4843,14 @@ pub mod capacities {
                             &this.team_member_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -4949,14 +4958,14 @@ pub mod teamdaysoff {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -5011,14 +5020,14 @@ pub mod teamdaysoff {
                             &this.iteration_id
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -5117,14 +5126,14 @@ pub mod teamfieldvalues {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
@@ -5177,14 +5186,14 @@ pub mod teamfieldvalues {
                             &this.team
                         ))?;
                         let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
-                        req.insert_header(
-                            azure_core::headers::AUTHORIZATION,
-                            &this
-                                .client
-                                .token_credential()
-                                .http_authorization_header(&this.client.scopes)
-                                .await?,
-                        );
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
