@@ -1,11 +1,5 @@
 # Azure DevOps Rust API
 
-> This is an unofficial Azure DevOps Rust API crate.
->
-> It is in early development and only a subset of function has been tested, so there will be issues and breaking changes.
->
-> If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
-
 ## Overview
 
 `azure_devops_rust_api` implements a Rust interface to the Azure DevOps REST API (version 7.1).
@@ -100,6 +94,12 @@ Example:
 ```sh
 cargo run --example git_repo_get --features="git" <repo-name>
 ```
+
+## Issue reporting
+
+This crate is in early development and only a subset of function has been tested, so there will be issues and breaking changes.
+
+If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
 
 ## Useful links
 

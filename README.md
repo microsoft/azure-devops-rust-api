@@ -29,7 +29,7 @@ For documentation on usage of the generated crate, see the `azure_devops_rust_ap
 ## Build
 
 - Checkout this repo
-- Run `build.sh`
+- Run `./build.sh`
 - The API crate is generated into the [`azure_devops_rust_api`](azure_devops_rust_api/) directory.
 
 ## Publishing

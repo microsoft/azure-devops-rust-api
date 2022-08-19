@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-//wit.rs
+// wit.rs
 // Work Item example.
 use anyhow::Result;
 use azure_devops_rust_api::wit;
