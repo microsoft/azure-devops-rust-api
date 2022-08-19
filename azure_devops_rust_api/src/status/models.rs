@@ -6,7 +6,7 @@ use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EnterpriseStatus {
     #[serde(flatten)]
     pub status: Status,
@@ -14,34 +14,34 @@ pub struct EnterpriseStatus {
     pub organizations: Vec<OrganizationHealth>,
 }
 impl EnterpriseStatus {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(status: Status) -> Self {
+        Self {
+            status,
+            organizations: Vec::new(),
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Geography {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub id: String,
+    pub name: String,
 }
 impl Geography {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: String, name: String) -> Self {
+        Self { id, name }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GeographyWithHealth {
     #[serde(flatten)]
     pub geography: Geography,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub health: Option<geography_with_health::Health>,
+    pub health: geography_with_health::Health,
 }
 impl GeographyWithHealth {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(geography: Geography, health: geography_with_health::Health) -> Self {
+        Self { geography, health }
     }
 }
 pub mod geography_with_health {
@@ -395,20 +395,22 @@ pub mod service {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceHealth {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub geographies: Vec<GeographyWithHealth>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
 }
 impl ServiceHealth {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(id: String) -> Self {
+        Self {
+            geographies: Vec::new(),
+            id,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceStatus {
     #[serde(flatten)]
     pub status: Status,
@@ -416,8 +418,11 @@ pub struct ServiceStatus {
     pub services: Vec<ServiceHealth>,
 }
 impl ServiceStatus {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(status: Status) -> Self {
+        Self {
+            status,
+            services: Vec::new(),
+        }
     }
 }
 #[doc = ""]
@@ -450,7 +455,7 @@ pub mod service_with_health {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Status {
     #[serde(
         rename = "lastUpdated",
@@ -459,25 +464,25 @@ pub struct Status {
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[doc = ""]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub status: Option<StatusSummary>,
+    pub status: StatusSummary,
 }
 impl Status {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(status: StatusSummary) -> Self {
+        Self {
+            last_updated: None,
+            status,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StatusSummary {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub health: Option<status_summary::Health>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub message: Option<String>,
+    pub health: status_summary::Health,
+    pub message: String,
 }
 impl StatusSummary {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(health: status_summary::Health, message: String) -> Self {
+        Self { health, message }
     }
 }
 pub mod status_summary {

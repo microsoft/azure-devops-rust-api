@@ -12,76 +12,112 @@
 //! - [README.md](https://github.com/microsoft/azure-devops-rust-api/blob/main/azure_devops_rust_api/README.md)
 //! - [examples](https://github.com/microsoft/azure-devops-rust-api/tree/main/azure_devops_rust_api/examples)
 
+/// Accounts
 #[cfg(feature = "accounts")]
 pub mod accounts;
+/// Artifacts
 #[cfg(feature = "artifacts")]
 pub mod artifacts;
+/// Artifacts Package Types
 #[cfg(feature = "artifacts_package_types")]
 pub mod artifacts_package_types;
+/// Audit
 #[cfg(feature = "audit")]
 pub mod audit;
+/// Build
 #[cfg(feature = "build")]
 pub mod build;
+/// Cloud Load Test
 #[cfg(feature = "clt")]
 pub mod clt;
+/// Core
 #[cfg(feature = "core")]
 pub mod core;
+/// Dashboard
 #[cfg(feature = "dashboard")]
 pub mod dashboard;
+/// Distributed tasks
 #[cfg(feature = "distributed_task")]
 pub mod distributed_task;
+/// Extension Management
 #[cfg(feature = "extension_management")]
 pub mod extension_management;
+/// Git
 #[cfg(feature = "git")]
 pub mod git;
+/// Graph
 #[cfg(feature = "graph")]
 pub mod graph;
+/// Service Hooks
 #[cfg(feature = "hooks")]
 pub mod hooks;
+/// Identities
 #[cfg(feature = "ims")]
 pub mod ims;
+/// Member Entitlement Management
 #[cfg(feature = "member_entitlement_management")]
 pub mod member_entitlement_management;
+/// Operations
 #[cfg(feature = "operations")]
 pub mod operations;
+/// Permissions Report
 #[cfg(feature = "permissions_report")]
 pub mod permissions_report;
+/// Pipelines
 #[cfg(feature = "pipelines")]
 pub mod pipelines;
+/// Policy
 #[cfg(feature = "policy")]
 pub mod policy;
+/// Process admin
 #[cfg(feature = "processadmin")]
 pub mod processadmin;
+/// Processes
 #[cfg(feature = "processes")]
 pub mod processes;
+/// Profile
 #[cfg(feature = "profile")]
 pub mod profile;
+/// Release
 #[cfg(feature = "release")]
 pub mod release;
+/// Search
 #[cfg(feature = "search")]
 pub mod search;
+/// Security
 #[cfg(feature = "security")]
 pub mod security;
+/// Service Endpoint (aka Service Connection)
 #[cfg(feature = "service_endpoint")]
 pub mod service_endpoint;
+/// Status
 #[cfg(feature = "status")]
 pub mod status;
+/// Symbol
 #[cfg(feature = "symbol")]
 pub mod symbol;
+/// Tests
 #[cfg(feature = "test")]
 pub mod test;
+/// Test plans
 #[cfg(feature = "test_plan")]
 pub mod test_plan;
+/// Test results
 #[cfg(feature = "test_results")]
 pub mod test_results;
+/// Team Foundation Version Control (TFVC)
 #[cfg(feature = "tfvc")]
 pub mod tfvc;
+/// Token Admin
 #[cfg(feature = "token_admin")]
 pub mod token_admin;
+/// Wiki
 #[cfg(feature = "wiki")]
 pub mod wiki;
+/// Work Item Tracking
 #[cfg(feature = "wit")]
 pub mod wit;
+/// Work (boards, backlogs, iterations, plans)
 #[cfg(feature = "work")]
 pub mod work;
 

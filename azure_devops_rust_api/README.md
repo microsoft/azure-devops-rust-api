@@ -39,21 +39,15 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
         }
     };
 
-    // Get ADO server configuration via environment variables
-    let service_endpoint = env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
+    // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a `git` client
-    let client = git::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    );
+    // Create a git client
+    let git_client = git::ClientBuilder::new(credential).build();
 
-    // Use the client to list all repositories in the specified organization/project
-    let repos = client
+    // Get all repositories in the specified organization/project
+    let repos = git_client
         .repositories_client()
         .list(organization, project)
         .into_future()

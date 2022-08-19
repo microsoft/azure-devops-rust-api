@@ -4,7 +4,6 @@
 // pipelines.rs
 // Pipelines example.
 use anyhow::Result;
-use azure_core::ClientOptions;
 use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::Pipeline;
 use azure_devops_rust_api::Credential;
@@ -13,6 +12,9 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Initialize logging
+    env_logger::init();
+
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
@@ -26,22 +28,15 @@ async fn main() -> Result<()> {
     };
 
     // Get ADO server configuration via environment variables
-    let service_endpoint =
-        env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
     let pipeline_name = env::args().nth(1).expect("Usage: pipelines <name>");
 
-    // Create a `pipelines` client
-    let client = pipelines::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    );
+    // Create a pipelines client
+    let pipelines_client = pipelines::ClientBuilder::new(credential).build();
 
-    // Use the client to list all pipelines in the specified organization/project
-    let pipelines = client
+    // List all pipelines in the specified organization/project
+    let pipelines = pipelines_client
         .pipelines_client()
         .list(&organization, &project)
         .into_future()
@@ -67,7 +62,7 @@ async fn main() -> Result<()> {
 
         // The pipeline struct returned from list is different from that returned by get.
         // Query and display the struct returned by get for comparison.
-        let pipeline = client
+        let pipeline = pipelines_client
             .pipelines_client()
             .get(&organization, &project, pipeline.id)
             .into_future()
@@ -76,7 +71,7 @@ async fn main() -> Result<()> {
         println!("{:#?}", pipeline);
 
         // Use the client to list all runs of the selected pipeline
-        let runs = client
+        let runs = pipelines_client
             .runs_client()
             .list(&organization, &project, pipeline.id)
             .into_future()

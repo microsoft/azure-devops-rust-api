@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Example improvements:
+  - New examples:
+    - wit (work items)
+    - status
+    - client_pipeline_policy
+  - Updated examples to use `ClientBuilder`, eliminating default client arguments
+  - Added logging via `env_logger`
+- Added `Credential::Unauthenticated` to enable unauthenticated operations
+- Removed Option wrappers on selected structs in `wit` and `status`
+
 ## [0.5.0]
 
 ### Breaking changes

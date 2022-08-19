@@ -4,7 +4,6 @@
 // build_list.rs
 // Repository list example.
 use anyhow::Result;
-use azure_core::ClientOptions;
 use azure_devops_rust_api::build;
 use azure_devops_rust_api::Credential;
 use std::env;
@@ -12,7 +11,10 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
+    // Initialize logging
+    env_logger::init();
+
+    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
             println!("Authenticate using PAT provided via $ADO_TOKEN");
@@ -24,27 +26,19 @@ async fn main() -> Result<()> {
         }
     };
 
-    // Get ADO server configuration via environment variables
-    let service_endpoint =
-        env::var("ADO_SERVICE_ENDPOINT").expect("Must define ADO_SERVICE_ENDPOINT");
+    // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a "build" client
-    println!("Create client");
-    let client = build::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    );
+    // Create a build client
+    println!("Create build client");
+    let build_client = build::ClientBuilder::new(credential).build();
 
+    // Get all builds in the specified organization/project
     println!("Get list");
-    // Use the client to list all builds in the specified organization/project
-    let builds = client
+    let builds = build_client
         .builds_client()
         .list(organization, project)
-        .top(1)
         .into_future()
         .await?
         .value;

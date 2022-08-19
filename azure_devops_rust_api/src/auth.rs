@@ -16,11 +16,17 @@ use std::sync::Arc;
 /// - OAuth token credential obtained via the [`azure_identity`](https://crates.io/crates/azure_identity) crate.
 #[derive(Clone)]
 pub enum Credential {
+    Unauthenticated,
     Pat(String),
     TokenCredential(Arc<dyn TokenCredential>),
 }
 
 impl Credential {
+    /// Creates a new `Credential` for unauthenticated operations.
+    pub fn unauthenticated() -> Self {
+        Credential::Unauthenticated
+    }
+
     /// Creates a new `Credential` using the supplied PAT token.
     pub fn from_pat(pat: impl Into<String>) -> Self {
         let pat = pat.into();
@@ -40,17 +46,24 @@ impl Credential {
 
     /// Returns the HTTP authorization header value containing the credential.
     #[allow(dead_code)]
-    pub(crate) async fn http_authorization_header(&self, scopes: &[String]) -> Result<String> {
+    pub(crate) async fn http_authorization_header(
+        &self,
+        scopes: &[String],
+    ) -> Result<Option<String>> {
         match self {
+            Credential::Unauthenticated => Ok(None),
             // PAT tokens are passed using Basic authentication.
-            Credential::Pat(pat) => Ok(format!("Basic {}", base64::encode(format!(":{}", &pat)))),
+            Credential::Pat(pat) => Ok(Some(format!(
+                "Basic {}",
+                base64::encode(format!(":{}", &pat))
+            ))),
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {
                 let token_response = token_credential
                     .get_token(&scopes.join(" "))
                     .await
                     .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
-                Ok(format!("Bearer {}", token_response.token.secret()))
+                Ok(Some(format!("Bearer {}", token_response.token.secret())))
             }
         }
     }

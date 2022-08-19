@@ -4,7 +4,6 @@
 // graph_query.rs
 // Graph example.
 use anyhow::Result;
-use azure_core::ClientOptions;
 use azure_devops_rust_api::graph;
 use azure_devops_rust_api::graph::models::GraphSubjectQuery;
 use azure_devops_rust_api::Credential;
@@ -13,6 +12,9 @@ use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // Initialize logging
+    env_logger::init();
+
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
@@ -25,30 +27,23 @@ async fn main() -> Result<()> {
         }
     };
 
-    // Get ADO server configuration via environment variables
-    // Service endpoint is different from most ADO APIs - it has to have "vssps" prefix, e.g. https://vssps.dev.azure.com/
-    let service_endpoint = "https://vssps.dev.azure.com";
+    // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let name = env::args().nth(1).expect("Usage: graph_query <name>");
 
-    // Create a `graph` client
-    let client = graph::Client::new(
-        service_endpoint,
-        credential,
-        vec![],
-        ClientOptions::default(),
-    )
-    .subject_query_client();
+    // Create a "graph" client
+    let graph_client = graph::ClientBuilder::new(credential).build();
 
-    // Create a query for a `User` with the specified name
+    // Create a query for a user with the specified name
     let query = GraphSubjectQuery {
         query: Some(name.to_string()),
         scope_descriptor: None,
         subject_kind: vec!["User".to_string()],
     };
 
-    // Use the client to query the specified user
-    let subjects = client
+    // Query the specified user
+    let subjects = graph_client
+        .subject_query_client()
         .query(&organization, query)
         .into_future()
         .await?

@@ -48,6 +48,17 @@ const DOC_PATCHES: &[(&str, &str)] = &[
     ),
 ];
 
+const SPEC_DESCRIPTIONS : &[(&str, &str)] = &[
+    (
+        "git.json",
+        "Git repositories"
+    ),
+    (
+        "workItemTracking.json",
+        "Work item tracking"
+    ),
+];
+
 struct Patcher {
     spec_path: PathBuf,
     new_definitions: BTreeMap<String, JsonValue>,
@@ -125,6 +136,7 @@ type PatcherFn = fn(&mut Patcher, &[&str], &JsonValue) -> Option<JsonValue>;
 
 impl Patcher {
     const PATCH_FNS: &'static [PatcherFn] = &[
+        Patcher::patch_spec_descriptions,
         Patcher::patch_json_reference_links,
         Patcher::patch_teamproject_visibility_enum,
         Patcher::patch_team_project_reference_last_update_time,
@@ -240,6 +252,27 @@ impl Patcher {
             }
             _ => None,
         }
+    }
+
+    fn patch_spec_descriptions(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        for (filename, desc) in SPEC_DESCRIPTIONS {
+            if !self.spec_path.ends_with(filename) {
+                continue;
+            }
+
+            match key {
+                ["info", "description"] => {
+                    println!("Patching spec description: {}: {}", filename, desc);
+                    return Some(JsonValue::from(*desc))
+                }
+                _ => ()
+            }
+        }
+        None
     }
 
     fn patch_pipelines_pipeline_configuration(
@@ -772,6 +805,74 @@ impl Patcher {
                 r#"[
                     "id",
                     "uniqueName"
+                ]"#
+            ),
+            (
+                "workItemTracking.json",
+                "Link",
+                r#"[
+                    "attributes",
+                    "rel",
+                    "url"
+                ]"#
+            ),
+            (
+                "workItemTracking.json",
+                "WorkItemTrackingResourceReference",
+                r#"[
+                    "url"
+                ]"#
+            ),
+            (
+                "workItemTracking.json",
+                "WorkItemTrackingResource",
+                r#"[
+                    "_links"
+                ]"#
+            ),
+            (
+                "workItemTracking.json",
+                "WorkItem",
+                r#"[
+                    "id",
+                    "fields"
+                ]"#
+            ),
+            (
+                "status.json",
+                "ServiceHealth",
+                r#"[
+                    "id"
+                ]"#
+            ),
+            (
+                "status.json",
+                "GeographyWithHealth",
+                r#"[
+                    "health"
+                ]"#
+            ),
+            (
+                "status.json",
+                "Geography",
+                r#"[
+                    "id",
+                    "name"
+                ]"#
+            ),
+            (
+                "status.json",
+                "Status",
+                r#"[
+                    "status"
+                ]"#
+            ),
+            (
+                "status.json",
+                "StatusSummary",
+                r#"[
+                    "health",
+                    "message"
                 ]"#
             )
         ];

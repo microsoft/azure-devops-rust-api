@@ -283,7 +283,7 @@ impl AttachmentReference {
     }
 }
 #[doc = "Comment on a Work Item."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Comment {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -352,8 +352,23 @@ pub struct Comment {
     pub work_item_id: Option<i32>,
 }
 impl Comment {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            created_by: None,
+            created_date: None,
+            created_on_behalf_date: None,
+            created_on_behalf_of: None,
+            id: None,
+            is_deleted: None,
+            mentions: Vec::new(),
+            modified_by: None,
+            modified_date: None,
+            reactions: Vec::new(),
+            text: None,
+            version: None,
+            work_item_id: None,
+        }
     }
 }
 #[doc = "Represents a request to create a work item comment."]
@@ -369,7 +384,7 @@ impl CommentCreate {
     }
 }
 #[doc = "Represents a list of work item comments."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CommentList {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -398,12 +413,19 @@ pub struct CommentList {
     pub total_count: Option<i32>,
 }
 impl CommentList {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            comments: Vec::new(),
+            continuation_token: None,
+            count: None,
+            next_page: None,
+            total_count: None,
+        }
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CommentMention {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -429,12 +451,18 @@ pub struct CommentMention {
     pub target_id: Option<String>,
 }
 impl CommentMention {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            artifact_id: None,
+            artifact_type: None,
+            comment_id: None,
+            target_id: None,
+        }
     }
 }
 #[doc = "Contains information about work item comment reaction for a particular reaction type."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CommentReaction {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -456,8 +484,14 @@ pub struct CommentReaction {
     pub type_: Option<comment_reaction::Type>,
 }
 impl CommentReaction {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            comment_id: None,
+            count: None,
+            is_current_user_engaged: None,
+            type_: None,
+        }
     }
 }
 pub mod comment_reaction {
@@ -505,7 +539,7 @@ impl CommentUpdate {
     }
 }
 #[doc = "Represents a specific version of a comment on a work item."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CommentVersion {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -568,8 +602,21 @@ pub struct CommentVersion {
     pub version: Option<i32>,
 }
 impl CommentVersion {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            created_by: None,
+            created_date: None,
+            created_on_behalf_date: None,
+            created_on_behalf_of: None,
+            id: None,
+            is_deleted: None,
+            modified_by: None,
+            modified_date: None,
+            rendered_text: None,
+            text: None,
+            version: None,
+        }
     }
 }
 #[doc = ""]
@@ -707,7 +754,7 @@ impl ExternalPipeline {
     }
 }
 #[doc = "Describes a list of dependent fields for a rule."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FieldDependentRule {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -720,8 +767,11 @@ pub struct FieldDependentRule {
     pub dependent_fields: Vec<WorkItemFieldReference>,
 }
 impl FieldDependentRule {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            dependent_fields: Vec::new(),
+        }
     }
 }
 #[doc = ""]
@@ -901,21 +951,22 @@ pub mod json_patch_operation {
     }
 }
 #[doc = "Link description."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Link {
     #[doc = "Collection of link attributes."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub attributes: Option<serde_json::Value>,
+    pub attributes: serde_json::Value,
     #[doc = "Relation type."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub rel: Option<String>,
+    pub rel: String,
     #[doc = "Link url."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl Link {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(attributes: serde_json::Value, rel: String, url: String) -> Self {
+        Self {
+            attributes,
+            rel,
+            url,
+        }
     }
 }
 #[doc = ""]
@@ -1062,7 +1113,7 @@ pub mod query_batch_get_request {
     }
 }
 #[doc = "Represents an item in the work item query hierarchy. This can be either a query or a folder."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QueryHierarchyItem {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1191,8 +1242,35 @@ pub struct QueryHierarchyItem {
     pub wiql: Option<String>,
 }
 impl QueryHierarchyItem {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            children: Vec::new(),
+            clauses: None,
+            columns: Vec::new(),
+            created_by: None,
+            created_date: None,
+            filter_options: None,
+            has_children: None,
+            id: None,
+            is_deleted: None,
+            is_folder: None,
+            is_invalid_syntax: None,
+            is_public: None,
+            last_executed_by: None,
+            last_executed_date: None,
+            last_modified_by: None,
+            last_modified_date: None,
+            link_clauses: None,
+            name: None,
+            path: None,
+            query_recursion_option: None,
+            query_type: None,
+            sort_columns: Vec::new(),
+            source_clauses: None,
+            target_clauses: None,
+            wiql: None,
+        }
     }
 }
 pub mod query_hierarchy_item {
@@ -1510,7 +1588,7 @@ impl WorkArtifactLinkList {
     }
 }
 #[doc = "Describes a work item."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItem {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1522,11 +1600,9 @@ pub struct WorkItem {
     )]
     pub comment_version_ref: Option<WorkItemCommentVersionRef>,
     #[doc = "Map of field and values for the work item."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub fields: Option<serde_json::Value>,
+    pub fields: serde_json::Value,
     #[doc = "The work item ID."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<i32>,
+    pub id: i32,
     #[doc = "Relations of the work item."]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub relations: Vec<WorkItemRelation>,
@@ -1535,8 +1611,19 @@ pub struct WorkItem {
     pub rev: Option<i32>,
 }
 impl WorkItem {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        work_item_tracking_resource: WorkItemTrackingResource,
+        fields: serde_json::Value,
+        id: i32,
+    ) -> Self {
+        Self {
+            work_item_tracking_resource,
+            comment_version_ref: None,
+            fields,
+            id,
+            relations: Vec::new(),
+            rev: None,
+        }
     }
 }
 #[doc = "Describes a request to get a set of work items"]
@@ -1593,7 +1680,7 @@ pub mod work_item_batch_get_request {
     }
 }
 #[doc = "Defines a classification node for work item tracking."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemClassificationNode {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1631,8 +1718,18 @@ pub struct WorkItemClassificationNode {
     pub structure_type: Option<work_item_classification_node::StructureType>,
 }
 impl WorkItemClassificationNode {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            attributes: None,
+            children: Vec::new(),
+            has_children: None,
+            id: None,
+            identifier: None,
+            name: None,
+            path: None,
+            structure_type: None,
+        }
     }
 }
 pub mod work_item_classification_node {
@@ -1660,7 +1757,7 @@ impl WorkItemClassificationNodeList {
     }
 }
 #[doc = "Comment on Work Item"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemComment {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1682,12 +1779,18 @@ pub struct WorkItemComment {
     pub text: Option<String>,
 }
 impl WorkItemComment {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            revised_by: None,
+            revised_date: None,
+            revision: None,
+            text: None,
+        }
     }
 }
 #[doc = "Represents the reference to a specific version of a comment on a Work Item."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemCommentVersionRef {
     #[serde(flatten)]
     pub work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
@@ -1712,12 +1815,19 @@ pub struct WorkItemCommentVersionRef {
     pub version: Option<i32>,
 }
 impl WorkItemCommentVersionRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource_reference: WorkItemTrackingResourceReference) -> Self {
+        Self {
+            work_item_tracking_resource_reference,
+            comment_id: None,
+            created_in_revision: None,
+            is_deleted: None,
+            text: None,
+            version: None,
+        }
     }
 }
 #[doc = "Collection of comments."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemComments {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1743,8 +1853,14 @@ pub struct WorkItemComments {
     pub total_count: Option<i32>,
 }
 impl WorkItemComments {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            comments: Vec::new(),
+            count: None,
+            from_revision_count: None,
+            total_count: None,
+        }
     }
 }
 #[doc = "Full deleted work item object. Includes the work item itself."]
@@ -1855,7 +1971,7 @@ impl WorkItemDeleteUpdate {
     }
 }
 #[doc = "Describes a field on a work item and it's properties specific to that work item type."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemField {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -1931,8 +2047,24 @@ pub struct WorkItemField {
     pub usage: Option<work_item_field::Usage>,
 }
 impl WorkItemField {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            can_sort_by: None,
+            description: None,
+            is_deleted: None,
+            is_identity: None,
+            is_picklist: None,
+            is_picklist_suggested: None,
+            is_queryable: None,
+            name: None,
+            picklist_id: None,
+            read_only: None,
+            reference_name: None,
+            supported_operations: Vec::new(),
+            type_: None,
+            usage: None,
+        }
     }
 }
 pub mod work_item_field {
@@ -2054,7 +2186,7 @@ impl WorkItemFieldUpdate {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemHistory {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2073,8 +2205,14 @@ pub struct WorkItemHistory {
     pub value: Option<String>,
 }
 impl WorkItemHistory {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            rev: None,
+            revised_by: None,
+            revised_date: None,
+            value: None,
+        }
     }
 }
 #[doc = "Reference to a work item icon."]
@@ -2319,18 +2457,18 @@ impl WorkItemReference {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemRelation {
     #[serde(flatten)]
     pub link: Link,
 }
 impl WorkItemRelation {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(link: Link) -> Self {
+        Self { link }
     }
 }
 #[doc = "Represents the work item type relation type."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemRelationType {
     #[serde(flatten)]
     pub work_item_tracking_reference: WorkItemTrackingReference,
@@ -2339,8 +2477,11 @@ pub struct WorkItemRelationType {
     pub attributes: Option<serde_json::Value>,
 }
 impl WorkItemRelationType {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_reference: WorkItemTrackingReference) -> Self {
+        Self {
+            work_item_tracking_reference,
+            attributes: None,
+        }
     }
 }
 #[doc = ""]
@@ -2449,7 +2590,7 @@ impl WorkItemTagDefinitionList {
     }
 }
 #[doc = "Describes a work item template."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTemplate {
     #[serde(flatten)]
     pub work_item_template_reference: WorkItemTemplateReference,
@@ -2458,12 +2599,15 @@ pub struct WorkItemTemplate {
     pub fields: Option<serde_json::Value>,
 }
 impl WorkItemTemplate {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_template_reference: WorkItemTemplateReference) -> Self {
+        Self {
+            work_item_template_reference,
+            fields: None,
+        }
     }
 }
 #[doc = "Describes a shallow reference to a work item template."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTemplateReference {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2485,8 +2629,14 @@ pub struct WorkItemTemplateReference {
     pub work_item_type_name: Option<String>,
 }
 impl WorkItemTemplateReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            description: None,
+            id: None,
+            name: None,
+            work_item_type_name: None,
+        }
     }
 }
 #[doc = ""]
@@ -2503,7 +2653,7 @@ impl WorkItemTemplateReferenceList {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTrackingReference {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2519,37 +2669,46 @@ pub struct WorkItemTrackingReference {
     pub reference_name: Option<String>,
 }
 impl WorkItemTrackingReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            name: None,
+            reference_name: None,
+        }
     }
 }
 #[doc = "Base class for WIT REST resources."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTrackingResource {
     #[serde(flatten)]
     pub work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
 }
 impl WorkItemTrackingResource {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
+        links: serde_json::Value,
+    ) -> Self {
+        Self {
+            work_item_tracking_resource_reference,
+            links,
+        }
     }
 }
 #[doc = "Base class for work item tracking resource references."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTrackingResourceReference {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl WorkItemTrackingResourceReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(url: String) -> Self {
+        Self { url }
     }
 }
 #[doc = "Describes a work item type."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemType {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2600,12 +2759,25 @@ pub struct WorkItemType {
     pub xml_form: Option<String>,
 }
 impl WorkItemType {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            color: None,
+            description: None,
+            field_instances: Vec::new(),
+            fields: Vec::new(),
+            icon: None,
+            is_disabled: None,
+            name: None,
+            reference_name: None,
+            states: Vec::new(),
+            transitions: None,
+            xml_form: None,
+        }
     }
 }
 #[doc = "Describes a work item type category."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTypeCategory {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2635,8 +2807,14 @@ pub struct WorkItemTypeCategory {
     pub work_item_types: Vec<WorkItemTypeReference>,
 }
 impl WorkItemTypeCategory {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            default_work_item_type: None,
+            name: None,
+            reference_name: None,
+            work_item_types: Vec::new(),
+        }
     }
 }
 #[doc = ""]
@@ -2809,7 +2987,7 @@ impl WorkItemTypeList {
     }
 }
 #[doc = "Reference to a work item type."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTypeReference {
     #[serde(flatten)]
     pub work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
@@ -2818,8 +2996,11 @@ pub struct WorkItemTypeReference {
     pub name: Option<String>,
 }
 impl WorkItemTypeReference {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource_reference: WorkItemTrackingResourceReference) -> Self {
+        Self {
+            work_item_tracking_resource_reference,
+            name: None,
+        }
     }
 }
 #[doc = "State colors for a work item type"]
@@ -2902,7 +3083,7 @@ pub mod work_item_type_template_update_model {
     }
 }
 #[doc = "Describes an update to a work item."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemUpdate {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
@@ -2937,8 +3118,17 @@ pub struct WorkItemUpdate {
     pub work_item_id: Option<i32>,
 }
 impl WorkItemUpdate {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            fields: None,
+            id: None,
+            relations: None,
+            rev: None,
+            revised_by: None,
+            revised_date: None,
+            work_item_id: None,
+        }
     }
 }
 #[doc = ""]
