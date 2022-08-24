@@ -21,7 +21,8 @@ The crate has many features/modules, but the general approach is similar for all
 Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
 
 ```rust
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
+    // Get authentication credential either from a PAT ("ADO_TOKEN")
+    // or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
         Ok(token) => {
             println!("Authenticate using PAT provided via $ADO_TOKEN");
@@ -29,13 +30,17 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
         }
         Err(_) => {
             println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential {}))
+            Credential::from_token_credential(
+                Arc::new(azure_identity::AzureCliCredential {})
+            )
         }
     };
 
     // Get ADO configuration via environment variables
-    let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
-    let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
+    let organization = env::var("ADO_ORGANIZATION")
+        .expect("Must define ADO_ORGANIZATION");
+    let project = env::var("ADO_PROJECT")
+        .expect("Must define ADO_PROJECT");
 
     // Create a git client
     let git_client = git::ClientBuilder::new(credential).build();
@@ -74,7 +79,6 @@ See [examples](examples/) directory.
 Define environment variables:
 
 ```sh
-export ADO_SERVICE_ENDPOINT=https://dev.azure.com
 export ADO_ORGANIZATION=<organization-name>
 export ADO_PROJECT=<project-name>
 ```
