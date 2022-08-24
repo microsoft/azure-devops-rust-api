@@ -55,7 +55,7 @@ pub struct AccessTokenResult {
     #[serde(
         rename = "validTo",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
 }

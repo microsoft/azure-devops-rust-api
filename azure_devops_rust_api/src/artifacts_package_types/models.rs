@@ -144,7 +144,7 @@ pub struct MavenPackage {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "The class to represent a collection of REST reference links."]
@@ -201,7 +201,7 @@ pub struct MavenPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Group Id of the package."]
@@ -644,7 +644,7 @@ pub struct NpmPackageVersionDeletionState {
     #[serde(
         rename = "unpublishedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub unpublished_date: Option<time::OffsetDateTime>,
     #[doc = "Version of the package."]
@@ -712,7 +712,7 @@ pub struct NuGetPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the package."]
@@ -784,7 +784,7 @@ pub struct Package {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Package Id."]
@@ -797,7 +797,7 @@ pub struct Package {
     #[serde(
         rename = "permanentlyDeletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub permanently_deleted_date: Option<time::OffsetDateTime>,
     #[doc = "The history of upstream sources for this package. The first source in the list is the immediate source from which this package was saved."]
@@ -860,7 +860,7 @@ pub struct PyPiPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the package."]
@@ -950,7 +950,7 @@ pub struct UPackPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the package."]

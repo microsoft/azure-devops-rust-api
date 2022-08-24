@@ -451,8 +451,8 @@ pub struct TeamProjectReference {
     #[doc = "Project identifier."]
     pub id: String,
     #[doc = "Project last update time."]
-    #[serde(rename = "lastUpdateTime")]
-    pub last_update_time: String,
+    #[serde(rename = "lastUpdateTime", with = "crate::date_time::rfc3339")]
+    pub last_update_time: time::OffsetDateTime,
     #[doc = "Project name."]
     pub name: String,
     #[doc = "Project revision."]
@@ -469,7 +469,7 @@ pub struct TeamProjectReference {
 impl TeamProjectReference {
     pub fn new(
         id: String,
-        last_update_time: String,
+        last_update_time: time::OffsetDateTime,
         name: String,
         state: team_project_reference::State,
         visibility: team_project_reference::Visibility,
@@ -595,7 +595,7 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Branch description."]
@@ -759,7 +759,7 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "URL to retrieve the item."]
@@ -866,7 +866,7 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
     #[doc = "Greater than 0 if item is deleted."]
@@ -1064,7 +1064,7 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "Label name."]
@@ -1278,7 +1278,7 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Shelveset Id."]

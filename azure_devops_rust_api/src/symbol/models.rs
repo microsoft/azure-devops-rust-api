@@ -211,7 +211,7 @@ pub struct Request {
     #[serde(
         rename = "expirationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub expiration_date: Option<time::OffsetDateTime>,
     #[doc = "Indicates if request should be chunk dedup"]
@@ -257,7 +257,7 @@ pub struct ResourceBase {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "An identifier for this item. Optional."]

@@ -66,7 +66,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "endTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub end_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -84,7 +84,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "nextUpdateTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub next_update_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -92,7 +92,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -175,7 +175,7 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "creationDateTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -193,7 +193,7 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "lastUpdatedDateTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date_time: Option<time::OffsetDateTime>,
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
@@ -234,7 +234,7 @@ pub struct LiveSiteEventLogAttachment {
     #[serde(
         rename = "creationDateTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
     #[serde(
@@ -460,7 +460,7 @@ pub struct Status {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[doc = ""]

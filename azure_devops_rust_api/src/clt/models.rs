@@ -15,7 +15,7 @@ pub struct AgentGroup {
     #[serde(
         rename = "creationTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_time: Option<time::OffsetDateTime>,
     #[doc = "Id of the agent group"]
@@ -301,7 +301,7 @@ pub struct CounterInstanceSamples {
     #[serde(
         rename = "nextRefreshTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub next_refresh_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -344,7 +344,7 @@ pub struct CounterSample {
     #[serde(
         rename = "intervalEndDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub interval_end_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -438,7 +438,7 @@ pub struct Diagnostics {
     #[serde(
         rename = "lastModifiedTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_time: Option<time::OffsetDateTime>,
     #[serde(
@@ -477,7 +477,7 @@ pub struct ErrorDetails {
     #[serde(
         rename = "lastErrorDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_error_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -1130,7 +1130,7 @@ pub struct TestDefinitionBasic {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1145,7 +1145,7 @@ pub struct TestDefinitionBasic {
     #[serde(
         rename = "lastModifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -1201,7 +1201,7 @@ pub struct TestDrop {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Identifies the type of drop"]
@@ -1377,21 +1377,21 @@ pub struct TestRun {
     #[serde(
         rename = "executionFinishedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub execution_finished_date: Option<time::OffsetDateTime>,
     #[doc = "Gets the time when the test run warmup finished(if warmup was specified) and load test started"]
     #[serde(
         rename = "executionStartedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub execution_started_date: Option<time::OffsetDateTime>,
     #[doc = "Gets the time when the test run was queued"]
     #[serde(
         rename = "queuedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queued_date: Option<time::OffsetDateTime>,
     #[doc = "Retention state of the run"]
@@ -1421,7 +1421,7 @@ pub struct TestRun {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1451,7 +1451,7 @@ pub struct TestRun {
     #[serde(
         rename = "warmUpStartedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub warm_up_started_date: Option<time::OffsetDateTime>,
     #[doc = "The uri to the vso detailed result."]
@@ -1520,7 +1520,7 @@ pub struct TestRunAbortMessage {
     #[serde(
         rename = "loggedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub logged_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1541,7 +1541,7 @@ pub struct TestRunBasic {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1551,14 +1551,14 @@ pub struct TestRunBasic {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Gets the finish time of the test run"]
     #[serde(
         rename = "finishedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finished_date: Option<time::OffsetDateTime>,
     #[doc = "Gets the unique identifier for the test run definition."]
@@ -1739,7 +1739,7 @@ pub struct TestRunMessage {
     #[serde(
         rename = "loggedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub logged_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2061,7 +2061,7 @@ pub struct WebApiTestMachine {
     #[serde(
         rename = "lastHeartBeat",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_heart_beat: Option<time::OffsetDateTime>,
     #[serde(

@@ -151,7 +151,7 @@ pub struct Attachment {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "The description of the attachment."]
@@ -330,7 +330,7 @@ pub struct ChangeList {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -348,7 +348,7 @@ pub struct ChangeList {
     #[serde(
         rename = "sortDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub sort_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -469,14 +469,14 @@ pub struct Comment {
     #[serde(
         rename = "lastContentUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_content_updated_date: Option<time::OffsetDateTime>,
     #[doc = "The date the comment was last updated."]
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "The ID of the parent comment. This is used for replies."]
@@ -490,7 +490,7 @@ pub struct Comment {
     #[serde(
         rename = "publishedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
     #[doc = "A list of the users who have liked this comment."]
@@ -590,7 +590,7 @@ pub struct CommentThread {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
@@ -600,7 +600,7 @@ pub struct CommentThread {
     #[serde(
         rename = "publishedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
     #[doc = "The status of the comment thread."]
@@ -1486,7 +1486,7 @@ pub struct GitConflict {
     #[serde(
         rename = "resolvedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub resolved_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2050,7 +2050,7 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -2059,7 +2059,7 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2667,7 +2667,7 @@ pub struct GitLastChangeTreeItems {
     #[serde(
         rename = "lastExploredTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_explored_time: Option<time::OffsetDateTime>,
 }
@@ -2934,7 +2934,7 @@ pub struct GitPullRequest {
     #[serde(
         rename = "closedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub closed_date: Option<time::OffsetDateTime>,
     #[doc = "The code review ID of the pull request. Used internally."]
@@ -2958,14 +2958,14 @@ pub struct GitPullRequest {
     #[serde(
         rename = "completionQueueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completion_queue_time: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(rename = "createdBy")]
     pub created_by: IdentityRef,
     #[doc = "The date when the pull request was created."]
-    #[serde(rename = "creationDate", with = "azure_core::date::rfc3339")]
+    #[serde(rename = "creationDate", with = "crate::date_time::rfc3339")]
     pub creation_date: time::OffsetDateTime,
     #[doc = "The description of the pull request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3369,7 +3369,7 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Description of the pull request iteration."]
@@ -3423,7 +3423,7 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
 }
@@ -3754,7 +3754,7 @@ pub struct GitPushRef {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(rename = "pushedBy", default, skip_serializing_if = "Option::is_none")]
@@ -3775,7 +3775,7 @@ pub struct GitPushSearchCriteria {
     #[serde(
         rename = "fromDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub from_date: Option<time::OffsetDateTime>,
     #[doc = "Whether to include the _links field on the shallow references"]
@@ -3795,7 +3795,7 @@ pub struct GitPushSearchCriteria {
     pub pusher_id: Option<String>,
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
     pub ref_name: Option<String>,
-    #[serde(rename = "toDate", default, with = "azure_core::date::rfc3339::option")]
+    #[serde(rename = "toDate", default, with = "crate::date_time::rfc3339::option")]
     pub to_date: Option<time::OffsetDateTime>,
 }
 impl GitPushSearchCriteria {
@@ -4605,7 +4605,7 @@ pub struct GitStatus {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "Status description. Typically describes current state of the status."]
@@ -4624,7 +4624,7 @@ pub struct GitStatus {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
 }
@@ -5009,7 +5009,7 @@ impl GitTreeRef {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitUserDate {
     #[doc = "Date of the Git operation."]
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Email address of the user performing the Git operation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5373,7 +5373,7 @@ pub struct IncludedGitCommit {
     #[serde(
         rename = "commitTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub commit_time: Option<time::OffsetDateTime>,
     #[serde(
@@ -5653,7 +5653,7 @@ pub struct PolicyConfiguration {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Indicates whether the policy is blocking."]
@@ -6103,8 +6103,8 @@ pub struct TeamProjectReference {
     #[doc = "Project identifier."]
     pub id: String,
     #[doc = "Project last update time."]
-    #[serde(rename = "lastUpdateTime")]
-    pub last_update_time: String,
+    #[serde(rename = "lastUpdateTime", with = "crate::date_time::rfc3339")]
+    pub last_update_time: time::OffsetDateTime,
     #[doc = "Project name."]
     pub name: String,
     #[doc = "Project revision."]
@@ -6121,7 +6121,7 @@ pub struct TeamProjectReference {
 impl TeamProjectReference {
     pub fn new(
         id: String,
-        last_update_time: String,
+        last_update_time: time::OffsetDateTime,
         name: String,
         state: team_project_reference::State,
         visibility: team_project_reference::Visibility,
@@ -6234,7 +6234,7 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Branch description."]
@@ -6372,7 +6372,7 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "URL to retrieve the item."]
@@ -6498,7 +6498,7 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
     #[doc = "Greater than 0 if item is deleted."]
@@ -6701,7 +6701,7 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "Label name."]
@@ -6902,7 +6902,7 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Shelveset Id."]

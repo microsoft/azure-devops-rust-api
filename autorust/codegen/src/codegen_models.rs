@@ -635,13 +635,13 @@ fn create_struct(cg: &CodeGen, schema: &SchemaGen, struct_name: &str, pageable: 
         #[allow(clippy::collapsible_else_if)]
         if is_required {
             if type_name.is_date_time() {
-                serde_attrs.push(quote! { with = "azure_core::date::rfc3339"});
+                serde_attrs.push(quote! { with = "crate::date_time::rfc3339"});
             } else if type_name.is_date_time_rfc1123() {
                 serde_attrs.push(quote! { with = "azure_core::date::rfc1123"});
             }
         } else {
             if type_name.is_date_time() {
-                serde_attrs.push(quote! { default, with = "azure_core::date::rfc3339::option"});
+                serde_attrs.push(quote! { default, with = "crate::date_time::rfc3339::option"});
             } else if type_name.is_date_time_rfc1123() {
                 serde_attrs.push(quote! { default, with = "azure_core::date::rfc1123::option"});
             } else if type_name.is_vec() {

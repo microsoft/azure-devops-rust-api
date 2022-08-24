@@ -48,15 +48,9 @@ const DOC_PATCHES: &[(&str, &str)] = &[
     ),
 ];
 
-const SPEC_DESCRIPTIONS : &[(&str, &str)] = &[
-    (
-        "git.json",
-        "Git repositories"
-    ),
-    (
-        "workItemTracking.json",
-        "Work item tracking"
-    ),
+const SPEC_DESCRIPTIONS: &[(&str, &str)] = &[
+    ("git.json", "Git repositories"),
+    ("workItemTracking.json", "Work item tracking"),
 ];
 
 struct Patcher {
@@ -139,7 +133,6 @@ impl Patcher {
         Patcher::patch_spec_descriptions,
         Patcher::patch_json_reference_links,
         Patcher::patch_teamproject_visibility_enum,
-        Patcher::patch_team_project_reference_last_update_time,
         Patcher::patch_array_array_schema,
         Patcher::patch_response_schema,
         Patcher::patch_git_reference_links,
@@ -159,11 +152,7 @@ impl Patcher {
         }
     }
 
-    fn patch_json_reference_links(
-        &mut self,
-        key: &[&str],
-        value: &JsonValue,
-    ) -> Option<JsonValue> {
+    fn patch_json_reference_links(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
         match key {
             ["definitions", schema_name, "properties", "_links"] => {
                 if *value != json::object! { "$ref": "#/definitions/ReferenceLinks" } {
@@ -172,8 +161,7 @@ impl Patcher {
                         "description": "Links",
                         "type": "object",
                     })
-                }
-                else {
+                } else {
                     println!("Skip replacing _links definition for {}", schema_name);
                     None
                 }
@@ -254,11 +242,7 @@ impl Patcher {
         }
     }
 
-    fn patch_spec_descriptions(
-        &mut self,
-        key: &[&str],
-        _value: &JsonValue,
-    ) -> Option<JsonValue> {
+    fn patch_spec_descriptions(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
         for (filename, desc) in SPEC_DESCRIPTIONS {
             if !self.spec_path.ends_with(filename) {
                 continue;
@@ -267,9 +251,9 @@ impl Patcher {
             match key {
                 ["info", "description"] => {
                     println!("Patching spec description: {}: {}", filename, desc);
-                    return Some(JsonValue::from(*desc))
+                    return Some(JsonValue::from(*desc));
                 }
-                _ => ()
+                _ => (),
             }
         }
         None
@@ -371,30 +355,6 @@ impl Patcher {
         }
     }
 
-    // TeamProjectReference lastUpdateTime claims to be a "date-time" format,
-    // which according to the OpenApi spec should be RFC3339 compliant.
-    // However, the lastUpdateTime sometimes contains "0000-01-01T00:00:00",
-    // which is non-compliant because it does not include any timezone
-    // (e.g. a terminating "Z").
-    //
-    // We patch it here to be a string to avoid parsing errors.
-    fn patch_team_project_reference_last_update_time(
-        &mut self,
-        key: &[&str],
-        _value: &JsonValue,
-    ) -> Option<JsonValue> {
-        match key {
-            ["definitions", "TeamProjectReference", "properties", "lastUpdateTime"] => {
-                println!("Replace TeamProjectReference lastUpdateTime field");
-                Some(json::object! {
-                    "description": "Project last update time.",
-                    "type": "string"
-                })
-            }
-            _ => None,
-        }
-    }
-
     fn patch_git_reference_links(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
         // Only applies to git specs
         if !self.spec_path.ends_with("git.json") {
@@ -440,7 +400,11 @@ impl Patcher {
         }
     }
 
-    fn patch_build_reference_links(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+    fn patch_build_reference_links(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
         // Only applies to build specs
         if !self.spec_path.ends_with("build.json") {
             return None;
@@ -714,7 +678,7 @@ impl Patcher {
                     "uri",
                     "url",
                     "validationResults"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -731,7 +695,7 @@ impl Patcher {
                     "type",
                     "uri",
                     "url"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -740,7 +704,7 @@ impl Patcher {
                     "id",
                     "type",
                     "url"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -752,7 +716,7 @@ impl Patcher {
                     "id",
                     "pool",
                     "name"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -762,7 +726,7 @@ impl Patcher {
                 r#"[
                     "id",
                     "name"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -771,7 +735,7 @@ impl Patcher {
                 //   orchestrationType
                 r#"[
                     "planId"
-                ]"#
+                ]"#,
             ),
             (
                 "build.json",
@@ -787,7 +751,7 @@ impl Patcher {
                 r#"[
                     "id",
                     "type"
-                ]"#
+                ]"#,
             ),
             (
                 "*",
@@ -797,7 +761,7 @@ impl Patcher {
                     "descriptor",
                     "displayName",
                     "url"
-                ]"#
+                ]"#,
             ),
             (
                 "*",
@@ -805,7 +769,7 @@ impl Patcher {
                 r#"[
                     "id",
                     "uniqueName"
-                ]"#
+                ]"#,
             ),
             (
                 "workItemTracking.json",
@@ -814,21 +778,21 @@ impl Patcher {
                     "attributes",
                     "rel",
                     "url"
-                ]"#
+                ]"#,
             ),
             (
                 "workItemTracking.json",
                 "WorkItemTrackingResourceReference",
                 r#"[
                     "url"
-                ]"#
+                ]"#,
             ),
             (
                 "workItemTracking.json",
                 "WorkItemTrackingResource",
                 r#"[
                     "_links"
-                ]"#
+                ]"#,
             ),
             (
                 "workItemTracking.json",
@@ -836,21 +800,21 @@ impl Patcher {
                 r#"[
                     "id",
                     "fields"
-                ]"#
+                ]"#,
             ),
             (
                 "status.json",
                 "ServiceHealth",
                 r#"[
                     "id"
-                ]"#
+                ]"#,
             ),
             (
                 "status.json",
                 "GeographyWithHealth",
                 r#"[
                     "health"
-                ]"#
+                ]"#,
             ),
             (
                 "status.json",
@@ -858,14 +822,14 @@ impl Patcher {
                 r#"[
                     "id",
                     "name"
-                ]"#
+                ]"#,
             ),
             (
                 "status.json",
                 "Status",
                 r#"[
                     "status"
-                ]"#
+                ]"#,
             ),
             (
                 "status.json",
@@ -873,14 +837,15 @@ impl Patcher {
                 r#"[
                     "health",
                     "message"
-                ]"#
-            )
+                ]"#,
+            ),
         ];
 
         match key {
             ["definitions", def] => {
                 for (filename, def_name, required_fields) in patches.iter() {
-                    if (*filename == "*" || self.spec_path.ends_with(filename)) && (def == def_name) {
+                    if (*filename == "*" || self.spec_path.ends_with(filename)) && (def == def_name)
+                    {
                         println!("Add required values to {} definition", def_name);
                         let mut value = value.to_owned();
                         value["required"] = json::parse(required_fields).unwrap();

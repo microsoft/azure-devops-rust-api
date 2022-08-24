@@ -74,7 +74,7 @@ pub struct Feed {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "A description for the feed.  Descriptions must not exceed 255 characters."]
@@ -91,7 +91,7 @@ pub struct Feed {
     #[serde(
         rename = "permanentDeletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub permanent_deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Explicit permissions for the feed."]
@@ -101,14 +101,14 @@ pub struct Feed {
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
     #[doc = "If set, time that the UpstreamEnabled property was changed. Will be null if UpstreamEnabled was never changed after Feed creation."]
     #[serde(
         rename = "upstreamEnabledChangedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub upstream_enabled_changed_date: Option<time::OffsetDateTime>,
     #[doc = "The URL of the base feed in GUID form."]
@@ -709,7 +709,7 @@ pub struct MinimalPackageVersion {
     #[serde(
         rename = "publishDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub publish_date: Option<time::OffsetDateTime>,
     #[doc = "Internal storage id."]
@@ -941,7 +941,7 @@ pub struct PackageMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
     #[doc = "Package id."]
@@ -993,7 +993,7 @@ pub struct PackageVersion {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "List of dependencies for this package version."]
@@ -1114,7 +1114,7 @@ pub struct PackageVersionMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
     #[doc = "Package id."]
@@ -1262,7 +1262,7 @@ pub struct RecycleBinPackageVersion {
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
 }
@@ -1363,7 +1363,7 @@ pub struct UpstreamSource {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Locator for connecting to the upstream source in a user friendly format, that may potentially change over time"]
