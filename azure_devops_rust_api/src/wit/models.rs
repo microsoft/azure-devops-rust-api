@@ -84,7 +84,7 @@ pub struct AccountRecentActivityWorkItemModelBase {
     #[serde(
         rename = "activityDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub activity_date: Option<time::OffsetDateTime>,
     #[doc = "Type of the activity"]
@@ -98,7 +98,7 @@ pub struct AccountRecentActivityWorkItemModelBase {
     #[serde(
         rename = "changedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[doc = "Work Item Id"]
@@ -169,7 +169,7 @@ pub struct AccountRecentMentionWorkItemModel {
     #[serde(
         rename = "mentionedDateField",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub mentioned_date_field: Option<time::OffsetDateTime>,
     #[doc = "State of the work item"]
@@ -210,7 +210,7 @@ pub struct AccountWorkWorkItemModel {
     #[serde(
         rename = "changedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -294,14 +294,14 @@ pub struct Comment {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Effective Date/time value for adding the comment. Can be optionally different from CreatedDate."]
     #[serde(
         rename = "createdOnBehalfDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -331,7 +331,7 @@ pub struct Comment {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "The reactions of the comment."]
@@ -550,14 +550,14 @@ pub struct CommentVersion {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Effective Date/time value for adding the comment. Can be optionally different from CreatedDate."]
     #[serde(
         rename = "createdOnBehalfDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -584,7 +584,7 @@ pub struct CommentVersion {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "The rendered content of the comment at this version."]
@@ -704,7 +704,7 @@ pub struct ExternalDeployment {
     #[serde(
         rename = "statusDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub status_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1133,7 +1133,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "The link query mode."]
@@ -1180,7 +1180,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "lastExecutedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed_date: Option<time::OffsetDateTime>,
     #[doc = "Describes a reference to an identity."]
@@ -1194,7 +1194,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "lastModifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_date: Option<time::OffsetDateTime>,
     #[doc = "Represents a clause in a work item query. This shows the structure of a work item query."]
@@ -1633,7 +1633,7 @@ pub struct WorkItemBatchGetRequest {
     #[serde(rename = "$expand", default, skip_serializing_if = "Option::is_none")]
     pub expand: Option<work_item_batch_get_request::Expand>,
     #[doc = "AsOf UTC date time string"]
-    #[serde(rename = "asOf", default, with = "azure_core::date::rfc3339::option")]
+    #[serde(rename = "asOf", default, with = "crate::date_time::rfc3339::option")]
     pub as_of: Option<time::OffsetDateTime>,
     #[doc = "The flag to control error policy in a bulk get work items request. Possible options are {Fail, Omit}."]
     #[serde(
@@ -1768,7 +1768,7 @@ pub struct WorkItemComment {
     #[serde(
         rename = "revisedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,
     #[doc = "The work item revision number."]
@@ -2198,7 +2198,7 @@ pub struct WorkItemHistory {
     #[serde(
         rename = "revisedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2371,7 +2371,7 @@ pub mod work_item_query_clause {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemQueryResult {
     #[doc = "The date the query was run in the context of."]
-    #[serde(rename = "asOf", default, with = "azure_core::date::rfc3339::option")]
+    #[serde(rename = "asOf", default, with = "crate::date_time::rfc3339::option")]
     pub as_of: Option<time::OffsetDateTime>,
     #[doc = "The columns of the query."]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -3106,7 +3106,7 @@ pub struct WorkItemUpdate {
     #[serde(
         rename = "revisedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,
     #[doc = "The work item ID."]

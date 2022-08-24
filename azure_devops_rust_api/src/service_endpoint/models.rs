@@ -1101,7 +1101,7 @@ pub struct OAuthConfiguration {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets the type of the endpoint."]
@@ -1125,7 +1125,7 @@ pub struct OAuthConfiguration {
     #[serde(
         rename = "modifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets the name"]
@@ -1474,7 +1474,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "Gets the Id of service endpoint execution data."]
@@ -1493,7 +1493,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
 }

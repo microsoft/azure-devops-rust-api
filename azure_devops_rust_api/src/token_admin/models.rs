@@ -67,13 +67,13 @@ pub struct SessionToken {
     #[serde(
         rename = "validFrom",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub valid_from: Option<time::OffsetDateTime>,
     #[serde(
         rename = "validTo",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
 }
@@ -212,7 +212,7 @@ pub struct TokenAdminRevocationRule {
     #[serde(
         rename = "createdBefore",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_before: Option<time::OffsetDateTime>,
     #[doc = "A string containing a space-delimited list of OAuth scopes. A token matching any one of the scopes will be rejected. For a list of all OAuth scopes supported by Azure DevOps, see: https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes This is a mandatory parameter."]

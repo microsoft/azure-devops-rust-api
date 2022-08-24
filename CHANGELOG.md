@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Implement custom date-time serde module to gracefully handle `0001-01-01T00:00:00`
+
 ## [0.5.1]
 
 ## Breaking changes

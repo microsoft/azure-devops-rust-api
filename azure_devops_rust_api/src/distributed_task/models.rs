@@ -68,7 +68,7 @@ pub struct AgentJobRequestMessage {
     #[serde(
         rename = "lockedUntil",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub locked_until: Option<time::OffsetDateTime>,
     #[serde(rename = "lockToken", default, skip_serializing_if = "Option::is_none")]
@@ -192,7 +192,7 @@ pub struct AzureKeyVaultVariableGroupProviderData {
     #[serde(
         rename = "lastRefreshedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_refreshed_on: Option<time::OffsetDateTime>,
     #[serde(
@@ -222,7 +222,7 @@ pub struct AzureKeyVaultVariableValue {
     pub content_type: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub expires: Option<time::OffsetDateTime>,
 }
 impl AzureKeyVaultVariableValue {
@@ -1113,7 +1113,7 @@ pub struct ElasticNode {
     #[serde(
         rename = "stateChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub state_changed_on: Option<time::OffsetDateTime>,
 }
@@ -1303,7 +1303,7 @@ pub struct ElasticPool {
     #[serde(
         rename = "offlineSince",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub offline_since: Option<time::OffsetDateTime>,
     #[doc = "Operating system type of the nodes in the pool"]
@@ -1424,7 +1424,7 @@ pub struct ElasticPoolLog {
     #[serde(rename = "poolId", default, skip_serializing_if = "Option::is_none")]
     pub pool_id: Option<i32>,
     #[doc = "Datetime that the log occurred"]
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub timestamp: Option<time::OffsetDateTime>,
 }
 impl ElasticPoolLog {
@@ -1616,7 +1616,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "Id of the Environment deployment execution history record"]
@@ -1645,7 +1645,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "queueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = "Request identifier of the Environment deployment execution history record"]
@@ -1689,7 +1689,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
 }
@@ -1740,7 +1740,7 @@ pub struct EnvironmentInstance {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Description of the Environment."]
@@ -1760,7 +1760,7 @@ pub struct EnvironmentInstance {
     #[serde(
         rename = "lastModifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
     #[doc = "Name of the Environment."]
@@ -1827,7 +1827,7 @@ pub struct EnvironmentResource {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1849,7 +1849,7 @@ pub struct EnvironmentResource {
     #[serde(
         rename = "lastModifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1895,7 +1895,7 @@ pub struct EnvironmentResourceDeploymentExecutionRecord {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "Id of the Environment deployment execution history record"]
@@ -1915,7 +1915,7 @@ pub struct EnvironmentResourceDeploymentExecutionRecord {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
 }
@@ -2943,7 +2943,7 @@ pub struct PackageMetadata {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "A direct link to download the package."]
@@ -3212,7 +3212,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "assignTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
     #[doc = "The ID of the check run waiting on this request"]
@@ -3233,7 +3233,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The behavior this request should exhibit in relation to other lock requests"]
@@ -3259,7 +3259,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "queueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = "ID of the request."]
@@ -3412,7 +3412,7 @@ pub struct SecureFile {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3427,7 +3427,7 @@ pub struct SecureFile {
     #[serde(
         rename = "modifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3650,7 +3650,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "Gets the Id of service endpoint execution data."]
@@ -3669,7 +3669,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
 }
@@ -3989,7 +3989,7 @@ pub struct TaskAgent {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "A job request for an agent."]
@@ -4020,7 +4020,7 @@ pub struct TaskAgent {
     #[serde(
         rename = "statusChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub status_changed_on: Option<time::OffsetDateTime>,
     #[doc = "System-defined capabilities supported by this agent's host. Warning: To set capabilities use the PUT method, PUT will completely overwrite existing capabilities."]
@@ -4167,7 +4167,7 @@ pub struct TaskAgentCloudRequest {
     #[serde(
         rename = "agentConnectedTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub agent_connected_time: Option<time::OffsetDateTime>,
     #[doc = "Represents a JSON object."]
@@ -4186,19 +4186,19 @@ pub struct TaskAgentCloudRequest {
     #[serde(
         rename = "provisionedTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub provisioned_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "provisionRequestTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub provision_request_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "releaseRequestTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub release_request_time: Option<time::OffsetDateTime>,
     #[serde(rename = "requestId", default, skip_serializing_if = "Option::is_none")]
@@ -4311,7 +4311,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "assignTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
     #[doc = "Additional data about the request."]
@@ -4327,7 +4327,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The host which triggered this request."]
@@ -4343,7 +4343,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "lockedUntil",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub locked_until: Option<time::OffsetDateTime>,
     #[serde(
@@ -4387,14 +4387,14 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "queueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = "The date/time this request was receieved by an agent."]
     #[serde(
         rename = "receiveTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub receive_time: Option<time::OffsetDateTime>,
     #[doc = "ID of the request."]
@@ -4654,7 +4654,7 @@ pub struct TaskAgentPool {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -4759,7 +4759,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "Id of the maintenance job"]
@@ -4786,7 +4786,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "queueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -4803,7 +4803,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[doc = "Status of the maintenance job"]
@@ -5287,7 +5287,7 @@ pub struct TaskAgentUpdate {
     #[serde(
         rename = "requestTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub request_time: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -5353,7 +5353,7 @@ pub struct TaskAttachment {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[serde(
@@ -5365,7 +5365,7 @@ pub struct TaskAttachment {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5718,7 +5718,7 @@ pub struct TaskGroup {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets as 'true' to indicate as deleted, 'false' otherwise."]
@@ -5735,7 +5735,7 @@ pub struct TaskGroup {
     #[serde(
         rename = "modifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets the owner."]
@@ -5911,7 +5911,7 @@ pub struct TaskGroupRevision {
     #[serde(
         rename = "changedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -6317,7 +6317,7 @@ pub struct TaskLog {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[serde(
@@ -6329,7 +6329,7 @@ pub struct TaskLog {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[serde(rename = "lineCount", default, skip_serializing_if = "Option::is_none")]
@@ -6484,7 +6484,7 @@ pub struct TaskOrchestrationPlan {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -6520,7 +6520,7 @@ pub struct TaskOrchestrationPlan {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6655,7 +6655,7 @@ pub struct TaskOrchestrationQueuedPlan {
     #[serde(
         rename = "assignTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -6679,7 +6679,7 @@ pub struct TaskOrchestrationQueuedPlan {
     #[serde(
         rename = "queueTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[serde(
@@ -6876,7 +6876,7 @@ pub struct Timeline {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -6944,7 +6944,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "finishTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6956,7 +6956,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "lastModified",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6997,7 +6997,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7119,7 +7119,7 @@ pub struct VariableGroup {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets description of the variable group."]
@@ -7142,7 +7142,7 @@ pub struct VariableGroup {
     #[serde(
         rename = "modifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets name of the variable group."]

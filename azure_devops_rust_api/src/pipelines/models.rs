@@ -113,7 +113,7 @@ pub struct Log {
     #[serde(
         rename = "createdOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "The ID of the log."]
@@ -123,7 +123,7 @@ pub struct Log {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[doc = "The number of lines in the log."]
@@ -423,11 +423,11 @@ pub struct Run {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links")]
     pub links: ReferenceLinks,
-    #[serde(rename = "createdDate", with = "azure_core::date::rfc3339")]
+    #[serde(rename = "createdDate", with = "crate::date_time::rfc3339")]
     pub created_date: time::OffsetDateTime,
     #[serde(rename = "finalYaml", default, skip_serializing_if = "Option::is_none")]
     pub final_yaml: Option<String>,
-    #[serde(rename = "finishedDate", with = "azure_core::date::rfc3339")]
+    #[serde(rename = "finishedDate", with = "crate::date_time::rfc3339")]
     pub finished_date: time::OffsetDateTime,
     #[doc = "A reference to a Pipeline."]
     pub pipeline: PipelineReference,
@@ -608,7 +608,7 @@ pub struct SignedUrl {
     #[serde(
         rename = "signatureExpires",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub signature_expires: Option<time::OffsetDateTime>,
     #[doc = "The URL to allow access to."]

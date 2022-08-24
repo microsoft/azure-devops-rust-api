@@ -399,7 +399,7 @@ pub struct ProjectInfo {
     #[serde(
         rename = "lastUpdateTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
     #[doc = "The name of the project."]
@@ -807,8 +807,8 @@ pub struct TeamProjectReference {
     #[doc = "Project identifier."]
     pub id: String,
     #[doc = "Project last update time."]
-    #[serde(rename = "lastUpdateTime")]
-    pub last_update_time: String,
+    #[serde(rename = "lastUpdateTime", with = "crate::date_time::rfc3339")]
+    pub last_update_time: time::OffsetDateTime,
     #[doc = "Project name."]
     pub name: String,
     #[doc = "Project revision."]
@@ -825,7 +825,7 @@ pub struct TeamProjectReference {
 impl TeamProjectReference {
     pub fn new(
         id: String,
-        last_update_time: String,
+        last_update_time: time::OffsetDateTime,
         name: String,
         state: team_project_reference::State,
         visibility: team_project_reference::Visibility,
@@ -898,7 +898,7 @@ pub struct TemporaryDataCreatedDto {
     #[serde(
         rename = "expirationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub expiration_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

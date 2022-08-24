@@ -53,7 +53,7 @@ pub struct Account {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(rename = "hasMoved", default, skip_serializing_if = "Option::is_none")]
@@ -69,7 +69,7 @@ pub struct Account {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Namespace for an account"]

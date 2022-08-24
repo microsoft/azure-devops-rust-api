@@ -29,13 +29,13 @@ pub struct PermissionsReport {
     #[serde(
         rename = "reportStatusLastUpdatedTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub report_status_last_updated_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "requestedTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub requested_time: Option<time::OffsetDateTime>,
     #[doc = "User who requested the report be created"]

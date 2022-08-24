@@ -15,6 +15,7 @@ use std::sync::Arc;
 
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
+use env_logger::Env;
 use log::info;
 
 /// Basic request logger policy
@@ -48,8 +49,8 @@ impl azure_core::Policy for RequestLogger {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Initialize logging
-    env_logger::init();
+    // Initialize logging - set default log level to info
+    env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
     let credential = match env::var("ADO_TOKEN") {
@@ -70,8 +71,9 @@ async fn main() -> Result<()> {
     let request_logger_policy = Arc::new(RequestLogger::new()) as Arc<dyn Policy>;
 
     // Create a git client with our custom policy
-    let git_client =
-        git::ClientBuilder::new(credential).per_call_policies(vec![request_logger_policy]).build();
+    let git_client = git::ClientBuilder::new(credential)
+        .per_call_policies(vec![request_logger_policy])
+        .build();
 
     // Get all repositories in the specified organization/project
     let _repos = git_client
