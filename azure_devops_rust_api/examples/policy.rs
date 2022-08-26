@@ -30,7 +30,7 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a git client
+    // Create a policy client
     let policy_client = policy::ClientBuilder::new(credential).build();
 
     // Get all policy configurations in the specified organization/project
