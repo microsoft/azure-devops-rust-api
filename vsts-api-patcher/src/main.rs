@@ -839,6 +839,23 @@ impl Patcher {
                     "message"
                 ]"#,
             ),
+            (
+                "policy.json",
+                "PolicyType",
+                r#"[
+                    "_links",
+                    "description"
+                ]"#,
+            ),
+            (
+                "policy.json",
+                "PolicyTypeRef",
+                r#"[
+                    "displayName",
+                    "id",
+                    "url"
+                ]"#,
+            ),
         ];
 
         match key {
