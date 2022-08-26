@@ -111,3 +111,7 @@ required-features = ["status"]
 [[example]]
 name = "client_pipeline_policy"
 required-features = ["git"]
+
+[[example]]
+name = "policy"
+required-features = ["policy"]

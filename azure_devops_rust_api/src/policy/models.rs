@@ -274,20 +274,27 @@ impl PolicyEvaluationRecordList {
     }
 }
 #[doc = "User-friendly policy type with description (used for querying policy types)."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PolicyType {
     #[serde(flatten)]
     pub policy_type_ref: PolicyTypeRef,
     #[doc = "Links"]
-    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
-    pub links: Option<serde_json::Value>,
+    #[serde(rename = "_links")]
+    pub links: serde_json::Value,
     #[doc = "Detailed description of the policy type."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    pub description: String,
 }
 impl PolicyType {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(
+        policy_type_ref: PolicyTypeRef,
+        links: serde_json::Value,
+        description: String,
+    ) -> Self {
+        Self {
+            policy_type_ref,
+            links,
+            description,
+        }
     }
 }
 #[doc = ""]
@@ -304,25 +311,23 @@ impl PolicyTypeList {
     }
 }
 #[doc = "Policy type reference."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PolicyTypeRef {
     #[doc = "Display name of the policy type."]
-    #[serde(
-        rename = "displayName",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub display_name: Option<String>,
+    #[serde(rename = "displayName")]
+    pub display_name: String,
     #[doc = "The policy type ID."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
+    pub id: String,
     #[doc = "The URL where the policy type can be retrieved."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    pub url: String,
 }
 impl PolicyTypeRef {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(display_name: String, id: String, url: String) -> Self {
+        Self {
+            display_name,
+            id,
+            url,
+        }
     }
 }
 #[doc = "The class to represent a collection of REST reference links."]
