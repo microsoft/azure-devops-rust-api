@@ -6,7 +6,6 @@
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
-//use azure_devops_rust_api::pull_request_commits_client;
 use std::env;
 use std::sync::Arc;
 
