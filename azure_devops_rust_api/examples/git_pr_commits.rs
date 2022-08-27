@@ -36,12 +36,12 @@ async fn main() -> Result<()> {
     let git_client = git::ClientBuilder::new(credential).build();
 
     // Get Commits for the PR
-    let pr_commit_client = git_client
+    let pr_commits = git_client
         .pull_request_commits_client()
         .get_pull_request_commits(&organization, &repository_id, pull_request_id, &project)
         .into_future()
         .await?;
-    println!("{:#?}", pr_commit_client);
+    println!("{:#?}", pr_commits);
 
     Ok(())
 }
