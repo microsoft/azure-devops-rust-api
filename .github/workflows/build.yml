@@ -16,6 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: vsts-api-patcher fmt
+      run: cd vsts-api-patcher && cargo fmt --check
+    - name: azure_devops_rust_api fmt
+      run: cd vsts-api-patcher && cargo fmt --check
     - name: codegen clippy
       run: cd autorust && cargo clippy
     - name: vsts-api-patcher clippy
