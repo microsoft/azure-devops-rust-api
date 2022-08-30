@@ -35,8 +35,8 @@ async fn main() -> Result<()> {
         .nth(2)
         .expect("Usage: git_pr_commits <pull_request_id>").parse().unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
-    // Set the max number of top commits to get if there any , Default is 100
-    let top_commits:i32 = 500;
+    // Set the max number of commits to get, default is 100
+    let top_commits: i32 = 500;
 
     // Create a git client
     let git_client = git::ClientBuilder::new(credential).build();
