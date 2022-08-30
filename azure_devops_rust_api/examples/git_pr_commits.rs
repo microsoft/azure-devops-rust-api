@@ -30,10 +30,12 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let repository_name = env::args()
         .nth(1)
-        .expect("Usage: git_pr_commits <repository-name>");
+        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>");
     let pull_request_id: i32 = env::args()
         .nth(2)
-        .expect("Usage: git_pr_commits <pull_request_id>").parse().unwrap();
+        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>")
+        .parse()
+        .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a git client
