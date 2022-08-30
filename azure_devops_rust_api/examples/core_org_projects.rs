@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
 
-    // Max Number of projects to be feteched, default max in 100
+    // Max number of projects to be fetched, default max is 100
     let top_projects: i32 = 500;
 
     // Create core client
