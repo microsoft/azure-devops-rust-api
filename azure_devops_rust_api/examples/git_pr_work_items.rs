@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 // git_pr_work_items.rs
-// Getting work items(s) associated with a PR
+// Example: Getting work items(s) associated with a PR
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
         .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create a git client
+    // Create a "git" client
     let git_client = git::ClientBuilder::new(credential).build();
 
     // Get work item(s) associted with PR
