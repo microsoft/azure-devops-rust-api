@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 // git_pr_work_items.rs
-// Getting Work Items(s) associated with a PR
+// Getting work items(s) associated with a PR
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
