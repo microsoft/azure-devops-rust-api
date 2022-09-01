@@ -41,7 +41,7 @@ async fn main() -> Result<()> {
     // Create a "git" client
     let git_client = git::ClientBuilder::new(credential).build();
 
-    // Get work item(s) associted with PR
+    // Get work item(s) associated with PR
     let pr_work_items = git_client
         .pull_request_work_items_client()
         .list(&organization, &repository_name, pull_request_id, &project)
