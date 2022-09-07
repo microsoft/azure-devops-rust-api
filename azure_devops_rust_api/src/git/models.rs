@@ -222,39 +222,16 @@ impl BranchUpdatedEvent {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Change {
     #[doc = "The type of change that was made to the item."]
-    #[serde(
-        rename = "changeType",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub change_type: Option<change::ChangeType>,
-    #[doc = "Current version."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub item: Option<String>,
-    #[doc = ""]
-    #[serde(
-        rename = "newContent",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub new_content: Option<ItemContent>,
-    #[doc = "Path of the item on the server."]
-    #[serde(
-        rename = "sourceServerItem",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub source_server_item: Option<String>,
-    #[doc = "URL to retrieve the item."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub url: Option<String>,
+    #[serde(rename = "changeType")]
+    pub change_type: change::ChangeType,
+    pub item: serde_json::Value,
 }
 impl Change {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(change_type: change::ChangeType, item: serde_json::Value) -> Self {
+        Self { change_type, item }
     }
 }
 pub mod change {
@@ -1179,31 +1156,14 @@ impl GitBranchStatsList {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitChange {
     #[serde(flatten)]
     pub change: Change,
-    #[doc = "ID of the change within the group of changes."]
-    #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]
-    pub change_id: Option<i32>,
-    #[doc = ""]
-    #[serde(
-        rename = "newContentTemplate",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub new_content_template: Option<GitTemplate>,
-    #[doc = "Original path of item if different from current path."]
-    #[serde(
-        rename = "originalPath",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub original_path: Option<String>,
 }
 impl GitChange {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(change: Change) -> Self {
+        Self { change }
     }
 }
 #[doc = "This object is returned from Cherry Pick operations and provides the id and status of the operation"]
@@ -1242,13 +1202,12 @@ impl GitCommit {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitChanges {
-    #[doc = ""]
     #[serde(
         rename = "changeCounts",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub change_counts: Option<ChangeCountDictionary>,
+    pub change_counts: Option<serde_json::Value>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub changes: Vec<GitChange>,
 }
@@ -3178,7 +3137,7 @@ pub mod git_pull_request {
     }
 }
 #[doc = "Change made in a pull request."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitPullRequestChange {
     #[serde(flatten)]
     pub git_change: GitChange,
@@ -3191,8 +3150,11 @@ pub struct GitPullRequestChange {
     pub change_tracking_id: Option<i32>,
 }
 impl GitPullRequestChange {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(git_change: GitChange) -> Self {
+        Self {
+            git_change,
+            change_tracking_id: None,
+        }
     }
 }
 #[doc = "Represents a comment thread of a pull request. A thread contains meta data about the file it was left on (if any) along with one or more comments (an initial comment and the subsequent replies)."]
@@ -6256,7 +6218,7 @@ impl TfvcBranchRef {
     }
 }
 #[doc = "A change."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TfvcChange {
     #[serde(flatten)]
     pub change: Change,
@@ -6276,8 +6238,12 @@ pub struct TfvcChange {
     pub pending_version: Option<i32>,
 }
 impl TfvcChange {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(change: Change) -> Self {
+        Self {
+            change,
+            merge_sources: Vec::new(),
+            pending_version: None,
+        }
     }
 }
 #[doc = "A collection of changes."]
