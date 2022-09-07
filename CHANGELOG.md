@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+
 - Implement custom date-time serde module to gracefully handle `0001-01-01T00:00:00`
+- Fixed response types for git::commits::get_changes()
 
 ## [0.5.1]
 

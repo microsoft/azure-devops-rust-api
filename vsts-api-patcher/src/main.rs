@@ -141,6 +141,8 @@ impl Patcher {
         Patcher::patch_pipelines_pipeline_configuration,
         Patcher::patch_pipeline,
         Patcher::patch_docs,
+        Patcher::patch_git_commit_changes,
+        Patcher::patch_git_change,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -349,6 +351,66 @@ impl Patcher {
                      "web": {
                        "$ref": "#/definitions/Link"
                      }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_git_commit_changes(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "GitCommitChanges", "properties", "changeCounts"] => {
+                println!("Replace git GitCommitChanges changeCounts definition");
+
+                Some(json::object! {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_git_change(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "GitChange", "properties"] => {
+                println!("Remove unused git GitChange properties");
+                // Remove properties that never seem to be used
+                let mut value = value.clone();
+                value.remove("changeId");
+                value.remove("newContentTemplate");
+                value.remove("originalPath");
+                Some(value)
+            }
+            ["definitions", "Change", "properties"] => {
+                println!("Remove unused git Change properties");
+                // Remove properties that never seem to be used
+                let mut value = value.clone();
+                value.remove("newContent");
+                value.remove("sourceServerItem");
+                value.remove("url");
+                Some(value)
+            }
+            ["definitions", "Change", "properties", "item"] => {
+                println!("Replace git Change item definition");
+
+                Some(json::object! {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
                 })
             }
             _ => None,
@@ -590,6 +652,14 @@ impl Patcher {
                 r#"[
                     "name",
                     "objectId"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "Change",
+                r#"[
+                    "changeType",
+                    "item"
                 ]"#,
             ),
             (
