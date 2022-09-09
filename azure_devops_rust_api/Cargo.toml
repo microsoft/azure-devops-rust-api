@@ -77,6 +77,10 @@ work = []
 all-features = true
 
 [[example]]
+name = "core_org_projects"
+required-features = ["core"]
+
+[[example]]
 name = "git_repo_get"
 required-features = ["git"]
 
@@ -86,6 +90,18 @@ required-features = ["git"]
 
 [[example]]
 name = "git_commit_changes"
+required-features = ["git"]
+
+[[example]]
+name = "git_pr_commits"
+required-features = ["git"]
+
+[[example]]
+name = "git_pr_work_items"
+required-features = ["git"]
+
+[[example]]
+name = "git_pr_files_changed"
 required-features = ["git"]
 
 [[example]]
@@ -115,6 +131,10 @@ required-features = ["status"]
 [[example]]
 name = "client_pipeline_policy"
 required-features = ["git"]
+
+[[example]]
+name = "wit"
+required-features = ["wit"]
 
 [[example]]
 name = "policy"
