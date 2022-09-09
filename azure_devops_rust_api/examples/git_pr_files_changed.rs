@@ -8,6 +8,7 @@ use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
+use std::collections::HashSet;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -38,6 +39,10 @@ async fn main() -> Result<()> {
         .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
+
+    // Adding unique file which are chnaged in the pr
+    let mut all_file_changed = HashSet::<String>::new();
+
     // Set the max number of commits to get, default is 100
     let top_commits: i32 = 500;
 
@@ -55,7 +60,6 @@ async fn main() -> Result<()> {
     // Get each commit in the PR
     for commit in pr_commits.iter() {
         let pr_commit_id = &commit.commit_id;
-        print!("Commit_Id  :{:?}\n", pr_commit_id);
         
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
@@ -69,19 +73,20 @@ async fn main() -> Result<()> {
         for change in pr_commits_changes.iter() {
             let file_change     = &change.change;
             let git_object_type = &file_change.item["gitObjectType"].as_str().unwrap();
-            let change_type     = &file_change.change_type;
             let file_name       = &file_change.item["path"].as_str().unwrap();
 
             // Checking only the file name not folder,  file is blob type object and tree is folder type git object
             if git_object_type == &"blob" {
-                println!(
-                    "Change_Type: {:?}, File_Name: {:?}",
-                    &change_type,
-                    &file_name[1..]);
-                
+                all_file_changed.insert((&file_name[1..]).to_string());
             }
         }
-        println!("----------------------------------------------------------");
+    }
+    println!("=========================================================================");
+    println!("INFO:Following files are changed(Add/Edit/Delete/Remove etc.) in the PR:");
+    println!("=========================================================================");
+    // Unique files changed in the PR
+    for file_name in all_file_changed.iter() {
+        println!("{}", file_name)
     }
 
     Ok(())
