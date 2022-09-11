@@ -259,7 +259,16 @@ pub mod group_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GroupEntitlementList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -327,7 +336,16 @@ pub mod group_entitlements {
                             azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GroupEntitlementOperationReference =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -384,7 +402,16 @@ pub mod group_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GroupEntitlement =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -454,7 +481,16 @@ pub mod group_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GroupEntitlementOperationReference =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -534,7 +570,16 @@ pub mod group_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GroupEntitlementOperationReference =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -675,7 +720,16 @@ pub mod members {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PagedGraphMemberList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -989,7 +1043,16 @@ pub mod user_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PagedGraphMemberList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1046,7 +1109,16 @@ pub mod user_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::UserEntitlementsPostResponse =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1120,7 +1192,16 @@ pub mod user_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::UserEntitlementOperationReference =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1177,7 +1258,16 @@ pub mod user_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::UserEntitlement =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1236,7 +1326,16 @@ pub mod user_entitlements {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::UserEntitlementsPatchResponse =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1371,7 +1470,16 @@ pub mod user_entitlement_summary {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::UsersSummary =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(

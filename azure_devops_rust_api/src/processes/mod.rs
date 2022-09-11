@@ -375,7 +375,17 @@ pub mod groups {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -431,7 +441,17 @@ pub mod groups {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -493,7 +513,17 @@ pub mod groups {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -550,7 +580,17 @@ pub mod groups {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Group = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -747,7 +787,16 @@ pub mod processes {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessInfoList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -804,7 +853,16 @@ pub mod processes {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessInfo =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -871,7 +929,16 @@ pub mod processes {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessInfo =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -930,7 +997,16 @@ pub mod processes {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessInfo =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1150,7 +1226,16 @@ pub mod behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessBehaviorList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1209,7 +1294,16 @@ pub mod behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1278,7 +1372,16 @@ pub mod behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1339,7 +1442,16 @@ pub mod behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1562,7 +1674,16 @@ pub mod work_item_types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemTypeList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1621,7 +1742,16 @@ pub mod work_item_types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemType =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1691,7 +1821,16 @@ pub mod work_item_types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemType =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1752,7 +1891,16 @@ pub mod work_item_types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemType =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1980,7 +2128,16 @@ pub mod fields {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemTypeFieldList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2041,7 +2198,16 @@ pub mod fields {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemTypeField =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2112,7 +2278,16 @@ pub mod fields {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemTypeField =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2175,7 +2350,16 @@ pub mod fields {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessWorkItemTypeField =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2315,7 +2499,16 @@ pub mod layout {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::FormLayout =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2483,7 +2676,17 @@ pub mod controls {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2550,7 +2753,17 @@ pub mod controls {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2606,7 +2819,17 @@ pub mod controls {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2788,7 +3011,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Page = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Page = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -2848,7 +3081,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Page = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Page = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3034,7 +3277,16 @@ pub mod system_controls {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ControlList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3089,7 +3341,17 @@ pub mod system_controls {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::Control = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3143,7 +3405,16 @@ pub mod system_controls {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ControlList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3316,7 +3587,16 @@ pub mod rules {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessRuleList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3377,7 +3657,16 @@ pub mod rules {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessRule =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3438,7 +3727,16 @@ pub mod rules {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessRule =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3501,7 +3799,16 @@ pub mod rules {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::ProcessRule =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3754,7 +4061,16 @@ pub mod states {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemStateResultModelList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3815,7 +4131,16 @@ pub mod states {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemStateResultModel =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3876,7 +4201,16 @@ pub mod states {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemStateResultModel =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -3939,7 +4273,16 @@ pub mod states {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemStateResultModel =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4002,7 +4345,16 @@ pub mod states {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemStateResultModel =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4228,7 +4580,16 @@ pub mod work_item_types_behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemTypeBehaviorList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4289,7 +4650,16 @@ pub mod work_item_types_behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemTypeBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4350,7 +4720,16 @@ pub mod work_item_types_behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemTypeBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4411,7 +4790,16 @@ pub mod work_item_types_behaviors {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WorkItemTypeBehavior =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4604,7 +4992,16 @@ pub mod lists {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PickListMetadataList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4660,8 +5057,17 @@ pub mod lists {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::PickList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::PickList = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4717,8 +5123,17 @@ pub mod lists {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::PickList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::PickList = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -4776,8 +5191,17 @@ pub mod lists {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::PickList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::PickList = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(

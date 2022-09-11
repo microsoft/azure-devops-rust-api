@@ -323,7 +323,16 @@ pub mod configurations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfigurationList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -382,7 +391,16 @@ pub mod configurations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfiguration =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -443,7 +461,16 @@ pub mod configurations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfiguration =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -504,7 +531,16 @@ pub mod configurations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfiguration =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -688,7 +724,16 @@ pub mod revisions {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfigurationList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -749,7 +794,16 @@ pub mod revisions {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyConfiguration =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -911,7 +965,16 @@ pub mod evaluations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyEvaluationRecordList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -970,7 +1033,16 @@ pub mod evaluations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyEvaluationRecord =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1029,7 +1101,16 @@ pub mod evaluations {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyEvaluationRecord =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1127,7 +1208,16 @@ pub mod types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyTypeList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1186,7 +1276,16 @@ pub mod types {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::PolicyType =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(

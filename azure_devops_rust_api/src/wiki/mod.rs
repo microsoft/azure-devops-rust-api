@@ -281,7 +281,16 @@ pub mod wikis {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WikiV2List =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -339,7 +348,17 @@ pub mod wikis {
                         match rsp_status {
                             azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                    azure_core::error::Error::full(
+                                        azure_core::error::ErrorKind::DataConversion,
+                                        e,
+                                        format!(
+                                            "Failed to deserialize response:\n{}",
+                                            String::from_utf8_lossy(&rsp_body)
+                                        ),
+                                    )
+                                })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -397,7 +416,17 @@ pub mod wikis {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                    azure_core::error::Error::full(
+                                        azure_core::error::ErrorKind::DataConversion,
+                                        e,
+                                        format!(
+                                            "Failed to deserialize response:\n{}",
+                                            String::from_utf8_lossy(&rsp_body)
+                                        ),
+                                    )
+                                })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -457,7 +486,17 @@ pub mod wikis {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                    azure_core::error::Error::full(
+                                        azure_core::error::ErrorKind::DataConversion,
+                                        e,
+                                        format!(
+                                            "Failed to deserialize response:\n{}",
+                                            String::from_utf8_lossy(&rsp_body)
+                                        ),
+                                    )
+                                })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -515,7 +554,17 @@ pub mod wikis {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                    azure_core::error::Error::full(
+                                        azure_core::error::ErrorKind::DataConversion,
+                                        e,
+                                        format!(
+                                            "Failed to deserialize response:\n{}",
+                                            String::from_utf8_lossy(&rsp_body)
+                                        ),
+                                    )
+                                })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -663,7 +712,16 @@ pub mod attachments {
                             azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WikiAttachment =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -817,7 +875,16 @@ pub mod page_moves {
                             azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WikiPageMove =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1121,8 +1188,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1252,14 +1328,32 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(Response::Created201(rsp_value))
                             }
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(Response::Ok200(rsp_value))
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1381,8 +1475,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1464,8 +1567,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1540,8 +1652,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1612,8 +1733,17 @@ pub mod pages {
                         match rsp_status {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage =
-                                    serde_json::from_slice(&rsp_body)?;
+                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
+                                    .map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1714,7 +1844,16 @@ pub mod page_stats {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WikiPageDetail =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
@@ -1856,7 +1995,16 @@ pub mod pages_batch {
                             azure_core::StatusCode::Ok => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::WikiPageDetailList =
-                                    serde_json::from_slice(&rsp_body)?;
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
                                 Ok(rsp_value)
                             }
                             status_code => Err(azure_core::error::Error::from(
