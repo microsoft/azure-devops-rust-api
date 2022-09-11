@@ -851,7 +851,12 @@ fn create_rsp_value(tp: Option<&TokenStream>) -> TokenStream {
         }
     } else {
         quote! {
-            let rsp_value: #tp = serde_json::from_slice(&rsp_body)?;
+            let rsp_value: #tp = serde_json::from_slice(&rsp_body)
+                .map_err(|e| azure_core::error::Error::full(
+                     azure_core::error::ErrorKind::DataConversion,
+                     e,
+                     format!("Failed to deserialize response:\n{}", String::from_utf8_lossy(&rsp_body))
+                ))?;
         }
     }
 }
