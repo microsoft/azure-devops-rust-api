@@ -1278,13 +1278,12 @@ pub struct GitCommitRef {
     #[doc = "User info and date for Git operations."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<GitUserDate>,
-    #[doc = ""]
     #[serde(
         rename = "changeCounts",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub change_counts: Option<ChangeCountDictionary>,
+    pub change_counts: Option<serde_json::Value>,
     #[doc = "An enumeration of the changes included with the commit."]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub changes: Vec<GitChange>,
