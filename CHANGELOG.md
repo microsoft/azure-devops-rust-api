@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2]
+
 ## Fixed
 
 - Implement custom date-time serde module to gracefully handle `0001-01-01T00:00:00`
@@ -115,7 +117,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.2...HEAD
+[0.5.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.3.1...0.4.0
