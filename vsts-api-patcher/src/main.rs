@@ -141,7 +141,7 @@ impl Patcher {
         Patcher::patch_pipelines_pipeline_configuration,
         Patcher::patch_pipeline,
         Patcher::patch_docs,
-        Patcher::patch_git_commit_changes,
+        Patcher::patch_git_commit_change_counts,
         Patcher::patch_git_change,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
@@ -357,14 +357,18 @@ impl Patcher {
         }
     }
 
-    fn patch_git_commit_changes(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+    fn patch_git_commit_change_counts(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
         // Only applies to git specs
         if !self.spec_path.ends_with("git.json") {
             return None;
         }
         match key {
-            ["definitions", "GitCommitChanges", "properties", "changeCounts"] => {
-                println!("Replace git GitCommitChanges changeCounts definition");
+            ["definitions", "GitCommitChanges" | "GitCommitRef", "properties", "changeCounts"] => {
+                println!("Replace git GitCommitChanges/GitCommitRef changeCounts definition");
 
                 Some(json::object! {
                     "type": "object",

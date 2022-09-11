@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+
+- Fix up `GitCommitRef` `change_counts` field type
+
 ## [0.5.2]
 
 ## Fixed
