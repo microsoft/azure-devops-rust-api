@@ -2,13 +2,13 @@
 // Licensed under the MIT License.
 
 // git_pr_files_changed.rs
-// Getting all the file changed in a PR example.
+// Getting all the files changed in a PR example.
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
+use std::collections::HashSet;
 use std::env;
 use std::sync::Arc;
-use std::collections::HashSet;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -39,10 +39,6 @@ async fn main() -> Result<()> {
         .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-
-    // Adding unique file which are chnaged in the pr
-    let mut all_file_changed = HashSet::<String>::new();
-
     // Set the max number of commits to get, default is 100
     let top_commits: i32 = 500;
 
@@ -55,37 +51,39 @@ async fn main() -> Result<()> {
         .get_pull_request_commits(&organization, &repository_name, pull_request_id, &project)
         .top(top_commits)
         .into_future()
-        .await?.value;
+        .await?
+        .value;
+
+    // Record unique filenames which are changed in the PR
+    let mut all_files_changed = HashSet::<String>::new();
 
     // Get each commit in the PR
     for commit in pr_commits.iter() {
         let pr_commit_id = &commit.commit_id;
-        
+
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
-        .commits_client()
-        .get_changes(&organization, pr_commit_id, &repository_name, &project)
-        .into_future()
-        .await?
-        .changes;
+            .commits_client()
+            .get_changes(&organization, pr_commit_id, &repository_name, &project)
+            .into_future()
+            .await?
+            .changes;
 
-        // Get file changes in the commit
+        // Get files changed in the commit
         for change in pr_commits_changes.iter() {
-            let file_change     = &change.change;
-            let git_object_type = &file_change.item["gitObjectType"].as_str().unwrap();
-            let file_name       = &file_change.item["path"].as_str().unwrap();
+            let file_change = &change.change;
+            let git_object_type = file_change.item["gitObjectType"].as_str().unwrap();
+            let file_name = file_change.item["path"].as_str().unwrap();
 
             // Checking only the file name not folder,  file is blob type object and tree is folder type git object
-            if git_object_type == &"blob" {
-                all_file_changed.insert((&file_name[1..]).to_string());
+            if git_object_type == "blob" {
+                all_files_changed.insert(file_name[1..].to_string());
             }
         }
     }
-    println!("=========================================================================");
-    println!("INFO:Following files are changed(Add/Edit/Delete/Remove etc.) in the PR:");
-    println!("=========================================================================");
+    println!("The PR changes these files:");
     // Unique files changed in the PR
-    for file_name in all_file_changed.iter() {
+    for file_name in all_files_changed.iter() {
         println!("{}", file_name)
     }
 
