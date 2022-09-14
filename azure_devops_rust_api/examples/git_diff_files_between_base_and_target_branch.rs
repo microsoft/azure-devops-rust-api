@@ -35,15 +35,15 @@ async fn main() -> Result<()> {
     let repository_name = env::args()
         .nth(1)
         .expect("Usage: git_diff_files_between_base_and_target_branch <repository-name> <base-branch-name> <target-branch-name>");
- 
+
     let base_branch_name = env::args()
         .nth(2)
-        .expect("Usage: git_diff_files_between_base_and_target_branch <repository-name> <base-branch-name> <target-branch-name>");        
+        .expect("Usage: git_diff_files_between_base_and_target_branch <repository-name> <base-branch-name> <target-branch-name>");
 
     let target_branch_name = env::args()
         .nth(3)
         .expect("Usage: git_diff_files_between_base_and_target_branch <repository-name> <base-branch-name> <target-branch-name>");
-        
+
     // Set the max number of commits to get, default is 100
     let top_commits: i32 = 500;
 
@@ -67,10 +67,10 @@ async fn main() -> Result<()> {
     // Get files name which are present in the target branch
     for diff in diffs.iter() {
         let git_object_type = diff.change.item["gitObjectType"].as_str().unwrap();
-        if git_object_type == "blob"{
+        if git_object_type == "blob" {
             let file_name = diff.change.item["path"].as_str().unwrap();
             files_diff_between_branches.insert(file_name.to_string());
-    }
+        }
     }
 
     // Unique files changed in the PR
