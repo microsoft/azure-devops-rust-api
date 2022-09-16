@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 
 - Fix up `GitCommitRef` `change_counts` field type
+- Add back some required `build` structure Option wrappers
 
 ## [0.5.2]
 

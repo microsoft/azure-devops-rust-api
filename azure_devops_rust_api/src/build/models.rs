@@ -451,8 +451,8 @@ impl AuthorizationHeader {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Build {
     #[doc = "The class to represent a collection of REST reference links."]
-    #[serde(rename = "_links")]
-    pub links: ReferenceLinks,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<ReferenceLinks>,
     #[doc = "Specification of the agent defined by the pool provider."]
     #[serde(
         rename = "agentSpecification",
@@ -508,27 +508,42 @@ pub struct Build {
     #[doc = "The ID of the build."]
     pub id: i32,
     #[doc = ""]
-    #[serde(rename = "lastChangedBy")]
-    pub last_changed_by: IdentityRef,
+    #[serde(
+        rename = "lastChangedBy",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_changed_by: Option<IdentityRef>,
     #[doc = "The date the build was last changed."]
-    #[serde(rename = "lastChangedDate", with = "crate::date_time::rfc3339")]
-    pub last_changed_date: time::OffsetDateTime,
+    #[serde(
+        rename = "lastChangedDate",
+        default,
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_changed_date: Option<time::OffsetDateTime>,
     #[doc = "Represents a reference to a build log."]
-    pub logs: BuildLogReference,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub logs: Option<BuildLogReference>,
     #[doc = "Represents a reference to an orchestration plan."]
-    #[serde(rename = "orchestrationPlan")]
-    pub orchestration_plan: TaskOrchestrationPlanReference,
+    #[serde(
+        rename = "orchestrationPlan",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub orchestration_plan: Option<TaskOrchestrationPlanReference>,
     #[doc = "The parameters for the build."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub parameters: Option<String>,
     #[doc = "Orchestration plans associated with the build (build, cleanup)"]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub plans: Vec<TaskOrchestrationPlanReference>,
     #[doc = "The build's priority."]
     pub priority: build::Priority,
     #[doc = "Represents a shallow reference to a TeamProject."]
     pub project: TeamProjectReference,
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
-    pub properties: PropertiesCollection,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub properties: Option<PropertiesCollection>,
     #[doc = "The quality of the xaml build (good, bad, etc.)"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub quality: Option<String>,
@@ -559,25 +574,46 @@ pub struct Build {
     #[doc = "The reason that the build was created."]
     pub reason: build::Reason,
     #[doc = "Represents a repository used by a build definition."]
-    pub repository: BuildRepository,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub repository: Option<BuildRepository>,
     #[doc = ""]
-    #[serde(rename = "requestedBy")]
-    pub requested_by: IdentityRef,
+    #[serde(
+        rename = "requestedBy",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub requested_by: Option<IdentityRef>,
     #[doc = ""]
-    #[serde(rename = "requestedFor")]
-    pub requested_for: IdentityRef,
+    #[serde(
+        rename = "requestedFor",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub requested_for: Option<IdentityRef>,
     #[doc = "The build result."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<build::Result>,
     #[doc = "Indicates whether the build is retained by a release."]
-    #[serde(rename = "retainedByRelease")]
-    pub retained_by_release: bool,
+    #[serde(
+        rename = "retainedByRelease",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub retained_by_release: Option<bool>,
     #[doc = "The source branch."]
-    #[serde(rename = "sourceBranch")]
-    pub source_branch: String,
+    #[serde(
+        rename = "sourceBranch",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_branch: Option<String>,
     #[doc = "The source version."]
-    #[serde(rename = "sourceVersion")]
-    pub source_version: String,
+    #[serde(
+        rename = "sourceVersion",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_version: Option<String>,
     #[doc = "The time that the build was started."]
     #[serde(
         rename = "startTime",
@@ -586,7 +622,9 @@ pub struct Build {
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[doc = "The status of the build."]
-    pub status: build::Status,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub status: Option<build::Status>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub tags: Vec<String>,
     #[doc = "Parameters to template expression evaluation"]
     #[serde(
@@ -610,41 +648,29 @@ pub struct Build {
     )]
     pub trigger_info: Option<serde_json::Value>,
     #[doc = "The URI of the build."]
-    pub uri: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub uri: Option<String>,
     #[doc = "The REST URL of the build."]
-    pub url: String,
-    #[serde(rename = "validationResults")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(
+        rename = "validationResults",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
     pub validation_results: Vec<BuildRequestValidationResult>,
 }
 impl Build {
     pub fn new(
-        links: ReferenceLinks,
         build_number: String,
         definition: DefinitionReference,
         id: i32,
-        last_changed_by: IdentityRef,
-        last_changed_date: time::OffsetDateTime,
-        logs: BuildLogReference,
-        orchestration_plan: TaskOrchestrationPlanReference,
-        plans: Vec<TaskOrchestrationPlanReference>,
         priority: build::Priority,
         project: TeamProjectReference,
-        properties: PropertiesCollection,
         reason: build::Reason,
-        repository: BuildRepository,
-        requested_by: IdentityRef,
-        requested_for: IdentityRef,
-        retained_by_release: bool,
-        source_branch: String,
-        source_version: String,
-        status: build::Status,
-        tags: Vec<String>,
-        uri: String,
-        url: String,
-        validation_results: Vec<BuildRequestValidationResult>,
     ) -> Self {
         Self {
-            links,
+            links: None,
             agent_specification: None,
             build_number,
             build_number_revision: None,
@@ -657,37 +683,37 @@ impl Build {
             demands: Vec::new(),
             finish_time: None,
             id,
-            last_changed_by,
-            last_changed_date,
-            logs,
-            orchestration_plan,
+            last_changed_by: None,
+            last_changed_date: None,
+            logs: None,
+            orchestration_plan: None,
             parameters: None,
-            plans,
+            plans: Vec::new(),
             priority,
             project,
-            properties,
+            properties: None,
             quality: None,
             queue: None,
             queue_options: None,
             queue_position: None,
             queue_time: None,
             reason,
-            repository,
-            requested_by,
-            requested_for,
+            repository: None,
+            requested_by: None,
+            requested_for: None,
             result: None,
-            retained_by_release,
-            source_branch,
-            source_version,
+            retained_by_release: None,
+            source_branch: None,
+            source_version: None,
             start_time: None,
-            status,
-            tags,
+            status: None,
+            tags: Vec::new(),
             template_parameters: None,
             triggered_by_build: Box::new(None),
             trigger_info: None,
-            uri,
-            url,
-            validation_results,
+            uri: None,
+            url: None,
+            validation_results: Vec::new(),
         }
     }
 }
@@ -2356,14 +2382,14 @@ pub struct BuildRepository {
     )]
     pub root_folder: Option<String>,
     #[doc = "The type of the repository."]
-    #[serde(rename = "type")]
-    pub type_: String,
+    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+    pub type_: Option<String>,
     #[doc = "The URL of the repository."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }
 impl BuildRepository {
-    pub fn new(id: String, type_: String) -> Self {
+    pub fn new(id: String) -> Self {
         Self {
             checkout_submodules: None,
             clean: None,
@@ -2372,7 +2398,7 @@ impl BuildRepository {
             name: None,
             properties: None,
             root_folder: None,
-            type_,
+            type_: None,
             url: None,
         }
     }
@@ -3070,9 +3096,11 @@ pub struct DefinitionReference {
     #[doc = "The ID of the referenced definition."]
     pub id: i32,
     #[doc = "The name of the referenced definition."]
-    pub name: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     #[doc = "The folder path of the definition."]
-    pub path: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
     #[doc = "Represents a shallow reference to a TeamProject."]
     pub project: TeamProjectReference,
     #[doc = "A value that indicates whether builds can be queued against this definition."]
@@ -3081,35 +3109,32 @@ pub struct DefinitionReference {
     #[doc = "The definition revision number."]
     pub revision: i32,
     #[doc = "The type of the definition."]
-    #[serde(rename = "type")]
-    pub type_: definition_reference::Type,
+    #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+    pub type_: Option<definition_reference::Type>,
     #[doc = "The definition's URI."]
-    pub uri: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub uri: Option<String>,
     #[doc = "The REST URL of the definition."]
     pub url: String,
 }
 impl DefinitionReference {
     pub fn new(
         id: i32,
-        name: String,
-        path: String,
         project: TeamProjectReference,
         queue_status: definition_reference::QueueStatus,
         revision: i32,
-        type_: definition_reference::Type,
-        uri: String,
         url: String,
     ) -> Self {
         Self {
             created_date: None,
             id,
-            name,
-            path,
+            name: None,
+            path: None,
             project,
             queue_status,
             revision,
-            type_,
-            uri,
+            type_: None,
+            uri: None,
             url,
         }
     }

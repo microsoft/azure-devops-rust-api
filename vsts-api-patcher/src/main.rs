@@ -716,42 +716,42 @@ impl Patcher {
                 //   deletedReason
                 //   demands
                 //   finishTime
+                //   lastChangedBy
+                //   lastChangedDate
+                //   logs
+                //   orchestrationPlan
                 //   parameters
+                //   plans
+                //   properties
                 //   quality
                 //   queue
                 //   queueOptions
                 //   queuePosition
                 //   queueTime
+                //   repository
+                //   requestedBy
+                //   requestedFor
                 //   result
+                //   retainedByRelease
+                //   sourceBranch
+                //   sourceVersion
                 //   startTime
+                //   status
+                //   tags
                 //   templateParameters
                 //   triggeredByBuild
                 //   triggerInfo
+                //   _links
+                //   uri
+                //   url
+                //   validationResults
                 r#"[
-                    "_links",
                     "buildNumber",
                     "definition",
                     "id",
-                    "lastChangedBy",
-                    "lastChangedDate",
-                    "logs",
-                    "orchestrationPlan",
-                    "plans",
                     "priority",
                     "project",
-                    "properties",
-                    "reason",
-                    "repository",
-                    "requestedBy",
-                    "requestedFor",
-                    "retainedByRelease",
-                    "sourceBranch",
-                    "sourceVersion",
-                    "status",
-                    "tags",
-                    "uri",
-                    "url",
-                    "validationResults"
+                    "reason"
                 ]"#,
             ),
             (
@@ -759,15 +759,15 @@ impl Patcher {
                 "DefinitionReference",
                 // Excluded
                 //   createdDate
+                //   name
+                //   path
+                //   type
+                //   uri
                 r#"[
                     "id",
-                    "name",
-                    "path",
                     "project",
                     "queueStatus",
                     "revision",
-                    "type",
-                    "uri",
                     "url"
                 ]"#,
             ),
@@ -822,9 +822,9 @@ impl Patcher {
                 //   rootFolder
                 //   name
                 //   url
+                //   type
                 r#"[
-                    "id",
-                    "type"
+                    "id"
                 ]"#,
             ),
             (
