@@ -36,6 +36,7 @@ cargo run --example git_repo_get --features="git" $ADO_PROJECT_NAME
 cargo run --example git_repo_list --features="git"
 cargo run --example git_pr_commits  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example git_pr_files_changed  --features="git" $ADO_REPO_NAME $ADO_PR_ID
+cargo run --example git_diff_files_between_base_and_target_branch --features="git" $ADO_REPO_NAME $ADO_BASE_BRANCH $ADO_TARGET_BRANCH
 cargo run --example git_pr_work_items  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example graph_query --features="graph" $ADO_USER_EMAIL
 cargo run --example pipeline_preview --features="pipelines" $ADO_PROJECT_NAME
