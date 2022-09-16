@@ -30,10 +30,10 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let repository_name = env::args()
         .nth(1)
-        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>");
+        .expect("Usage: git_pr_work_items <repository-name> <pull_request_id>");
     let pull_request_id: i32 = env::args()
         .nth(2)
-        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>")
+        .expect("Usage: git_pr_work_items <repository-name> <pull_request_id>")
         .parse()
         .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
@@ -47,7 +47,7 @@ async fn main() -> Result<()> {
         .list(&organization, &repository_name, pull_request_id, &project)
         .into_future()
         .await?;
-    println!("INFO: Work Item(s) Details:");
+    println!("PR work items:");
     println!("{:#?}", pr_work_items);
 
     Ok(())

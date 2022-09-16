@@ -31,10 +31,10 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let repository_name = env::args()
         .nth(1)
-        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>");
+        .expect("Usage: git_pr_files_changed <repository-name> <pull_request_id>");
     let pull_request_id: i32 = env::args()
         .nth(2)
-        .expect("Usage: git_pr_commits <repository-name> <pull_request_id>")
+        .expect("Usage: git_pr_files_changed <repository-name> <pull_request_id>")
         .parse()
         .unwrap();
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
@@ -55,36 +55,43 @@ async fn main() -> Result<()> {
         .value;
 
     // Record unique filenames which are changed in the PR
-    let mut all_files_changed = HashSet::<String>::new();
+    let mut files_changed = HashSet::<String>::new();
 
     // Get each commit in the PR
+    println!("\nCommits:");
     for commit in pr_commits.iter() {
-        let pr_commit_id = &commit.commit_id;
+        let commit_id = &commit.commit_id;
+        let comment = match &commit.comment {
+            Some(comment) => comment.clone(),
+            _ => "".to_string()
+        };
+        println!("{} {}",  commit_id, comment);
 
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
             .commits_client()
-            .get_changes(&organization, pr_commit_id, &repository_name, &project)
+            .get_changes(&organization, commit_id, &repository_name, &project)
             .into_future()
             .await?
             .changes;
 
         // Get files changed in the commit
         for change in pr_commits_changes.iter() {
-            let file_change = &change.change;
-            let git_object_type = file_change.item["gitObjectType"].as_str().unwrap();
-            let file_name = file_change.item["path"].as_str().unwrap();
-
-            // Checking only the file name not folder,  file is blob type object and tree is folder type git object
-            if git_object_type == "blob" {
-                all_files_changed.insert(file_name[1..].to_string());
+            let item = &change.change.item;
+            match (item["gitObjectType"].as_str(), item["path"].as_str()) {
+                // We are only interested in files not directories.
+                // files are "blob" type, directories are "folder" type.
+                (Some("blob"), Some(filename)) => {
+                    files_changed.insert(filename.to_string());
+                },
+                _ => {}
             }
         }
     }
-    println!("The PR changes these files:");
+    println!("\nChanged files:");
     // Unique files changed in the PR
-    for file_name in all_files_changed.iter() {
-        println!("{}", file_name)
+    for filename in files_changed.iter() {
+        println!("{}", filename)
     }
 
     Ok(())
