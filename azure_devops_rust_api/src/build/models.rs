@@ -461,8 +461,12 @@ pub struct Build {
     )]
     pub agent_specification: Option<AgentSpecification>,
     #[doc = "The build number/name of the build."]
-    #[serde(rename = "buildNumber")]
-    pub build_number: String,
+    #[serde(
+        rename = "buildNumber",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_number: Option<String>,
     #[doc = "The build number revision."]
     #[serde(
         rename = "buildNumberRevision",
@@ -662,7 +666,6 @@ pub struct Build {
 }
 impl Build {
     pub fn new(
-        build_number: String,
         definition: DefinitionReference,
         id: i32,
         priority: build::Priority,
@@ -672,7 +675,7 @@ impl Build {
         Self {
             links: None,
             agent_specification: None,
-            build_number,
+            build_number: None,
             build_number_revision: None,
             controller: None,
             definition,
