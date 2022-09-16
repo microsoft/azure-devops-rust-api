@@ -708,6 +708,7 @@ impl Patcher {
                 "Build",
                 // Excluded
                 //   agentSpecification
+                //   buildNumber
                 //   buildNumberRevision
                 //   controller
                 //   deleted
@@ -746,7 +747,6 @@ impl Patcher {
                 //   url
                 //   validationResults
                 r#"[
-                    "buildNumber",
                     "definition",
                     "id",
                     "priority",
