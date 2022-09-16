@@ -701,14 +701,18 @@ pub mod releases {
                             );
                         }
                         if let Some(min_created_time) = &this.min_created_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_created_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minCreatedTime", &min_created_time.to_string());
+                                .append_pair("minCreatedTime", &formatted_date_time);
                         }
                         if let Some(max_created_time) = &this.max_created_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(max_created_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("maxCreatedTime", &max_created_time.to_string());
+                                .append_pair("maxCreatedTime", &formatted_date_time);
                         }
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
@@ -2654,14 +2658,18 @@ pub mod deployments {
                                 .append_pair("createdBy", created_by);
                         }
                         if let Some(min_modified_time) = &this.min_modified_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_modified_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minModifiedTime", &min_modified_time.to_string());
+                                .append_pair("minModifiedTime", &formatted_date_time);
                         }
                         if let Some(max_modified_time) = &this.max_modified_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(max_modified_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("maxModifiedTime", &max_modified_time.to_string());
+                                .append_pair("maxModifiedTime", &formatted_date_time);
                         }
                         if let Some(deployment_status) = &this.deployment_status {
                             req.url_mut()
@@ -2700,14 +2708,18 @@ pub mod deployments {
                                 .append_pair("createdFor", created_for);
                         }
                         if let Some(min_started_time) = &this.min_started_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_started_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minStartedTime", &min_started_time.to_string());
+                                .append_pair("minStartedTime", &formatted_date_time);
                         }
                         if let Some(max_started_time) = &this.max_started_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(max_started_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("maxStartedTime", &max_started_time.to_string());
+                                .append_pair("maxStartedTime", &formatted_date_time);
                         }
                         if let Some(source_branch) = &this.source_branch {
                             req.url_mut()

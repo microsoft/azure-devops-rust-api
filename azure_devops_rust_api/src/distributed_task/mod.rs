@@ -5430,9 +5430,11 @@ pub mod taskgroups {
                                 .append_pair("$top", &top.to_string());
                         }
                         if let Some(continuation_token) = &this.continuation_token {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(continuation_token)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("continuationToken", &continuation_token.to_string());
+                                .append_pair("continuationToken", &formatted_date_time);
                         }
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()

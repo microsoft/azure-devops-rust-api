@@ -441,13 +441,17 @@ pub mod runs {
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let min_last_updated_date = &this.min_last_updated_date;
+                        let formatted_date_time =
+                            crate::date_time::format_date_time(min_last_updated_date)?;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("minLastUpdatedDate", &min_last_updated_date.to_string());
+                            .append_pair("minLastUpdatedDate", &formatted_date_time);
                         let max_last_updated_date = &this.max_last_updated_date;
+                        let formatted_date_time =
+                            crate::date_time::format_date_time(max_last_updated_date)?;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("maxLastUpdatedDate", &max_last_updated_date.to_string());
+                            .append_pair("maxLastUpdatedDate", &formatted_date_time);
                         if let Some(state) = &this.state {
                             req.url_mut().query_pairs_mut().append_pair("state", state);
                         }

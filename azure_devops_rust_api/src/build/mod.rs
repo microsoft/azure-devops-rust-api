@@ -2475,14 +2475,16 @@ pub mod builds {
                                 .append_pair("buildNumber", build_number);
                         }
                         if let Some(min_time) = &this.min_time {
+                            let formatted_date_time = crate::date_time::format_date_time(min_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minTime", &min_time.to_string());
+                                .append_pair("minTime", &formatted_date_time);
                         }
                         if let Some(max_time) = &this.max_time {
+                            let formatted_date_time = crate::date_time::format_date_time(max_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("maxTime", &max_time.to_string());
+                                .append_pair("maxTime", &formatted_date_time);
                         }
                         if let Some(requested_for) = &this.requested_for {
                             req.url_mut()
@@ -5982,9 +5984,11 @@ pub mod definitions {
                                 .append_pair("continuationToken", continuation_token);
                         }
                         if let Some(min_metrics_time) = &this.min_metrics_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_metrics_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minMetricsTime", &min_metrics_time.to_string());
+                                .append_pair("minMetricsTime", &formatted_date_time);
                         }
                         if let Some(definition_ids) = &this.definition_ids {
                             req.url_mut()
@@ -5995,14 +5999,18 @@ pub mod definitions {
                             req.url_mut().query_pairs_mut().append_pair("path", path);
                         }
                         if let Some(built_after) = &this.built_after {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(built_after)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("builtAfter", &built_after.to_string());
+                                .append_pair("builtAfter", &formatted_date_time);
                         }
                         if let Some(not_built_after) = &this.not_built_after {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(not_built_after)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("notBuiltAfter", &not_built_after.to_string());
+                                .append_pair("notBuiltAfter", &formatted_date_time);
                         }
                         if let Some(include_all_properties) = &this.include_all_properties {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -6226,9 +6234,11 @@ pub mod definitions {
                                 .append_pair("revision", &revision.to_string());
                         }
                         if let Some(min_metrics_time) = &this.min_metrics_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_metrics_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minMetricsTime", &min_metrics_time.to_string());
+                                .append_pair("minMetricsTime", &formatted_date_time);
                         }
                         if let Some(property_filters) = &this.property_filters {
                             req.url_mut()
@@ -6662,9 +6672,11 @@ pub mod metrics {
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         if let Some(min_metrics_time) = &this.min_metrics_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_metrics_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minMetricsTime", &min_metrics_time.to_string());
+                                .append_pair("minMetricsTime", &formatted_date_time);
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
@@ -6744,9 +6756,11 @@ pub mod metrics {
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         if let Some(min_metrics_time) = &this.min_metrics_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_metrics_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minMetricsTime", &min_metrics_time.to_string());
+                                .append_pair("minMetricsTime", &formatted_date_time);
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
@@ -7055,9 +7069,11 @@ pub mod yaml {
                                 .append_pair("revision", &revision.to_string());
                         }
                         if let Some(min_metrics_time) = &this.min_metrics_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(min_metrics_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("minMetricsTime", &min_metrics_time.to_string());
+                                .append_pair("minMetricsTime", &formatted_date_time);
                         }
                         if let Some(property_filters) = &this.property_filters {
                             req.url_mut()

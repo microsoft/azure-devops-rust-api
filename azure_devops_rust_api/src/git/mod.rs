@@ -10865,10 +10865,11 @@ pub mod pushes {
                                 .append_pair("$top", &top.to_string());
                         }
                         if let Some(search_criteria_from_date) = &this.search_criteria_from_date {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.fromDate",
-                                &search_criteria_from_date.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_from_date)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.fromDate", &formatted_date_time);
                         }
                         if let Some(search_criteria_include_links) =
                             &this.search_criteria_include_links
@@ -10897,10 +10898,11 @@ pub mod pushes {
                                 .append_pair("searchCriteria.refName", search_criteria_ref_name);
                         }
                         if let Some(search_criteria_to_date) = &this.search_criteria_to_date {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.toDate",
-                                &search_criteria_to_date.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_to_date)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.toDate", &formatted_date_time);
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
