@@ -8,6 +8,7 @@ use azure_devops_rust_api::build;
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
+use time::{ext::NumericalDuration, OffsetDateTime};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -34,11 +35,17 @@ async fn main() -> Result<()> {
     println!("Create build client");
     let build_client = build::ClientBuilder::new(credential).build();
 
-    // Get all builds in the specified organization/project
+    // Query all the builds in the past hour
+    let end_time = OffsetDateTime::now_utc();
+    let start_time = end_time - 1.hours();
+
+    // Get all builds in the specified organization/project in the past hour
     println!("Get list");
     let builds = build_client
         .builds_client()
         .list(organization, project)
+        .min_time(start_time)
+        .max_time(end_time)
         .into_future()
         .await?
         .value;

@@ -9,10 +9,20 @@
 //! is not RFC3339 compliant (no offset), so we need to
 //! have a custom deserializer to handle this gracefully.
 
+use azure_core::error::{ErrorKind, ResultExt};
 use serde::de;
 use std::fmt;
 use time::format_description::well_known::Rfc3339;
 use time::OffsetDateTime;
+
+/// Returns the given date-time as a String in RFC3339 format
+pub fn format_date_time(date_time: &OffsetDateTime) -> azure_core::error::Result<String> {
+    date_time
+        .format(&Rfc3339)
+        .with_context(ErrorKind::DataConversion, || {
+            format!("Failed to format date_time: {}", date_time)
+        })
+}
 
 pub mod rfc3339 {
     use super::*;

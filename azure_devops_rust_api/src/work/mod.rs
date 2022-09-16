@@ -979,14 +979,17 @@ pub mod deliverytimeline {
                                 .append_pair("revision", &revision.to_string());
                         }
                         if let Some(start_date) = &this.start_date {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_date)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startDate", &start_date.to_string());
+                                .append_pair("startDate", &formatted_date_time);
                         }
                         if let Some(end_date) = &this.end_date {
+                            let formatted_date_time = crate::date_time::format_date_time(end_date)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("endDate", &end_date.to_string());
+                                .append_pair("endDate", &formatted_date_time);
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
