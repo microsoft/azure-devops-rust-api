@@ -30,10 +30,10 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let repository_name = env::args()
         .nth(1)
-        .expect("Usage: git_pr_commits <repository-name> <commit_id>");
+        .expect("Usage: git_commit_changes <repository-name> <commit_id>");
     let commit_id = env::args()
         .nth(2)
-        .expect("Usage: git_pr_commits <repository-name> <commit_id>");
+        .expect("Usage: git_commit_changes <repository-name> <commit_id>");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a git client
@@ -44,7 +44,7 @@ async fn main() -> Result<()> {
         .get_changes(&organization, &commit_id, &repository_name, &project)
         .into_future()
         .await?;
-    println!("commit_changes:\n{:#?}", commit_changes);
+    println!("Commit changes:\n{:#?}", commit_changes);
 
     Ok(())
 }

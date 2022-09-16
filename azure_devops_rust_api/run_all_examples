@@ -7,22 +7,38 @@ set -e
 
 ADO_PROJECT_NAME=$1
 ADO_USER_EMAIL=$2
+ADO_REPO_NAME=$3
+ADO_PR_ID=$4
 
 usage () {
     echo "Usage:"
-    echo "  ./run_all_examples <project_name> <user_email_address>"
+    echo "  ./run_all_examples <project_name> <user_email_address> <repo_name> <pr_id>"
 }
 
 if [ -z "$ADO_PROJECT_NAME" ];
 then
-    echo "Missing project name parameter"
+    echo "Missing project_name parameter"
     usage
     exit 1
 fi
 
 if [ -z "$ADO_USER_EMAIL" ];
 then
-    echo "Error: Missing user email address parameter"
+    echo "Error: Missing user_email_address parameter"
+    usage
+    exit 1
+fi
+
+if [ -z "$ADO_REPO_NAME" ];
+then
+    echo "Error: Missing repo_name parameter"
+    usage
+    exit 1
+fi
+
+if [ -z "$ADO_PR_ID" ];
+then
+    echo "Error: Missing pr_id parameter"
     usage
     exit 1
 fi
@@ -36,7 +52,6 @@ cargo run --example git_repo_get --features="git" $ADO_PROJECT_NAME
 cargo run --example git_repo_list --features="git"
 cargo run --example git_pr_commits  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example git_pr_files_changed  --features="git" $ADO_REPO_NAME $ADO_PR_ID
-cargo run --example git_diff_files_between_base_and_target_branch --features="git" $ADO_REPO_NAME $ADO_BASE_BRANCH $ADO_TARGET_BRANCH
 cargo run --example git_pr_work_items  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example graph_query --features="graph" $ADO_USER_EMAIL
 cargo run --example pipeline_preview --features="pipelines" $ADO_PROJECT_NAME

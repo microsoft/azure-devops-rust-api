@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// get_commits.rs
+// git_pr_commits.rs
 // Getting all the commits from a PR example.
 use anyhow::Result;
 use azure_devops_rust_api::git;
