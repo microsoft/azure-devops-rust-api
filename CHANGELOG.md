@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed up `GitCommitRef` `change_counts` field type
 - Added back some required `build` structure Option wrappers
 - Fixed formatting of date-time URL parameters
+- Added `ims` (Identity Management) example: `ims_query`
+- Fixed Pull Request create function `git::pull_requests::create()`
+- Added `git_pr_create` example
 
 ## [0.5.2]
 

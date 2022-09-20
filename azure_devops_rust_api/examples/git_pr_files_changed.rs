@@ -63,9 +63,9 @@ async fn main() -> Result<()> {
         let commit_id = &commit.commit_id;
         let comment = match &commit.comment {
             Some(comment) => comment.clone(),
-            _ => "".to_string()
+            _ => "".to_string(),
         };
-        println!("{} {}",  commit_id, comment);
+        println!("{} {}", commit_id, comment);
 
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
@@ -83,7 +83,7 @@ async fn main() -> Result<()> {
                 // files are "blob" type, directories are "folder" type.
                 (Some("blob"), Some(filename)) => {
                     files_changed.insert(filename.to_string());
-                },
+                }
                 _ => {}
             }
         }
