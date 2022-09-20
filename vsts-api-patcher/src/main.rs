@@ -551,20 +551,20 @@ impl Patcher {
                         }
                     );
 
-                    self.new_definitions.insert(
-                        "IdentityId".to_string(),
-                        json::object! {
-                            "description": "Identity id",
-                            "type": "object",
-                            "required": [ "id" ],
-                            "properties": {
-                                  "id": {
-                                    "description": "The user identity",
-                                    "type": "string"
-                                  }
-                            }
+                self.new_definitions.insert(
+                    "IdentityId".to_string(),
+                    json::object! {
+                        "description": "Identity id",
+                        "type": "object",
+                        "required": [ "id" ],
+                        "properties": {
+                              "id": {
+                                "description": "The user identity",
+                                "type": "string"
+                              }
                         }
-                    );
+                    },
+                );
 
                 Some(json::array![
                     {
@@ -609,10 +609,10 @@ impl Patcher {
                         "$ref": "#/parameters/api-Version-preview.1"
                     }
                 ])
-            },
+            }
             // The spec says that the response code is 200, but the server actually returns 201
             ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests", "post", "responses"] => {
-                Some(json::object!{
+                Some(json::object! {
                     "201": {
                         "description": "successful operation",
                         "schema": {
@@ -620,7 +620,7 @@ impl Patcher {
                         }
                     }
                 })
-            },
+            }
             _ => None,
         }
     }
