@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.5.2"
+version = "0.5.3"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"
@@ -93,6 +93,10 @@ name = "git_commit_changes"
 required-features = ["git"]
 
 [[example]]
+name = "git_pr_create"
+required-features = ["git"]
+
+[[example]]
 name = "git_pr_commits"
 required-features = ["git"]
 
@@ -107,6 +111,10 @@ required-features = ["git"]
 [[example]]
 name = "git_diff_files_between_base_and_target_branch"
 required-features = ["git"]
+
+[[example]]
+name = "ims_query"
+required-features = ["ims"]
 
 [[example]]
 name = "pipelines"

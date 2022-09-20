@@ -345,9 +345,9 @@ pub struct IdentityBase {
         skip_serializing_if = "Option::is_none"
     )]
     pub custom_display_name: Option<String>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
+    #[doc = "Identity descriptor"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<IdentityDescriptor>,
+    pub descriptor: Option<String>,
     #[doc = "Identity Identifier. Also called Storage Key, or VSID"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,

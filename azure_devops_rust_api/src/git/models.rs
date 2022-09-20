@@ -3304,6 +3304,51 @@ pub mod git_pull_request_completion_options {
         RebaseMerge,
     }
 }
+#[doc = "Pull Request create options"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct GitPullRequestCreateOptions {
+    #[doc = "The description of the pull request."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[doc = "Draft / WIP pull request."]
+    #[serde(rename = "isDraft", default, skip_serializing_if = "Option::is_none")]
+    pub is_draft: Option<bool>,
+    #[doc = "The labels associated with the pull request."]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub labels: Vec<WebApiTagDefinition>,
+    #[doc = "The name of the source branch of the pull request."]
+    #[serde(rename = "sourceRefName")]
+    pub source_ref_name: String,
+    #[doc = "The name of the target branch of the pull request."]
+    #[serde(rename = "targetRefName")]
+    pub target_ref_name: String,
+    #[doc = "The title of the pull request."]
+    pub title: String,
+    #[doc = "Any work item references associated with this pull request."]
+    #[serde(
+        rename = "workItemRefs",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
+    pub work_item_refs: Vec<ResourceRef>,
+    #[doc = "A list of reviewers on the pull request."]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewers: Vec<IdentityId>,
+}
+impl GitPullRequestCreateOptions {
+    pub fn new(source_ref_name: String, target_ref_name: String, title: String) -> Self {
+        Self {
+            description: None,
+            is_draft: None,
+            labels: Vec::new(),
+            source_ref_name,
+            target_ref_name,
+            title,
+            work_item_refs: Vec::new(),
+            reviewers: Vec::new(),
+        }
+    }
+}
 #[doc = "Provides properties that describe a Git pull request iteration. Iterations are created as a result of creating and pushing updates to a pull request."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestIteration {
@@ -5156,6 +5201,17 @@ pub mod history_entry {
         Property,
         #[serde(rename = "all")]
         All,
+    }
+}
+#[doc = "Identity id"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct IdentityId {
+    #[doc = "The user identity"]
+    pub id: String,
+}
+impl IdentityId {
+    pub fn new(id: String) -> Self {
+        Self { id }
     }
 }
 #[doc = ""]

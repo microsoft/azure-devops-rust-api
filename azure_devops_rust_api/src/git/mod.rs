@@ -3556,22 +3556,22 @@ pub mod pull_requests {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        #[doc = "* `body`: The pull request to create."]
         #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
         #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `create_options`: The pull request to create."]
         pub fn create(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::GitPullRequest>,
             repository_id: impl Into<String>,
             project: impl Into<String>,
+            create_options: impl Into<models::GitPullRequestCreateOptions>,
         ) -> create::Builder {
             create::Builder {
                 client: self.0.clone(),
                 organization: organization.into(),
-                body: body.into(),
                 repository_id: repository_id.into(),
                 project: project.into(),
+                create_options: create_options.into(),
                 supports_iterations: None,
             }
         }
@@ -4165,9 +4165,9 @@ pub mod pull_requests {
         pub struct Builder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::GitPullRequest,
             pub(crate) repository_id: String,
             pub(crate) project: String,
+            pub(crate) create_options: models::GitPullRequestCreateOptions,
             pub(crate) supports_iterations: Option<bool>,
         }
         impl Builder {
@@ -4202,7 +4202,7 @@ pub mod pull_requests {
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::to_json(&this.create_options)?;
                         if let Some(supports_iterations) = &this.supports_iterations {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "supportsIterations",
@@ -4213,7 +4213,7 @@ pub mod pull_requests {
                         let rsp = this.client.send(&mut req).await?;
                         let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
                         match rsp_status {
-                            azure_core::StatusCode::Ok => {
+                            azure_core::StatusCode::Created => {
                                 let rsp_body = rsp_stream.collect().await?;
                                 let rsp_value: models::GitPullRequest =
                                     serde_json::from_slice(&rsp_body).map_err(|e| {

@@ -143,6 +143,8 @@ impl Patcher {
         Patcher::patch_docs,
         Patcher::patch_git_commit_change_counts,
         Patcher::patch_git_change,
+        Patcher::patch_git_pull_request_create,
+        Patcher::patch_ims_identity_base,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -259,6 +261,23 @@ impl Patcher {
             }
         }
         None
+    }
+
+    fn patch_ims_identity_base(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to ims (identities.json) specs
+        if !self.spec_path.ends_with("identities.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "IdentityBase", "properties", "descriptor"] => {
+                println!("Patching ims IdentityBase descriptor");
+                Some(json::object! {
+                    "description": "Identity descriptor",
+                    "type": "string"
+                })
+            }
+            _ => None,
+        }
     }
 
     fn patch_pipelines_pipeline_configuration(
@@ -460,6 +479,146 @@ impl Patcher {
                      "web": {
                        "$ref": "#/definitions/Link"
                      }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_git_pull_request_create(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        println!("PR: {:?}", key);
+        match key {
+            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests", "post", "parameters"] =>
+            {
+                println!("Replace git create Pull Request parameters");
+                self.new_definitions.insert(
+                    "GitPullRequestCreateOptions".to_string(),
+                    json::object! {
+                        "description": "Pull Request create options",
+                        "type": "object",
+                        "required": [ "sourceRefName", "targetRefName", "title" ],
+                        "properties": {
+                              "description": {
+                                "description": "The description of the pull request.",
+                                "type": "string"
+                              },
+                              "isDraft": {
+                                "description": "Draft / WIP pull request.",
+                                "type": "boolean"
+                              },
+                              "labels": {
+                                "description": "The labels associated with the pull request.",
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/definitions/WebApiTagDefinition"
+                                }
+                              },
+                              "sourceRefName": {
+                                "description": "The name of the source branch of the pull request.",
+                                "type": "string"
+                              },
+                              "targetRefName": {
+                                "description": "The name of the target branch of the pull request.",
+                                "type": "string"
+                              },
+                              "title": {
+                                "description": "The title of the pull request.",
+                                "type": "string"
+                              },
+                              "workItemRefs": {
+                                "description": "Any work item references associated with this pull request.",
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/definitions/ResourceRef"
+                                }
+                              },
+                              "reviewers": {
+                                "description": "A list of reviewers on the pull request.",
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/definitions/IdentityId"
+                                }
+                              }
+                            }
+                        }
+                    );
+
+                self.new_definitions.insert(
+                    "IdentityId".to_string(),
+                    json::object! {
+                        "description": "Identity id",
+                        "type": "object",
+                        "required": [ "id" ],
+                        "properties": {
+                              "id": {
+                                "description": "The user identity",
+                                "type": "string"
+                              }
+                        }
+                    },
+                );
+
+                Some(json::array![
+                    {
+                        "in": "path",
+                        "name": "organization",
+                        "description": "The name of the Azure DevOps organization.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "repositoryId",
+                        "description": "The repository ID of the pull request's target branch.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "project",
+                        "description": "Project ID or project name",
+                        "required": true,
+                        "x-ms-required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "createOptions",
+                        "description": "The pull request to create.",
+                        "required": true,
+                        "schema": {
+                        "$ref": "#/definitions/GitPullRequestCreateOptions"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "supportsIterations",
+                        "description": "If true, subsequent pushes to the pull request will be individually reviewable. Set this to false for large pull requests for performance reasons if this functionality is not needed.",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "$ref": "#/parameters/api-Version-preview.1"
+                    }
+                ])
+            }
+            // The spec says that the response code is 200, but the server actually returns 201
+            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests", "post", "responses"] => {
+                Some(json::object! {
+                    "201": {
+                        "description": "successful operation",
+                        "schema": {
+                        "$ref": "#/definitions/GitPullRequest"
+                        }
+                    }
                 })
             }
             _ => None,
@@ -1112,23 +1271,18 @@ impl Patcher {
     // Main patching function, called for each object key in the object tree.
     // The patcher can replace the existing value by returning `Some<JsonValue>`,
     // or leave it unmodified by returning `None`.
-    fn patcher(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
+    fn maybe_patch(&mut self, key: &[&str], value: &mut JsonValue) {
         //println!("patcher: {:#?}", key);
         for patch_fn in Patcher::PATCH_FNS.iter() {
-            let patch = patch_fn(self, key, value);
-            if patch.is_some() {
-                //println!("Patched");
-                return patch;
+            if let Some(patch) = patch_fn(self, key, value) {
+                *value = patch;
             }
         }
-        None
     }
 
     // Walk all (key, values) in the object tree, invoking the `patcher` function for each.
     fn walker(&mut self, key: &[&str], value: &mut JsonValue) {
-        if let Some(v) = self.patcher(key, value) {
-            *value = v;
-        }
+        self.maybe_patch(key, value);
         if let JsonValue::Object(_) = value {
             for (k, v) in value.entries_mut() {
                 let mut new_key = key.to_owned();
