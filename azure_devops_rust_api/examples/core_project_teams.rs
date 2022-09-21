@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// core_org_teams.rs
+// core_project_teams.rs
 // Project Teams from Orgs example.
 use anyhow::Result;
 use azure_devops_rust_api::core;
@@ -37,7 +37,7 @@ async fn main() -> Result<()> {
     // Create core client
     let core_client = core::ClientBuilder::new(credential).build();
 
-    let org_teams = core_client
+    let project_teams = core_client
         .teams_client()
         .get_teams(&organization, &project)
         .top(top_teams)
@@ -48,7 +48,7 @@ async fn main() -> Result<()> {
     println!("\nProject teams name are :");
 
     // Get teams names in the projects
-    for team in org_teams.iter() {
+    for team in project_teams.iter() {
         match &team.web_api_team_ref.name{
             Some(name) => println!("{}", name),
             _ => {}

@@ -81,7 +81,7 @@ name = "core_org_projects"
 required-features = ["core"]
 
 [[example]]
-name = "core_org_teams"
+name = "core_project_teams"
 required-features = ["core"]
 
 [[example]]
