@@ -137,6 +137,10 @@ name = "service_endpoint"
 required-features = ["service_endpoint"]
 
 [[example]]
+name = "search_code"
+required-features = ["search"]
+
+[[example]]
 name = "graph_query"
 required-features = ["graph"]
 
