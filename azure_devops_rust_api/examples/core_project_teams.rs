@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 // core_project_teams.rs
-// Project Teams from Orgs example.
+// Project Teams from organization example.
 use anyhow::Result;
 use azure_devops_rust_api::core;
 use azure_devops_rust_api::Credential;
@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
 
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
-
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Max number of teams to be fetched, default max is 100
@@ -45,9 +44,8 @@ async fn main() -> Result<()> {
         .await?
         .value;
 
-    println!("\nProject teams name are :");
-
-    // Get teams names in the projects
+    // Display team names
+    println!("\nProject teams:");
     for team in project_teams.iter() {
         match &team.web_api_team_ref.name{
             Some(name) => println!("{}", name),
