@@ -5,7 +5,9 @@
 // Search code example.
 use anyhow::Result;
 use azure_devops_rust_api::search;
-use azure_devops_rust_api::search::models::{CodeSearchRequest, EntitySearchRequest, EntitySearchRequestBase};
+use azure_devops_rust_api::search::models::{
+    CodeSearchRequest, EntitySearchRequest, EntitySearchRequestBase,
+};
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
@@ -37,18 +39,18 @@ async fn main() -> Result<()> {
 
     let entity_search_request_base = EntitySearchRequestBase {
         filters: None,
-        search_text: Some("file:Cargo.toml futures".to_string())
+        search_text: Some("file:Cargo.toml futures".to_string()),
     };
 
     let entity_search_request = EntitySearchRequest {
         entity_search_request_base,
-        top: Some(10),  // Must specify `top`, otherwise search fails
+        top: Some(10), // Must specify `top`, otherwise search fails
         ..Default::default()
     };
 
     let code_search_request = CodeSearchRequest {
         entity_search_request,
-        include_snippet: Some(true)
+        include_snippet: Some(true),
     };
 
     // Do the search
