@@ -1,12 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // hooks_list.rs
-// Service hooks Example
+// Service hooks example
 use anyhow::Result;
 use azure_devops_rust_api::hooks;
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging
@@ -19,7 +20,7 @@ async fn main() -> Result<()> {
         }
         Err(_) => {
             println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential {}))
+            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
         }
     };
     // Get ADO server configuration via environment variables
@@ -47,7 +48,7 @@ async fn main() -> Result<()> {
         .value;
     println!("{:#?}", service_hook_publishers);
 
-    // Get all publishers
+    // Get all subscriptions
     println!("The service hook subscriptions are:");
     let service_hook_subscriptions = hook_client
         .subscriptions_client()
