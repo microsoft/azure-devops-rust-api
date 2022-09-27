@@ -515,29 +515,25 @@ impl ErrorDetails {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = ""]
-    #[serde(rename = "_links")]
-    pub links: ReferenceLinks,
-    pub descriptor: String,
-    #[serde(rename = "displayName")]
-    pub display_name: String,
-    pub url: String,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<ReferenceLinks>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub descriptor: Option<String>,
+    #[serde(
+        rename = "displayName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
 }
 impl GraphSubjectBase {
-    pub fn new(
-        links: ReferenceLinks,
-        descriptor: String,
-        display_name: String,
-        url: String,
-    ) -> Self {
-        Self {
-            links,
-            descriptor,
-            display_name,
-            url,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -584,9 +580,9 @@ pub struct IdentityRef {
     pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+    pub fn new(id: String, unique_name: String) -> Self {
         Self {
-            graph_subject_base,
+            graph_subject_base: GraphSubjectBase::default(),
             directory_alias: None,
             id,
             image_url: None,

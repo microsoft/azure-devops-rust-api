@@ -145,6 +145,7 @@ impl Patcher {
         Patcher::patch_git_change,
         Patcher::patch_git_pull_request_create,
         Patcher::patch_ims_identity_base,
+        Patcher::patch_input_validation_min_max,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -252,6 +253,7 @@ impl Patcher {
                 continue;
             }
 
+            #[allow(clippy::single_match)]
             match key {
                 ["info", "description"] => {
                     println!("Patching spec description: {}: {}", filename, desc);
@@ -662,6 +664,26 @@ impl Patcher {
         }
     }
 
+    fn patch_input_validation_min_max(
+        &mut self,
+        key: &[&str],
+        value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to hooks specs
+        if !self.spec_path.ends_with("serviceHooks.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "InputValidation", "properties", "minValue" | "maxValue"] => {
+                let mut value = value.clone();
+                value["type"] = JsonValue::from("number");
+                value["format"] = JsonValue::from("float");
+                Some(value)
+            }
+            _ => None,
+        }
+    }
+
     fn patch_definition_required_fields(
         &mut self,
         key: &[&str],
@@ -705,16 +727,16 @@ impl Patcher {
                     "name"
                 ]"#,
             ),
-            (
-                "serviceEndpoint.json",
-                "GraphSubjectBase",
-                r#"[
-                    "links",
-                    "descriptor",
-                    "displayName",
-                    "url"
-                ]"#,
-            ),
+            // (
+            //     "serviceEndpoint.json",
+            //     "GraphSubjectBase",
+            //     r#"[
+            //         "links",
+            //         "descriptor",
+            //         "displayName",
+            //         "url"
+            //     ]"#,
+            // ),
             (
                 "serviceEndpoint.json",
                 "IdentityRef",
@@ -986,16 +1008,17 @@ impl Patcher {
                     "id"
                 ]"#,
             ),
-            (
-                "*",
-                "GraphSubjectBase",
-                r#"[
-                    "_links",
-                    "descriptor",
-                    "displayName",
-                    "url"
-                ]"#,
-            ),
+            // (
+            //     "*",
+            //     "GraphSubjectBase",
+            //     // Excluded
+            //     //   _links
+            //     //   "descriptor
+            //     //   displayName
+            //     //   url
+            //     r#"[
+            //     ]"#,
+            // ),
             (
                 "*",
                 "IdentityRef",

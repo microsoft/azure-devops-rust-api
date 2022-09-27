@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Revert all `GraphSubjectBase` fields to be wrapped in `Option`
+- Patch `hooks` spec:
+  - `InputValidation` fields `minValue` and `maxValue` need to be `number`/`float`
+- New examples:
+  - code_search
+  - hooks_list
+  - extension_management_list
+- Upgrade `azure_core` to 0.5, `azure_identity` to 0.6
+  - `AzureCliCredential` must now be created via `azure_identity::AzureCliCredential::new()`
+
 ## [0.5.3]
 
 ## Fixed

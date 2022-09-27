@@ -6,32 +6,28 @@ use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links")]
-    pub links: serde_json::Value,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<serde_json::Value>,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    pub descriptor: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub descriptor: Option<String>,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(rename = "displayName")]
-    pub display_name: String,
+    #[serde(
+        rename = "displayName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    pub url: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
 }
 impl GraphSubjectBase {
-    pub fn new(
-        links: serde_json::Value,
-        descriptor: String,
-        display_name: String,
-        url: String,
-    ) -> Self {
-        Self {
-            links,
-            descriptor,
-            display_name,
-            url,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -85,9 +81,9 @@ pub struct IdentityRef {
     pub unique_name: String,
 }
 impl IdentityRef {
-    pub fn new(graph_subject_base: GraphSubjectBase, id: String, unique_name: String) -> Self {
+    pub fn new(id: String, unique_name: String) -> Self {
         Self {
-            graph_subject_base,
+            graph_subject_base: GraphSubjectBase::default(),
             directory_alias: None,
             id,
             image_url: None,
