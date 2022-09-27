@@ -117,6 +117,10 @@ name = "git_diff_files_between_base_and_target_branch"
 required-features = ["git"]
 
 [[example]]
+name = "hooks_list"
+required-features = ["hooks"]
+
+[[example]]
 name = "ims_query"
 required-features = ["ims"]
 
