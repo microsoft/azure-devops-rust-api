@@ -262,6 +262,10 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
                 file.extend(quote! {
                     pub mod #name {
                         use super::models;
+                        #[cfg(target_arch = "wasm32")]
+                        use futures::future::LocalBoxFuture as BoxFuture;
+                        #[cfg(not(target_arch = "wasm32"))]
+                        use futures::future::BoxFuture as BoxFuture;
                         pub struct Client(pub(crate) super::Client);
                         impl Client {
                             #builders
@@ -996,7 +1000,7 @@ impl ToTokens for RequestBuilderSendCode {
             #[doc = ""]
             #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
             #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1174,6 +1178,10 @@ impl ToTokens for OperationModuleCode {
         tokens.extend(quote! {
             pub mod #module_name {
                 use super::models;
+                #[cfg(target_arch = "wasm32")]
+                use futures::future::LocalBoxFuture as BoxFuture;
+                #[cfg(not(target_arch = "wasm32"))]
+                use futures::future::BoxFuture as BoxFuture;
                 #response_code
 
                 #request_builder_struct_code
