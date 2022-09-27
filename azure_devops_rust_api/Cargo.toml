@@ -85,6 +85,10 @@ name = "core_project_teams"
 required-features = ["core"]
 
 [[example]]
+name = "extension_management_list"
+required-features = ["extension_management"]
+
+[[example]]
 name = "git_repo_get"
 required-features = ["git"]
 
