@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
 
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
-    //let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
     // Create a extension_management_client
     let extension_management_client = extension_management::ClientBuilder::new(credential).build();
