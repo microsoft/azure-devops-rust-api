@@ -22,7 +22,7 @@ async fn main() -> Result<()> {
         }
         Err(_) => {
             println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential {}))
+            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
         }
     };
 
