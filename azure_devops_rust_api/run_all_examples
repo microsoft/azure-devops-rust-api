@@ -48,6 +48,7 @@ set -x
 
 cargo run --example build_list --features="build"
 cargo run --example core_org_projects --features="core"
+cargo run --example core_project_teams --features="core"
 cargo run --example extension_management_list --features="extension_management"
 cargo run --example git_repo_get --features="git" $ADO_PROJECT_NAME
 cargo run --example git_repo_list --features="git"
