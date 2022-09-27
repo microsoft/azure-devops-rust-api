@@ -123,7 +123,7 @@ impl GraphGlobalExtendedPropertyBatch {
     }
 }
 #[doc = "Graph group entity"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphGroup {
     #[serde(flatten)]
     pub graph_member: GraphMember,
@@ -132,11 +132,8 @@ pub struct GraphGroup {
     pub description: Option<String>,
 }
 impl GraphGroup {
-    pub fn new(graph_member: GraphMember) -> Self {
-        Self {
-            graph_member,
-            description: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Do not attempt to use this type to create a new group. This type does not contain sufficient fields to create a new group."]
@@ -245,7 +242,7 @@ impl GraphGroupVstsCreationContext {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphMember {
     #[serde(flatten)]
     pub graph_subject: GraphSubject,
@@ -268,13 +265,8 @@ pub struct GraphMember {
     pub principal_name: Option<String>,
 }
 impl GraphMember {
-    pub fn new(graph_subject: GraphSubject) -> Self {
-        Self {
-            graph_subject,
-            domain: None,
-            mail_address: None,
-            principal_name: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Relationship between a container and a member"]
@@ -395,7 +387,7 @@ impl GraphProviderInfo {
     }
 }
 #[doc = "Container where a graph entity is defined (organization, project, team)"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphScope {
     #[serde(flatten)]
     pub graph_subject: GraphSubject,
@@ -428,15 +420,8 @@ pub struct GraphScope {
     pub securing_host_descriptor: Option<String>,
 }
 impl GraphScope {
-    pub fn new(graph_subject: GraphSubject) -> Self {
-        Self {
-            graph_subject,
-            administrator_descriptor: None,
-            is_global: None,
-            parent_descriptor: None,
-            scope_type: None,
-            securing_host_descriptor: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 pub mod graph_scope {
@@ -519,7 +504,7 @@ impl GraphStorageKeyResult {
     }
 }
 #[doc = "Top-level graph entity"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubject {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -545,43 +530,33 @@ pub struct GraphSubject {
     pub subject_kind: Option<String>,
 }
 impl GraphSubject {
-    pub fn new(graph_subject_base: GraphSubjectBase) -> Self {
-        Self {
-            graph_subject_base,
-            legacy_descriptor: None,
-            origin: None,
-            origin_id: None,
-            subject_kind: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
-    #[serde(rename = "_links")]
-    pub links: serde_json::Value,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<serde_json::Value>,
     #[doc = "The descriptor is the primary way to reference the graph subject while the system is running. This field will uniquely identify the same graph subject across both Accounts and Organizations."]
-    pub descriptor: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub descriptor: Option<String>,
     #[doc = "This is the non-unique display name of the graph subject. To change this field, you must alter its value in the source provider."]
-    #[serde(rename = "displayName")]
-    pub display_name: String,
+    #[serde(
+        rename = "displayName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub display_name: Option<String>,
     #[doc = "This url is the full route to the source resource of this graph subject."]
-    pub url: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
 }
 impl GraphSubjectBase {
-    pub fn new(
-        links: serde_json::Value,
-        descriptor: String,
-        display_name: String,
-        url: String,
-    ) -> Self {
-        Self {
-            links,
-            descriptor,
-            display_name,
-            url,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -642,18 +617,18 @@ impl GraphSubjectQuery {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSystemSubject {
     #[serde(flatten)]
     pub graph_subject: GraphSubject,
 }
 impl GraphSystemSubject {
-    pub fn new(graph_subject: GraphSubject) -> Self {
-        Self { graph_subject }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Graph user entity"]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphUser {
     #[serde(flatten)]
     pub graph_member: GraphMember,
@@ -676,13 +651,8 @@ pub struct GraphUser {
     pub meta_type: Option<String>,
 }
 impl GraphUser {
-    pub fn new(graph_member: GraphMember) -> Self {
-        Self {
-            graph_member,
-            directory_alias: None,
-            is_deleted_in_origin: None,
-            meta_type: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Do not attempt to use this type to create a new user. Use one of the subclasses instead. This type does not contain sufficient fields to create a new user."]
