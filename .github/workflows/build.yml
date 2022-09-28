@@ -27,7 +27,7 @@ jobs:
     - name: codegen build and run autogeneration
       run: ./build.sh
     - name: check autogeneration matches git repo
-      run: git diff-index --cached --quiet HEAD
+      run: git diff --exit-code HEAD
     - name: azure_devops_rust_api clippy
       run: cd azure_devops_rust_api && cargo clippy --all-features
     - name: azure_devops_rust_api build
