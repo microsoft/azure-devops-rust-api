@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
     let test_run_client = test::ClientBuilder::new(credential).build();
 
     // Get all runs for project
-    println!("The service hook consumers are:");
+    println!("The test runs for project are:");
     let test_runs = test_run_client
         .runs_client()
         .list(&organization, &project)
