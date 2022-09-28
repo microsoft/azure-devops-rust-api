@@ -697,8 +697,8 @@ impl Patcher {
         match key {
             ["definitions", "Subscription", "properties", "probationRetries"] => {
                 let mut value = value.clone();
-                value["type"] = JsonValue::from("number");
-                value["format"] = JsonValue::from("float");
+                value["type"] = JsonValue::from("integer");
+                value["format"] = JsonValue::from("int32");
                 Some(value)
             }
             _ => None,
