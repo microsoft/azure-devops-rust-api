@@ -146,6 +146,7 @@ impl Patcher {
         Patcher::patch_git_pull_request_create,
         Patcher::patch_ims_identity_base,
         Patcher::patch_input_validation_min_max,
+        Patcher::patch_probation_retries_type,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -678,6 +679,26 @@ impl Patcher {
                 let mut value = value.clone();
                 value["type"] = JsonValue::from("number");
                 value["format"] = JsonValue::from("float");
+                Some(value)
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_probation_retries_type(
+        &mut self,
+        key: &[&str],
+        value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to hooks specs
+        if !self.spec_path.ends_with("serviceHooks.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "Subscription", "properties", "probationRetries"] => {
+                let mut value = value.clone();
+                value["type"] = JsonValue::from("integer");
+                value["format"] = JsonValue::from("int32");
                 Some(value)
             }
             _ => None,
