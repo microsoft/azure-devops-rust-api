@@ -152,8 +152,8 @@ pub mod wikis {
             &self,
             organization: impl Into<String>,
             project: impl Into<String>,
-        ) -> list::Builder {
-            list::Builder {
+        ) -> list::RequestBuilder {
+            list::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -170,8 +170,8 @@ pub mod wikis {
             organization: impl Into<String>,
             body: impl Into<models::WikiCreateParametersV2>,
             project: impl Into<String>,
-        ) -> create::Builder {
-            create::Builder {
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -189,8 +189,8 @@ pub mod wikis {
             organization: impl Into<String>,
             wiki_identifier: impl Into<String>,
             project: impl Into<String>,
-        ) -> get::Builder {
-            get::Builder {
+        ) -> get::RequestBuilder {
+            get::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 wiki_identifier: wiki_identifier.into(),
@@ -210,8 +210,8 @@ pub mod wikis {
             body: impl Into<models::WikiUpdateParameters>,
             wiki_identifier: impl Into<String>,
             project: impl Into<String>,
-        ) -> update::Builder {
-            update::Builder {
+        ) -> update::RequestBuilder {
+            update::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -230,8 +230,8 @@ pub mod wikis {
             organization: impl Into<String>,
             wiki_identifier: impl Into<String>,
             project: impl Into<String>,
-        ) -> delete::Builder {
-            delete::Builder {
+        ) -> delete::RequestBuilder {
+            delete::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 wiki_identifier: wiki_identifier.into(),
@@ -241,17 +241,48 @@ pub mod wikis {
     }
     pub mod list {
         use super::models;
-        type Response = models::WikiV2List;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiV2List> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiV2List = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -275,50 +306,64 @@ pub mod wikis {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2List =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2List>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod create {
         use super::models;
-        type Response = models::WikiV2;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiV2 = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiCreateParametersV2,
             pub(crate) project: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -343,50 +388,64 @@ pub mod wikis {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::to_json(&this.body)?;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Created => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                    azure_core::error::Error::full(
-                                        azure_core::error::ErrorKind::DataConversion,
-                                        e,
-                                        format!(
-                                            "Failed to deserialize response:\n{}",
-                                            String::from_utf8_lossy(&rsp_body)
-                                        ),
-                                    )
-                                })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod get {
         use super::models;
-        type Response = models::WikiV2;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiV2 = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) wiki_identifier: String,
             pub(crate) project: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -411,51 +470,65 @@ pub mod wikis {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                    azure_core::error::Error::full(
-                                        azure_core::error::ErrorKind::DataConversion,
-                                        e,
-                                        format!(
-                                            "Failed to deserialize response:\n{}",
-                                            String::from_utf8_lossy(&rsp_body)
-                                        ),
-                                    )
-                                })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod update {
         use super::models;
-        type Response = models::WikiV2;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiV2 = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiUpdateParameters,
             pub(crate) wiki_identifier: String,
             pub(crate) project: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -481,50 +554,64 @@ pub mod wikis {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::to_json(&this.body)?;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                    azure_core::error::Error::full(
-                                        azure_core::error::ErrorKind::DataConversion,
-                                        e,
-                                        format!(
-                                            "Failed to deserialize response:\n{}",
-                                            String::from_utf8_lossy(&rsp_body)
-                                        ),
-                                    )
-                                })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod delete {
         use super::models;
-        type Response = models::WikiV2;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiV2 = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) wiki_identifier: String,
             pub(crate) project: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -549,33 +636,16 @@ pub mod wikis {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiV2 = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                    azure_core::error::Error::full(
-                                        azure_core::error::ErrorKind::DataConversion,
-                                        e,
-                                        format!(
-                                            "Failed to deserialize response:\n{}",
-                                            String::from_utf8_lossy(&rsp_body)
-                                        ),
-                                    )
-                                })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -599,8 +669,8 @@ pub mod attachments {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             name: impl Into<String>,
-        ) -> create::Builder {
-            create::Builder {
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -615,9 +685,51 @@ pub mod attachments {
     }
     pub mod create {
         use super::models;
-        type Response = models::WikiAttachment;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiAttachment> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiAttachment = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: String,
@@ -628,7 +740,7 @@ pub mod attachments {
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
@@ -654,9 +766,8 @@ pub mod attachments {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -706,33 +817,16 @@ pub mod attachments {
                             );
                         }
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Created => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiAttachment =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiAttachment>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -754,8 +848,8 @@ pub mod page_moves {
             body: impl Into<models::WikiPageMoveParameters>,
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
-        ) -> create::Builder {
-            create::Builder {
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -770,9 +864,51 @@ pub mod page_moves {
     }
     pub mod create {
         use super::models;
-        type Response = models::WikiPageMove;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPageMove> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPageMove = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiPageMoveParameters,
@@ -783,7 +919,7 @@ pub mod page_moves {
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Comment that is to be associated with this page move."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
@@ -814,9 +950,8 @@ pub mod page_moves {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -869,33 +1004,16 @@ pub mod page_moves {
                             );
                         }
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Created => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPageMove =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageMove>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -915,8 +1033,8 @@ pub mod pages {
             organization: impl Into<String>,
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
-        ) -> get_page::Builder {
-            get_page::Builder {
+        ) -> get_page::RequestBuilder {
+            get_page::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -946,8 +1064,8 @@ pub mod pages {
             wiki_identifier: impl Into<String>,
             path: impl Into<String>,
             version: impl Into<String>,
-        ) -> create_or_update::Builder {
-            create_or_update::Builder {
+        ) -> create_or_update::RequestBuilder {
+            create_or_update::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -974,8 +1092,8 @@ pub mod pages {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             path: impl Into<String>,
-        ) -> delete_page::Builder {
-            delete_page::Builder {
+        ) -> delete_page::RequestBuilder {
+            delete_page::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -1000,8 +1118,8 @@ pub mod pages {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             id: i32,
-        ) -> get_page_by_id::Builder {
-            get_page_by_id::Builder {
+        ) -> get_page_by_id::RequestBuilder {
+            get_page_by_id::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -1028,8 +1146,8 @@ pub mod pages {
             wiki_identifier: impl Into<String>,
             id: i32,
             version: impl Into<String>,
-        ) -> update::Builder {
-            update::Builder {
+        ) -> update::RequestBuilder {
+            update::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -1053,8 +1171,8 @@ pub mod pages {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             id: i32,
-        ) -> delete_page_by_id::Builder {
-            delete_page_by_id::Builder {
+        ) -> delete_page_by_id::RequestBuilder {
+            delete_page_by_id::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -1066,9 +1184,51 @@ pub mod pages {
     }
     pub mod get_page {
         use super::models;
-        type Response = models::WikiPage;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
@@ -1080,7 +1240,7 @@ pub mod pages {
             pub(crate) version_descriptor_version_type: Option<String>,
             pub(crate) include_content: Option<bool>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Wiki page path."]
             pub fn path(mut self, path: impl Into<String>) -> Self {
                 self.path = Some(path.into());
@@ -1121,9 +1281,8 @@ pub mod pages {
                 self.include_content = Some(include_content);
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1183,45 +1342,66 @@ pub mod pages {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod create_or_update {
         use super::models;
-        #[derive(Debug)]
-        pub enum Response {
-            Created201(models::WikiPage),
-            Ok200(models::WikiPage),
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
         }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiPageCreateOrUpdateParameters,
@@ -1234,7 +1414,7 @@ pub mod pages {
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Comment to be associated with the page operation."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
@@ -1265,9 +1445,8 @@ pub mod pages {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1323,56 +1502,66 @@ pub mod pages {
                             );
                         }
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Created => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(Response::Created201(rsp_value))
-                            }
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(Response::Ok200(rsp_value))
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod delete_page {
         use super::models;
-        type Response = models::WikiPage;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
@@ -1383,7 +1572,7 @@ pub mod pages {
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Comment to be associated with this page delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
@@ -1414,9 +1603,8 @@ pub mod pages {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1470,41 +1658,66 @@ pub mod pages {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod get_page_by_id {
         use super::models;
-        type Response = models::WikiPage;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
@@ -1513,7 +1726,7 @@ pub mod pages {
             pub(crate) recursion_level: Option<String>,
             pub(crate) include_content: Option<bool>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
             pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
                 self.recursion_level = Some(recursion_level.into());
@@ -1524,9 +1737,8 @@ pub mod pages {
                 self.include_content = Some(include_content);
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1562,41 +1774,66 @@ pub mod pages {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod update {
         use super::models;
-        type Response = models::WikiPage;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiPageCreateOrUpdateParameters,
@@ -1606,15 +1843,14 @@ pub mod pages {
             pub(crate) version: String,
             pub(crate) comment: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Comment to be associated with the page operation."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1647,41 +1883,66 @@ pub mod pages {
                                 .append_pair("comment", comment);
                         }
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod delete_page_by_id {
         use super::models;
-        type Response = models::WikiPage;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPage = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn e_tag(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static("etag"))
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
@@ -1689,15 +1950,14 @@ pub mod pages {
             pub(crate) id: i32,
             pub(crate) comment: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Comment to be associated with this page delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1728,33 +1988,16 @@ pub mod pages {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPage = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1776,8 +2019,8 @@ pub mod page_stats {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             page_id: i32,
-        ) -> get::Builder {
-            get::Builder {
+        ) -> get::RequestBuilder {
+            get::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 project: project.into(),
@@ -1789,9 +2032,41 @@ pub mod page_stats {
     }
     pub mod get {
         use super::models;
-        type Response = models::WikiPageDetail;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetail> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPageDetail = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
@@ -1799,15 +2074,14 @@ pub mod page_stats {
             pub(crate) page_id: i32,
             pub(crate) page_views_for_days: Option<i32>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "last N days from the current day for which page views is to be returned. It's inclusive of current day."]
             pub fn page_views_for_days(mut self, page_views_for_days: i32) -> Self {
                 self.page_views_for_days = Some(page_views_for_days);
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1838,33 +2112,16 @@ pub mod page_stats {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPageDetail =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetail>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1886,8 +2143,8 @@ pub mod pages_batch {
             body: impl Into<models::WikiPagesBatchRequest>,
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
-        ) -> get::Builder {
-            get::Builder {
+        ) -> get::RequestBuilder {
+            get::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -1901,9 +2158,42 @@ pub mod pages_batch {
     }
     pub mod get {
         use super::models;
-        type Response = models::WikiPageDetailList;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetailList> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WikiPageDetailList =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::WikiPagesBatchRequest,
@@ -1913,7 +2203,7 @@ pub mod pages_batch {
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
             pub fn version_descriptor_version(
                 mut self,
@@ -1939,9 +2229,8 @@ pub mod pages_batch {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1989,33 +2278,16 @@ pub mod pages_batch {
                             );
                         }
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::WikiPageDetailList =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetailList>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }

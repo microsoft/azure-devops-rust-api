@@ -661,7 +661,7 @@ pub struct ExtensionAuditLogEntry {
     #[serde(
         rename = "auditDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub audit_date: Option<time::OffsetDateTime>,
     #[doc = "Extra information about the change"]
@@ -1096,7 +1096,7 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "requestDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub request_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1124,7 +1124,7 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "resolveDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub resolve_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1292,7 +1292,7 @@ pub struct ExtensionState {
     #[serde(
         rename = "lastVersionCheck",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_version_check: Option<time::OffsetDateTime>,
     #[serde(
@@ -1369,7 +1369,7 @@ pub struct ExtensionVersion {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -1560,7 +1560,7 @@ pub struct InstalledExtension {
     #[serde(
         rename = "lastPublished",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_published: Option<time::OffsetDateTime>,
     #[doc = "Unique id of the publisher of this extension"]
@@ -1647,7 +1647,7 @@ pub struct InstalledExtensionState {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
 }
@@ -1796,7 +1796,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -1809,7 +1809,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "publishedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
     #[doc = "High-level information about the publisher, like id's and names"]
@@ -1819,7 +1819,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "releaseDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub release_date: Option<time::OffsetDateTime>,
     #[serde(rename = "sharedWith", default, skip_serializing_if = "Vec::is_empty")]

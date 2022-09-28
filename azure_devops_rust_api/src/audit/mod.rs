@@ -141,8 +141,8 @@ pub mod actions {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        pub fn list(&self, organization: impl Into<String>) -> list::Builder {
-            list::Builder {
+        pub fn list(&self, organization: impl Into<String>) -> list::RequestBuilder {
+            list::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 area_name: None,
@@ -151,22 +151,54 @@ pub mod actions {
     }
     pub mod list {
         use super::models;
-        type Response = models::AuditActionInfoList;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditActionInfoList> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditActionInfoList =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) area_name: Option<String>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Optional. Get actions scoped to area"]
             pub fn area_name(mut self, area_name: impl Into<String>) -> Self {
                 self.area_name = Some(area_name.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -194,33 +226,16 @@ pub mod actions {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditActionInfoList =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditActionInfoList>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -233,8 +248,8 @@ pub mod audit_log {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        pub fn query(&self, organization: impl Into<String>) -> query::Builder {
-            query::Builder {
+        pub fn query(&self, organization: impl Into<String>) -> query::RequestBuilder {
+            query::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 start_time: None,
@@ -247,9 +262,42 @@ pub mod audit_log {
     }
     pub mod query {
         use super::models;
-        type Response = models::AuditLogQueryResult;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditLogQueryResult> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditLogQueryResult =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) start_time: Option<time::OffsetDateTime>,
@@ -258,7 +306,7 @@ pub mod audit_log {
             pub(crate) continuation_token: Option<String>,
             pub(crate) skip_aggregation: Option<bool>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Start time of download window. Optional"]
             pub fn start_time(mut self, start_time: impl Into<time::OffsetDateTime>) -> Self {
                 self.start_time = Some(start_time.into());
@@ -284,9 +332,8 @@ pub mod audit_log {
                 self.skip_aggregation = Some(skip_aggregation);
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -337,33 +384,16 @@ pub mod audit_log {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditLogQueryResult =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditLogQueryResult>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -381,8 +411,8 @@ pub mod download_log {
             &self,
             organization: impl Into<String>,
             format: impl Into<String>,
-        ) -> download_log::Builder {
-            download_log::Builder {
+        ) -> download_log::RequestBuilder {
+            download_log::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 format: format.into(),
@@ -393,16 +423,48 @@ pub mod download_log {
     }
     pub mod download_log {
         use super::models;
-        type Response = String;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<String> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: String = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) format: String,
             pub(crate) start_time: Option<time::OffsetDateTime>,
             pub(crate) end_time: Option<time::OffsetDateTime>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Start time of download window. Optional"]
             pub fn start_time(mut self, start_time: impl Into<time::OffsetDateTime>) -> Self {
                 self.start_time = Some(start_time.into());
@@ -413,9 +475,8 @@ pub mod download_log {
                 self.end_time = Some(end_time.into());
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -455,33 +516,15 @@ pub mod download_log {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: String =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<String>> {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -497,8 +540,8 @@ pub mod streams {
         pub fn query_all_streams(
             &self,
             organization: impl Into<String>,
-        ) -> query_all_streams::Builder {
-            query_all_streams::Builder {
+        ) -> query_all_streams::RequestBuilder {
+            query_all_streams::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
             }
@@ -514,8 +557,8 @@ pub mod streams {
             organization: impl Into<String>,
             body: impl Into<models::AuditStream>,
             days_to_backfill: i32,
-        ) -> create::Builder {
-            create::Builder {
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -531,8 +574,8 @@ pub mod streams {
             &self,
             organization: impl Into<String>,
             body: impl Into<models::AuditStream>,
-        ) -> update_stream::Builder {
-            update_stream::Builder {
+        ) -> update_stream::RequestBuilder {
+            update_stream::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -547,8 +590,8 @@ pub mod streams {
             &self,
             organization: impl Into<String>,
             stream_id: i32,
-        ) -> query_stream_by_id::Builder {
-            query_stream_by_id::Builder {
+        ) -> query_stream_by_id::RequestBuilder {
+            query_stream_by_id::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 stream_id,
@@ -565,8 +608,8 @@ pub mod streams {
             organization: impl Into<String>,
             stream_id: i32,
             status: impl Into<String>,
-        ) -> update_status::Builder {
-            update_status::Builder {
+        ) -> update_status::RequestBuilder {
+            update_status::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 stream_id,
@@ -578,8 +621,12 @@ pub mod streams {
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `stream_id`: Id of stream entry to delete"]
-        pub fn delete(&self, organization: impl Into<String>, stream_id: i32) -> delete::Builder {
-            delete::Builder {
+        pub fn delete(
+            &self,
+            organization: impl Into<String>,
+            stream_id: i32,
+        ) -> delete::RequestBuilder {
+            delete::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 stream_id,
@@ -588,16 +635,48 @@ pub mod streams {
     }
     pub mod query_all_streams {
         use super::models;
-        type Response = models::AuditStreamList;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditStreamList> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditStreamList =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -620,50 +699,64 @@ pub mod streams {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditStreamList =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditStreamList>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod create {
         use super::models;
-        type Response = models::AuditStream;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditStream = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::AuditStream,
             pub(crate) days_to_backfill: i32,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -691,49 +784,63 @@ pub mod streams {
                             .query_pairs_mut()
                             .append_pair("daysToBackfill", &days_to_backfill.to_string());
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditStream =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditStream>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod update_stream {
         use super::models;
-        type Response = models::AuditStream;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditStream = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::AuditStream,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -757,49 +864,63 @@ pub mod streams {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::to_json(&this.body)?;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditStream =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditStream>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod query_stream_by_id {
         use super::models;
-        type Response = models::AuditStream;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditStream = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) stream_id: i32,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -823,50 +944,64 @@ pub mod streams {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditStream =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditStream>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod update_status {
         use super::models;
-        type Response = models::AuditStream;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::AuditStream = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) stream_id: i32,
             pub(crate) status: String,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -894,49 +1029,31 @@ pub mod streams {
                             .append_pair("status", status);
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::AuditStream =
-                                    serde_json::from_slice(&rsp_body).map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::AuditStream>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
     pub mod delete {
         use super::models;
-        type Response = ();
+        pub struct Response(azure_core::Response);
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) stream_id: i32,
         }
-        impl Builder {
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+        impl RequestBuilder {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -960,17 +1077,7 @@ pub mod streams {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => Ok(()),
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }

@@ -395,7 +395,7 @@ pub struct ProjectInfo {
     #[serde(
         rename = "lastUpdateTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
     #[doc = "The name of the project."]
@@ -894,7 +894,7 @@ pub struct TemporaryDataCreatedDto {
     #[serde(
         rename = "expirationDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub expiration_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]

@@ -113,7 +113,7 @@ pub struct Log {
     #[serde(
         rename = "createdOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "The ID of the log."]
@@ -123,7 +123,7 @@ pub struct Log {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[doc = "The number of lines in the log."]
@@ -608,7 +608,7 @@ pub struct SignedUrl {
     #[serde(
         rename = "signatureExpires",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub signature_expires: Option<time::OffsetDateTime>,
     #[doc = "The URL to allow access to."]

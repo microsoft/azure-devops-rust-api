@@ -34,14 +34,14 @@ pub struct CloneOperationCommonResponse {
     #[serde(
         rename = "completionDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub completion_date: Option<time::OffsetDateTime>,
     #[doc = "Creation data of the operation"]
     #[serde(
         rename = "creationDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "The class to represent a collection of REST reference links."]
@@ -570,7 +570,7 @@ pub struct LastResultDetails {
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[doc = "Duration of the last result in milliseconds."]
@@ -1119,7 +1119,7 @@ pub struct TestCaseAssociatedResult {
     #[serde(
         rename = "completedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Test Configuration Reference"]
@@ -1438,7 +1438,7 @@ pub struct TestPlan {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
 }
@@ -1470,7 +1470,7 @@ pub struct TestPlanCreateParams {
     #[serde(
         rename = "endDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
     #[doc = "Iteration path of the test plan."]
@@ -1493,7 +1493,7 @@ pub struct TestPlanCreateParams {
     #[serde(
         rename = "startDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[doc = "State of the test plan."]
@@ -1524,7 +1524,7 @@ pub struct TestPlanDetailedReference {
     #[serde(
         rename = "endDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
     #[doc = "Iteration path of the test plan."]
@@ -1541,7 +1541,7 @@ pub struct TestPlanDetailedReference {
     #[serde(
         rename = "startDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
 }
@@ -1747,7 +1747,7 @@ pub struct TestPoint {
     #[serde(
         rename = "lastResetToActive",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_reset_to_active: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1761,7 +1761,7 @@ pub struct TestPoint {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "The class to represent a collection of REST reference links."]
@@ -2099,7 +2099,7 @@ pub struct TestSuite {
     #[serde(
         rename = "lastPopulatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_populated_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -2113,7 +2113,7 @@ pub struct TestSuite {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "The test plan reference resource."]

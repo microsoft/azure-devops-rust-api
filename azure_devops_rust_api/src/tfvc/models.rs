@@ -591,7 +591,7 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Branch description."]
@@ -755,7 +755,7 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "URL to retrieve the item."]
@@ -862,7 +862,7 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
     #[doc = "Greater than 0 if item is deleted."]
@@ -1060,7 +1060,7 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "Label name."]
@@ -1274,7 +1274,7 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Shelveset Id."]

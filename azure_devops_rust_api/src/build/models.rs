@@ -489,7 +489,7 @@ pub struct Build {
     #[serde(
         rename = "deletedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "The description of how the build was deleted."]
@@ -506,7 +506,7 @@ pub struct Build {
     #[serde(
         rename = "finishTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The ID of the build."]
@@ -522,7 +522,7 @@ pub struct Build {
     #[serde(
         rename = "lastChangedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_changed_date: Option<time::OffsetDateTime>,
     #[doc = "Represents a reference to a build log."]
@@ -572,7 +572,7 @@ pub struct Build {
     #[serde(
         rename = "queueTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = "The reason that the build was created."]
@@ -622,7 +622,7 @@ pub struct Build {
     #[serde(
         rename = "startTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[doc = "The status of the build."]
@@ -824,7 +824,7 @@ pub struct BuildAgent {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -861,7 +861,7 @@ pub struct BuildAgent {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1029,7 +1029,7 @@ pub struct BuildController {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "The description of the controller."]
@@ -1045,7 +1045,7 @@ pub struct BuildController {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
     #[doc = "The controller's URI."]
@@ -1498,7 +1498,7 @@ pub struct BuildDefinitionRevision {
     #[serde(
         rename = "changedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[doc = "The change type (add, edit, delete)."]
@@ -1576,7 +1576,7 @@ pub struct BuildDefinitionSourceProvider {
     #[serde(
         rename = "lastModified",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_modified: Option<time::OffsetDateTime>,
     #[doc = "Name of the source provider"]
@@ -1858,14 +1858,14 @@ pub struct BuildLog {
     #[serde(
         rename = "createdOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "The date and time the log was last changed."]
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[doc = "The number of lines in the log."]
@@ -1915,7 +1915,7 @@ impl BuildLogReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildMetric {
     #[doc = "The date for the scope."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(default, with = "azure_core::date::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "The value."]
     #[serde(rename = "intValue", default, skip_serializing_if = "Option::is_none")]
@@ -2258,7 +2258,7 @@ pub struct BuildReference {
     #[serde(
         rename = "finishTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The ID of the build."]
@@ -2268,7 +2268,7 @@ pub struct BuildReference {
     #[serde(
         rename = "queueTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -2285,7 +2285,7 @@ pub struct BuildReference {
     #[serde(
         rename = "startTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[doc = "The build status."]
@@ -2503,7 +2503,7 @@ pub struct BuildRetentionSample {
     #[serde(
         rename = "sampleTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub sample_time: Option<time::OffsetDateTime>,
 }
@@ -2543,7 +2543,7 @@ pub struct BuildServer {
     #[serde(
         rename = "statusChangedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub status_changed_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2607,7 +2607,7 @@ pub struct BuildSummary {
     #[serde(
         rename = "finishTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[serde(
@@ -2630,7 +2630,7 @@ pub struct BuildSummary {
     #[serde(
         rename = "startTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2838,7 +2838,7 @@ pub struct Change {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pusher: Option<String>,
     #[doc = "The timestamp for the change."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(default, with = "azure_core::date::rfc3339::option")]
     pub timestamp: Option<time::OffsetDateTime>,
     #[doc = "The type of change. \"commit\", \"changeset\", etc."]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -3093,7 +3093,7 @@ pub struct DefinitionReference {
     #[serde(
         rename = "createdDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "The ID of the referenced definition."]
@@ -3344,7 +3344,7 @@ pub struct Folder {
     #[serde(
         rename = "createdOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "The description."]
@@ -3361,7 +3361,7 @@ pub struct Folder {
     #[serde(
         rename = "lastChangedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_changed_date: Option<time::OffsetDateTime>,
     #[doc = "The full path."]
@@ -3550,7 +3550,7 @@ pub struct InformationNode {
     #[serde(
         rename = "lastModifiedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_modified_date: Option<time::OffsetDateTime>,
     #[doc = "Node Id of this information node"]
@@ -4209,7 +4209,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "creationDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "Release definition ID."]
@@ -4223,7 +4223,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
     #[doc = "Release environment definition ID."]
@@ -4341,7 +4341,7 @@ pub struct RetentionLease {
     #[serde(
         rename = "createdOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "The pipeline definition of the run."]
@@ -4371,7 +4371,7 @@ pub struct RetentionLease {
     #[serde(
         rename = "validUntil",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub valid_until: Option<time::OffsetDateTime>,
 }
@@ -5276,7 +5276,7 @@ pub struct Timeline {
     #[serde(
         rename = "lastChangedOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -5342,7 +5342,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "finishTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The ID of the record."]
@@ -5357,7 +5357,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "lastModified",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_modified: Option<time::OffsetDateTime>,
     #[doc = "Represents a reference to a build log."]
@@ -5402,7 +5402,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "startTime",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
     #[doc = "The state of the record."]
@@ -5796,7 +5796,7 @@ pub struct WorkspaceTemplate {
     #[serde(
         rename = "lastModifiedDate",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub last_modified_date: Option<time::OffsetDateTime>,
     #[doc = "List of workspace mappings"]
@@ -5860,7 +5860,7 @@ pub struct XamlBuildDefinition {
     #[serde(
         rename = "createdOn",
         default,
-        with = "crate::date_time::rfc3339::option"
+        with = "azure_core::date::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Default drop location for builds from this definition"]

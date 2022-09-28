@@ -132,8 +132,8 @@ pub mod profiles {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `id`: The ID of the target user profile within the same organization, or 'me' to get the profile of the current authenticated user."]
-        pub fn get(&self, id: impl Into<String>) -> get::Builder {
-            get::Builder {
+        pub fn get(&self, id: impl Into<String>) -> get::RequestBuilder {
+            get::RequestBuilder {
                 client: self.0.clone(),
                 id: id.into(),
                 details: None,
@@ -146,9 +146,41 @@ pub mod profiles {
     }
     pub mod get {
         use super::models;
-        type Response = models::Profile;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::Profile> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::Profile = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
         #[derive(Clone)]
-        pub struct Builder {
+        pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) id: String,
             pub(crate) details: Option<bool>,
@@ -157,7 +189,7 @@ pub mod profiles {
             pub(crate) core_attributes: Option<String>,
             pub(crate) force_refresh: Option<bool>,
         }
-        impl Builder {
+        impl RequestBuilder {
             #[doc = "Return public profile information such as display name, email address, country, etc. If false, the withAttributes parameter is ignored."]
             pub fn details(mut self, details: bool) -> Self {
                 self.details = Some(details);
@@ -183,9 +215,8 @@ pub mod profiles {
                 self.force_refresh = Some(force_refresh);
                 self
             }
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -233,33 +264,16 @@ pub mod profiles {
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
-                        let rsp = this.client.send(&mut req).await?;
-                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                        match rsp_status {
-                            azure_core::StatusCode::Ok => {
-                                let rsp_body = rsp_stream.collect().await?;
-                                let rsp_value: models::Profile = serde_json::from_slice(&rsp_body)
-                                    .map_err(|e| {
-                                        azure_core::error::Error::full(
-                                            azure_core::error::ErrorKind::DataConversion,
-                                            e,
-                                            format!(
-                                                "Failed to deserialize response:\n{}",
-                                                String::from_utf8_lossy(&rsp_body)
-                                            ),
-                                        )
-                                    })?;
-                                Ok(rsp_value)
-                            }
-                            status_code => Err(azure_core::error::Error::from(
-                                azure_core::error::ErrorKind::HttpResponse {
-                                    status: status_code,
-                                    error_code: None,
-                                },
-                            )),
-                        }
+                        Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
+            }
+            #[doc = "Send the request and return the response body."]
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Profile>>
+            {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
