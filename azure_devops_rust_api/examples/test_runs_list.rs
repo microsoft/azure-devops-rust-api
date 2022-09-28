@@ -27,6 +27,9 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
+    // Max number of runs for the project to be fetched
+    let top_test_runs: i32 = 200;
+
     // Create test_run client
     let test_run_client = test::ClientBuilder::new(credential).build();
 
@@ -35,6 +38,7 @@ async fn main() -> Result<()> {
     let test_runs = test_run_client
         .runs_client()
         .list(&organization, &project)
+        .top(top_test_runs)
         .into_future()
         .await?
         .value;
