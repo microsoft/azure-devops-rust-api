@@ -61,6 +61,7 @@ cargo run --example pipeline_preview --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example pipelines --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example service_endpoint --features="service_endpoint"
 cargo run --example search_code --features="search"
+cargo run --example test_runs_list --features="test"
 cargo run --example client_pipeline_policy --features="git"
 
 echo "Done"
