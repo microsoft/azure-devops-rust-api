@@ -1347,7 +1347,7 @@ pub struct Subscription {
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub probation_retries: Option<String>,
+    pub probation_retries: Option<i32>,
     #[serde(
         rename = "publisherId",
         default,
