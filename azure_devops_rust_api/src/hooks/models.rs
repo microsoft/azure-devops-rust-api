@@ -168,7 +168,7 @@ pub struct Event {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Provides different formats of an event message"]
@@ -730,7 +730,7 @@ pub struct Notification {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Defines the data contract of notification details."]
@@ -746,7 +746,7 @@ pub struct Notification {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "Result of the notification"]
@@ -809,7 +809,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets this notification detail's consumer action identifier."]
@@ -837,7 +837,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "dequeuedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub dequeued_date: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets this notification detail's error detail."]
@@ -864,7 +864,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "processedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub processed_date: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets this notification detail's publisher identifier."]
@@ -885,7 +885,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "queuedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub queued_date: Option<time::OffsetDateTime>,
     #[doc = "Gets or sets this notification detail's request."]
@@ -1001,7 +1001,7 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "maxCreatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub max_created_date: Option<time::OffsetDateTime>,
     #[doc = "Optional maximum number of overall results to include"]
@@ -1022,7 +1022,7 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "minCreatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub min_created_date: Option<time::OffsetDateTime>,
     #[doc = "Optional publisher id to restrict the results to"]
@@ -1264,7 +1264,7 @@ pub struct SessionToken {
     #[serde(
         rename = "validTo",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
 }
@@ -1310,7 +1310,7 @@ pub struct Subscription {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -1326,7 +1326,7 @@ pub struct Subscription {
     #[serde(
         rename = "lastProbationRetryDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_probation_retry_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -1339,7 +1339,7 @@ pub struct Subscription {
     #[serde(
         rename = "modifiedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -1478,7 +1478,7 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "endDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
     #[doc = "The maximum number of result details to trace."]
@@ -1492,7 +1492,7 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "startDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[doc = "Trace until remaining count reaches 0."]

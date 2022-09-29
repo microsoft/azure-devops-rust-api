@@ -262,7 +262,7 @@ pub struct ExtensionSummaryData {
     #[serde(
         rename = "trialExpiryDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub trial_expiry_date: Option<time::OffsetDateTime>,
 }
@@ -463,7 +463,7 @@ pub struct GroupEntitlement {
     #[serde(
         rename = "lastExecuted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed: Option<time::OffsetDateTime>,
     #[doc = "License assigned to a user"]
@@ -668,7 +668,7 @@ pub struct LicenseSummaryData {
     #[serde(
         rename = "nextBillingDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub next_billing_date: Option<time::OffsetDateTime>,
     #[doc = "Source of the License."]
@@ -1047,7 +1047,7 @@ pub struct UserEntitlement {
     #[serde(
         rename = "dateCreated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[doc = "[Readonly] GroupEntitlements that this user belongs to."]
@@ -1064,7 +1064,7 @@ pub struct UserEntitlement {
     #[serde(
         rename = "lastAccessedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_accessed_date: Option<time::OffsetDateTime>,
     #[doc = "Relation between a project and the user's effective permissions in that project."]

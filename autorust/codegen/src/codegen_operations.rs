@@ -752,7 +752,7 @@ impl ToTokens for HeaderCode {
         } else if type_name_code.is_date_time() {
             quote! {
                 pub fn #function_name(&self) -> azure_core::Result<time::OffsetDateTime> {
-                    azure_core::date::parse_rfc3339(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
+                    crate::date_time::parse_rfc3339(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
                 }
             }
         } else if type_name_code.is_date_time_rfc1123() {

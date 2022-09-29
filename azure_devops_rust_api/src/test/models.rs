@@ -40,7 +40,7 @@ pub struct AfnStrip {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "File name of the attachment created"]
@@ -568,7 +568,7 @@ pub struct BuildConfiguration {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "Build flavor (eg Build/Release)."]
@@ -774,7 +774,7 @@ pub struct BuildReference2 {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
@@ -826,14 +826,14 @@ pub struct CloneOperationInformation {
     #[serde(
         rename = "completionDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completion_date: Option<time::OffsetDateTime>,
     #[doc = "DateTime when the operation was started"]
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -1197,13 +1197,13 @@ pub struct Coverage2 {
     #[serde(
         rename = "dateCreated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateModified",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
     #[serde(rename = "lastError", default, skip_serializing_if = "Option::is_none")]
@@ -1388,7 +1388,7 @@ pub mod custom_test_field_definition {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DatedTestFieldData {
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1486,7 +1486,7 @@ pub struct FailingSince {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub build: Option<BuildReference>,
     #[doc = "Time since failing(UTC)."]
-    #[serde(default, with = "azure_core::date::rfc3339::option")]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Reference to a release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1962,7 +1962,7 @@ pub struct LastResultDetails {
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[doc = "Duration of the last result in milliseconds."]
@@ -2041,13 +2041,13 @@ pub struct LegacyBuildConfiguration {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2094,7 +2094,7 @@ pub struct LegacyReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2118,7 +2118,7 @@ pub struct LegacyReleaseReference {
     #[serde(
         rename = "releaseCreationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub release_creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2256,7 +2256,7 @@ pub struct LegacyTestCaseResult {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2268,13 +2268,13 @@ pub struct LegacyTestCaseResult {
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2306,7 +2306,7 @@ pub struct LegacyTestCaseResult {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -2535,7 +2535,7 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "completeDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub complete_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2549,7 +2549,7 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2593,7 +2593,7 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "dueDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -2630,7 +2630,7 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -2729,7 +2729,7 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "startDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2864,7 +2864,7 @@ pub struct LegacyTestSettings {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2882,7 +2882,7 @@ pub struct LegacyTestSettings {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -3321,7 +3321,7 @@ pub struct PointLastResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[serde(rename = "pointId", default, skip_serializing_if = "Option::is_none")]
@@ -3449,7 +3449,7 @@ pub struct PointsResults2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -3724,7 +3724,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[doc = "Release definition ID."]
@@ -3738,7 +3738,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
     #[doc = "Release environment definition ID."]
@@ -3789,7 +3789,7 @@ pub struct ReleaseReference2 {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
@@ -3797,7 +3797,7 @@ pub struct ReleaseReference2 {
     #[serde(
         rename = "releaseCreationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub release_creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -3864,7 +3864,7 @@ pub struct RequirementsToTestsMapping2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(rename = "deletedBy", default, skip_serializing_if = "Option::is_none")]
@@ -3872,7 +3872,7 @@ pub struct RequirementsToTestsMapping2 {
     #[serde(
         rename = "deletionDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deletion_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -4056,7 +4056,7 @@ pub struct ResultRetentionSettings {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Manual test result retention duration in days"]
@@ -4188,7 +4188,7 @@ pub struct ResultUpdateResponse {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -4319,7 +4319,7 @@ pub struct ResultsFilter {
     #[serde(
         rename = "maxCompleteDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -5400,19 +5400,19 @@ pub struct TestActionResult {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5435,7 +5435,7 @@ pub struct TestActionResult {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -5478,19 +5478,19 @@ pub struct TestActionResult2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5510,7 +5510,7 @@ pub struct TestActionResult2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5600,7 +5600,7 @@ pub struct TestAttachment {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Attachment file name"]
@@ -5705,7 +5705,7 @@ pub struct TestAuthoringDetails {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(rename = "pointId", default, skip_serializing_if = "Option::is_none")]
@@ -5817,13 +5817,13 @@ pub struct TestCaseReference2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "lastRefTestRunDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_ref_test_run_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5940,7 +5940,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Machine name where test executed."]
@@ -5957,7 +5957,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Additional properties of test result."]
@@ -6016,7 +6016,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)"]
@@ -6086,7 +6086,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "State of test result. Type TestRunState."]
@@ -6364,7 +6364,7 @@ pub struct TestConfiguration {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the configuration"]
@@ -6718,7 +6718,7 @@ pub struct TestHistoryQuery {
     #[serde(
         rename = "maxCompleteDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
     #[doc = "Get the results history only for this ReleaseEnvDefinitionId. This to get used in query GroupBy should be Environment."]
@@ -6782,7 +6782,7 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Duration of execution."]
@@ -6812,7 +6812,7 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "Url to test iteration result."]
@@ -6854,7 +6854,7 @@ pub struct TestLog {
     #[serde(
         rename = "modifiedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
     #[doc = "Size in Bytes for Log file"]
@@ -7085,7 +7085,7 @@ pub struct TestMessageLogDetails {
     #[serde(
         rename = "dateCreated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[doc = "Id of the resource"]
@@ -7106,7 +7106,7 @@ pub struct TestMessageLogEntry {
     #[serde(
         rename = "dateCreated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[serde(rename = "entryId", default, skip_serializing_if = "Option::is_none")]
@@ -7141,7 +7141,7 @@ pub struct TestMessageLogEntry2 {
     #[serde(
         rename = "dateCreated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[serde(rename = "entryId", default, skip_serializing_if = "Option::is_none")]
@@ -7222,7 +7222,7 @@ pub struct TestParameter2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(rename = "dataType", default, skip_serializing_if = "Option::is_none")]
@@ -7230,7 +7230,7 @@ pub struct TestParameter2 {
     #[serde(
         rename = "dateModified",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -7284,7 +7284,7 @@ pub struct TestPlan {
     #[serde(
         rename = "endDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
     #[doc = "ID of the test plan."]
@@ -7326,7 +7326,7 @@ pub struct TestPlan {
     #[serde(
         rename = "startDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[doc = "State of the test plan."]
@@ -7345,7 +7345,7 @@ pub struct TestPlan {
     #[serde(
         rename = "updatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
     #[doc = "URL of the test plan resource."]
@@ -7462,7 +7462,7 @@ pub struct TestPoint {
     #[serde(
         rename = "lastResetToActive",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_reset_to_active: Option<time::OffsetDateTime>,
     #[doc = "Last resolution state id of test point."]
@@ -7518,7 +7518,7 @@ pub struct TestPoint {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Outcome of test point."]
@@ -7688,19 +7688,19 @@ pub struct TestResult2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
     #[serde(
@@ -7718,7 +7718,7 @@ pub struct TestResult2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -7813,7 +7813,7 @@ pub struct TestResultAttachment {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -8235,7 +8235,7 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Duration of execution."]
@@ -8259,7 +8259,7 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
 }
@@ -8377,7 +8377,7 @@ pub struct TestResultReset2 {
     #[serde(
         rename = "dateModified",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
@@ -8479,7 +8479,7 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "maxCompleteDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -8596,13 +8596,13 @@ pub struct TestResultsEx2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateTimeValue",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_time_value: Option<time::OffsetDateTime>,
     #[serde(rename = "fieldId", default, skip_serializing_if = "Option::is_none")]
@@ -8750,7 +8750,7 @@ pub struct TestResultsWithWatermark {
     #[serde(
         rename = "changedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -8789,7 +8789,7 @@ pub struct TestRun {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Test Run Controller."]
@@ -8799,7 +8799,7 @@ pub struct TestRun {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "List of Custom Fields for TestRun."]
@@ -8841,7 +8841,7 @@ pub struct TestRun {
     #[serde(
         rename = "dueDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
     #[doc = "Error message associated with the run."]
@@ -8885,7 +8885,7 @@ pub struct TestRun {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the test run."]
@@ -8961,7 +8961,7 @@ pub struct TestRun {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "The state of the run. Type TestRunState Valid states - Unspecified ,NotStarted, InProgress, Completed, Waiting, Aborted, NeedsInvestigation"]
@@ -9068,7 +9068,7 @@ pub struct TestRun2 {
     #[serde(
         rename = "completeDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub complete_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9082,13 +9082,13 @@ pub struct TestRun2 {
     #[serde(
         rename = "creationDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "deletedOn",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_on: Option<time::OffsetDateTime>,
     #[serde(
@@ -9100,7 +9100,7 @@ pub struct TestRun2 {
     #[serde(
         rename = "dueDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -9138,7 +9138,7 @@ pub struct TestRun2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
@@ -9204,7 +9204,7 @@ pub struct TestRun2 {
     #[serde(
         rename = "startDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9376,13 +9376,13 @@ pub struct TestRunEx2 {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateTimeValue",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub date_time_value: Option<time::OffsetDateTime>,
     #[serde(rename = "fieldId", default, skip_serializing_if = "Option::is_none")]
@@ -9548,7 +9548,7 @@ pub struct TestRunSummary2 {
     #[serde(
         rename = "testRunCompletedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub test_run_completed_date: Option<time::OffsetDateTime>,
     #[serde(
@@ -9619,7 +9619,7 @@ pub struct TestSession {
     #[serde(
         rename = "endDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
     #[doc = "Id of the test session"]
@@ -9636,7 +9636,7 @@ pub struct TestSession {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -9662,7 +9662,7 @@ pub struct TestSession {
     #[serde(
         rename = "startDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[doc = "State of the test session"]
@@ -9733,14 +9733,14 @@ pub struct TestSessionExploredWorkItemReference {
     #[serde(
         rename = "endTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub end_time: Option<time::OffsetDateTime>,
     #[doc = "Time when explore of workitem was started."]
     #[serde(
         rename = "startTime",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
 }
@@ -9835,7 +9835,7 @@ pub struct TestSettings2 {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Description of the test settings. Used in create test settings."]
@@ -9854,7 +9854,7 @@ pub struct TestSettings2 {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Xml string of machine roles. Used in create test settings."]
@@ -9918,7 +9918,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "Machine where test executed."]
@@ -9966,7 +9966,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Outcome of sub result."]
@@ -10000,7 +10000,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "List of sub results inside a sub result, if ResultGroupType is not None, it holds corresponding type sub results."]
@@ -10079,7 +10079,7 @@ pub struct TestSuite {
     #[serde(
         rename = "lastPopulatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_populated_date: Option<time::OffsetDateTime>,
     #[doc = ""]
@@ -10093,7 +10093,7 @@ pub struct TestSuite {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
     #[doc = "Name of test suite."]
@@ -10354,7 +10354,7 @@ pub struct UpdatedProperties {
     #[serde(
         rename = "lastUpdated",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(

@@ -19,7 +19,7 @@ pub struct Avatar {
     #[serde(
         rename = "timeStamp",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

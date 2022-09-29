@@ -125,7 +125,7 @@ pub struct PolicyConfiguration {
     #[serde(
         rename = "createdDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[doc = "Indicates whether the policy is blocking."]
@@ -205,7 +205,7 @@ pub struct PolicyEvaluationRecord {
     #[serde(
         rename = "completedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[doc = "The full policy configuration with settings."]
@@ -225,7 +225,7 @@ pub struct PolicyEvaluationRecord {
     #[serde(
         rename = "startedDate",
         default,
-        with = "azure_core::date::rfc3339::option"
+        with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "Status of the policy (Running, Approved, Failed, etc.)"]
