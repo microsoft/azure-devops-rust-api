@@ -132,6 +132,12 @@ impl Client {
     pub fn deploymentgroups_client(&self) -> deploymentgroups::Client {
         deploymentgroups::Client(self.clone())
     }
+    pub fn elasticpoollogs_client(&self) -> elasticpoollogs::Client {
+        elasticpoollogs::Client(self.clone())
+    }
+    pub fn elasticpools_client(&self) -> elasticpools::Client {
+        elasticpools::Client(self.clone())
+    }
     pub fn environmentdeployment_records_client(&self) -> environmentdeployment_records::Client {
         environmentdeployment_records::Client(self.clone())
     }
@@ -140,6 +146,9 @@ impl Client {
     }
     pub fn kubernetes_client(&self) -> kubernetes::Client {
         kubernetes::Client(self.clone())
+    }
+    pub fn nodes_client(&self) -> nodes::Client {
+        nodes::Client(self.clone())
     }
     pub fn pools_client(&self) -> pools::Client {
         pools::Client(self.clone())
@@ -5596,6 +5605,662 @@ pub mod taskgroups {
                         let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
                         match rsp_status {
                             azure_core::StatusCode::Ok => Ok(()),
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+pub mod elasticpools {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Get a list of all Elastic Pools."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        pub fn list(&self, organization: impl Into<String>) -> list::Builder {
+            list::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+            }
+        }
+        #[doc = "Create a new elastic pool. This will create a new TaskAgentPool at the organization level. If a project id is provided, this will create a new TaskAgentQueue in the specified project."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Elastic pool to create. Contains the properties necessary for configuring a new ElasticPool."]
+        #[doc = "* `pool_name`: Name to use for the new TaskAgentPool"]
+        pub fn create(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::ElasticPool>,
+            pool_name: impl Into<String>,
+        ) -> create::Builder {
+            create::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                pool_name: pool_name.into(),
+                authorize_all_pipelines: None,
+                auto_provision_project_pools: None,
+                project_id: None,
+            }
+        }
+        #[doc = "Returns the Elastic Pool with the specified Pool Id."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: Pool Id of the associated TaskAgentPool"]
+        pub fn get(&self, organization: impl Into<String>, pool_id: i32) -> get::Builder {
+            get::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                pool_id,
+            }
+        }
+        #[doc = "Update settings on a specified Elastic Pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: New Elastic Pool settings data"]
+        pub fn update(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::ElasticPoolSettings>,
+            pool_id: i32,
+        ) -> update::Builder {
+            update::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                pool_id,
+            }
+        }
+    }
+    pub mod list {
+        use super::models;
+        type Response = models::ElasticPoolList;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+        }
+        impl Builder {
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools",
+                            this.client.endpoint(),
+                            &this.organization
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticPoolList =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+    pub mod create {
+        use super::models;
+        type Response = models::ElasticPoolCreationResult;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::ElasticPool,
+            pub(crate) pool_name: String,
+            pub(crate) authorize_all_pipelines: Option<bool>,
+            pub(crate) auto_provision_project_pools: Option<bool>,
+            pub(crate) project_id: Option<String>,
+        }
+        impl Builder {
+            #[doc = "Setting to determine if all pipelines are authorized to use this TaskAgentPool by default."]
+            pub fn authorize_all_pipelines(mut self, authorize_all_pipelines: bool) -> Self {
+                self.authorize_all_pipelines = Some(authorize_all_pipelines);
+                self
+            }
+            #[doc = "Setting to automatically provision TaskAgentQueues in every project for the new pool."]
+            pub fn auto_provision_project_pools(
+                mut self,
+                auto_provision_project_pools: bool,
+            ) -> Self {
+                self.auto_provision_project_pools = Some(auto_provision_project_pools);
+                self
+            }
+            #[doc = "Optional: If provided, a new TaskAgentQueue will be created in the specified project."]
+            pub fn project_id(mut self, project_id: impl Into<String>) -> Self {
+                self.project_id = Some(project_id.into());
+                self
+            }
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools",
+                            this.client.endpoint(),
+                            &this.organization
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        let pool_name = &this.pool_name;
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("poolName", pool_name);
+                        if let Some(authorize_all_pipelines) = &this.authorize_all_pipelines {
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "authorizeAllPipelines",
+                                &authorize_all_pipelines.to_string(),
+                            );
+                        }
+                        if let Some(auto_provision_project_pools) =
+                            &this.auto_provision_project_pools
+                        {
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "autoProvisionProjectPools",
+                                &auto_provision_project_pools.to_string(),
+                            );
+                        }
+                        if let Some(project_id) = &this.project_id {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("projectId", project_id);
+                        }
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticPoolCreationResult =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+    pub mod get {
+        use super::models;
+        type Response = models::ElasticPool;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) pool_id: i32,
+        }
+        impl Builder {
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.pool_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticPool =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+    pub mod update {
+        use super::models;
+        type Response = models::ElasticPool;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::ElasticPoolSettings,
+            pub(crate) pool_id: i32,
+        }
+        impl Builder {
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.pool_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticPool =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+pub mod elasticpoollogs {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Get elastic pool diagnostics logs for a specified Elastic Pool."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: Pool Id of the Elastic Pool"]
+        pub fn list(&self, organization: impl Into<String>, pool_id: i32) -> list::Builder {
+            list::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                pool_id,
+                top: None,
+            }
+        }
+    }
+    pub mod list {
+        use super::models;
+        type Response = models::ElasticPoolLogList;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) pool_id: i32,
+            pub(crate) top: Option<i32>,
+        }
+        impl Builder {
+            #[doc = "Number of elastic pool logs to retrieve"]
+            pub fn top(mut self, top: i32) -> Self {
+                self.top = Some(top);
+                self
+            }
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools/{}/logs",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.pool_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(top) = &this.top {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("$top", &top.to_string());
+                        }
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticPoolLogList =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+pub mod nodes {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Get a list of ElasticNodes currently in the ElasticPool"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `pool_id`: Pool id of the ElasticPool"]
+        pub fn list(&self, organization: impl Into<String>, pool_id: i32) -> list::Builder {
+            list::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                pool_id,
+                state: None,
+            }
+        }
+        #[doc = "Update properties on a specified ElasticNode"]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        pub fn update(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::ElasticNodeSettings>,
+            pool_id: i32,
+            elastic_node_id: i32,
+        ) -> update::Builder {
+            update::Builder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                pool_id,
+                elastic_node_id,
+            }
+        }
+    }
+    pub mod list {
+        use super::models;
+        type Response = models::ElasticNodeList;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) pool_id: i32,
+            pub(crate) state: Option<String>,
+        }
+        impl Builder {
+            #[doc = "Optional: Filter to only retrieve ElasticNodes in the given ElasticNodeState"]
+            pub fn state(mut self, state: impl Into<String>) -> Self {
+                self.state = Some(state.into());
+                self
+            }
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools/{}/nodes",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.pool_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(state) = &this.state {
+                            req.url_mut().query_pairs_mut().append_pair("$state", state);
+                        }
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticNodeList =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
+                            status_code => Err(azure_core::error::Error::from(
+                                azure_core::error::ErrorKind::HttpResponse {
+                                    status: status_code,
+                                    error_code: None,
+                                },
+                            )),
+                        }
+                    }
+                })
+            }
+        }
+    }
+    pub mod update {
+        use super::models;
+        type Response = models::ElasticNode;
+        #[derive(Clone)]
+        pub struct Builder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::ElasticNodeSettings,
+            pub(crate) pool_id: i32,
+            pub(crate) elastic_node_id: i32,
+        }
+        impl Builder {
+            pub fn into_future(
+                self,
+            ) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/distributedtask/elasticpools/{}/nodes/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.pool_id,
+                            &this.elastic_node_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        let rsp = this.client.send(&mut req).await?;
+                        let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
+                        match rsp_status {
+                            azure_core::StatusCode::Ok => {
+                                let rsp_body = rsp_stream.collect().await?;
+                                let rsp_value: models::ElasticNode =
+                                    serde_json::from_slice(&rsp_body).map_err(|e| {
+                                        azure_core::error::Error::full(
+                                            azure_core::error::ErrorKind::DataConversion,
+                                            e,
+                                            format!(
+                                                "Failed to deserialize response:\n{}",
+                                                String::from_utf8_lossy(&rsp_body)
+                                            ),
+                                        )
+                                    })?;
+                                Ok(rsp_value)
+                            }
                             status_code => Err(azure_core::error::Error::from(
                                 azure_core::error::ErrorKind::HttpResponse {
                                     status: status_code,
