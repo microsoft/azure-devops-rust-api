@@ -1,14 +1,13 @@
 use crate::{
-    codegen::{parse_path_params, type_name_gen, PARAM_RE},
+    codegen::{parse_path_params, PARAM_RE},
     codegen::TypeNameCode,
     identifier::{parse_ident, SnakeCaseIdent},
-    spec::{get_type_name_for_schema_ref, WebOperation, WebParameter, WebVerb},
-    status_codes::get_success_responses,
-    status_codes::{get_response_type_ident, get_status_code_ident},
-    CodeGen,
+    spec::{get_type_name_for_schema_ref, TypeName, WebOperation, WebParameter, WebVerb},
+    status_codes::get_status_code_ident,
+    CodeGen, Error, ErrorKind,
 };
 use crate::{content_type, Result};
-use autorust_openapi::{CollectionFormat, ParameterType, Response};
+use autorust_openapi::{CollectionFormat, Header, ParameterType, Response, StatusCode};
 use heck::ToPascalCase;
 use heck::ToSnakeCase;
 use indexmap::IndexMap;
@@ -16,9 +15,8 @@ use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use std::collections::{BTreeSet, HashSet};
 
-pub mod query_param {
-    pub const API_VERSION: &str = "api-version";
-}
+pub const API_VERSION: &str = "api-version";
+pub const X_MS_VERSION: &str = "x-ms-version";
 
 fn error_variant(operation: &WebOperationGen) -> Result<Ident> {
     let function = operation.rust_function_name().to_pascal_case();
@@ -226,11 +224,11 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
         match operations_code.get_mut(&module_name) {
             Some(operation_code) => {
                 let OperationCode {
-                    mut builder_instances,
-                    module_code,
+                    mut client_functions,
+                    mut module_code,
                 } = code;
-                operation_code.builder_instances.append(&mut builder_instances);
-                operation_code.module_code.extend(module_code);
+                operation_code.client_functions.append(&mut client_functions);
+                operation_code.module_code.append(&mut module_code);
             }
             None => {
                 operations_code.insert(module_name, code);
@@ -240,11 +238,11 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
 
     for (module_name, operation_code) in operations_code {
         let OperationCode {
-            builder_instances,
+            client_functions,
             module_code,
         } = operation_code;
         let mut builders = TokenStream::new();
-        for builder in builder_instances {
+        for builder in client_functions {
             builders.extend(builder.into_token_stream());
         }
         match module_name {
@@ -257,7 +255,7 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
                         impl Client {
                             #builders
                         }
-                        #module_code
+                        #(#module_code)*
                     }
                 });
             }
@@ -266,7 +264,7 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
                     impl Client {
                         #builders
                     }
-                    #module_code
+                    #(#module_code)*
                 });
             }
         }
@@ -274,9 +272,17 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
     Ok(file)
 }
 
+struct OperationModuleCode {
+    module_name: Ident,
+    response_code: ResponseCode,
+    request_builder_struct_code: RequestBuilderStructCode,
+    request_builder_setters_code: RequestBuilderSettersCode,
+    request_builder_future_code: RequestBuilderIntoFutureCode,
+}
+
 struct OperationCode {
-    builder_instances: Vec<BuilderInstanceCode>,
-    module_code: TokenStream,
+    client_functions: Vec<ClientFunctionCode>,
+    module_code: Vec<OperationModuleCode>,
 }
 
 struct WebOperationGen(WebOperation);
@@ -317,17 +323,26 @@ impl WebOperationGen {
         self.0.api_version.as_str()
     }
 
-    fn consumes(&self) -> Vec<&str> {
-        self.0.consumes.iter().map(String::as_str).collect()
-    }
-
     fn pick_consumes(&self) -> Option<&str> {
-        crate::content_type::pick_consumes(self.consumes())
+        crate::content_type::pick(self.0.consumes.iter().map(String::as_str))
     }
 
-    #[allow(dead_code)]
-    fn produces(&self) -> Vec<&str> {
-        self.0.produces.iter().map(String::as_str).collect()
+    fn pick_produces(&self) -> Option<&str> {
+        crate::content_type::pick(self.0.produces.iter().map(String::as_str))
+    }
+
+    fn pageable(&self) -> Option<Pageable> {
+        self.0.pageable.as_ref().map(|p| Pageable {
+            next_link_name: p.next_link_name.clone(),
+        })
+    }
+
+    pub fn success_responses(&self) -> IndexMap<&StatusCode, &Response> {
+        self.0
+            .responses
+            .iter()
+            .filter(|(status_code, _)| crate::status_codes::is_success(status_code))
+            .collect()
     }
 }
 
@@ -339,12 +354,14 @@ fn create_function_name(verb: &WebVerb, path: &str) -> String {
     path.join("_")
 }
 
-struct RequestCode {
+/// Calls `azure_core::Request::new` and set the authentication.
+struct NewRequestCode {
     auth: AuthCode,
     verb: WebVerb,
+    path: String,
 }
 
-impl ToTokens for RequestCode {
+impl ToTokens for NewRequestCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let auth = &self.auth;
         let verb = verb_to_tokens(&self.verb);
@@ -356,6 +373,7 @@ impl ToTokens for RequestCode {
 }
 
 struct AuthCode {}
+
 impl ToTokens for AuthCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(quote! {
@@ -378,12 +396,13 @@ fn verb_to_tokens(verb: &WebVerb) -> TokenStream {
     }
 }
 
-struct BuildRequestParamsCode {
+/// Sets all of the request parameters.
+struct SetRequestParamsCode {
     content_type: String,
     params: FunctionParams,
 }
 
-impl ToTokens for BuildRequestParamsCode {
+impl ToTokens for SetRequestParamsCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         for param in self.params.params() {
             let FunctionParam {
@@ -429,8 +448,7 @@ impl ToTokens for BuildRequestParamsCode {
                                 let formatted_date_time = crate::date_time::format_date_time(#param_name_var)?;
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, &formatted_date_time);
                             }
-                        }
-                        else {
+                        } else {
                             quote! {
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, &#param_name_var.to_string());
                             }
@@ -529,341 +547,561 @@ impl ToTokens for BuildRequestParamsCode {
 
 // Create code for the web operation
 fn create_operation_code(cg: &CodeGen, operation: &WebOperationGen) -> Result<OperationCode> {
-    let params = parse_path_params(&operation.0.path);
-    let params: Result<Vec<_>> = params
-        .iter()
-        .map(|s| {
-            let param = s.to_snake_case_ident()?;
-            Ok(quote! { &this.#param })
-        })
-        .collect();
-    let params = params?;
-    let url_str_args = quote! { #(#params),* };
-
-    let fpath = format!("{{}}{}", &format_path(&operation.0.path));
-
-    let parameters = operation.0.parameters();
-    let param_names: HashSet<_> = parameters.iter().map(|p| p.name()).collect();
-    let has_param_api_version = param_names.contains(query_param::API_VERSION);
-    // @@@JPB: Remove this change as it breaks with some of the azure-devops specs
-    // https://github.com/Azure/azure-sdk-for-rust/pull/790
-    //let mut skip = parse_query_params(&operation.0.path)?;
-    let mut skip = HashSet::new();
-    skip.insert(query_param::API_VERSION.to_string());
-    let parameters: Vec<&WebParameter> = parameters.clone().into_iter().filter(|p| !skip.contains(p.name())).collect();
-    let parameters = create_function_params_code(&parameters)?;
+    let parameters = &FunctionParams::new(operation)?;
 
     let verb = operation.0.verb.clone();
-    let is_post = verb == WebVerb::Post;
     let auth = AuthCode {};
-    let new_request_code = RequestCode { verb, auth };
+    let new_request_code = NewRequestCode {
+        verb,
+        auth,
+        path: operation.0.path.clone(),
+    };
 
-    let mut ts_request_builder = TokenStream::new(); // TODO change to type
-
-    // api-version param
-    if has_param_api_version {
-        let api_version = operation.api_version();
-        ts_request_builder.extend(quote! {
-            req.url_mut().query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
-        });
-    }
-
-    // get the consumes content-type from the operation, else the spec, else default to json
+    // get the content-types from the operation, else the spec, else default to json
     let consumes = operation
         .pick_consumes()
-        .unwrap_or_else(|| cg.spec.pick_consumes().unwrap_or(content_type::APPLICATION_JSON));
+        .unwrap_or_else(|| cg.spec.pick_consumes().unwrap_or(content_type::APPLICATION_JSON))
+        .to_string();
+    let produces = operation
+        .pick_produces()
+        .unwrap_or_else(|| cg.spec.pick_produces().unwrap_or(content_type::APPLICATION_JSON))
+        .to_string();
 
-    // params
-    let build_request_params = BuildRequestParamsCode {
-        content_type: consumes.to_string(),
-        params: parameters.clone(),
-    };
-    ts_request_builder.extend(build_request_params.into_token_stream());
+    let request_builder = SetRequestCode::new(operation, parameters, consumes);
+    let in_operation_group = operation.0.in_group();
+    let client_function_code = ClientFunctionCode::new(operation, parameters, in_operation_group)?;
+    let request_builder_struct_code = RequestBuilderStructCode::new(parameters, in_operation_group);
+    let request_builder_setters_code = RequestBuilderSettersCode::new(parameters);
+    let response_code = ResponseCode::new(operation, produces)?;
+    let long_running_operation = operation.0.long_running_operation;
+    let request_builder_future_code =
+        RequestBuilderIntoFutureCode::new(new_request_code, request_builder, response_code.clone(), long_running_operation)?;
 
-    let has_body_parameter = operation.0.has_body_parameter();
-    if !has_body_parameter {
-        ts_request_builder.extend(quote! {
-            let req_body = azure_core::EMPTY_BODY;
-        });
-    }
-
-    // if it is a post and there is no body, set the Content-Length to 0
-    if is_post && !has_body_parameter {
-        ts_request_builder.extend(quote! {
-            req.insert_header(azure_core::headers::CONTENT_LENGTH, "0");
-        });
-    }
-
-    let responses = &operation.0.responses;
-    let success_responses = get_success_responses(responses);
-    let is_single_response = success_responses.len() == 1;
-
-    /*
-    let fresponse = if is_single_response {
-        let tp = create_response_type(&success_responses[0])?.unwrap_or(quote! { () });
-        quote! { std::result::Result<#tp> }
-    } else {
-        quote! { std::result::Result<Response> }
-    };
-     */
-
-    let mut response_enum = TokenStream::new();
-    if is_single_response {
-        let tp = create_response_type(&success_responses[0])?
-            .map(TypeNameCode::into_token_stream)
-            .unwrap_or(quote! { () });
-        response_enum.extend(quote! {
-            type Response = #tp;
-        });
-    } else {
-        let mut success_responses_ts = TokenStream::new();
-        let mut continuation_response = TokenStream::new();
-        for (status_code, rsp) in &success_responses {
-            let tp = create_response_type(rsp)?;
-            let has_tp = tp.is_some();
-
-            let tp = match tp {
-                Some(tp) => quote! { (#tp) },
-                None => quote! {},
-            };
-            let enum_type_name = get_response_type_ident(status_code)?;
-            success_responses_ts.extend(quote! { #enum_type_name#tp, });
-
-            if has_tp {
-                continuation_response.extend(quote! {
-                    Self::#enum_type_name(x) => x.continuation(),
-                });
-            } else {
-                continuation_response.extend(quote! { Self::#enum_type_name => None, });
-            }
-        }
-        response_enum.extend(quote! {
-            #[derive(Debug)]
-            pub enum Response {
-                #success_responses_ts
-            }
-        });
-
-        if let Some(_pageable) = &operation.0.pageable {
-            response_enum.extend(quote! {
-                impl azure_core::Continuable for Response {
-                    type Continuation = String;
-                    fn continuation(&self) -> Option<Self::Continuation> {
-                        match self {
-                            #continuation_response
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    let mut match_status = TokenStream::new();
-    for (status_code, rsp) in &success_responses {
-        match status_code {
-            autorust_openapi::StatusCode::Code(_) => {
-                let tp = create_response_type(rsp)?.map(TypeNameCode::into_token_stream);
-                let rsp_value = create_rsp_value(tp.as_ref());
-                let status_code_name = get_status_code_ident(status_code)?;
-                let response_type_name = get_response_type_ident(status_code)?;
-
-                if is_single_response {
-                    match tp {
-                        Some(_) => {
-                            match_status.extend(quote! {
-                                azure_core::StatusCode::#status_code_name => {
-                                    let rsp_body = rsp_stream.collect().await?;
-                                    #rsp_value
-                                    Ok(rsp_value)
-                                }
-                            });
-                        }
-                        None => {
-                            match_status.extend(quote! {
-                                azure_core::StatusCode::#status_code_name => {
-                                    Ok(())
-                                }
-                            });
-                        }
-                    }
-                } else {
-                    match tp {
-                        Some(_) => {
-                            match_status.extend(quote! {
-                                azure_core::StatusCode::#status_code_name => {
-                                    let rsp_body = rsp_stream.collect().await?;
-                                    #rsp_value
-                                    Ok(Response::#response_type_name(rsp_value))
-                                }
-                            });
-                        }
-                        None => {
-                            match_status.extend(quote! {
-                                azure_core::StatusCode::#status_code_name => {
-                                    Ok(Response::#response_type_name)
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-            autorust_openapi::StatusCode::Default => {}
-        }
-    }
-    match_status.extend(quote! {
-        status_code => {
-            Err(azure_core::error::Error::from(azure_core::error::ErrorKind::HttpResponse { status: status_code, error_code: None }))
-        }
-    });
-
-    let in_group = operation.0.in_group();
-    let builder_instance_code = BuilderInstanceCode::new(operation, &parameters, in_group)?;
-    let builder_struct_code = BuilderStructCode::new(&parameters, in_group);
-    let builder_setters_code = BuilderSettersCode::new(&parameters);
-
-    let basic_future = quote! {
-        pub fn into_future(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
-            Box::pin({
-                let this = self.clone();
-                async move {
-                    let url = azure_core::Url::parse(&format!(#fpath, this.client.endpoint(), #url_str_args))?;
-                    #new_request_code
-                    #ts_request_builder
-                    req.set_body(req_body);
-                    let rsp = this.client.send(&mut req).await?;
-                    let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                    match rsp_status {
-                        #match_status
-                    }
-                }
-            })
-        }
-    };
-
-    let fut = if let Some(pageable) = &operation.0.pageable {
-        // TODO: Pageable requires the values to be part of the response schema,
-        // however, some schemas do this via the header x-ms-continuation rather than
-        // provide a next_link_name.  For now, those cases get documented that we don't
-        // poll and move on.
-        if pageable.next_link_name.is_none() {
-            // most often when this happens, the continuation token is provided
-            // by an HTTP Header x-ms-continuation, which should be extracted
-            // from the response.
-            //
-            // Note, this is only *sometimes* this is specified in the spec.
-            //
-            // Ref: https://github.com/Azure/azure-sdk-for-rust/issues/446
-            let mut fut =
-                quote! { #[doc = "only the first response will be fetched as the continuation token is not part of the response schema"]};
-            fut.extend(basic_future);
-            fut
-        } else {
-            let mut stream_api_version = quote! {};
-
-            // per discussion in SDK meeting, we should always set the
-            // api-version on the request if we have a version.
-            if has_param_api_version {
-                let api_version = operation.api_version();
-                stream_api_version = quote! {
-                    let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == azure_core::query_param::API_VERSION);
-                    if !has_api_version_already {
-                        req.url_mut().query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
-                    }
-                };
-            }
-
-            quote! {
-                pub fn into_stream(self) -> azure_core::Pageable<Response, azure_core::error::Error> {
-                    let make_request = move |continuation: Option<String>| {
-                        let this = self.clone();
-                        async move {
-                            let mut url = azure_core::Url::parse(&format!(#fpath, this.client.endpoint(), #url_str_args))?;
-
-                            let rsp = match continuation {
-                                Some(value) => {
-                                    url.set_path("");
-                                    url = url.join(&value)?;
-                                    #new_request_code
-                                    #stream_api_version
-                                    let req_body = azure_core::EMPTY_BODY;
-                                    req.set_body(req_body);
-                                    this.client.send(&mut req).await?
-                                }
-                                None => {
-                                    #new_request_code
-                                    #ts_request_builder
-                                    req.set_body(req_body);
-                                    this.client.send(&mut req).await?
-                                }
-                            };
-                            let (rsp_status, rsp_headers, rsp_stream) = rsp.deconstruct();
-                            match rsp_status {
-                                #match_status
-                            }
-                        }
-                    };
-
-                    azure_core::Pageable::new(make_request)
-                }
-            }
-        }
-    } else if operation.0.long_running_operation {
-        // TODO:  Long running options should also move to the Pageable stream
-        // model, however this is not possible at the moment because the
-        // continuation token is often not returned in the response body, but
-        // instead a header which we don't include as part of the response
-        // model.
-        //
-        // As is, Pageable requires implementing the Continuable trait on the
-        // response object.
-        //
-        // ref: https://github.com/Azure/azure-sdk-for-rust/issues/741
-        let mut fut = quote! {#[doc = "only the first response will be fetched as long running operations are not supported yet"]};
-        fut.extend(basic_future);
-        fut
-    } else {
-        basic_future
-    };
-
-    let fname = operation.function_name()?;
-    let module_code = quote! {
-
-        pub mod #fname {
-            use super::models;
-
-            #response_enum
-
-            #builder_struct_code
-
-            impl Builder {
-                #builder_setters_code
-                #fut
-            }
-
-        }
-
+    let module_code = OperationModuleCode {
+        module_name: operation.function_name()?,
+        response_code,
+        request_builder_struct_code,
+        request_builder_setters_code,
+        request_builder_future_code,
     };
 
     Ok(OperationCode {
-        builder_instances: vec![builder_instance_code],
-        module_code,
+        client_functions: vec![client_function_code],
+        module_code: vec![module_code],
     })
 }
 
-fn create_rsp_value(tp: Option<&TokenStream>) -> TokenStream {
-    if tp.map(|tp| tp.to_string()) == Some("bytes :: Bytes".to_owned()) {
-        quote! {
-            let rsp_value = rsp_body;
+/// Set all body and parameters for the request.
+struct SetRequestCode {
+    has_param_api_version: bool,
+    has_param_x_ms_version: bool,
+    api_version: String,
+    consumes: String,
+    parameters: FunctionParams,
+    has_body_parameter: bool,
+    is_post: bool,
+}
+
+impl SetRequestCode {
+    fn new(operation: &WebOperationGen, parameters: &FunctionParams, consumes: String) -> Self {
+        let is_post = operation.0.verb == WebVerb::Post;
+        Self {
+            has_param_api_version: parameters.has_api_version,
+            has_param_x_ms_version: parameters.has_x_ms_version,
+            api_version: operation.api_version().to_string(),
+            consumes,
+            parameters: parameters.clone(),
+            has_body_parameter: operation.0.has_body_parameter(),
+            is_post,
         }
-    } else {
-        quote! {
-            let rsp_value: #tp = serde_json::from_slice(&rsp_body)
-                .map_err(|e| azure_core::error::Error::full(
-                     azure_core::error::ErrorKind::DataConversion,
-                     e,
-                     format!("Failed to deserialize response:\n{}", String::from_utf8_lossy(&rsp_body))
-                ))?;
+    }
+}
+
+impl ToTokens for SetRequestCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        // api-version param
+        if self.has_param_api_version {
+            let api_version = &self.api_version;
+            tokens.extend(quote! {
+                req.url_mut().query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
+            });
         }
+        if self.has_param_x_ms_version {
+            let api_version = &self.api_version;
+            tokens.extend(quote! {
+                req.insert_header(azure_core::headers::VERSION, #api_version);
+            });
+        }
+
+        // params
+        let build_request_params = SetRequestParamsCode {
+            content_type: self.consumes.clone(),
+            params: self.parameters.clone(),
+        };
+        tokens.extend(build_request_params.into_token_stream());
+
+        if !self.has_body_parameter {
+            tokens.extend(quote! {
+                let req_body = azure_core::EMPTY_BODY;
+            });
+        }
+
+        // if it is a post and there is no body, set the Content-Length to 0
+        if self.is_post && !self.has_body_parameter {
+            tokens.extend(quote! {
+                req.insert_header(azure_core::headers::CONTENT_LENGTH, "0");
+            });
+        }
+    }
+}
+
+/// The response for an operation.
+/// An operation may have multiple valid status codes.
+#[derive(Clone)]
+struct ResponseCode {
+    status_responses: Vec<StatusResponseCode>,
+    pageable: Option<Pageable>,
+    produces: String,
+    headers: HeadersCode,
+}
+
+#[derive(Clone)]
+struct HeadersCode {
+    headers: Vec<HeaderCode>,
+}
+
+impl HeadersCode {
+    fn new(headers: Vec<HeaderCode>) -> Result<Self> {
+        Ok(Self { headers })
+    }
+
+    fn has_headers(&self) -> bool {
+        !self.headers.is_empty()
+    }
+}
+
+impl ToTokens for HeadersCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        if self.has_headers() {
+            let headers = &self.headers;
+            tokens.extend(quote! {
+                pub struct Headers<'a>(&'a azure_core::headers::Headers);
+                impl<'a> Headers<'a> {
+                    #(#headers)*
+                }
+            })
+        }
+    }
+}
+
+/// Code for a function to get a header value from the http response.
+#[derive(Clone)]
+struct HeaderCode {
+    header_name: String,
+    function_name: Ident,
+    type_name_code: TypeNameCode,
+    description: DocCommentCode,
+}
+
+impl HeaderCode {
+    fn new(header_name: String, header: &Header) -> Result<Self> {
+        let function_name = header_name.to_snake_case_ident()?; // ETag as e_tag
+        let header_name = header_name.to_lowercase(); // ETag as etag
+        let type_name = match (header.type_.as_str(), header.format.as_deref()) {
+            ("string", None) => Ok(TypeName::String),
+            ("string", Some("byte")) => Ok(TypeName::String), // base64-encoded
+            ("string", Some("duration")) => Ok(TypeName::String),
+            ("string", Some("uuid")) => Ok(TypeName::String),
+            ("string", Some("date-time-rfc1123")) => Ok(TypeName::DateTimeRfc1123),
+            ("integer", None) => Ok(TypeName::Int32),
+            ("integer", Some("int32")) => Ok(TypeName::Int32),
+            ("number", None) => Ok(TypeName::Float32),
+            ("number", Some("float")) => Ok(TypeName::Float32),
+            ("number", Some("double")) => Ok(TypeName::Float64),
+            ("integer", Some("int64")) => Ok(TypeName::Int64),
+            ("boolean", None) => Ok(TypeName::Boolean),
+            (header_type, header_format) => Err(Error::with_message(ErrorKind::CodeGen, || {
+                format!("header type '{}' format '{:?}' not matched", header_type, header_format)
+            })),
+        }?;
+        let type_name_code = TypeNameCode::new(&type_name)?;
+        let description = DocCommentCode::new(header.description.clone());
+        Ok(Self {
+            header_name,
+            function_name,
+            type_name_code,
+            description,
+        })
+    }
+}
+
+impl ToTokens for HeaderCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        let Self {
+            header_name,
+            function_name,
+            type_name_code,
+            description,
+        } = &self;
+        let hdr_fn = if type_name_code.is_string() {
+            quote! {
+                pub fn #function_name(&self) -> azure_core::Result<&str> {
+                    self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))
+                }
+            }
+        } else if type_name_code.is_date_time() {
+            quote! {
+                pub fn #function_name(&self) -> azure_core::Result<time::OffsetDateTime> {
+                    crate::date_time::parse_rfc3339(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
+                }
+            }
+        } else if type_name_code.is_date_time_rfc1123() {
+            quote! {
+                pub fn #function_name(&self) -> azure_core::Result<time::OffsetDateTime> {
+                    azure_core::date::parse_rfc1123(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
+                }
+            }
+        } else {
+            quote! {
+                pub fn #function_name(&self) -> azure_core::Result<#type_name_code> {
+                    self.0.get_as(&azure_core::headers::HeaderName::from_static(#header_name))
+                }
+            }
+        };
+        description.to_tokens(tokens);
+        hdr_fn.to_tokens(tokens)
+    }
+}
+
+#[derive(Clone)]
+struct Pageable {
+    next_link_name: Option<String>,
+}
+
+/// A single status code response of an operation.
+#[derive(Clone)]
+struct StatusResponseCode {
+    status_code_name: Ident,
+    response_type: Option<TypeNameCode>,
+}
+
+impl ResponseCode {
+    fn new(operation: &WebOperationGen, produces: String) -> Result<Self> {
+        let success_responses = operation.success_responses();
+        let status_responses = success_responses
+            .iter()
+            .map(|(status_code, rsp)| {
+                Ok(StatusResponseCode {
+                    status_code_name: get_status_code_ident(status_code)?,
+                    response_type: create_response_type(rsp)?,
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        let headers = success_responses
+            .iter()
+            .flat_map(|(_, rsp)| &rsp.headers)
+            .filter_map(|(name, header)| match header {
+                autorust_openapi::ReferenceOr::Item(header) => Some((name.clone(), HeaderCode::new(name.clone(), header))),
+                _ => None,
+            })
+            .collect::<IndexMap<_, _>>()
+            .into_values()
+            .collect::<Result<Vec<_>>>()?;
+        Ok(Self {
+            status_responses,
+            pageable: operation.pageable(),
+            produces,
+            headers: HeadersCode::new(headers)?,
+        })
+    }
+
+    /// Get the response type for the HTTP response body
+    fn response_type(&self) -> Option<TypeNameCode> {
+        let responses = &self.status_responses;
+        if responses.is_empty() {
+            return None;
+        }
+        self.fix_response_type(responses[0].response_type.as_ref())
+    }
+
+    fn fix_response_type(&self, response_type: Option<&TypeNameCode>) -> Option<TypeNameCode> {
+        if let Some(tp) = response_type {
+            let mut tp = tp.clone();
+            if tp.is_value() && self.produces_xml() {
+                tp.set_as_bytes();
+            }
+            return Some(tp);
+        }
+        None
+    }
+
+    fn produces_xml(&self) -> bool {
+        self.produces == content_type::APPLICATION_XML
+    }
+}
+
+impl ToTokens for ResponseCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        tokens.extend(quote! {
+            pub struct Response(azure_core::Response);
+        });
+        if let Some(response_type) = self.response_type() {
+            let deserialize_body = if response_type.is_bytes() {
+                quote! {
+                    let body = bytes;
+                }
+            } else if self.produces_xml() {
+                quote! {
+                    let body: #response_type = azure_core::xml::read_xml(&bytes)?;
+                }
+            } else {
+                quote! {
+                    let body: #response_type = serde_json::from_slice(&bytes)
+                    .map_err(|e| azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!("Failed to deserialize response:\n{}", String::from_utf8_lossy(&bytes))
+                   ))?;
+                }
+            };
+
+            let headers_fn = if self.headers.has_headers() {
+                quote! { pub fn headers(&self) -> Headers { Headers(self.0.headers()) } }
+            } else {
+                quote! {}
+            };
+
+            tokens.extend(quote! {
+                impl Response {
+                    pub async fn into_body(self) -> azure_core::Result<#response_type> {
+                        let bytes = self.0.into_body().collect().await?;
+                        #deserialize_body
+                        Ok(body)
+                    }
+                    pub fn into_raw_response(self) -> azure_core::Response {
+                        self.0
+                    }
+                    pub fn as_raw_response(&self) -> &azure_core::Response {
+                        &self.0
+                    }
+                    #headers_fn
+                }
+                impl From<Response> for azure_core::Response {
+                    fn from(rsp: Response) -> Self {
+                        rsp.into_raw_response()
+                    }
+                }
+                impl AsRef<azure_core::Response> for Response {
+                    fn as_ref(&self) -> &azure_core::Response {
+                        self.as_raw_response()
+                    }
+                }
+            });
+            tokens.extend(self.headers.to_token_stream());
+        }
+    }
+}
+
+/// The `send` function of the request builder.
+struct RequestBuilderIntoFutureCode {
+    new_request_code: NewRequestCode,
+    request_builder: SetRequestCode,
+    response_code: ResponseCode,
+    url_args: Vec<Ident>,
+    long_running_operation: bool,
+}
+
+impl RequestBuilderIntoFutureCode {
+    fn new(
+        new_request_code: NewRequestCode,
+        request_builder: SetRequestCode,
+        response_code: ResponseCode,
+        long_running_operation: bool,
+    ) -> Result<Self> {
+        let params = parse_path_params(&new_request_code.path);
+        let url_args: Result<Vec<_>> = params.iter().map(|s| s.to_snake_case_ident()).collect();
+        let url_args = url_args?;
+        Ok(Self {
+            new_request_code,
+            request_builder,
+            response_code,
+            url_args,
+            long_running_operation,
+        })
+    }
+}
+
+impl ToTokens for RequestBuilderIntoFutureCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        let new_request_code = &self.new_request_code;
+        let request_builder = &self.request_builder;
+
+        let url_args = self.url_args.iter().map(|url_arg| {
+            quote! { &this.#url_arg }
+        });
+        let url_str_args = quote! { #(#url_args),* };
+
+        let fpath = format!("{{}}{}", &format_path(&new_request_code.path));
+
+        let mut match_status = TokenStream::new();
+        for status_response in &self.response_code.status_responses {
+            let status_code_name = &status_response.status_code_name;
+            match_status.extend(quote! {
+                azure_core::StatusCode::#status_code_name => Ok(Response(rsp)),
+            });
+        }
+        match_status.extend(quote! {
+            status_code => {
+                Err(azure_core::error::Error::from(azure_core::error::ErrorKind::HttpResponse { status: status_code, error_code: None }))
+            }
+        });
+
+        let into_future = if let Some(response_type) = self.response_code.response_type() {
+            quote! {
+                #[doc = "Send the request and return the response body."]
+                pub fn into_future(self) -> futures::future::BoxFuture<'static, azure_core::Result<#response_type>> {
+                    Box::pin(
+                        async move {
+                            self.send().await?.into_body().await
+                        }
+                    )
+                }
+            }
+        } else {
+            quote! {}
+        };
+
+        let send_future = quote! {
+            #[doc = "Send the request and returns the response."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(#fpath, this.client.endpoint(), #url_str_args))?;
+                        #new_request_code
+                        #request_builder
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+            #into_future
+        };
+
+        let fut = if let Some(pageable) = &self.response_code.pageable {
+            // TODO: Pageable requires the values to be part of the response schema,
+            // however, some schemas do this via the header x-ms-continuation rather than
+            // provide a next_link_name.  For now, those cases get documented that we don't
+            // poll and move on.
+            if pageable.next_link_name.is_none() {
+                // most often when this happens, the continuation token is provided
+                // by an HTTP Header x-ms-continuation, which should be extracted
+                // from the response.
+                //
+                // Note, this is only *sometimes* this is specified in the spec.
+                //
+                // Ref: https://github.com/Azure/azure-sdk-for-rust/issues/446
+                let mut fut = quote! { #[doc = "only the first response will be fetched as the continuation token is not part of the response schema"]};
+                fut.extend(send_future);
+                fut
+            } else {
+                let mut stream_api_version = quote! {};
+
+                // per discussion in SDK meeting, we should always set the
+                // api-version on the request if we have a version.
+                if request_builder.has_param_api_version {
+                    let api_version = &request_builder.api_version;
+                    stream_api_version = quote! {
+                        let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                        if !has_api_version_already {
+                            req.url_mut().query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
+                        }
+                    };
+                }
+
+                let response_type = self.response_code.response_type().expect("pageable response has a body");
+                quote! {
+                    pub fn into_stream(self) -> azure_core::Pageable<#response_type, azure_core::error::Error> {
+                        let make_request = move |continuation: Option<String>| {
+                            let this = self.clone();
+                            async move {
+                                let mut url = azure_core::Url::parse(&format!(#fpath, this.client.endpoint(), #url_str_args))?;
+
+                                let rsp = match continuation {
+                                    Some(value) => {
+                                        url.set_path("");
+                                        url = url.join(&value)?;
+                                        #new_request_code
+                                        #stream_api_version
+                                        let req_body = azure_core::EMPTY_BODY;
+                                        req.set_body(req_body);
+                                        this.client.send(&mut req).await?
+                                    }
+                                    None => {
+                                        #new_request_code
+                                        #request_builder
+                                        req.set_body(req_body);
+                                        this.client.send(&mut req).await?
+                                    }
+                                };
+                                let rsp =
+                                    match rsp.status() {
+                                        #match_status
+                                    };
+                                rsp?.into_body().await
+                            }
+                        };
+
+                        azure_core::Pageable::new(make_request)
+                    }
+                }
+            }
+        } else if self.long_running_operation {
+            // TODO:  Long running options should also move to the Pageable stream
+            // model, however this is not possible at the moment because the
+            // continuation token is often not returned in the response body, but
+            // instead a header which we don't include as part of the response
+            // model.
+            //
+            // As is, Pageable requires implementing the Continuable trait on the
+            // response object.
+            //
+            // ref: https://github.com/Azure/azure-sdk-for-rust/issues/741
+            let mut fut = quote! {#[doc = "only the first response will be fetched as long running operations are not supported yet"]};
+            fut.extend(send_future);
+            fut
+        } else {
+            send_future
+        };
+        tokens.extend(fut);
+    }
+}
+
+impl ToTokens for OperationModuleCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        let Self {
+            module_name,
+            response_code,
+            request_builder_struct_code,
+            request_builder_setters_code,
+            request_builder_future_code,
+        } = &self;
+        tokens.extend(quote! {
+            pub mod #module_name {
+                use super::models;
+
+                #response_code
+
+                #request_builder_struct_code
+
+                impl RequestBuilder {
+                    #request_builder_setters_code
+                    #request_builder_future_code
+                }
+
+            }
+        })
     }
 }
 
@@ -916,8 +1154,48 @@ impl FunctionParam {
 #[derive(Clone)]
 struct FunctionParams {
     params: Vec<FunctionParam>,
+    has_api_version: bool,
+    has_x_ms_version: bool,
 }
 impl FunctionParams {
+    fn new(operation: &WebOperationGen) -> Result<Self> {
+        let parameters = operation.0.parameters();
+        let has_api_version = parameters.iter().any(|p| p.name() == API_VERSION);
+        let has_x_ms_version = parameters.iter().any(|p| p.name() == X_MS_VERSION);
+        // @@@JPB: Remove this change as it breaks with some of the azure-devops specs
+        // https://github.com/Azure/azure-sdk-for-rust/pull/790
+        //let mut skip = parse_query_params(&operation.0.path)?;
+        let mut skip = HashSet::new();
+        skip.insert(API_VERSION.to_string());
+        skip.insert(X_MS_VERSION.to_string());
+        let parameters: Vec<&WebParameter> = parameters.clone().into_iter().filter(|p| !skip.contains(p.name())).collect();
+
+        let mut params = Vec::new();
+        for param in parameters.iter().filter(|p| !skip.contains(p.name())) {
+            let name = param.name().to_owned();
+            let description = param.description().clone();
+            let variable_name = name.to_snake_case_ident()?;
+            let type_name = TypeNameCode::new(&param.type_name()?)?
+                .qualify_models(true)
+                .optional(!param.required());
+            let kind = ParamKind::from(param.type_());
+            let collection_format = param.collection_format().clone();
+            params.push(FunctionParam {
+                name,
+                description,
+                variable_name,
+                type_name,
+                kind,
+                collection_format,
+            });
+        }
+        Ok(Self {
+            params,
+            has_api_version,
+            has_x_ms_version,
+        })
+    }
+
     fn params(&self) -> Vec<&FunctionParam> {
         self.params.iter().collect()
     }
@@ -960,38 +1238,18 @@ impl ToTokens for FunctionCallParamsCode {
     }
 }
 
-fn create_function_params_code(parameters: &[&WebParameter]) -> Result<FunctionParams> {
-    let mut params = Vec::new();
-    for param in parameters.iter() {
-        let name = param.name().to_owned();
-        let description = param.description().clone();
-        let variable_name = name.to_snake_case_ident()?;
-        let type_name = type_name_gen(&param.type_name()?)?.qualify_models(true).optional(!param.required());
-        let kind = ParamKind::from(param.type_());
-        let collection_format = param.collection_format().clone();
-        params.push(FunctionParam {
-            name,
-            description,
-            variable_name,
-            type_name,
-            kind,
-            collection_format,
-        });
-    }
-    Ok(FunctionParams { params })
-}
-
+/// Create the client function that produces the request builder instance.
 #[derive(Clone)]
-struct BuilderInstanceCode {
+struct ClientFunctionCode {
     summary: Option<String>,
     description: Option<String>,
     fname: Ident,
     parameters: FunctionParams,
-    in_group: bool,
+    in_operation_group: bool,
 }
 
-impl BuilderInstanceCode {
-    fn new(operation: &WebOperationGen, parameters: &FunctionParams, in_group: bool) -> Result<Self> {
+impl ClientFunctionCode {
+    fn new(operation: &WebOperationGen, parameters: &FunctionParams, in_operation_group: bool) -> Result<Self> {
         let fname = operation.function_name()?;
         let summary = operation.0.summary.clone();
         let description = operation.0.description.clone();
@@ -1000,15 +1258,15 @@ impl BuilderInstanceCode {
             description,
             fname,
             parameters: parameters.clone(),
-            in_group,
+            in_operation_group,
         })
     }
 }
 
-impl ToTokens for BuilderInstanceCode {
+impl ToTokens for ClientFunctionCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut params: Vec<TokenStream> = Vec::new();
-        if self.in_group {
+        if self.in_operation_group {
             params.push(quote! { client: self.0.clone() });
         } else {
             params.push(quote! { client: self.clone() });
@@ -1037,14 +1295,8 @@ impl ToTokens for BuilderInstanceCode {
             }
         }
 
-        let summary = match &self.summary {
-            Some(summary) if !summary.is_empty() => quote! { #[doc = #summary] },
-            _ => quote! {},
-        };
-        let description = match &self.description {
-            Some(desc) if !desc.is_empty() => quote! { #[doc = #desc] },
-            _ => quote! {},
-        };
+        let summary = DocCommentCode::new(self.summary.clone());
+        let description = DocCommentCode::new(self.description.clone());
 
         let mut param_descriptions: Vec<TokenStream> = Vec::new();
         if self
@@ -1074,8 +1326,8 @@ impl ToTokens for BuilderInstanceCode {
             #summary
             #description
             #(#param_descriptions)*
-            pub fn #fname(#parameters) -> #fname::Builder {
-                #fname::Builder {
+            pub fn #fname(#parameters) -> #fname::RequestBuilder {
+                #fname::RequestBuilder {
                     #(#params),*
                 }
             }
@@ -1084,24 +1336,51 @@ impl ToTokens for BuilderInstanceCode {
 }
 
 #[derive(Clone)]
-struct BuilderStructCode {
-    parameters: FunctionParams,
-    in_group: bool,
+struct DocCommentCode {
+    comment: Option<String>,
 }
 
-impl BuilderStructCode {
-    fn new(parameters: &FunctionParams, in_group: bool) -> Self {
-        Self {
-            parameters: parameters.clone(),
-            in_group,
+impl DocCommentCode {
+    pub fn new(comment: Option<String>) -> Self {
+        Self { comment }
+    }
+    pub fn is_empty(&self) -> bool {
+        if let Some(comment) = &self.comment {
+            comment.is_empty()
+        } else {
+            true
         }
     }
 }
 
-impl ToTokens for BuilderStructCode {
+impl ToTokens for DocCommentCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        if let Some(comment) = &self.comment {
+            tokens.extend(quote! { #[doc = #comment] })
+        }
+    }
+}
+
+/// The request builder struct type, not the impl.
+#[derive(Clone)]
+struct RequestBuilderStructCode {
+    parameters: FunctionParams,
+    in_operation_group: bool,
+}
+
+impl RequestBuilderStructCode {
+    fn new(parameters: &FunctionParams, in_operation_group: bool) -> Self {
+        Self {
+            parameters: parameters.clone(),
+            in_operation_group,
+        }
+    }
+}
+
+impl ToTokens for RequestBuilderStructCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut params: Vec<TokenStream> = Vec::new();
-        if self.in_group {
+        if self.in_operation_group {
             params.push(quote! { pub(crate) client: super::super::Client });
         } else {
             params.push(quote! { pub(crate) client: super::Client });
@@ -1124,19 +1403,20 @@ impl ToTokens for BuilderStructCode {
         }
         tokens.extend(quote! {
             #[derive(Clone)]
-            pub struct Builder {
+            pub struct RequestBuilder {
                 #(#params),*
             }
         });
     }
 }
 
+/// The setter functions for the request builder.
 #[derive(Clone)]
-struct BuilderSettersCode {
+struct RequestBuilderSettersCode {
     parameters: FunctionParams,
 }
 
-impl BuilderSettersCode {
+impl RequestBuilderSettersCode {
     fn new(parameters: &FunctionParams) -> Self {
         Self {
             parameters: parameters.clone(),
@@ -1144,7 +1424,7 @@ impl BuilderSettersCode {
     }
 }
 
-impl ToTokens for BuilderSettersCode {
+impl ToTokens for RequestBuilderSettersCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         for param in self.parameters.optional_params() {
             let FunctionParam {
@@ -1179,7 +1459,9 @@ impl ToTokens for BuilderSettersCode {
 
 pub fn create_response_type(rsp: &Response) -> Result<Option<TypeNameCode>> {
     if let Some(schema) = &rsp.schema {
-        Ok(Some(type_name_gen(&get_type_name_for_schema_ref(schema)?)?.qualify_models(true)))
+        Ok(Some(
+            TypeNameCode::new(&get_type_name_for_schema_ref(schema)?)?.qualify_models(true),
+        ))
     } else {
         Ok(None)
     }

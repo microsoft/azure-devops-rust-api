@@ -7,15 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0]
+
+## Breaking changes
+
 - Revert all `GraphSubjectBase` fields to be wrapped in `Option`
+- Upgrade `azure_core` to 0.5, `azure_identity` to 0.6
+  - `AzureCliCredential` must now be created via `azure_identity::AzureCliCredential::new()`
+
+## Fixed
+
+- Upgrade `autorust` code generator
+  - New `send()` function on operations that enables access to full response details
+    (headers, raw body data)
+- Add missing `distributedTask` `ElasticPool` operations
 - Patch `hooks` spec:
   - `InputValidation` fields `minValue` and `maxValue` need to be `number`/`float`
+  - `Subscription` field `probationRetries` needs to be `integer`/`int32`
 - New examples:
   - code_search
   - hooks_list
+  - ims_query
   - extension_management_list
-- Upgrade `azure_core` to 0.5, `azure_identity` to 0.6
-  - `AzureCliCredential` must now be created via `azure_identity::AzureCliCredential::new()`
+  - test_rust_list
 
 ## [0.5.3]
 
@@ -138,7 +152,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.3...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.0...HEAD
+[0.6.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.3...0.6.0
 [0.5.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.2...0.5.3
 [0.5.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.0...0.5.1
