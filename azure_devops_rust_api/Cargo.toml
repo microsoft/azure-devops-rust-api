@@ -11,6 +11,7 @@ documentation = "https://docs.rs/azure_devops_rust_api"
 homepage = "https://github.com/microsoft/azure-devops-rust-api"
 repository = "https://github.com/microsoft/azure-devops-rust-api"
 keywords = ["azure", "devops", "api", "sdk", "ado"]
+categories = ["api-bindings"]
 license = "MIT"
 readme = "README.md"
 publish = ["crates-io"]
