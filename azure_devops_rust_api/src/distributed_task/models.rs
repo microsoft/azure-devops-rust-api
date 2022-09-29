@@ -1213,6 +1213,19 @@ pub mod elastic_node {
         Lost,
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ElasticNodeList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<ElasticNode>,
+}
+impl ElasticNodeList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Class used for updating an elastic node where only certain members are populated"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticNodeSettings {
@@ -1405,6 +1418,19 @@ impl ElasticPoolCreationResult {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ElasticPoolList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<ElasticPool>,
+}
+impl ElasticPoolList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Log data for an Elastic Pool"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticPoolLog {
@@ -1457,6 +1483,19 @@ pub mod elastic_pool_log {
         Reimage,
         #[serde(rename = "deleteVMs")]
         DeleteVMs,
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ElasticPoolLogList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<ElasticPoolLog>,
+}
+impl ElasticPoolLogList {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Class used for updating an elastic pool where only certain members are populated"]

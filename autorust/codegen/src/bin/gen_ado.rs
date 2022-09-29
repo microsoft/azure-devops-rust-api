@@ -42,7 +42,10 @@ fn main() -> Result<()> {
         (vec!["core/{VERSION}/core.json"], "core"),
         (vec!["dashboard/{VERSION}/dashboard.json"], "dashboard"),
         (
-            vec!["distributedTask/{VERSION}/taskAgent.json"],
+            vec![
+                "distributedTask/{VERSION}/taskAgent.json",
+                "distributedTask/{VERSION}/elastic.json",
+            ],
             "distributed_task",
         ),
         (
