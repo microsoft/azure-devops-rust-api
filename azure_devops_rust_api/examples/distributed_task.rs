@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
 
     // Create distributed task client
     let distributed_task_client = distributed_task::ClientBuilder::new(credential).build();
-    
+
     //  Get a list of agent pools for the org
     println!("Agents pools for the org are:");
     let distributed_task_agents_pools = distributed_task_client
