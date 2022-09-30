@@ -86,6 +86,10 @@ name = "core_project_teams"
 required-features = ["core"]
 
 [[example]]
+name = "distributed_task"
+required-features = ["distributed_task"]
+
+[[example]]
 name = "extension_management_list"
 required-features = ["extension_management"]
 
