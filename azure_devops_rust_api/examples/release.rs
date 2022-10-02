@@ -29,6 +29,7 @@ async fn main() -> Result<()> {
 
     // Create release client
     let release_client = release::ClientBuilder::new(credential).build();
+    let folder_path = "\\".to_string();
 
     //  Get  list of approvals for release
     println!("Approvals for release are:");
@@ -39,6 +40,16 @@ async fn main() -> Result<()> {
         .await?
         .value;
     println!("{:#?}", release_approvals);
+
+    //  Get list of approvals for release
+    println!("Folders for the project are:");
+    let project_folders = release_client
+        .folders_client()
+        .list(&organization, &project, &folder_path)
+        .into_future()
+        .await?
+        .value;
+    println!("{:#?}", project_folders);
 
     //  Get list of approvals for release
     println!("Deployments for project are:");
