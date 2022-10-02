@@ -147,6 +147,8 @@ impl Patcher {
         Patcher::patch_ims_identity_base,
         Patcher::patch_input_validation_min_max,
         Patcher::patch_probation_retries_type,
+        Patcher::patch_operation_status_in_releases,
+
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -350,6 +352,135 @@ impl Patcher {
             _ => None,
         }
     }
+
+    fn patch_operation_status_in_releases(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to pipelines specs
+        if !self.spec_path.ends_with("release.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "Deployment", "properties", "operationStatus" ] => {
+                println!("Modify patch_operationStatus_in_releases definition");
+                Some(json::object!  {
+                    "description": "Gets operation status of deployment.",
+                    "enum": [
+                      "undefined",
+                      "queued",
+                      "scheduled",
+                      "pending",
+                      "Approved",
+                      "rejected",
+                      "deferred",
+                      "queuedForAgent",
+                      "phaseInProgress",
+                      "phaseSucceeded",
+                      "phasePartiallySucceeded",
+                      "PhaseFailed",
+                      "canceled",
+                      "phaseCanceled",
+                      "manualInterventionPending",
+                      "queuedForPipeline",
+                      "cancelling",
+                      "evaluatingGates",
+                      "gateFailed",
+                      "all"
+                    ],
+                    "x-ms-enum": {
+                      "name": "DeploymentOperationStatus",
+                      "values": [
+                        {
+                          "value": "undefined",
+                          "description": "The deployment operation status is undefined."
+                        },
+                        {
+                          "value": "queued",
+                          "description": "The deployment operation status is queued."
+                        },
+                        {
+                          "value": "scheduled",
+                          "description": "The deployment operation status is scheduled."
+                        },
+                        {
+                          "value": "pending",
+                          "description": "The deployment operation status is pending."
+                        },
+                        {
+                          "value": "Approved",
+                          "description": "The deployment operation status is approved."
+                        },
+                        {
+                          "value": "rejected",
+                          "description": "The deployment operation status is rejected."
+                        },
+                        {
+                          "value": "deferred",
+                          "description": "The deployment operation status is deferred."
+                        },
+                        {
+                          "value": "queuedForAgent",
+                          "description": "The deployment operation status is queued for agent."
+                        },
+                        {
+                          "value": "phaseInProgress",
+                          "description": "The deployment operation status is phase in progress."
+                        },
+                        {
+                          "value": "phaseSucceeded",
+                          "description": "The deployment operation status is phase succeeded."
+                        },
+                        {
+                          "value": "phasePartiallySucceeded",
+                          "description": "The deployment operation status is phase partially succeeded."
+                        },
+                        {
+                          "value": "PhaseFailed",
+                          "description": "The deployment operation status is phase failed."
+                        },
+                        {
+                          "value": "canceled",
+                          "description": "The deployment operation status is canceled."
+                        },
+                        {
+                          "value": "phaseCanceled",
+                          "description": "The deployment operation status is phase canceled."
+                        },
+                        {
+                          "value": "manualInterventionPending",
+                          "description": "The deployment operation status is manualintervention pending."
+                        },
+                        {
+                          "value": "queuedForPipeline",
+                          "description": "The deployment operation status is queued for pipeline."
+                        },
+                        {
+                          "value": "cancelling",
+                          "description": "The deployment operation status is cancelling."
+                        },
+                        {
+                          "value": "evaluatingGates",
+                          "description": "The deployment operation status is EvaluatingGates."
+                        },
+                        {
+                          "value": "gateFailed",
+                          "description": "The deployment operation status is GateFailed."
+                        },
+                        {
+                          "value": "all",
+                          "description": "The deployment operation status is all."
+                        }
+                      ]
+                    }
+                  }
+            )
+            }
+            _ => None,
+        }
+    }
+
 
     fn patch_pipelines_reference_links(
         &mut self,
