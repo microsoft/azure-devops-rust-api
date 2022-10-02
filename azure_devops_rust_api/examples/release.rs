@@ -29,47 +29,47 @@ async fn main() -> Result<()> {
 
     // Create release client
     let release_client = release::ClientBuilder::new(credential).build();
-    let folder_path = "\\".to_string();
+    let folder_path = r#"\"#.to_string();
 
-    //  Get  list of approvals for release
-    println!("Approvals for release are:");
-    let release_approvals = release_client
+    // Get list of approvals
+    println!("Approvals:");
+    let approvals = release_client
         .approvals_client()
         .list(&organization, &project)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", release_approvals);
+    println!("{:#?}", approvals);
 
-    //  Get list of approvals for release
-    println!("Folders for the project are:");
-    let project_folders = release_client
+    // Get list of folders
+    println!("\nFolders:");
+    let folders = release_client
         .folders_client()
         .list(&organization, &project, &folder_path)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", project_folders);
+    println!("{:#?}", folders);
 
-    //  Get list of approvals for release
-    println!("Deployments for project are:");
-    let project_deployments = release_client
+    // Get list of deployments
+    println!("\nDeployments:");
+    let deployments = release_client
         .deployments_client()
         .list(&organization, &project)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", project_deployments);
+    println!("{:#?}", deployments);
 
-    //  Get a list of releases for project
-    println!("List of releases for project are:");
-    let project_releases = release_client
+    // Get a list of releases
+    println!("\nReleases:");
+    let releases = release_client
         .releases_client()
         .list(&organization, &project)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", project_releases);
+    println!("{:#?}", releases);
 
     Ok(())
 }
