@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
-// release.rs
-// Release example
+// distributed_task.rs
+// Distributed Task example
 use anyhow::Result;
-use azure_devops_rust_api::release;
+use azure_devops_rust_api::distributed_task;
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
@@ -27,49 +27,38 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
-    // Create release client
-    let release_client = release::ClientBuilder::new(credential).build();
-    let folder_path = r#"\"#.to_string();
+    // Create distributed task client
+    let distributed_task_client = distributed_task::ClientBuilder::new(credential).build();
 
-    // Get list of approvals
-    println!("Approvals:");
-    let approvals = release_client
-        .approvals_client()
-        .list(&organization, &project)
+    //  Get a list of agent pools for the org
+    println!("Agents pools for the org are:");
+    let distributed_task_agents_pools = distributed_task_client
+        .pools_client()
+        .get_agent_pools(&organization)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", approvals);
+    println!("{:#?}", distributed_task_agents_pools);
 
-    // Get list of folders
-    println!("\nFolders:");
-    let folders = release_client
-        .folders_client()
-        .list(&organization, &project, &folder_path)
+    //  Get a list of agent queues for the project
+    println!("Agents queues for the project are:");
+    let distributed_task_agent_queues = distributed_task_client
+        .queues_client()
+        .get_agent_queues(&organization, &project)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", folders);
+    println!("{:#?}", distributed_task_agent_queues);
 
-    // Get list of deployments
-    println!("\nDeployments:");
-    let deployments = release_client
-        .deployments_client()
-        .list(&organization, &project)
+    // Get all variable groups for the project
+    println!("Variable groups for the project are:");
+    let distributed_task_variable_groups = distributed_task_client
+        .variablegroups_client()
+        .get_variable_groups(&organization, &project)
         .into_future()
         .await?
         .value;
-    println!("{:#?}", deployments);
-
-    // Get a list of releases
-    println!("\nReleases:");
-    let releases = release_client
-        .releases_client()
-        .list(&organization, &project)
-        .into_future()
-        .await?
-        .value;
-    println!("{:#?}", releases);
+    println!("{:#?}", distributed_task_variable_groups);
 
     Ok(())
 }

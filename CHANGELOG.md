@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- New example: `git_repo_get_raw_rsp`
+
 ## [0.6.0]
 
 ## Breaking changes
