@@ -1639,45 +1639,25 @@ pub mod deployment {
     #[doc = "Gets operation status of deployment."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationStatus {
-        #[serde(rename = "undefined")]
         Undefined,
-        #[serde(rename = "queued")]
         Queued,
-        #[serde(rename = "scheduled")]
         Scheduled,
-        #[serde(rename = "pending")]
         Pending,
-        #[serde(rename = "approved")]
         Approved,
-        #[serde(rename = "rejected")]
         Rejected,
-        #[serde(rename = "deferred")]
         Deferred,
-        #[serde(rename = "queuedForAgent")]
         QueuedForAgent,
-        #[serde(rename = "phaseInProgress")]
         PhaseInProgress,
-        #[serde(rename = "phaseSucceeded")]
         PhaseSucceeded,
-        #[serde(rename = "phasePartiallySucceeded")]
         PhasePartiallySucceeded,
-        #[serde(rename = "phaseFailed")]
         PhaseFailed,
-        #[serde(rename = "canceled")]
         Canceled,
-        #[serde(rename = "phaseCanceled")]
         PhaseCanceled,
-        #[serde(rename = "manualInterventionPending")]
         ManualInterventionPending,
-        #[serde(rename = "queuedForPipeline")]
         QueuedForPipeline,
-        #[serde(rename = "cancelling")]
         Cancelling,
-        #[serde(rename = "evaluatingGates")]
         EvaluatingGates,
-        #[serde(rename = "gateFailed")]
         GateFailed,
-        #[serde(rename = "all")]
         All,
     }
     #[doc = "Gets reason of deployment."]

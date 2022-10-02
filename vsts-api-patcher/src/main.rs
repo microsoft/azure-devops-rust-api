@@ -368,44 +368,44 @@ impl Patcher {
                 Some(json::object!  {
                     "description": "Gets operation status of deployment.",
                     "enum": [
-                      "undefined",
-                      "queued",
-                      "scheduled",
-                      "pending",
+                      "Undefined",
+                      "Queued",
+                      "Scheduled",
+                      "Pending",
                       "Approved",
-                      "rejected",
-                      "deferred",
-                      "queuedForAgent",
-                      "phaseInProgress",
-                      "phaseSucceeded",
-                      "phasePartiallySucceeded",
+                      "Rejected",
+                      "Deferred",
+                      "QueuedForAgent",
+                      "PhaseInProgress",
+                      "PhaseSucceeded",
+                      "PhasePartiallySucceeded",
                       "PhaseFailed",
-                      "canceled",
-                      "phaseCanceled",
-                      "manualInterventionPending",
-                      "queuedForPipeline",
-                      "cancelling",
-                      "evaluatingGates",
-                      "gateFailed",
-                      "all"
+                      "Canceled",
+                      "PhaseCanceled",
+                      "ManualInterventionPending",
+                      "QueuedForPipeline",
+                      "Cancelling",
+                      "EvaluatingGates",
+                      "GateFailed",
+                      "All"
                     ],
                     "x-ms-enum": {
                       "name": "DeploymentOperationStatus",
                       "values": [
                         {
-                          "value": "undefined",
+                          "value": "Undefined",
                           "description": "The deployment operation status is undefined."
                         },
                         {
-                          "value": "queued",
+                          "value": "Queued",
                           "description": "The deployment operation status is queued."
                         },
                         {
-                          "value": "scheduled",
+                          "value": "Scheduled",
                           "description": "The deployment operation status is scheduled."
                         },
                         {
-                          "value": "pending",
+                          "value": "Pending",
                           "description": "The deployment operation status is pending."
                         },
                         {
@@ -413,27 +413,27 @@ impl Patcher {
                           "description": "The deployment operation status is approved."
                         },
                         {
-                          "value": "rejected",
+                          "value": "Rejected",
                           "description": "The deployment operation status is rejected."
                         },
                         {
-                          "value": "deferred",
+                          "value": "Deferred",
                           "description": "The deployment operation status is deferred."
                         },
                         {
-                          "value": "queuedForAgent",
+                          "value": "QueuedForAgent",
                           "description": "The deployment operation status is queued for agent."
                         },
                         {
-                          "value": "phaseInProgress",
+                          "value": "PhaseInProgress",
                           "description": "The deployment operation status is phase in progress."
                         },
                         {
-                          "value": "phaseSucceeded",
+                          "value": "PhaseSucceeded",
                           "description": "The deployment operation status is phase succeeded."
                         },
                         {
-                          "value": "phasePartiallySucceeded",
+                          "value": "PhasePartiallySucceeded",
                           "description": "The deployment operation status is phase partially succeeded."
                         },
                         {
@@ -441,35 +441,35 @@ impl Patcher {
                           "description": "The deployment operation status is phase failed."
                         },
                         {
-                          "value": "canceled",
+                          "value": "Canceled",
                           "description": "The deployment operation status is canceled."
                         },
                         {
-                          "value": "phaseCanceled",
+                          "value": "PhaseCanceled",
                           "description": "The deployment operation status is phase canceled."
                         },
                         {
-                          "value": "manualInterventionPending",
+                          "value": "ManualInterventionPending",
                           "description": "The deployment operation status is manualintervention pending."
                         },
                         {
-                          "value": "queuedForPipeline",
+                          "value": "QueuedForPipeline",
                           "description": "The deployment operation status is queued for pipeline."
                         },
                         {
-                          "value": "cancelling",
+                          "value": "Cancelling",
                           "description": "The deployment operation status is cancelling."
                         },
                         {
-                          "value": "evaluatingGates",
+                          "value": "EvaluatingGates",
                           "description": "The deployment operation status is EvaluatingGates."
                         },
                         {
-                          "value": "gateFailed",
+                          "value": "GateFailed",
                           "description": "The deployment operation status is GateFailed."
                         },
                         {
-                          "value": "all",
+                          "value": "All",
                           "description": "The deployment operation status is all."
                         }
                       ]
