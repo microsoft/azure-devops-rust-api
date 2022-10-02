@@ -148,7 +148,11 @@ impl Log {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LogCollection {
     #[doc = "The list of logs."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub logs: Vec<Log>,
     #[doc = "A signed url allowing limited-time anonymous access to private resources."]
     #[serde(
@@ -292,7 +296,11 @@ pub mod pipeline_configuration {
 pub struct PipelineList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Pipeline>,
 }
 impl PipelineList {
@@ -496,7 +504,11 @@ pub mod run {
 pub struct RunList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Run>,
 }
 impl RunList {
@@ -520,7 +532,8 @@ pub struct RunPipelineParameters {
     #[serde(
         rename = "stagesToSkip",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub stages_to_skip: Vec<String>,
     #[serde(

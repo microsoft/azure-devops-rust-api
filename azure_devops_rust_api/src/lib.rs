@@ -126,3 +126,5 @@ mod auth;
 pub use auth::Credential;
 
 pub mod date_time;
+
+pub(crate) mod serde;

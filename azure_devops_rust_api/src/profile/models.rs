@@ -67,7 +67,11 @@ pub struct Avatar {
         with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<String>,
 }
 impl Avatar {
@@ -317,18 +321,24 @@ pub struct ProfileRegions {
     #[serde(
         rename = "noticeContactConsentRequirementRegions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub notice_contact_consent_requirement_regions: Vec<String>,
     #[doc = "List of country/region code with contact consent requirement type of opt-out"]
     #[serde(
         rename = "optOutContactConsentRequirementRegions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub opt_out_contact_consent_requirement_regions: Vec<String>,
     #[doc = "List of country/regions"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub regions: Vec<ProfileRegion>,
 }
 impl ProfileRegions {

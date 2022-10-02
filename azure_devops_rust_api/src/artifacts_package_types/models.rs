@@ -226,7 +226,11 @@ pub struct MavenPackagesBatchRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operation: Option<maven_packages_batch_request::Operation>,
     #[doc = "The packages onto which the operation will be performed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub packages: Vec<MavenMinimalPackageDetails>,
 }
 impl MavenPackagesBatchRequest {
@@ -252,7 +256,11 @@ pub mod maven_packages_batch_request {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomBuild {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub plugins: Vec<Plugin>,
 }
 impl MavenPomBuild {
@@ -263,7 +271,11 @@ impl MavenPomBuild {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomCi {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub notifiers: Vec<MavenPomCiNotifier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub system: Option<String>,
@@ -278,7 +290,11 @@ impl MavenPomCi {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomCiNotifier {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub configuration: Vec<String>,
     #[serde(
         rename = "sendOnError",
@@ -332,7 +348,11 @@ impl MavenPomDependency {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomDependencyManagement {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub dependencies: Vec<MavenPomDependency>,
 }
 impl MavenPomDependencyManagement {
@@ -395,7 +415,8 @@ pub struct MavenPomMailingList {
     #[serde(
         rename = "otherArchives",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub other_archives: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -425,9 +446,17 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Option::is_none"
     )]
     pub ci_management: Option<MavenPomCi>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub contributors: Vec<MavenPomPerson>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub dependencies: Vec<MavenPomDependency>,
     #[doc = ""]
     #[serde(
@@ -438,7 +467,11 @@ pub struct MavenPomMetadata {
     pub dependency_management: Option<MavenPomDependencyManagement>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub developers: Vec<MavenPomPerson>,
     #[doc = ""]
     #[serde(
@@ -460,12 +493,17 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Option::is_none"
     )]
     pub issue_management: Option<MavenPomIssueManagement>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub licenses: Vec<MavenPomLicense>,
     #[serde(
         rename = "mailingLists",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub mailing_lists: Vec<MavenPomMailingList>,
     #[serde(
@@ -474,7 +512,11 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Option::is_none"
     )]
     pub model_version: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub modules: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -548,7 +590,11 @@ pub struct MavenPomPerson {
         skip_serializing_if = "Option::is_none"
     )]
     pub organization_url: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub roles: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub timezone: Option<String>,
@@ -666,7 +712,11 @@ pub struct NpmPackagesBatchRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operation: Option<npm_packages_batch_request::Operation>,
     #[doc = "The packages onto which the operation will be performed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub packages: Vec<MinimalPackageDetails>,
 }
 impl NpmPackagesBatchRequest {
@@ -737,7 +787,11 @@ pub struct NuGetPackagesBatchRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operation: Option<nu_get_packages_batch_request::Operation>,
     #[doc = "The packages onto which the operation will be performed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub packages: Vec<MinimalPackageDetails>,
 }
 impl NuGetPackagesBatchRequest {
@@ -801,7 +855,12 @@ pub struct Package {
     )]
     pub permanently_deleted_date: Option<time::OffsetDateTime>,
     #[doc = "The history of upstream sources for this package. The first source in the list is the immediate source from which this package was saved."]
-    #[serde(rename = "sourceChain", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "sourceChain",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub source_chain: Vec<UpstreamSourceInfo>,
     #[doc = "The version of the package."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -885,7 +944,11 @@ pub struct PyPiPackagesBatchRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operation: Option<py_pi_packages_batch_request::Operation>,
     #[doc = "The packages onto which the operation will be performed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub packages: Vec<MinimalPackageDetails>,
 }
 impl PyPiPackagesBatchRequest {
@@ -975,7 +1038,11 @@ pub struct UPackPackagesBatchRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub operation: Option<u_pack_packages_batch_request::Operation>,
     #[doc = "The packages onto which the operation will be performed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub packages: Vec<MinimalPackageDetails>,
 }
 impl UPackPackagesBatchRequest {

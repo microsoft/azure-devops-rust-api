@@ -171,7 +171,11 @@ pub mod authorization_grant {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ChangedIdentities {
     #[doc = "Changed Identities"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub identities: Vec<Identity>,
     #[doc = "More data available, set to true if pagesize is specified."]
     #[serde(rename = "moreData", default, skip_serializing_if = "Option::is_none")]
@@ -364,11 +368,25 @@ pub struct IdentityBase {
     #[serde(rename = "masterId", default, skip_serializing_if = "Option::is_none")]
     pub master_id: Option<String>,
     #[doc = "Id of the members of the identity (groups only)."]
-    #[serde(rename = "memberIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "memberIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub member_ids: Vec<String>,
-    #[serde(rename = "memberOf", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "memberOf",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub member_of: Vec<IdentityDescriptor>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub members: Vec<IdentityDescriptor>,
     #[serde(
         rename = "metaTypeId",
@@ -420,9 +438,18 @@ impl IdentityBase {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityBatchInfo {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub descriptors: Vec<IdentityDescriptor>,
-    #[serde(rename = "identityIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "identityIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub identity_ids: Vec<String>,
     #[serde(
         rename = "includeRestrictedVisibility",
@@ -433,7 +460,8 @@ pub struct IdentityBatchInfo {
     #[serde(
         rename = "propertyNames",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub property_names: Vec<String>,
     #[serde(
@@ -445,13 +473,15 @@ pub struct IdentityBatchInfo {
     #[serde(
         rename = "socialDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub social_descriptors: Vec<String>,
     #[serde(
         rename = "subjectDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub subject_descriptors: Vec<String>,
 }
@@ -500,7 +530,11 @@ impl IdentityDescriptor {
 pub struct IdentityList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Identity>,
 }
 impl IdentityList {
@@ -607,7 +641,11 @@ pub struct IdentitySelf {
     #[serde(rename = "originId", default, skip_serializing_if = "Option::is_none")]
     pub origin_id: Option<String>,
     #[doc = "For AAD accounts this is all of the tenants that this account is a member of."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tenants: Vec<TenantInfo>,
 }
 impl IdentitySelf {
@@ -618,15 +656,32 @@ impl IdentitySelf {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentitySnapshot {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub groups: Vec<Identity>,
-    #[serde(rename = "identityIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "identityIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub identity_ids: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub memberships: Vec<GroupMembership>,
     #[serde(rename = "scopeId", default, skip_serializing_if = "Option::is_none")]
     pub scope_id: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub scopes: Vec<IdentityScope>,
 }
 impl IdentitySnapshot {
@@ -745,10 +800,15 @@ pub struct PagedIdentities {
     #[serde(
         rename = "continuationToken",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub continuation_token: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub identities: Vec<Identity>,
 }
 impl PagedIdentities {
@@ -765,10 +825,18 @@ pub struct PropertiesCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
     #[doc = "The set of keys in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl PropertiesCollection {
@@ -823,7 +891,8 @@ pub struct TenantInfo {
     #[serde(
         rename = "verifiedDomains",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub verified_domains: Vec<String>,
 }

@@ -104,11 +104,17 @@ pub struct DebugEntryCreateBatch {
     #[serde(
         rename = "debugEntries",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub debug_entries: Vec<DebugEntry>,
     #[doc = "Serialized Proof nodes, used to verify uploads on server side for Chunk Dedup DebugEntry"]
-    #[serde(rename = "proofNodes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "proofNodes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub proof_nodes: Vec<String>,
 }
 impl DebugEntryCreateBatch {
@@ -134,7 +140,11 @@ pub mod debug_entry_create_batch {
 pub struct DebugEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<DebugEntry>,
 }
 impl DebugEntryList {
@@ -154,7 +164,12 @@ impl IDomainId {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonBlobBlockHash {
     #[doc = "Array of hash bytes."]
-    #[serde(rename = "hashBytes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "hashBytes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub hash_bytes: Vec<String>,
 }
 impl JsonBlobBlockHash {
@@ -168,7 +183,8 @@ pub struct JsonBlobIdentifier {
     #[serde(
         rename = "identifierValue",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub identifier_value: Vec<String>,
 }
@@ -181,13 +197,19 @@ impl JsonBlobIdentifier {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonBlobIdentifierWithBlocks {
     #[doc = "List of blob block hashes."]
-    #[serde(rename = "blockHashes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "blockHashes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub block_hashes: Vec<JsonBlobBlockHash>,
     #[doc = "Array of blobId bytes."]
     #[serde(
         rename = "identifierValue",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub identifier_value: Vec<String>,
 }

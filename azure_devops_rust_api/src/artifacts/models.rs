@@ -95,7 +95,11 @@ pub struct Feed {
     )]
     pub permanent_deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Explicit permissions for the feed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub permissions: Vec<FeedPermission>,
     #[doc = "The date that this feed is scheduled to be permanently deleted."]
     #[serde(
@@ -206,7 +210,12 @@ pub struct FeedChangesResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "A container that encapsulates the state of the feed after a create, update, or delete."]
-    #[serde(rename = "feedChanges", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "feedChanges",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub feed_changes: Vec<FeedChange>,
     #[doc = "When iterating through the log of changes this value indicates the value that should be used for the next continuation token."]
     #[serde(
@@ -268,7 +277,8 @@ pub struct FeedCore {
     #[serde(
         rename = "upstreamSources",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
     #[doc = "A view on top of a feed."]
@@ -306,7 +316,11 @@ pub mod feed_core {
 pub struct FeedList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Feed>,
 }
 impl FeedList {
@@ -378,7 +392,11 @@ pub mod feed_permission {
 pub struct FeedPermissionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<FeedPermission>,
 }
 impl FeedPermissionList {
@@ -467,7 +485,8 @@ pub struct FeedUpdate {
     #[serde(
         rename = "upstreamSources",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
 }
@@ -533,7 +552,11 @@ pub mod feed_view {
 pub struct FeedViewList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<FeedView>,
 }
 impl FeedViewList {
@@ -587,7 +610,11 @@ pub mod global_permission {
 pub struct GlobalPermissionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GlobalPermission>,
 }
 impl GlobalPermissionList {
@@ -719,7 +746,11 @@ pub struct MinimalPackageVersion {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
     #[doc = "List of views containing this package version."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub views: Vec<FeedView>,
 }
 impl MinimalPackageVersion {
@@ -803,7 +834,11 @@ pub struct Package {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[doc = "All versions for this package within its feed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<MinimalPackageVersion>,
 }
 impl Package {
@@ -850,7 +885,8 @@ pub struct PackageChangesResponse {
     #[serde(
         rename = "packageChanges",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub package_changes: Vec<PackageChange>,
 }
@@ -889,7 +925,11 @@ impl PackageDependency {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageFile {
     #[doc = "Hierarchical representation of files."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub children: Vec<PackageFile>,
     #[doc = "File name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -912,7 +952,11 @@ impl PackageFile {
 pub struct PackageList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Package>,
 }
 impl PackageList {
@@ -958,7 +1002,11 @@ impl PackageMetrics {
 pub struct PackageMetricsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PackageMetrics>,
 }
 impl PackageMetricsList {
@@ -970,7 +1018,12 @@ impl PackageMetricsList {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageMetricsQuery {
     #[doc = "List of package ids"]
-    #[serde(rename = "packageIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "packageIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub package_ids: Vec<String>,
 }
 impl PackageMetricsQuery {
@@ -997,19 +1050,28 @@ pub struct PackageVersion {
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "List of dependencies for this package version."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub dependencies: Vec<PackageDependency>,
     #[doc = "Package version description."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Files associated with this package version, only relevant for multi-file package types."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub files: Vec<PackageFile>,
     #[doc = "Other versions of this package."]
     #[serde(
         rename = "otherVersions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub other_versions: Vec<MinimalPackageVersion>,
     #[doc = "Extended metadata for a specific package type."]
@@ -1020,13 +1082,22 @@ pub struct PackageVersion {
     )]
     pub protocol_metadata: Option<ProtocolMetadata>,
     #[doc = "List of upstream sources through which a package version moved to land in this feed."]
-    #[serde(rename = "sourceChain", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "sourceChain",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub source_chain: Vec<UpstreamSource>,
     #[doc = "Package version summary."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub summary: Option<String>,
     #[doc = "Package version tags."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[doc = "Package version url."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1085,7 +1156,11 @@ pub mod package_version_change {
 pub struct PackageVersionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PackageVersion>,
 }
 impl PackageVersionList {
@@ -1138,7 +1213,11 @@ impl PackageVersionMetrics {
 pub struct PackageVersionMetricsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PackageVersionMetrics>,
 }
 impl PackageVersionMetricsList {
@@ -1153,7 +1232,8 @@ pub struct PackageVersionMetricsQuery {
     #[serde(
         rename = "packageVersionIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub package_version_ids: Vec<String>,
 }
@@ -1276,7 +1356,11 @@ impl RecycleBinPackageVersion {
 pub struct RecycleBinPackageVersionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<RecycleBinPackageVersion>,
 }
 impl RecycleBinPackageVersionList {
@@ -1304,13 +1388,15 @@ pub struct SaveCachedPackagesData {
     #[serde(
         rename = "normalizedPackageNames",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub normalized_package_names: Vec<String>,
     #[serde(
         rename = "viewsForPromotion",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub views_for_promotion: Vec<String>,
 }
@@ -1434,7 +1520,8 @@ pub struct UpstreamSource {
     #[serde(
         rename = "statusDetails",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub status_details: Vec<UpstreamStatusDetail>,
     #[doc = "Source type, such as Public or Internal."]

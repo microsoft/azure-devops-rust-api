@@ -46,7 +46,11 @@ pub struct BoardSearchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of top matched Board documents."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<BoardResult>,
 }
 impl BoardSearchResponse {
@@ -91,7 +95,11 @@ pub struct CodeResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<Repository>,
     #[doc = "Versions of the result file."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<Version>,
 }
 impl CodeResult {
@@ -126,7 +134,11 @@ pub struct CodeSearchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of matched files."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<CodeResult>,
 }
 impl CodeSearchResponse {
@@ -156,7 +168,8 @@ pub struct CustomRepositoryStatusResponse {
     #[serde(
         rename = "indexedTopLevelFolders",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub indexed_top_level_folders: Vec<DepotInfo>,
     #[doc = "Repository Name."]
@@ -186,7 +199,12 @@ pub struct EntitySearchRequest {
     #[serde(flatten)]
     pub entity_search_request_base: EntitySearchRequestBase,
     #[doc = "Options for sorting search results. If set to null, the results will be returned sorted by relevance. If more than one sort option is provided, the results are sorted in the order specified in the OrderBy."]
-    #[serde(rename = "$orderBy", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "$orderBy",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub order_by: Vec<SortOption>,
     #[doc = "Number of results to be skipped."]
     #[serde(rename = "$skip", default, skip_serializing_if = "Option::is_none")]
@@ -286,7 +304,11 @@ pub struct FeedInfo {
     )]
     pub package_url: Option<String>,
     #[doc = "List of views which contain the matched package."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub views: Vec<String>,
 }
 impl FeedInfo {
@@ -362,7 +384,11 @@ pub struct PackageHit {
     )]
     pub field_reference_name: Option<String>,
     #[doc = "Matched/highlighted snippets of the field."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub highlights: Vec<String>,
 }
 impl PackageHit {
@@ -377,10 +403,18 @@ pub struct PackageResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "List of feeds which contain the matching package."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub feeds: Vec<FeedInfo>,
     #[doc = "List of highlighted fields for the match."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub hits: Vec<PackageHit>,
     #[doc = "Id of the package."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -415,7 +449,12 @@ impl PackageSearchRequest {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageSearchResponse {
-    #[serde(rename = "activityId", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "activityId",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub activity_id: Vec<String>,
     #[doc = "Defines a response item that is returned for a package search request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -435,7 +474,11 @@ pub struct PackageSearchResponseContent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of matched packages."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<PackageResult>,
 }
 impl PackageSearchResponseContent {
@@ -517,7 +560,8 @@ pub struct RepositoryStatusResponse {
     #[serde(
         rename = "indexedBranches",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub indexed_branches: Vec<BranchInfo>,
     #[doc = "Repository Name."]
@@ -616,7 +660,11 @@ pub struct SettingSearchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of top matched setting documents."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<SettingResult>,
 }
 impl SettingSearchResponse {
@@ -664,7 +712,8 @@ pub struct TfvcRepositoryStatusResponse {
     #[serde(
         rename = "indexingInformation",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub indexing_information: Vec<BranchInfo>,
     #[doc = "Repository Name."]
@@ -731,7 +780,11 @@ pub struct WikiHit {
     )]
     pub field_reference_name: Option<String>,
     #[doc = "Matched/highlighted snippets of the field."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub highlights: Vec<String>,
 }
 impl WikiHit {
@@ -752,7 +805,11 @@ pub struct WikiResult {
     #[serde(rename = "fileName", default, skip_serializing_if = "Option::is_none")]
     pub file_name: Option<String>,
     #[doc = "Highlighted snippets of fields that match the search request. The list is sorted by relevance of the snippets."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub hits: Vec<WikiHit>,
     #[doc = "Path at which result file is present."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -789,7 +846,11 @@ pub struct WikiSearchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of top matched wiki documents."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<WikiResult>,
 }
 impl WikiSearchResponse {
@@ -808,7 +869,11 @@ pub struct WorkItemHit {
     )]
     pub field_reference_name: Option<String>,
     #[doc = "Matched/highlighted snippets of the field."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub highlights: Vec<String>,
 }
 impl WorkItemHit {
@@ -823,7 +888,11 @@ pub struct WorkItemResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fields: Option<serde_json::Value>,
     #[doc = "Highlighted snippets of fields that match the search request. The list is sorted by relevance of the snippets."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub hits: Vec<WorkItemHit>,
     #[doc = "Defines the details of the project."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -857,7 +926,11 @@ pub struct WorkItemSearchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "List of top matched work items."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<WorkItemResult>,
 }
 impl WorkItemSearchResponse {

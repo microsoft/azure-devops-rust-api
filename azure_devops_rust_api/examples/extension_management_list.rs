@@ -5,6 +5,7 @@
 // extension_management_list example.
 use anyhow::Result;
 use azure_devops_rust_api::extension_management;
+use azure_devops_rust_api::extension_management::models::InstalledExtension;
 use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
@@ -32,7 +33,7 @@ async fn main() -> Result<()> {
     // Create a extension_management_client
     let extension_management_client = extension_management::ClientBuilder::new(credential).build();
 
-    // Get all the installed extension in the specified organization/project
+    // Get all the installed extensions
     let installed_extensions = extension_management_client
         .installed_extensions_client()
         .list(organization)
@@ -40,8 +41,23 @@ async fn main() -> Result<()> {
         .await?
         .value;
 
+    println!("Installed extensions:");
     for extension in installed_extensions.iter() {
-        println!("{:#?}", extension.publisher_name);
+        match extension {
+            InstalledExtension {
+                extension_name: Some(name),
+                publisher_name: Some(publisher),
+                version: Some(version),
+                ..
+            } => {
+                println!("{:65}{:24}{:40}", name, version, publisher);
+            }
+            _ => {}
+        }
+    }
+
+    if let Some(extension) = installed_extensions.iter().next() {
+        println!("\nExample extension:\n{:#?}", extension);
     }
     Ok(())
 }

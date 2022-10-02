@@ -56,7 +56,8 @@ pub struct SessionToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub target_accounts: Vec<String>,
     #[doc = "This is computed and not returned in Get queries"]
@@ -181,7 +182,11 @@ pub struct TokenAdminPagedSessionTokens {
     )]
     pub continuation_token: Option<String>,
     #[doc = "The list of all session tokens in the current page."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<SessionToken>,
 }
 impl TokenAdminPagedSessionTokens {

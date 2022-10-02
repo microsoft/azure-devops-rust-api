@@ -162,7 +162,11 @@ impl PolicyConfiguration {
 pub struct PolicyConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PolicyConfiguration>,
 }
 impl PolicyConfigurationList {
@@ -261,7 +265,11 @@ pub mod policy_evaluation_record {
 pub struct PolicyEvaluationRecordList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PolicyEvaluationRecord>,
 }
 impl PolicyEvaluationRecordList {
@@ -298,7 +306,11 @@ impl PolicyType {
 pub struct PolicyTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PolicyType>,
 }
 impl PolicyTypeList {

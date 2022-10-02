@@ -61,7 +61,8 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "hiddenBacklogs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub hidden_backlogs: Vec<String>,
     #[doc = "Is BugsBehavior Configured in the process"]
@@ -75,7 +76,8 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "portfolioBacklogs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub portfolio_backlogs: Vec<BacklogLevelConfiguration>,
     #[doc = ""]
@@ -98,7 +100,8 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "workItemTypeMappedStates",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_type_mapped_states: Vec<WorkItemTypeStateInfo>,
 }
@@ -157,14 +160,16 @@ pub struct BacklogLevel {
     #[serde(
         rename = "workItemStates",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_states: Vec<String>,
     #[doc = "Collection of valid workitem type names for the given backlog level"]
     #[serde(
         rename = "workItemTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_types: Vec<String>,
 }
@@ -180,7 +185,8 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "addPanelFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub add_panel_fields: Vec<WorkItemFieldReference>,
     #[doc = "Color for the backlog level"]
@@ -190,7 +196,8 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "columnFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub column_fields: Vec<BacklogColumn>,
     #[doc = "Reference to a work item type."]
@@ -226,7 +233,8 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "workItemTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_types: Vec<WorkItemTypeReference>,
 }
@@ -253,7 +261,11 @@ pub mod backlog_level_configuration {
 pub struct BacklogLevelConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BacklogLevelConfiguration>,
 }
 impl BacklogLevelConfigurationList {
@@ -265,7 +277,12 @@ impl BacklogLevelConfigurationList {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogLevelWorkItems {
     #[doc = "A list of work items within a backlog level"]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<WorkItemLink>,
 }
 impl BacklogLevelWorkItems {
@@ -289,7 +306,11 @@ pub struct Board {
     pub allowed_mappings: Option<serde_json::Value>,
     #[serde(rename = "canEdit", default, skip_serializing_if = "Option::is_none")]
     pub can_edit: Option<bool>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub columns: Vec<BoardColumn>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -298,7 +319,11 @@ pub struct Board {
     pub is_valid: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub rows: Vec<BoardRow>,
 }
 impl Board {
@@ -385,7 +410,11 @@ impl BoardChartReference {
 pub struct BoardChartReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BoardChartReference>,
 }
 impl BoardChartReferenceList {
@@ -441,7 +470,11 @@ pub mod board_column {
 pub struct BoardColumnList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BoardColumn>,
 }
 impl BoardColumnList {
@@ -494,7 +527,11 @@ impl BoardReference {
 pub struct BoardReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BoardReference>,
 }
 impl BoardReferenceList {
@@ -520,7 +557,11 @@ impl BoardRow {
 pub struct BoardRowList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BoardRow>,
 }
 impl BoardRowList {
@@ -544,7 +585,11 @@ impl BoardSuggestedValue {
 pub struct BoardSuggestedValueList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<BoardSuggestedValue>,
 }
 impl BoardSuggestedValueList {
@@ -573,10 +618,19 @@ pub struct CapacityContractBase {
     #[serde(flatten)]
     pub team_settings_data_contract_base: TeamSettingsDataContractBase,
     #[doc = "Collection of capacities associated with the team member"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub activities: Vec<Activity>,
     #[doc = "The days off associated with the team member"]
-    #[serde(rename = "daysOff", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "daysOff",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub days_off: Vec<DateRange>,
 }
 impl CapacityContractBase {
@@ -587,9 +641,18 @@ impl CapacityContractBase {
 #[doc = "Expected data from PATCH"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CapacityPatch {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub activities: Vec<Activity>,
-    #[serde(rename = "daysOff", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "daysOff",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub days_off: Vec<DateRange>,
 }
 impl CapacityPatch {
@@ -604,7 +667,8 @@ pub struct CardFieldSettings {
     #[serde(
         rename = "additionalFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub additional_fields: Vec<FieldInfo>,
     #[doc = "Display format for the assigned to field"]
@@ -615,7 +679,12 @@ pub struct CardFieldSettings {
     )]
     pub assigned_to_display_format: Option<card_field_settings::AssignedToDisplayFormat>,
     #[doc = "A collection of field information of rendered core fields on cards."]
-    #[serde(rename = "coreFields", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "coreFields",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub core_fields: Vec<FieldInfo>,
     #[doc = "Flag indicating whether to show assigned to field on cards. When true, AssignedToDisplayFormat will determine how the field will be displayed"]
     #[serde(
@@ -702,7 +771,8 @@ pub struct CategoryConfiguration {
     #[serde(
         rename = "workItemTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_types: Vec<WorkItemTypeReference>,
 }
@@ -793,7 +863,8 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "parentItemMaps",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub parent_item_maps: Vec<ParentChildWiMap>,
     #[doc = "The start date for the delivery view data"]
@@ -804,20 +875,26 @@ pub struct DeliveryViewData {
     )]
     pub start_date: Option<time::OffsetDateTime>,
     #[doc = "All the team data"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub teams: Vec<TimelineTeamData>,
     #[doc = "List of all work item ids that have a dependency but not a violation"]
     #[serde(
         rename = "workItemDependencies",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_dependencies: Vec<i32>,
     #[doc = "List of all work item ids that have a violation"]
     #[serde(
         rename = "workItemViolations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_violations: Vec<i32>,
 }
@@ -837,30 +914,41 @@ pub struct DeliveryViewPropertyCollection {
     )]
     pub card_settings: Option<CardSettings>,
     #[doc = "Field criteria"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub criteria: Vec<FilterClause>,
     #[doc = "Markers. Will be missing/null if there are no markers."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub markers: Vec<Marker>,
     #[doc = "Card style settings"]
     #[serde(
         rename = "styleSettings",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub style_settings: Vec<Rule>,
     #[doc = "tag style settings"]
     #[serde(
         rename = "tagStyleSettings",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub tag_style_settings: Vec<Rule>,
     #[doc = "Team backlog mappings"]
     #[serde(
         rename = "teamBacklogMappings",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub team_backlog_mappings: Vec<TeamBacklogMapping>,
 }
@@ -1099,7 +1187,11 @@ impl IdentityRef {
 #[doc = "Capacity and teams for all teams in an iteration"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IterationCapacity {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub teams: Vec<TeamCapacityTotals>,
     #[serde(
         rename = "totalIterationCapacityPerDay",
@@ -1128,7 +1220,8 @@ pub struct IterationWorkItems {
     #[serde(
         rename = "workItemRelations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_relations: Vec<WorkItemLink>,
 }
@@ -1206,7 +1299,8 @@ pub struct ParentChildWiMap {
     #[serde(
         rename = "childWorkItemIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub child_work_item_ids: Vec<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1230,7 +1324,11 @@ impl ParentChildWiMap {
 pub struct ParentChildWiMapList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ParentChildWiMap>,
 }
 impl ParentChildWiMapList {
@@ -1333,7 +1431,11 @@ pub mod plan {
 pub struct PlanList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Plan>,
 }
 impl PlanList {
@@ -1419,7 +1521,11 @@ pub struct PredefinedQuery {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "The results of the query.  This will be a set of WorkItem objects with only the 'id' set.  The client is responsible for paging in the data as needed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<WorkItem>,
     #[doc = "REST API Url to use to retrieve results for this query"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1447,7 +1553,8 @@ pub struct ProcessConfiguration {
     #[serde(
         rename = "portfolioBacklogs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub portfolio_backlogs: Vec<CategoryConfiguration>,
     #[doc = "Details about a given backlog category"]
@@ -1495,7 +1602,11 @@ impl ReferenceLinks {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReorderOperation {
     #[doc = "IDs of the work items to be reordered.  Must be valid WorkItem Ids."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub ids: Vec<i32>,
     #[doc = "IterationPath for reorder operation. This is only used when we reorder from the Iteration Backlog"]
     #[serde(
@@ -1543,7 +1654,11 @@ impl ReorderResult {
 pub struct ReorderResultList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ReorderResult>,
 }
 impl ReorderResultList {
@@ -1554,7 +1669,11 @@ impl ReorderResultList {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Rule {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub clauses: Vec<FilterClause>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub filter: Option<String>,
@@ -1578,7 +1697,11 @@ pub struct TaskboardColumn {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[doc = "Work item type states mapped to this column to support auto state update when column is updated."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<ITaskboardColumnMapping>,
     #[doc = "Column name"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1614,7 +1737,11 @@ impl TaskboardColumnMapping {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskboardColumns {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub columns: Vec<TaskboardColumn>,
     #[doc = "Are the columns cutomized for this team"]
     #[serde(
@@ -1669,7 +1796,11 @@ impl TaskboardWorkItemColumn {
 pub struct TaskboardWorkItemColumnList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TaskboardWorkItemColumn>,
 }
 impl TaskboardWorkItemColumnList {
@@ -1697,7 +1828,12 @@ impl TeamBacklogMapping {
 #[doc = "Represents team member capacity with totals aggregated"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamCapacity {
-    #[serde(rename = "teamMembers", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "teamMembers",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub team_members: Vec<TeamMemberCapacityIdentityRef>,
     #[serde(
         rename = "totalCapacityPerDay",
@@ -1794,7 +1930,11 @@ pub struct TeamFieldValues {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub field: Option<FieldReference>,
     #[doc = "Collection of all valid team field values"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<TeamFieldValue>,
 }
 impl TeamFieldValues {
@@ -1811,7 +1951,11 @@ pub struct TeamFieldValuesPatch {
         skip_serializing_if = "Option::is_none"
     )]
     pub default_value: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<TeamFieldValue>,
 }
 impl TeamFieldValuesPatch {
@@ -1899,7 +2043,11 @@ impl TeamMemberCapacityIdentityRef {
 pub struct TeamMemberCapacityIdentityRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TeamMemberCapacityIdentityRef>,
 }
 impl TeamMemberCapacityIdentityRefList {
@@ -1948,7 +2096,12 @@ pub struct TeamSetting {
     )]
     pub default_iteration_macro: Option<String>,
     #[doc = "Days that the team is working"]
-    #[serde(rename = "workingDays", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workingDays",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub working_days: Vec<serde_json::Value>,
 }
 impl TeamSetting {
@@ -1989,7 +2142,12 @@ impl TeamSettingsDataContractBase {
 pub struct TeamSettingsDaysOff {
     #[serde(flatten)]
     pub team_settings_data_contract_base: TeamSettingsDataContractBase,
-    #[serde(rename = "daysOff", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "daysOff",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub days_off: Vec<DateRange>,
 }
 impl TeamSettingsDaysOff {
@@ -2000,7 +2158,12 @@ impl TeamSettingsDaysOff {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamSettingsDaysOffPatch {
-    #[serde(rename = "daysOff", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "daysOff",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub days_off: Vec<DateRange>,
 }
 impl TeamSettingsDaysOffPatch {
@@ -2036,7 +2199,11 @@ impl TeamSettingsIteration {
 pub struct TeamSettingsIterationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TeamSettingsIteration>,
 }
 impl TeamSettingsIterationList {
@@ -2077,7 +2244,12 @@ pub struct TeamSettingsPatch {
         skip_serializing_if = "Option::is_none"
     )]
     pub default_iteration_macro: Option<String>,
-    #[serde(rename = "workingDays", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workingDays",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub working_days: Vec<serde_json::Value>,
 }
 impl TeamSettingsPatch {
@@ -2155,7 +2327,8 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "fieldReferenceNames",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub field_reference_names: Vec<String>,
     #[doc = "The id of the team"]
@@ -2169,7 +2342,11 @@ pub struct TimelineTeamData {
     )]
     pub is_expanded: Option<bool>,
     #[doc = "The iteration data, including the work items, in the queried date range."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub iterations: Vec<TimelineTeamIteration>,
     #[doc = "The name of the team"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2185,13 +2362,15 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "partiallyPagedFieldReferenceNames",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub partially_paged_field_reference_names: Vec<String>,
     #[serde(
         rename = "partiallyPagedWorkItems",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub partially_paged_work_items: Vec<Vec<serde_json::Value>>,
     #[doc = "The project id the team belongs team"]
@@ -2201,7 +2380,8 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "rollupWorkItemTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub rollup_work_item_types: Vec<String>,
     #[doc = ""]
@@ -2225,17 +2405,24 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "teamFieldValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub team_field_values: Vec<TeamFieldValue>,
     #[doc = "Work items associated with the team that are not under any of the team's iterations"]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<Vec<serde_json::Value>>,
     #[doc = "Colors for the work item types."]
     #[serde(
         rename = "workItemTypeColors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_type_colors: Vec<WorkItemColor>,
 }
@@ -2264,7 +2451,8 @@ pub struct TimelineTeamIteration {
     #[serde(
         rename = "partiallyPagedWorkItems",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub partially_paged_work_items: Vec<Vec<serde_json::Value>>,
     #[doc = "The iteration path"]
@@ -2281,7 +2469,12 @@ pub struct TimelineTeamIteration {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<TimelineIterationStatus>,
     #[doc = "The work items that have been paged in this iteration"]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<Vec<serde_json::Value>>,
 }
 impl TimelineTeamIteration {
@@ -2362,7 +2555,11 @@ pub struct UpdateTaskboardColumn {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[doc = "Work item type states mapped to this column to support auto state update when column is updated."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<TaskboardColumnMapping>,
     #[doc = "Column name is required"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2430,7 +2627,11 @@ pub struct WorkItem {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[doc = "Relations of the work item."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub relations: Vec<WorkItemRelation>,
     #[doc = "Revision number of the work item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]

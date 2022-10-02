@@ -120,7 +120,11 @@ pub struct Dashboard {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[doc = "The set of Widgets on the dashboard."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub widgets: Vec<Widget>,
 }
 impl Dashboard {
@@ -151,7 +155,8 @@ pub struct DashboardGroup {
     #[serde(
         rename = "dashboardEntries",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub dashboard_entries: Vec<DashboardGroupEntry>,
     #[doc = "Deprecated: The old permission model describing the level of permissions for the current team. Pre-M125."]
@@ -230,7 +235,11 @@ impl DashboardGroupEntryResponse {
 pub struct DashboardList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Dashboard>,
 }
 impl DashboardList {
@@ -352,7 +361,8 @@ pub struct Widget {
     #[serde(
         rename = "allowedSizes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_sizes: Vec<WidgetSize>,
     #[doc = "Read-Only Property from Dashboard Service. Indicates if settings are blocked for the current user."]
@@ -454,7 +464,11 @@ impl Widget {
 pub struct WidgetList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Widget>,
 }
 impl WidgetList {
@@ -469,7 +483,8 @@ pub struct WidgetMetadata {
     #[serde(
         rename = "allowedSizes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_sizes: Vec<WidgetSize>,
     #[doc = "Opt-in boolean that indicates if the widget requires the Analytics Service to function. Widgets requiring the analytics service are hidden from the catalog if the Analytics Service is not available."]
@@ -556,7 +571,11 @@ pub struct WidgetMetadata {
     )]
     pub is_visible_from_catalog: Option<bool>,
     #[doc = "Keywords associated with this widget, non-filterable and invisible"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keywords: Vec<String>,
     #[doc = "Lightbox configuration"]
     #[serde(
@@ -586,14 +605,23 @@ pub struct WidgetMetadata {
     #[serde(
         rename = "supportedScopes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub supported_scopes: Vec<serde_json::Value>,
     #[doc = "Tags associated with this widget, visible on each widget and filterable."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[doc = "Contribution target IDs"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub targets: Vec<String>,
     #[doc = "Deprecated: locally unique developer-facing id of this kind of widget. ContributionId provides a globally unique identifier for widget types."]
     #[serde(rename = "typeId", default, skip_serializing_if = "Option::is_none")]
@@ -673,7 +701,12 @@ pub struct WidgetTypesResponse {
     pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub uri: Option<String>,
-    #[serde(rename = "widgetTypes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "widgetTypes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub widget_types: Vec<WidgetMetadata>,
 }
 impl WidgetTypesResponse {
@@ -684,9 +717,18 @@ impl WidgetTypesResponse {
 #[doc = "Wrapper class to support HTTP header generation using CreateResponse, ClientHeaderParameter and ClientResponseType in WidgetV2Controller"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetsVersionedList {
-    #[serde(rename = "eTag", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "eTag",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub e_tag: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub widgets: Vec<Widget>,
 }
 impl WidgetsVersionedList {

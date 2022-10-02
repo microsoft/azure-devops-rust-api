@@ -10,7 +10,11 @@ use std::str::FromStr;
 pub struct EnterpriseStatus {
     #[serde(flatten)]
     pub status: Status,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub organizations: Vec<OrganizationHealth>,
 }
 impl EnterpriseStatus {
@@ -71,7 +75,11 @@ pub struct LiveSiteEvent {
     pub end_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i64>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub impact: Vec<LiveSiteEventImpact>,
     #[serde(
         rename = "incidentUri",
@@ -79,7 +87,11 @@ pub struct LiveSiteEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub incident_uri: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub logs: Vec<LiveSiteEventLog>,
     #[serde(
         rename = "nextUpdateTime",
@@ -303,7 +315,11 @@ pub struct LiveSiteEventTemplateData {
         skip_serializing_if = "Option::is_none"
     )]
     pub intermediate_description: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub templates: Vec<LiveSiteEventTemplate>,
 }
 impl LiveSiteEventTemplateData {
@@ -318,9 +334,18 @@ pub struct MicroService {
     pub id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "scaleUnits", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "scaleUnits",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub scale_units: Vec<MicroServiceScaleUnit>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub services: Vec<Service>,
 }
 impl MicroService {
@@ -355,7 +380,11 @@ pub struct OrganizationHealth {
     pub id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub services: Vec<ServiceWithHealth>,
 }
 impl OrganizationHealth {
@@ -397,7 +426,11 @@ pub mod service {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceHealth {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub geographies: Vec<GeographyWithHealth>,
     pub id: String,
 }
@@ -414,7 +447,11 @@ impl ServiceHealth {
 pub struct ServiceStatus {
     #[serde(flatten)]
     pub status: Status,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub services: Vec<ServiceHealth>,
 }
 impl ServiceStatus {

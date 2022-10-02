@@ -148,6 +148,7 @@ impl Patcher {
         Patcher::patch_input_validation_min_max,
         Patcher::patch_probation_retries_type,
         Patcher::patch_operation_status_in_releases,
+        Patcher::patch_extension_flags,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -808,6 +809,26 @@ impl Patcher {
                 value["type"] = JsonValue::from("number");
                 value["format"] = JsonValue::from("float");
                 Some(value)
+            }
+            _ => None,
+        }
+    }
+
+    // extensionManagement declares several `flags` properties as enums, but the values
+    // returned by the server are a comma-separated list of values, e.g. "builtIn, multiVersion, trusted"
+    // This is not easy to handle with serde, so we patch these definitions to be strings.
+    fn patch_extension_flags(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to extensionManagement specs
+        if !self.spec_path.ends_with("extensionManagement.json") {
+            return None;
+        }
+        match key {
+            ["definitions", _, "properties", "flags"] => {
+                println!("Replace extensionManagement flags definition");
+                Some(json::object! {
+                    "description": value["description"].as_str().unwrap_or("").to_string(),
+                    "type": "string",
+                })
             }
             _ => None,
         }
