@@ -146,7 +146,11 @@ pub mod access_level {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BaseOperationResult {
     #[doc = "List of error codes paired with their corresponding error messages"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub errors: Vec<serde_json::Value>,
     #[doc = "Success status of the operation"]
     #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
@@ -474,13 +478,18 @@ pub struct GroupEntitlement {
     )]
     pub license_rule: Option<AccessLevel>,
     #[doc = "Group members. Only used when creating a new group."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub members: Vec<UserEntitlement>,
     #[doc = "Relation between a project and the member's effective permissions in that project."]
     #[serde(
         rename = "projectEntitlements",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub project_entitlements: Vec<ProjectEntitlement>,
     #[doc = "The status of the group rule."]
@@ -512,7 +521,11 @@ pub mod group_entitlement {
 pub struct GroupEntitlementList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GroupEntitlement>,
 }
 impl GroupEntitlementList {
@@ -536,7 +549,11 @@ pub struct GroupEntitlementOperationReference {
     )]
     pub have_results_succeeded: Option<bool>,
     #[doc = "List of results for each operation."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<GroupOperationResult>,
 }
 impl GroupEntitlementOperationReference {
@@ -772,7 +789,11 @@ pub struct MemberEntitlementOperationReference {
     )]
     pub have_results_succeeded: Option<bool>,
     #[doc = "List of results for each operation"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<OperationResult>,
 }
 impl MemberEntitlementOperationReference {
@@ -789,7 +810,8 @@ pub struct MemberEntitlementsPatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub operation_results: Vec<OperationResult>,
 }
@@ -879,7 +901,11 @@ pub mod operation_reference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OperationResult {
     #[doc = "List of error codes paired with their corresponding error messages."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub errors: Vec<serde_json::Value>,
     #[doc = "Success status of the operation."]
     #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
@@ -899,7 +925,11 @@ impl OperationResult {
 #[doc = "A page of users"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphMemberList {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub members: Vec<UserEntitlement>,
 }
 impl PagedGraphMemberList {
@@ -935,7 +965,12 @@ pub struct ProjectEntitlement {
     )]
     pub project_ref: Option<ProjectRef>,
     #[doc = "Team Ref."]
-    #[serde(rename = "teamRefs", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "teamRefs",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub team_refs: Vec<TeamRef>,
 }
 impl ProjectEntitlement {
@@ -1054,7 +1089,8 @@ pub struct UserEntitlement {
     #[serde(
         rename = "groupAssignments",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub group_assignments: Vec<GroupEntitlement>,
     #[doc = "The unique identifier which matches the Id of the Identity associated with the GraphMember."]
@@ -1071,7 +1107,8 @@ pub struct UserEntitlement {
     #[serde(
         rename = "projectEntitlements",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub project_entitlements: Vec<ProjectEntitlement>,
     #[doc = "Graph user entity"]
@@ -1099,7 +1136,11 @@ pub struct UserEntitlementOperationReference {
     )]
     pub have_results_succeeded: Option<bool>,
     #[doc = "List of results for each operation."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<UserEntitlementOperationResult>,
 }
 impl UserEntitlementOperationReference {
@@ -1111,7 +1152,11 @@ impl UserEntitlementOperationReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementOperationResult {
     #[doc = "List of error codes paired with their corresponding error messages."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub errors: Vec<serde_json::Value>,
     #[doc = "Success status of the operation."]
     #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
@@ -1137,7 +1182,8 @@ pub struct UserEntitlementsPatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub operation_results: Vec<UserEntitlementOperationResult>,
 }
@@ -1190,7 +1236,8 @@ pub struct UsersSummary {
     #[serde(
         rename = "availableAccessLevels",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub available_access_levels: Vec<AccessLevel>,
     #[doc = "License assigned to a user"]
@@ -1204,14 +1251,24 @@ pub struct UsersSummary {
     #[serde(
         rename = "groupOptions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub group_options: Vec<GroupOption>,
     #[doc = "Summary of Licenses in the organization"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub licenses: Vec<LicenseSummaryData>,
     #[doc = "Summary of Projects in the organization"]
-    #[serde(rename = "projectRefs", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "projectRefs",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub project_refs: Vec<ProjectRef>,
 }
 impl UsersSummary {

@@ -44,7 +44,12 @@ async fn main() -> Result<()> {
     println!("Installed extensions:");
     for extension in installed_extensions.iter() {
         match extension {
-            InstalledExtension{extension_name: Some(name), publisher_name: Some(publisher), version: Some(version),  ..} => {
+            InstalledExtension {
+                extension_name: Some(name),
+                publisher_name: Some(publisher),
+                version: Some(version),
+                ..
+            } => {
                 println!("{:65}{:24}{:40}", name, version, publisher);
             }
             _ => {}

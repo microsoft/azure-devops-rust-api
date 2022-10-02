@@ -26,7 +26,11 @@ pub struct AcquisitionOperation {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
     #[doc = "List of reasons indicating why the operation is not allowed."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub reasons: Vec<AcquisitionOperationDisallowReason>,
 }
 impl AcquisitionOperation {
@@ -94,7 +98,11 @@ pub struct AcquisitionOptions {
     #[serde(rename = "itemId", default, skip_serializing_if = "Option::is_none")]
     pub item_id: Option<String>,
     #[doc = "Operations allowed for the ItemId in this target"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub operations: Vec<AcquisitionOperation>,
     #[doc = "Represents a JSON object."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -118,13 +126,21 @@ pub struct ClientContribution {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[doc = "Includes is a set of contributions that should have this contribution included in their targets list."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub includes: Vec<String>,
     #[doc = "Represents a JSON object."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub properties: Option<JObject>,
     #[doc = "The ids of the contribution(s) that this contribution targets. (parent contributions)"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub targets: Vec<String>,
     #[doc = "Id of the Contribution Type"]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -139,13 +155,21 @@ impl ClientContribution {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ClientContributionNode {
     #[doc = "List of ids for contributions which are children to the current contribution."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub children: Vec<String>,
     #[doc = "Representation of a ContributionNode that can be used for serialized to clients."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub contribution: Option<ClientContribution>,
     #[doc = "List of ids for contributions which are parents to the current contribution."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub parents: Vec<String>,
 }
 impl ClientContributionNode {
@@ -202,10 +226,18 @@ pub struct Contribution {
     #[serde(flatten)]
     pub contribution_base: ContributionBase,
     #[doc = "List of constraints (filters) that should be applied to the availability of this contribution"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub constraints: Vec<ContributionConstraint>,
     #[doc = "Includes is a set of contributions that should have this contribution included in their targets list."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub includes: Vec<String>,
     #[doc = "Represents a JSON object."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -214,11 +246,16 @@ pub struct Contribution {
     #[serde(
         rename = "restrictedTo",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub restricted_to: Vec<String>,
     #[doc = "The ids of the contribution(s) that this contribution targets. (parent contributions)"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub targets: Vec<String>,
     #[doc = "Id of the Contribution Type"]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -239,7 +276,12 @@ pub struct ContributionBase {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[doc = "VisibleTo can be used to restrict whom can reference a given contribution/type. This value should be a list of publishers or extensions access is restricted too.  Examples: \"ms\" - Means only the \"ms\" publisher can reference this. \"ms.vss-web\" - Means only the \"vss-web\" extension from the \"ms\" publisher can reference this."]
-    #[serde(rename = "visibleTo", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "visibleTo",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub visible_to: Vec<String>,
 }
 impl ContributionBase {
@@ -266,7 +308,11 @@ pub struct ContributionConstraint {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub properties: Option<JObject>,
     #[doc = "Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will eliminate the contribution from the tree completely if the constraint is applied."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub relationships: Vec<String>,
 }
 impl ContributionConstraint {
@@ -281,7 +327,8 @@ pub struct ContributionNodeQuery {
     #[serde(
         rename = "contributionIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub contribution_ids: Vec<String>,
     #[doc = "Contextual information that data providers can examine when populating their data"]
@@ -492,7 +539,8 @@ pub struct DataProviderQuery {
     #[serde(
         rename = "contributionIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub contribution_ids: Vec<String>,
 }
@@ -521,7 +569,8 @@ pub struct DataProviderResult {
     #[serde(
         rename = "resolvedProviders",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub resolved_providers: Vec<ResolvedDataProvider>,
     #[doc = "Scope name applied to this data provider result."]
@@ -625,7 +674,11 @@ pub mod extension_acquisition_request {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionAuditLog {
     #[doc = "Collection of audit log entries"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub entries: Vec<ExtensionAuditLogEntry>,
     #[doc = "Extension that the change was made for"]
     #[serde(
@@ -681,7 +734,11 @@ impl ExtensionAuditLogEntry {
 pub struct ExtensionAuthorization {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub scopes: Vec<String>,
 }
 impl ExtensionAuthorization {
@@ -715,7 +772,11 @@ pub struct ExtensionDataCollection {
     )]
     pub collection_name: Option<String>,
     #[doc = "A list of documents belonging to the collection"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub documents: Vec<JObject>,
     #[doc = "The type of the collection's scope, such as Default or User"]
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
@@ -737,7 +798,11 @@ impl ExtensionDataCollection {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionDataCollectionQuery {
     #[doc = "A list of collections to query"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub collections: Vec<ExtensionDataCollection>,
 }
 impl ExtensionDataCollectionQuery {
@@ -948,7 +1013,11 @@ impl ExtensionIdentifier {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionLicensing {
     #[doc = "A list of contributions which deviate from the default licensing behavior"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub overrides: Vec<LicensingOverride>,
 }
 impl ExtensionLicensing {
@@ -963,20 +1032,33 @@ pub struct ExtensionManifest {
     #[serde(rename = "baseUri", default, skip_serializing_if = "Option::is_none")]
     pub base_uri: Option<String>,
     #[doc = "List of shared constraints defined by this extension"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub constraints: Vec<ContributionConstraint>,
     #[doc = "List of contributions made by this extension"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub contributions: Vec<Contribution>,
     #[doc = "List of contribution types defined by this extension"]
     #[serde(
         rename = "contributionTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub contribution_types: Vec<ContributionType>,
     #[doc = "List of explicit demands required by this extension"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub demands: Vec<String>,
     #[doc = "Collection of event callbacks - endpoints called when particular extension events occur."]
     #[serde(
@@ -1009,11 +1091,16 @@ pub struct ExtensionManifest {
     #[serde(
         rename = "restrictedTo",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub restricted_to: Vec<String>,
     #[doc = "List of all oauth scopes required by this extension"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub scopes: Vec<String>,
     #[doc = "The ServiceInstanceType(Guid) of the VSTS service that must be available to an account in order for the extension to be installed"]
     #[serde(
@@ -1230,7 +1317,11 @@ pub struct ExtensionRequestsEvent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ExtensionRequestUrls>,
     #[doc = "The extension request object"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub requests: Vec<ExtensionRequest>,
     #[doc = "The type of update that was made"]
     #[serde(
@@ -1354,7 +1445,11 @@ impl ExtensionUrls {
 pub struct ExtensionVersion {
     #[serde(rename = "assetUri", default, skip_serializing_if = "Option::is_none")]
     pub asset_uri: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub badges: Vec<ExtensionBadge>,
     #[serde(
         rename = "fallbackAssetUri",
@@ -1362,17 +1457,26 @@ pub struct ExtensionVersion {
         skip_serializing_if = "Option::is_none"
     )]
     pub fallback_asset_uri: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub files: Vec<ExtensionFile>,
+    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub flags: Option<extension_version::Flags>,
+    pub flags: Option<String>,
     #[serde(
         rename = "lastUpdated",
         default,
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub properties: Vec<serde_json::Value>,
     #[serde(
         rename = "targetPlatform",
@@ -1398,16 +1502,6 @@ pub struct ExtensionVersion {
 impl ExtensionVersion {
     pub fn new() -> Self {
         Self::default()
-    }
-}
-pub mod extension_version {
-    use super::*;
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-    pub enum Flags {
-        #[serde(rename = "none")]
-        None,
-        #[serde(rename = "validated")]
-        Validated,
     }
 }
 #[doc = ""]
@@ -1544,11 +1638,15 @@ pub struct InstalledExtension {
     )]
     pub extension_name: Option<String>,
     #[doc = "This is the set of files available from the extension."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub files: Vec<ExtensionFile>,
     #[doc = "Extension flags relevant to contribution consumers"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub flags: Option<installed_extension::Flags>,
+    pub flags: Option<String>,
     #[doc = "The state of an installed extension"]
     #[serde(
         rename = "installState",
@@ -1593,23 +1691,16 @@ impl InstalledExtension {
         Self::default()
     }
 }
-pub mod installed_extension {
-    use super::*;
-    #[doc = "Extension flags relevant to contribution consumers"]
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-    pub enum Flags {
-        #[serde(rename = "builtIn")]
-        BuiltIn,
-        #[serde(rename = "trusted")]
-        Trusted,
-    }
-}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstalledExtensionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<InstalledExtension>,
 }
 impl InstalledExtensionList {
@@ -1620,9 +1711,18 @@ impl InstalledExtensionList {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstalledExtensionQuery {
-    #[serde(rename = "assetTypes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "assetTypes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub asset_types: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub monikers: Vec<ExtensionIdentifier>,
 }
 impl InstalledExtensionQuery {
@@ -1635,12 +1735,13 @@ impl InstalledExtensionQuery {
 pub struct InstalledExtensionState {
     #[doc = "States of an installed extension"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub flags: Option<installed_extension_state::Flags>,
+    pub flags: Option<String>,
     #[doc = "List of installation issues"]
     #[serde(
         rename = "installationIssues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub installation_issues: Vec<InstalledExtensionStateIssue>,
     #[doc = "The time at which this installation was last updated"]
@@ -1654,35 +1755,6 @@ pub struct InstalledExtensionState {
 impl InstalledExtensionState {
     pub fn new() -> Self {
         Self::default()
-    }
-}
-pub mod installed_extension_state {
-    use super::*;
-    #[doc = "States of an installed extension"]
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-    pub enum Flags {
-        #[serde(rename = "none")]
-        None,
-        #[serde(rename = "disabled")]
-        Disabled,
-        #[serde(rename = "builtIn")]
-        BuiltIn,
-        #[serde(rename = "multiVersion")]
-        MultiVersion,
-        #[serde(rename = "unInstalled")]
-        UnInstalled,
-        #[serde(rename = "versionCheckError")]
-        VersionCheckError,
-        #[serde(rename = "trusted")]
-        Trusted,
-        #[serde(rename = "error")]
-        Error,
-        #[serde(rename = "needsReauthorization")]
-        NeedsReauthorization,
-        #[serde(rename = "autoUpgradeError")]
-        AutoUpgradeError,
-        #[serde(rename = "warning")]
-        Warning,
     }
 }
 #[doc = "Represents an installation issue"]
@@ -1759,7 +1831,11 @@ pub mod licensing_override {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PublishedExtension {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub categories: Vec<String>,
     #[serde(
         rename = "deploymentType",
@@ -1785,12 +1861,14 @@ pub struct PublishedExtension {
         skip_serializing_if = "Option::is_none"
     )]
     pub extension_name: Option<String>,
+    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub flags: Option<published_extension::Flags>,
+    pub flags: Option<String>,
     #[serde(
         rename = "installationTargets",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub installation_targets: Vec<InstallationTarget>,
     #[serde(
@@ -1822,7 +1900,12 @@ pub struct PublishedExtension {
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_date: Option<time::OffsetDateTime>,
-    #[serde(rename = "sharedWith", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "sharedWith",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub shared_with: Vec<ExtensionShare>,
     #[serde(
         rename = "shortDescription",
@@ -1830,11 +1913,23 @@ pub struct PublishedExtension {
         skip_serializing_if = "Option::is_none"
     )]
     pub short_description: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub statistics: Vec<ExtensionStatistic>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<ExtensionVersion>,
 }
 impl PublishedExtension {
@@ -1855,37 +1950,6 @@ pub mod published_extension {
         #[serde(rename = "referralLink")]
         ReferralLink,
     }
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-    pub enum Flags {
-        #[serde(rename = "none")]
-        None,
-        #[serde(rename = "disabled")]
-        Disabled,
-        #[serde(rename = "builtIn")]
-        BuiltIn,
-        #[serde(rename = "validated")]
-        Validated,
-        #[serde(rename = "trusted")]
-        Trusted,
-        #[serde(rename = "paid")]
-        Paid,
-        #[serde(rename = "public")]
-        Public,
-        #[serde(rename = "multiVersion")]
-        MultiVersion,
-        #[serde(rename = "system")]
-        System,
-        #[serde(rename = "preview")]
-        Preview,
-        #[serde(rename = "unpublished")]
-        Unpublished,
-        #[serde(rename = "trial")]
-        Trial,
-        #[serde(rename = "locked")]
-        Locked,
-        #[serde(rename = "hidden")]
-        Hidden,
-    }
 }
 #[doc = "High-level information about the publisher, like id's and names"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1898,8 +1962,9 @@ pub struct PublisherFacts {
     pub display_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub domain: Option<String>,
+    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub flags: Option<publisher_facts::Flags>,
+    pub flags: Option<String>,
     #[serde(
         rename = "isDomainVerified",
         default,
@@ -1922,24 +1987,6 @@ pub struct PublisherFacts {
 impl PublisherFacts {
     pub fn new() -> Self {
         Self::default()
-    }
-}
-pub mod publisher_facts {
-    use super::*;
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-    pub enum Flags {
-        #[serde(rename = "unChanged")]
-        UnChanged,
-        #[serde(rename = "none")]
-        None,
-        #[serde(rename = "disabled")]
-        Disabled,
-        #[serde(rename = "verified")]
-        Verified,
-        #[serde(rename = "certified")]
-        Certified,
-        #[serde(rename = "serviceFlags")]
-        ServiceFlags,
     }
 }
 #[doc = "The class to represent a collection of REST reference links."]
@@ -1968,7 +2015,8 @@ pub struct RequestedExtension {
     #[serde(
         rename = "extensionRequests",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub extension_requests: Vec<ExtensionRequest>,
     #[doc = "DisplayName of the publisher that owns the extension being published."]

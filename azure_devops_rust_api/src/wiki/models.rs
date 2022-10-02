@@ -34,7 +34,11 @@ pub struct Comment {
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
     #[doc = "The mentions of the comment."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mentions: Vec<CommentMention>,
     #[doc = ""]
     #[serde(
@@ -54,7 +58,11 @@ pub struct Comment {
     #[serde(rename = "parentId", default, skip_serializing_if = "Option::is_none")]
     pub parent_id: Option<i32>,
     #[doc = "The reactions on the comment."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub reactions: Vec<CommentReaction>,
     #[doc = "The rendered text of the comment"]
     #[serde(
@@ -138,7 +146,11 @@ pub struct CommentList {
     #[serde(flatten)]
     pub comment_resource_reference: CommentResourceReference,
     #[doc = "List of comments in the current batch."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub comments: Vec<Comment>,
     #[doc = "A string token that can be used to retrieving next page of comments if available. Otherwise null."]
     #[serde(
@@ -343,7 +355,8 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub valid_remote_urls: Vec<String>,
     #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
@@ -696,7 +709,12 @@ pub struct WikiAttachmentResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attachment: Option<WikiAttachment>,
     #[doc = "Contains the list of ETag values from the response header of the attachments API call. The first item in the list contains the version of the wiki attachment."]
-    #[serde(rename = "eTag", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "eTag",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub e_tag: Vec<String>,
 }
 impl WikiAttachmentResponse {
@@ -815,7 +833,12 @@ pub struct WikiPage {
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
     pub remote_url: Option<String>,
     #[doc = "List of subpages of the current page."]
-    #[serde(rename = "subPages", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "subPages",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sub_pages: Vec<WikiPage>,
     #[doc = "REST url for this wiki page."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -848,7 +871,12 @@ pub struct WikiPageDetail {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub path: Option<String>,
     #[doc = "Path of the wiki page."]
-    #[serde(rename = "viewStats", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "viewStats",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub view_stats: Vec<WikiPageStat>,
 }
 impl WikiPageDetail {
@@ -861,7 +889,11 @@ impl WikiPageDetail {
 pub struct WikiPageDetailList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WikiPageDetail>,
 }
 impl WikiPageDetailList {
@@ -905,7 +937,12 @@ impl WikiPageMoveParameters {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WikiPageMoveResponse {
     #[doc = "Contains the list of ETag values from the response header of the page move API call. The first item in the list contains the version of the wiki page subject to page move."]
-    #[serde(rename = "eTag", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "eTag",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub e_tag: Vec<String>,
     #[doc = "Request contract for Wiki Page Move."]
     #[serde(rename = "pageMove", default, skip_serializing_if = "Option::is_none")]
@@ -920,7 +957,12 @@ impl WikiPageMoveResponse {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WikiPageResponse {
     #[doc = "Contains the list of ETag values from the response header of the pages API call. The first item in the list contains the version of the wiki page."]
-    #[serde(rename = "eTag", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "eTag",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub e_tag: Vec<String>,
     #[doc = "Defines a page in a wiki."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1001,7 +1043,11 @@ pub struct WikiUpdateParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "Versions of the wiki."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<GitVersionDescriptor>,
 }
 impl WikiUpdateParameters {
@@ -1053,7 +1099,11 @@ pub struct WikiV2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     #[doc = "Versions of the wiki."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<GitVersionDescriptor>,
 }
 impl WikiV2 {
@@ -1066,7 +1116,11 @@ impl WikiV2 {
 pub struct WikiV2List {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WikiV2>,
 }
 impl WikiV2List {

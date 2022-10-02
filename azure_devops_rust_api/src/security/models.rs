@@ -35,7 +35,11 @@ impl AccessControlEntry {
 pub struct AccessControlEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AccessControlEntry>,
 }
 impl AccessControlEntryList {
@@ -81,7 +85,11 @@ impl AccessControlList {
 pub struct AccessControlListList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AccessControlList>,
 }
 impl AccessControlListList {
@@ -232,7 +240,11 @@ pub struct PermissionEvaluationBatch {
     )]
     pub always_allow_administrators: Option<bool>,
     #[doc = "Array of permission evaluations to evaluate."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub evaluations: Vec<PermissionEvaluation>,
 }
 impl PermissionEvaluationBatch {
@@ -244,7 +256,11 @@ impl PermissionEvaluationBatch {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecurityNamespaceDescription {
     #[doc = "The list of actions that this Security Namespace is responsible for securing."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub actions: Vec<ActionDefinition>,
     #[doc = "This is the dataspace category that describes where the security information for this SecurityNamespace should be stored."]
     #[serde(
@@ -344,7 +360,11 @@ impl SecurityNamespaceDescription {
 pub struct SecurityNamespaceDescriptionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<SecurityNamespaceDescription>,
 }
 impl SecurityNamespaceDescriptionList {

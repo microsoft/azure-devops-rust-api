@@ -22,7 +22,11 @@ pub struct Avatar {
         with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<String>,
 }
 impl Avatar {
@@ -107,13 +111,15 @@ pub struct GraphGlobalExtendedPropertyBatch {
     #[serde(
         rename = "propertyNameFilters",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub property_name_filters: Vec<String>,
     #[serde(
         rename = "subjectDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub subject_descriptors: Vec<String>,
 }
@@ -157,7 +163,11 @@ impl GraphGroupCreationContext {
 pub struct GraphGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GraphGroup>,
 }
 impl GraphGroupList {
@@ -298,7 +308,11 @@ impl GraphMembership {
 pub struct GraphMembershipList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GraphMembership>,
 }
 impl GraphMembershipList {
@@ -349,14 +363,16 @@ pub struct GraphMembershipTraversal {
     #[serde(
         rename = "traversedSubjectIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub traversed_subject_ids: Vec<String>,
     #[doc = "Subject descriptors of the traversed members"]
     #[serde(
         rename = "traversedSubjects",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub traversed_subjects: Vec<String>,
 }
@@ -564,7 +580,11 @@ impl GraphSubjectBase {
 pub struct GraphSubjectList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GraphSubject>,
 }
 impl GraphSubjectList {
@@ -575,7 +595,12 @@ impl GraphSubjectList {
 #[doc = "Batching of subjects to lookup using the Graph API"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectLookup {
-    #[serde(rename = "lookupKeys", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "lookupKeys",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub lookup_keys: Vec<GraphSubjectLookupKey>,
 }
 impl GraphSubjectLookup {
@@ -608,7 +633,12 @@ pub struct GraphSubjectQuery {
     )]
     pub scope_descriptor: Option<String>,
     #[doc = "\"User\" or \"Group\" can be specified, both or either"]
-    #[serde(rename = "subjectKind", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "subjectKind",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub subject_kind: Vec<String>,
 }
 impl GraphSubjectQuery {
@@ -676,7 +706,11 @@ impl GraphUserCreationContext {
 pub struct GraphUserList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GraphUser>,
 }
 impl GraphUserList {
@@ -852,11 +886,17 @@ pub struct PagedGraphGroups {
     #[serde(
         rename = "continuationToken",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub continuation_token: Vec<String>,
     #[doc = "The enumerable list of groups found within a page."]
-    #[serde(rename = "graphGroups", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "graphGroups",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub graph_groups: Vec<GraphGroup>,
 }
 impl PagedGraphGroups {
@@ -871,11 +911,17 @@ pub struct PagedGraphUsers {
     #[serde(
         rename = "continuationToken",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub continuation_token: Vec<String>,
     #[doc = "The enumerable set of users found within a page."]
-    #[serde(rename = "graphUsers", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "graphUsers",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub graph_users: Vec<GraphUser>,
 }
 impl PagedGraphUsers {

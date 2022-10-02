@@ -458,7 +458,11 @@ pub struct BuildCoverage {
     #[serde(rename = "lastError", default, skip_serializing_if = "Option::is_none")]
     pub last_error: Option<String>,
     #[doc = "List of Modules"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub modules: Vec<ModuleCoverage>,
     #[doc = "State"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -536,7 +540,8 @@ pub struct CodeCoverageData {
     #[serde(
         rename = "coverageStats",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub coverage_stats: Vec<CodeCoverageStatistics>,
 }
@@ -586,7 +591,8 @@ pub struct CodeCoverageSummary {
     #[serde(
         rename = "coverageData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub coverage_data: Vec<CodeCoverageData>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -733,7 +739,8 @@ pub struct FieldDetailsForTestResults {
     #[serde(
         rename = "groupsForField",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub groups_for_field: Vec<serde_json::Value>,
 }
@@ -814,7 +821,8 @@ pub struct FlakyDetectionPipelines {
     #[serde(
         rename = "allowedPipelines",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_pipelines: Vec<i32>,
     #[doc = "IsAllPipelinesAllowed if users configure all system's pipelines."]
@@ -996,12 +1004,21 @@ pub struct ModuleCoverage {
         skip_serializing_if = "Option::is_none"
     )]
     pub block_count: Option<i32>,
-    #[serde(rename = "blockData", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "blockData",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub block_data: Vec<String>,
     #[doc = "Code Coverage File Url"]
     #[serde(rename = "fileUrl", default, skip_serializing_if = "Option::is_none")]
     pub file_url: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub functions: Vec<FunctionCoverage>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -1125,7 +1142,8 @@ pub struct PipelineTestMetrics {
     #[serde(
         rename = "summaryAtChild",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub summary_at_child: Vec<PipelineTestMetrics>,
 }
@@ -1309,7 +1327,8 @@ pub struct ResultsFilter {
     #[serde(
         rename = "testCaseReferenceIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub test_case_reference_ids: Vec<i32>,
     #[serde(
@@ -1321,7 +1340,8 @@ pub struct ResultsFilter {
     #[serde(
         rename = "testPointIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub test_point_ids: Vec<i32>,
     #[doc = ""]
@@ -1435,7 +1455,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "configurationIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub configuration_ids: Vec<i32>,
     #[doc = "Name of the test controller used for automated run."]
@@ -1445,7 +1466,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "customTestFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub custom_test_fields: Vec<CustomTestField>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -1502,7 +1524,12 @@ pub struct RunCreateModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub plan: Option<ShallowReference>,
     #[doc = "IDs of the test points to use in the run."]
-    #[serde(rename = "pointIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "pointIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub point_ids: Vec<i32>,
     #[doc = "URI of release environment associated with the run."]
     #[serde(
@@ -1526,7 +1553,12 @@ pub struct RunCreateModel {
     )]
     pub release_uri: Option<String>,
     #[doc = "Run summary for run Type = NoConfigRun."]
-    #[serde(rename = "runSummary", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "runSummary",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub run_summary: Vec<RunSummaryModel>,
     #[doc = "Timespan till the run times out."]
     #[serde(
@@ -1549,7 +1581,11 @@ pub struct RunCreateModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
     #[doc = "Tags to attach with the test run, maximum of 5 tags can be added to run."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<TestTag>,
     #[doc = "TestConfigurationMapping of the test run."]
     #[serde(
@@ -1832,7 +1868,12 @@ pub struct RunUpdateModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub iteration: Option<String>,
     #[doc = "Log entries associated with the run. Use a comma-separated list of multiple log entry objects. { logEntry }, { logEntry }, ..."]
-    #[serde(rename = "logEntries", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "logEntries",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub log_entries: Vec<TestMessageLogDetails>,
     #[doc = "Name of the test run."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1852,7 +1893,12 @@ pub struct RunUpdateModel {
     )]
     pub release_uri: Option<String>,
     #[doc = "Run summary for run Type = NoConfigRun."]
-    #[serde(rename = "runSummary", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "runSummary",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub run_summary: Vec<RunSummaryModel>,
     #[doc = "SourceWorkFlow(CI/CD) of the test run."]
     #[serde(
@@ -1875,7 +1921,11 @@ pub struct RunUpdateModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub substate: Option<run_update_model::Substate>,
     #[doc = "Tags to attach with the test run."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<TestTag>,
     #[doc = "ID of the test environment associated with the run."]
     #[serde(
@@ -1975,7 +2025,11 @@ pub struct ShallowTestCaseResult {
     pub ref_id: Option<i32>,
     #[serde(rename = "runId", default, skip_serializing_if = "Option::is_none")]
     pub run_id: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[serde(
         rename = "testCaseTitle",
@@ -2246,7 +2300,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "associatedBugs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub associated_bugs: Vec<ShallowReference>,
     #[doc = "ID representing test method in a dll."]
@@ -2325,7 +2380,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate"]
@@ -2363,7 +2419,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "iterationDetails",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub iteration_details: Vec<TestIterationDetailsModel>,
     #[doc = ""]
@@ -2454,7 +2511,12 @@ pub struct TestCaseResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
     #[doc = "List of sub results inside a test result, if ResultGroupType is not None, it holds corresponding type sub results."]
-    #[serde(rename = "subResults", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "subResults",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sub_results: Vec<TestSubResult>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
     #[serde(rename = "testCase", default, skip_serializing_if = "Option::is_none")]
@@ -2600,7 +2662,12 @@ impl TestEnvironment {
 pub struct TestFailureDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(rename = "testResults", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testResults",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_results: Vec<TestCaseResultIdentifier>,
 }
 impl TestFailureDetails {
@@ -2712,7 +2779,8 @@ pub struct TestHistoryQuery {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub results_for_group: Vec<TestResultHistoryForGroup>,
     #[doc = "Get the results history only for this testCaseId. This to get used in query to filter the result along with automatedtestname"]
@@ -2749,11 +2817,16 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "actionResults",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub action_results: Vec<TestActionResultModel>,
     #[doc = "Reference to attachments in test iteration result."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub attachments: Vec<TestCaseResultAttachmentModel>,
     #[doc = "Comment in test iteration result."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2786,7 +2859,11 @@ pub struct TestIterationDetailsModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub outcome: Option<String>,
     #[doc = "Test parameters in an iteration."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub parameters: Vec<TestResultParameterModel>,
     #[doc = "Time when execution started(UTC)."]
     #[serde(
@@ -2838,7 +2915,11 @@ impl TestLog {
 pub struct TestLogList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestLog>,
 }
 impl TestLogList {
@@ -3109,7 +3190,8 @@ pub struct TestResultHistory {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub results_for_group: Vec<TestResultHistoryDetailsForGroup>,
 }
@@ -3158,7 +3240,11 @@ pub struct TestResultHistoryForGroup {
     )]
     pub group_by_value: Option<String>,
     #[doc = "List of results for GroupByValue"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<TestCaseResult>,
 }
 impl TestResultHistoryForGroup {
@@ -3187,7 +3273,8 @@ pub struct TestResultMetaData {
     #[serde(
         rename = "flakyIdentifiers",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub flaky_identifiers: Vec<TestFlakyIdentifier>,
     #[doc = "Owner of test result."]
@@ -3221,7 +3308,11 @@ impl TestResultMetaData {
 pub struct TestResultMetaDataList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestResultMetaData>,
 }
 impl TestResultMetaDataList {
@@ -3236,7 +3327,8 @@ pub struct TestResultMetaDataUpdateInput {
     #[serde(
         rename = "flakyIdentifiers",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub flaky_identifiers: Vec<TestFlakyIdentifier>,
 }
@@ -3398,7 +3490,12 @@ impl TestResultSummary {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultTrendFilter {
-    #[serde(rename = "branchNames", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "branchNames",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub branch_names: Vec<String>,
     #[serde(
         rename = "buildCount",
@@ -3409,13 +3506,15 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "definitionIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub definition_ids: Vec<i32>,
     #[serde(
         rename = "envDefinitionIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub env_definition_ids: Vec<i32>,
     #[serde(
@@ -3433,7 +3532,8 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "testRunTitles",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub test_run_titles: Vec<String>,
     #[serde(rename = "trendDays", default, skip_serializing_if = "Option::is_none")]
@@ -3496,7 +3596,8 @@ pub struct TestResultsDetails {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub results_for_group: Vec<TestResultsDetailsForGroup>,
 }
@@ -3514,7 +3615,11 @@ pub struct TestResultsDetailsForGroup {
         skip_serializing_if = "Option::is_none"
     )]
     pub group_by_value: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<TestCaseResult>,
     #[serde(
         rename = "resultsCountByOutcome",
@@ -3522,7 +3627,11 @@ pub struct TestResultsDetailsForGroup {
         skip_serializing_if = "Option::is_none"
     )]
     pub results_count_by_outcome: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
 }
 impl TestResultsDetailsForGroup {
@@ -3533,9 +3642,17 @@ impl TestResultsDetailsForGroup {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsQuery {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub fields: Vec<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<TestCaseResult>,
     #[doc = ""]
     #[serde(
@@ -3633,7 +3750,8 @@ pub struct TestRun {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Drop Location for the test Run."]
@@ -3781,7 +3899,8 @@ pub struct TestRun {
     #[serde(
         rename = "runStatistics",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub run_statistics: Vec<RunStatistic>,
     #[doc = "Start date time of the run."]
@@ -3798,7 +3917,11 @@ pub struct TestRun {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub substate: Option<test_run::Substate>,
     #[doc = "Tags attached with this test run."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<TestTag>,
     #[doc = "Test environment Detail."]
     #[serde(
@@ -3882,7 +4005,11 @@ pub struct TestRunCoverage {
     #[serde(rename = "lastError", default, skip_serializing_if = "Option::is_none")]
     pub last_error: Option<String>,
     #[doc = "List of Modules Coverage"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub modules: Vec<ModuleCoverage>,
     #[doc = "State"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3905,7 +4032,8 @@ pub struct TestRunStatistic {
     #[serde(
         rename = "runStatistics",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub run_statistics: Vec<RunStatistic>,
 }
@@ -3987,7 +4115,8 @@ pub struct TestSubResult {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Name of sub result."]
@@ -4056,7 +4185,12 @@ pub struct TestSubResult {
     )]
     pub started_date: Option<time::OffsetDateTime>,
     #[doc = "List of sub results inside a sub result, if ResultGroupType is not None, it holds corresponding type sub results."]
-    #[serde(rename = "subResults", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "subResults",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sub_results: Vec<TestSubResult>,
     #[doc = "Reference to a test result."]
     #[serde(
@@ -4137,7 +4271,11 @@ impl TestTagSummary {
 #[doc = "Tags to update to a run or result."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestTagsUpdateModel {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<serde_json::Value>,
 }
 impl TestTagsUpdateModel {
@@ -4151,7 +4289,12 @@ pub struct TestToWorkItemLinks {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub test: Option<TestMethod>,
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<WorkItemReference>,
 }
 impl TestToWorkItemLinks {
@@ -4216,7 +4359,11 @@ pub struct WorkItemToTestLinks {
         skip_serializing_if = "Option::is_none"
     )]
     pub executed_in: Option<work_item_to_test_links::ExecutedIn>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tests: Vec<TestMethod>,
     #[doc = "WorkItem reference Details."]
     #[serde(rename = "workItem", default, skip_serializing_if = "Option::is_none")]

@@ -43,7 +43,11 @@ impl AssociatedWorkItem {
 pub struct AssociatedWorkItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AssociatedWorkItem>,
 }
 impl AssociatedWorkItemList {
@@ -212,7 +216,8 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub valid_remote_urls: Vec<String>,
     #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
@@ -523,10 +528,18 @@ pub struct TfvcBranch {
     #[serde(flatten)]
     pub tfvc_branch_ref: TfvcBranchRef,
     #[doc = "List of children for the branch."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub children: Vec<TfvcBranch>,
     #[doc = "List of branch mappings."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<TfvcBranchMapping>,
     #[doc = "This is the shallow branchref class."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -535,7 +548,8 @@ pub struct TfvcBranch {
     #[serde(
         rename = "relatedBranches",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub related_branches: Vec<TfvcShallowBranchRef>,
 }
@@ -549,7 +563,11 @@ impl TfvcBranch {
 pub struct TfvcBranchList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcBranch>,
 }
 impl TfvcBranchList {
@@ -617,7 +635,11 @@ impl TfvcBranchRef {
 pub struct TfvcBranchRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcBranchRef>,
 }
 impl TfvcBranchRefList {
@@ -634,7 +656,8 @@ pub struct TfvcChange {
     #[serde(
         rename = "mergeSources",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub merge_sources: Vec<TfvcMergeSource>,
     #[doc = "Version at which a (shelved) change was pended against"]
@@ -655,7 +678,11 @@ impl TfvcChange {
 pub struct TfvcChangeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcChange>,
 }
 impl TfvcChangeList {
@@ -672,13 +699,18 @@ pub struct TfvcChangeset {
     #[serde(rename = "accountId", default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[doc = "List of associated changes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of Checkin Notes for the changeset."]
     #[serde(
         rename = "checkinNotes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub checkin_notes: Vec<CheckinNote>,
     #[doc = "Changeset collection Id."]
@@ -706,11 +738,17 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "teamProjectIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub team_project_ids: Vec<String>,
     #[doc = "List of work items associated with the changeset."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
 impl TfvcChangeset {
@@ -772,7 +810,11 @@ impl TfvcChangesetRef {
 pub struct TfvcChangesetRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcChangesetRef>,
 }
 impl TfvcChangesetRefList {
@@ -809,7 +851,11 @@ pub struct TfvcChangesetSearchCriteria {
     #[doc = "Path of item to search under."]
     #[serde(rename = "itemPath", default, skip_serializing_if = "Option::is_none")]
     pub item_path: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<TfvcMappingFilter>,
     #[doc = "If provided, only include changesets created before this date (string)."]
     #[serde(rename = "toDate", default, skip_serializing_if = "Option::is_none")]
@@ -830,7 +876,8 @@ pub struct TfvcChangesetsRequestData {
     #[serde(
         rename = "changesetIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub changeset_ids: Vec<i32>,
     #[doc = "Max length of the comment."]
@@ -986,7 +1033,11 @@ pub mod tfvc_item_descriptor {
 pub struct TfvcItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcItem>,
 }
 impl TfvcItemList {
@@ -1014,7 +1065,8 @@ pub struct TfvcItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub item_descriptors: Vec<TfvcItemDescriptor>,
 }
@@ -1029,7 +1081,11 @@ pub struct TfvcLabel {
     #[serde(flatten)]
     pub tfvc_label_ref: TfvcLabelRef,
     #[doc = "List of items."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub items: Vec<TfvcItem>,
 }
 impl TfvcLabel {
@@ -1083,7 +1139,11 @@ impl TfvcLabelRef {
 pub struct TfvcLabelRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcLabelRef>,
 }
 impl TfvcLabelRefList {
@@ -1206,7 +1266,8 @@ pub struct TfvcPolicyOverrideInfo {
     #[serde(
         rename = "policyFailures",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub policy_failures: Vec<TfvcPolicyFailureInfo>,
 }
@@ -1233,10 +1294,18 @@ pub struct TfvcShelveset {
     #[serde(flatten)]
     pub tfvc_shelveset_ref: TfvcShelvesetRef,
     #[doc = "List of changes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of checkin notes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub notes: Vec<CheckinNote>,
     #[doc = "Information on the policy override."]
     #[serde(
@@ -1246,7 +1315,12 @@ pub struct TfvcShelveset {
     )]
     pub policy_override: Option<TfvcPolicyOverrideInfo>,
     #[doc = "List of associated workitems."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
 impl TfvcShelveset {
@@ -1300,7 +1374,11 @@ impl TfvcShelvesetRef {
 pub struct TfvcShelvesetRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TfvcShelvesetRef>,
 }
 impl TfvcShelvesetRefList {

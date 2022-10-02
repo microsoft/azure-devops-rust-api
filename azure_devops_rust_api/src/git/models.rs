@@ -184,7 +184,11 @@ impl Attachment {
 pub struct AttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Attachment>,
 }
 impl AttachmentList {
@@ -294,7 +298,11 @@ pub struct ChangeList {
         skip_serializing_if = "Option::is_none"
     )]
     pub change_counts: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<Change>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
@@ -310,7 +318,11 @@ pub struct ChangeList {
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub notes: Vec<CheckinNote>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<String>,
@@ -374,7 +386,12 @@ pub struct ChangeListSearchCriteria {
     #[serde(rename = "itemPath", default, skip_serializing_if = "Option::is_none")]
     pub item_path: Option<String>,
     #[doc = "List of item paths to search under. If this member is used then itemPath will be ignored."]
-    #[serde(rename = "itemPaths", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "itemPaths",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub item_paths: Vec<String>,
     #[doc = "Version of the items to search"]
     #[serde(
@@ -471,7 +488,12 @@ pub struct Comment {
     )]
     pub published_date: Option<time::OffsetDateTime>,
     #[doc = "A list of the users who have liked this comment."]
-    #[serde(rename = "usersLiked", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "usersLiked",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub users_liked: Vec<IdentityRef>,
 }
 impl Comment {
@@ -522,7 +544,11 @@ impl CommentIterationContext {
 pub struct CommentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Comment>,
 }
 impl CommentList {
@@ -552,7 +578,11 @@ pub struct CommentThread {
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
     #[doc = "A list of the comments."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub comments: Vec<Comment>,
     #[doc = "The comment thread id."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -778,7 +808,8 @@ pub struct FileDiff {
     #[serde(
         rename = "lineDiffBlocks",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub line_diff_blocks: Vec<LineDiffBlock>,
     #[doc = "Original path of item if different from current path."]
@@ -830,7 +861,8 @@ pub struct FileDiffsCriteria {
     #[serde(
         rename = "fileDiffParams",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub file_diff_params: Vec<FileDiffParams>,
     #[doc = "Commit ID of the target version"]
@@ -1016,7 +1048,12 @@ impl GitAsyncRefOperationParameters {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitAsyncRefOperationSource {
     #[doc = "A list of commits to cherry pick or revert"]
-    #[serde(rename = "commitList", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "commitList",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commit_list: Vec<GitCommitRef>,
     #[doc = "Id of the pull request to cherry pick or revert"]
     #[serde(
@@ -1147,7 +1184,11 @@ impl GitBranchStats {
 pub struct GitBranchStatsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitBranchStats>,
 }
 impl GitBranchStatsList {
@@ -1208,7 +1249,11 @@ pub struct GitCommitChanges {
         skip_serializing_if = "Option::is_none"
     )]
     pub change_counts: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<GitChange>,
 }
 impl GitCommitChanges {
@@ -1249,7 +1294,11 @@ pub struct GitCommitDiffs {
         skip_serializing_if = "Option::is_none"
     )]
     pub change_counts: Option<serde_json::Value>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<GitChange>,
     #[serde(
         rename = "commonCommit",
@@ -1285,7 +1334,11 @@ pub struct GitCommitRef {
     )]
     pub change_counts: Option<serde_json::Value>,
     #[doc = "An enumeration of the changes included with the commit."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<GitChange>,
     #[doc = "Comment or message of the commit."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1304,7 +1357,11 @@ pub struct GitCommitRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub committer: Option<GitUserDate>,
     #[doc = "An enumeration of the parent commit IDs for this commit."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub parents: Vec<String>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1313,12 +1370,21 @@ pub struct GitCommitRef {
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
     pub remote_url: Option<String>,
     #[doc = "A list of status metadata from services and extensions that may associate additional information to the commit."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub statuses: Vec<GitStatus>,
     #[doc = "REST URL for this resource."]
     pub url: String,
     #[doc = "A list of workitems associated with this commit."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
@@ -1346,7 +1412,11 @@ impl GitCommitRef {
 pub struct GitCommitRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitCommitRef>,
 }
 impl GitCommitRefList {
@@ -1362,7 +1432,12 @@ pub struct GitCommitToCreate {
     pub base_ref: Option<GitRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[serde(rename = "pathActions", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "pathActions",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub path_actions: Vec<GitPathAction>,
 }
 impl GitCommitToCreate {
@@ -2038,7 +2113,11 @@ impl GitDeletedRepository {
 pub struct GitDeletedRepositoryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitDeletedRepository>,
 }
 impl GitDeletedRepositoryList {
@@ -2051,7 +2130,11 @@ impl GitDeletedRepositoryList {
 pub struct GitFilePathsCollection {
     #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
     pub commit_id: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub paths: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -2065,7 +2148,12 @@ impl GitFilePathsCollection {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitForkOperationStatusDetail {
     #[doc = "All valid steps for the forking process"]
-    #[serde(rename = "allSteps", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "allSteps",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub all_steps: Vec<String>,
     #[doc = "Index into AllSteps for the current step"]
     #[serde(
@@ -2131,7 +2219,8 @@ pub struct GitForkSyncRequest {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2163,7 +2252,11 @@ pub mod git_fork_sync_request {
 pub struct GitForkSyncRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitForkSyncRequest>,
 }
 impl GitForkSyncRequestList {
@@ -2181,7 +2274,8 @@ pub struct GitForkSyncRequestParameters {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
 }
@@ -2300,7 +2394,11 @@ pub mod git_import_request {
 pub struct GitImportRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitImportRequest>,
 }
 impl GitImportRequestList {
@@ -2345,7 +2443,12 @@ impl GitImportRequestParameters {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitImportStatusDetail {
     #[doc = "All valid steps for the import process"]
-    #[serde(rename = "allSteps", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "allSteps",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub all_steps: Vec<String>,
     #[doc = "Index into AllSteps for the current step"]
     #[serde(
@@ -2552,7 +2655,11 @@ pub mod git_item_descriptor {
 pub struct GitItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitItem>,
 }
 impl GitItemList {
@@ -2581,7 +2688,8 @@ pub struct GitItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub item_descriptors: Vec<GitItemDescriptor>,
     #[doc = "Whether to include shallow ref to commit that last changed each item"]
@@ -2616,10 +2724,18 @@ impl GitLastChangeItem {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitLastChangeTreeItems {
     #[doc = "The list of commits referenced by Items, if they were requested."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "The last change of items."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub items: Vec<GitLastChangeItem>,
     #[doc = "The last explored time, in case the result is not comprehensive. Null otherwise."]
     #[serde(
@@ -2735,7 +2851,11 @@ pub struct GitMergeParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
     #[doc = "An enumeration of the parent commit IDs for the merge  commit."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub parents: Vec<String>,
 }
 impl GitMergeParameters {
@@ -2856,7 +2976,8 @@ pub struct GitPolicyConfigurationResponse {
     #[serde(
         rename = "policyConfigurations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub policy_configurations: Vec<PolicyConfiguration>,
 }
@@ -2903,7 +3024,11 @@ pub struct GitPullRequest {
     )]
     pub code_review_id: Option<i32>,
     #[doc = "The commits contained in the pull request."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "Preferences about how the pull request should be completed."]
     #[serde(
@@ -2946,7 +3071,11 @@ pub struct GitPullRequest {
     #[serde(rename = "isDraft")]
     pub is_draft: bool,
     #[doc = "The labels associated with the pull request."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub labels: Vec<WebApiTagDefinition>,
     #[doc = "Provides properties that describe a Git commit and associated metadata."]
     #[serde(
@@ -3009,7 +3138,11 @@ pub struct GitPullRequest {
     #[doc = ""]
     pub repository: GitRepository,
     #[doc = "A list of reviewers on the pull request along with the state of their votes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub reviewers: Vec<IdentityRefWithVote>,
     #[doc = "The name of the source branch of the pull request."]
     #[serde(rename = "sourceRefName")]
@@ -3035,7 +3168,8 @@ pub struct GitPullRequest {
     #[serde(
         rename = "workItemRefs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_refs: Vec<ResourceRef>,
 }
@@ -3209,7 +3343,11 @@ impl GitPullRequestCommentThreadContext {
 pub struct GitPullRequestCommentThreadList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitPullRequestCommentThread>,
 }
 impl GitPullRequestCommentThreadList {
@@ -3224,7 +3362,8 @@ pub struct GitPullRequestCompletionOptions {
     #[serde(
         rename = "autoCompleteIgnoreConfigIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub auto_complete_ignore_config_ids: Vec<i32>,
     #[doc = "If true, policies will be explicitly bypassed while the pull request is completed."]
@@ -3314,7 +3453,11 @@ pub struct GitPullRequestCreateOptions {
     #[serde(rename = "isDraft", default, skip_serializing_if = "Option::is_none")]
     pub is_draft: Option<bool>,
     #[doc = "The labels associated with the pull request."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub labels: Vec<WebApiTagDefinition>,
     #[doc = "The name of the source branch of the pull request."]
     #[serde(rename = "sourceRefName")]
@@ -3328,11 +3471,16 @@ pub struct GitPullRequestCreateOptions {
     #[serde(
         rename = "workItemRefs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_refs: Vec<ResourceRef>,
     #[doc = "A list of reviewers on the pull request."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub reviewers: Vec<IdentityId>,
 }
 impl GitPullRequestCreateOptions {
@@ -3359,10 +3507,19 @@ pub struct GitPullRequestIteration {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Changes included with the pull request iteration."]
-    #[serde(rename = "changeList", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "changeList",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub change_list: Vec<GitPullRequestChange>,
     #[doc = "The commits included with the pull request iteration."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "Provides properties that describe a Git commit and associated metadata."]
     #[serde(
@@ -3464,7 +3621,8 @@ pub struct GitPullRequestIterationChanges {
     #[serde(
         rename = "changeEntries",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub change_entries: Vec<GitPullRequestChange>,
     #[doc = "Value to specify as skip to get the next page of changes.  This will be zero if there are no more changes."]
@@ -3484,7 +3642,11 @@ impl GitPullRequestIterationChanges {
 pub struct GitPullRequestIterationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitPullRequestIteration>,
 }
 impl GitPullRequestIterationList {
@@ -3497,7 +3659,11 @@ impl GitPullRequestIterationList {
 pub struct GitPullRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitPullRequest>,
 }
 impl GitPullRequestList {
@@ -3538,10 +3704,18 @@ impl GitPullRequestMergeOptions {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestQuery {
     #[doc = "The queries to perform."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub queries: Vec<GitPullRequestQueryInput>,
     #[doc = "The results of the queries. This matches the QueryInputs list so Results[n] are the results of QueryInputs[n]. Each entry in the list is a dictionary of commit->pull requests."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<serde_json::Value>,
 }
 impl GitPullRequestQuery {
@@ -3553,7 +3727,11 @@ impl GitPullRequestQuery {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestQueryInput {
     #[doc = "The list of commit IDs to search for."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub items: Vec<String>,
     #[doc = "The type of query to perform."]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -3695,7 +3873,11 @@ impl GitPullRequestStatus {
 pub struct GitPullRequestStatusList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitPullRequestStatus>,
 }
 impl GitPullRequestStatusList {
@@ -3708,9 +3890,18 @@ impl GitPullRequestStatusList {
 pub struct GitPush {
     #[serde(flatten)]
     pub git_push_ref: GitPushRef,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commits: Vec<GitCommitRef>,
-    #[serde(rename = "refUpdates", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "refUpdates",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub ref_updates: Vec<GitRefUpdate>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3730,7 +3921,11 @@ pub struct GitPushEventData {
     pub before_id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub branch: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commits: Vec<GitCommit>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3746,7 +3941,11 @@ impl GitPushEventData {
 pub struct GitPushList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitPush>,
 }
 impl GitPushList {
@@ -3822,7 +4021,8 @@ pub struct GitQueryBranchStatsCriteria {
     #[serde(
         rename = "targetCommits",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub target_commits: Vec<GitVersionDescriptor>,
 }
@@ -3875,7 +4075,11 @@ pub struct GitQueryCommitsCriteria {
     )]
     pub history_mode: Option<git_query_commits_criteria::HistoryMode>,
     #[doc = "If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub ids: Vec<String>,
     #[doc = "Whether to include the _links field on the shallow references"]
     #[serde(
@@ -3960,10 +4164,20 @@ pub mod git_query_commits_criteria {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitQueryRefsCriteria {
     #[doc = "List of commit Ids to be searched"]
-    #[serde(rename = "commitIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "commitIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub commit_ids: Vec<String>,
     #[doc = "List of complete or partial names for refs to be searched"]
-    #[serde(rename = "refNames", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "refNames",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub ref_names: Vec<String>,
     #[doc = "Type of search on refNames, if provided"]
     #[serde(
@@ -4030,7 +4244,11 @@ pub struct GitRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub peeled_object_id: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub statuses: Vec<GitStatus>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -4099,7 +4317,11 @@ pub mod git_ref_favorite {
 pub struct GitRefFavoriteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitRefFavorite>,
 }
 impl GitRefFavoriteList {
@@ -4112,7 +4334,11 @@ impl GitRefFavoriteList {
 pub struct GitRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitRef>,
 }
 impl GitRefList {
@@ -4255,7 +4481,11 @@ pub mod git_ref_update_result {
 pub struct GitRefUpdateResultList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitRefUpdateResult>,
 }
 impl GitRefUpdateResultList {
@@ -4307,7 +4537,8 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub valid_remote_urls: Vec<String>,
     #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
@@ -4359,7 +4590,11 @@ impl GitRepositoryCreateOptions {
 pub struct GitRepositoryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitRepository>,
 }
 impl GitRepositoryList {
@@ -4400,7 +4635,11 @@ impl GitRepositoryRef {
 pub struct GitRepositoryRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitRepositoryRef>,
 }
 impl GitRepositoryRefList {
@@ -4470,7 +4709,8 @@ pub struct GitResolutionMergeContent {
     #[serde(
         rename = "userMergedContent",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub user_merged_content: Vec<String>,
 }
@@ -4678,7 +4918,11 @@ impl GitStatusContext {
 pub struct GitStatusList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitStatus>,
 }
 impl GitStatusList {
@@ -4706,7 +4950,11 @@ impl GitSuggestion {
 pub struct GitSuggestionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<GitSuggestion>,
 }
 impl GitSuggestionList {
@@ -4795,7 +5043,12 @@ pub struct GitTreeDiff {
     )]
     pub base_tree_id: Option<String>,
     #[doc = "List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yield more diff entries. If the continuation token is not returned all the diff entries have been included in this response."]
-    #[serde(rename = "diffEntries", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "diffEntries",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub diff_entries: Vec<GitTreeDiffEntry>,
     #[doc = "ObjectId of the target tree of this diff."]
     #[serde(
@@ -4917,7 +5170,8 @@ pub struct GitTreeDiffResponse {
     #[serde(
         rename = "continuationToken",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub continuation_token: Vec<String>,
     #[doc = ""]
@@ -5000,7 +5254,12 @@ pub struct GitTreeRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size: Option<i64>,
     #[doc = "Blobs and trees under this tree"]
-    #[serde(rename = "treeEntries", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "treeEntries",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tree_entries: Vec<GitTreeEntryRef>,
     #[doc = "Url to tree"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5285,7 +5544,11 @@ impl IdentityRef {
 pub struct IdentityRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<IdentityRef>,
 }
 impl IdentityRefList {
@@ -5326,7 +5589,12 @@ pub struct IdentityRefWithVote {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub vote: Option<i64>,
     #[doc = "Groups or teams that that this reviewer contributed to. <br /> Groups and teams can be reviewers on pull requests but can not vote directly.  When a member of the group or team votes, that vote is rolled up into the group or team vote.  VotedFor is a list of such votes."]
-    #[serde(rename = "votedFor", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "votedFor",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub voted_for: Vec<IdentityRefWithVote>,
 }
 impl IdentityRefWithVote {
@@ -5347,7 +5615,11 @@ impl IdentityRefWithVote {
 pub struct IdentityRefWithVoteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<IdentityRefWithVote>,
 }
 impl IdentityRefWithVoteList {
@@ -5392,7 +5664,8 @@ pub struct IncludedGitCommit {
     #[serde(
         rename = "parentCommitIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub parent_commit_ids: Vec<String>,
     #[serde(
@@ -5703,7 +5976,11 @@ impl PolicyConfiguration {
 pub struct PolicyConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PolicyConfiguration>,
 }
 impl PolicyConfigurationList {
@@ -5771,10 +6048,18 @@ pub struct PropertiesCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
     #[doc = "The set of keys in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl PropertiesCollection {
@@ -5891,7 +6176,11 @@ impl ResourceRef {
 pub struct ResourceRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ResourceRef>,
 }
 impl ResourceRefList {
@@ -5950,7 +6239,11 @@ pub struct ShareNotificationContext {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
     #[doc = "Identities of users who will receive a share notification."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub receivers: Vec<IdentityRef>,
 }
 impl ShareNotificationContext {
@@ -6033,7 +6326,8 @@ pub struct SupportedIde {
     #[serde(
         rename = "supportedPlatforms",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub supported_platforms: Vec<String>,
 }
@@ -6192,10 +6486,18 @@ pub struct TfvcBranch {
     #[serde(flatten)]
     pub tfvc_branch_ref: TfvcBranchRef,
     #[doc = "List of children for the branch."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub children: Vec<TfvcBranch>,
     #[doc = "List of branch mappings."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<TfvcBranchMapping>,
     #[doc = "This is the shallow branchref class."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6204,7 +6506,8 @@ pub struct TfvcBranch {
     #[serde(
         rename = "relatedBranches",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub related_branches: Vec<TfvcShallowBranchRef>,
 }
@@ -6277,7 +6580,8 @@ pub struct TfvcChange {
     #[serde(
         rename = "mergeSources",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub merge_sources: Vec<TfvcMergeSource>,
     #[doc = "Version at which a (shelved) change was pended against"]
@@ -6306,13 +6610,18 @@ pub struct TfvcChangeset {
     #[serde(rename = "accountId", default, skip_serializing_if = "Option::is_none")]
     pub account_id: Option<String>,
     #[doc = "List of associated changes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of Checkin Notes for the changeset."]
     #[serde(
         rename = "checkinNotes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub checkin_notes: Vec<CheckinNote>,
     #[doc = "Changeset collection Id."]
@@ -6340,11 +6649,17 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "teamProjectIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub team_project_ids: Vec<String>,
     #[doc = "List of work items associated with the changeset."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
 impl TfvcChangeset {
@@ -6430,7 +6745,11 @@ pub struct TfvcChangesetSearchCriteria {
     #[doc = "Path of item to search under."]
     #[serde(rename = "itemPath", default, skip_serializing_if = "Option::is_none")]
     pub item_path: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub mappings: Vec<TfvcMappingFilter>,
     #[doc = "If provided, only include changesets created before this date (string)."]
     #[serde(rename = "toDate", default, skip_serializing_if = "Option::is_none")]
@@ -6451,7 +6770,8 @@ pub struct TfvcChangesetsRequestData {
     #[serde(
         rename = "changesetIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub changeset_ids: Vec<i32>,
     #[doc = "Max length of the comment."]
@@ -6672,7 +6992,8 @@ pub struct TfvcItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub item_descriptors: Vec<TfvcItemDescriptor>,
 }
@@ -6687,7 +7008,11 @@ pub struct TfvcLabel {
     #[serde(flatten)]
     pub tfvc_label_ref: TfvcLabelRef,
     #[doc = "List of items."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub items: Vec<TfvcItem>,
 }
 impl TfvcLabel {
@@ -6851,7 +7176,8 @@ pub struct TfvcPolicyOverrideInfo {
     #[serde(
         rename = "policyFailures",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub policy_failures: Vec<TfvcPolicyFailureInfo>,
 }
@@ -6878,10 +7204,18 @@ pub struct TfvcShelveset {
     #[serde(flatten)]
     pub tfvc_shelveset_ref: TfvcShelvesetRef,
     #[doc = "List of changes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of checkin notes."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub notes: Vec<CheckinNote>,
     #[doc = "Information on the policy override."]
     #[serde(
@@ -6891,7 +7225,12 @@ pub struct TfvcShelveset {
     )]
     pub policy_override: Option<TfvcPolicyOverrideInfo>,
     #[doc = "List of associated workitems."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
 impl TfvcShelveset {
@@ -7085,7 +7424,8 @@ pub struct UpdateRefsRequest {
     #[serde(
         rename = "refUpdateRequests",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub ref_update_requests: Vec<GitRefUpdate>,
     #[serde(
@@ -7226,7 +7566,11 @@ impl WebApiTagDefinition {
 pub struct WebApiTagDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WebApiTagDefinition>,
 }
 impl WebApiTagDefinitionList {

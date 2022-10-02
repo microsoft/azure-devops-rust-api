@@ -261,7 +261,8 @@ pub struct ArtifactContributionDefinition {
     #[serde(
         rename = "dataSourceBindings",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub data_source_bindings: Vec<DataSourceBinding>,
     #[serde(
@@ -285,7 +286,8 @@ pub struct ArtifactContributionDefinition {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[serde(
@@ -337,7 +339,8 @@ pub struct ArtifactDownloadInputBase {
     #[serde(
         rename = "artifactItems",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub artifact_items: Vec<String>,
     #[doc = "Gets or sets the type of artifact."]
@@ -374,7 +377,11 @@ pub struct ArtifactFilter {
     #[serde(rename = "tagFilter", default, skip_serializing_if = "Option::is_none")]
     pub tag_filter: Option<TagFilter>,
     #[doc = "Gets or sets the list of tags for the filter."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[doc = "Gets or sets whether filter should default to build definition branch."]
     #[serde(
@@ -468,7 +475,8 @@ pub struct ArtifactSourceId {
     #[serde(
         rename = "sourceIdInputs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub source_id_inputs: Vec<SourceIdInput>,
 }
@@ -484,7 +492,8 @@ pub struct ArtifactSourceIdsQueryResult {
     #[serde(
         rename = "artifactSourceIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub artifact_source_ids: Vec<ArtifactSourceId>,
 }
@@ -523,7 +532,8 @@ pub struct ArtifactSourceTrigger {
     #[serde(
         rename = "triggerConditions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub trigger_conditions: Vec<ArtifactFilter>,
 }
@@ -614,7 +624,8 @@ pub struct ArtifactTypeDefinition {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[doc = "Gets or sets the is commits tracebility supported value of artifact type defintion."]
@@ -668,7 +679,11 @@ pub struct ArtifactVersion {
     )]
     pub error_message: Option<String>,
     #[doc = "Gets or sets the list of build versions of artifact."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub versions: Vec<BuildVersion>,
 }
 impl ArtifactVersion {
@@ -683,7 +698,8 @@ pub struct ArtifactVersionQueryResult {
     #[serde(
         rename = "artifactVersions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub artifact_versions: Vec<ArtifactVersion>,
 }
@@ -698,7 +714,8 @@ pub struct ArtifactsDownloadInput {
     #[serde(
         rename = "downloadInputs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub download_inputs: Vec<ArtifactDownloadInputBase>,
 }
@@ -1141,7 +1158,12 @@ pub struct ContainerImageTrigger {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
     #[doc = "List tag filters applied while trigger."]
-    #[serde(rename = "tagFilters", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "tagFilters",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tag_filters: Vec<TagFilter>,
 }
 impl ContainerImageTrigger {
@@ -1334,7 +1356,11 @@ pub struct DataSourceBindingBase {
     )]
     pub endpoint_url: Option<String>,
     #[doc = "Gets or sets the authorization headers."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub headers: Vec<AuthorizationHeader>,
     #[doc = "Defines the initial value of the query params"]
     #[serde(
@@ -1454,7 +1480,8 @@ pub struct DeployPhase {
     #[serde(
         rename = "workflowTasks",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub workflow_tasks: Vec<WorkflowTask>,
 }
@@ -1494,7 +1521,11 @@ pub struct Deployment {
     )]
     pub completed_on: Option<time::OffsetDateTime>,
     #[doc = "Gets the list of condition associated with deployment."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub conditions: Vec<Condition>,
     #[doc = "Gets release definition environment id."]
     #[serde(
@@ -1538,14 +1569,16 @@ pub struct Deployment {
     #[serde(
         rename = "postDeployApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub post_deploy_approvals: Vec<ReleaseApproval>,
     #[doc = "Gets list of PreDeployApprovals."]
     #[serde(
         rename = "preDeployApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub pre_deploy_approvals: Vec<ReleaseApproval>,
     #[doc = ""]
@@ -1713,7 +1746,8 @@ pub struct DeploymentApprovalPendingEvent {
     #[serde(
         rename = "completedApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub completed_approvals: Vec<ReleaseApproval>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1730,7 +1764,8 @@ pub struct DeploymentApprovalPendingEvent {
     #[serde(
         rename = "pendingApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub pending_approvals: Vec<ReleaseApproval>,
     #[doc = ""]
@@ -1769,7 +1804,11 @@ pub struct DeploymentAttempt {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[doc = "All the issues related to the deployment."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub issues: Vec<Issue>,
     #[doc = ""]
     #[serde(
@@ -1820,7 +1859,8 @@ pub struct DeploymentAttempt {
     #[serde(
         rename = "releaseDeployPhases",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub release_deploy_phases: Vec<ReleaseDeployPhase>,
     #[doc = ""]
@@ -1936,7 +1976,11 @@ pub struct DeploymentAuthorizationInfo {
     )]
     pub authorization_header_for: Option<deployment_authorization_info::AuthorizationHeaderFor>,
     #[doc = "List of resources."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub resources: Vec<String>,
     #[doc = "ID of the tenant."]
     #[serde(rename = "tenantId", default, skip_serializing_if = "Option::is_none")]
@@ -2017,7 +2061,11 @@ pub struct DeploymentInput {
     )]
     pub artifacts_download_input: Option<ArtifactsDownloadInput>,
     #[doc = "List demands that needs to meet to execute the job."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub demands: Vec<Demand>,
     #[doc = "Indicates whether to include access token in deployment job or not."]
     #[serde(
@@ -2049,7 +2097,11 @@ pub struct DeploymentJob {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub job: Option<ReleaseTask>,
     #[doc = "List of  executed tasks with in job."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tasks: Vec<ReleaseTask>,
 }
 impl DeploymentJob {
@@ -2062,7 +2114,11 @@ impl DeploymentJob {
 pub struct DeploymentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Deployment>,
 }
 impl DeploymentList {
@@ -2079,7 +2135,8 @@ pub struct DeploymentManualInterventionPendingEvent {
     #[serde(
         rename = "emailRecipients",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub email_recipients: Vec<String>,
     #[doc = ""]
@@ -2129,7 +2186,8 @@ pub struct DeploymentQueryParameters {
     #[serde(
         rename = "artifactVersions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub artifact_versions: Vec<String>,
     #[doc = "Query deployments number of deployments per environment."]
@@ -2147,7 +2205,11 @@ pub struct DeploymentQueryParameters {
     )]
     pub deployment_status: Option<deployment_query_parameters::DeploymentStatus>,
     #[doc = "Query deployments of specified environments."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub environments: Vec<DefinitionEnvironmentReference>,
     #[doc = "Query deployments based specified expands."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2290,11 +2352,17 @@ pub struct EmailRecipients {
     #[serde(
         rename = "emailAddresses",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub email_addresses: Vec<String>,
     #[doc = "List of TFS IDs guids."]
-    #[serde(rename = "tfsIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "tfsIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tfs_ids: Vec<String>,
 }
 impl EmailRecipients {
@@ -2449,7 +2517,12 @@ pub struct EnvironmentTriggerContent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub action: Option<String>,
     #[doc = "Gets or sets list of event types."]
-    #[serde(rename = "eventTypes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "eventTypes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub event_types: Vec<String>,
 }
 impl EnvironmentTriggerContent {
@@ -2551,7 +2624,11 @@ impl Folder {
 pub struct FolderList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Folder>,
 }
 impl FolderList {
@@ -2569,7 +2646,8 @@ pub struct GateUpdateMetadata {
     #[serde(
         rename = "gatesToIgnore",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub gates_to_ignore: Vec<String>,
 }
@@ -2767,7 +2845,8 @@ pub struct InputDescriptor {
     #[serde(
         rename = "dependencyInputIds",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub dependency_input_ids: Vec<String>,
     #[doc = "Description of what this input is used for"]
@@ -2971,7 +3050,8 @@ pub struct InputValues {
     #[serde(
         rename = "possibleValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub possible_values: Vec<InputValue>,
 }
@@ -3002,7 +3082,12 @@ pub struct InputValuesQuery {
     )]
     pub current_values: Option<serde_json::Value>,
     #[doc = "The input values to return on input, and the result from the consumer on output."]
-    #[serde(rename = "inputValues", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "inputValues",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub input_values: Vec<InputValues>,
     #[doc = "Subscription containing information about the publisher/consumer and the current input values"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3080,7 +3165,11 @@ pub struct MachineGroupDeploymentInput {
     )]
     pub health_percent: Option<i32>,
     #[doc = "Deployment target tag filter."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
 }
 impl MachineGroupDeploymentInput {
@@ -3114,7 +3203,11 @@ pub struct MailMessage {
     #[serde(rename = "replyTo", default, skip_serializing_if = "Option::is_none")]
     pub reply_to: Option<EmailRecipients>,
     #[doc = "List of mail section types."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sections: Vec<serde_json::Value>,
     #[doc = "Mail sender type."]
     #[serde(
@@ -3236,7 +3329,11 @@ pub mod manual_intervention {
 pub struct ManualInterventionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ManualIntervention>,
 }
 impl ManualInterventionList {
@@ -3434,15 +3531,21 @@ pub struct ProcessParameters {
     #[serde(
         rename = "dataSourceBindings",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub data_source_bindings: Vec<DataSourceBindingBase>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub inputs: Vec<TaskInputDefinitionBase>,
     #[serde(
         rename = "sourceDefinitions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub source_definitions: Vec<TaskSourceDefinitionBase>,
 }
@@ -3528,10 +3631,18 @@ pub struct PropertiesCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
     #[doc = "The set of keys in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl PropertiesCollection {
@@ -3543,7 +3654,11 @@ impl PropertiesCollection {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PropertySelector {
     #[doc = "List of properties."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub properties: Vec<String>,
     #[doc = "Property selector type."]
     #[serde(
@@ -3596,7 +3711,11 @@ impl PullRequestConfiguration {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PullRequestFilter {
     #[doc = "List of tags."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[doc = "Target branch of pull request."]
     #[serde(
@@ -3641,7 +3760,8 @@ pub struct PullRequestTrigger {
     #[serde(
         rename = "triggerConditions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub trigger_conditions: Vec<PullRequestFilter>,
 }
@@ -3727,7 +3847,11 @@ pub struct Release {
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
     #[doc = "Gets or sets the list of artifacts."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub artifacts: Vec<Artifact>,
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3760,7 +3884,11 @@ pub struct Release {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Gets list of environments."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub environments: Vec<ReleaseEnvironment>,
     #[doc = "Gets the unique identifier of this field."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3837,7 +3965,11 @@ pub struct Release {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<release::Status>,
     #[doc = "Gets or sets list of tags."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[serde(
         rename = "triggeringArtifactAlias",
@@ -3849,7 +3981,8 @@ pub struct Release {
     #[serde(
         rename = "variableGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub variable_groups: Vec<VariableGroup>,
     #[doc = "Gets or sets the dictionary of variables."]
@@ -3941,7 +4074,11 @@ pub struct ReleaseApproval {
     )]
     pub created_on: Option<time::OffsetDateTime>,
     #[doc = "Gets history which specifies all approvals associated with this approval."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub history: Vec<ReleaseApprovalHistory>,
     #[doc = "Gets the unique identifier of this field."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4068,7 +4205,11 @@ impl ReleaseApprovalHistory {
 pub struct ReleaseApprovalList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ReleaseApproval>,
 }
 impl ReleaseApprovalList {
@@ -4092,7 +4233,8 @@ pub struct ReleaseApprovalPendingEvent {
     #[serde(
         rename = "completedApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub completed_approvals: Vec<ReleaseApproval>,
     #[serde(
@@ -4116,7 +4258,11 @@ pub struct ReleaseApprovalPendingEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub environment_name: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub environments: Vec<ReleaseEnvironment>,
     #[serde(
         rename = "isMultipleRankApproval",
@@ -4127,7 +4273,8 @@ pub struct ReleaseApprovalPendingEvent {
     #[serde(
         rename = "pendingApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub pending_approvals: Vec<ReleaseApproval>,
     #[serde(
@@ -4242,7 +4389,11 @@ pub struct ReleaseDefinition {
     #[serde(flatten)]
     pub release_definition_shallow_reference: ReleaseDefinitionShallowReference,
     #[doc = "Gets or sets the list of artifacts."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub artifacts: Vec<Artifact>,
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4261,7 +4412,11 @@ pub struct ReleaseDefinition {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Gets or sets the list of environments."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub environments: Vec<ReleaseDefinitionEnvironment>,
     #[doc = "Whether release definition is deleted."]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
@@ -4304,16 +4459,25 @@ pub struct ReleaseDefinition {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub source: Option<release_definition::Source>,
     #[doc = "Gets or sets list of tags."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tags: Vec<String>,
     #[doc = "Gets or sets the list of triggers."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub triggers: Vec<ReleaseTriggerBase>,
     #[doc = "Gets or sets the list of variable groups."]
     #[serde(
         rename = "variableGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub variable_groups: Vec<i32>,
     #[doc = "Gets or sets the dictionary of variables."]
@@ -4384,7 +4548,11 @@ pub struct ReleaseDefinitionApprovals {
     )]
     pub approval_options: Option<ApprovalOptions>,
     #[doc = "Gets or sets the approvals."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub approvals: Vec<ReleaseDefinitionApprovalStep>,
 }
 impl ReleaseDefinitionApprovals {
@@ -4398,7 +4566,11 @@ pub struct ReleaseDefinitionDeployStep {
     #[serde(flatten)]
     pub release_definition_environment_step: ReleaseDefinitionEnvironmentStep,
     #[doc = "The list of steps for this definition."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tasks: Vec<WorkflowTask>,
 }
 impl ReleaseDefinitionDeployStep {
@@ -4413,7 +4585,11 @@ pub struct ReleaseDefinitionEnvironment {
     #[serde(rename = "badgeUrl", default, skip_serializing_if = "Option::is_none")]
     pub badge_url: Option<String>,
     #[doc = "Gets or sets the environment conditions."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub conditions: Vec<Condition>,
     #[doc = ""]
     #[serde(
@@ -4423,13 +4599,18 @@ pub struct ReleaseDefinitionEnvironment {
     )]
     pub current_release: Option<ReleaseShallowReference>,
     #[doc = "Gets or sets the demands."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub demands: Vec<Demand>,
     #[doc = "Gets or sets the deploy phases of environment."]
     #[serde(
         rename = "deployPhases",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub deploy_phases: Vec<DeployPhase>,
     #[doc = ""]
@@ -4450,7 +4631,8 @@ pub struct ReleaseDefinitionEnvironment {
     #[serde(
         rename = "environmentTriggers",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub environment_triggers: Vec<EnvironmentTrigger>,
     #[doc = "Defines policy on environment queuing at Release Management side queue. We will send to Environment Runner [creating pre-deploy and other steps] only when the policies mentioned are satisfied."]
@@ -4521,13 +4703,18 @@ pub struct ReleaseDefinitionEnvironment {
     )]
     pub retention_policy: Option<EnvironmentRetentionPolicy>,
     #[doc = "Gets or sets the schedules"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub schedules: Vec<ReleaseSchedule>,
     #[doc = "Gets or sets the variable groups."]
     #[serde(
         rename = "variableGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub variable_groups: Vec<i32>,
     #[doc = "Gets and sets the variables."]
@@ -4561,7 +4748,8 @@ pub struct ReleaseDefinitionEnvironmentSummary {
     #[serde(
         rename = "lastReleases",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub last_releases: Vec<ReleaseShallowReference>,
     #[doc = "Name of ReleaseDefinition environment summary."]
@@ -4617,7 +4805,11 @@ impl ReleaseDefinitionEnvironmentTemplate {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGate {
     #[doc = "Gets or sets the gates workflow."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tasks: Vec<WorkflowTask>,
 }
 impl ReleaseDefinitionGate {
@@ -4665,7 +4857,11 @@ impl ReleaseDefinitionGatesOptions {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGatesStep {
     #[doc = "Gets or sets the gates."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub gates: Vec<ReleaseDefinitionGate>,
     #[doc = ""]
     #[serde(
@@ -4688,7 +4884,11 @@ impl ReleaseDefinitionGatesStep {
 pub struct ReleaseDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ReleaseDefinition>,
 }
 impl ReleaseDefinitionList {
@@ -4769,7 +4969,11 @@ pub mod release_definition_revision {
 pub struct ReleaseDefinitionRevisionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ReleaseDefinitionRevision>,
 }
 impl ReleaseDefinitionRevisionList {
@@ -4812,7 +5016,11 @@ impl ReleaseDefinitionShallowReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionSummary {
     #[doc = "List of Release Definition environment summary."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub environments: Vec<ReleaseDefinitionEnvironmentSummary>,
     #[doc = ""]
     #[serde(
@@ -4822,7 +5030,11 @@ pub struct ReleaseDefinitionSummary {
     )]
     pub release_definition: Option<ReleaseDefinitionShallowReference>,
     #[doc = "List of releases deployed using this Release Definition."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub releases: Vec<Release>,
 }
 impl ReleaseDefinitionSummary {
@@ -4849,7 +5061,8 @@ pub struct ReleaseDeployPhase {
     #[serde(
         rename = "deploymentJobs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub deployment_jobs: Vec<DeploymentJob>,
     #[doc = "Phase execution error logs."]
@@ -4859,7 +5072,8 @@ pub struct ReleaseDeployPhase {
     #[serde(
         rename = "manualInterventions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub manual_interventions: Vec<ManualIntervention>,
     #[doc = "Name of the phase."]
@@ -4936,7 +5150,11 @@ pub mod release_deploy_phase {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironment {
     #[doc = "Gets list of conditions."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub conditions: Vec<ReleaseCondition>,
     #[doc = "Gets date on which it got created."]
     #[serde(
@@ -4956,11 +5174,17 @@ pub struct ReleaseEnvironment {
     #[serde(
         rename = "deployPhasesSnapshot",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub deploy_phases_snapshot: Vec<DeployPhase>,
     #[doc = "Gets deploy steps."]
-    #[serde(rename = "deploySteps", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "deploySteps",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub deploy_steps: Vec<DeploymentAttempt>,
     #[doc = ""]
     #[serde(
@@ -5003,7 +5227,8 @@ pub struct ReleaseEnvironment {
     #[serde(
         rename = "postDeployApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub post_deploy_approvals: Vec<ReleaseApproval>,
     #[doc = ""]
@@ -5024,7 +5249,8 @@ pub struct ReleaseEnvironment {
     #[serde(
         rename = "preDeployApprovals",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub pre_deploy_approvals: Vec<ReleaseApproval>,
     #[doc = ""]
@@ -5072,7 +5298,11 @@ pub struct ReleaseEnvironment {
     )]
     pub scheduled_deployment_time: Option<time::OffsetDateTime>,
     #[doc = "Gets list of schedules."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub schedules: Vec<ReleaseSchedule>,
     #[doc = "Gets environment status."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5095,7 +5325,8 @@ pub struct ReleaseEnvironment {
     #[serde(
         rename = "variableGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub variable_groups: Vec<VariableGroup>,
     #[doc = "Gets the dictionary of variables."]
@@ -5435,7 +5666,8 @@ pub struct ReleaseGates {
     #[serde(
         rename = "deploymentJobs",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub deployment_jobs: Vec<DeploymentJob>,
     #[doc = "ID of release gates."]
@@ -5445,7 +5677,8 @@ pub struct ReleaseGates {
     #[serde(
         rename = "ignoredGates",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub ignored_gates: Vec<IgnoredGate>,
     #[doc = "Gates last modified time."]
@@ -5516,7 +5749,8 @@ pub struct ReleaseGatesPhase {
     #[serde(
         rename = "ignoredGates",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub ignored_gates: Vec<IgnoredGate>,
     #[doc = "Date and time at which stabilization of gates completed."]
@@ -5544,7 +5778,11 @@ impl ReleaseGatesPhase {
 pub struct ReleaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Release>,
 }
 impl ReleaseList {
@@ -5625,7 +5863,11 @@ pub struct ReleaseReference {
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
     #[doc = "Gets list of artifacts."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub artifacts: Vec<Artifact>,
     #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
@@ -5871,7 +6113,11 @@ impl ReleaseStartEnvironmentMetadata {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseStartMetadata {
     #[doc = "Sets list of artifact to create a release."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub artifacts: Vec<ArtifactMetadata>,
     #[doc = "Sets definition Id to create a release."]
     #[serde(
@@ -5887,7 +6133,8 @@ pub struct ReleaseStartMetadata {
     #[serde(
         rename = "environmentsMetadata",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub environments_metadata: Vec<ReleaseStartEnvironmentMetadata>,
     #[doc = "Sets 'true' to create release in draft mode, 'false' otherwise."]
@@ -5897,7 +6144,8 @@ pub struct ReleaseStartMetadata {
     #[serde(
         rename = "manualEnvironments",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub manual_environments: Vec<String>,
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
@@ -5949,7 +6197,11 @@ pub struct ReleaseTask {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[doc = "List of issues occurred while execution of task."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub issues: Vec<Issue>,
     #[doc = "Number of lines log release task has."]
     #[serde(rename = "lineCount", default, skip_serializing_if = "Option::is_none")]
@@ -6084,7 +6336,11 @@ impl ReleaseTaskAttachment {
 pub struct ReleaseTaskAttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ReleaseTaskAttachment>,
 }
 impl ReleaseTaskAttachmentList {
@@ -6097,7 +6353,11 @@ impl ReleaseTaskAttachmentList {
 pub struct ReleaseTaskLogUpdatedEvent {
     #[serde(flatten)]
     pub realtime_release_event: RealtimeReleaseEvent,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub lines: Vec<String>,
     #[serde(
         rename = "stepRecordId",
@@ -6133,7 +6393,11 @@ pub struct ReleaseTasksUpdatedEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub release_step_id: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub tasks: Vec<ReleaseTask>,
 }
 impl ReleaseTasksUpdatedEvent {
@@ -6195,7 +6459,8 @@ pub struct ReleaseUpdateMetadata {
     #[serde(
         rename = "manualEnvironments",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub manual_environments: Vec<String>,
     #[doc = "Sets name of the release."]
@@ -6465,7 +6730,8 @@ pub struct SourceRepoTrigger {
     #[serde(
         rename = "branchFilters",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub branch_filters: Vec<String>,
 }
@@ -6537,7 +6803,11 @@ impl TagFilter {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinitionBase {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub aliases: Vec<String>,
     #[serde(
         rename = "defaultValue",
@@ -6613,7 +6883,12 @@ impl TaskOrchestrationPlanGroupReference {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroupsStartedEvent {
-    #[serde(rename = "planGroups", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "planGroups",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub plan_groups: Vec<TaskOrchestrationPlanGroupReference>,
 }
 impl TaskOrchestrationPlanGroupsStartedEvent {
@@ -6688,7 +6963,8 @@ pub struct TimeZoneList {
     #[serde(
         rename = "validTimeZones",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub valid_time_zones: Vec<TimeZone>,
 }
@@ -6750,7 +7026,8 @@ pub struct VariableGroup {
     #[serde(
         rename = "variableGroupProjectReferences",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub variable_group_project_references: Vec<VariableGroupProjectReference>,
     #[doc = "Gets and sets the dictionary of variables."]
@@ -6960,7 +7237,11 @@ pub mod yaml_file_source {
 pub struct YamlPipelineProcess {
     #[serde(flatten)]
     pub pipeline_process: PipelineProcess,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub errors: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
@@ -6983,9 +7264,17 @@ impl YamlPipelineProcess {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct YamlPipelineProcessResources {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub endpoints: Vec<ServiceEndpointReference>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub queues: Vec<AgentPoolQueueReference>,
 }
 impl YamlPipelineProcessResources {

@@ -68,7 +68,11 @@ pub mod permissions_report {
 pub struct PermissionsReportList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PermissionsReport>,
 }
 impl PermissionsReportList {
@@ -80,7 +84,11 @@ impl PermissionsReportList {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PermissionsReportRequest {
     #[doc = "List of groups and users to fetch permissions on.  An empty list will fetch all groups and users in the organization"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub descriptors: Vec<String>,
     #[doc = "Name of the report to create, make it unique"]
     #[serde(
@@ -90,7 +98,11 @@ pub struct PermissionsReportRequest {
     )]
     pub report_name: Option<String>,
     #[doc = "List of resources to fetch permisions on"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub resources: Vec<PermissionsReportResource>,
 }
 impl PermissionsReportRequest {

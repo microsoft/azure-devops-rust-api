@@ -47,7 +47,11 @@ pub mod audit_action_info {
 pub struct AuditActionInfoList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AuditActionInfo>,
 }
 impl AuditActionInfoList {
@@ -156,7 +160,8 @@ pub struct AuditLogQueryResult {
     #[serde(
         rename = "decoratedAuditLogEntries",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub decorated_audit_log_entries: Vec<DecoratedAuditLogEntry>,
     #[doc = "True when there are more matching results to be fetched, false otherwise."]
@@ -249,7 +254,11 @@ pub mod audit_stream {
 pub struct AuditStreamList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AuditStream>,
 }
 impl AuditStreamList {

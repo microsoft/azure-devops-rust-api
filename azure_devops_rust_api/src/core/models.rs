@@ -70,11 +70,25 @@ pub struct IdentityBase {
     #[serde(rename = "masterId", default, skip_serializing_if = "Option::is_none")]
     pub master_id: Option<String>,
     #[doc = "Id of the members of the identity (groups only)."]
-    #[serde(rename = "memberIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "memberIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub member_ids: Vec<String>,
-    #[serde(rename = "memberOf", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "memberOf",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub member_of: Vec<IdentityDescriptor>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub members: Vec<IdentityDescriptor>,
     #[serde(
         rename = "metaTypeId",
@@ -126,7 +140,12 @@ impl IdentityBase {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityData {
-    #[serde(rename = "identityIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "identityIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub identity_ids: Vec<String>,
 }
 impl IdentityData {
@@ -346,7 +365,11 @@ pub mod process {
 pub struct ProcessList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Process>,
 }
 impl ProcessList {
@@ -371,7 +394,11 @@ impl ProcessReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectAvatar {
     #[doc = "The avatar image represented as a byte array."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub image: Vec<String>,
 }
 impl ProjectAvatar {
@@ -402,7 +429,11 @@ pub struct ProjectInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "A set of name-value pairs storing additional property data related to the project."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub properties: Vec<ProjectProperty>,
     #[doc = "The current revision of the project."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -497,7 +528,11 @@ pub struct ProjectProperties {
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
     pub project_id: Option<String>,
     #[doc = "The collection of team project properties"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub properties: Vec<ProjectProperty>,
 }
 impl ProjectProperties {
@@ -525,7 +560,11 @@ impl ProjectProperty {
 pub struct ProjectPropertyList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProjectProperty>,
 }
 impl ProjectPropertyList {
@@ -542,10 +581,18 @@ pub struct PropertiesCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
     #[doc = "The set of keys in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl PropertiesCollection {
@@ -622,10 +669,18 @@ impl ProxyAuthorization {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PublicKey {
     #[doc = "Gets or sets the exponent for the public key."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub exponent: Vec<String>,
     #[doc = "Gets or sets the modulus for the public key."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub modulus: Vec<String>,
 }
 impl PublicKey {
@@ -689,7 +744,11 @@ impl TeamMember {
 pub struct TeamMemberList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TeamMember>,
 }
 impl TeamMemberList {
@@ -878,7 +937,11 @@ pub mod team_project_reference {
 pub struct TeamProjectReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TeamProjectReference>,
 }
 impl TeamProjectReferenceList {
@@ -1191,7 +1254,11 @@ impl WebApiTeam {
 pub struct WebApiTeamList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WebApiTeam>,
 }
 impl WebApiTeamList {

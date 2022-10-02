@@ -27,7 +27,8 @@ pub struct AgentGroup {
     #[serde(
         rename = "machineAccessData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub machine_access_data: Vec<AgentGroupAccessData>,
     #[doc = "This can eventually evolve as the ultimate JSON file that user can use to configure their machine(s) against CLT"]
@@ -160,7 +161,11 @@ impl ApplicationCounters {
 pub struct ApplicationCountersList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ApplicationCounters>,
 }
 impl ApplicationCountersList {
@@ -173,7 +178,11 @@ impl ApplicationCountersList {
 pub struct ApplicationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Application>,
 }
 impl ApplicationList {
@@ -229,7 +238,11 @@ impl ApplicationType {
 pub struct ApplicationTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ApplicationType>,
 }
 impl ApplicationTypeList {
@@ -304,7 +317,11 @@ pub struct CounterInstanceSamples {
         with = "crate::date_time::rfc3339::option"
     )]
     pub next_refresh_time: Option<time::OffsetDateTime>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<CounterSample>,
 }
 impl CounterInstanceSamples {
@@ -418,7 +435,11 @@ pub struct CounterSamplesResult {
     )]
     pub total_samples_count: Option<i32>,
     #[doc = "The result samples"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<CounterInstanceSamples>,
 }
 impl CounterSamplesResult {
@@ -625,7 +646,12 @@ pub struct LoadTestDefinition {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent_count: Option<i32>,
-    #[serde(rename = "browserMixs", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "browserMixs",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub browser_mixs: Vec<BrowserMix>,
     #[serde(rename = "coreCount", default, skip_serializing_if = "Option::is_none")]
     pub core_count: Option<i32>,
@@ -638,7 +664,8 @@ pub struct LoadTestDefinition {
     #[serde(
         rename = "loadGenerationGeoLocations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub load_generation_geo_locations: Vec<LoadGenerationGeoLocation>,
     #[serde(
@@ -669,7 +696,11 @@ pub struct LoadTestDefinition {
     pub sampling_rate: Option<i32>,
     #[serde(rename = "thinkTime", default, skip_serializing_if = "Option::is_none")]
     pub think_time: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub urls: Vec<String>,
 }
 impl LoadTestDefinition {
@@ -684,7 +715,11 @@ pub struct LoadTestErrors {
     pub count: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub occurrences: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub types: Vec<Type>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
@@ -820,7 +855,8 @@ pub struct PageSummary {
     #[serde(
         rename = "percentileData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub percentile_data: Vec<SummaryPercentileData>,
     #[serde(
@@ -878,7 +914,8 @@ pub struct RequestSummary {
     #[serde(
         rename = "percentileData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub percentile_data: Vec<SummaryPercentileData>,
     #[serde(
@@ -981,7 +1018,8 @@ pub struct SubType {
     #[serde(
         rename = "errorDetailList",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub error_detail_list: Vec<ErrorDetails>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1024,7 +1062,8 @@ pub struct TenantDetails {
     #[serde(
         rename = "accessDetails",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub access_details: Vec<AgentGroupAccessData>,
     #[doc = "Tenant Id"]
@@ -1034,7 +1073,8 @@ pub struct TenantDetails {
     #[serde(
         rename = "staticMachines",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub static_machines: Vec<WebApiTestMachine>,
     #[doc = "This can eventually evolve as the ultimate JSON file that user can use to configure their machine(s) against CLT"]
@@ -1054,7 +1094,8 @@ pub struct TenantDetails {
     #[serde(
         rename = "validGeoLocations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub valid_geo_locations: Vec<String>,
 }
@@ -1074,7 +1115,8 @@ pub struct TestDefinition {
     #[serde(
         rename = "loadGenerationGeoLocations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub load_generation_geo_locations: Vec<LoadGenerationGeoLocation>,
     #[serde(
@@ -1175,7 +1217,11 @@ pub mod test_definition_basic {
 pub struct TestDefinitionBasicList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestDefinitionBasic>,
 }
 impl TestDefinitionBasicList {
@@ -1250,7 +1296,8 @@ pub struct TestResults {
     #[serde(
         rename = "counterGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub counter_groups: Vec<CounterGroup>,
     #[doc = ""]
@@ -1310,25 +1357,29 @@ pub struct TestResultsSummary {
     #[serde(
         rename = "topSlowPages",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub top_slow_pages: Vec<PageSummary>,
     #[serde(
         rename = "topSlowRequests",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub top_slow_requests: Vec<RequestSummary>,
     #[serde(
         rename = "topSlowTests",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub top_slow_tests: Vec<TestSummary>,
     #[serde(
         rename = "topSlowTransactions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub top_slow_transactions: Vec<TransactionSummary>,
 }
@@ -1511,7 +1562,11 @@ pub struct TestRunAbortMessage {
     pub action: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cause: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub details: Vec<String>,
     #[serde(
         rename = "loggedDate",
@@ -1563,7 +1618,8 @@ pub struct TestRunBasic {
     #[serde(
         rename = "loadGenerationGeoLocations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub load_generation_geo_locations: Vec<LoadGenerationGeoLocation>,
     #[doc = "Gets the load test file of the test run definition."]
@@ -1688,7 +1744,8 @@ pub struct TestRunCounterInstance {
     #[serde(
         rename = "partOfCounterGroups",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub part_of_counter_groups: Vec<String>,
     #[doc = ""]
@@ -1716,7 +1773,11 @@ impl TestRunCounterInstance {
 pub struct TestRunCounterInstanceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestRunCounterInstance>,
 }
 impl TestRunCounterInstanceList {
@@ -1800,7 +1861,11 @@ pub mod test_run_message {
 pub struct TestRunMessageList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestRunMessage>,
 }
 impl TestRunMessageList {
@@ -1881,7 +1946,8 @@ pub struct TestSummary {
     #[serde(
         rename = "percentileData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub percentile_data: Vec<SummaryPercentileData>,
     #[serde(
@@ -1922,7 +1988,8 @@ pub struct TransactionSummary {
     #[serde(
         rename = "percentileData",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub percentile_data: Vec<SummaryPercentileData>,
     #[serde(
@@ -1958,7 +2025,12 @@ pub struct Type {
     pub count: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub occurrences: Option<i32>,
-    #[serde(rename = "subTypes", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "subTypes",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sub_types: Vec<SubType>,
     #[serde(rename = "typeName", default, skip_serializing_if = "Option::is_none")]
     pub type_name: Option<String>,
@@ -2019,7 +2091,8 @@ pub struct WebApiLoadTestMachineInput {
     #[serde(
         rename = "supportedRunTypes",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub supported_run_types: Vec<serde_json::Value>,
 }

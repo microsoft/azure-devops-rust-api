@@ -155,7 +155,8 @@ pub struct AccountCreateInfoInternal {
     #[serde(
         rename = "serviceDefinitions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub service_definitions: Vec<serde_json::Value>,
 }
@@ -169,7 +170,11 @@ impl AccountCreateInfoInternal {
 pub struct AccountList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Account>,
 }
 impl AccountList {
@@ -201,10 +206,18 @@ pub struct PropertiesCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<serde_json::Value>,
     #[doc = "The set of keys in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl PropertiesCollection {

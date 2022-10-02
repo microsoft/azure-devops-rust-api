@@ -278,7 +278,12 @@ pub struct CloneTestCaseParams {
     )]
     pub source_test_suite: Option<SourceTestSuiteInfo>,
     #[doc = "Test Case IDs"]
-    #[serde(rename = "testCaseIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testCaseIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_case_ids: Vec<i32>,
 }
 impl CloneTestCaseParams {
@@ -592,7 +597,8 @@ pub struct LibraryWorkItemsData {
     #[serde(
         rename = "columnOptions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub column_options: Vec<String>,
     #[doc = "Continuation token to fetch next set of elements. Present only when HasMoreElements is true."]
@@ -624,10 +630,20 @@ pub struct LibraryWorkItemsData {
     )]
     pub return_code: Option<library_work_items_data::ReturnCode>,
     #[doc = "List of work items returned when OrderByField is sent something other than Id."]
-    #[serde(rename = "workItemIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItemIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_item_ids: Vec<i32>,
     #[doc = "List of work items to be returned."]
-    #[serde(rename = "workItems", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItems",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_items: Vec<WorkItemDetails>,
 }
 impl LibraryWorkItemsData {
@@ -653,7 +669,8 @@ pub struct LibraryWorkItemsDataProviderRequest {
     #[serde(
         rename = "columnOptions",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub column_options: Vec<String>,
     #[doc = "The continuation token required for paging of work items. This is required when getting subsequent sets of work items when OrderByField is Id."]
@@ -667,7 +684,8 @@ pub struct LibraryWorkItemsDataProviderRequest {
     #[serde(
         rename = "filterValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub filter_values: Vec<TestPlansLibraryWorkItemFilter>,
     #[doc = "Whether the data is to be sorted in ascending or descending order. When not supplied, defaults to descending."]
@@ -692,7 +710,12 @@ pub struct LibraryWorkItemsDataProviderRequest {
     )]
     pub order_by_field: Option<String>,
     #[doc = "List of work items to query for field details. This is required when getting subsequent sets of work item fields when OrderByField is other than Id."]
-    #[serde(rename = "workItemIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "workItemIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub work_item_ids: Vec<i32>,
 }
 impl LibraryWorkItemsDataProviderRequest {
@@ -853,7 +876,12 @@ pub struct SourceTestPlanInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[doc = "Id of suites to be cloned inside source Test Plan"]
-    #[serde(rename = "suiteIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "suiteIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub suite_ids: Vec<i32>,
 }
 impl SourceTestPlanInfo {
@@ -882,7 +910,12 @@ pub struct SourceTestSuiteResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<TeamProjectReference>,
     #[doc = "Id of suites to be cloned inside source Test Plan"]
-    #[serde(rename = "testCaseIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testCaseIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_case_ids: Vec<i32>,
 }
 impl SourceTestSuiteResponse {
@@ -899,7 +932,12 @@ pub struct SourceTestplanResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<TeamProjectReference>,
     #[doc = "Id of suites to be cloned inside source Test Plan"]
-    #[serde(rename = "suiteIds", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "suiteIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub suite_ids: Vec<i32>,
 }
 impl SourceTestplanResponse {
@@ -926,7 +964,11 @@ impl SuiteEntry {
 pub struct SuiteEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<SuiteEntry>,
 }
 impl SuiteEntryList {
@@ -978,7 +1020,8 @@ pub struct SuiteTestCaseCreateUpdateParameters {
     #[serde(
         rename = "pointAssignments",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub point_assignments: Vec<Configuration>,
     #[doc = "Work Item"]
@@ -1092,7 +1135,8 @@ pub struct TestCase {
     #[serde(
         rename = "pointAssignments",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub point_assignments: Vec<PointAssignment>,
     #[doc = "Represents a shallow reference to a TeamProject."]
@@ -1196,7 +1240,11 @@ pub mod test_case_associated_result {
 pub struct TestCaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestCase>,
 }
 impl TestCaseList {
@@ -1240,7 +1288,11 @@ pub struct TestCaseResultsData {
     )]
     pub context_point: Option<TestPointDetailedReference>,
     #[doc = "Use to store the results displayed in the table"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub results: Vec<TestCaseAssociatedResult>,
     #[doc = "Test Case Name to be displayed in the table header"]
     #[serde(
@@ -1288,7 +1340,11 @@ pub struct TestConfigurationCreateUpdateParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<test_configuration_create_update_parameters::State>,
     #[doc = "Dictionary of Test Variable, Selected Value"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<NameValuePair>,
 }
 impl TestConfigurationCreateUpdateParameters {
@@ -1312,7 +1368,11 @@ pub mod test_configuration_create_update_parameters {
 pub struct TestConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestConfiguration>,
 }
 impl TestConfigurationList {
@@ -1555,7 +1615,11 @@ impl TestPlanDetailedReference {
 pub struct TestPlanList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestPlan>,
 }
 impl TestPlanList {
@@ -1598,7 +1662,8 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "defineColumnOptionFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub define_column_option_fields: Vec<String>,
     #[serde(
@@ -1616,7 +1681,8 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "executeColumnOptionFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub execute_column_option_fields: Vec<String>,
     #[serde(
@@ -1649,7 +1715,12 @@ pub struct TestPlansHubRefreshData {
         skip_serializing_if = "Option::is_none"
     )]
     pub test_case_page_size: Option<i32>,
-    #[serde(rename = "testCases", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testCases",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_cases: Vec<TestCase>,
     #[serde(
         rename = "testCasesContinuationToken",
@@ -1666,7 +1737,12 @@ pub struct TestPlansHubRefreshData {
         skip_serializing_if = "Option::is_none"
     )]
     pub test_point_page_size: Option<i32>,
-    #[serde(rename = "testPoints", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testPoints",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_points: Vec<TestPoint>,
     #[serde(
         rename = "testPointsContinuationToken",
@@ -1674,7 +1750,12 @@ pub struct TestPlansHubRefreshData {
         skip_serializing_if = "Option::is_none"
     )]
     pub test_points_continuation_token: Option<String>,
-    #[serde(rename = "testSuites", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "testSuites",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub test_suites: Vec<TestSuite>,
     #[serde(
         rename = "testSuitesContinuationToken",
@@ -1695,7 +1776,12 @@ pub struct TestPlansLibraryWorkItemFilter {
     #[serde(rename = "fieldName", default, skip_serializing_if = "Option::is_none")]
     pub field_name: Option<String>,
     #[doc = "Work item field values corresponding to the field name."]
-    #[serde(rename = "fieldValues", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "fieldValues",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub field_values: Vec<String>,
     #[doc = "Mode of the filter."]
     #[serde(
@@ -1823,7 +1909,11 @@ impl TestPointDetailedReference {
 pub struct TestPointList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestPoint>,
 }
 impl TestPointList {
@@ -2080,7 +2170,11 @@ pub struct TestSuite {
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
     #[doc = "Child test suites of current test suite."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub children: Vec<TestSuite>,
     #[doc = "Boolean value dictating if Child test suites are present"]
     #[serde(
@@ -2174,14 +2268,16 @@ pub struct TestSuiteCreateUpdateCommonParams {
     #[serde(
         rename = "defaultConfigurations",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub default_configurations: Vec<TestConfigurationReference>,
     #[doc = "Test suite default testers."]
     #[serde(
         rename = "defaultTesters",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub default_testers: Vec<IdentityRef>,
     #[doc = "Default configuration was inherited or not."]
@@ -2219,7 +2315,11 @@ impl TestSuiteCreateUpdateCommonParams {
 pub struct TestSuiteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestSuite>,
 }
 impl TestSuiteList {
@@ -2297,7 +2397,11 @@ pub struct TestVariableCreateUpdateParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "List of allowed values"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub values: Vec<String>,
 }
 impl TestVariableCreateUpdateParameters {
@@ -2310,7 +2414,11 @@ impl TestVariableCreateUpdateParameters {
 pub struct TestVariableList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<TestVariable>,
 }
 impl TestVariableList {
@@ -2367,7 +2475,8 @@ pub struct WorkItemDetails {
     #[serde(
         rename = "workItemFields",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub work_item_fields: Vec<serde_json::Value>,
 }

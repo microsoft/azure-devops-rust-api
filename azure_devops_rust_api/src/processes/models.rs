@@ -12,7 +12,8 @@ pub struct AddProcessWorkItemTypeFieldRequest {
     #[serde(
         rename = "allowedValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_values: Vec<String>,
     #[doc = "Allow setting field value to a group identity. Only applies to identity fields."]
@@ -109,7 +110,11 @@ impl Control {
 pub struct ControlList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<Control>,
 }
 impl ControlList {
@@ -150,10 +155,18 @@ impl CreateProcessModel {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateProcessRuleRequest {
     #[doc = "List of actions to take when the rule is triggered."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub actions: Vec<RuleAction>,
     #[doc = "List of conditions when the rule should be triggered."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub conditions: Vec<RuleCondition>,
     #[doc = "Indicates if the rule is disabled."]
     #[serde(
@@ -280,9 +293,17 @@ pub mod field_model {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldRuleModel {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub actions: Vec<RuleActionModel>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub conditions: Vec<RuleConditionModel>,
     #[serde(
         rename = "friendlyName",
@@ -310,16 +331,25 @@ impl FieldRuleModel {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FormLayout {
     #[doc = "Gets and sets extensions list."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub extensions: Vec<Extension>,
     #[doc = "Top level tabs of the layout."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub pages: Vec<Page>,
     #[doc = "Headers controls of the layout."]
     #[serde(
         rename = "systemControls",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub system_controls: Vec<Control>,
 }
@@ -335,7 +365,11 @@ pub struct Group {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub contribution: Option<WitContribution>,
     #[doc = "Controls to be put in the group."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub controls: Vec<Control>,
     #[doc = "The height for the contribution."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -418,7 +452,11 @@ pub struct Page {
     #[serde(rename = "pageType", default, skip_serializing_if = "Option::is_none")]
     pub page_type: Option<page::PageType>,
     #[doc = "The sections of the page."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub sections: Vec<Section>,
     #[doc = "A value indicating if the page should be hidden or not."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -450,7 +488,11 @@ pub struct PickList {
     #[serde(flatten)]
     pub pick_list_metadata: PickListMetadata,
     #[doc = "A list of PicklistItemModel."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub items: Vec<String>,
 }
 impl PickList {
@@ -491,7 +533,11 @@ impl PickListMetadata {
 pub struct PickListMetadataList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<PickListMetadata>,
 }
 impl PickListMetadataList {
@@ -512,7 +558,11 @@ pub struct ProcessBehavior {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "Process Behavior Fields."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub fields: Vec<ProcessBehaviorField>,
     #[doc = "Process behavior Reference."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -604,7 +654,11 @@ impl ProcessBehaviorField {
 pub struct ProcessBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProcessBehavior>,
 }
 impl ProcessBehaviorList {
@@ -676,7 +730,11 @@ pub struct ProcessInfo {
     )]
     pub parent_process_type_id: Option<String>,
     #[doc = "Projects in this process to which the user is subscribed to."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub projects: Vec<ProjectReference>,
     #[doc = "Reference name of the process."]
     #[serde(
@@ -712,7 +770,11 @@ pub mod process_info {
 pub struct ProcessInfoList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProcessInfo>,
 }
 impl ProcessInfoList {
@@ -730,7 +792,11 @@ pub struct ProcessModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "Projects in this process"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub projects: Vec<ProjectReference>,
     #[doc = "Properties of the process."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -834,7 +900,11 @@ pub mod process_rule {
 pub struct ProcessRuleList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProcessRule>,
 }
 impl ProcessRuleList {
@@ -845,7 +915,11 @@ impl ProcessRuleList {
 #[doc = "Class that describes a work item type object"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessWorkItemType {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub behaviors: Vec<WorkItemTypeBehavior>,
     #[doc = "Color hexadecimal code to represent the work item type"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -882,7 +956,11 @@ pub struct ProcessWorkItemType {
         skip_serializing_if = "Option::is_none"
     )]
     pub reference_name: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub states: Vec<WorkItemStateResultModel>,
     #[doc = "Url of the work item type"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -913,7 +991,8 @@ pub struct ProcessWorkItemTypeField {
     #[serde(
         rename = "allowedValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_values: Vec<serde_json::Value>,
     #[doc = "Allow setting field value to a group identity. Only applies to identity fields."]
@@ -1014,7 +1093,11 @@ pub mod process_work_item_type_field {
 pub struct ProcessWorkItemTypeFieldList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProcessWorkItemTypeField>,
 }
 impl ProcessWorkItemTypeFieldList {
@@ -1027,7 +1110,11 @@ impl ProcessWorkItemTypeFieldList {
 pub struct ProcessWorkItemTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<ProcessWorkItemType>,
 }
 impl ProcessWorkItemTypeList {
@@ -1218,7 +1305,11 @@ impl RuleConditionModel {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Section {
     #[doc = "List of child groups in this section"]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub groups: Vec<Group>,
     #[doc = "The id for the layout node."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1274,7 +1365,8 @@ pub struct UpdateProcessWorkItemTypeFieldRequest {
     #[serde(
         rename = "allowedValues",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub allowed_values: Vec<String>,
     #[doc = "Allow setting field value to a group identity. Only applies to identity fields."]
@@ -1390,7 +1482,11 @@ pub struct WorkItemBehavior {
     pub color: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub fields: Vec<WorkItemBehaviorField>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1529,7 +1625,11 @@ pub mod work_item_state_result_model {
 pub struct WorkItemStateResultModelList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WorkItemStateResultModel>,
 }
 impl WorkItemStateResultModelList {
@@ -1567,7 +1667,11 @@ impl WorkItemTypeBehavior {
 pub struct WorkItemTypeBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<WorkItemTypeBehavior>,
 }
 impl WorkItemTypeBehaviorList {
@@ -1578,7 +1682,11 @@ impl WorkItemTypeBehaviorList {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeModel {
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub behaviors: Vec<WorkItemTypeBehavior>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub class: Option<work_item_type_model::Class>,
@@ -1604,7 +1712,11 @@ pub struct WorkItemTypeModel {
     pub layout: Option<FormLayout>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub states: Vec<WorkItemStateResultModel>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,

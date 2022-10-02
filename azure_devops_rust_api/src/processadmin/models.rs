@@ -21,7 +21,11 @@ pub struct AdminBehavior {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[doc = "List of behavior fields."]
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub fields: Vec<AdminBehaviorField>,
     #[doc = "Behavior ID."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -71,7 +75,11 @@ impl AdminBehaviorField {
 pub struct AdminBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
     pub value: Vec<AdminBehavior>,
 }
 impl AdminBehaviorList {
@@ -146,7 +154,8 @@ pub struct ProcessImportResult {
     #[serde(
         rename = "validationResults",
         default,
-        skip_serializing_if = "Vec::is_empty"
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub validation_results: Vec<ValidationIssue>,
 }
