@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
     let release_client = release::ClientBuilder::new(credential).build();
     let folder_path = "\\".to_string();
 
-    //  Get  list of approvals for release
+    //  Get list of approvals for release
     println!("Approvals for release are:");
     let release_approvals = release_client
         .approvals_client()
@@ -41,7 +41,7 @@ async fn main() -> Result<()> {
         .value;
     println!("{:#?}", release_approvals);
 
-    //  Get list of approvals for release
+    //  Get list of folders for release
     println!("Folders for the project are:");
     let project_folders = release_client
         .folders_client()
@@ -51,7 +51,7 @@ async fn main() -> Result<()> {
         .value;
     println!("{:#?}", project_folders);
 
-    //  Get list of approvals for release
+    //  Get list of deployments for release
     println!("Deployments for project are:");
     let project_deployments = release_client
         .deployments_client()
