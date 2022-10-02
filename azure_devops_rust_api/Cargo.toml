@@ -142,6 +142,10 @@ name = "pipeline_preview"
 required-features = ["pipelines"]
 
 [[example]]
+name = "release"
+required-features = ["release"]
+
+[[example]]
 name = "service_endpoint"
 required-features = ["service_endpoint"]
 
