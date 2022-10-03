@@ -59,6 +59,7 @@ cargo run --example git_pr_files_changed  --features="git" $ADO_REPO_NAME $ADO_P
 cargo run --example git_pr_work_items  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example graph_query --features="graph" $ADO_USER_EMAIL
 cargo run --example hooks_list --features="hooks"
+cargo run --example permissions_report --features="permissions_report"
 cargo run --example pipeline_preview --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example pipelines --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example release --features="release"

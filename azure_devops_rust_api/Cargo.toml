@@ -134,6 +134,10 @@ name = "ims_query"
 required-features = ["ims"]
 
 [[example]]
+name = "permissions_report"
+required-features = ["permissions_report"]
+
+[[example]]
 name = "pipelines"
 required-features = ["pipelines"]
 
