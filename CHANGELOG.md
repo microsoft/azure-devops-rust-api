@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- New example: `git_repo_get_raw_rsp`
+- New examples:
+  - `git_repo_get_raw_rsp`
+  - `artifacts_list`
 - Fix `distributedTask` `variableGroupProjectReferences` deserialization of `null` value
 - Fix `extensionManagement` parsing of `flags` fields
   - Change type from an `enum` to a `String`, as field value is a comma-separated list

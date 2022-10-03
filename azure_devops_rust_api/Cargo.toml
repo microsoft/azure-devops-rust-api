@@ -78,6 +78,10 @@ work = []
 all-features = true
 
 [[example]]
+name = "artifacts_list"
+required-features = ["artifacts"]
+
+[[example]]
 name = "core_org_projects"
 required-features = ["core"]
 
