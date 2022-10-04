@@ -162,6 +162,10 @@ name = "search_code"
 required-features = ["search"]
 
 [[example]]
+name = "search_repositories"
+required-features = ["search"]
+
+[[example]]
 name = "test_runs_list"
 required-features = ["test"]
 
