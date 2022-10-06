@@ -9,10 +9,13 @@ ADO_PROJECT_NAME=$1
 ADO_USER_EMAIL=$2
 ADO_REPO_NAME=$3
 ADO_PR_ID=$4
+ADO_WIKI_ID=$5
+ADO_WIKI_PAGE_PATH=$6
+ADO_WIKI_CONTENT=$7
 
 usage () {
     echo "Usage:"
-    echo "  ./run_all_examples <project_name> <user_email_address> <repo_name> <pr_id>"
+    echo "  ./run_all_examples <project_name> <user_email_address> <repo_name> <pr_id> <wiki_id> <wiki_page_path> <wiki_content>"
 }
 
 if [ -z "$ADO_PROJECT_NAME" ];
@@ -43,6 +46,27 @@ then
     exit 1
 fi
 
+if [ -z "$ADO_WIKI_ID" ];
+then
+    echo "Error: Missing wiki_id parameter"
+    usage
+    exit 1
+fi
+
+if [ -z "$ADO_WIKI_PAGE_PATH" ];
+then
+    echo "Error: Missing wiki_page_path parameter"
+    usage
+    exit 1
+fi
+
+if [ -z "$ADO_WIKI_CONTENT" ];
+then
+    echo "Error: Missing wiki_content parameter"
+    usage
+    exit 1
+fi
+
 # Enable trace
 set -x
 
@@ -69,5 +93,6 @@ cargo run --example search_code --features="search"
 cargo run --example search_repositories --features="search" $ADO_REPO_NAME
 cargo run --example test_runs_list --features="test"
 cargo run --example client_pipeline_policy --features="git"
+cargo run --example wiki_pages_create_or_update --features="wiki" $ADO_WIKI_ID $ADO_WIKI_PAGE_PATH $ADO_WIKI_CONTENT
 
 echo "Done"
