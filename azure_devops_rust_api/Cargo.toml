@@ -178,6 +178,10 @@ name = "build_list"
 required-features = ["build"]
 
 [[example]]
+name = "build_list_continuation_token"
+required-features = ["build"]
+
+[[example]]
 name = "status"
 required-features = ["status"]
 
@@ -196,3 +200,7 @@ required-features = ["wit"]
 [[example]]
 name = "policy"
 required-features = ["policy"]
+
+[[example]]
+name = "release_logs"
+required-features = ["release"]

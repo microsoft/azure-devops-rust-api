@@ -3458,7 +3458,7 @@ pub struct GitPullRequestCreateOptions {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub labels: Vec<WebApiTagDefinition>,
+    pub labels: Vec<WebApiCreateTagRequestData>,
     #[doc = "The name of the source branch of the pull request."]
     #[serde(rename = "sourceRefName")]
     pub source_ref_name: String,
@@ -3467,6 +3467,20 @@ pub struct GitPullRequestCreateOptions {
     pub target_ref_name: String,
     #[doc = "The title of the pull request."]
     pub title: String,
+    #[doc = "The options which are used when a pull request merge is created."]
+    #[serde(
+        rename = "mergeOptions",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub merge_options: Option<GitPullRequestMergeOptions>,
+    #[doc = "Preferences about how the pull request should be completed."]
+    #[serde(
+        rename = "completionOptions",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completion_options: Option<GitPullRequestCompletionOptions>,
     #[doc = "Any work item references associated with this pull request."]
     #[serde(
         rename = "workItemRefs",
@@ -3492,6 +3506,8 @@ impl GitPullRequestCreateOptions {
             source_ref_name,
             target_ref_name,
             title,
+            merge_options: None,
+            completion_options: None,
             work_item_refs: Vec::new(),
             reviewers: Vec::new(),
         }
@@ -7529,15 +7545,14 @@ impl VssJsonCollectionWrapperBase {
     }
 }
 #[doc = "The representation of data needed to create a tag definition which is sent across the wire."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebApiCreateTagRequestData {
     #[doc = "Name of the tag definition that will be created."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub name: String,
 }
 impl WebApiCreateTagRequestData {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(name: String) -> Self {
+        Self { name }
     }
 }
 #[doc = "The representation of a tag definition which is sent across the wire."]

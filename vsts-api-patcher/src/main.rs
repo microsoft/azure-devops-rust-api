@@ -651,7 +651,7 @@ impl Patcher {
                                 "description": "The labels associated with the pull request.",
                                 "type": "array",
                                 "items": {
-                                  "$ref": "#/definitions/WebApiTagDefinition"
+                                  "$ref": "#/definitions/WebApiCreateTagRequestData"
                                 }
                               },
                               "sourceRefName": {
@@ -665,6 +665,14 @@ impl Patcher {
                               "title": {
                                 "description": "The title of the pull request.",
                                 "type": "string"
+                              },
+                              "mergeOptions": {
+                                "description": "Options used when the pull request merge runs. These are separate from completion options since completion happens only once and a new merge will run every time the source branch of the pull request changes.",
+                                "$ref": "#/definitions/GitPullRequestMergeOptions"
+                              },
+                              "completionOptions": {
+                                "description": "Options which affect how the pull request will be merged when it is completed.",
+                                "$ref": "#/definitions/GitPullRequestCompletionOptions"
                               },
                               "workItemRefs": {
                                 "description": "Any work item references associated with this pull request.",
@@ -1038,6 +1046,13 @@ impl Patcher {
                 "GitCommitRef",
                 r#"[
                     "commitId"
+                ]"#,
+            ),
+            (
+                "git.json",
+                "WebApiCreateTagRequestData",
+                r#"[
+                    "name"
                 ]"#,
             ),
             (

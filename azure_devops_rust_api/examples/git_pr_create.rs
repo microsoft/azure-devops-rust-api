@@ -6,7 +6,7 @@
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::Credential;
-use git::models::GitPullRequestCreateOptions;
+use git::models::{GitPullRequestCreateOptions, WebApiCreateTagRequestData};
 use std::env;
 use std::sync::Arc;
 
@@ -44,14 +44,21 @@ async fn main() -> Result<()> {
     let git_client = git::ClientBuilder::new(credential).build();
 
     // Create GitPullRequestCreateOptions with all the mandatory parameters
+    println!("Create PR to merge {} => {}", src_branch, target_branch);
     let mut pr_create_options = GitPullRequestCreateOptions::new(
         // Need to specify full git refs path
         format!("refs/heads/{src_branch}"),
         format!("refs/heads/{target_branch}"),
         title,
     );
+
     // Set any additional optional parameters
     pr_create_options.description = Some(description);
+    // Label creation is unfortunately currently not very ergonomic...
+    pr_create_options.labels = vec![
+        WebApiCreateTagRequestData::new("example_label1".to_string()),
+        WebApiCreateTagRequestData::new("example_label2".to_string()),
+    ];
 
     // Define the new PR
     let pr = git_client

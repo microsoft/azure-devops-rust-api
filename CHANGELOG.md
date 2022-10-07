@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New examples:
   - `git_repo_get_raw_rsp`
   - `artifacts_list`
+  - `build_list_continuation_token`
+  - `release_logs`
+- Added new fields to `GitPullRequestCreateOptions`
+  - `merge_options`
+  - `completion_options`
 - Fix `distributedTask` `variableGroupProjectReferences` deserialization of `null` value
 - Fix `extensionManagement` parsing of `flags` fields
   - Change type from an `enum` to a `String`, as field value is a comma-separated list
@@ -32,11 +37,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `InputValidation` fields `minValue` and `maxValue` need to be `number`/`float`
   - `Subscription` field `probationRetries` needs to be `integer`/`int32`
 - New examples:
-  - code_search
-  - hooks_list
-  - ims_query
-  - extension_management_list
-  - test_rust_list
+  - `code_search`
+  - `hooks_list`
+  - `ims_query`
+  - `extension_management_list`
+  - `test_rust_list`
 
 ## [0.5.3]
 
