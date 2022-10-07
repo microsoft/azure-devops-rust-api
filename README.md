@@ -67,6 +67,7 @@ git commit -m "Updated vsts-rest-api-specs to latest revision"
   - `autorust` is MIT licensed
   - `autorust` includes an `openapi` module, which is also MIT licensed
 - Generates crate for API version 7.1 (latest API version).
+- The [azure-devops-python-api](https://github.com/Microsoft/azure-devops-python-api) can be a useful reference when investigating API issues.
 
 ## Contributing
 

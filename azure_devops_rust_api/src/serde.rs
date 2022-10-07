@@ -1,6 +1,7 @@
 use serde::de::{Deserialize, Deserializer};
 use std::result::Result;
 
+#[allow(dead_code)]
 pub(crate) fn deserialize_null_default<'de, D, T>(deserializer: D) -> Result<T, D::Error>
 where
     T: Default + Deserialize<'de>,
