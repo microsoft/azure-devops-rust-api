@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
         .unwrap();
 
     // Query a specific release
-    println!("\nReleases:");
+    println!("\nRelease:");
     let release = release_client
         .releases_client()
         .get_release(&organization, &project, release_id)
