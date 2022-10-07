@@ -7,14 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1]
+
+## Added
+
 - New examples:
   - `git_repo_get_raw_rsp`
   - `artifacts_list`
   - `build_list_continuation_token`
   - `release_logs`
+  - `wiki_pages_create_or_update`
+  - `search_repositories`
+  - `permissions_report`
 - Added new fields to `GitPullRequestCreateOptions`
   - `merge_options`
   - `completion_options`
+
+## Fixed
+
 - Fix `distributedTask` `variableGroupProjectReferences` deserialization of `null` value
 - Fix `extensionManagement` parsing of `flags` fields
   - Change type from an `enum` to a `String`, as field value is a comma-separated list
@@ -164,7 +174,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.3...0.6.0
 [0.5.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.2...0.5.3
 [0.5.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.1...0.5.2
