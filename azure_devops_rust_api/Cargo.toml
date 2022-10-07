@@ -154,6 +154,10 @@ name = "release"
 required-features = ["release"]
 
 [[example]]
+name = "release_get_release"
+required-features = ["release"]
+
+[[example]]
 name = "service_endpoint"
 required-features = ["service_endpoint"]
 

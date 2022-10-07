@@ -88,6 +88,7 @@ cargo run --example permissions_report --features="permissions_report"
 cargo run --example pipeline_preview --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example pipelines --features="pipelines" $ADO_PROJECT_NAME
 cargo run --example release --features="release"
+cargo run --example release_get_release --features="release" $RELEASE_ID
 cargo run --example service_endpoint --features="service_endpoint"
 cargo run --example search_code --features="search"
 cargo run --example search_repositories --features="search" $ADO_REPO_NAME
