@@ -31,9 +31,11 @@ async fn main() -> Result<()> {
     let release_client = release::ClientBuilder::new(credential).build();
 
     // Get the release ID from user
-    let release_id:i32 = env::args()
-    .nth(1)
-    .expect("Usage: release_get_specific_release <release_id>").parse().unwrap();
+    let release_id: i32 = env::args()
+        .nth(1)
+        .expect("Usage: release_get_specific_release <release_id>")
+        .parse()
+        .unwrap();
 
     // Query a specific release
     println!("\nReleases:");

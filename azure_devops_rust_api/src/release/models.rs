@@ -1891,45 +1891,25 @@ pub mod deployment_attempt {
     #[doc = "Deployment operation status."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationStatus {
-        #[serde(rename = "undefined")]
         Undefined,
-        #[serde(rename = "queued")]
         Queued,
-        #[serde(rename = "scheduled")]
         Scheduled,
-        #[serde(rename = "pending")]
         Pending,
-        #[serde(rename = "approved")]
         Approved,
-        #[serde(rename = "rejected")]
         Rejected,
-        #[serde(rename = "deferred")]
         Deferred,
-        #[serde(rename = "queuedForAgent")]
         QueuedForAgent,
-        #[serde(rename = "phaseInProgress")]
         PhaseInProgress,
-        #[serde(rename = "phaseSucceeded")]
         PhaseSucceeded,
-        #[serde(rename = "phasePartiallySucceeded")]
         PhasePartiallySucceeded,
-        #[serde(rename = "phaseFailed")]
         PhaseFailed,
-        #[serde(rename = "canceled")]
         Canceled,
-        #[serde(rename = "phaseCanceled")]
         PhaseCanceled,
-        #[serde(rename = "manualInterventionPending")]
         ManualInterventionPending,
-        #[serde(rename = "queuedForPipeline")]
         QueuedForPipeline,
-        #[serde(rename = "cancelling")]
         Cancelling,
-        #[serde(rename = "evaluatingGates")]
         EvaluatingGates,
-        #[serde(rename = "gateFailed")]
         GateFailed,
-        #[serde(rename = "all")]
         All,
     }
     #[doc = "Reason for the deployment."]
@@ -2275,45 +2255,25 @@ pub mod deployment_query_parameters {
     #[doc = "Query deployment based on deployment operation status."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationStatus {
-        #[serde(rename = "undefined")]
         Undefined,
-        #[serde(rename = "queued")]
         Queued,
-        #[serde(rename = "scheduled")]
         Scheduled,
-        #[serde(rename = "pending")]
         Pending,
-        #[serde(rename = "approved")]
         Approved,
-        #[serde(rename = "rejected")]
         Rejected,
-        #[serde(rename = "deferred")]
         Deferred,
-        #[serde(rename = "queuedForAgent")]
         QueuedForAgent,
-        #[serde(rename = "phaseInProgress")]
         PhaseInProgress,
-        #[serde(rename = "phaseSucceeded")]
         PhaseSucceeded,
-        #[serde(rename = "phasePartiallySucceeded")]
         PhasePartiallySucceeded,
-        #[serde(rename = "phaseFailed")]
         PhaseFailed,
-        #[serde(rename = "canceled")]
         Canceled,
-        #[serde(rename = "phaseCanceled")]
         PhaseCanceled,
-        #[serde(rename = "manualInterventionPending")]
         ManualInterventionPending,
-        #[serde(rename = "queuedForPipeline")]
         QueuedForPipeline,
-        #[serde(rename = "cancelling")]
         Cancelling,
-        #[serde(rename = "evaluatingGates")]
         EvaluatingGates,
-        #[serde(rename = "gateFailed")]
         GateFailed,
-        #[serde(rename = "all")]
         All,
     }
     #[doc = "Query deployments based query type."]
