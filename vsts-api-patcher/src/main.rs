@@ -149,6 +149,7 @@ impl Patcher {
         Patcher::patch_probation_retries_type,
         Patcher::patch_operation_status_in_releases,
         Patcher::patch_extension_flags,
+        Patcher::patch_wiki_pages_update,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -1456,6 +1457,50 @@ impl Patcher {
             }
             [.., "description" | "summary"] => {
                 value.as_str().map(|v| self.patch_docstring(v).into())
+            }
+            _ => None,
+        }
+    }
+    /// Patch Wiki Pages
+    ///
+    /// To update a Wiki Page an `If-Match` header must be supplied with an `eTag` (page version)
+    /// value. By default this header is generated with the name `Version`. This replaces the name
+    /// `Version` with `If-Match`.
+    fn patch_wiki_pages_update(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to wiki specs
+        if !self.spec_path.ends_with("wiki.json") {
+            return None;
+        }
+        match key {
+            ["paths", "/{organization}/{project}/_apis/wiki/wikis/{wikiIdentifier}/pages", "put", "parameters"] =>
+            {
+                // Parameters is an array of `JsonValue`s, each of which has a `name` field
+                let mut value = value.clone();
+                for param in value.members_mut() {
+                    if let Some(s) = param["name"].as_str() {
+                        // Only update the field which exactly matches "Version"
+                        if s == "Version" {
+                            println!("Replacing header `Version` with `If-Match`");
+                            param["name"] = "If-Match".to_string().into();
+                        }
+                    }
+                }
+                Some(value)
+            }
+            ["paths", "/{organization}/{project}/_apis/wiki/wikis/{wikiIdentifier}/pages/{id}", "patch", "parameters"] =>
+            {
+                // Parameters is an array of `JsonValue`s, each of which has a `name` field
+                let mut value = value.clone();
+                for param in value.members_mut() {
+                    if let Some(s) = param["name"].as_str() {
+                        // Only update the field which exactly matches "Version"
+                        if s == "Version" {
+                            println!("Replacing header `Version` with `If-Match`");
+                            param["name"] = "If-Match".to_string().into();
+                        }
+                    }
+                }
+                Some(value)
             }
             _ => None,
         }

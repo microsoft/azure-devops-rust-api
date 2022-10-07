@@ -1055,7 +1055,7 @@ pub mod pages {
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
         #[doc = "* `path`: Wiki page path."]
-        #[doc = "* `version`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
+        #[doc = "* `if_match`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
         pub fn create_or_update(
             &self,
             organization: impl Into<String>,
@@ -1063,7 +1063,7 @@ pub mod pages {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             path: impl Into<String>,
-            version: impl Into<String>,
+            if_match: impl Into<String>,
         ) -> create_or_update::RequestBuilder {
             create_or_update::RequestBuilder {
                 client: self.0.clone(),
@@ -1072,7 +1072,7 @@ pub mod pages {
                 project: project.into(),
                 wiki_identifier: wiki_identifier.into(),
                 path: path.into(),
-                version: version.into(),
+                if_match: if_match.into(),
                 comment: None,
                 version_descriptor_version: None,
                 version_descriptor_version_options: None,
@@ -1137,7 +1137,7 @@ pub mod pages {
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `wiki_identifier`: Wiki ID or wiki name."]
         #[doc = "* `id`: Wiki page ID."]
-        #[doc = "* `version`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
+        #[doc = "* `if_match`: Version of the page on which the change is to be made. Mandatory for `Edit` scenario. To be populated in the If-Match header of the request."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -1145,7 +1145,7 @@ pub mod pages {
             project: impl Into<String>,
             wiki_identifier: impl Into<String>,
             id: i32,
-            version: impl Into<String>,
+            if_match: impl Into<String>,
         ) -> update::RequestBuilder {
             update::RequestBuilder {
                 client: self.0.clone(),
@@ -1154,7 +1154,7 @@ pub mod pages {
                 project: project.into(),
                 wiki_identifier: wiki_identifier.into(),
                 id,
-                version: version.into(),
+                if_match: if_match.into(),
                 comment: None,
             }
         }
@@ -1408,7 +1408,7 @@ pub mod pages {
             pub(crate) project: String,
             pub(crate) wiki_identifier: String,
             pub(crate) path: String,
-            pub(crate) version: String,
+            pub(crate) if_match: String,
             pub(crate) comment: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
             pub(crate) version_descriptor_version_options: Option<String>,
@@ -1473,7 +1473,7 @@ pub mod pages {
                         let req_body = azure_core::to_json(&this.body)?;
                         let path = &this.path;
                         req.url_mut().query_pairs_mut().append_pair("path", path);
-                        req.insert_header("version", &this.version);
+                        req.insert_header("if-match", &this.if_match);
                         if let Some(comment) = &this.comment {
                             req.url_mut()
                                 .query_pairs_mut()
@@ -1840,7 +1840,7 @@ pub mod pages {
             pub(crate) project: String,
             pub(crate) wiki_identifier: String,
             pub(crate) id: i32,
-            pub(crate) version: String,
+            pub(crate) if_match: String,
             pub(crate) comment: Option<String>,
         }
         impl RequestBuilder {
@@ -1876,7 +1876,7 @@ pub mod pages {
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::to_json(&this.body)?;
-                        req.insert_header("version", &this.version);
+                        req.insert_header("if-match", &this.if_match);
                         if let Some(comment) = &this.comment {
                             req.url_mut()
                                 .query_pairs_mut()

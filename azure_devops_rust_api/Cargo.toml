@@ -186,6 +186,10 @@ name = "client_pipeline_policy"
 required-features = ["git"]
 
 [[example]]
+name = "wiki_pages_create_or_update"
+required-features = ["wiki"]
+
+[[example]]
 name = "wit"
 required-features = ["wit"]
 
