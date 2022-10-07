@@ -735,7 +735,7 @@ impl Patcher {
             }
             _ => None,
         }
-    }    
+    }
 
     fn patch_pipelines_reference_links(
         &mut self,
