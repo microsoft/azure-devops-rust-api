@@ -148,8 +148,9 @@ impl Patcher {
         Patcher::patch_input_validation_min_max,
         Patcher::patch_probation_retries_type,
         Patcher::patch_operation_status_in_releases,
-        Patcher::patch_operation_status_in_releases_query_parameters,
-        Patcher::patch_operation_status_in_releases_deployment_attempt,
+        //patch_operation_status,
+        //Patcher::patch_operation_status_in_releases_query_parameters,
+        //Patcher::patch_operation_status_in_releases_deployment_attempt,
         Patcher::patch_extension_flags,
         Patcher::patch_wiki_pages_update,
         // This must be done after the other patches
@@ -356,384 +357,523 @@ impl Patcher {
         }
     }
 
+    // fn patch_operation_status_in_releases(
+    //     &mut self,
+    //     key: &[&str],
+    //     _value: &JsonValue,
+    // ) -> Option<JsonValue> {
+    //     // Only applies to pipelines specs
+    //     if !self.spec_path.ends_with("release.json") {
+    //         return None;
+    //     }
+    //     match key {
+    //         ["definitions", "Deployment", "properties", "operationStatus"] => {
+    //             println!("Modify patch_operationStatus_in_releases definition");
+    //             Some(json::object! {
+    //               "description": "Gets operation status of deployment.",
+    //               "enum": [
+    //                 "Undefined",
+    //                 "Queued",
+    //                 "Scheduled",
+    //                 "Pending",
+    //                 "Approved",
+    //                 "Rejected",
+    //                 "Deferred",
+    //                 "QueuedForAgent",
+    //                 "PhaseInProgress",
+    //                 "PhaseSucceeded",
+    //                 "PhasePartiallySucceeded",
+    //                 "PhaseFailed",
+    //                 "Canceled",
+    //                 "PhaseCanceled",
+    //                 "ManualInterventionPending",
+    //                 "QueuedForPipeline",
+    //                 "Cancelling",
+    //                 "EvaluatingGates",
+    //                 "GateFailed",
+    //                 "All"
+    //               ],
+    //               "x-ms-enum": {
+    //                 "name": "DeploymentOperationStatus",
+    //                 "values": [
+    //                   {
+    //                     "value": "Undefined",
+    //                     "description": "The deployment operation status is undefined."
+    //                   },
+    //                   {
+    //                     "value": "Queued",
+    //                     "description": "The deployment operation status is queued."
+    //                   },
+    //                   {
+    //                     "value": "Scheduled",
+    //                     "description": "The deployment operation status is scheduled."
+    //                   },
+    //                   {
+    //                     "value": "Pending",
+    //                     "description": "The deployment operation status is pending."
+    //                   },
+    //                   {
+    //                     "value": "Approved",
+    //                     "description": "The deployment operation status is approved."
+    //                   },
+    //                   {
+    //                     "value": "Rejected",
+    //                     "description": "The deployment operation status is rejected."
+    //                   },
+    //                   {
+    //                     "value": "Deferred",
+    //                     "description": "The deployment operation status is deferred."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForAgent",
+    //                     "description": "The deployment operation status is queued for agent."
+    //                   },
+    //                   {
+    //                     "value": "PhaseInProgress",
+    //                     "description": "The deployment operation status is phase in progress."
+    //                   },
+    //                   {
+    //                     "value": "PhaseSucceeded",
+    //                     "description": "The deployment operation status is phase succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhasePartiallySucceeded",
+    //                     "description": "The deployment operation status is phase partially succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhaseFailed",
+    //                     "description": "The deployment operation status is phase failed."
+    //                   },
+    //                   {
+    //                     "value": "Canceled",
+    //                     "description": "The deployment operation status is canceled."
+    //                   },
+    //                   {
+    //                     "value": "PhaseCanceled",
+    //                     "description": "The deployment operation status is phase canceled."
+    //                   },
+    //                   {
+    //                     "value": "ManualInterventionPending",
+    //                     "description": "The deployment operation status is manualintervention pending."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForPipeline",
+    //                     "description": "The deployment operation status is queued for pipeline."
+    //                   },
+    //                   {
+    //                     "value": "Cancelling",
+    //                     "description": "The deployment operation status is cancelling."
+    //                   },
+    //                   {
+    //                     "value": "EvaluatingGates",
+    //                     "description": "The deployment operation status is EvaluatingGates."
+    //                   },
+    //                   {
+    //                     "value": "GateFailed",
+    //                     "description": "The deployment operation status is GateFailed."
+    //                   },
+    //                   {
+    //                     "value": "All",
+    //                     "description": "The deployment operation status is all."
+    //                   }
+    //                 ]
+    //               }
+    //             })
+    //         }
+    //         _ => None,
+    //     }
+    // }
+
+    // fn patch_operation_status_in_releases_query_parameters(
+    //     &mut self,
+    //     key: &[&str],
+    //     _value: &JsonValue,
+    // ) -> Option<JsonValue> {
+    //     // Only applies to pipelines specs
+    //     if !self.spec_path.ends_with("release.json") {
+    //         return None;
+    //     }
+    //     match key {
+    //         ["definitions", "DeploymentQueryParameters", "properties", "operationStatus"] => {
+    //             println!("Modify patch_operationStatus_in_releases_query_parameters definition");
+    //             Some(json::object! {
+    //               "description": "Query deployment based on deployment operation status.",
+    //               "enum": [
+    //                 "Undefined",
+    //                 "Queued",
+    //                 "Scheduled",
+    //                 "Pending",
+    //                 "Approved",
+    //                 "Rejected",
+    //                 "Deferred",
+    //                 "QueuedForAgent",
+    //                 "PhaseInProgress",
+    //                 "PhaseSucceeded",
+    //                 "PhasePartiallySucceeded",
+    //                 "PhaseFailed",
+    //                 "Canceled",
+    //                 "PhaseCanceled",
+    //                 "ManualInterventionPending",
+    //                 "QueuedForPipeline",
+    //                 "Cancelling",
+    //                 "EvaluatingGates",
+    //                 "GateFailed",
+    //                 "All"
+    //               ],
+    //               "x-ms-enum": {
+    //                 "name": "DeploymentOperationStatus",
+    //                 "values": [
+    //                   {
+    //                     "value": "Undefined",
+    //                     "description": "The deployment operation status is undefined."
+    //                   },
+    //                   {
+    //                     "value": "Queued",
+    //                     "description": "The deployment operation status is queued."
+    //                   },
+    //                   {
+    //                     "value": "Scheduled",
+    //                     "description": "The deployment operation status is scheduled."
+    //                   },
+    //                   {
+    //                     "value": "Pending",
+    //                     "description": "The deployment operation status is pending."
+    //                   },
+    //                   {
+    //                     "value": "Approved",
+    //                     "description": "The deployment operation status is approved."
+    //                   },
+    //                   {
+    //                     "value": "Rejected",
+    //                     "description": "The deployment operation status is rejected."
+    //                   },
+    //                   {
+    //                     "value": "Deferred",
+    //                     "description": "The deployment operation status is deferred."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForAgent",
+    //                     "description": "The deployment operation status is queued for agent."
+    //                   },
+    //                   {
+    //                     "value": "PhaseInProgress",
+    //                     "description": "The deployment operation status is phase in progress."
+    //                   },
+    //                   {
+    //                     "value": "PhaseSucceeded",
+    //                     "description": "The deployment operation status is phase succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhasePartiallySucceeded",
+    //                     "description": "The deployment operation status is phase partially succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhaseFailed",
+    //                     "description": "The deployment operation status is phase failed."
+    //                   },
+    //                   {
+    //                     "value": "Canceled",
+    //                     "description": "The deployment operation status is canceled."
+    //                   },
+    //                   {
+    //                     "value": "PhaseCanceled",
+    //                     "description": "The deployment operation status is phase canceled."
+    //                   },
+    //                   {
+    //                     "value": "ManualInterventionPending",
+    //                     "description": "The deployment operation status is manualintervention pending."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForPipeline",
+    //                     "description": "The deployment operation status is queued for pipeline."
+    //                   },
+    //                   {
+    //                     "value": "Cancelling",
+    //                     "description": "The deployment operation status is cancelling."
+    //                   },
+    //                   {
+    //                     "value": "EvaluatingGates",
+    //                     "description": "The deployment operation status is EvaluatingGates."
+    //                   },
+    //                   {
+    //                     "value": "GateFailed",
+    //                     "description": "The deployment operation status is GateFailed."
+    //                   },
+    //                   {
+    //                     "value": "All",
+    //                     "description": "The deployment operation status is all."
+    //                   }
+    //                 ]
+    //               }
+    //             })
+    //         }
+    //         _ => None,
+    //     }
+    // }
+
+    // fn patch_operation_status_in_releases_deployment_attempt(
+    //     &mut self,
+    //     key: &[&str],
+    //     _value: &JsonValue,
+    // ) -> Option<JsonValue> {
+    //     // Only applies to pipelines specs
+    //     if !self.spec_path.ends_with("release.json") {
+    //         return None;
+    //     }
+    //     match key {
+    //         ["definitions", "DeploymentAttempt", "properties", "operationStatus"] => {
+    //             println!("Modify patch_operationStatus_in_releases_deployment_attempt definition");
+    //             Some(json::object! {
+    //               "description": "Deployment operation status.",
+    //               "enum": [
+    //                 "Undefined",
+    //                 "Queued",
+    //                 "Scheduled",
+    //                 "Pending",
+    //                 "Approved",
+    //                 "Rejected",
+    //                 "Deferred",
+    //                 "QueuedForAgent",
+    //                 "PhaseInProgress",
+    //                 "PhaseSucceeded",
+    //                 "PhasePartiallySucceeded",
+    //                 "PhaseFailed",
+    //                 "Canceled",
+    //                 "PhaseCanceled",
+    //                 "ManualInterventionPending",
+    //                 "QueuedForPipeline",
+    //                 "Cancelling",
+    //                 "EvaluatingGates",
+    //                 "GateFailed",
+    //                 "All"
+    //               ],
+    //               "x-ms-enum": {
+    //                 "name": "DeploymentOperationStatus",
+    //                 "values": [
+    //                   {
+    //                     "value": "Undefined",
+    //                     "description": "The deployment operation status is undefined."
+    //                   },
+    //                   {
+    //                     "value": "Queued",
+    //                     "description": "The deployment operation status is queued."
+    //                   },
+    //                   {
+    //                     "value": "Scheduled",
+    //                     "description": "The deployment operation status is scheduled."
+    //                   },
+    //                   {
+    //                     "value": "Pending",
+    //                     "description": "The deployment operation status is pending."
+    //                   },
+    //                   {
+    //                     "value": "Approved",
+    //                     "description": "The deployment operation status is approved."
+    //                   },
+    //                   {
+    //                     "value": "Rejected",
+    //                     "description": "The deployment operation status is rejected."
+    //                   },
+    //                   {
+    //                     "value": "Deferred",
+    //                     "description": "The deployment operation status is deferred."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForAgent",
+    //                     "description": "The deployment operation status is queued for agent."
+    //                   },
+    //                   {
+    //                     "value": "PhaseInProgress",
+    //                     "description": "The deployment operation status is phase in progress."
+    //                   },
+    //                   {
+    //                     "value": "PhaseSucceeded",
+    //                     "description": "The deployment operation status is phase succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhasePartiallySucceeded",
+    //                     "description": "The deployment operation status is phase partially succeeded."
+    //                   },
+    //                   {
+    //                     "value": "PhaseFailed",
+    //                     "description": "The deployment operation status is phase failed."
+    //                   },
+    //                   {
+    //                     "value": "Canceled",
+    //                     "description": "The deployment operation status is canceled."
+    //                   },
+    //                   {
+    //                     "value": "PhaseCanceled",
+    //                     "description": "The deployment operation status is phase canceled."
+    //                   },
+    //                   {
+    //                     "value": "ManualInterventionPending",
+    //                     "description": "The deployment operation status is manualintervention pending."
+    //                   },
+    //                   {
+    //                     "value": "QueuedForPipeline",
+    //                     "description": "The deployment operation status is queued for pipeline."
+    //                   },
+    //                   {
+    //                     "value": "Cancelling",
+    //                     "description": "The deployment operation status is cancelling."
+    //                   },
+    //                   {
+    //                     "value": "EvaluatingGates",
+    //                     "description": "The deployment operation status is EvaluatingGates."
+    //                   },
+    //                   {
+    //                     "value": "GateFailed",
+    //                     "description": "The deployment operation status is GateFailed."
+    //                   },
+    //                   {
+    //                     "value": "All",
+    //                     "description": "The deployment operation status is all."
+    //                   }
+    //                 ]
+    //               }
+    //             })
+    //         }
+    //         _ => None,
+    //     }
+    // }
+
     fn patch_operation_status_in_releases(
         &mut self,
         key: &[&str],
         _value: &JsonValue,
     ) -> Option<JsonValue> {
-        // Only applies to pipelines specs
+        // Only applies to release specs
         if !self.spec_path.ends_with("release.json") {
             return None;
         }
         match key {
             ["definitions", "Deployment", "properties", "operationStatus"] => {
-                println!("Modify patch_operationStatus_in_releases definition");
-                Some(json::object! {
-                  "description": "Gets operation status of deployment.",
-                  "enum": [
-                    "Undefined",
-                    "Queued",
-                    "Scheduled",
-                    "Pending",
-                    "Approved",
-                    "Rejected",
-                    "Deferred",
-                    "QueuedForAgent",
-                    "PhaseInProgress",
-                    "PhaseSucceeded",
-                    "PhasePartiallySucceeded",
-                    "PhaseFailed",
-                    "Canceled",
-                    "PhaseCanceled",
-                    "ManualInterventionPending",
-                    "QueuedForPipeline",
-                    "Cancelling",
-                    "EvaluatingGates",
-                    "GateFailed",
-                    "All"
-                  ],
-                  "x-ms-enum": {
-                    "name": "DeploymentOperationStatus",
-                    "values": [
-                      {
-                        "value": "Undefined",
-                        "description": "The deployment operation status is undefined."
-                      },
-                      {
-                        "value": "Queued",
-                        "description": "The deployment operation status is queued."
-                      },
-                      {
-                        "value": "Scheduled",
-                        "description": "The deployment operation status is scheduled."
-                      },
-                      {
-                        "value": "Pending",
-                        "description": "The deployment operation status is pending."
-                      },
-                      {
-                        "value": "Approved",
-                        "description": "The deployment operation status is approved."
-                      },
-                      {
-                        "value": "Rejected",
-                        "description": "The deployment operation status is rejected."
-                      },
-                      {
-                        "value": "Deferred",
-                        "description": "The deployment operation status is deferred."
-                      },
-                      {
-                        "value": "QueuedForAgent",
-                        "description": "The deployment operation status is queued for agent."
-                      },
-                      {
-                        "value": "PhaseInProgress",
-                        "description": "The deployment operation status is phase in progress."
-                      },
-                      {
-                        "value": "PhaseSucceeded",
-                        "description": "The deployment operation status is phase succeeded."
-                      },
-                      {
-                        "value": "PhasePartiallySucceeded",
-                        "description": "The deployment operation status is phase partially succeeded."
-                      },
-                      {
-                        "value": "PhaseFailed",
-                        "description": "The deployment operation status is phase failed."
-                      },
-                      {
-                        "value": "Canceled",
-                        "description": "The deployment operation status is canceled."
-                      },
-                      {
-                        "value": "PhaseCanceled",
-                        "description": "The deployment operation status is phase canceled."
-                      },
-                      {
-                        "value": "ManualInterventionPending",
-                        "description": "The deployment operation status is manualintervention pending."
-                      },
-                      {
-                        "value": "QueuedForPipeline",
-                        "description": "The deployment operation status is queued for pipeline."
-                      },
-                      {
-                        "value": "Cancelling",
-                        "description": "The deployment operation status is cancelling."
-                      },
-                      {
-                        "value": "EvaluatingGates",
-                        "description": "The deployment operation status is EvaluatingGates."
-                      },
-                      {
-                        "value": "GateFailed",
-                        "description": "The deployment operation status is GateFailed."
-                      },
-                      {
-                        "value": "All",
-                        "description": "The deployment operation status is all."
-                      }
-                    ]
-                  }
-                })
+                Some(self.patched_operation_status("Gets operation status of deployment."))
             }
-            _ => None,
-        }
-    }
-
-    fn patch_operation_status_in_releases_query_parameters(
-        &mut self,
-        key: &[&str],
-        _value: &JsonValue,
-    ) -> Option<JsonValue> {
-        // Only applies to pipelines specs
-        if !self.spec_path.ends_with("release.json") {
-            return None;
-        }
-        match key {
             ["definitions", "DeploymentQueryParameters", "properties", "operationStatus"] => {
-                println!("Modify patch_operationStatus_in_releases_query_parameters definition");
-                Some(json::object! {
-                  "description": "Query deployment based on deployment operation status.",
-                  "enum": [
-                    "Undefined",
-                    "Queued",
-                    "Scheduled",
-                    "Pending",
-                    "Approved",
-                    "Rejected",
-                    "Deferred",
-                    "QueuedForAgent",
-                    "PhaseInProgress",
-                    "PhaseSucceeded",
-                    "PhasePartiallySucceeded",
-                    "PhaseFailed",
-                    "Canceled",
-                    "PhaseCanceled",
-                    "ManualInterventionPending",
-                    "QueuedForPipeline",
-                    "Cancelling",
-                    "EvaluatingGates",
-                    "GateFailed",
-                    "All"
-                  ],
-                  "x-ms-enum": {
-                    "name": "DeploymentOperationStatus",
-                    "values": [
-                      {
-                        "value": "Undefined",
-                        "description": "The deployment operation status is undefined."
-                      },
-                      {
-                        "value": "Queued",
-                        "description": "The deployment operation status is queued."
-                      },
-                      {
-                        "value": "Scheduled",
-                        "description": "The deployment operation status is scheduled."
-                      },
-                      {
-                        "value": "Pending",
-                        "description": "The deployment operation status is pending."
-                      },
-                      {
-                        "value": "Approved",
-                        "description": "The deployment operation status is approved."
-                      },
-                      {
-                        "value": "Rejected",
-                        "description": "The deployment operation status is rejected."
-                      },
-                      {
-                        "value": "Deferred",
-                        "description": "The deployment operation status is deferred."
-                      },
-                      {
-                        "value": "QueuedForAgent",
-                        "description": "The deployment operation status is queued for agent."
-                      },
-                      {
-                        "value": "PhaseInProgress",
-                        "description": "The deployment operation status is phase in progress."
-                      },
-                      {
-                        "value": "PhaseSucceeded",
-                        "description": "The deployment operation status is phase succeeded."
-                      },
-                      {
-                        "value": "PhasePartiallySucceeded",
-                        "description": "The deployment operation status is phase partially succeeded."
-                      },
-                      {
-                        "value": "PhaseFailed",
-                        "description": "The deployment operation status is phase failed."
-                      },
-                      {
-                        "value": "Canceled",
-                        "description": "The deployment operation status is canceled."
-                      },
-                      {
-                        "value": "PhaseCanceled",
-                        "description": "The deployment operation status is phase canceled."
-                      },
-                      {
-                        "value": "ManualInterventionPending",
-                        "description": "The deployment operation status is manualintervention pending."
-                      },
-                      {
-                        "value": "QueuedForPipeline",
-                        "description": "The deployment operation status is queued for pipeline."
-                      },
-                      {
-                        "value": "Cancelling",
-                        "description": "The deployment operation status is cancelling."
-                      },
-                      {
-                        "value": "EvaluatingGates",
-                        "description": "The deployment operation status is EvaluatingGates."
-                      },
-                      {
-                        "value": "GateFailed",
-                        "description": "The deployment operation status is GateFailed."
-                      },
-                      {
-                        "value": "All",
-                        "description": "The deployment operation status is all."
-                      }
-                    ]
-                  }
-                })
+                Some(self.patched_operation_status(
+                    "Query deployment based on deployment operation status.",
+                ))
             }
+            ["definitions", "DeploymentAttempt", "properties", "operationStatus"] => {
+                Some(self.patched_operation_status("Deployment operation status."))
+            }
+
             _ => None,
         }
     }
 
-    fn patch_operation_status_in_releases_deployment_attempt(
-        &mut self,
-        key: &[&str],
-        _value: &JsonValue,
-    ) -> Option<JsonValue> {
-        // Only applies to pipelines specs
-        if !self.spec_path.ends_with("release.json") {
-            return None;
-        }
-        match key {
-            ["definitions", "DeploymentAttempt", "properties", "operationStatus"] => {
-                println!("Modify patch_operationStatus_in_releases_deployment_attempt definition");
-                Some(json::object! {
-                  "description": "Deployment operation status.",
-                  "enum": [
-                    "Undefined",
-                    "Queued",
-                    "Scheduled",
-                    "Pending",
-                    "Approved",
-                    "Rejected",
-                    "Deferred",
-                    "QueuedForAgent",
-                    "PhaseInProgress",
-                    "PhaseSucceeded",
-                    "PhasePartiallySucceeded",
-                    "PhaseFailed",
-                    "Canceled",
-                    "PhaseCanceled",
-                    "ManualInterventionPending",
-                    "QueuedForPipeline",
-                    "Cancelling",
-                    "EvaluatingGates",
-                    "GateFailed",
-                    "All"
-                  ],
-                  "x-ms-enum": {
-                    "name": "DeploymentOperationStatus",
-                    "values": [
-                      {
-                        "value": "Undefined",
-                        "description": "The deployment operation status is undefined."
-                      },
-                      {
-                        "value": "Queued",
-                        "description": "The deployment operation status is queued."
-                      },
-                      {
-                        "value": "Scheduled",
-                        "description": "The deployment operation status is scheduled."
-                      },
-                      {
-                        "value": "Pending",
-                        "description": "The deployment operation status is pending."
-                      },
-                      {
-                        "value": "Approved",
-                        "description": "The deployment operation status is approved."
-                      },
-                      {
-                        "value": "Rejected",
-                        "description": "The deployment operation status is rejected."
-                      },
-                      {
-                        "value": "Deferred",
-                        "description": "The deployment operation status is deferred."
-                      },
-                      {
-                        "value": "QueuedForAgent",
-                        "description": "The deployment operation status is queued for agent."
-                      },
-                      {
-                        "value": "PhaseInProgress",
-                        "description": "The deployment operation status is phase in progress."
-                      },
-                      {
-                        "value": "PhaseSucceeded",
-                        "description": "The deployment operation status is phase succeeded."
-                      },
-                      {
-                        "value": "PhasePartiallySucceeded",
-                        "description": "The deployment operation status is phase partially succeeded."
-                      },
-                      {
-                        "value": "PhaseFailed",
-                        "description": "The deployment operation status is phase failed."
-                      },
-                      {
-                        "value": "Canceled",
-                        "description": "The deployment operation status is canceled."
-                      },
-                      {
-                        "value": "PhaseCanceled",
-                        "description": "The deployment operation status is phase canceled."
-                      },
-                      {
-                        "value": "ManualInterventionPending",
-                        "description": "The deployment operation status is manualintervention pending."
-                      },
-                      {
-                        "value": "QueuedForPipeline",
-                        "description": "The deployment operation status is queued for pipeline."
-                      },
-                      {
-                        "value": "Cancelling",
-                        "description": "The deployment operation status is cancelling."
-                      },
-                      {
-                        "value": "EvaluatingGates",
-                        "description": "The deployment operation status is EvaluatingGates."
-                      },
-                      {
-                        "value": "GateFailed",
-                        "description": "The deployment operation status is GateFailed."
-                      },
-                      {
-                        "value": "All",
-                        "description": "The deployment operation status is all."
-                      }
-                    ]
+    fn patched_operation_status(&self, description: &str) -> JsonValue {
+        json::object! {
+            "description": description,
+            "enum": [
+                "Undefined",
+                "Queued",
+                "Scheduled",
+                "Pending",
+                "Approved",
+                "Rejected",
+                "Deferred",
+                "QueuedForAgent",
+                "PhaseInProgress",
+                "PhaseSucceeded",
+                "PhasePartiallySucceeded",
+                "PhaseFailed",
+                "Canceled",
+                "PhaseCanceled",
+                "ManualInterventionPending",
+                "QueuedForPipeline",
+                "Cancelling",
+                "EvaluatingGates",
+                "GateFailed",
+                "All"
+              ],
+              "x-ms-enum": {
+                "name": "DeploymentOperationStatus",
+                "values": [
+                  {
+                    "value": "Undefined",
+                    "description": "The deployment operation status is undefined."
+                  },
+                  {
+                    "value": "Queued",
+                    "description": "The deployment operation status is queued."
+                  },
+                  {
+                    "value": "Scheduled",
+                    "description": "The deployment operation status is scheduled."
+                  },
+                  {
+                    "value": "Pending",
+                    "description": "The deployment operation status is pending."
+                  },
+                  {
+                    "value": "Approved",
+                    "description": "The deployment operation status is approved."
+                  },
+                  {
+                    "value": "Rejected",
+                    "description": "The deployment operation status is rejected."
+                  },
+                  {
+                    "value": "Deferred",
+                    "description": "The deployment operation status is deferred."
+                  },
+                  {
+                    "value": "QueuedForAgent",
+                    "description": "The deployment operation status is queued for agent."
+                  },
+                  {
+                    "value": "PhaseInProgress",
+                    "description": "The deployment operation status is phase in progress."
+                  },
+                  {
+                    "value": "PhaseSucceeded",
+                    "description": "The deployment operation status is phase succeeded."
+                  },
+                  {
+                    "value": "PhasePartiallySucceeded",
+                    "description": "The deployment operation status is phase partially succeeded."
+                  },
+                  {
+                    "value": "PhaseFailed",
+                    "description": "The deployment operation status is phase failed."
+                  },
+                  {
+                    "value": "Canceled",
+                    "description": "The deployment operation status is canceled."
+                  },
+                  {
+                    "value": "PhaseCanceled",
+                    "description": "The deployment operation status is phase canceled."
+                  },
+                  {
+                    "value": "ManualInterventionPending",
+                    "description": "The deployment operation status is manualintervention pending."
+                  },
+                  {
+                    "value": "QueuedForPipeline",
+                    "description": "The deployment operation status is queued for pipeline."
+                  },
+                  {
+                    "value": "Cancelling",
+                    "description": "The deployment operation status is cancelling."
+                  },
+                  {
+                    "value": "EvaluatingGates",
+                    "description": "The deployment operation status is EvaluatingGates."
+                  },
+                  {
+                    "value": "GateFailed",
+                    "description": "The deployment operation status is GateFailed."
+                  },
+                  {
+                    "value": "All",
+                    "description": "The deployment operation status is all."
                   }
-                })
-            }
-            _ => None,
+                ]
+              }
         }
     }
 
