@@ -8,14 +8,15 @@ set -e
 ADO_PROJECT_NAME=$1
 ADO_USER_EMAIL=$2
 ADO_REPO_NAME=$3
-ADO_PR_ID=$4
-ADO_WIKI_ID=$5
-ADO_WIKI_PAGE_PATH=$6
-ADO_WIKI_CONTENT=$7
+ADO_REPO_FILENAME=$4
+ADO_PR_ID=$5
+ADO_WIKI_ID=$6
+ADO_WIKI_PAGE_PATH=$7
+ADO_WIKI_CONTENT=$8
 
 usage () {
     echo "Usage:"
-    echo "  ./run_all_examples <project_name> <user_email_address> <repo_name> <pr_id> <wiki_id> <wiki_page_path> <wiki_content>"
+    echo "  ./run_all_examples <project_name> <user_email_address> <repo_name> <repo_filename> <pr_id> <wiki_id> <wiki_page_path> <wiki_content>"
 }
 
 if [ -z "$ADO_PROJECT_NAME" ];
@@ -35,6 +36,13 @@ fi
 if [ -z "$ADO_REPO_NAME" ];
 then
     echo "Error: Missing repo_name parameter"
+    usage
+    exit 1
+fi
+
+if [ -z "$ADO_REPO_FILENAME" ];
+then
+    echo "Error: Missing repo_filename parameter"
     usage
     exit 1
 fi
@@ -79,6 +87,8 @@ cargo run --example extension_management_list --features="extension_management"
 cargo run --example git_repo_get --features="git" $ADO_PROJECT_NAME
 cargo run --example git_repo_get_raw_rsp --features="git" $ADO_PROJECT_NAME
 cargo run --example git_repo_list --features="git"
+cargo run --example git_items_list --features="git" $ADO_REPO_NAME
+cargo run --example git_items_get --features="git" $ADO_REPO_NAME $ADO_REPO_FILENAME
 cargo run --example git_pr_commits  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example git_pr_files_changed  --features="git" $ADO_REPO_NAME $ADO_PR_ID
 cargo run --example git_pr_work_items  --features="git" $ADO_REPO_NAME $ADO_PR_ID
