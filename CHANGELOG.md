@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- New examples:
+  - `git_items_list`
+  - `git_items_get`
+
 ## [0.6.1]
 
 ## Added

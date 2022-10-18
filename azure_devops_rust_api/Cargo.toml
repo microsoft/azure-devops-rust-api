@@ -106,6 +106,14 @@ name = "git_repo_list"
 required-features = ["git"]
 
 [[example]]
+name = "git_items_list"
+required-features = ["git"]
+
+[[example]]
+name = "git_items_get"
+required-features = ["git"]
+
+[[example]]
 name = "git_commit_changes"
 required-features = ["git"]
 
