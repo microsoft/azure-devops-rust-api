@@ -46,5 +46,15 @@ async fn main() -> Result<()> {
         .await?;
     println!("{:#?}", release);
 
+    // Get manual interventions on a release
+    println!("\nManual interventions:");
+    let manual_interventions = release_client
+        .manual_interventions_client()
+        .list(&organization, &project, release_id)
+        .into_future()
+        .await?
+        .value;
+    println!("{:#?}", manual_interventions);
+
     Ok(())
 }
