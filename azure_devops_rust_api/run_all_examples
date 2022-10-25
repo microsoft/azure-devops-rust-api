@@ -102,6 +102,7 @@ cargo run --example release_get_release --features="release" $RELEASE_ID
 cargo run --example service_endpoint --features="service_endpoint"
 cargo run --example search_code --features="search"
 cargo run --example search_repositories --features="search" $ADO_REPO_NAME
+cargo run --example search_package --features="search" $PKG_NAME
 cargo run --example test_runs_list --features="test"
 cargo run --example client_pipeline_policy --features="git"
 cargo run --example wiki_pages_create_or_update --features="wiki" $ADO_WIKI_ID $ADO_WIKI_PAGE_PATH $ADO_WIKI_CONTENT
