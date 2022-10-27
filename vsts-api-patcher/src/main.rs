@@ -144,6 +144,7 @@ impl Patcher {
         Patcher::patch_git_commit_change_counts,
         Patcher::patch_git_change,
         Patcher::patch_git_pull_request_create,
+        Patcher::patch_git_pull_request_update,
         Patcher::patch_ims_identity_base,
         Patcher::patch_input_validation_min_max,
         Patcher::patch_probation_retries_type,
@@ -773,6 +774,151 @@ impl Patcher {
                         }
                     }
                 })
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_git_pull_request_update(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        println!("PR: {:?}", key);
+        match key {
+            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests/{pullRequestId}", "patch", "parameters"] =>
+            {
+                println!("Replace git update Pull Request parameters");
+                self.new_definitions.insert(
+                    "GitPullRequestUpdateOptions".to_string(),
+                    json::object! {
+                    "description": "Pull Request update options",
+                    "type": "object",
+                    "properties": {
+                          "description": {
+                            "description": "The description of the pull request.",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "The title of the pull request.",
+                            "type": "string"
+                          },
+                          "reviewers": {
+                            "description": "A list of reviewers on the pull request.",
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/IdentityId"
+                            }
+                          },
+                          "mergeStatus": {
+                            "description": "The current status of the pull request merge.",
+                                "$ref": "#/definitions/GitPullRequestMergeOptions"
+                          },
+                          "status": {
+                            "description": "The status of the pull request.",
+                                "$ref": "#/definitions/PullRequestStatus",
+                          }
+                        }
+                    },
+                );
+
+                self.new_definitions.insert(
+                    "PullRequestStatus".to_string(),
+                    json::object! {
+                            "description": "Pull request status",
+                                "enum": [
+                                    "notSet",
+                                    "active",
+                                    "abandoned",
+                                    "completed",
+                                  ],
+                                  "x-ms-enum": {
+                                    "name": "PullRequestStatus",
+                                    "values": [
+                                      {
+                                        "value": "notSet",
+                                        "description": "Status not set. Default state."
+                                      },
+                                      {
+                                        "value": "active",
+                                        "description": "Pull request is active."
+                                      },
+                                      {
+                                        "value": "abandoned",
+                                        "description": "Pull request is abandoned."
+                                      },
+                                      {
+                                        "value": "completed",
+                                        "description": "Pull request is completed."
+                                      }
+                                    ]
+
+                        },
+                    },
+                );
+
+                Some(json::array![
+                    {
+                        "in": "path",
+                        "name": "organization",
+                        "description": "The name of the Azure DevOps organization.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "repositoryId",
+                        "description": "The repository ID of the pull request's target branch.",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "project",
+                        "description": "Project ID or project name",
+                        "required": true,
+                        "x-ms-required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "pullRequestId",
+                        "description": "The ID of the pull request to retrieve.",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "in": "query",
+                        "name": "includeCommits",
+                        "description": "If true, the pull request will be returned with the associated commits.",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "body",
+                        "name": "updateOptions",
+                        "description": "The pull request content to update.",
+                        "required": true,
+                        "schema": {
+                        "$ref": "#/definitions/GitPullRequestUpdateOptions"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "includeWorkItemRefs",
+                        "description": "If true, the pull request will be returned with the associated work item references.",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "$ref": "#/parameters/api-Version-preview.1"
+                    }
+                ])
             }
             _ => None,
         }
