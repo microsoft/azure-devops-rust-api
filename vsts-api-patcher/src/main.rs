@@ -796,69 +796,70 @@ impl Patcher {
                 self.new_definitions.insert(
                     "GitPullRequestUpdateOptions".to_string(),
                     json::object! {
-                        "description": "Pull Request update options",
-                        "type": "object",
-                        "properties": {
-                              "description": {
-                                "description": "The description of the pull request.",
-                                "type": "string"
-                              },
-                              "title": {
-                                "description": "The title of the pull request.",
-                                "type": "string"
-                              },
-                              "reviewers": {
-                                "description": "A list of reviewers on the pull request.",
-                                "type": "array",
-                                "items": {
-                                  "$ref": "#/definitions/IdentityId"
-                                }
-                              },
-                              "mergeStatus": {
-                                "description": "The current status of the pull request merge.",
-                                    "$ref": "#/definitions/GitPullRequestMergeOptions"
-                              },
-                              "status": {
-                                "description": "The status of the pull request.",
-                                    "$ref": "#/definitions/PullRequestStatus",
-                              }
+                    "description": "Pull Request update options",
+                    "type": "object",
+                    "properties": {
+                          "description": {
+                            "description": "The description of the pull request.",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "The title of the pull request.",
+                            "type": "string"
+                          },
+                          "reviewers": {
+                            "description": "A list of reviewers on the pull request.",
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/IdentityId"
                             }
+                          },
+                          "mergeStatus": {
+                            "description": "The current status of the pull request merge.",
+                                "$ref": "#/definitions/GitPullRequestMergeOptions"
+                          },
+                          "status": {
+                            "description": "The status of the pull request.",
+                                "$ref": "#/definitions/PullRequestStatus",
+                          }
                         }
-                    );
+                    },
+                );
 
                 self.new_definitions.insert(
                     "PullRequestStatus".to_string(),
                     json::object! {
-                        "description": "Pull request status",
-                            "enum": [
-                                "notSet",
-                                "active",
-                                "abandoned",
-                                "completed",
-                              ],
-                              "x-ms-enum": {
-                                "name": "PullRequestStatus",
-                                "values": [
-                                  {
-                                    "value": "notSet",
-                                    "description": "Status not set. Default state."
-                                  },
-                                  {
-                                    "value": "active",
-                                    "description": "Pull request is active."
-                                  },
-                                  {
-                                    "value": "abandoned",
-                                    "description": "Pull request is abandoned."
-                                  },
-                                  {
-                                    "value": "completed",
-                                    "description": "Pull request is completed."
-                                  }
-                                ]
+                            "description": "Pull request status",
+                                "enum": [
+                                    "notSet",
+                                    "active",
+                                    "abandoned",
+                                    "completed",
+                                  ],
+                                  "x-ms-enum": {
+                                    "name": "PullRequestStatus",
+                                    "values": [
+                                      {
+                                        "value": "notSet",
+                                        "description": "Status not set. Default state."
+                                      },
+                                      {
+                                        "value": "active",
+                                        "description": "Pull request is active."
+                                      },
+                                      {
+                                        "value": "abandoned",
+                                        "description": "Pull request is abandoned."
+                                      },
+                                      {
+                                        "value": "completed",
+                                        "description": "Pull request is completed."
+                                      }
+                                    ]
 
+                        },
                     },
-                });
+                );
 
                 Some(json::array![
                     {
