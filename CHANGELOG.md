@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `git_items_list`
   - `git_items_get`
 
+- New feature:
+  - `azure_core/enable_reqwest`
+
 ## [0.6.1]
 
 ## Added

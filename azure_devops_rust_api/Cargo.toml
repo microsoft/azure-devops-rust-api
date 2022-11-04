@@ -37,6 +37,7 @@ env_logger = "0.9"
 async-trait = "0.1"
 
 [features]
+enable_reqwest = ["azure_core/enable_reqwest"]
 accounts = []
 artifacts = []
 artifacts_package_types = []
