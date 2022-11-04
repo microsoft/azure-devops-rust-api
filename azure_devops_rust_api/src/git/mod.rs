@@ -3908,25 +3908,27 @@ pub mod pull_requests {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        #[doc = "* `body`: The pull request content that should be updated."]
         #[doc = "* `repository_id`: The repository ID of the pull request's target branch."]
-        #[doc = "* `pull_request_id`: ID of the pull request to update."]
         #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `pull_request_id`: The ID of the pull request to retrieve."]
+        #[doc = "* `update_options`: The pull request content to update."]
         pub fn update(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::GitPullRequest>,
             repository_id: impl Into<String>,
-            pull_request_id: i32,
             project: impl Into<String>,
+            pull_request_id: i32,
+            update_options: impl Into<models::GitPullRequestUpdateOptions>,
         ) -> update::RequestBuilder {
             update::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
-                body: body.into(),
                 repository_id: repository_id.into(),
-                pull_request_id,
                 project: project.into(),
+                pull_request_id,
+                update_options: update_options.into(),
+                include_commits: None,
+                include_work_item_refs: None,
             }
         }
     }
@@ -4779,12 +4781,24 @@ pub mod pull_requests {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::GitPullRequest,
             pub(crate) repository_id: String,
-            pub(crate) pull_request_id: i32,
             pub(crate) project: String,
+            pub(crate) pull_request_id: i32,
+            pub(crate) update_options: models::GitPullRequestUpdateOptions,
+            pub(crate) include_commits: Option<bool>,
+            pub(crate) include_work_item_refs: Option<bool>,
         }
         impl RequestBuilder {
+            #[doc = "If true, the pull request will be returned with the associated commits."]
+            pub fn include_commits(mut self, include_commits: bool) -> Self {
+                self.include_commits = Some(include_commits);
+                self
+            }
+            #[doc = "If true, the pull request will be returned with the associated work item references."]
+            pub fn include_work_item_refs(mut self, include_work_item_refs: bool) -> Self {
+                self.include_work_item_refs = Some(include_work_item_refs);
+                self
+            }
             #[doc = "Send the request and returns the response."]
             pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
@@ -4810,8 +4824,19 @@ pub mod pull_requests {
                         req.url_mut()
                             .query_pairs_mut()
                             .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(include_commits) = &this.include_commits {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("includeCommits", &include_commits.to_string());
+                        }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::to_json(&this.update_options)?;
+                        if let Some(include_work_item_refs) = &this.include_work_item_refs {
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "includeWorkItemRefs",
+                                &include_work_item_refs.to_string(),
+                            );
+                        }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
