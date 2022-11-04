@@ -3901,6 +3901,38 @@ impl GitPullRequestStatusList {
         Self::default()
     }
 }
+#[doc = "Pull Request update options"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GitPullRequestUpdateOptions {
+    #[doc = "The description of the pull request."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    #[doc = "The title of the pull request."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    #[doc = "A list of reviewers on the pull request."]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub reviewers: Vec<IdentityId>,
+    #[doc = "The options which are used when a pull request merge is created."]
+    #[serde(
+        rename = "mergeStatus",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub merge_status: Option<GitPullRequestMergeOptions>,
+    #[doc = "Pull request status"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub status: Option<PullRequestStatus>,
+}
+impl GitPullRequestUpdateOptions {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPush {
@@ -6093,6 +6125,18 @@ impl PullRequestCreatedEvent {
     pub fn new() -> Self {
         Self::default()
     }
+}
+#[doc = "Pull request status"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum PullRequestStatus {
+    #[serde(rename = "notSet")]
+    NotSet,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "abandoned")]
+    Abandoned,
+    #[serde(rename = "completed")]
+    Completed,
 }
 #[doc = "Initial config contract sent to extensions creating tabs on the pull request page"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
