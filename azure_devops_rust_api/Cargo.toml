@@ -37,6 +37,10 @@ env_logger = "0.9"
 async-trait = "0.1"
 
 [features]
+default = ["enable_reqwest"]
+enable_reqwest = ["azure_core/enable_reqwest"]
+enable_reqwest_rustls = ["azure_core/enable_reqwest_rustls"]
+no-default-tag = []
 accounts = []
 artifacts = []
 artifacts_package_types = []

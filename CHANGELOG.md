@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `git_items_list`
   - `git_items_get`
 
+- New features:
+  - `enable_reqwest` [default]
+  - `enable_reqwest_rustls`
+  - Both of the above enable the corresponding feature in `azure_core`
+
 ## [0.6.1]
 
 ## Added
