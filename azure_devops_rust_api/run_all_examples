@@ -80,6 +80,7 @@ set -x
 
 cargo run --example artifacts_list --features="artifacts"
 cargo run --example build_list --features="build"
+cargo run --example build_list_sync --features="build"
 cargo run --example core_org_projects --features="core"
 cargo run --example core_project_teams --features="core"
 cargo run --example distributed_task --features="distributed_task"
