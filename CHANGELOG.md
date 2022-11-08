@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New examples:
   - `git_items_list`
   - `git_items_get`
+  - `build_list_sync`
 
 - New features:
   - `enable_reqwest` [default]
