@@ -43,7 +43,6 @@ async fn main() -> Result<()> {
         .value;
 
     if let Some(feed) = feeds.iter().next() {
-
         if let Some(feed_id) = &feed.feed_core.id {
             let packages = artifacts_client
                 .artifact_details_client()
@@ -52,23 +51,32 @@ async fn main() -> Result<()> {
                 .await?
                 .value;
 
-            if let Some(package) = packages.iter().next(){
+            if let Some(package) = packages.iter().next() {
                 let name = package.name.as_deref().unwrap_or("");
                 let id = package.id.as_deref().unwrap_or("");
-                let version_id = package.versions.first()
-                .expect("No package version information available")
-                .id
-                .as_deref().unwrap_or("");
-                println!("{:30}{:40}{:40}", name,  id, version_id);
-                
+                let version_id = package
+                    .versions
+                    .first()
+                    .expect("No package version information available")
+                    .id
+                    .as_deref()
+                    .unwrap_or("");
+                println!("{:30}{:40}{:40}", name, id, version_id);
+
                 let provenance = artifacts_client
                     .artifact_details_client()
-                    .get_package_version_provenance(&organization, feed_id, id, version_id, &project)
+                    .get_package_version_provenance(
+                        &organization,
+                        feed_id,
+                        id,
+                        version_id,
+                        &project,
+                    )
                     .into_future()
                     .await?
                     .provenance;
 
-                    println!("{:#?}", provenance);
+                println!("{:#?}", provenance);
             }
         }
     }
