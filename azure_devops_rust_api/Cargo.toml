@@ -82,6 +82,10 @@ work = []
 all-features = true
 
 [[example]]
+name = "artifact_provenance"
+required-features = ["artifacts"]
+
+[[example]]
 name = "artifacts_list"
 required-features = ["artifacts"]
 
@@ -107,6 +111,10 @@ required-features = ["git"]
 
 [[example]]
 name = "git_repo_list"
+required-features = ["git"]
+
+[[example]]
+name = "git_repo_get_raw_rsp"
 required-features = ["git"]
 
 [[example]]
