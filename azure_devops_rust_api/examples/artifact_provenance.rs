@@ -4,7 +4,7 @@
 // artifact_provenance.rs
 // Artifact provenance example, demonstrating how to obtain json
 // information about the package's origin; such as identity of publisher
-// and, if applicable, package code repository information.
+// and, if available, package code repository information.
 use anyhow::Result;
 use azure_devops_rust_api::artifacts;
 use azure_devops_rust_api::Credential;
