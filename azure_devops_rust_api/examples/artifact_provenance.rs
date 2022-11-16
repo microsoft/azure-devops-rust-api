@@ -2,7 +2,9 @@
 // Licensed under the MIT License.
 
 // artifact_provenance.rs
-// Artifacts list example.
+// Artifact provenance example, demonstrating how to obtain json
+// information about the package's origin; such as identity of publisher
+// and, if applicable, package code repository information.
 use anyhow::Result;
 use azure_devops_rust_api::artifacts;
 use azure_devops_rust_api::Credential;
