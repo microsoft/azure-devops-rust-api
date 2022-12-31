@@ -6,7 +6,6 @@
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use std::env;
-use std::sync::Arc;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -37,6 +36,7 @@ async fn main() -> Result<()> {
         .list(&organization, &repository_name, pull_request_id, &project)
         .into_future()
         .await?;
+
     println!("PR work items:");
     println!("{:#?}", pr_work_items);
 

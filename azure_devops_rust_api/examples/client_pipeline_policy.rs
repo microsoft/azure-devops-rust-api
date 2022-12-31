@@ -10,6 +10,7 @@
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use std::env;
+use std::sync::Arc;
 
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
