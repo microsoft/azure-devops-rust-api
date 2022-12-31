@@ -9,9 +9,7 @@
 
 use anyhow::Result;
 use azure_devops_rust_api::git;
-use azure_devops_rust_api::Credential;
 use std::env;
-use std::sync::Arc;
 
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
@@ -52,17 +50,8 @@ async fn main() -> Result<()> {
     // Initialize logging - set default log level to info
     env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
 
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
-    let credential = match env::var("ADO_TOKEN") {
-        Ok(token) => {
-            println!("Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
-        }
-        Err(_) => {
-            println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
-        }
-    };
+    // Get authentication credential
+    let credential = utils::get_credential();
 
     // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");

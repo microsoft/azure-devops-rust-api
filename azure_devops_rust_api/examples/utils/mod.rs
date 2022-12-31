@@ -14,11 +14,21 @@ pub fn get_credential() -> Credential {
         }
         Err(_) => {
             println!("Authenticate using auto-refereshing DefaultAzureCredential");
-            // Authenticate using one of:
+            // `DefaultAzureCredential` can authenticate using one of:
             // - `EnvironmentCredential`
             // - `ManagedIdentityCredential`
             // - `AzureCliCredential`
-            let default_azure_credential = Arc::new(DefaultAzureCredential::default());
+            // For examples we just want to use AzureCliCredential, so exclude the
+            // other mechanisms.
+            // It would be simpler to directly create `AzureCliCredential` here, but I wanted to
+            // demonstrate use of `DefaultAzureCredentialBuilder`.
+            let default_azure_credential = Arc::new(
+                DefaultAzureCredentialBuilder::new()
+                    .exclude_environment_credential()
+                    .exclude_managed_identity_credential()
+                    .build(),
+            );
+
             // Use the `AutoRefreshingTokenCredential` wrapper to cache the credentials,
             // refreshing when required.
             let auto_refreshing_credential =

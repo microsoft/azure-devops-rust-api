@@ -5,7 +5,6 @@
 // Example: Getting work items(s) associated with a PR
 use anyhow::Result;
 use azure_devops_rust_api::git;
-use azure_devops_rust_api::Credential;
 use std::env;
 use std::sync::Arc;
 
@@ -14,17 +13,8 @@ async fn main() -> Result<()> {
     // Initialize logging
     env_logger::init();
 
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
-    let credential = match env::var("ADO_TOKEN") {
-        Ok(token) => {
-            println!("INFO:Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
-        }
-        Err(_) => {
-            println!("INFO:Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
-        }
-    };
+    // Get authentication credential
+    let credential = utils::get_credential();
 
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
