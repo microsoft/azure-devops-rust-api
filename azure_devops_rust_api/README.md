@@ -23,18 +23,7 @@ Example usage (from [examples/git_repo_list.rs](examples/git_repo_list.rs)):
 ```rust
     // Get authentication credential either from a PAT ("ADO_TOKEN")
     // or via the az cli.
-    let credential = match env::var("ADO_TOKEN") {
-        Ok(token) => {
-            println!("Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
-        }
-        Err(_) => {
-            println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(
-                Arc::new(azure_identity::AzureCliCredential::new())
-            )
-        }
-    };
+    let credential = utils::get_credential()
 
     // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION")

@@ -17,6 +17,8 @@ use azure_core::{Context, Policy, PolicyResult, Request};
 use env_logger::Env;
 use log::info;
 
+mod utils;
+
 /// Basic request logger policy
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct RequestLogger {}

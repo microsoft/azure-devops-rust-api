@@ -7,6 +7,8 @@ use anyhow::Result;
 use azure_devops_rust_api::git;
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

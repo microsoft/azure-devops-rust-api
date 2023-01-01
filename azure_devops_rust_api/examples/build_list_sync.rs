@@ -9,6 +9,8 @@ use azure_devops_rust_api::build;
 use std::env;
 use time::{ext::NumericalDuration, OffsetDateTime};
 
+mod utils;
+
 fn main() -> Result<()> {
     // Initialize logging
     env_logger::init();

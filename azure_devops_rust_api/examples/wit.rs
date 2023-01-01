@@ -8,6 +8,8 @@ use azure_devops_rust_api::wit;
 use azure_devops_rust_api::wit::models::WorkItemRelation;
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

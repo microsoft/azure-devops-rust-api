@@ -11,6 +11,8 @@ use serde_json;
 use std::env;
 use time::format_description::well_known::Rfc3339;
 
+mod utils;
+
 const NUM_BUILD_BATCHES: usize = 5;
 
 async fn get_builds(

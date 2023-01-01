@@ -5,6 +5,7 @@ use azure_devops_rust_api::Credential;
 use azure_identity::{AutoRefreshingTokenCredential, DefaultAzureCredentialBuilder};
 use std::sync::Arc;
 
+#[allow(dead_code)]
 pub fn get_credential() -> Credential {
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli
     match std::env::var("ADO_TOKEN") {

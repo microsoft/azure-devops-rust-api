@@ -8,6 +8,8 @@ use azure_devops_rust_api::build;
 use std::env;
 use time::{ext::NumericalDuration, OffsetDateTime};
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

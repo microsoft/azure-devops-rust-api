@@ -8,6 +8,8 @@ use azure_devops_rust_api::git;
 use std::collections::HashSet;
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

@@ -7,6 +7,8 @@ use anyhow::Result;
 use azure_devops_rust_api::wiki::{self, pages};
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging
@@ -31,6 +33,7 @@ async fn main() -> Result<()> {
 
     // Create a wiki pages client
     let wiki_pages_client = wiki::ClientBuilder::new(credential).build().pages_client();
+
     // To update an existing wiki page the page version, called an eTag, must be supplied in an `If-Match` header. NB: the RequestBuilder will insert this header for you when you call it with the `eTag`.
     // This function call returns `Some(String)` containing the eTag if the pages exists, otherwise
     // it will return `None` indicating that the page needs to be created.
@@ -42,6 +45,7 @@ async fn main() -> Result<()> {
         &wiki_id,
     )
     .await;
+
     // The content to be displayed on the page
     let wiki_body = wiki::models::WikiPageCreateOrUpdateParameters {
         content: Some(wiki_content),

@@ -9,6 +9,8 @@ use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

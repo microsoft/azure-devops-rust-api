@@ -8,6 +8,8 @@ use azure_devops_rust_api::pipelines;
 use azure_devops_rust_api::pipelines::models::Pipeline;
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

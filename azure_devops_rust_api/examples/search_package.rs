@@ -10,6 +10,8 @@ use azure_devops_rust_api::search::models::{
 };
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

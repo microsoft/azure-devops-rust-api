@@ -8,6 +8,8 @@ use azure_devops_rust_api::extension_management;
 use azure_devops_rust_api::extension_management::models::InstalledExtension;
 use std::env;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging
