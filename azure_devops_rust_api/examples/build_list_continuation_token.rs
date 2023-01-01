@@ -7,11 +7,11 @@ use anyhow::{anyhow, Context, Result};
 use azure_core::StatusCode;
 use azure_devops_rust_api::build;
 use azure_devops_rust_api::build::models::{Build, BuildList};
-use azure_devops_rust_api::Credential;
 use serde_json;
 use std::env;
-use std::sync::Arc;
 use time::format_description::well_known::Rfc3339;
+
+mod utils;
 
 const NUM_BUILD_BATCHES: usize = 5;
 
@@ -58,17 +58,8 @@ async fn main() -> Result<()> {
     // Initialize logging
     env_logger::init();
 
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
-    let credential = match env::var("ADO_TOKEN") {
-        Ok(token) => {
-            println!("Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
-        }
-        Err(_) => {
-            println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
-        }
-    };
+    // Get authentication credential
+    let credential = utils::get_credential();
 
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");

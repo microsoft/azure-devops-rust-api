@@ -20,20 +20,20 @@ publish = ["crates-io"]
 doctest = false
 
 [dependencies]
-azure_core = { version = "0.5", default-features = true }
+azure_core = { version = "0.8", default-features = true }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 bytes = "1.0"
 futures = "0.3"
-base64 = "0.13"
+base64 = "0.20"
 time = "0.3"
 
 [dev-dependencies]
-azure_identity = "0.6"
+azure_identity = "0.9"
 tokio = { version = "1.0", features = ["full"] }
 anyhow = "1"
 log = "0.4"
-env_logger = "0.9"
+env_logger = "0.10"
 async-trait = "0.1"
 
 [features]

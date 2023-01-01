@@ -8,6 +8,8 @@ use azure_devops_rust_api::status;
 use azure_devops_rust_api::status::models::geography_with_health::Health;
 use azure_devops_rust_api::Credential;
 
+mod utils;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging

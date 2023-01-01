@@ -5,26 +5,17 @@
 // Wiki page creation/update example.
 use anyhow::Result;
 use azure_devops_rust_api::wiki::{self, pages};
-use azure_devops_rust_api::Credential;
 use std::env;
-use std::sync::Arc;
+
+mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
     // Initialize logging
     env_logger::init();
 
-    // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli.
-    let credential = match env::var("ADO_TOKEN") {
-        Ok(token) => {
-            println!("Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
-        }
-        Err(_) => {
-            println!("Authenticate using Azure CLI");
-            Credential::from_token_credential(Arc::new(azure_identity::AzureCliCredential::new()))
-        }
-    };
+    // Get authentication credential
+    let credential = utils::get_credential();
 
     // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
@@ -42,6 +33,7 @@ async fn main() -> Result<()> {
 
     // Create a wiki pages client
     let wiki_pages_client = wiki::ClientBuilder::new(credential).build().pages_client();
+
     // To update an existing wiki page the page version, called an eTag, must be supplied in an `If-Match` header. NB: the RequestBuilder will insert this header for you when you call it with the `eTag`.
     // This function call returns `Some(String)` containing the eTag if the pages exists, otherwise
     // it will return `None` indicating that the page needs to be created.
@@ -53,6 +45,7 @@ async fn main() -> Result<()> {
         &wiki_id,
     )
     .await;
+
     // The content to be displayed on the page
     let wiki_body = wiki::models::WikiPageCreateOrUpdateParameters {
         content: Some(wiki_content),
