@@ -2,7 +2,7 @@ use azure_devops_rust_api::Credential;
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-use azure_identity::{AutoRefreshingTokenCredential, DefaultAzureCredential};
+use azure_identity::{AutoRefreshingTokenCredential, DefaultAzureCredentialBuilder};
 use std::sync::Arc;
 
 pub fn get_credential() -> Credential {
@@ -20,7 +20,7 @@ pub fn get_credential() -> Credential {
             // - `AzureCliCredential`
             // For examples we just want to use AzureCliCredential, so exclude the
             // other mechanisms.
-            // It would be simpler to directly create `AzureCliCredential` here, but I wanted to
+            // It would be simpler to directly create `AzureCliCredential` here, but I want to
             // demonstrate use of `DefaultAzureCredentialBuilder`.
             let default_azure_credential = Arc::new(
                 DefaultAzureCredentialBuilder::new()
