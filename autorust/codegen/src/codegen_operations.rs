@@ -1,6 +1,6 @@
 use crate::{
-    codegen::{parse_path_params, PARAM_RE},
     codegen::TypeNameCode,
+    codegen::{parse_path_params, PARAM_RE},
     identifier::{parse_ident, SnakeCaseIdent},
     spec::{get_type_name_for_schema_ref, TypeName, WebOperation, WebParameter, WebVerb},
     status_codes::get_status_code_ident,
@@ -202,8 +202,16 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
     let mut operations_code: IndexMap<Option<String>, OperationCode> = IndexMap::new();
     // println!("input_files {:?}", cg.input_files());
 
-    let operations: Vec<_> = cg.spec.operations()?.into_iter().map(WebOperationGen).collect();
-    let module_names: BTreeSet<_> = operations.iter().flat_map(|op| op.rust_module_name()).collect();
+    let operations: Vec<_> = cg
+        .spec
+        .operations()?
+        .into_iter()
+        .map(WebOperationGen)
+        .collect();
+    let module_names: BTreeSet<_> = operations
+        .iter()
+        .flat_map(|op| op.rust_module_name())
+        .collect();
     let module_names: Vec<_> = module_names.into_iter().collect();
     file.extend(create_client(&module_names, cg.spec.endpoint().as_deref())?);
 
@@ -227,7 +235,9 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
                     mut client_functions,
                     mut module_code,
                 } = code;
-                operation_code.client_functions.append(&mut client_functions);
+                operation_code
+                    .client_functions
+                    .append(&mut client_functions);
                 operation_code.module_code.append(&mut module_code);
             }
             None => {
@@ -277,7 +287,8 @@ struct OperationModuleCode {
     response_code: ResponseCode,
     request_builder_struct_code: RequestBuilderStructCode,
     request_builder_setters_code: RequestBuilderSettersCode,
-    request_builder_future_code: RequestBuilderIntoFutureCode,
+    request_builder_send_code: RequestBuilderSendCode,
+    request_builder_intofuture_code: RequestBuilderIntoFutureCode,
 }
 
 struct OperationCode {
@@ -349,7 +360,10 @@ impl WebOperationGen {
 /// Creating a function name from the path and verb when an operationId is not specified.
 /// All azure-rest-api-specs operations should have an operationId.
 fn create_function_name(verb: &WebVerb, path: &str) -> String {
-    let mut path = path.split('/').filter(|&x| !x.is_empty()).collect::<Vec<_>>();
+    let mut path = path
+        .split('/')
+        .filter(|&x| !x.is_empty())
+        .collect::<Vec<_>>();
     path.insert(0, verb.as_str());
     path.join("_")
 }
@@ -560,11 +574,19 @@ fn create_operation_code(cg: &CodeGen, operation: &WebOperationGen) -> Result<Op
     // get the content-types from the operation, else the spec, else default to json
     let consumes = operation
         .pick_consumes()
-        .unwrap_or_else(|| cg.spec.pick_consumes().unwrap_or(content_type::APPLICATION_JSON))
+        .unwrap_or_else(|| {
+            cg.spec
+                .pick_consumes()
+                .unwrap_or(content_type::APPLICATION_JSON)
+        })
         .to_string();
     let produces = operation
         .pick_produces()
-        .unwrap_or_else(|| cg.spec.pick_produces().unwrap_or(content_type::APPLICATION_JSON))
+        .unwrap_or_else(|| {
+            cg.spec
+                .pick_produces()
+                .unwrap_or(content_type::APPLICATION_JSON)
+        })
         .to_string();
 
     let request_builder = SetRequestCode::new(operation, parameters, consumes);
@@ -574,15 +596,21 @@ fn create_operation_code(cg: &CodeGen, operation: &WebOperationGen) -> Result<Op
     let request_builder_setters_code = RequestBuilderSettersCode::new(parameters);
     let response_code = ResponseCode::new(operation, produces)?;
     let long_running_operation = operation.0.long_running_operation;
-    let request_builder_future_code =
-        RequestBuilderIntoFutureCode::new(new_request_code, request_builder, response_code.clone(), long_running_operation)?;
+    let request_builder_send_code = RequestBuilderSendCode::new(
+        new_request_code,
+        request_builder,
+        response_code.clone(),
+        long_running_operation,
+    )?;
+    let request_builder_intofuture_code = RequestBuilderIntoFutureCode::new(response_code.clone())?;
 
     let module_code = OperationModuleCode {
         module_name: operation.function_name()?,
         response_code,
         request_builder_struct_code,
         request_builder_setters_code,
-        request_builder_future_code,
+        request_builder_send_code,
+        request_builder_intofuture_code,
     };
 
     Ok(OperationCode {
@@ -721,7 +749,10 @@ impl HeaderCode {
             ("integer", Some("int64")) => Ok(TypeName::Int64),
             ("boolean", None) => Ok(TypeName::Boolean),
             (header_type, header_format) => Err(Error::with_message(ErrorKind::CodeGen, || {
-                format!("header type '{}' format '{:?}' not matched", header_type, header_format)
+                format!(
+                    "header type '{}' format '{:?}' not matched",
+                    header_type, header_format
+                )
             })),
         }?;
         let type_name_code = TypeNameCode::new(&type_name)?;
@@ -802,7 +833,9 @@ impl ResponseCode {
             .iter()
             .flat_map(|(_, rsp)| &rsp.headers)
             .filter_map(|(name, header)| match header {
-                autorust_openapi::ReferenceOr::Item(header) => Some((name.clone(), HeaderCode::new(name.clone(), header))),
+                autorust_openapi::ReferenceOr::Item(header) => {
+                    Some((name.clone(), HeaderCode::new(name.clone(), header)))
+                }
                 _ => None,
             })
             .collect::<IndexMap<_, _>>()
@@ -904,7 +937,7 @@ impl ToTokens for ResponseCode {
 }
 
 /// The `send` function of the request builder.
-struct RequestBuilderIntoFutureCode {
+struct RequestBuilderSendCode {
     new_request_code: NewRequestCode,
     request_builder: SetRequestCode,
     response_code: ResponseCode,
@@ -912,7 +945,11 @@ struct RequestBuilderIntoFutureCode {
     long_running_operation: bool,
 }
 
-impl RequestBuilderIntoFutureCode {
+struct RequestBuilderIntoFutureCode {
+    response_code: ResponseCode,
+}
+
+impl RequestBuilderSendCode {
     fn new(
         new_request_code: NewRequestCode,
         request_builder: SetRequestCode,
@@ -932,7 +969,7 @@ impl RequestBuilderIntoFutureCode {
     }
 }
 
-impl ToTokens for RequestBuilderIntoFutureCode {
+impl ToTokens for RequestBuilderSendCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let new_request_code = &self.new_request_code;
         let request_builder = &self.request_builder;
@@ -957,20 +994,20 @@ impl ToTokens for RequestBuilderIntoFutureCode {
             }
         });
 
-        let into_future = if let Some(response_type) = self.response_code.response_type() {
-            quote! {
-                #[doc = "Send the request and return the response body."]
-                pub fn into_future(self) -> futures::future::BoxFuture<'static, azure_core::Result<#response_type>> {
-                    Box::pin(
-                        async move {
-                            self.send().await?.into_body().await
-                        }
-                    )
-                }
-            }
-        } else {
-            quote! {}
-        };
+        // let into_future = if let Some(response_type) = self.response_code.response_type() {
+        //     quote! {
+        //         #[doc = "Send the request and return the response body."]
+        //         pub fn into_future(self) -> futures::future::BoxFuture<'static, azure_core::Result<#response_type>> {
+        //             Box::pin(
+        //                 async move {
+        //                     self.send().await?.into_body().await
+        //                 }
+        //             )
+        //         }
+        //     }
+        // } else {
+        //     quote! {}
+        // };
 
         let send_future = quote! {
             #[doc = "Send the request and returns the response."]
@@ -986,7 +1023,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                     }
                 })
             }
-            #into_future
+            //#into_future
         };
 
         let fut = if let Some(pageable) = &self.response_code.pageable {
@@ -1020,7 +1057,10 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                     };
                 }
 
-                let response_type = self.response_code.response_type().expect("pageable response has a body");
+                let response_type = self
+                    .response_code
+                    .response_type()
+                    .expect("pageable response has a body");
                 quote! {
                     pub fn into_stream(self) -> azure_core::Pageable<#response_type, azure_core::error::Error> {
                         let make_request = move |continuation: Option<String>| {
@@ -1078,6 +1118,38 @@ impl ToTokens for RequestBuilderIntoFutureCode {
     }
 }
 
+impl RequestBuilderIntoFutureCode {
+    fn new(response_code: ResponseCode) -> Result<Self> {
+        Ok(Self { response_code })
+    }
+}
+
+impl ToTokens for RequestBuilderIntoFutureCode {
+    fn to_tokens(&self, tokens: &mut TokenStream) {
+        let into_future = if let Some(response_type) = self.response_code.response_type() {
+            quote! {
+                impl std::future::IntoFuture for RequestBuilder {
+                    type Output = azure_core::Result<#response_type>;
+                    type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<#response_type>>;
+
+                    #[doc = "Send the request and return the response body."]
+                    fn into_future(self) -> Self::IntoFuture {
+                        Box::pin(
+                            async move {
+                                self.send().await?.into_body().await
+                            }
+                        )
+                    }
+                }
+            }
+        } else {
+            quote! {}
+        };
+
+        tokens.extend(into_future);
+    }
+}
+
 impl ToTokens for OperationModuleCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let Self {
@@ -1085,7 +1157,8 @@ impl ToTokens for OperationModuleCode {
             response_code,
             request_builder_struct_code,
             request_builder_setters_code,
-            request_builder_future_code,
+            request_builder_send_code,
+            request_builder_intofuture_code,
         } = &self;
         tokens.extend(quote! {
             pub mod #module_name {
@@ -1097,9 +1170,10 @@ impl ToTokens for OperationModuleCode {
 
                 impl RequestBuilder {
                     #request_builder_setters_code
-                    #request_builder_future_code
+                    #request_builder_send_code
                 }
 
+                #request_builder_intofuture_code
             }
         })
     }
@@ -1168,7 +1242,11 @@ impl FunctionParams {
         let mut skip = HashSet::new();
         skip.insert(API_VERSION.to_string());
         skip.insert(X_MS_VERSION.to_string());
-        let parameters: Vec<&WebParameter> = parameters.clone().into_iter().filter(|p| !skip.contains(p.name())).collect();
+        let parameters: Vec<&WebParameter> = parameters
+            .clone()
+            .into_iter()
+            .filter(|p| !skip.contains(p.name()))
+            .collect();
 
         let mut params = Vec::new();
         for param in parameters.iter().filter(|p| !skip.contains(p.name())) {
@@ -1200,10 +1278,16 @@ impl FunctionParams {
         self.params.iter().collect()
     }
     fn required_params(&self) -> Vec<&FunctionParam> {
-        self.params.iter().filter(|p| !p.type_name.optional).collect()
+        self.params
+            .iter()
+            .filter(|p| !p.type_name.optional)
+            .collect()
     }
     fn optional_params(&self) -> Vec<&FunctionParam> {
-        self.params.iter().filter(|p| p.type_name.optional).collect()
+        self.params
+            .iter()
+            .filter(|p| p.type_name.optional)
+            .collect()
     }
     #[allow(dead_code)]
     fn params_of_kind(&self, kind: &ParamKind) -> Vec<&FunctionParam> {
@@ -1224,7 +1308,9 @@ impl ToTokens for FunctionCallParamsCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut params: Vec<TokenStream> = Vec::new();
         for FunctionParam {
-            variable_name, type_name, ..
+            variable_name,
+            type_name,
+            ..
         } in self.0.required_params()
         {
             let mut type_name = type_name.clone();
@@ -1249,7 +1335,11 @@ struct ClientFunctionCode {
 }
 
 impl ClientFunctionCode {
-    fn new(operation: &WebOperationGen, parameters: &FunctionParams, in_operation_group: bool) -> Result<Self> {
+    fn new(
+        operation: &WebOperationGen,
+        parameters: &FunctionParams,
+        in_operation_group: bool,
+    ) -> Result<Self> {
         let fname = operation.function_name()?;
         let summary = operation.0.summary.clone();
         let description = operation.0.description.clone();
@@ -1273,7 +1363,9 @@ impl ToTokens for ClientFunctionCode {
         }
         for param in self.parameters.required_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             let mut type_name = type_name.clone();
             let is_vec = type_name.is_vec();
@@ -1286,7 +1378,9 @@ impl ToTokens for ClientFunctionCode {
         }
         for param in self.parameters.optional_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             if type_name.is_vec() {
                 params.push(quote! { #variable_name: Vec::new() });
@@ -1387,13 +1481,17 @@ impl ToTokens for RequestBuilderStructCode {
         }
         for param in self.parameters.required_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             params.push(quote! { pub(crate) #variable_name: #type_name });
         }
         for param in self.parameters.optional_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             let mut type_name = type_name.clone();
             if type_name.is_vec() {
@@ -1428,7 +1526,9 @@ impl ToTokens for RequestBuilderSettersCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         for param in self.parameters.optional_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             let is_vec = type_name.is_vec();
             let mut type_name = type_name.clone();
@@ -1484,7 +1584,10 @@ mod tests {
             verb: WebVerb::Get,
             ..Default::default()
         });
-        assert_eq!(Some("private_clouds".to_owned()), operation.rust_module_name());
+        assert_eq!(
+            Some("private_clouds".to_owned()),
+            operation.rust_module_name()
+        );
         assert_eq!("create_or_update", operation.rust_function_name());
     }
 
