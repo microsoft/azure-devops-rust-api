@@ -32,7 +32,6 @@ async fn main() -> Result<()> {
         .read_identities(organization)
         .search_filter("General")
         .filter_value(&user_email)
-        .into_future()
         .await?
         .value;
 

@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
     let installed_extensions = extension_management_client
         .installed_extensions_client()
         .list(organization)
-        .into_future()
         .await?
         .value;
 

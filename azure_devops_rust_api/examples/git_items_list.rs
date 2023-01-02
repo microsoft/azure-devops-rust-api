@@ -32,7 +32,6 @@ async fn main() -> Result<()> {
         .items_client()
         .list(organization, repository_name, project)
         .recursion_level("Full")
-        .into_future()
         .await?
         .value;
 

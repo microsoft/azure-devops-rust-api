@@ -30,7 +30,6 @@ async fn main() -> Result<()> {
     let pipelines = pipelines_client
         .pipelines_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("Total pipelines: {}", pipelines.len());
@@ -56,7 +55,6 @@ async fn main() -> Result<()> {
         let pipeline = pipelines_client
             .pipelines_client()
             .get(&organization, &project, pipeline.id)
-            .into_future()
             .await?;
         println!("\nExample pipeline struct from get:");
         println!("{:#?}", pipeline);
@@ -65,7 +63,6 @@ async fn main() -> Result<()> {
         let runs = pipelines_client
             .runs_client()
             .list(&organization, &project, pipeline.id)
-            .into_future()
             .await?
             .value;
 

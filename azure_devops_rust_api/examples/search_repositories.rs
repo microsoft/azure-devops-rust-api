@@ -34,7 +34,6 @@ async fn main() -> Result<()> {
     let search_results = search_client
         .repositories_client()
         .get(organization, project, repository_name)
-        .into_future()
         .await?;
 
     println!("{:#?}", search_results);

@@ -51,7 +51,6 @@ async fn main() -> Result<()> {
     let search_results = search_client
         .work_item_search_results_client()
         .fetch_work_item_search_results(organization, work_item_search_request, project)
-        .into_future()
         .await?
         .results;
 

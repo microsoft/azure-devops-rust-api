@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
     let policy_types = policy_client
         .types_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
 
@@ -60,7 +59,6 @@ async fn main() -> Result<()> {
         .configurations_client()
         .list(&organization, &project)
         .policy_type(work_item_linking_policy_id)
-        .into_future()
         .await?
         .value;
     println!("{} work item policy configurations found", configs.len());

@@ -49,7 +49,6 @@ async fn main() -> Result<()> {
     let search_results = search_client
         .package_search_results_client()
         .fetch_package_search_results(organization, package_search_request)
-        .into_future()
         .await?
         .results;
 

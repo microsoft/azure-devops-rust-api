@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
     let service_endpoints = service_endpoint_client
         .endpoints_client()
         .get_service_endpoints(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("Total service_endpoints: {}", service_endpoints.len());

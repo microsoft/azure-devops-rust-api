@@ -29,7 +29,6 @@ async fn main() -> Result<()> {
     let approvals = release_client
         .approvals_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", approvals);
@@ -39,7 +38,6 @@ async fn main() -> Result<()> {
     let folders = release_client
         .folders_client()
         .list(&organization, &project, &folder_path)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", folders);
@@ -49,7 +47,6 @@ async fn main() -> Result<()> {
     let deployments = release_client
         .deployments_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", deployments);
@@ -59,7 +56,6 @@ async fn main() -> Result<()> {
     let releases = release_client
         .releases_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", releases);

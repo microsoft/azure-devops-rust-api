@@ -26,7 +26,6 @@ async fn main() -> Result<()> {
     let service_hook_consumers = hook_client
         .consumers_client()
         .list(&organization)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", service_hook_consumers);
@@ -36,7 +35,6 @@ async fn main() -> Result<()> {
     let service_hook_publishers = hook_client
         .publishers_client()
         .list(&organization)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", service_hook_publishers);
@@ -46,7 +44,6 @@ async fn main() -> Result<()> {
     let service_hook_subscriptions = hook_client
         .subscriptions_client()
         .list(&organization)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", service_hook_subscriptions);

@@ -31,7 +31,6 @@ async fn main() -> Result<()> {
         .teams_client()
         .get_teams(&organization, &project)
         .top(top_teams)
-        .into_future()
         .await?
         .value;
 

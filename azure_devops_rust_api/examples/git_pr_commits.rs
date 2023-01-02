@@ -39,7 +39,6 @@ async fn main() -> Result<()> {
         .pull_request_commits_client()
         .get_pull_request_commits(&organization, &repository_name, pull_request_id, &project)
         .top(top_commits)
-        .into_future()
         .await?;
     println!("{:#?}", pr_commits);
 
