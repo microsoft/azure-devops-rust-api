@@ -6,6 +6,14 @@
 version: 2
 updates:
   - package-ecosystem: "cargo" # See documentation for possible values
-    directory: "/" # Location of package manifests
+    directory: "/autorust" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo" # See documentation for possible values
+    directory: "/vsts-api-patcher" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "cargo" # See documentation for possible values
+    directory: "/azure_devops_rust_api" # Location of package manifests
     schedule:
       interval: "weekly"
