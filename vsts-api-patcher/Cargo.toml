@@ -15,6 +15,6 @@ license = "MIT"
 publish = false
 
 [dependencies]
-anyhow = "1.0.56"
+anyhow = "1.0.68"
 json = "0.12"
 walkdir = "2"
