@@ -7,9 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0]
+
+### Breaking change
+
+- Implemented `std::future::IntoFuture` for request builder objects.
+  - Removes need to call `into_future()` to finalize request builders.
+    `await` will implicitly call the `IntoFuture::into_future()` method.
+    This simplifies request calls.
+  - `IntoFuture` support requires Rust 1.64.0 or higher, so this is now enforced
+    by setting `rust-version` in `Cargo.toml`.
+
+### Added
+
+- Examples: created new `utils` module with common authentication code.
+  - Updated example authentication code to use `AutoRefreshingTokenCredential`
+    and `DefaultAzureCredentialBuilder`.
+
+### Fixed
+
+- Updated dependency versions.
+
 ## [0.6.2]
 
-## Added
+### Added
 
 - New examples:
   - `git_items_list`
@@ -23,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.1]
 
-## Added
+### Added
 
 - New examples:
   - `git_repo_get_raw_rsp`
@@ -37,7 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `merge_options`
   - `completion_options`
 
-## Fixed
+### Fixed
 
 - Fix `distributedTask` `variableGroupProjectReferences` deserialization of `null` value
 - Fix `extensionManagement` parsing of `flags` fields
@@ -45,13 +66,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.0]
 
-## Breaking changes
+### Breaking changes
 
 - Revert all `GraphSubjectBase` fields to be wrapped in `Option`
 - Upgrade `azure_core` to 0.5, `azure_identity` to 0.6
   - `AzureCliCredential` must now be created via `azure_identity::AzureCliCredential::new()`
 
-## Fixed
+### Fixed
 
 - Upgrade `autorust` code generator
   - New `send()` function on operations that enables access to full response details
@@ -69,7 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.3]
 
-## Fixed
+### Fixed
 
 - Fixed up `GitCommitRef` `change_counts` field type
 - Added back some required `build` structure Option wrappers
@@ -80,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.2]
 
-## Fixed
+### Fixed
 
 - Implement custom date-time serde module to gracefully handle `0001-01-01T00:00:00`
 - Fixed response types for git::commits::get_changes()
@@ -88,11 +109,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.1]
 
-## Breaking changes
+### Breaking changes
 
 - Removed Option wrappers on selected structs in `wit` and `status`
 
-## Added
+### Added
 
 - Example improvements:
   - New examples:
@@ -188,7 +209,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.2...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.2...0.7.0
 [0.6.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.5.3...0.6.0
