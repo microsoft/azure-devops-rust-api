@@ -354,11 +354,13 @@ pub mod testlog {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -494,11 +496,13 @@ pub mod testlog {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -632,11 +636,13 @@ pub mod testlog {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::TestLogList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -870,13 +876,15 @@ pub mod testlogstoreendpoint {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogStoreEndpointDetails>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestLogStoreEndpointDetails>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -967,13 +975,15 @@ pub mod testlogstoreendpoint {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogStoreEndpointDetails>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestLogStoreEndpointDetails>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1070,13 +1080,15 @@ pub mod testlogstoreendpoint {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogStoreEndpointDetails>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestLogStoreEndpointDetails>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1165,13 +1177,15 @@ pub mod testlogstoreendpoint {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogStoreEndpointDetails>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestLogStoreEndpointDetails>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1279,13 +1293,15 @@ pub mod testlogstoreendpoint {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestLogStoreEndpointDetails>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestLogStoreEndpointDetails>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1423,13 +1439,15 @@ pub mod result_meta_data {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestResultMetaDataList>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::TestResultMetaDataList>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1510,11 +1528,13 @@ pub mod result_meta_data {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TestResultMetaData>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::TestResultMetaData>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::TestResultMetaData>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }

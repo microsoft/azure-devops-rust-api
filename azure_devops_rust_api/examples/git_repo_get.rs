@@ -31,7 +31,6 @@ async fn main() -> Result<()> {
     let repo = git_client
         .repositories_client()
         .get_repository(&organization, &repo_name, &project)
-        .into_future()
         .await?;
     println!("{:#?}", repo);
 
@@ -40,7 +39,6 @@ async fn main() -> Result<()> {
         .pull_requests_client()
         .get_pull_requests(&organization, &repo.id, &project)
         .top(10)
-        .into_future()
         .await?
         .value;
 
@@ -59,7 +57,6 @@ async fn main() -> Result<()> {
         .refs_client()
         .list(&organization, &repo.id, &project)
         .top(10)
-        .into_future()
         .await?
         .value;
 

@@ -28,7 +28,6 @@ async fn main() -> Result<()> {
     let distributed_task_agents_pools = distributed_task_client
         .pools_client()
         .get_agent_pools(&organization)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", distributed_task_agents_pools);
@@ -38,7 +37,6 @@ async fn main() -> Result<()> {
     let distributed_task_agent_queues = distributed_task_client
         .queues_client()
         .get_agent_queues(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", distributed_task_agent_queues);
@@ -48,7 +46,6 @@ async fn main() -> Result<()> {
     let distributed_task_variable_groups = distributed_task_client
         .variablegroups_client()
         .get_variable_groups(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", distributed_task_variable_groups);

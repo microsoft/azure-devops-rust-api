@@ -27,7 +27,6 @@ async fn main() -> Result<()> {
     let permissions_reports = permissions_report_client
         .permissions_report_client()
         .list(&organization)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", permissions_reports);

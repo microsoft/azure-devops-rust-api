@@ -55,7 +55,6 @@ async fn main() -> Result<()> {
     let pr = git_client
         .pull_requests_client()
         .create(organization, repo_name, project, pr_create_options)
-        .into_future()
         .await?;
     println!("Created PR:\n{:#?}", pr);
 

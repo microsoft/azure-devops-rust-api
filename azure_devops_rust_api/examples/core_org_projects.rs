@@ -30,7 +30,6 @@ async fn main() -> Result<()> {
         .projects_client()
         .list(&organization)
         .top(top_projects)
-        .into_future()
         .await?;
 
     println!("{:#?}", org_projects);

@@ -35,7 +35,6 @@ async fn main() -> Result<()> {
         .items_client()
         .get(&organization, &repository_name, &file_path, &project)
         .format("json")
-        .into_future()
         .await?;
 
     println!("\n{file_path} metadata:\n{:#?}", item);

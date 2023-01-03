@@ -24,7 +24,7 @@ async fn main() -> Result<()> {
 
     // Get service status
     println!("Get service status");
-    let status = status_client.health_client().get().into_future().await?;
+    let status = status_client.health_client().get().await?;
 
     println!(
         "{:?}: {}",

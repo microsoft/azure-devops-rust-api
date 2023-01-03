@@ -310,11 +310,13 @@ pub mod wikis {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiV2List>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2List>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2List>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -392,11 +394,13 @@ pub mod wikis {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiV2>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -474,11 +478,13 @@ pub mod wikis {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiV2>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -558,11 +564,13 @@ pub mod wikis {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiV2>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -640,11 +648,13 @@ pub mod wikis {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiV2>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -821,11 +831,13 @@ pub mod attachments {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiAttachment>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiAttachment>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiAttachment>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1008,11 +1020,13 @@ pub mod page_moves {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPageMove>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageMove>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageMove>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1346,11 +1360,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1506,11 +1522,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1662,11 +1680,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1778,11 +1798,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1887,11 +1909,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1992,11 +2016,13 @@ pub mod pages {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPage>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2116,11 +2142,13 @@ pub mod page_stats {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPageDetail>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetail>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetail>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2282,11 +2310,13 @@ pub mod pages_batch {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WikiPageDetailList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetailList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetailList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }

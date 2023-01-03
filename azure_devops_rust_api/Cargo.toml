@@ -15,6 +15,9 @@ categories = ["api-bindings"]
 license = "MIT"
 readme = "README.md"
 publish = ["crates-io"]
+# Require 1.64.0 for IntoFuture support
+# https://blog.rust-lang.org/2022/09/22/Rust-1.64.0.html#enhancing-await-with-intofuture
+rust-version = "1.64.0"
 
 [lib]
 doctest = false

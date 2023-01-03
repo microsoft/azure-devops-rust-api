@@ -35,7 +35,6 @@ async fn main() -> Result<()> {
         .work_items_client()
         .get_work_item(&organization, work_item_id, &project)
         .expand("All")
-        .into_future()
         .await?;
 
     println!("{:#?}", work_item);

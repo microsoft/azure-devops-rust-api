@@ -29,7 +29,6 @@ async fn main() -> Result<()> {
     let feeds = artifacts_client
         .feed_management_client()
         .get_feeds(&organization, &project)
-        .into_future()
         .await?
         .value;
 
@@ -49,7 +48,6 @@ async fn main() -> Result<()> {
             let packages = artifacts_client
                 .artifact_details_client()
                 .get_packages(&organization, feed_id, &project)
-                .into_future()
                 .await?
                 .value;
 

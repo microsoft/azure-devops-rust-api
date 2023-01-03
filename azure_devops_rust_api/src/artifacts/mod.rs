@@ -261,11 +261,15 @@ pub mod service_settings {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::GlobalPermissionList>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::GlobalPermissionList>,
+            >;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::GlobalPermissionList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -342,11 +346,15 @@ pub mod service_settings {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::GlobalPermissionList>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::GlobalPermissionList>,
+            >;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::GlobalPermissionList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -521,11 +529,15 @@ pub mod change_tracking {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedChangesResponse>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::FeedChangesResponse>,
+            >;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedChangesResponse>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -603,11 +615,13 @@ pub mod change_tracking {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedChange>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedChange>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedChange>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -708,13 +722,15 @@ pub mod change_tracking {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageChangesResponse>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::PackageChangesResponse>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -848,11 +864,13 @@ pub mod feed_recycle_bin {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1310,11 +1328,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1392,10 +1412,12 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Feed>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<models::Feed>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Feed>> {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1485,10 +1507,12 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Feed>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<models::Feed>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Feed>> {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1568,10 +1592,12 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Feed>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<models::Feed>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Feed>> {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1744,11 +1770,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedPermissionList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedPermissionList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedPermissionList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1829,11 +1857,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedPermissionList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedPermissionList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedPermissionList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1911,11 +1941,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedViewList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedViewList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedViewList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -1995,11 +2027,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedView>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2079,11 +2113,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedView>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2165,11 +2201,13 @@ pub mod feed_management {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedView>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedView>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2502,11 +2540,13 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageMetricsList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::PackageMetricsList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::PackageMetricsList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2744,11 +2784,13 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::PackageList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::PackageList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2896,11 +2938,13 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Package>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::Package>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Package>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -2983,13 +3027,15 @@ pub mod artifact_details {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageVersionMetricsList>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::PackageVersionMetricsList>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3103,11 +3149,13 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageVersionList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::PackageVersionList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::PackageVersionList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3222,11 +3270,13 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageVersion>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::PackageVersion>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::PackageVersion>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3309,13 +3359,15 @@ pub mod artifact_details {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageVersionProvenance>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::PackageVersionProvenance>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3395,10 +3447,12 @@ pub mod artifact_details {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<String>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<String>> {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3665,11 +3719,13 @@ pub mod recycle_bin {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::PackageList>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::PackageList>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::PackageList>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3748,11 +3804,13 @@ pub mod recycle_bin {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::OperationReference>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::OperationReference>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::OperationReference>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3843,11 +3901,13 @@ pub mod recycle_bin {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Package>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::Package>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::Package>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -3941,13 +4001,15 @@ pub mod recycle_bin {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::RecycleBinPackageVersionList>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::RecycleBinPackageVersionList>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -4041,13 +4103,15 @@ pub mod recycle_bin {
                     }
                 })
             }
-            #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::RecycleBinPackageVersion>;
+            type IntoFuture = futures::future::BoxFuture<
                 'static,
                 azure_core::Result<models::RecycleBinPackageVersion>,
-            > {
+            >;
+            #[doc = "Send the request and return the response body."]
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -4192,11 +4256,15 @@ pub mod retention_policies {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedRetentionPolicy>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::FeedRetentionPolicy>,
+            >;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedRetentionPolicy>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -4277,11 +4345,15 @@ pub mod retention_policies {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::FeedRetentionPolicy>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::FeedRetentionPolicy>,
+            >;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::FeedRetentionPolicy>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }
@@ -4433,11 +4505,13 @@ pub mod provenance {
                     }
                 })
             }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::SessionResponse>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::SessionResponse>>;
             #[doc = "Send the request and return the response body."]
-            pub fn into_future(
-                self,
-            ) -> futures::future::BoxFuture<'static, azure_core::Result<models::SessionResponse>>
-            {
+            fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body().await })
             }
         }

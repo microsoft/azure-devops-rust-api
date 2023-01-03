@@ -33,7 +33,6 @@ async fn main() -> Result<()> {
     let commit_changes = git_client
         .commits_client()
         .get_changes(&organization, &commit_id, &repository_name, &project)
-        .into_future()
         .await?;
     println!("Commit changes:\n{:#?}", commit_changes);
 

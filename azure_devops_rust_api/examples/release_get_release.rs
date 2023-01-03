@@ -35,7 +35,6 @@ async fn main() -> Result<()> {
     let release = release_client
         .releases_client()
         .get_release(&organization, &project, release_id)
-        .into_future()
         .await?;
     println!("{:#?}", release);
 
@@ -44,7 +43,6 @@ async fn main() -> Result<()> {
     let manual_interventions = release_client
         .manual_interventions_client()
         .list(&organization, &project, release_id)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", manual_interventions);

@@ -64,7 +64,6 @@ async fn main() -> Result<()> {
                     wiki_page_path,
                     etag,
                 )
-                .into_future()
                 .await
             {
                 Ok(p) => println!("Page updated: {:?}", p.remote_url),
@@ -82,7 +81,6 @@ async fn main() -> Result<()> {
                     wiki_page_path,
                     "a123", // fake version value, unused in creation operation
                 )
-                .into_future()
                 .await
             {
                 Ok(p) => println!("Page created: {:?}", p.remote_url),

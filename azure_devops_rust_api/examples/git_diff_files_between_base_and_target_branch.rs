@@ -48,7 +48,6 @@ async fn main() -> Result<()> {
         .top(top_commits)
         .base_version(base_branch_name)
         .target_version(target_branch_name)
-        .into_future()
         .await?
         .changes;
 

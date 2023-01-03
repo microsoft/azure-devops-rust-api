@@ -41,7 +41,6 @@ async fn main() -> Result<()> {
         .pull_request_commits_client()
         .get_pull_request_commits(&organization, &repository_name, pull_request_id, &project)
         .top(top_commits)
-        .into_future()
         .await?
         .value;
 
@@ -62,7 +61,6 @@ async fn main() -> Result<()> {
         let pr_commits_changes = git_client
             .commits_client()
             .get_changes(&organization, commit_id, &repository_name, &project)
-            .into_future()
             .await?
             .changes;
 

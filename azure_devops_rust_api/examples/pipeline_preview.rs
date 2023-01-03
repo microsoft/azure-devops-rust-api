@@ -30,7 +30,6 @@ async fn main() -> Result<()> {
     let pipelines = pipelines_client
         .pipelines_client()
         .list(&organization, &project)
-        .into_future()
         .await?
         .value;
     println!("Total pipelines: {}", pipelines.len());
@@ -61,7 +60,6 @@ async fn main() -> Result<()> {
         // Request a preview of the specified pipeline
         let preview = preview_client
             .preview(&organization, run_pipeline_params, &project, pipeline.id)
-            .into_future()
             .await?;
 
         // Display the full pipeline YAML

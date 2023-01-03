@@ -33,7 +33,6 @@ async fn main() -> Result<()> {
         .runs_client()
         .list(&organization, &project)
         .top(top_test_runs)
-        .into_future()
         .await?
         .value;
     println!("{:#?}", test_runs);

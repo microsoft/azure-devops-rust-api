@@ -71,7 +71,6 @@ async fn main() -> Result<()> {
     let _repos = git_client
         .repositories_client()
         .list(organization, project)
-        .into_future()
         .await?
         .value;
 

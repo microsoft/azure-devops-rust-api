@@ -36,7 +36,6 @@ async fn main() -> Result<()> {
     let subjects = graph_client
         .subject_query_client()
         .query(&organization, query)
-        .into_future()
         .await?
         .value;
 

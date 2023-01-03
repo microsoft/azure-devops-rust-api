@@ -37,7 +37,6 @@ async fn main() -> Result<()> {
         .list(organization, project)
         .min_time(start_time)
         .max_time(end_time)
-        .into_future()
         .await?
         .value;
 
