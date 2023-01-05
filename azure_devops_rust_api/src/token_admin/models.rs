@@ -220,7 +220,7 @@ pub struct TokenAdminRevocationRule {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_before: Option<time::OffsetDateTime>,
-    #[doc = "A string containing a space-delimited list of OAuth scopes. A token matching any one of the scopes will be rejected. For a list of all OAuth scopes supported by Azure DevOps, see: https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes This is a mandatory parameter."]
+    #[doc = "A string containing a space-delimited list of OAuth scopes. A token matching any one of the scopes will be rejected. For a list of all OAuth scopes supported by Azure DevOps, see:<https://docs>.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#scopes This is a mandatory parameter."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scopes: Option<String>,
 }

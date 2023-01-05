@@ -46,6 +46,21 @@ const DOC_PATCHES: &[(&str, &str)] = &[
         "Number of test points to skip..",
         "Number of test points to skip.",
     ),
+    ("[Internal]", r"\[Internal\]"),
+    ("[optional]", r"\[optional\]"),
+    ("[Obsolete]", r"\[Obsolete\]"),
+    ("[DEPRECATED]", r"\[DEPRECATED\]"),
+    ("[Readonly]", r"\[Readonly\]"),
+    ("[DataMember]", r"\[DataMember\]"),
+    ("[n]", r"\[n\]"),
+    (
+        r#"<![CDATA[ @, ~, ;, {, }, \, +, =, <, >, |, /, \\, ?, :, &, $, *, \", #, [, ] ]]>"#,
+        r#"<!\[CDATA\[ @, ~, ;, {, }, \\, +, =, <, >, |, /, \\\\, ?, :, &, $, *, \", #, \[, \] \]\]>"#,
+    ),
+    (
+        "[Provided for legacy reasons]",
+        r"\[Provided for legacy reasons\]",
+    ),
 ];
 
 const SPEC_DESCRIPTIONS: &[(&str, &str)] = &[
@@ -1606,11 +1621,14 @@ impl Patcher {
         for r in DOC_PATCHES {
             patched_s = patched_s.replace(r.0, r.1);
         }
+        // Markup URL references
+        let regex = regex::Regex::new(r"\s(?P<url>(http|https)://[_A-Za-z0-9/]+)").unwrap();
+        let patched_s = regex.replace_all(&patched_s, "<${url}>");
         if patched_s != s {
             format!("[patched]{}", patched_s);
             println!("patch_docstring: {} => {}", s, patched_s);
         }
-        patched_s
+        patched_s.to_string()
     }
 
     // Patch documentation

@@ -962,7 +962,10 @@ impl ToTokens for RequestBuilderSendCode {
         });
 
         let send_future = quote! {
-            #[doc = "Send the request and returns the response."]
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
             pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
@@ -1088,7 +1091,11 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                     type Output = azure_core::Result<#response_type>;
                     type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<#response_type>>;
 
-                    #[doc = "Send the request and return the response body."]
+                    #[doc = "Returns a future that sends the request and returns the parsed response body."]
+                    #[doc = ""]
+                    #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+                    #[doc = ""]
+                    #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
                     fn into_future(self) -> Self::IntoFuture {
                         Box::pin(
                             async move {
@@ -1119,7 +1126,6 @@ impl ToTokens for OperationModuleCode {
         tokens.extend(quote! {
             pub mod #module_name {
                 use super::models;
-
                 #response_code
 
                 #request_builder_struct_code
@@ -1433,6 +1439,20 @@ impl ToTokens for RequestBuilderStructCode {
         }
         tokens.extend(quote! {
             #[derive(Clone)]
+            /// `RequestBuilder` provides a mechanism for setting optional parameters on a request.
+            ///
+            /// Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple
+            /// parameters can be chained.
+            ///
+            /// The building of a request is typically finalized by invoking `.await` on
+            /// `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)
+            /// method, which converts `RequestBuilder` into a future that executes the request
+            /// operation and returns a `Result` with the parsed response.
+            ///
+            /// If you need lower-level access to the raw response details (e.g. to inspect
+            /// response headers or raw body data) then you can finalize the request using the
+            /// [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level
+            /// [`Response`] value.
             pub struct RequestBuilder {
                 #(#params),*
             }

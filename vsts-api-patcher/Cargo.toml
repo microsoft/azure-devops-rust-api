@@ -18,3 +18,4 @@ publish = false
 anyhow = "1.0.68"
 json = "0.12"
 walkdir = "2"
+regex = "1"

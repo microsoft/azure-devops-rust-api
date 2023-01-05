@@ -463,7 +463,7 @@ pub struct GroupEntitlement {
     #[doc = "The unique identifier which matches the Id of the GraphMember."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = "[Readonly] The last time the group licensing rule was executed (regardless of whether any changes were made)."]
+    #[doc = "\\[Readonly\\] The last time the group licensing rule was executed (regardless of whether any changes were made)."]
     #[serde(
         rename = "lastExecuted",
         default,
@@ -1078,14 +1078,14 @@ pub struct UserEntitlement {
         skip_serializing_if = "Option::is_none"
     )]
     pub access_level: Option<AccessLevel>,
-    #[doc = "[Readonly] Date the user was added to the collection."]
+    #[doc = "\\[Readonly\\] Date the user was added to the collection."]
     #[serde(
         rename = "dateCreated",
         default,
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
-    #[doc = "[Readonly] GroupEntitlements that this user belongs to."]
+    #[doc = "\\[Readonly\\] GroupEntitlements that this user belongs to."]
     #[serde(
         rename = "groupAssignments",
         default,
@@ -1096,7 +1096,7 @@ pub struct UserEntitlement {
     #[doc = "The unique identifier which matches the Id of the Identity associated with the GraphMember."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = "[Readonly] Date the user last accessed the collection."]
+    #[doc = "\\[Readonly\\] Date the user last accessed the collection."]
     #[serde(
         rename = "lastAccessedDate",
         default,

@@ -3726,7 +3726,7 @@ pub struct GitPullRequestQuery {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub queries: Vec<GitPullRequestQueryInput>,
-    #[doc = "The results of the queries. This matches the QueryInputs list so Results[n] are the results of QueryInputs[n]. Each entry in the list is a dictionary of commit->pull requests."]
+    #[doc = "The results of the queries. This matches the QueryInputs list so Results\\[n\\] are the results of QueryInputs\\[n\\]. Each entry in the list is a dictionary of commit->pull requests."]
     #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",

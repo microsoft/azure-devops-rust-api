@@ -41,7 +41,7 @@ impl Identity {
         Self::default()
     }
 }
-#[doc = "Base Identity class to allow \"trimmed\" identity class in the GetConnectionData API Makes sure that on-the-wire representations of the derived classes are compatible with each other (e.g. Server responds with PublicIdentity object while client deserializes it as Identity object) Derived classes should not have additional [DataMember] properties"]
+#[doc = "Base Identity class to allow \"trimmed\" identity class in the GetConnectionData API Makes sure that on-the-wire representations of the derived classes are compatible with each other (e.g. Server responds with PublicIdentity object while client deserializes it as Identity object) Derived classes should not have additional \\[DataMember\\] properties"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityBase {
     #[doc = "The custom display name for the identity (if any). Setting this property to an empty string will clear the existing custom display name. Setting this property to null will not affect the existing persisted value (since null values do not get sent over the wire or to the database)"]
@@ -1059,7 +1059,7 @@ pub struct WebApiConnectedService {
     #[doc = "Represents a shallow reference to a TeamProject."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<TeamProjectReference>,
-    #[doc = "Optional uri to connect directly to the service such as https://windows.azure.com"]
+    #[doc = "Optional uri to connect directly to the service such as<https://windows>.azure.com"]
     #[serde(
         rename = "serviceUri",
         default,
@@ -1091,7 +1091,7 @@ pub struct WebApiConnectedServiceDetails {
         skip_serializing_if = "Option::is_none"
     )]
     pub credentials_xml: Option<String>,
-    #[doc = "Optional uri to connect directly to the service such as https://windows.azure.com"]
+    #[doc = "Optional uri to connect directly to the service such as<https://windows>.azure.com"]
     #[serde(rename = "endPoint", default, skip_serializing_if = "Option::is_none")]
     pub end_point: Option<String>,
 }

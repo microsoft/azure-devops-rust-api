@@ -127,14 +127,14 @@ pub struct MavenPackage {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_id: Option<String>,
-    #[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+    #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
     #[serde(
         rename = "artifactIndex",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_index: Option<ReferenceLink>,
-    #[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+    #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
     #[serde(
         rename = "artifactMetadata",
         default,
@@ -155,14 +155,14 @@ pub struct MavenPackage {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pom: Option<MavenPomMetadata>,
-    #[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+    #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
     #[serde(
         rename = "requestedFile",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub requested_file: Option<ReferenceLink>,
-    #[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+    #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
     #[serde(
         rename = "snapshotMetadata",
         default,
@@ -174,7 +174,7 @@ pub struct MavenPackage {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub versions: Option<ReferenceLinks>,
-    #[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+    #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
     #[serde(
         rename = "versionsIndex",
         default,
@@ -983,7 +983,7 @@ impl PyPiRecycleBinPackageVersionDetails {
         Self::default()
     }
 }
-#[doc = "The class to represent a REST reference link.  RFC: http://tools.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
+#[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReferenceLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
