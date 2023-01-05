@@ -288,7 +288,7 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = "versioning for an artifact as described at: http://semver.org/, of the form major.minor.patch."]
+#[doc = "versioning for an artifact as described at:<http://semver>.org/, of the form major.minor.patch."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SemanticVersion {
     #[doc = "Major version when you make incompatible API changes"]
@@ -439,7 +439,7 @@ pub struct Widget {
     pub position: Option<WidgetPosition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub settings: Option<String>,
-    #[doc = "versioning for an artifact as described at: http://semver.org/, of the form major.minor.patch."]
+    #[doc = "versioning for an artifact as described at:<http://semver>.org/, of the form major.minor.patch."]
     #[serde(
         rename = "settingsVersion",
         default,

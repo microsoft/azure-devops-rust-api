@@ -2673,17 +2673,17 @@ pub struct WorkItemCommentVersionRef {
     #[doc = "The id assigned to the comment."]
     #[serde(rename = "commentId", default, skip_serializing_if = "Option::is_none")]
     pub comment_id: Option<i32>,
-    #[doc = "[Internal] The work item revision where this comment was originally added."]
+    #[doc = "\\[Internal\\] The work item revision where this comment was originally added."]
     #[serde(
         rename = "createdInRevision",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub created_in_revision: Option<i32>,
-    #[doc = "[Internal] Specifies whether comment was deleted."]
+    #[doc = "\\[Internal\\] Specifies whether comment was deleted."]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[doc = "[Internal] The text of the comment."]
+    #[doc = "\\[Internal\\] The text of the comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[doc = "The version number."]

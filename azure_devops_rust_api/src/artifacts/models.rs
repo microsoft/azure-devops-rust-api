@@ -260,7 +260,7 @@ pub struct FeedCore {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_read_only: Option<bool>,
-    #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <![CDATA[ @, ~, ;, {, }, \\, +, =, <, >, |, /, \\\\, ?, :, &, $, *, \\\", #, [, ] ]]></description></item></list>"]
+    #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <!\\[CDATA\\[ @, ~, ;, {, }, \\\\, +, =, <, >, |, /, \\\\\\\\, ?, :, &, $, *, \\\", #, \\[, \\] \\]\\]></description></item></list>"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = ""]
@@ -471,7 +471,7 @@ pub struct FeedUpdate {
     #[doc = "A GUID that uniquely identifies this feed."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <![CDATA[ @, ~, ;, {, }, \\, +, =, <, >, |, /, \\\\, ?, :, &, $, *, \\\", #, [, ] ]]></description></item></list>"]
+    #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <!\\[CDATA\\[ @, ~, ;, {, }, \\\\, +, =, <, >, |, /, \\\\\\\\, ?, :, &, $, *, \\\", #, \\[, \\] \\]\\]></description></item></list>"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = "OBSOLETE: If set, the feed can proxy packages from an upstream feed"]
@@ -702,7 +702,7 @@ pub struct MinimalPackageVersion {
     #[doc = "Id for the package."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = "[Obsolete] Used for legacy scenarios and may be removed in future versions."]
+    #[doc = "\\[Obsolete\\] Used for legacy scenarios and may be removed in future versions."]
     #[serde(
         rename = "isCachedVersion",
         default,
@@ -827,7 +827,7 @@ pub struct Package {
         skip_serializing_if = "Option::is_none"
     )]
     pub protocol_type: Option<String>,
-    #[doc = "[Obsolete] - this field is unused and will be removed in a future release."]
+    #[doc = "\\[Obsolete\\] - this field is unused and will be removed in a future release."]
     #[serde(rename = "starCount", default, skip_serializing_if = "Option::is_none")]
     pub star_count: Option<i32>,
     #[doc = "Url for this package."]
