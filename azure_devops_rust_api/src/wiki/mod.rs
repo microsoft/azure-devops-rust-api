@@ -241,7 +241,6 @@ pub mod wikis {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2List> {
@@ -345,7 +344,6 @@ pub mod wikis {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
@@ -451,7 +449,6 @@ pub mod wikis {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
@@ -557,7 +554,6 @@ pub mod wikis {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
@@ -665,7 +661,6 @@ pub mod wikis {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
@@ -805,7 +800,6 @@ pub mod attachments {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiAttachment> {
@@ -1008,7 +1002,6 @@ pub mod page_moves {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageMove> {
@@ -1352,7 +1345,6 @@ pub mod pages {
     }
     pub mod get_page {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -1549,7 +1541,6 @@ pub mod pages {
     }
     pub mod create_or_update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -1733,7 +1724,6 @@ pub mod pages {
     }
     pub mod delete_page {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -1913,7 +1903,6 @@ pub mod pages {
     }
     pub mod get_page_by_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -2053,7 +2042,6 @@ pub mod pages {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -2186,7 +2174,6 @@ pub mod pages {
     }
     pub mod delete_page_by_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
@@ -2344,7 +2331,6 @@ pub mod page_stats {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetail> {
@@ -2494,7 +2480,6 @@ pub mod pages_batch {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetailList> {

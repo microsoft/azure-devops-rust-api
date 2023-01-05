@@ -219,7 +219,6 @@ pub mod boardcolumns {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardSuggestedValueList> {
@@ -348,7 +347,6 @@ pub mod boardrows {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardSuggestedValueList> {
@@ -480,7 +478,6 @@ pub mod iterationcapacities {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::IterationCapacity> {
@@ -688,7 +685,6 @@ pub mod plans {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PlanList> {
@@ -792,7 +788,6 @@ pub mod plans {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Plan> {
@@ -897,7 +892,6 @@ pub mod plans {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Plan> {
@@ -1002,7 +996,6 @@ pub mod plans {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Plan> {
@@ -1109,7 +1102,6 @@ pub mod plans {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1198,7 +1190,6 @@ pub mod deliverytimeline {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DeliveryViewData> {
@@ -1363,7 +1354,6 @@ pub mod processconfiguration {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ProcessConfiguration> {
@@ -1495,7 +1485,6 @@ pub mod backlogconfiguration {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BacklogConfiguration> {
@@ -1672,7 +1661,6 @@ pub mod backlogs {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1783,7 +1771,6 @@ pub mod backlogs {
     }
     pub mod get_backlog_level_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BacklogLevelWorkItems> {
@@ -1894,7 +1881,6 @@ pub mod backlogs {
     }
     pub mod get_backlog {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BacklogLevelConfiguration> {
@@ -2077,7 +2063,6 @@ pub mod boards {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardReferenceList> {
@@ -2184,7 +2169,6 @@ pub mod boards {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Board> {
@@ -2292,7 +2276,6 @@ pub mod boards {
     }
     pub mod set_board_options {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<serde_json::Value> {
@@ -2453,7 +2436,6 @@ pub mod boardusersettings {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardUserSettings> {
@@ -2562,7 +2544,6 @@ pub mod boardusersettings {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardUserSettings> {
@@ -2744,7 +2725,6 @@ pub mod cardrulesettings {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardCardRuleSettings> {
@@ -2855,7 +2835,6 @@ pub mod cardrulesettings {
     }
     pub mod update_board_card_rule_settings {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardCardRuleSettings> {
@@ -2968,7 +2947,6 @@ pub mod cardrulesettings {
     }
     pub mod update_taskboard_card_rule_settings {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3102,7 +3080,6 @@ pub mod cardsettings {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardCardSettings> {
@@ -3211,7 +3188,6 @@ pub mod cardsettings {
     }
     pub mod update_board_card_settings {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardCardSettings> {
@@ -3322,7 +3298,6 @@ pub mod cardsettings {
     }
     pub mod update_taskboard_card_settings {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3476,7 +3451,6 @@ pub mod chartimages {
     }
     pub mod get_board_chart_image {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -3627,7 +3601,6 @@ pub mod chartimages {
     }
     pub mod get_iteration_chart_image {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -3778,7 +3751,6 @@ pub mod chartimages {
     }
     pub mod get_iterations_chart_image {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4018,7 +3990,6 @@ pub mod charts {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardChartReferenceList> {
@@ -4129,7 +4100,6 @@ pub mod charts {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardChart> {
@@ -4239,7 +4209,6 @@ pub mod charts {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardChart> {
@@ -4404,7 +4373,6 @@ pub mod columns {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardColumnList> {
@@ -4513,7 +4481,6 @@ pub mod columns {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardColumnList> {
@@ -4677,7 +4644,6 @@ pub mod rows {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardRowList> {
@@ -4785,7 +4751,6 @@ pub mod rows {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BoardRowList> {
@@ -4925,7 +4890,6 @@ pub mod boardparents {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ParentChildWiMapList> {
@@ -5097,7 +5061,6 @@ pub mod workitemsorder {
     }
     pub mod reorder_iteration_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReorderResultList> {
@@ -5208,7 +5171,6 @@ pub mod workitemsorder {
     }
     pub mod reorder_backlog_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReorderResultList> {
@@ -5361,7 +5323,6 @@ pub mod taskboard_columns {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TaskboardColumns> {
@@ -5468,7 +5429,6 @@ pub mod taskboard_columns {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TaskboardColumns> {
@@ -5627,7 +5587,6 @@ pub mod taskboard_work_items {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -5740,7 +5699,6 @@ pub mod taskboard_work_items {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5854,7 +5812,6 @@ pub mod teamsettings {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSetting> {
@@ -5960,7 +5917,6 @@ pub mod teamsettings {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSetting> {
@@ -6182,7 +6138,6 @@ pub mod iterations {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSettingsIterationList> {
@@ -6302,7 +6257,6 @@ pub mod iterations {
     }
     pub mod post_team_iteration {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSettingsIteration> {
@@ -6413,7 +6367,6 @@ pub mod iterations {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSettingsIteration> {
@@ -6524,7 +6477,6 @@ pub mod iterations {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6587,7 +6539,6 @@ pub mod iterations {
     }
     pub mod get_iteration_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::IterationWorkItems> {
@@ -6802,7 +6753,6 @@ pub mod capacities {
     }
     pub mod get_capacities_with_identity_ref_and_totals {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamCapacity> {
@@ -6910,7 +6860,6 @@ pub mod capacities {
     }
     pub mod replace_capacities_with_identity_ref {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -7025,7 +6974,6 @@ pub mod capacities {
     }
     pub mod get_capacity_with_identity_ref {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -7140,7 +7088,6 @@ pub mod capacities {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -7310,7 +7257,6 @@ pub mod teamdaysoff {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSettingsDaysOff> {
@@ -7421,7 +7367,6 @@ pub mod teamdaysoff {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamSettingsDaysOff> {
@@ -7580,7 +7525,6 @@ pub mod teamfieldvalues {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamFieldValues> {
@@ -7687,7 +7631,6 @@ pub mod teamfieldvalues {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TeamFieldValues> {

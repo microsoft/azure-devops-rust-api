@@ -208,7 +208,6 @@ pub mod consumers {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerList> {
@@ -320,7 +319,6 @@ pub mod consumers {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Consumer> {
@@ -434,7 +432,6 @@ pub mod consumers {
     }
     pub mod list_consumer_actions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerActionList> {
@@ -549,7 +546,6 @@ pub mod consumers {
     }
     pub mod get_consumer_action {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerAction> {
@@ -739,7 +735,6 @@ pub mod notifications {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::NotificationsQuery> {
@@ -844,7 +839,6 @@ pub mod notifications {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::NotificationList> {
@@ -982,7 +976,6 @@ pub mod notifications {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Notification> {
@@ -1088,7 +1081,6 @@ pub mod notifications {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Notification> {
@@ -1300,7 +1292,6 @@ pub mod publishers {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PublisherList> {
@@ -1402,7 +1393,6 @@ pub mod publishers {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Publisher> {
@@ -1506,7 +1496,6 @@ pub mod publishers {
     }
     pub mod list_event_types {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::EventTypeDescriptorList> {
@@ -1613,7 +1602,6 @@ pub mod publishers {
     }
     pub mod get_event_type {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::EventTypeDescriptor> {
@@ -1722,7 +1710,6 @@ pub mod publishers {
     }
     pub mod query_input_values {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::InputValuesQuery> {
@@ -1829,7 +1816,6 @@ pub mod publishers {
     }
     pub mod query_publishers {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PublishersQuery> {
@@ -2034,7 +2020,6 @@ pub mod subscriptions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionList> {
@@ -2181,7 +2166,6 @@ pub mod subscriptions {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
@@ -2285,7 +2269,6 @@ pub mod subscriptions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
@@ -2389,7 +2372,6 @@ pub mod subscriptions {
     }
     pub mod replace_subscription {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
@@ -2495,7 +2477,6 @@ pub mod subscriptions {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -2554,7 +2535,6 @@ pub mod subscriptions {
     }
     pub mod create_subscriptions_query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionsQuery> {
@@ -2695,7 +2675,6 @@ pub mod diagnostics {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionDiagnostics> {
@@ -2802,7 +2781,6 @@ pub mod diagnostics {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionDiagnostics> {

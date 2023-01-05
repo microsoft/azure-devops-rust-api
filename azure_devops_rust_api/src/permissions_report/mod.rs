@@ -176,7 +176,6 @@ pub mod permissions_report {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PermissionsReportList> {
@@ -281,7 +280,6 @@ pub mod permissions_report {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReferenceLinks> {
@@ -385,7 +383,6 @@ pub mod permissions_report {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PermissionsReport> {
@@ -512,7 +509,6 @@ pub mod permissions_report_download {
     }
     pub mod download {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {

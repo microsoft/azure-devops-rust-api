@@ -169,7 +169,6 @@ pub mod behaviors {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AdminBehavior> {
@@ -279,7 +278,6 @@ pub mod behaviors {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AdminBehaviorList> {
@@ -440,7 +438,6 @@ pub mod processes {
     }
     pub mod export_process_template {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -543,7 +540,6 @@ pub mod processes {
     }
     pub mod import_process_template {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ProcessImportResult> {
@@ -673,7 +669,6 @@ pub mod processes {
     }
     pub mod import_process_template_status {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ProcessPromoteStatus> {

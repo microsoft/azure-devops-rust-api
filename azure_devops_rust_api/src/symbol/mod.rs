@@ -307,7 +307,6 @@ pub mod requests {
     }
     pub mod create_requests_request_name_debug_entries {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DebugEntryList> {
@@ -423,7 +422,6 @@ pub mod requests {
     }
     pub mod get_requests_request_name {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Request> {
@@ -530,7 +528,6 @@ pub mod requests {
     }
     pub mod create_requests {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Request> {
@@ -634,7 +631,6 @@ pub mod requests {
     }
     pub mod update_requests_request_name {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Request> {
@@ -743,7 +739,6 @@ pub mod requests {
     }
     pub mod delete_requests_request_name {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -816,7 +811,6 @@ pub mod requests {
     }
     pub mod get_requests_request_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Request> {
@@ -920,7 +914,6 @@ pub mod requests {
     }
     pub mod create_requests_request_id_debug_entries {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DebugEntryList> {
@@ -1031,7 +1024,6 @@ pub mod requests {
     }
     pub mod update_requests_request_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Request> {
@@ -1137,7 +1129,6 @@ pub mod requests {
     }
     pub mod delete_requests_request_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1226,7 +1217,6 @@ pub mod availability {
     }
     pub mod check_availability {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1315,7 +1305,6 @@ pub mod client {
     }
     pub mod head_client {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1372,7 +1361,6 @@ pub mod client {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1500,7 +1488,6 @@ pub mod contents {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1583,7 +1570,6 @@ pub mod symsrv {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]

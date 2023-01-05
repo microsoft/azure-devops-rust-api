@@ -181,7 +181,6 @@ pub mod endpointproxy {
     }
     pub mod execute_service_endpoint_request {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -298,7 +297,6 @@ pub mod endpointproxy {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
@@ -588,7 +586,6 @@ pub mod endpoints {
     }
     pub mod get_service_endpoints {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
@@ -757,7 +754,6 @@ pub mod endpoints {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
@@ -862,7 +858,6 @@ pub mod endpoints {
     }
     pub mod update_service_endpoints {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
@@ -969,7 +964,6 @@ pub mod endpoints {
     }
     pub mod update_service_endpoint {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
@@ -1087,7 +1081,6 @@ pub mod endpoints {
     }
     pub mod share_service_endpoint {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1148,7 +1141,6 @@ pub mod endpoints {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1223,7 +1215,6 @@ pub mod endpoints {
     }
     pub mod get_service_endpoints_by_names {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
@@ -1386,7 +1377,6 @@ pub mod endpoints {
     }
     pub mod get_service_endpoints_with_refreshed_authentication {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
@@ -1500,7 +1490,6 @@ pub mod endpoints {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
@@ -1636,7 +1625,6 @@ pub mod types {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointTypeList> {
@@ -1788,7 +1776,6 @@ pub mod executionhistory {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(

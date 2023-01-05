@@ -358,7 +358,6 @@ pub mod classification_nodes {
     }
     pub mod get_classification_nodes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -493,7 +492,6 @@ pub mod classification_nodes {
     }
     pub mod get_root_nodes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -613,7 +611,6 @@ pub mod classification_nodes {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
@@ -735,7 +732,6 @@ pub mod classification_nodes {
     }
     pub mod create_or_update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
@@ -848,7 +844,6 @@ pub mod classification_nodes {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
@@ -961,7 +956,6 @@ pub mod classification_nodes {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1188,7 +1182,6 @@ pub mod queries {
     }
     pub mod search_queries {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemsResult> {
@@ -1333,7 +1326,6 @@ pub mod queries {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemList> {
@@ -1473,7 +1465,6 @@ pub mod queries {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
@@ -1624,7 +1615,6 @@ pub mod queries {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
@@ -1744,7 +1734,6 @@ pub mod queries {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
@@ -1865,7 +1854,6 @@ pub mod queries {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1926,7 +1914,6 @@ pub mod queries {
     }
     pub mod get_queries_batch {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemList> {
@@ -2136,7 +2123,6 @@ pub mod recyclebin {
     }
     pub mod get_deleted_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -2249,7 +2235,6 @@ pub mod recyclebin {
     }
     pub mod get_deleted_work_item_shallow_references {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -2358,7 +2343,6 @@ pub mod recyclebin {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
@@ -2464,7 +2448,6 @@ pub mod recyclebin {
     }
     pub mod restore_work_item {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
@@ -2572,7 +2555,6 @@ pub mod recyclebin {
     }
     pub mod destroy_work_item {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -2778,7 +2760,6 @@ pub mod comments {
     }
     pub mod get_comments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentList> {
@@ -2937,7 +2918,6 @@ pub mod comments {
     }
     pub mod get_comments_batch {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentList> {
@@ -3068,7 +3048,6 @@ pub mod comments {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
@@ -3176,7 +3155,6 @@ pub mod comments {
     }
     pub mod get_comment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
@@ -3306,7 +3284,6 @@ pub mod comments {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
@@ -3416,7 +3393,6 @@ pub mod comments {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3495,7 +3471,6 @@ pub mod artifact_link_types {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkArtifactLinkList> {
@@ -3634,7 +3609,6 @@ pub mod work_item_icons {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemIconList> {
@@ -3737,7 +3711,6 @@ pub mod work_item_icons {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemIcon> {
@@ -3893,7 +3866,6 @@ pub mod work_item_relation_types {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemRelationTypeList> {
@@ -3998,7 +3970,6 @@ pub mod work_item_relation_types {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemRelationType> {
@@ -4128,7 +4099,6 @@ pub mod work_item_transitions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -4265,7 +4235,6 @@ pub mod account_my_work_recent_activity {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -4397,7 +4366,6 @@ pub mod artifact_uri_query {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ArtifactUriQueryResult> {
@@ -4581,7 +4549,6 @@ pub mod attachments {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentReference> {
@@ -4723,7 +4690,6 @@ pub mod attachments {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4850,7 +4816,6 @@ pub mod attachments {
     }
     pub mod upload_chunk {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentReference> {
@@ -5075,7 +5040,6 @@ pub mod fields {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemFieldList> {
@@ -5191,7 +5155,6 @@ pub mod fields {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
@@ -5297,7 +5260,6 @@ pub mod fields {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
@@ -5403,7 +5365,6 @@ pub mod fields {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
@@ -5511,7 +5472,6 @@ pub mod fields {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5596,7 +5556,6 @@ pub mod project_process_migration {
     }
     pub mod migrate_projects_process {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -5733,7 +5692,6 @@ pub mod reporting_work_item_links {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -5944,7 +5902,6 @@ pub mod reporting_work_item_revisions {
     }
     pub mod read_reporting_revisions_get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -6184,7 +6141,6 @@ pub mod reporting_work_item_revisions {
     }
     pub mod read_reporting_revisions_post {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -6355,7 +6311,6 @@ pub mod work_item_revisions_discussions {
     }
     pub mod read_reporting_discussions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -6508,7 +6463,6 @@ pub mod send_mail {
     }
     pub mod send_mail {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6643,7 +6597,6 @@ pub mod tags {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinitionList> {
@@ -6750,7 +6703,6 @@ pub mod tags {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinition> {
@@ -6859,7 +6811,6 @@ pub mod tags {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinition> {
@@ -6970,7 +6921,6 @@ pub mod tags {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -7194,7 +7144,6 @@ pub mod work_items {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
@@ -7346,7 +7295,6 @@ pub mod work_items {
     }
     pub mod get_work_item_template {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
@@ -7486,7 +7434,6 @@ pub mod work_items {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
@@ -7639,7 +7586,6 @@ pub mod work_items {
     }
     pub mod get_work_item {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
@@ -7779,7 +7725,6 @@ pub mod work_items {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
@@ -7932,7 +7877,6 @@ pub mod work_items {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
@@ -8049,7 +7993,6 @@ pub mod work_items {
     }
     pub mod get_work_items_batch {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
@@ -8203,7 +8146,6 @@ pub mod revisions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
@@ -8339,7 +8281,6 @@ pub mod revisions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
@@ -8503,7 +8444,6 @@ pub mod updates {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemUpdateList> {
@@ -8630,7 +8570,6 @@ pub mod updates {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemUpdate> {
@@ -8816,7 +8755,6 @@ pub mod comments_reactions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReactionList> {
@@ -8927,7 +8865,6 @@ pub mod comments_reactions {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReaction> {
@@ -9038,7 +8975,6 @@ pub mod comments_reactions {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReaction> {
@@ -9182,7 +9118,6 @@ pub mod comment_reactions_engaged_users {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefList> {
@@ -9359,7 +9294,6 @@ pub mod comments_versions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentVersionList> {
@@ -9468,7 +9402,6 @@ pub mod comments_versions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CommentVersion> {
@@ -9619,7 +9552,6 @@ pub mod work_item_type_categories {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeCategoryList> {
@@ -9726,7 +9658,6 @@ pub mod work_item_type_categories {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeCategory> {
@@ -9876,7 +9807,6 @@ pub mod work_item_types {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeList> {
@@ -9981,7 +9911,6 @@ pub mod work_item_types {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemType> {
@@ -10135,7 +10064,6 @@ pub mod work_item_types_field {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -10257,7 +10185,6 @@ pub mod work_item_types_field {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -10406,7 +10333,6 @@ pub mod work_item_type_states {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateColorList> {
@@ -10632,7 +10558,6 @@ pub mod templates {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -10754,7 +10679,6 @@ pub mod templates {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
@@ -10863,7 +10787,6 @@ pub mod templates {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
@@ -10972,7 +10895,6 @@ pub mod templates {
     }
     pub mod replace_template {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
@@ -11083,7 +11005,6 @@ pub mod templates {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -11224,7 +11145,6 @@ pub mod wiql {
     }
     pub mod query_by_wiql {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemQueryResult> {
@@ -11357,7 +11277,6 @@ pub mod wiql {
     }
     pub mod query_by_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemQueryResult> {
@@ -11490,7 +11409,6 @@ pub mod wiql {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<i32> {

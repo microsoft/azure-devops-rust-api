@@ -176,7 +176,6 @@ pub mod access_control_entries {
     }
     pub mod set_access_control_entries {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AccessControlEntryList> {
@@ -285,7 +284,6 @@ pub mod access_control_entries {
     }
     pub mod remove_access_control_entries {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<bool> {
@@ -471,7 +469,6 @@ pub mod access_control_lists {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AccessControlListList> {
@@ -621,7 +618,6 @@ pub mod access_control_lists {
     }
     pub mod set_access_control_lists {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -682,7 +678,6 @@ pub mod access_control_lists {
     }
     pub mod remove_access_control_lists {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<bool> {
@@ -874,7 +869,6 @@ pub mod permissions {
     }
     pub mod has_permissions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<Vec<bool>> {
@@ -1017,7 +1011,6 @@ pub mod permissions {
     }
     pub mod remove_permission {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AccessControlEntry> {
@@ -1138,7 +1131,6 @@ pub mod permissions {
     }
     pub mod has_permissions_batch {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PermissionEvaluationBatch> {
@@ -1268,7 +1260,6 @@ pub mod security_namespaces {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(

@@ -219,7 +219,6 @@ pub mod shelvesets {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcShelvesetRefList> {
@@ -448,7 +447,6 @@ pub mod shelvesets {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcShelveset> {
@@ -657,7 +655,6 @@ pub mod shelvesets {
     }
     pub mod get_shelveset_changes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeList> {
@@ -786,7 +783,6 @@ pub mod shelvesets {
     }
     pub mod get_shelveset_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AssociatedWorkItemList> {
@@ -964,7 +960,6 @@ pub mod branches {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranch> {
@@ -1094,7 +1089,6 @@ pub mod branches {
     }
     pub mod get_branches {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranchList> {
@@ -1242,7 +1236,6 @@ pub mod branches {
     }
     pub mod get_branch_refs {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranchRefList> {
@@ -1447,7 +1440,6 @@ pub mod items {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItem> {
@@ -1660,7 +1652,6 @@ pub mod items {
     }
     pub mod get_items_batch {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
@@ -1765,7 +1756,6 @@ pub mod items {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItemList> {
@@ -2090,7 +2080,6 @@ pub mod changesets {
     }
     pub mod get_changeset_changes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeList> {
@@ -2227,7 +2216,6 @@ pub mod changesets {
     }
     pub mod get_changeset_work_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AssociatedWorkItemList> {
@@ -2334,7 +2322,6 @@ pub mod changesets {
     }
     pub mod get_batched_changesets {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRefList> {
@@ -2441,7 +2428,6 @@ pub mod changesets {
     }
     pub mod get_changesets {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRefList> {
@@ -2715,7 +2701,6 @@ pub mod changesets {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRef> {
@@ -2822,7 +2807,6 @@ pub mod changesets {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeset> {
@@ -3213,7 +3197,6 @@ pub mod labels {
     }
     pub mod get_label_items {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItemList> {
@@ -3339,7 +3322,6 @@ pub mod labels {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcLabelRefList> {
@@ -3544,7 +3526,6 @@ pub mod labels {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcLabel> {

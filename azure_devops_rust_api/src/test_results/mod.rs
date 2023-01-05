@@ -227,7 +227,6 @@ pub mod testlog {
     }
     pub mod get_test_sub_result_logs {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestLogList> {
@@ -389,7 +388,6 @@ pub mod testlog {
     }
     pub mod get_test_result_logs {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestLogList> {
@@ -553,7 +551,6 @@ pub mod testlog {
     }
     pub mod get_test_run_logs {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestLogList> {
@@ -860,7 +857,6 @@ pub mod testlogstoreendpoint {
     }
     pub mod get_test_log_store_endpoint_details_for_sub_result_log {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -979,7 +975,6 @@ pub mod testlogstoreendpoint {
     }
     pub mod get_test_log_store_endpoint_details_for_result_log {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1100,7 +1095,6 @@ pub mod testlogstoreendpoint {
     }
     pub mod test_log_store_endpoint_details_for_result {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1227,7 +1221,6 @@ pub mod testlogstoreendpoint {
     }
     pub mod get_test_log_store_endpoint_details_for_run_log {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1346,7 +1339,6 @@ pub mod testlogstoreendpoint {
     }
     pub mod test_log_store_endpoint_details_for_run {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1532,7 +1524,6 @@ pub mod result_meta_data {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestResultMetaDataList> {
@@ -1652,7 +1643,6 @@ pub mod result_meta_data {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestResultMetaData> {

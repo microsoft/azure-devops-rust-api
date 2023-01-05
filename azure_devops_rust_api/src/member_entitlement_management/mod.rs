@@ -221,7 +221,6 @@ pub mod group_entitlements {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::GroupEntitlementList> {
@@ -326,7 +325,6 @@ pub mod group_entitlements {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -446,7 +444,6 @@ pub mod group_entitlements {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::GroupEntitlement> {
@@ -551,7 +548,6 @@ pub mod group_entitlements {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -673,7 +669,6 @@ pub mod group_entitlements {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -867,7 +862,6 @@ pub mod members {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PagedGraphMemberList> {
@@ -996,7 +990,6 @@ pub mod members {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1057,7 +1050,6 @@ pub mod members {
     }
     pub mod remove_member_from_group {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1225,7 +1217,6 @@ pub mod user_entitlements {
     }
     pub mod search_user_entitlements {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PagedGraphMemberList> {
@@ -1374,7 +1365,6 @@ pub mod user_entitlements {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1483,7 +1473,6 @@ pub mod user_entitlements {
     }
     pub mod update_user_entitlements {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1609,7 +1598,6 @@ pub mod user_entitlements {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UserEntitlement> {
@@ -1714,7 +1702,6 @@ pub mod user_entitlements {
     }
     pub mod update_user_entitlement {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -1825,7 +1812,6 @@ pub mod user_entitlements {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1901,7 +1887,6 @@ pub mod user_entitlement_summary {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UsersSummary> {

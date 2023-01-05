@@ -162,7 +162,6 @@ pub mod package_search_results {
     }
     pub mod fetch_package_search_results {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -306,7 +305,6 @@ pub mod code_search_results {
     }
     pub mod fetch_code_search_results {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::CodeSearchResponse> {
@@ -438,7 +436,6 @@ pub mod repositories {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::RepositoryStatusResponse> {
@@ -569,7 +566,6 @@ pub mod tfvc {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -703,7 +699,6 @@ pub mod wiki_search_results {
     }
     pub mod fetch_wiki_search_results {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WikiSearchResponse> {
@@ -835,7 +830,6 @@ pub mod work_item_search_results {
     }
     pub mod fetch_work_item_search_results {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemSearchResponse> {

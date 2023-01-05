@@ -394,7 +394,6 @@ pub mod releases {
     }
     pub mod get_release {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Release> {
@@ -544,7 +543,6 @@ pub mod releases {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseList> {
@@ -887,7 +885,6 @@ pub mod releases {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Release> {
@@ -993,7 +990,6 @@ pub mod releases {
     }
     pub mod get_release_revision {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1104,7 +1100,6 @@ pub mod releases {
     }
     pub mod update_release {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Release> {
@@ -1212,7 +1207,6 @@ pub mod releases {
     }
     pub mod update_release_resource {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Release> {
@@ -1320,7 +1314,6 @@ pub mod releases {
     }
     pub mod get_release_environment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
@@ -1440,7 +1433,6 @@ pub mod releases {
     }
     pub mod update_release_environment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
@@ -1551,7 +1543,6 @@ pub mod releases {
     }
     pub mod get_task_log {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1675,7 +1666,6 @@ pub mod releases {
     }
     pub mod get_logs {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1832,7 +1822,6 @@ pub mod approvals {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseApprovalList> {
@@ -2028,7 +2017,6 @@ pub mod approvals {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseApproval> {
@@ -2293,7 +2281,6 @@ pub mod definitions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinitionList> {
@@ -2558,7 +2545,6 @@ pub mod definitions {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
@@ -2665,7 +2651,6 @@ pub mod definitions {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
@@ -2772,7 +2757,6 @@ pub mod definitions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
@@ -2890,7 +2874,6 @@ pub mod definitions {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -2973,7 +2956,6 @@ pub mod definitions {
     }
     pub mod get_release_definition_history {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -3084,7 +3066,6 @@ pub mod definitions {
     }
     pub mod get_definition_revision {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -3227,7 +3208,6 @@ pub mod deployments {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DeploymentList> {
@@ -3592,7 +3572,6 @@ pub mod folders {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FolderList> {
@@ -3709,7 +3688,6 @@ pub mod folders {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Folder> {
@@ -3817,7 +3795,6 @@ pub mod folders {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Folder> {
@@ -3925,7 +3902,6 @@ pub mod folders {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4014,7 +3990,6 @@ pub mod gates {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseGates> {
@@ -4267,7 +4242,6 @@ pub mod attachments {
     }
     pub mod get_release_task_attachments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
@@ -4374,7 +4348,6 @@ pub mod attachments {
     }
     pub mod get_release_task_attachment_content {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4480,7 +4453,6 @@ pub mod attachments {
     }
     pub mod get_task_attachments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
@@ -4587,7 +4559,6 @@ pub mod attachments {
     }
     pub mod get_task_attachment_content {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4764,7 +4735,6 @@ pub mod manual_interventions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ManualInterventionList> {
@@ -4873,7 +4843,6 @@ pub mod manual_interventions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ManualIntervention> {
@@ -4982,7 +4951,6 @@ pub mod manual_interventions {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ManualIntervention> {

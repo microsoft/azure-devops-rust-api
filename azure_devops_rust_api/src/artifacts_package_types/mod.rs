@@ -443,7 +443,6 @@ pub mod maven {
     }
     pub mod get_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UpstreamingBehavior> {
@@ -548,7 +547,6 @@ pub mod maven {
     }
     pub mod set_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -607,7 +605,6 @@ pub mod maven {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -721,7 +718,6 @@ pub mod maven {
     }
     pub mod update_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -781,7 +777,6 @@ pub mod maven {
     }
     pub mod delete_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -839,7 +834,6 @@ pub mod maven {
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -947,7 +941,6 @@ pub mod maven {
     }
     pub mod restore_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1007,7 +1000,6 @@ pub mod maven {
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1065,7 +1057,6 @@ pub mod maven {
     }
     pub mod update_recycle_bin_packages {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1128,7 +1119,6 @@ pub mod maven {
     }
     pub mod download_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1241,7 +1231,6 @@ pub mod maven {
     }
     pub mod update_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1872,7 +1861,6 @@ pub mod npm {
     }
     pub mod get_scoped_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -1984,7 +1972,6 @@ pub mod npm {
     }
     pub mod update_scoped_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -2098,7 +2085,6 @@ pub mod npm {
     }
     pub mod unpublish_scoped_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -2210,7 +2196,6 @@ pub mod npm {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -2320,7 +2305,6 @@ pub mod npm {
     }
     pub mod update_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -2432,7 +2416,6 @@ pub mod npm {
     }
     pub mod unpublish_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -2542,7 +2525,6 @@ pub mod npm {
     }
     pub mod get_package_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UpstreamingBehavior> {
@@ -2655,7 +2637,6 @@ pub mod npm {
     }
     pub mod set_scoped_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -2722,7 +2703,6 @@ pub mod npm {
     }
     pub mod download_scoped_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -2824,7 +2804,6 @@ pub mod npm {
     }
     pub mod get_scoped_package_readme {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -2926,7 +2905,6 @@ pub mod npm {
     }
     pub mod get_scoped_package_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UpstreamingBehavior> {
@@ -3037,7 +3015,6 @@ pub mod npm {
     }
     pub mod set_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3102,7 +3079,6 @@ pub mod npm {
     }
     pub mod download_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -3211,7 +3187,6 @@ pub mod npm {
     }
     pub mod get_package_readme {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -3320,7 +3295,6 @@ pub mod npm {
     }
     pub mod update_packages {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3383,7 +3357,6 @@ pub mod npm {
     }
     pub mod get_scoped_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -3491,7 +3464,6 @@ pub mod npm {
     }
     pub mod restore_scoped_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3551,7 +3523,6 @@ pub mod npm {
     }
     pub mod delete_scoped_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3609,7 +3580,6 @@ pub mod npm {
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -3716,7 +3686,6 @@ pub mod npm {
     }
     pub mod restore_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3775,7 +3744,6 @@ pub mod npm {
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -3832,7 +3800,6 @@ pub mod npm {
     }
     pub mod update_recycle_bin_packages {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4175,7 +4142,6 @@ pub mod nu_get {
     }
     pub mod get_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UpstreamingBehavior> {
@@ -4286,7 +4252,6 @@ pub mod nu_get {
     }
     pub mod set_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4351,7 +4316,6 @@ pub mod nu_get {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -4472,7 +4436,6 @@ pub mod nu_get {
     }
     pub mod update_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4539,7 +4502,6 @@ pub mod nu_get {
     }
     pub mod delete_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -4649,7 +4611,6 @@ pub mod nu_get {
     }
     pub mod download_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4764,7 +4725,6 @@ pub mod nu_get {
     }
     pub mod update_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4827,7 +4787,6 @@ pub mod nu_get {
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -4934,7 +4893,6 @@ pub mod nu_get {
     }
     pub mod restore_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4993,7 +4951,6 @@ pub mod nu_get {
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5050,7 +5007,6 @@ pub mod nu_get {
     }
     pub mod update_recycle_bin_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5395,7 +5351,6 @@ pub mod python {
     }
     pub mod get_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::UpstreamingBehavior> {
@@ -5506,7 +5461,6 @@ pub mod python {
     }
     pub mod set_upstreaming_behavior {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5571,7 +5525,6 @@ pub mod python {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -5692,7 +5645,6 @@ pub mod python {
     }
     pub mod update_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5759,7 +5711,6 @@ pub mod python {
     }
     pub mod delete_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -5869,7 +5820,6 @@ pub mod python {
     }
     pub mod download_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -5971,7 +5921,6 @@ pub mod python {
     }
     pub mod update_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6034,7 +5983,6 @@ pub mod python {
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -6141,7 +6089,6 @@ pub mod python {
     }
     pub mod restore_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6200,7 +6147,6 @@ pub mod python {
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6257,7 +6203,6 @@ pub mod python {
     }
     pub mod update_recycle_bin_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6526,7 +6471,6 @@ pub mod universal {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -6647,7 +6591,6 @@ pub mod universal {
     }
     pub mod update_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6714,7 +6657,6 @@ pub mod universal {
     }
     pub mod delete_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -6824,7 +6766,6 @@ pub mod universal {
     }
     pub mod update_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -6887,7 +6828,6 @@ pub mod universal {
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -6994,7 +6934,6 @@ pub mod universal {
     }
     pub mod restore_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -7053,7 +6992,6 @@ pub mod universal {
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -7110,7 +7048,6 @@ pub mod universal {
     }
     pub mod update_recycle_bin_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]

@@ -320,7 +320,6 @@ pub mod runs {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRunList> {
@@ -592,7 +591,6 @@ pub mod runs {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRunList> {
@@ -781,7 +779,6 @@ pub mod runs {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRun> {
@@ -887,7 +884,6 @@ pub mod runs {
     }
     pub mod get_test_run_by_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRun> {
@@ -1004,7 +1000,6 @@ pub mod runs {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRun> {
@@ -1112,7 +1107,6 @@ pub mod runs {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1173,7 +1167,6 @@ pub mod runs {
     }
     pub mod get_test_run_statistics {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRunStatistic> {
@@ -1502,7 +1495,6 @@ pub mod attachments {
     }
     pub mod get_test_sub_result_attachments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentList> {
@@ -1617,7 +1609,6 @@ pub mod attachments {
     }
     pub mod create_test_sub_result_attachment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentReference> {
@@ -1736,7 +1727,6 @@ pub mod attachments {
     }
     pub mod get_test_sub_result_attachment_zip {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -1842,7 +1832,6 @@ pub mod attachments {
     }
     pub mod get_test_run_attachments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentList> {
@@ -1949,7 +1938,6 @@ pub mod attachments {
     }
     pub mod create_test_run_attachment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentReference> {
@@ -2060,7 +2048,6 @@ pub mod attachments {
     }
     pub mod get_test_run_attachment_zip {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -2167,7 +2154,6 @@ pub mod attachments {
     }
     pub mod get_test_result_attachments {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentList> {
@@ -2276,7 +2262,6 @@ pub mod attachments {
     }
     pub mod create_test_result_attachment {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestAttachmentReference> {
@@ -2389,7 +2374,6 @@ pub mod attachments {
     }
     pub mod get_test_result_attachment_zip {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -2548,7 +2532,6 @@ pub mod code_coverage {
     }
     pub mod get_build_code_coverage {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::BuildCoverageList> {
@@ -2663,7 +2646,6 @@ pub mod code_coverage {
     }
     pub mod get_test_run_code_coverage {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestRunCoverageList> {
@@ -2887,7 +2869,6 @@ pub mod points {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestPointList> {
@@ -3073,7 +3054,6 @@ pub mod points {
     }
     pub mod get_point {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestPoint> {
@@ -3194,7 +3174,6 @@ pub mod points {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestPointList> {
@@ -3306,7 +3285,6 @@ pub mod points {
     }
     pub mod get_points_by_query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestPointsQuery> {
@@ -3566,7 +3544,6 @@ pub mod test_suites {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SuiteTestCaseList> {
@@ -3675,7 +3652,6 @@ pub mod test_suites {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SuiteTestCase> {
@@ -3785,7 +3761,6 @@ pub mod test_suites {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SuiteTestCaseList> {
@@ -3897,7 +3872,6 @@ pub mod test_suites {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SuiteTestCaseList> {
@@ -4010,7 +3984,6 @@ pub mod test_suites {
     }
     pub mod remove_test_cases_from_suite_url {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -4116,7 +4089,6 @@ pub mod result_retention_settings {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ResultRetentionSettings> {
@@ -4223,7 +4195,6 @@ pub mod result_retention_settings {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ResultRetentionSettings> {
@@ -4357,7 +4328,6 @@ pub mod test_history {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestHistoryQuery> {
@@ -4560,7 +4530,6 @@ pub mod results {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestCaseResultList> {
@@ -4711,7 +4680,6 @@ pub mod results {
     }
     pub mod add {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestCaseResultList> {
@@ -4820,7 +4788,6 @@ pub mod results {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestCaseResultList> {
@@ -4929,7 +4896,6 @@ pub mod results {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestCaseResult> {
@@ -5103,7 +5069,6 @@ pub mod iterations {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -5228,7 +5193,6 @@ pub mod iterations {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestIterationDetailsModel> {
@@ -5378,7 +5342,6 @@ pub mod test_cases {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5513,7 +5476,6 @@ pub mod session {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestSessionList> {
@@ -5682,7 +5644,6 @@ pub mod session {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestSession> {
@@ -5790,7 +5751,6 @@ pub mod session {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::TestSession> {

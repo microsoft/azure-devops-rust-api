@@ -174,7 +174,6 @@ pub mod widget_types {
     }
     pub mod get_widget_types {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetTypesResponse> {
@@ -284,7 +283,6 @@ pub mod widget_types {
     }
     pub mod get_widget_metadata {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetMetadataResponse> {
@@ -529,7 +527,6 @@ pub mod dashboards {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DashboardList> {
@@ -635,7 +632,6 @@ pub mod dashboards {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
@@ -743,7 +739,6 @@ pub mod dashboards {
     }
     pub mod replace_dashboards {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::DashboardGroup> {
@@ -851,7 +846,6 @@ pub mod dashboards {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
@@ -959,7 +953,6 @@ pub mod dashboards {
     }
     pub mod replace_dashboard {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
@@ -1069,7 +1062,6 @@ pub mod dashboards {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1344,7 +1336,6 @@ pub mod widgets {
     }
     pub mod get_widgets {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
@@ -1471,7 +1462,6 @@ pub mod widgets {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
@@ -1581,7 +1571,6 @@ pub mod widgets {
     }
     pub mod replace_widgets {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
@@ -1710,7 +1699,6 @@ pub mod widgets {
     }
     pub mod update_widgets {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
@@ -1839,7 +1827,6 @@ pub mod widgets {
     }
     pub mod get_widget {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
@@ -1949,7 +1936,6 @@ pub mod widgets {
     }
     pub mod replace_widget {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
@@ -2061,7 +2047,6 @@ pub mod widgets {
     }
     pub mod update_widget {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
@@ -2173,7 +2158,6 @@ pub mod widgets {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {

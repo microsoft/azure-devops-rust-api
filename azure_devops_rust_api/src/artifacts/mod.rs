@@ -182,7 +182,6 @@ pub mod service_settings {
     }
     pub mod get_global_permissions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::GlobalPermissionList> {
@@ -298,7 +297,6 @@ pub mod service_settings {
     }
     pub mod set_global_permissions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::GlobalPermissionList> {
@@ -470,7 +468,6 @@ pub mod change_tracking {
     }
     pub mod get_feed_changes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedChangesResponse> {
@@ -610,7 +607,6 @@ pub mod change_tracking {
     }
     pub mod get_feed_change {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedChange> {
@@ -716,7 +712,6 @@ pub mod change_tracking {
     }
     pub mod get_package_changes {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageChangesResponse> {
@@ -905,7 +900,6 @@ pub mod feed_recycle_bin {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedList> {
@@ -1009,7 +1003,6 @@ pub mod feed_recycle_bin {
     }
     pub mod restore_deleted_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1072,7 +1065,6 @@ pub mod feed_recycle_bin {
     }
     pub mod permanent_delete_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1393,7 +1385,6 @@ pub mod feed_management {
     }
     pub mod get_feeds {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedList> {
@@ -1531,7 +1522,6 @@ pub mod feed_management {
     }
     pub mod create_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Feed> {
@@ -1636,7 +1626,6 @@ pub mod feed_management {
     }
     pub mod get_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Feed> {
@@ -1753,7 +1742,6 @@ pub mod feed_management {
     }
     pub mod update_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Feed> {
@@ -1860,7 +1848,6 @@ pub mod feed_management {
     }
     pub mod delete_feed {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -1921,7 +1908,6 @@ pub mod feed_management {
     }
     pub mod get_feed_permissions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedPermissionList> {
@@ -2079,7 +2065,6 @@ pub mod feed_management {
     }
     pub mod set_feed_permissions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedPermissionList> {
@@ -2188,7 +2173,6 @@ pub mod feed_management {
     }
     pub mod get_feed_views {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedViewList> {
@@ -2294,7 +2278,6 @@ pub mod feed_management {
     }
     pub mod create_feed_view {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
@@ -2402,7 +2385,6 @@ pub mod feed_management {
     }
     pub mod get_feed_view {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
@@ -2510,7 +2492,6 @@ pub mod feed_management {
     }
     pub mod update_feed_view {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
@@ -2620,7 +2601,6 @@ pub mod feed_management {
     }
     pub mod delete_feed_view {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -2890,7 +2870,6 @@ pub mod artifact_details {
     }
     pub mod query_package_metrics {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageMetricsList> {
@@ -2999,7 +2978,6 @@ pub mod artifact_details {
     }
     pub mod get_packages {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageList> {
@@ -3265,7 +3243,6 @@ pub mod artifact_details {
     }
     pub mod get_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -3441,7 +3418,6 @@ pub mod artifact_details {
     }
     pub mod query_package_version_metrics {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageVersionMetricsList> {
@@ -3554,7 +3530,6 @@ pub mod artifact_details {
     }
     pub mod get_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageVersionList> {
@@ -3696,7 +3671,6 @@ pub mod artifact_details {
     }
     pub mod get_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageVersion> {
@@ -3839,7 +3813,6 @@ pub mod artifact_details {
     }
     pub mod get_package_version_provenance {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageVersionProvenance> {
@@ -3952,7 +3925,6 @@ pub mod artifact_details {
     }
     pub mod get_badge {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -4181,7 +4153,6 @@ pub mod recycle_bin {
     }
     pub mod get_recycle_bin_packages {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::PackageList> {
@@ -4354,7 +4325,6 @@ pub mod recycle_bin {
     }
     pub mod empty_recycle_bin {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::OperationReference> {
@@ -4461,7 +4431,6 @@ pub mod recycle_bin {
     }
     pub mod get_recycle_bin_package {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::Package> {
@@ -4580,7 +4549,6 @@ pub mod recycle_bin {
     }
     pub mod get_recycle_bin_package_versions {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(
@@ -4704,7 +4672,6 @@ pub mod recycle_bin {
     }
     pub mod get_recycle_bin_package_version {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::RecycleBinPackageVersion> {
@@ -4894,7 +4861,6 @@ pub mod retention_policies {
     }
     pub mod get_retention_policy {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
@@ -5003,7 +4969,6 @@ pub mod retention_policies {
     }
     pub mod set_retention_policy {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
@@ -5114,7 +5079,6 @@ pub mod retention_policies {
     }
     pub mod delete_retention_policy {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -5203,7 +5167,6 @@ pub mod provenance {
     }
     pub mod create_session {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::SessionResponse> {

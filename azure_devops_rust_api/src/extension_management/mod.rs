@@ -222,7 +222,6 @@ pub mod installed_extensions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::InstalledExtensionList> {
@@ -380,7 +379,6 @@ pub mod installed_extensions {
     }
     pub mod update {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::InstalledExtension> {
@@ -485,7 +483,6 @@ pub mod installed_extensions {
     }
     pub mod get {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::InstalledExtension> {
@@ -603,7 +600,6 @@ pub mod installed_extensions {
     }
     pub mod uninstall_extension_by_name {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
@@ -684,7 +680,6 @@ pub mod installed_extensions {
     }
     pub mod install_extension_by_name {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::InstalledExtension> {

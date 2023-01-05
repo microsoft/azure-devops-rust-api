@@ -151,7 +151,6 @@ pub mod actions {
     }
     pub mod list {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditActionInfoList> {
@@ -288,7 +287,6 @@ pub mod audit_log {
     }
     pub mod query {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditLogQueryResult> {
@@ -475,7 +473,6 @@ pub mod download_log {
     }
     pub mod download_log {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<String> {
@@ -711,7 +708,6 @@ pub mod streams {
     }
     pub mod query_all_streams {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditStreamList> {
@@ -814,7 +810,6 @@ pub mod streams {
     }
     pub mod create {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
@@ -923,7 +918,6 @@ pub mod streams {
     }
     pub mod update_stream {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
@@ -1027,7 +1021,6 @@ pub mod streams {
     }
     pub mod query_stream_by_id {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
@@ -1131,7 +1124,6 @@ pub mod streams {
     }
     pub mod update_status {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::AuditStream> {
@@ -1240,7 +1232,6 @@ pub mod streams {
     }
     pub mod delete {
         use super::models;
-        use std::future::IntoFuture;
         pub struct Response(azure_core::Response);
         #[derive(Clone)]
         #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
