@@ -1126,7 +1126,6 @@ impl ToTokens for OperationModuleCode {
         tokens.extend(quote! {
             pub mod #module_name {
                 use super::models;
-                use std::future::IntoFuture;
                 #response_code
 
                 #request_builder_struct_code
