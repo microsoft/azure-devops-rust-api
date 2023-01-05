@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1]
+
+### Fixed
+
+- Improved `RequestBuilder` documentation
+
 ## [0.7.0]
 
 ### Breaking change
@@ -209,7 +215,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.1...HEAD
+[0.7.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.2...0.7.0
 [0.6.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.1...0.6.2
 [0.6.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.6.0...0.6.1
