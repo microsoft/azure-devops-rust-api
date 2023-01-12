@@ -7039,14 +7039,14 @@ pub mod work_items {
         pub fn create(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::JsonPatchDocument>,
+            body: Vec<models::JsonPatchOperation>,
             project: impl Into<String>,
             type_: impl Into<String>,
         ) -> create::RequestBuilder {
             create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
-                body: body.into(),
+                body,
                 project: project.into(),
                 type_: type_.into(),
                 validate_only: None,
@@ -7485,7 +7485,7 @@ pub mod work_items {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::JsonPatchDocument,
+            pub(crate) body: Vec<models::JsonPatchOperation>,
             pub(crate) project: String,
             pub(crate) type_: String,
             pub(crate) validate_only: Option<bool>,
