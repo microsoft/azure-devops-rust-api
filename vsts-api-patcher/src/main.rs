@@ -165,7 +165,7 @@ impl Patcher {
         Patcher::patch_probation_retries_type,
         Patcher::patch_operation_status_in_releases,
         Patcher::patch_extension_flags,
-		Patcher::wit_definition_json_schema,
+        Patcher::patch_wit_create_update_item,
         Patcher::patch_wiki_pages_update,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
@@ -1653,57 +1653,79 @@ impl Patcher {
             _ => None,
         }
     }
-	/// Patch the WorkItemTracking JsonPatchDocument definition
-	fn wit_definition_json_schema(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
-		if !self.spec_path.ends_with("workItemTracking.json") {
-			return None
-		}
-		match key {
-			["paths","/{organization}/{project}/_apis/wit/workitems/${type}", "post", "parameters"] => {
-				// Parameters is an array of `JsonValue`s, each of which has a `name` field
+    /// Patch the WorkItemTracking schema for creating or updating Work Items
+    ///
+    /// Creating or updating a work item can invole multiple operations in one go, e.g creating
+    /// an item but also assigning a parent/iteration to it. This patch allows a Vector of operations
+    /// to be supplied in a single API call so that multiple fields can be assigned
+    fn patch_wit_create_update_item(
+        &mut self,
+        key: &[&str],
+        value: &JsonValue,
+    ) -> Option<JsonValue> {
+        if !self.spec_path.ends_with("workItemTracking.json") {
+            return None;
+        }
+        match key {
+            ["paths", "/{organization}/{project}/_apis/wit/workitems/${type}", "post", "parameters"] =>
+            {
+                // Parameters is an array of `JsonValue`s, each of which has a `name` field
                 let mut value = value.clone();
-				for param in value.members_mut() {
-					if let Some(s) = param["name"].as_str() {
-						// find the body so we can correct its fields
-						if s == "body" {
-							// remove the schema as we're placing it with an array of items
-							let _ = param.remove("schema");
-							// add a type field to the parameter
-							param.insert("type", "array").unwrap();
-							// add an items field referring to a definition
-							param.insert("items", json::object! {
-								"$ref": "#/definitions/JsonPatchOperation"
-							}).unwrap();
-							// Update the description to reflect the definition
-							param["description"] = JsonValue::from("A list of operations to perform when creating/updating a Work Item");
-						}
-					}
-				}
-				Some(value)
-			},
-			// ["definitions", "JsonPatchDocument", "properties"]  => {
-			// 	// let mut value = value.clone();
-			// 	// // Iterate over the fields in the JsonPatchDocument definition
-			// 	// for field in value.members_mut() {
-			// 	// 	if let Some(p) = field["properties"].as_str() {
-			// 	// 		field["properties"] = json::object! {
-			// 	// 			"operation": {
-			// 	// 				"description": "",
-			// 	// 				"$ref": "#/definitions/JsonPatchOperation"
-			// 	// 			}
-			// 	// 		}
-			// 	// 	}
-			// 	// }
-			// 	Some(json::object! {
-			// 		"operation" : {
-			// 			"description": "",
-			// 			"$ref": "#/definitions/JsonPatchOperation"
-			// 		}
-			// 	})
-			// }
-			_ => None
-		}
-	}
+                for param in value.members_mut() {
+                    if let Some(s) = param["name"].as_str() {
+                        // Find the body so we can correct its fields
+                        if s == "body" {
+                            // Remove the schema as we're placing it with an array of items
+                            let _ = param.remove("schema");
+                            // Add a type field to the parameter
+                            param.insert("type", "array").unwrap();
+                            // Add an items field referring to a definition
+                            param
+                                .insert(
+                                    "items",
+                                    json::object! {
+                                        "$ref": "#/definitions/JsonPatchOperation"
+                                    },
+                                )
+                                .unwrap();
+                            // Update the description to reflect the definition
+                            param["description"] = JsonValue::from("A list of operations to perform when creating a Work Item");
+                        }
+                    }
+                }
+                Some(value)
+            }
+            ["paths", "/{organization}/{project}/_apis/wit/workitems/{id}", "patch", "parameters"] =>
+            {
+                // Parameters is an array of `JsonValue`s, each of which has a `name` field
+                let mut value = value.clone();
+                for param in value.members_mut() {
+                    if let Some(s) = param["name"].as_str() {
+                        // Find the body so we can correct its fields
+                        if s == "body" {
+                            // Remove the schema as we're placing it with an array of items
+                            let _ = param.remove("schema");
+                            // Add a type field to the parameter
+                            param.insert("type", "array").unwrap();
+                            // Add an items field referring to a definition
+                            param
+                                .insert(
+                                    "items",
+                                    json::object! {
+                                        "$ref": "#/definitions/JsonPatchOperation"
+                                    },
+                                )
+                                .unwrap();
+                            // Update the description to reflect the definition
+                            param["description"] = JsonValue::from("A list of operations to perform when updating a Work Item");
+                        }
+                    }
+                }
+                Some(value)
+            }
+            _ => None,
+        }
+    }
     /// Patch Wiki Pages
     ///
     /// To update a Wiki Page an `If-Match` header must be supplied with an `eTag` (page version)
