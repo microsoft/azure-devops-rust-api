@@ -1689,7 +1689,9 @@ impl Patcher {
                                 )
                                 .unwrap();
                             // Update the description to reflect the definition
-                            param["description"] = JsonValue::from("A list of operations to perform when creating a Work Item");
+                            param["description"] = JsonValue::from(
+                                "A list of operations to perform when creating a Work Item",
+                            );
                         }
                     }
                 }
@@ -1717,7 +1719,9 @@ impl Patcher {
                                 )
                                 .unwrap();
                             // Update the description to reflect the definition
-                            param["description"] = JsonValue::from("A list of operations to perform when updating a Work Item");
+                            param["description"] = JsonValue::from(
+                                "A list of operations to perform when updating a Work Item",
+                            );
                         }
                     }
                 }
