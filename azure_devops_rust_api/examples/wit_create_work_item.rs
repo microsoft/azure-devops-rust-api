@@ -6,6 +6,7 @@
 use anyhow::Result;
 use azure_devops_rust_api::wit;
 use azure_devops_rust_api::wit::models::{json_patch_operation::Op, JsonPatchOperation};
+use serde_json::json;
 use std::env;
 
 mod utils;
@@ -31,7 +32,7 @@ async fn main() -> Result<()> {
         from: None,
         op: Some(Op::Add),
         path: Some("/fields/System.Title".to_owned()),
-        value: Some(json!("User Story title")),
+        value: Some(json!("Example User Story title")),
     };
     // Each operation lives in a vector, additional elements can be added to fill in other fields
     // of a work item, see the comments at the end of this file for some examples
