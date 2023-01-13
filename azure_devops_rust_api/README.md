@@ -99,8 +99,6 @@ cargo run --example git_repo_get --features="git" <repo-name>
 
 ## Issue reporting
 
-This crate is in early development and only a subset of function has been tested, so there will be issues and breaking changes.
-
 If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
 
 ## Useful links
