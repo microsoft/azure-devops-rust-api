@@ -7,8 +7,8 @@
 
 use azure_core::auth::TokenCredential;
 use azure_core::error::{Result, ResultExt};
+use base64::{prelude::BASE64_STANDARD, Engine};
 use std::sync::Arc;
-use base64::{Engine, prelude::BASE64_STANDARD};
 
 /// A credential for authenticating with Azure DevOps.
 ///
