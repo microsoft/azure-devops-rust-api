@@ -7033,20 +7033,20 @@ pub mod work_items {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        #[doc = "* `body`: The JSON Patch document representing the work item"]
+        #[doc = "* `body`: A list of operations to perform when creating a Work Item"]
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `type_`: The work item type of the work item to create"]
         pub fn create(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::JsonPatchDocument>,
+            body: Vec<models::JsonPatchOperation>,
             project: impl Into<String>,
             type_: impl Into<String>,
         ) -> create::RequestBuilder {
             create::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
-                body: body.into(),
+                body,
                 project: project.into(),
                 type_: type_.into(),
                 validate_only: None,
@@ -7081,20 +7081,20 @@ pub mod work_items {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        #[doc = "* `body`: The JSON Patch document representing the update"]
+        #[doc = "* `body`: A list of operations to perform when updating a Work Item"]
         #[doc = "* `id`: The id of the work item to update"]
         #[doc = "* `project`: Project ID or project name"]
         pub fn update(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::JsonPatchDocument>,
+            body: Vec<models::JsonPatchOperation>,
             id: i32,
             project: impl Into<String>,
         ) -> update::RequestBuilder {
             update::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
-                body: body.into(),
+                body,
                 id,
                 project: project.into(),
                 validate_only: None,
@@ -7485,7 +7485,7 @@ pub mod work_items {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::JsonPatchDocument,
+            pub(crate) body: Vec<models::JsonPatchOperation>,
             pub(crate) project: String,
             pub(crate) type_: String,
             pub(crate) validate_only: Option<bool>,
@@ -7776,7 +7776,7 @@ pub mod work_items {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::JsonPatchDocument,
+            pub(crate) body: Vec<models::JsonPatchOperation>,
             pub(crate) id: i32,
             pub(crate) project: String,
             pub(crate) validate_only: Option<bool>,
