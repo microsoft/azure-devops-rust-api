@@ -28,7 +28,10 @@ fn work_item_relations(work_item: &wit::models::WorkItem, relation_type: &str) -
 }
 
 fn relation_name(relation: &WorkItemRelation) -> String {
-    relation.link.attributes["name"].as_str().unwrap().to_string()
+    relation.link.attributes["name"]
+        .as_str()
+        .unwrap()
+        .to_string()
 }
 
 #[tokio::main]
@@ -70,7 +73,12 @@ async fn main() -> Result<()> {
     // Show all work item relations
     println!("\nAll relations:");
     for relation in work_item.relations.iter() {
-        println!("  {:30} {:40} {}", relation_name(relation), relation.link.rel, relation.link.url);
+        println!(
+            "  {:30} {:40} {}",
+            relation_name(relation),
+            relation.link.rel,
+            relation.link.url
+        );
     }
 
     Ok(())
