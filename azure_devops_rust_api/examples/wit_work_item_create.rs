@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// wit_create_work_item.rs
-// Creating a Work Item example.
+// wit_work_item_create.rs
+// Work Item creation example.
 use anyhow::Result;
 use azure_devops_rust_api::wit;
 use azure_devops_rust_api::wit::models::{json_patch_operation::Op, JsonPatchOperation};
