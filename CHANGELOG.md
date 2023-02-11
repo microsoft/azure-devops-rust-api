@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Renamed `wit` examples:
+  - `wit` => `wit_work_item_get`
+  - `wit_create_work_item` => `wit_work_item_create`
+- Improved `wit_work_item_get` to display all work item relations
+
 ## [0.7.2]
 
 ### Fixed
