@@ -20,7 +20,7 @@ pub fn format_date_time(date_time: &OffsetDateTime) -> azure_core::error::Result
     date_time
         .format(&Rfc3339)
         .with_context(ErrorKind::DataConversion, || {
-            format!("Failed to format date_time: {}", date_time)
+            format!("Failed to format date_time: {date_time}")
         })
 }
 
@@ -56,7 +56,7 @@ pub mod rfc3339 {
             };
 
             OffsetDateTime::parse(value, &Rfc3339)
-                .map_err(|e| E::custom(format!("Parse error {} for {}", e, value)))
+                .map_err(|e| E::custom(format!("Parse error {e} for {value}")))
         }
     }
 
