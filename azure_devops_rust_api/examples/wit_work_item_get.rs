@@ -26,6 +26,17 @@ fn work_item_id_from_url(url: &str) -> Result<i32> {
         .with_context(|| format!("Failed to parse work item id from url: {url}"))
 }
 
+// Extract work item type from work item.
+fn work_item_type(work_item: &wit::models::WorkItem) -> String {
+    work_item
+        .fields
+        .get("System.WorkItemType")
+        .and_then(|value| value.as_str())
+        .unwrap_or("<unknown>")
+        .to_string()
+}
+
+// Return work item ids of related work items with the specified relation type.
 fn work_item_relations(work_item: &wit::models::WorkItem, relation_type: &str) -> Vec<i32> {
     work_item
         .relations
@@ -70,6 +81,9 @@ async fn main() -> Result<()> {
         .await?;
 
     println!("Work item [{work_item_id}]:\n{:#?}", work_item);
+
+    // Show work item type
+    println!("Work item type: {}", work_item_type(&work_item));
 
     // Show child work items
     let children = work_item_relations(&work_item, CHILD_RELATION_TYPE);
