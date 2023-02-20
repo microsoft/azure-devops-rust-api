@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking change
+
+- Wrapped `WorkItemTrackingResource` `links` in an `Option`
+
+### Added
+
 - Renamed `wit` examples:
   - `wit` => `wit_work_item_get`
   - `wit_create_work_item` => `wit_work_item_create`
 - Improved `wit_work_item_get` to display all work item relations
+- Improved `wit_work_item_get` to demonstrate `get_work_items_batch()`
 
 ## [0.7.2]
 
