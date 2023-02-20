@@ -2874,17 +2874,14 @@ pub struct WorkItemTrackingResource {
     #[serde(flatten)]
     pub work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
     #[doc = "Links"]
-    #[serde(rename = "_links")]
-    pub links: serde_json::Value,
+    #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
+    pub links: Option<serde_json::Value>,
 }
 impl WorkItemTrackingResource {
-    pub fn new(
-        work_item_tracking_resource_reference: WorkItemTrackingResourceReference,
-        links: serde_json::Value,
-    ) -> Self {
+    pub fn new(work_item_tracking_resource_reference: WorkItemTrackingResourceReference) -> Self {
         Self {
             work_item_tracking_resource_reference,
-            links,
+            links: None,
         }
     }
 }

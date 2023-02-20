@@ -119,5 +119,32 @@ async fn main() -> Result<()> {
         );
     }
 
+    if !children.is_empty() {
+        // Use a batch get request to query specific fields for child work items
+        let batch_get_request = wit::models::WorkItemBatchGetRequest {
+            ids: children,
+            fields: vec![
+                "System.Id".to_string(),
+                "System.Title".to_string(),
+                "System.WorkItemType".to_string(),
+                "System.State".to_string(),
+            ],
+            as_of: None,
+            expand: None,
+            error_policy: None,
+        };
+
+        let child_details = wit_client
+            .work_items_client()
+            .get_work_items_batch(&organization, batch_get_request, &project)
+            .await?
+            .value;
+
+        println!("\nChild work item batch get with selected fields:");
+        for child in child_details.iter() {
+            println!("[{work_item_id}] {child:#?}", work_item_id = child.id,);
+        }
+    }
+
     Ok(())
 }

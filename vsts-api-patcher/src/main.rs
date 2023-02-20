@@ -1403,13 +1403,13 @@ impl Patcher {
                     "url"
                 ]"#,
             ),
-            (
-                "workItemTracking.json",
-                "WorkItemTrackingResource",
-                r#"[
-                    "_links"
-                ]"#,
-            ),
+            // (
+            //     "workItemTracking.json",
+            //     "WorkItemTrackingResource",
+            //     r#"[
+            //         "_links"
+            //     ]"#,
+            // ),
             (
                 "workItemTracking.json",
                 "WorkItem",
