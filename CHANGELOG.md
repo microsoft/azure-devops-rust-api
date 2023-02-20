@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Wrapped `WorkItemTrackingResource` `links` in an `Option`
 
+### Fixed
+
+- Updated dependencies:
+  - `azure_core` to 0.10
+  - `azure_identity` to 0.10
+
 ### Added
 
 - Renamed `wit` examples:
