@@ -205,6 +205,10 @@ name = "test_runs_list"
 required-features = ["test"]
 
 [[example]]
+name = "test_plan"
+required-features = ["test_plan"]
+
+[[example]]
 name = "graph_query"
 required-features = ["graph"]
 
