@@ -25,13 +25,22 @@ async fn main() -> Result<()> {
     let test_plan_client = test_plan::ClientBuilder::new(credential).build();
 
     // Get all test plans for project
-    println!("The test runs for project are:");
+    println!("The test plan for project are:");
     let test_plans = test_plan_client
         .test_plans_client()
         .list(&organization, &project)
         .await?
         .value;
     println!("{:#?}", test_plans);
+
+    // Get all test plan variables for project
+    println!("The test plan variables for project are:");
+    let test_plan_variables = test_plan_client
+        .variables_client()
+        .list(&organization, &project)
+        .await?
+        .value;
+    println!("{:#?}", test_plan_variables);
 
     Ok(())
 }
