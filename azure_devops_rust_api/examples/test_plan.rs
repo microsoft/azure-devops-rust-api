@@ -20,8 +20,8 @@ async fn main() -> Result<()> {
     // Get ADO server configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
-    let test_plan_id_value = env::var("TEST_PLAN_ID").expect("Must define PLAN_ID for the test");
-    let test_plan_id:i32 = test_plan_id_value.parse().expect("Failed to parse TEST_PLAN_ID");
+    // let test_plan_id_value = env::var("TEST_PLAN_ID").expect("Must define PLAN_ID for the test");
+    // let test_plan_id:i32 = test_plan_id_value.parse().expect("Failed to parse TEST_PLAN_ID");
     // Create test_plan client
     let test_plan_client = test_plan::ClientBuilder::new(credential).build();
 
@@ -34,14 +34,14 @@ async fn main() -> Result<()> {
         .value;
     println!("{:#?}", test_plans);
 
-     // Get all suites for a test plan for a project
-     println!("The suites for the a plan for project are:");
-     let test_suites = test_plan_client
-         .test_suites_client()
-         .get_test_suites_for_plan(&organization, &project, test_plan_id)
-         .await?
-         .value;
-     println!("{:#?}", test_suites);
+    // Get all suites for a test plan for a project
+    // println!("The suites for the a plan for project are:");
+    // let test_suites = test_plan_client
+    //     .test_suites_client()
+    //     .get_test_suites_for_plan(&organization, &project, test_plan_id)
+    //     .await?
+    //     .value;
+    // println!("{:#?}", test_suites);
 
     // Get all test plan variables for project
     println!("The test plan variables for project are:");
