@@ -166,6 +166,7 @@ impl Patcher {
         Patcher::patch_operation_status_in_releases,
         Patcher::patch_extension_flags,
         Patcher::patch_wit_create_update_item,
+        Patcher::patch_wit_identity_reference,
         Patcher::patch_wiki_pages_update,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
@@ -1730,6 +1731,72 @@ impl Patcher {
             _ => None,
         }
     }
+
+    // The definition of IdentityReference has issues because it defines a property called `id` which is also in `IdentityRef` which is included via `allOf`.
+    // This causes the deserialization to fail as it doesn't know which `id` to use.
+    // Fix is to replace the definition of `IdentityReference` with the definition of `IdentityRef`.
+    fn patch_wit_identity_reference(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        if !self.spec_path.ends_with("workItemTracking.json") {
+            return None;
+        }
+
+        match key {
+            ["definitions", "IdentityReference"] => {
+                // Replace with the definition of `IdentifyRef`
+                Some(json::object!(
+                    "description": "",
+                    "type": "object",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/GraphSubjectBase"
+                        }
+                    ],
+                    "properties": {
+                        "directoryAlias": {
+                            "description": "Deprecated - Can be retrieved by querying the Graph user referenced in the \"self\" entry of the IdentityRef \"_links\" dictionary",
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "imageUrl": {
+                            "description": "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary",
+                            "type": "string"
+                        },
+                        "inactive": {
+                            "description": "Deprecated - Can be retrieved by querying the Graph membership state referenced in the \"membershipState\" entry of the GraphUser \"_links\" dictionary",
+                            "type": "boolean"
+                        },
+                        "isAadIdentity": {
+                            "description": "Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsAadUserType/Descriptor.IsAadGroupType)",
+                            "type": "boolean"
+                        },
+                        "isContainer": {
+                            "description": "Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsGroupType)",
+                            "type": "boolean"
+                        },
+                        "isDeletedInOrigin": {
+                            "type": "boolean"
+                        },
+                        "profileUrl": {
+                            "description": "Deprecated - not in use in most preexisting implementations of ToIdentityRef",
+                            "type": "string"
+                        },
+                        "uniqueName": {
+                            "description": "Deprecated - use Domain+PrincipalName instead",
+                            "type": "string"
+                        }
+                    }
+                ))
+            }
+            _ => None,
+        }
+    }
+
     /// Patch Wiki Pages
     ///
     /// To update a Wiki Page an `If-Match` header must be supplied with an `eTag` (page version)

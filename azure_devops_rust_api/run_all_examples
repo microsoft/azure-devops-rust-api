@@ -110,5 +110,6 @@ cargo run --example test_plan --features="test_plan"
 cargo run --example client_pipeline_policy --features="git"
 cargo run --example wiki_pages_create_or_update --features="wiki" $ADO_WIKI_ID $ADO_WIKI_PAGE_PATH $ADO_WIKI_CONTENT
 cargo run --example wit_work_item_create --features="wit"
+cargo run --example wit_work_item_queries --features="wit"
 
 echo "Done"
