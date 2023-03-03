@@ -3,7 +3,7 @@
 
 // wit_work_item_queries.rs
 // Work Item query list example.
-use anyhow::{anyhow, Context, Result};
+use anyhow::Result;
 use azure_devops_rust_api::wit;
 use std::env;
 
