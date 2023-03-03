@@ -1733,7 +1733,7 @@ impl Patcher {
     }
 
     // The definition of IdentityReference has issues because it defines a property called `id` which is also in `IdentityRef` which is included via `allOf`.
-    // This causes the deserilization to fail as it doesn't know which `id` to use.
+    // This causes the deserialization to fail as it doesn't know which `id` to use.
     // Fix is to replace the definition of `IdentityReference` with the definition of `IdentityRef`.
     fn patch_wit_identity_reference(
         &mut self,
