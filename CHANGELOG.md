@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed definition of wit `IdentityReference`
+
+### Added
+
+- New example: `wit_work_item_queries`
+
 ## [0.7.3]
 
 ### Breaking change

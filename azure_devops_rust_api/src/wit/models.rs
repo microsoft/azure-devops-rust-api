@@ -917,24 +917,64 @@ impl IdentityRefList {
         Self::default()
     }
 }
-#[doc = "Describes a reference to an identity."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityReference {
     #[serde(flatten)]
-    pub identity_ref: IdentityRef,
+    pub graph_subject_base: GraphSubjectBase,
+    #[doc = "Deprecated - Can be retrieved by querying the Graph user referenced in the \"self\" entry of the IdentityRef \"_links\" dictionary"]
+    #[serde(
+        rename = "directoryAlias",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub directory_alias: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = "Legacy back-compat property. This has been the WIT specific value from Constants. Will be hidden (but exists) on the client unless they are targeting the newest version"]
+    #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
+    #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    #[doc = "Deprecated - Can be retrieved by querying the Graph membership state referenced in the \"membershipState\" entry of the GraphUser \"_links\" dictionary"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    pub inactive: Option<bool>,
+    #[doc = "Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsAadUserType/Descriptor.IsAadGroupType)"]
+    #[serde(
+        rename = "isAadIdentity",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_aad_identity: Option<bool>,
+    #[doc = "Deprecated - Can be inferred from the subject type of the descriptor (Descriptor.IsGroupType)"]
+    #[serde(
+        rename = "isContainer",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_container: Option<bool>,
+    #[serde(
+        rename = "isDeletedInOrigin",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_deleted_in_origin: Option<bool>,
+    #[doc = "Deprecated - not in use in most preexisting implementations of ToIdentityRef"]
+    #[serde(
+        rename = "profileUrl",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub profile_url: Option<String>,
+    #[doc = "Deprecated - use Domain+PrincipalName instead"]
+    #[serde(
+        rename = "uniqueName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_name: Option<String>,
 }
 impl IdentityReference {
-    pub fn new(identity_ref: IdentityRef) -> Self {
-        Self {
-            identity_ref,
-            id: None,
-            name: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "The JSON model for JSON Patch Operations"]
@@ -1175,7 +1215,7 @@ pub struct QueryHierarchyItem {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub columns: Vec<WorkItemFieldReference>,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityReference>,
     #[doc = "When the query item was created."]
@@ -1218,7 +1258,7 @@ pub struct QueryHierarchyItem {
     #[doc = "Indicates if this query item is public or private."]
     #[serde(rename = "isPublic", default, skip_serializing_if = "Option::is_none")]
     pub is_public: Option<bool>,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(
         rename = "lastExecutedBy",
         default,
@@ -1232,7 +1272,7 @@ pub struct QueryHierarchyItem {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed_date: Option<time::OffsetDateTime>,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -1872,7 +1912,7 @@ impl WorkItemClassificationNodeList {
 pub struct WorkItemComment {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[doc = "The date of comment."]
@@ -2320,7 +2360,7 @@ pub struct WorkItemHistory {
     pub work_item_tracking_resource: WorkItemTrackingResource,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rev: Option<i32>,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[serde(
@@ -3317,7 +3357,7 @@ pub struct WorkItemUpdate {
     #[doc = "The revision number of work item update."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rev: Option<i32>,
-    #[doc = "Describes a reference to an identity."]
+    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[doc = "The work item updates revision date."]
