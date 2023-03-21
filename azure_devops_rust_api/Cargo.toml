@@ -255,3 +255,7 @@ required-features = ["policy"]
 [[example]]
 name = "release_logs"
 required-features = ["release"]
+
+[[example]]
+name = "member_entitlement_management"
+required-features = ["member_entitlement_management"]
