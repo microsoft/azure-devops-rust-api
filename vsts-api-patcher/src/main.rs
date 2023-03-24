@@ -158,6 +158,7 @@ impl Patcher {
         Patcher::patch_docs,
         Patcher::patch_git_commit_change_counts,
         Patcher::patch_git_change,
+        Patcher::patch_git_policy_configuration,
         Patcher::patch_git_pull_request_create,
         Patcher::patch_git_pull_request_update,
         Patcher::patch_ims_identity_base,
@@ -597,6 +598,39 @@ impl Patcher {
                       "type": "integer",
                       "format": "int32"
                     }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    // The git `PolicyConfiguration` proerties.settings field is specified as:
+    //     "settings": {
+    //         "description": "The policy configuration settings.",
+    //         "type": "string",
+    //         "format": "JObject"
+    //     }
+    //
+    // Replace this with:
+    //     "settings": {
+    //         "description": "The policy configuration settings.",
+    //         "type": "object"
+    //     }
+    fn patch_git_policy_configuration(
+        &mut self,
+        key: &[&str],
+        _value: &JsonValue,
+    ) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        match key {
+            ["definitions", "PolicyConfiguration", "properties", "settings"] => {
+                println!("Fix PolicyConfiguration settings");
+                Some(json::object! {
+                    "description": "The policy configuration settings.",
+                    "type": "object",
                 })
             }
             _ => None,

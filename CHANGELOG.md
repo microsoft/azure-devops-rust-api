@@ -7,8 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed definition of git `PolicyConfiguration`
+
+### Added
+
 - Upgrade `azure_core`, `azure_identity` to 0.11
-- New example: `member_entitlement_management`
+- New examples:
+  - `member_entitlement_management`
+  - `git_policy_config_list`
 
 ## [0.7.4]
 

@@ -133,6 +133,10 @@ name = "git_commit_changes"
 required-features = ["git"]
 
 [[example]]
+name = "git_policy_config_list"
+required-features = ["git"]
+
+[[example]]
 name = "git_pr_create"
 required-features = ["git"]
 

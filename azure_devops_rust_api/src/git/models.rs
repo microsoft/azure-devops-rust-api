@@ -6012,7 +6012,7 @@ pub struct PolicyConfiguration {
     pub is_enterprise_managed: Option<bool>,
     #[doc = "The policy configuration settings."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub settings: Option<String>,
+    pub settings: Option<serde_json::Value>,
 }
 impl PolicyConfiguration {
     pub fn new() -> Self {
