@@ -69,11 +69,15 @@ async fn main() -> Result<()> {
         println!("\nPipeline runs: {}", runs.len());
         // Display [result, state] for each pipeline run
         for run in runs.iter() {
+            let result = match &run.result {
+                Some(result) => format!("{:?}", result),
+                None => "-".to_string(),
+            };
             println!(
-                "{:8} {:16} {:14} {:14}",
+                "{:8} {:16} {:16} {:14}",
                 run.run_reference.id,
                 run.run_reference.name,
-                format!("{:?}", run.result),
+                result,
                 format!("{:?}", run.state)
             );
         }
