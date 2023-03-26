@@ -71,7 +71,7 @@ async fn main() -> Result<()> {
         for run in runs.iter() {
             let result = match &run.result {
                 Some(result) => format!("{:?}", result),
-                None => "-".to_string()
+                None => "-".to_string(),
             };
             println!(
                 "{:8} {:16} {:16} {:14}",

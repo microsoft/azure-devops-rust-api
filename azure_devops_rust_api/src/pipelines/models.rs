@@ -279,15 +279,16 @@ pub mod pipeline_configuration {
         #[serde(rename = "designerHyphenJson")]
         DesignerHyphenJson,
     }
-    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
     pub struct Repository {
-        pub id: String,
-        #[serde(rename = "type")]
-        pub type_: String,
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        pub id: Option<String>,
+        #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
+        pub type_: Option<String>,
     }
     impl Repository {
-        pub fn new(id: String, type_: String) -> Self {
-            Self { id, type_ }
+        pub fn new() -> Self {
+            Self::default()
         }
     }
 }

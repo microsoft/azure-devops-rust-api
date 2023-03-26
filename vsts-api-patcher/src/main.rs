@@ -365,7 +365,6 @@ impl Patcher {
                                 "type": "string"
                             }
                         },
-                        "required": ["id", "type"]
                     }
                 })
             }
