@@ -435,14 +435,19 @@ pub struct Run {
     pub created_date: time::OffsetDateTime,
     #[serde(rename = "finalYaml", default, skip_serializing_if = "Option::is_none")]
     pub final_yaml: Option<String>,
-    #[serde(rename = "finishedDate", with = "crate::date_time::rfc3339")]
-    pub finished_date: time::OffsetDateTime,
+    #[serde(
+        rename = "finishedDate",
+        default,
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub finished_date: Option<time::OffsetDateTime>,
     #[doc = "A reference to a Pipeline."]
     pub pipeline: PipelineReference,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resources: Option<RunResources>,
-    pub result: run::Result,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub result: Option<run::Result>,
     pub state: run::State,
     pub url: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -453,9 +458,7 @@ impl Run {
         run_reference: RunReference,
         links: ReferenceLinks,
         created_date: time::OffsetDateTime,
-        finished_date: time::OffsetDateTime,
         pipeline: PipelineReference,
-        result: run::Result,
         state: run::State,
         url: String,
     ) -> Self {
@@ -464,10 +467,10 @@ impl Run {
             links,
             created_date,
             final_yaml: None,
-            finished_date,
+            finished_date: None,
             pipeline,
             resources: None,
-            result,
+            result: None,
             state,
             url,
             variables: None,

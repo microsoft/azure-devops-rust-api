@@ -1154,12 +1154,13 @@ impl Patcher {
             (
                 "pipelines.json",
                 "Run",
+                // Excluded
+                // - finishedDate
+                // - result
                 r#"[
                     "_links",
                     "createdDate",
-                    "finishedDate",
                     "pipeline",
-                    "result",
                     "state",
                     "url"
                 ]"#,

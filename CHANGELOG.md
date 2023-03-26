@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed definition of git `PolicyConfiguration`
+- Fixed pipeline `Run` required fields
+  - Changed `finishedDate` and `result` to optional, as they are not present if run is in progress
 
 ### Added
 
