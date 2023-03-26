@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.5]
+
 ### Fixed
 
 - Fixed definition of git `PolicyConfiguration`
@@ -267,7 +269,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.4...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.5...HEAD
+[0.7.5]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.4...0.7.5
 [0.7.4]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.2...0.7.3
 [0.7.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.1...0.7.2

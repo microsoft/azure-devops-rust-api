@@ -67,7 +67,7 @@ Example application `Cargo.toml` dependency spec showing how to specify desired 
 ```toml
 [dependencies]
 ...
-azure_devops_rust_api = { version = "0.7.4", features = ["git", "pipelines"] }
+azure_devops_rust_api = { version = "0.7.5", features = ["git", "pipelines"] }
 ```
 
 ## Examples
