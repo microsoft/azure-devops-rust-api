@@ -104,9 +104,9 @@ pub struct AcquisitionOptions {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub operations: Vec<AcquisitionOperation>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Additional properties which can be added to the request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<JObject>,
+    pub properties: Option<serde_json::Value>,
     #[doc = "The target that this options refer to"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target: Option<String>,
@@ -132,9 +132,9 @@ pub struct ClientContribution {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub includes: Vec<String>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Properties/attributes of this contribution"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<JObject>,
+    pub properties: Option<serde_json::Value>,
     #[doc = "The ids of the contribution(s) that this contribution targets. (parent contributions)"]
     #[serde(
         default,
@@ -239,9 +239,9 @@ pub struct Contribution {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub includes: Vec<String>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Properties/attributes of this contribution"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<JObject>,
+    pub properties: Option<serde_json::Value>,
     #[doc = "List of demanded claims in order for the user to see this contribution (like anonymous, public, member...)."]
     #[serde(
         rename = "restrictedTo",
@@ -304,9 +304,9 @@ pub struct ContributionConstraint {
     #[doc = "Name of the IContributionFilter plugin"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Properties that are fed to the contribution filter class"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<JObject>,
+    pub properties: Option<serde_json::Value>,
     #[doc = "Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will eliminate the contribution from the tree completely if the constraint is applied."]
     #[serde(
         default,
@@ -627,9 +627,9 @@ pub struct ExtensionAcquisitionRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub operation_type: Option<extension_acquisition_request::OperationType>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Additional properties which can be added to the request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub properties: Option<JObject>,
+    pub properties: Option<serde_json::Value>,
     #[doc = "How many licenses should be purchased"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub quantity: Option<i32>,
@@ -777,7 +777,7 @@ pub struct ExtensionDataCollection {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub documents: Vec<JObject>,
+    pub documents: Vec<serde_json::Value>,
     #[doc = "The type of the collection's scope, such as Default or User"]
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,

@@ -148,9 +148,9 @@ pub struct PolicyConfiguration {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_enterprise_managed: Option<bool>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "The policy configuration settings."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub settings: Option<JObject>,
+    pub settings: Option<serde_json::Value>,
 }
 impl PolicyConfiguration {
     pub fn new() -> Self {
@@ -215,9 +215,9 @@ pub struct PolicyEvaluationRecord {
     #[doc = "The full policy configuration with settings."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<PolicyConfiguration>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Internal context data of this policy evaluation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub context: Option<JObject>,
+    pub context: Option<serde_json::Value>,
     #[doc = "Guid which uniquely identifies this evaluation record (one policy running on one pull request)."]
     #[serde(
         rename = "evaluationId",
