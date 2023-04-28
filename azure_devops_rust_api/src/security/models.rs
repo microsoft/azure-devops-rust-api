@@ -14,9 +14,9 @@ pub struct AccessControlEntry {
     #[doc = "The set of permission bits that represent the actions that the associated descriptor is not allowed to perform."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deny: Option<i32>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
+    #[doc = "The descriptor for the user this AccessControlEntry applies to."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<IdentityDescriptor>,
+    pub descriptor: Option<String>,
     #[doc = "Holds the inherited and effective permission information for a given AccessControlEntry."]
     #[serde(
         rename = "extendedInfo",

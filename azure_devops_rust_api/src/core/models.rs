@@ -51,9 +51,8 @@ pub struct IdentityBase {
         skip_serializing_if = "Option::is_none"
     )]
     pub custom_display_name: Option<String>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<IdentityDescriptor>,
+    pub descriptor: Option<String>,
     #[doc = "Identity Identifier. Also called Storage Key, or VSID"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -83,13 +82,13 @@ pub struct IdentityBase {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub member_of: Vec<IdentityDescriptor>,
+    pub member_of: Vec<String>,
     #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub members: Vec<IdentityDescriptor>,
+    pub members: Vec<String>,
     #[serde(
         rename = "metaTypeId",
         default,
@@ -653,9 +652,9 @@ pub struct ProxyAuthorization {
     #[doc = "Gets or sets the client identifier for this proxy."]
     #[serde(rename = "clientId", default, skip_serializing_if = "Option::is_none")]
     pub client_id: Option<String>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
+    #[doc = "Gets or sets the user identity to authorize for on-prem."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub identity: Option<IdentityDescriptor>,
+    pub identity: Option<String>,
     #[doc = "Represents the public key portion of an RSA asymmetric key."]
     #[serde(rename = "publicKey", default, skip_serializing_if = "Option::is_none")]
     pub public_key: Option<PublicKey>,

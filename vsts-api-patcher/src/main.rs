@@ -170,6 +170,7 @@ impl Patcher {
         Patcher::patch_wit_identity_reference,
         Patcher::patch_wiki_pages_update,
         Patcher::patch_jobjects,
+        Patcher::patch_identity_descriptors,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -1887,6 +1888,32 @@ impl Patcher {
                 value.remove("$ref");
                 if value
                     .insert("type", JsonValue::String("object".to_string()))
+                    .is_ok()
+                {
+                    return Some(value);
+                }
+            }
+        }
+        None
+    }
+
+    /// Patch IdentityDescriptor
+    ///
+    /// These are spec'd as { "identifier": "string", "identityType": "string" }
+    /// but seem to always be strings in practice/examples.
+    fn patch_identity_descriptors(
+        &mut self,
+        _key: &[&str],
+        value: &JsonValue,
+    ) -> Option<JsonValue> {
+        if let JsonValue::Object(obj) = value {
+            if let Some("#/definitions/IdentityDescriptor") =
+                obj.get("$ref").and_then(|s| s.as_str())
+            {
+                let mut value = value.clone();
+                value.remove("$ref");
+                if value
+                    .insert("type", JsonValue::String("string".to_string()))
                     .is_ok()
                 {
                     return Some(value);

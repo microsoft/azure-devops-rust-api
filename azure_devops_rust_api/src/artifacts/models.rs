@@ -338,13 +338,13 @@ pub struct FeedPermission {
         skip_serializing_if = "Option::is_none"
     )]
     pub display_name: Option<String>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
+    #[doc = "Identity associated with this role."]
     #[serde(
         rename = "identityDescriptor",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub identity_descriptor: Option<IdentityDescriptor>,
+    pub identity_descriptor: Option<String>,
     #[doc = "Id of the identity associated with this role."]
     #[serde(
         rename = "identityId",
@@ -567,13 +567,13 @@ impl FeedViewList {
 #[doc = "Permissions for feed service-wide operations such as the creation of new feeds."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlobalPermission {
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
+    #[doc = "Identity of the user with the provided Role."]
     #[serde(
         rename = "identityDescriptor",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub identity_descriptor: Option<IdentityDescriptor>,
+    pub identity_descriptor: Option<String>,
     #[doc = "IdentityId corresponding to the IdentityDescriptor"]
     #[serde(
         rename = "identityId",

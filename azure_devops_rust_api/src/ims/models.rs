@@ -315,9 +315,8 @@ pub mod framework_identity_info {
 pub struct GroupMembership {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub active: Option<bool>,
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub descriptor: Option<IdentityDescriptor>,
+    pub descriptor: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "queriedId", default, skip_serializing_if = "Option::is_none")]
@@ -381,13 +380,13 @@ pub struct IdentityBase {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub member_of: Vec<IdentityDescriptor>,
+    pub member_of: Vec<String>,
     #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub members: Vec<IdentityDescriptor>,
+    pub members: Vec<String>,
     #[serde(
         rename = "metaTypeId",
         default,
@@ -443,7 +442,7 @@ pub struct IdentityBatchInfo {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub descriptors: Vec<IdentityDescriptor>,
+    pub descriptors: Vec<String>,
     #[serde(
         rename = "identityIds",
         default,
@@ -560,9 +559,8 @@ impl IdentityRightsTransferData {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityScope {
-    #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub administrators: Option<IdentityDescriptor>,
+    pub administrators: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "isActive", default, skip_serializing_if = "Option::is_none")]
