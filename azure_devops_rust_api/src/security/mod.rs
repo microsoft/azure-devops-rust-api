@@ -142,7 +142,7 @@ pub mod access_control_entries {
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn set_access_control_entries(
             &self,
-            body: impl Into<models::JObject>,
+            body: impl Into<serde_json::Value>,
             security_namespace_id: impl Into<String>,
             organization: impl Into<String>,
         ) -> set_access_control_entries::RequestBuilder {
@@ -225,7 +225,7 @@ pub mod access_control_entries {
         #[doc = r" [`Response`] value."]
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
-            pub(crate) body: models::JObject,
+            pub(crate) body: serde_json::Value,
             pub(crate) security_namespace_id: String,
             pub(crate) organization: String,
         }

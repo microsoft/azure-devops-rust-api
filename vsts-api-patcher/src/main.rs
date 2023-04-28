@@ -1918,6 +1918,14 @@ impl Patcher {
                 self.walker(&new_key, v);
             }
         }
+        if let JsonValue::Array(_) = value {
+            for (i, v) in value.members_mut().enumerate() {
+                let mut new_key = key.to_owned();
+                let i = i.to_string();
+                new_key.push(i.as_str());
+                self.walker(&new_key, v);
+            }
+        }
     }
 
     // Adds all the accumulated new definitions to the definitions section of the schema
