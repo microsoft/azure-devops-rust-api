@@ -3774,13 +3774,13 @@ pub struct ServiceEndpoint {
     #[doc = "Gets or sets the friendly name of the endpoint."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Error message during creation/deletion of endpoint"]
     #[serde(
         rename = "operationStatus",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub operation_status: Option<JObject>,
+    pub operation_status: Option<serde_json::Value>,
     #[doc = "Gets or sets the owner of the endpoint."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<String>,
@@ -4412,16 +4412,14 @@ pub struct TaskAgentCloudRequest {
         with = "crate::date_time::rfc3339::option"
     )]
     pub agent_connected_time: Option<time::OffsetDateTime>,
-    #[doc = "Represents a JSON object."]
     #[serde(rename = "agentData", default, skip_serializing_if = "Option::is_none")]
-    pub agent_data: Option<JObject>,
-    #[doc = "Represents a JSON object."]
+    pub agent_data: Option<serde_json::Value>,
     #[serde(
         rename = "agentSpecification",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent_specification: Option<JObject>,
+    pub agent_specification: Option<serde_json::Value>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
@@ -4559,13 +4557,12 @@ impl TaskAgentJob {
 #[doc = "A job request for an agent."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobRequest {
-    #[doc = "Represents a JSON object."]
     #[serde(
         rename = "agentSpecification",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent_specification: Option<JObject>,
+    pub agent_specification: Option<serde_json::Value>,
     #[doc = "The date/time this request was assigned."]
     #[serde(
         rename = "assignTime",
@@ -7312,13 +7309,12 @@ impl TimelineAttempt {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecord {
-    #[doc = "Represents a JSON object."]
     #[serde(
         rename = "agentSpecification",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub agent_specification: Option<JObject>,
+    pub agent_specification: Option<serde_json::Value>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attempt: Option<i32>,
     #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]

@@ -1351,13 +1351,13 @@ pub struct ServiceEndpoint {
     pub is_shared: bool,
     #[doc = "Gets or sets the friendly name of the endpoint."]
     pub name: String,
-    #[doc = "Represents a JSON object."]
+    #[doc = "Error message during creation/deletion of endpoint"]
     #[serde(
         rename = "operationStatus",
         default,
         skip_serializing_if = "Option::is_none"
     )]
-    pub operation_status: Option<JObject>,
+    pub operation_status: Option<serde_json::Value>,
     #[doc = "Owner of the endpoint Supported values are \"library\", \"agentcloud\""]
     pub owner: String,
     #[doc = ""]
