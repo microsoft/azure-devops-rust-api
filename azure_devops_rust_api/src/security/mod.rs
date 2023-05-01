@@ -435,7 +435,7 @@ pub mod access_control_lists {
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn set_access_control_lists(
             &self,
-            body: impl Into<models::VssJsonCollectionWrapper>,
+            body: impl Into<models::AccessControlListBody>,
             security_namespace_id: impl Into<String>,
             organization: impl Into<String>,
         ) -> set_access_control_lists::RequestBuilder {
@@ -634,7 +634,7 @@ pub mod access_control_lists {
         #[doc = r" [`Response`] value."]
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
-            pub(crate) body: models::VssJsonCollectionWrapper,
+            pub(crate) body: models::AccessControlListBody,
             pub(crate) security_namespace_id: String,
             pub(crate) organization: String,
         }
