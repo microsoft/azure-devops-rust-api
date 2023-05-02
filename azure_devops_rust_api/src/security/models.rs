@@ -80,6 +80,15 @@ impl AccessControlList {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct AccessControlListBody {
+    pub value: Vec<AccessControlList>,
+}
+impl AccessControlListBody {
+    pub fn new(value: Vec<AccessControlList>) -> Self {
+        Self { value }
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessControlListList {

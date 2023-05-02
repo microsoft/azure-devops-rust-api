@@ -171,6 +171,7 @@ impl Patcher {
         Patcher::patch_wiki_pages_update,
         Patcher::patch_jobjects,
         Patcher::patch_identity_descriptors,
+        Patcher::patch_security,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -1921,6 +1922,53 @@ impl Patcher {
             }
         }
         None
+    }
+
+    /// Patch Security
+    ///
+    /// Correct the expected body parameter of accesscontrollists
+    fn patch_security(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
+        if !self.spec_path.ends_with("security.json") {
+            return None;
+        }
+        match key {
+            ["paths", "/{organization}/_apis/accesscontrollists/{securityNamespaceId}", "post", "parameters"] =>
+            {
+                // Parameters is an array of `JsonValue`s, each of which has a `name` field
+                let mut value = value.clone();
+                for param in value.members_mut() {
+                    if let Some(s) = param["name"].as_str() {
+                        // Only update the body parameter
+                        if s == "body" {
+                            self.new_definitions.insert(
+                                "AccessControlListBody".to_string(),
+                                json::object! {
+                                    "type": "object",
+                                    "required": [ "value" ],
+                                    "properties": {
+                                        "value": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/AccessControlList"
+                                          }
+                                        }
+                                    }
+                                },
+                            );
+
+                            param
+                                .insert(
+                                    "schema",
+                                    json::object!("$ref": "#/definitions/AccessControlListBody"),
+                                )
+                                .unwrap();
+                        }
+                    }
+                }
+                Some(value)
+            }
+            _ => None,
+        }
     }
 
     // Main patching function, called for each object key in the object tree.
