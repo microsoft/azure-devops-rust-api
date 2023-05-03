@@ -683,7 +683,7 @@ fn create_struct(cg: &CodeGen, schema: &SchemaGen, struct_name: &str, pageable: 
         } else {
             if type_name.is_date_time() {
                 // Must specify `default` when using `with` for `Option`
-                serde_attrs.push(quote! { default, with = "crate::date_time::rfc3339::option"});
+                serde_attrs.push(quote! { default, skip_serializing_if = "Option::is_none", with = "crate::date_time::rfc3339::option"});
             } else if type_name.is_date_time_rfc1123() {
                 // Must specify `default` when using `with` for `Option`
                 serde_attrs.push(quote! { default, with = "azure_core::date::rfc1123::option"});

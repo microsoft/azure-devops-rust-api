@@ -68,12 +68,14 @@ pub struct SessionToken {
     #[serde(
         rename = "validFrom",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_from: Option<time::OffsetDateTime>,
     #[serde(
         rename = "validTo",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -217,6 +219,7 @@ pub struct TokenAdminRevocationRule {
     #[serde(
         rename = "createdBefore",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_before: Option<time::OffsetDateTime>,

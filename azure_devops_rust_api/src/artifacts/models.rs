@@ -74,6 +74,7 @@ pub struct Feed {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -91,6 +92,7 @@ pub struct Feed {
     #[serde(
         rename = "permanentDeletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub permanent_deleted_date: Option<time::OffsetDateTime>,
@@ -105,6 +107,7 @@ pub struct Feed {
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
@@ -112,6 +115,7 @@ pub struct Feed {
     #[serde(
         rename = "upstreamEnabledChangedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub upstream_enabled_changed_date: Option<time::OffsetDateTime>,
@@ -736,6 +740,7 @@ pub struct MinimalPackageVersion {
     #[serde(
         rename = "publishDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub publish_date: Option<time::OffsetDateTime>,
@@ -985,6 +990,7 @@ pub struct PackageMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
@@ -1046,6 +1052,7 @@ pub struct PackageVersion {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -1189,6 +1196,7 @@ pub struct PackageVersionMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
@@ -1342,6 +1350,7 @@ pub struct RecycleBinPackageVersion {
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
@@ -1449,6 +1458,7 @@ pub struct UpstreamSource {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
