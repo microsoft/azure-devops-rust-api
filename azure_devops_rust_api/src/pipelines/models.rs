@@ -113,6 +113,7 @@ pub struct Log {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -123,6 +124,7 @@ pub struct Log {
     #[serde(
         rename = "lastChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
@@ -439,6 +441,7 @@ pub struct Run {
     #[serde(
         rename = "finishedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finished_date: Option<time::OffsetDateTime>,
@@ -625,6 +628,7 @@ pub struct SignedUrl {
     #[serde(
         rename = "signatureExpires",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub signature_expires: Option<time::OffsetDateTime>,

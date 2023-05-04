@@ -55,6 +55,7 @@ pub struct AccessTokenResult {
     #[serde(
         rename = "validTo",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,

@@ -144,6 +144,7 @@ pub struct MavenPackage {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -201,6 +202,7 @@ pub struct MavenPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -690,6 +692,7 @@ pub struct NpmPackageVersionDeletionState {
     #[serde(
         rename = "unpublishedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub unpublished_date: Option<time::OffsetDateTime>,
@@ -762,6 +765,7 @@ pub struct NuGetPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -838,6 +842,7 @@ pub struct Package {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -851,6 +856,7 @@ pub struct Package {
     #[serde(
         rename = "permanentlyDeletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub permanently_deleted_date: Option<time::OffsetDateTime>,
@@ -919,6 +925,7 @@ pub struct PyPiPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -1013,6 +1020,7 @@ pub struct UPackPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,

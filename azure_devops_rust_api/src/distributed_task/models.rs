@@ -68,6 +68,7 @@ pub struct AgentJobRequestMessage {
     #[serde(
         rename = "lockedUntil",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub locked_until: Option<time::OffsetDateTime>,
@@ -200,6 +201,7 @@ pub struct AzureKeyVaultVariableGroupProviderData {
     #[serde(
         rename = "lastRefreshedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_refreshed_on: Option<time::OffsetDateTime>,
@@ -230,7 +232,11 @@ pub struct AzureKeyVaultVariableValue {
     pub content_type: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub expires: Option<time::OffsetDateTime>,
 }
 impl AzureKeyVaultVariableValue {
@@ -1202,6 +1208,7 @@ pub struct ElasticNode {
     #[serde(
         rename = "stateChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub state_changed_on: Option<time::OffsetDateTime>,
@@ -1409,6 +1416,7 @@ pub struct ElasticPool {
     #[serde(
         rename = "offlineSince",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub offline_since: Option<time::OffsetDateTime>,
@@ -1547,7 +1555,11 @@ pub struct ElasticPoolLog {
     #[serde(rename = "poolId", default, skip_serializing_if = "Option::is_none")]
     pub pool_id: Option<i32>,
     #[doc = "Datetime that the log occurred"]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub timestamp: Option<time::OffsetDateTime>,
 }
 impl ElasticPoolLog {
@@ -1756,6 +1768,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -1785,6 +1798,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "queueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
@@ -1829,6 +1843,7 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -1884,6 +1899,7 @@ pub struct EnvironmentInstance {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -1904,6 +1920,7 @@ pub struct EnvironmentInstance {
     #[serde(
         rename = "lastModifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
@@ -1979,6 +1996,7 @@ pub struct EnvironmentResource {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -2001,6 +2019,7 @@ pub struct EnvironmentResource {
     #[serde(
         rename = "lastModifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
@@ -2051,6 +2070,7 @@ pub struct EnvironmentResourceDeploymentExecutionRecord {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -2071,6 +2091,7 @@ pub struct EnvironmentResourceDeploymentExecutionRecord {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -3134,6 +3155,7 @@ pub struct PackageMetadata {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -3426,6 +3448,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "assignTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
@@ -3447,6 +3470,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -3473,6 +3497,7 @@ pub struct ResourceLockRequest {
     #[serde(
         rename = "queueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
@@ -3628,6 +3653,7 @@ pub struct SecureFile {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -3643,6 +3669,7 @@ pub struct SecureFile {
     #[serde(
         rename = "modifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
@@ -3874,6 +3901,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -3893,6 +3921,7 @@ pub struct ServiceEndpointExecutionData {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -4227,6 +4256,7 @@ pub struct TaskAgent {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -4258,6 +4288,7 @@ pub struct TaskAgent {
     #[serde(
         rename = "statusChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub status_changed_on: Option<time::OffsetDateTime>,
@@ -4409,6 +4440,7 @@ pub struct TaskAgentCloudRequest {
     #[serde(
         rename = "agentConnectedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub agent_connected_time: Option<time::OffsetDateTime>,
@@ -4426,18 +4458,21 @@ pub struct TaskAgentCloudRequest {
     #[serde(
         rename = "provisionedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub provisioned_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "provisionRequestTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub provision_request_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "releaseRequestTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_request_time: Option<time::OffsetDateTime>,
@@ -4567,6 +4602,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "assignTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
@@ -4587,6 +4623,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -4603,6 +4640,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "lockedUntil",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub locked_until: Option<time::OffsetDateTime>,
@@ -4648,6 +4686,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "queueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
@@ -4655,6 +4694,7 @@ pub struct TaskAgentJobRequest {
     #[serde(
         rename = "receiveTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub receive_time: Option<time::OffsetDateTime>,
@@ -4923,6 +4963,7 @@ pub struct TaskAgentPool {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -5032,6 +5073,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -5059,6 +5101,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "queueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
@@ -5076,6 +5119,7 @@ pub struct TaskAgentPoolMaintenanceJob {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -5586,6 +5630,7 @@ pub struct TaskAgentUpdate {
     #[serde(
         rename = "requestTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub request_time: Option<time::OffsetDateTime>,
@@ -5652,6 +5697,7 @@ pub struct TaskAttachment {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -5664,6 +5710,7 @@ pub struct TaskAttachment {
     #[serde(
         rename = "lastChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
@@ -6045,6 +6092,7 @@ pub struct TaskGroup {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -6062,6 +6110,7 @@ pub struct TaskGroup {
     #[serde(
         rename = "modifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
@@ -6263,6 +6312,7 @@ pub struct TaskGroupRevision {
     #[serde(
         rename = "changedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
@@ -6686,6 +6736,7 @@ pub struct TaskLog {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -6698,6 +6749,7 @@ pub struct TaskLog {
     #[serde(
         rename = "lastChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
@@ -6865,6 +6917,7 @@ pub struct TaskOrchestrationPlan {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -6901,6 +6954,7 @@ pub struct TaskOrchestrationPlan {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -7037,6 +7091,7 @@ pub struct TaskOrchestrationQueuedPlan {
     #[serde(
         rename = "assignTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
@@ -7061,6 +7116,7 @@ pub struct TaskOrchestrationQueuedPlan {
     #[serde(
         rename = "queueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
@@ -7266,6 +7322,7 @@ pub struct Timeline {
     #[serde(
         rename = "lastChangedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
@@ -7337,6 +7394,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "finishTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
@@ -7353,6 +7411,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "lastModified",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified: Option<time::OffsetDateTime>,
@@ -7395,6 +7454,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -7521,6 +7581,7 @@ pub struct VariableGroup {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -7544,6 +7605,7 @@ pub struct VariableGroup {
     #[serde(
         rename = "modifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,

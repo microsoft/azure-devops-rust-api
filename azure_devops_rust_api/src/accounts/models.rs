@@ -53,6 +53,7 @@ pub struct Account {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -69,6 +70,7 @@ pub struct Account {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,

@@ -89,6 +89,7 @@ pub struct AccountRecentActivityWorkItemModelBase {
     #[serde(
         rename = "activityDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub activity_date: Option<time::OffsetDateTime>,
@@ -103,6 +104,7 @@ pub struct AccountRecentActivityWorkItemModelBase {
     #[serde(
         rename = "changedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
@@ -174,6 +176,7 @@ pub struct AccountRecentMentionWorkItemModel {
     #[serde(
         rename = "mentionedDateField",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub mentioned_date_field: Option<time::OffsetDateTime>,
@@ -215,6 +218,7 @@ pub struct AccountWorkWorkItemModel {
     #[serde(
         rename = "changedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
@@ -300,6 +304,7 @@ pub struct Comment {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -307,6 +312,7 @@ pub struct Comment {
     #[serde(
         rename = "createdOnBehalfDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
@@ -341,6 +347,7 @@ pub struct Comment {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -572,6 +579,7 @@ pub struct CommentVersion {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -579,6 +587,7 @@ pub struct CommentVersion {
     #[serde(
         rename = "createdOnBehalfDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
@@ -606,6 +615,7 @@ pub struct CommentVersion {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -738,6 +748,7 @@ pub struct ExternalDeployment {
     #[serde(
         rename = "statusDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub status_date: Option<time::OffsetDateTime>,
@@ -1222,6 +1233,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -1269,6 +1281,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "lastExecutedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed_date: Option<time::OffsetDateTime>,
@@ -1283,6 +1296,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "lastModifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_date: Option<time::OffsetDateTime>,
@@ -1768,7 +1782,12 @@ pub struct WorkItemBatchGetRequest {
     #[serde(rename = "$expand", default, skip_serializing_if = "Option::is_none")]
     pub expand: Option<work_item_batch_get_request::Expand>,
     #[doc = "AsOf UTC date time string"]
-    #[serde(rename = "asOf", default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        rename = "asOf",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub as_of: Option<time::OffsetDateTime>,
     #[doc = "The flag to control error policy in a bulk get work items request. Possible options are {Fail, Omit}."]
     #[serde(
@@ -1919,6 +1938,7 @@ pub struct WorkItemComment {
     #[serde(
         rename = "revisedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,
@@ -2366,6 +2386,7 @@ pub struct WorkItemHistory {
     #[serde(
         rename = "revisedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,
@@ -2555,7 +2576,12 @@ pub mod work_item_query_clause {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemQueryResult {
     #[doc = "The date the query was run in the context of."]
-    #[serde(rename = "asOf", default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        rename = "asOf",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub as_of: Option<time::OffsetDateTime>,
     #[doc = "The columns of the query."]
     #[serde(
@@ -3364,6 +3390,7 @@ pub struct WorkItemUpdate {
     #[serde(
         rename = "revisedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub revised_date: Option<time::OffsetDateTime>,

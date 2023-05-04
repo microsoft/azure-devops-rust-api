@@ -714,6 +714,7 @@ pub struct ExtensionAuditLogEntry {
     #[serde(
         rename = "auditDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub audit_date: Option<time::OffsetDateTime>,
@@ -1183,6 +1184,7 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "requestDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub request_date: Option<time::OffsetDateTime>,
@@ -1211,6 +1213,7 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "resolveDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub resolve_date: Option<time::OffsetDateTime>,
@@ -1383,6 +1386,7 @@ pub struct ExtensionState {
     #[serde(
         rename = "lastVersionCheck",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_version_check: Option<time::OffsetDateTime>,
@@ -1469,6 +1473,7 @@ pub struct ExtensionVersion {
     #[serde(
         rename = "lastUpdated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -1658,6 +1663,7 @@ pub struct InstalledExtension {
     #[serde(
         rename = "lastPublished",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_published: Option<time::OffsetDateTime>,
@@ -1748,6 +1754,7 @@ pub struct InstalledExtensionState {
     #[serde(
         rename = "lastUpdated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -1874,6 +1881,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "lastUpdated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -1887,6 +1895,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "publishedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -1897,6 +1906,7 @@ pub struct PublishedExtension {
     #[serde(
         rename = "releaseDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_date: Option<time::OffsetDateTime>,

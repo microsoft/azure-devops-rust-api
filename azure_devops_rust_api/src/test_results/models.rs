@@ -386,6 +386,7 @@ pub struct BuildConfiguration {
     #[serde(
         rename = "creationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -718,7 +719,11 @@ pub struct FailingSince {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub build: Option<BuildReference>,
     #[doc = "Time since failing(UTC)."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Reference to a release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1184,6 +1189,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "creationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -1198,6 +1204,7 @@ pub struct ReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
@@ -1309,6 +1316,7 @@ pub struct ResultsFilter {
     #[serde(
         rename = "maxCompleteDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -2209,6 +2217,7 @@ pub struct TestAttachment {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -2356,6 +2365,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -2373,6 +2383,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -2434,6 +2445,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -2504,6 +2516,7 @@ pub struct TestCaseResult {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -2765,6 +2778,7 @@ pub struct TestHistoryQuery {
     #[serde(
         rename = "maxCompleteDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -2835,6 +2849,7 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -2869,6 +2884,7 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -2898,6 +2914,7 @@ pub struct TestLog {
     #[serde(
         rename = "modifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
@@ -3068,6 +3085,7 @@ pub struct TestMessageLogDetails {
     #[serde(
         rename = "dateCreated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
@@ -3347,6 +3365,7 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -3371,6 +3390,7 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -3520,6 +3540,7 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "maxCompleteDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -3733,6 +3754,7 @@ pub struct TestRun {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -3743,6 +3765,7 @@ pub struct TestRun {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -3786,6 +3809,7 @@ pub struct TestRun {
     #[serde(
         rename = "dueDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
@@ -3830,6 +3854,7 @@ pub struct TestRun {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -3907,6 +3932,7 @@ pub struct TestRun {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -4098,6 +4124,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -4147,6 +4174,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -4181,6 +4209,7 @@ pub struct TestSubResult {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,

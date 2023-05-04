@@ -266,6 +266,7 @@ pub struct ExtensionSummaryData {
     #[serde(
         rename = "trialExpiryDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub trial_expiry_date: Option<time::OffsetDateTime>,
@@ -467,6 +468,7 @@ pub struct GroupEntitlement {
     #[serde(
         rename = "lastExecuted",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed: Option<time::OffsetDateTime>,
@@ -685,6 +687,7 @@ pub struct LicenseSummaryData {
     #[serde(
         rename = "nextBillingDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub next_billing_date: Option<time::OffsetDateTime>,
@@ -1082,6 +1085,7 @@ pub struct UserEntitlement {
     #[serde(
         rename = "dateCreated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
@@ -1100,6 +1104,7 @@ pub struct UserEntitlement {
     #[serde(
         rename = "lastAccessedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_accessed_date: Option<time::OffsetDateTime>,

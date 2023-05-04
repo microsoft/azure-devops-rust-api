@@ -29,12 +29,14 @@ pub struct PermissionsReport {
     #[serde(
         rename = "reportStatusLastUpdatedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub report_status_last_updated_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "requestedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub requested_time: Option<time::OffsetDateTime>,

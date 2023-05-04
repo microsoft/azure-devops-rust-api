@@ -55,8 +55,18 @@ pub mod rfc3339 {
                 _ => value,
             };
 
-            OffsetDateTime::parse(value, &Rfc3339)
-                .map_err(|e| E::custom(format!("Parse error {e} for {value}")))
+            // Some services return a time without an offset, which is not RFC3339 compliant.
+            // If the parse fails, try adding a Z to the end and try again.
+            match OffsetDateTime::parse(value, &Rfc3339) {
+                Ok(dt) => Ok(dt),
+                Err(e) => {
+                    if let Ok(dt) = OffsetDateTime::parse(&format!("{}Z", value), &Rfc3339) {
+                        Ok(dt)
+                    } else {
+                        Err(E::custom(format!("Parse error {e} for {value}")))
+                    }
+                }
+            }
         }
     }
 
@@ -162,10 +172,22 @@ mod tests {
     #[test]
     fn test_serde_datetime_invalid_time() {
         let json_state = r#"{
-            "created_time": "0002-01-01T00:00:00"
+            "created_time": "0002-01-01T00:0000"
         }"#;
         let result: Result<ExampleState, _> = serde_json::from_str(json_state);
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_serde_datetime_without_offset() {
+        let json_state = r#"{
+            "created_time": "2023-05-03T20:09:17.5460824"
+        }"#;
+        let state: ExampleState = serde_json::from_str(json_state).unwrap();
+        assert_eq!(
+            state.created_time,
+            parse_rfc3339("2023-05-03T20:09:17.5460824Z").unwrap()
+        );
     }
 
     #[test]
