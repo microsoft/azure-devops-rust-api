@@ -137,7 +137,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             #[must_use]
             pub fn build(self) -> Client {
                 let endpoint = self.endpoint.unwrap_or_else(|| DEFAULT_ENDPOINT.to_owned());
-                let scopes = self.scopes.unwrap_or_else(|| vec![format!("{endpoint}/")]);
+                let scopes = self.scopes.unwrap_or_else(|| vec![crate::ADO_SCOPE.to_string()]);
                 Client::new(endpoint, self.credential, scopes, self.options)
             }
         }
