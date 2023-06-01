@@ -94,6 +94,7 @@ fn main() -> Result<()> {
         ),
         (vec!["tfvc/{VERSION}/tfvc.json"], "tfvc"),
         (vec!["tokenAdmin/{VERSION}/tokenAdmin.json"], "token_admin"),
+        (vec!["tokens/{VERSION}/tokens.json"], "tokens"),
         (vec!["wiki/{VERSION}/wiki.json"], "wiki"),
         (vec!["wit/{VERSION}/workItemTracking.json"], "wit"),
         (vec!["work/{VERSION}/work.json"], "work"),
