@@ -112,6 +112,9 @@ pub mod tfvc;
 /// Token Admin
 #[cfg(feature = "token_admin")]
 pub mod token_admin;
+/// Tokens
+#[cfg(feature = "tokens")]
+pub mod tokens;
 /// Wiki
 #[cfg(feature = "wiki")]
 pub mod wiki;
