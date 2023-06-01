@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.7.6"
+version = "0.7.7"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"
@@ -216,6 +216,10 @@ required-features = ["test_plan"]
 [[example]]
 name = "graph_query"
 required-features = ["graph"]
+
+[[example]]
+name = "build_get"
+required-features = ["build"]
 
 [[example]]
 name = "build_list"
