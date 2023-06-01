@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.7]
+
+### Added
+
+- New `tokens` module
+- Upgrade `azure_core`, `azure_identity` to 0.12
+
 ## [0.7.6]
 
 ### Fixed
@@ -276,7 +283,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.5...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.7...HEAD
+[0.7.7]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.6...0.7.7
+[0.7.6]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.5...0.7.6
 [0.7.5]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.4...0.7.5
 [0.7.4]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.3...0.7.4
 [0.7.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.2...0.7.3
