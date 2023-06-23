@@ -602,6 +602,21 @@ pub mod maven {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version {
         use super::models;
@@ -774,6 +789,21 @@ pub mod maven {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version {
         use super::models;
@@ -828,6 +858,21 @@ pub mod maven {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -997,6 +1042,21 @@ pub mod maven {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
@@ -1051,6 +1111,21 @@ pub mod maven {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -1113,6 +1188,21 @@ pub mod maven {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -1287,6 +1377,21 @@ pub mod maven {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -2700,6 +2805,21 @@ pub mod npm {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod download_scoped_package {
         use super::models;
@@ -3076,6 +3196,21 @@ pub mod npm {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod download_package {
         use super::models;
@@ -3354,6 +3489,21 @@ pub mod npm {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_scoped_package_version_from_recycle_bin {
         use super::models;
@@ -3520,6 +3670,21 @@ pub mod npm {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_scoped_package_version_from_recycle_bin {
         use super::models;
@@ -3574,6 +3739,21 @@ pub mod npm {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -3741,6 +3921,21 @@ pub mod npm {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
@@ -3794,6 +3989,21 @@ pub mod npm {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -3856,6 +4066,21 @@ pub mod npm {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -4313,6 +4538,21 @@ pub mod nu_get {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version {
         use super::models;
@@ -4496,6 +4736,21 @@ pub mod nu_get {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -4784,6 +5039,21 @@ pub mod nu_get {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
@@ -4948,6 +5218,21 @@ pub mod nu_get {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
@@ -5001,6 +5286,21 @@ pub mod nu_get {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -5063,6 +5363,21 @@ pub mod nu_get {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -5522,6 +5837,21 @@ pub mod python {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version {
         use super::models;
@@ -5705,6 +6035,21 @@ pub mod python {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -5980,6 +6325,21 @@ pub mod python {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
@@ -6144,6 +6504,21 @@ pub mod python {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
@@ -6197,6 +6572,21 @@ pub mod python {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -6259,6 +6649,21 @@ pub mod python {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -6654,6 +7059,21 @@ pub mod universal {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version {
         use super::models;
@@ -6825,6 +7245,21 @@ pub mod universal {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod get_package_version_from_recycle_bin {
         use super::models;
@@ -6989,6 +7424,21 @@ pub mod universal {
                 })
             }
         }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
     }
     pub mod delete_package_version_from_recycle_bin {
         use super::models;
@@ -7042,6 +7492,21 @@ pub mod universal {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
@@ -7104,6 +7569,21 @@ pub mod universal {
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
                 })
             }
         }
