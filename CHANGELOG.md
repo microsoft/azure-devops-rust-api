@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.7.8]
+## [0.8.0]
 
 ### Fixed
 
@@ -290,8 +290,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.8...HEAD
-[0.7.8]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.7...0.7.8
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.7...0.8.0
 [0.7.7]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.6...0.7.7
 [0.7.6]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.5...0.7.6
 [0.7.5]: https://github.com/microsoft/azure-devops-rust-api/compare/0.7.4...0.7.5
