@@ -28,6 +28,8 @@ jobs:
       run: ./build.sh
     - name: check autogeneration matches git repo
       run: git diff --exit-code HEAD
+    - name: cleanup code generator build artifacts
+      run: cargo clean
     - name: azure_devops_rust_api clippy
       run: cd azure_devops_rust_api && cargo clippy --all-features
     - name: azure_devops_rust_api build
