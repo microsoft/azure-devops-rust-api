@@ -19,7 +19,7 @@ jobs:
     - name: vsts-api-patcher fmt
       run: cd vsts-api-patcher && cargo fmt --check
     - name: azure_devops_rust_api fmt
-      run: cd vsts-api-patcher && cargo fmt --check
+      run: cd azure_devops_rust_api && cargo fmt --check
     - name: codegen clippy
       run: cd autorust && cargo clippy
     - name: vsts-api-patcher clippy
@@ -28,10 +28,14 @@ jobs:
       run: ./build.sh
     - name: check autogeneration matches git repo
       run: git diff --exit-code HEAD
+    - name: cleanup code generator build artifacts
+      run: rm -rf vsts-api-patcher/target && rm -rf autorust/target
     - name: azure_devops_rust_api clippy
       run: cd azure_devops_rust_api && cargo clippy --all-features
     - name: azure_devops_rust_api build
       run: cd azure_devops_rust_api && cargo build --all-features
+    - name: cleanup azure_devops_rust_api build artifacts
+      run: rm -rf azure_devops_rust_api/target
     - name: azure_devops_rust_api test
       run: cd azure_devops_rust_api && cargo test --all-features
     - name: azure_devops_rust_api documentation generation
