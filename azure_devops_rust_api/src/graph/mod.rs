@@ -129,9 +129,6 @@ impl Client {
     pub fn groups_client(&self) -> groups::Client {
         groups::Client(self.clone())
     }
-    pub fn identity_translation_client(&self) -> identity_translation::Client {
-        identity_translation::Client(self.clone())
-    }
     pub fn membership_states_client(&self) -> membership_states::Client {
         membership_states::Client(self.clone())
     }
@@ -143,6 +140,9 @@ impl Client {
     }
     pub fn request_access_client(&self) -> request_access::Client {
         request_access::Client(self.clone())
+    }
+    pub fn service_principals_client(&self) -> service_principals::Client {
+        service_principals::Client(self.clone())
     }
     pub fn storage_keys_client(&self) -> storage_keys::Client {
         storage_keys::Client(self.clone())
@@ -921,143 +921,6 @@ pub mod groups {
                     let _rsp = self.send().await?;
                     Ok(())
                 })
-            }
-        }
-    }
-}
-pub mod identity_translation {
-    use super::models;
-    pub struct Client(pub(crate) super::Client);
-    impl Client {
-        #[doc = ""]
-        #[doc = "Arguments:"]
-        #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        pub fn translate(&self, organization: impl Into<String>) -> translate::RequestBuilder {
-            translate::RequestBuilder {
-                client: self.0.clone(),
-                organization: organization.into(),
-                master_id: None,
-                local_id: None,
-            }
-        }
-    }
-    pub mod translate {
-        use super::models;
-        pub struct Response(azure_core::Response);
-        impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                let bytes = self.0.into_body().collect().await?;
-                let body: String = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
-            }
-            pub fn into_raw_response(self) -> azure_core::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
-                self.as_raw_response()
-            }
-        }
-        #[derive(Clone)]
-        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
-        #[doc = r""]
-        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
-        #[doc = r" parameters can be chained."]
-        #[doc = r""]
-        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
-        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
-        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
-        #[doc = r" operation and returns a `Result` with the parsed response."]
-        #[doc = r""]
-        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
-        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
-        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
-        #[doc = r" [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
-            pub(crate) organization: String,
-            pub(crate) master_id: Option<String>,
-            pub(crate) local_id: Option<String>,
-        }
-        impl RequestBuilder {
-            pub fn master_id(mut self, master_id: impl Into<String>) -> Self {
-                self.master_id = Some(master_id.into());
-                self
-            }
-            pub fn local_id(mut self, local_id: impl Into<String>) -> Self {
-                self.local_id = Some(local_id.into());
-                self
-            }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = azure_core::Url::parse(&format!(
-                            "{}/{}/_apis/graph/identitytranslation",
-                            this.client.endpoint(),
-                            &this.organization
-                        ))?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes)
-                            .await?
-                        {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
-                        }
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
-                        if let Some(master_id) = &this.master_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("masterId", master_id);
-                        }
-                        if let Some(local_id) = &this.local_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("localId", local_id);
-                        }
-                        let req_body = azure_core::EMPTY_BODY;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
-                    }
-                })
-            }
-        }
-        impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
-            #[doc = "Returns a future that sends the request and returns the parsed response body."]
-            #[doc = ""]
-            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
-            #[doc = ""]
-            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
-            fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1873,6 +1736,507 @@ pub mod request_access {
         }
     }
 }
+pub mod service_principals {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Get a list of all service principals in a given scope.\n\nSince the list of service principals may be large, results are returned in pages of service principals. If there are more results\n than can be returned in a single page, the result set will contain a continuation token for retrieval of the\n next set of results. The only reliable way to know if there is no more service principals left is the lack of a continuation token."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        pub fn list(&self, organization: impl Into<String>) -> list::RequestBuilder {
+            list::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                continuation_token: None,
+                scope_descriptor: None,
+            }
+        }
+        #[doc = "Materialize an existing AAD service principal into the ADO account.\n\nNOTE: Created service principals are not active in an account.\n\n Adding a service principal to an account is required before the service principal can be added to ADO groups or assigned an asset.\n\n The body of the request must be a derived type of GraphServicePrincipalCreationContext:\n  * GraphServicePrincipalOriginIdCreationContext - Create a new service principal using the OriginID as a reference to an existing service principal from AAD backed provider.\n\n If the service principal to be added corresponds to a service principal that was previously deleted, then that service principal will be restored.\n\n Optionally, you can add the newly created service principal as a member of an existing ADO group and/or specify a custom storage key for the service principal."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The subset of the full graph service principal used to uniquely find the graph subject in an external provider."]
+        pub fn create(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::GraphServicePrincipalCreationContext>,
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                group_descriptors: None,
+            }
+        }
+        #[doc = "Get a service principal by its descriptor."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `service_principal_descriptor`: The descriptor of the desired service principal."]
+        pub fn get(
+            &self,
+            organization: impl Into<String>,
+            service_principal_descriptor: impl Into<String>,
+        ) -> get::RequestBuilder {
+            get::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                service_principal_descriptor: service_principal_descriptor.into(),
+            }
+        }
+        #[doc = "Disables a service principal.\n\nThe service principal will still be visible, but membership checks for the service principal will return false."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `service_principal_descriptor`: The descriptor of the service principal to delete."]
+        pub fn delete(
+            &self,
+            organization: impl Into<String>,
+            service_principal_descriptor: impl Into<String>,
+        ) -> delete::RequestBuilder {
+            delete::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                service_principal_descriptor: service_principal_descriptor.into(),
+            }
+        }
+    }
+    pub mod list {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::GraphServicePrincipalList> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::GraphServicePrincipalList = serde_json::from_slice(&bytes)
+                    .map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+            pub fn headers(&self) -> Headers {
+                Headers(self.0.headers())
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        impl<'a> Headers<'a> {
+            pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
+                self.0
+                    .get_str(&azure_core::headers::HeaderName::from_static(
+                        "x-ms-continuationtoken",
+                    ))
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) continuation_token: Option<String>,
+            pub(crate) scope_descriptor: Option<String>,
+        }
+        impl RequestBuilder {
+            #[doc = "An opaque data blob that allows the next page of data to resume immediately after where the previous page ended. The only reliable way to know if there is more data left is the presence of a continuation token."]
+            pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
+                self.continuation_token = Some(continuation_token.into());
+                self
+            }
+            #[doc = "Specify a non-default scope (collection, project) to search for service principals."]
+            pub fn scope_descriptor(mut self, scope_descriptor: impl Into<String>) -> Self {
+                self.scope_descriptor = Some(scope_descriptor.into());
+                self
+            }
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/graph/serviceprincipals",
+                            this.client.endpoint(),
+                            &this.organization
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(continuation_token) = &this.continuation_token {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("continuationToken", continuation_token);
+                        }
+                        if let Some(scope_descriptor) = &this.scope_descriptor {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("scopeDescriptor", scope_descriptor);
+                        }
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::GraphServicePrincipalList>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::GraphServicePrincipalList>,
+            >;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+    pub mod create {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::GraphServicePrincipal> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::GraphServicePrincipal =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::GraphServicePrincipalCreationContext,
+            pub(crate) group_descriptors: Option<String>,
+        }
+        impl RequestBuilder {
+            #[doc = "A comma separated list of descriptors of groups you want the graph service principal to join"]
+            pub fn group_descriptors(mut self, group_descriptors: impl Into<String>) -> Self {
+                self.group_descriptors = Some(group_descriptors.into());
+                self
+            }
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/graph/serviceprincipals",
+                            this.client.endpoint(),
+                            &this.organization
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        if let Some(group_descriptors) = &this.group_descriptors {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("groupDescriptors", group_descriptors);
+                        }
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::GraphServicePrincipal>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::GraphServicePrincipal>,
+            >;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+    pub mod get {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::GraphServicePrincipal> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::GraphServicePrincipal =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) service_principal_descriptor: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/graph/serviceprincipals/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.service_principal_descriptor
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::GraphServicePrincipal>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::GraphServicePrincipal>,
+            >;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+    pub mod delete {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) service_principal_descriptor: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/graph/serviceprincipals/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.service_principal_descriptor
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
+    }
+}
 pub mod storage_keys {
     use super::models;
     pub struct Client(pub(crate) super::Client);
@@ -2589,7 +2953,7 @@ pub mod users {
                 scope_descriptor: None,
             }
         }
-        #[doc = "Materialize an existing AAD or MSA user into the VSTS account.\n\nNOTE: Created users are not active in an account unless they have been explicitly assigned a parent group at creation time or have signed in\n  and been autolicensed through AAD group memberships.\n\n Adding a user to an account is required before the user can be added to VSTS groups or assigned an asset.\n\n The body of the request must be a derived type of GraphUserCreationContext:\n  * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an existing user from an external AD or AAD backed provider.\n\n If the user to be added corresponds to a user that was previously deleted, then that user will be restored.\n\n Optionally, you can add the newly created user as a member of an existing VSTS group and/or specify a custom storage key for the user."]
+        #[doc = "Materialize an existing AAD or MSA user into the ADO account.\n\nNOTE: Created users are not active in an account unless they have been explicitly assigned a parent group at creation time or have signed in\n  and been autolicensed through AAD group memberships.\n\n Adding a user to an account is required before the user can be added to ADO groups or assigned an asset.\n\n The body of the request must be a derived type of GraphUserCreationContext:\n  * GraphUserMailAddressCreationContext - Create a new user using the mail address as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserOriginIdCreationContext - Create a new user using the OriginID as a reference to an existing user from an external AD or AAD backed provider.\n  * GraphUserPrincipalNameCreationContext - Create a new user using the principal name as a reference to an existing user from an external AD or AAD backed provider.\n\n If the user to be added corresponds to a user that was previously deleted, then that user will be restored.\n\n Optionally, you can add the newly created user as a member of an existing ADO group and/or specify a custom storage key for the user."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -2622,12 +2986,12 @@ pub mod users {
                 user_descriptor: user_descriptor.into(),
             }
         }
-        #[doc = "Map an existing user to a different identity"]
+        #[doc = "Map an existing user to a different user.\n\nThe body of the request must be a derived type of GraphUserUpdateContext:\n * GraphUserOriginIdUpdateContext - Map an existing user in an account, to an existing user from an external AD or AAD backed provider using the OriginId as a reference."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `body`: The subset of the full graph user used to uniquely find the graph subject in an external provider."]
-        #[doc = "* `user_descriptor`: the descriptor of the user to update"]
+        #[doc = "* `user_descriptor`: The descriptor of the user to update"]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -2641,7 +3005,7 @@ pub mod users {
                 user_descriptor: user_descriptor.into(),
             }
         }
-        #[doc = "Disables a user.\n\nThe user will still be visible, but membership checks for the user will return false.”"]
+        #[doc = "Disables a user.\n\nThe user will still be visible, but membership checks for the user will return false."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]

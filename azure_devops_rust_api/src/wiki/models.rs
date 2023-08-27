@@ -334,6 +334,13 @@ pub struct GitRepository {
     #[doc = "True if the repository was created as a fork."]
     #[serde(rename = "isFork", default, skip_serializing_if = "Option::is_none")]
     pub is_fork: Option<bool>,
+    #[doc = "True if the repository is in maintenance. False otherwise."]
+    #[serde(
+        rename = "isInMaintenance",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_in_maintenance: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = ""]
@@ -553,6 +560,8 @@ impl ReferenceLinks {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectCollectionReference {
+    #[serde(rename = "avatarUrl", default, skip_serializing_if = "Option::is_none")]
+    pub avatar_url: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -642,11 +651,12 @@ pub mod team_project_reference {
         Unchanged,
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -658,6 +668,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }
@@ -1097,6 +1108,13 @@ pub struct WikiV2 {
     #[doc = "ID of the wiki."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "Is wiki repository disabled"]
+    #[serde(
+        rename = "isDisabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_disabled: Option<bool>,
     #[doc = "Properties of the wiki."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub properties: Option<serde_json::Value>,

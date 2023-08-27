@@ -5978,7 +5978,7 @@ pub mod tags {
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
-        #[doc = "* `body`: The tags to add."]
+        #[doc = "* `body`: The tags to add. Request body is composed directly from listed tags."]
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `build_id`: The ID of the build."]
         pub fn add_build_tags(

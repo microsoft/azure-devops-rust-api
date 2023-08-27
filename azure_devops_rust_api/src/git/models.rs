@@ -7,6 +7,73 @@ use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct AdvSecEnablementStatus {
+    #[doc = "Enabled by VSID"]
+    #[serde(
+        rename = "changedById",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub changed_by_id: Option<String>,
+    #[doc = "Enabled changed on datetime"]
+    #[serde(
+        rename = "changedOnDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub changed_on_date: Option<time::OffsetDateTime>,
+    #[doc = "Enabled status 0 disabled, 1 enabled, Null never explicitly set, always whatever project is, ya this should probably be an enum somewhere"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    #[doc = "Enabled changed on datetime To Be Removed M223 +"]
+    #[serde(
+        rename = "enabledChangedOnDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub enabled_changed_on_date: Option<time::OffsetDateTime>,
+    #[doc = "ProjectId"]
+    #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    #[doc = "RepositoryId"]
+    #[serde(
+        rename = "repositoryId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub repository_id: Option<String>,
+}
+impl AdvSecEnablementStatus {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct AdvSecEnablementUpdate {
+    #[doc = "New status"]
+    #[serde(rename = "newStatus", default, skip_serializing_if = "Option::is_none")]
+    pub new_status: Option<bool>,
+    #[doc = "ProjectId"]
+    #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    #[doc = "RepositoryId Actual RepositoryId to Modify or Magic Repository Id \"FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF\" for ALL Repositories for that project"]
+    #[serde(
+        rename = "repositoryId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub repository_id: Option<String>,
+}
+impl AdvSecEnablementUpdate {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AssociatedWorkItem {
     #[serde(
         rename = "assignedTo",
@@ -204,6 +271,74 @@ pub struct AutoCompleteUpdatedEvent {
     pub real_time_pull_request_event: RealTimePullRequestEvent,
 }
 impl AutoCompleteUpdatedEvent {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Used by AdvSec to return billable committers."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct BillableCommitter {
+    #[doc = "RepositoryId commit was pushed to."]
+    #[serde(rename = "repoId", default, skip_serializing_if = "Option::is_none")]
+    pub repo_id: Option<String>,
+    #[doc = "Visual Studio ID /Team Foundation ID"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub vsid: Option<String>,
+}
+impl BillableCommitter {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct BillableCommitterDetail {
+    #[serde(flatten)]
+    pub billable_committer: BillableCommitter,
+    #[doc = "ID (SHA-1) of the commit."]
+    #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
+    pub commit_id: Option<String>,
+    #[doc = "Committer email address after parsing."]
+    #[serde(
+        rename = "committerEmail",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub committer_email: Option<String>,
+    #[doc = "Time reported by the commit."]
+    #[serde(
+        rename = "commitTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub commit_time: Option<time::OffsetDateTime>,
+    #[doc = "Project Id commit was pushed to."]
+    #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    #[doc = "Project name commit was pushed to."]
+    #[serde(
+        rename = "projectName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub project_name: Option<String>,
+    #[doc = "Time of the push that contained the commit."]
+    #[serde(
+        rename = "pushedTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub pushed_time: Option<time::OffsetDateTime>,
+    #[doc = "Push Id that contained the commit."]
+    #[serde(rename = "pushId", default, skip_serializing_if = "Option::is_none")]
+    pub push_id: Option<i32>,
+    #[doc = "Repository name commit was pushed to."]
+    #[serde(rename = "repoName", default, skip_serializing_if = "Option::is_none")]
+    pub repo_name: Option<String>,
+}
+impl BillableCommitterDetail {
     pub fn new() -> Self {
         Self::default()
     }
@@ -1364,6 +1499,13 @@ pub struct GitCommitRef {
     #[doc = "User info and date for Git operations."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub committer: Option<GitUserDate>,
+    #[doc = "Indicates that commit contains too many changes to be displayed"]
+    #[serde(
+        rename = "commitTooManyChanges",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub commit_too_many_changes: Option<bool>,
     #[doc = "An enumeration of the parent commit IDs for this commit."]
     #[serde(
         default,
@@ -1406,6 +1548,7 @@ impl GitCommitRef {
             comment_truncated: None,
             commit_id,
             committer: None,
+            commit_too_many_changes: None,
             parents: Vec::new(),
             push: None,
             remote_url: None,
@@ -3644,6 +3787,8 @@ pub mod git_pull_request_iteration {
         Unknown,
         #[serde(rename = "retarget")]
         Retarget,
+        #[serde(rename = "resolveConflicts")]
+        ResolveConflicts,
     }
 }
 #[doc = "Collection of changes made in a pull request."]
@@ -3818,6 +3963,29 @@ pub struct GitPullRequestSearchCriteria {
         skip_serializing_if = "Option::is_none"
     )]
     pub include_links: Option<bool>,
+    #[doc = "If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified."]
+    #[serde(
+        rename = "maxTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub max_time: Option<time::OffsetDateTime>,
+    #[doc = "If specified, filters pull requests that created/closed after this date based on the queryTimeRangeType specified."]
+    #[serde(
+        rename = "minTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub min_time: Option<time::OffsetDateTime>,
+    #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
+    #[serde(
+        rename = "queryTimeRangeType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub query_time_range_type: Option<git_pull_request_search_criteria::QueryTimeRangeType>,
     #[doc = "If set, search for pull requests whose target branch is in this repository."]
     #[serde(
         rename = "repositoryId",
@@ -3864,6 +4032,14 @@ impl GitPullRequestSearchCriteria {
 }
 pub mod git_pull_request_search_criteria {
     use super::*;
+    #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum QueryTimeRangeType {
+        #[serde(rename = "created")]
+        Created,
+        #[serde(rename = "closed")]
+        Closed,
+    }
     #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -4590,6 +4766,13 @@ pub struct GitRepository {
     #[doc = "True if the repository was created as a fork."]
     #[serde(rename = "isFork", default, skip_serializing_if = "Option::is_none")]
     pub is_fork: Option<bool>,
+    #[doc = "True if the repository is in maintenance. False otherwise."]
+    #[serde(
+        rename = "isInMaintenance",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_in_maintenance: Option<bool>,
     pub name: String,
     #[doc = ""]
     #[serde(
@@ -4626,6 +4809,7 @@ impl GitRepository {
             id,
             is_disabled: None,
             is_fork: None,
+            is_in_maintenance: None,
             name,
             parent_repository: None,
             project,
@@ -5668,7 +5852,7 @@ pub struct IdentityRefWithVote {
     #[doc = "Vote on a pull request:<br /> 10 - approved 5 - approved with suggestions 0 - no vote -5 - waiting for author -10 - rejected"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub vote: Option<i64>,
-    #[doc = "Groups or teams that that this reviewer contributed to. <br /> Groups and teams can be reviewers on pull requests but can not vote directly.  When a member of the group or team votes, that vote is rolled up into the group or team vote.  VotedFor is a list of such votes."]
+    #[doc = "Groups or teams that this reviewer contributed to. <br /> Groups and teams can be reviewers on pull requests but can not vote directly.  When a member of the group or team votes, that vote is rolled up into the group or team vote.  VotedFor is a list of such votes."]
     #[serde(
         rename = "votedFor",
         default,
@@ -6470,6 +6654,9 @@ pub mod supported_ide {
 #[doc = "Reference object for a TeamProjectCollection."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectCollectionReference {
+    #[doc = "Collection avatar Url."]
+    #[serde(rename = "avatarUrl", default, skip_serializing_if = "Option::is_none")]
+    pub avatar_url: Option<String>,
     #[doc = "Collection Id."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -7603,11 +7790,12 @@ impl VersionedPolicyConfigurationRef {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -7619,6 +7807,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

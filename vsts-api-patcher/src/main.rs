@@ -1585,7 +1585,24 @@ impl Patcher {
     fn patch_array_array_schema(&mut self, key: &[&str], value: &JsonValue) -> Option<JsonValue> {
         match key {
             ["paths" | "x-ms-paths", _path, _op, "responses", _rsp_code, "schema"] => {
-                if (value["items"]["type"] == "array")
+                // memberEntitlementManagement.json has this, which declares an array but omits the items type:
+                // "responses": {
+                //     "200": {
+                //       "description": "successful operation",
+                //       "schema": {
+                //         "type": "array"
+                //       }
+                //     }
+                //   },
+                if (value["type"] == "array") && (value["items"] == JsonValue::Null) {
+                    println!("Replace array[<undefined>] with array[object]");
+                    Some(json::object! {
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    })
+                } else if (value["items"]["type"] == "array")
                     && (value["items"]["items"] == JsonValue::Null)
                 {
                     println!("Replace array[array] with array[string]");

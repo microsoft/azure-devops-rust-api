@@ -123,6 +123,9 @@ impl Client {
     pub fn avatar_client(&self) -> avatar::Client {
         avatar::Client(self.clone())
     }
+    pub fn categorized_teams_client(&self) -> categorized_teams::Client {
+        categorized_teams::Client(self.clone())
+    }
     pub fn processes_client(&self) -> processes::Client {
         processes::Client(self.clone())
     }
@@ -550,7 +553,7 @@ pub mod projects {
             pub(crate) state_filter: Option<String>,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
-            pub(crate) continuation_token: Option<String>,
+            pub(crate) continuation_token: Option<i32>,
             pub(crate) get_default_team_image_url: Option<bool>,
         }
         impl RequestBuilder {
@@ -567,8 +570,9 @@ pub mod projects {
                 self.skip = Some(skip);
                 self
             }
-            pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
-                self.continuation_token = Some(continuation_token.into());
+            #[doc = "Pointer that shows how many projects already been fetched."]
+            pub fn continuation_token(mut self, continuation_token: i32) -> Self {
+                self.continuation_token = Some(continuation_token);
                 self
             }
             pub fn get_default_team_image_url(mut self, get_default_team_image_url: bool) -> Self {
@@ -618,7 +622,7 @@ pub mod projects {
                         if let Some(continuation_token) = &this.continuation_token {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("continuationToken", continuation_token);
+                                .append_pair("continuationToken", &continuation_token.to_string());
                         }
                         if let Some(get_default_team_image_url) = &this.get_default_team_image_url {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -1465,6 +1469,170 @@ pub mod avatar {
                     let _rsp = self.send().await?;
                     Ok(())
                 })
+            }
+        }
+    }
+}
+pub mod categorized_teams {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Gets list of user readable teams in a project and teams user is member of (excluded from readable list)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project_id`: The name or ID (GUID) of the team project containing the teams to retrieve."]
+        pub fn get(
+            &self,
+            organization: impl Into<String>,
+            project_id: impl Into<String>,
+        ) -> get::RequestBuilder {
+            get::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                project_id: project_id.into(),
+                expand_identity: None,
+                top: None,
+                skip: None,
+            }
+        }
+    }
+    pub mod get {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::CategorizedWebApiTeams> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::CategorizedWebApiTeams =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) project_id: String,
+            pub(crate) expand_identity: Option<bool>,
+            pub(crate) top: Option<i32>,
+            pub(crate) skip: Option<i32>,
+        }
+        impl RequestBuilder {
+            #[doc = "A value indicating whether or not to expand Identity information in the result WebApiTeam object."]
+            pub fn expand_identity(mut self, expand_identity: bool) -> Self {
+                self.expand_identity = Some(expand_identity);
+                self
+            }
+            #[doc = "Maximum number of teams to return."]
+            pub fn top(mut self, top: i32) -> Self {
+                self.top = Some(top);
+                self
+            }
+            #[doc = "Number of teams to skip."]
+            pub fn skip(mut self, skip: i32) -> Self {
+                self.skip = Some(skip);
+                self
+            }
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/_apis/projects/{}/categorizedteams/",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.project_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        if let Some(expand_identity) = &this.expand_identity {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("$expandIdentity", &expand_identity.to_string());
+                        }
+                        if let Some(top) = &this.top {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("$top", &top.to_string());
+                        }
+                        if let Some(skip) = &this.skip {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("$skip", &skip.to_string());
+                        }
+                        let req_body = azure_core::EMPTY_BODY;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::CategorizedWebApiTeams>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::CategorizedWebApiTeams>,
+            >;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }

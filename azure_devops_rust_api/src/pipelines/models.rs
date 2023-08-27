@@ -40,6 +40,51 @@ impl BuildResourceParameters {
 }
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct Container {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub environment: Option<serde_json::Value>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub image: Option<String>,
+    #[serde(
+        rename = "mapDockerSocket",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub map_docker_socket: Option<bool>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub options: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub ports: Vec<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub volumes: Vec<String>,
+}
+impl Container {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ContainerResource {
+    #[doc = ""]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub container: Option<Container>,
+}
+impl ContainerResource {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContainerResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
@@ -329,6 +374,20 @@ impl PipelineReference {
 }
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct PipelineResource {
+    #[doc = "A reference to a Pipeline."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pipeline: Option<PipelineReference>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub version: Option<String>,
+}
+impl PipelineResource {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
@@ -453,6 +512,12 @@ pub struct Run {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<run::Result>,
     pub state: run::State,
+    #[serde(
+        rename = "templateParameters",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub template_parameters: Option<serde_json::Value>,
     pub url: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub variables: Option<serde_json::Value>,
@@ -476,6 +541,7 @@ impl Run {
             resources: None,
             result: None,
             state,
+            template_parameters: None,
             url,
             variables: None,
         }
@@ -579,6 +645,10 @@ impl RunReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunResources {
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub containers: Option<serde_json::Value>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pipelines: Option<serde_json::Value>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repositories: Option<serde_json::Value>,
 }
 impl RunResources {
@@ -654,11 +724,12 @@ impl Variable {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -670,6 +741,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

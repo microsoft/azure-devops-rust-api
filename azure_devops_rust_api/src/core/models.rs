@@ -7,6 +7,31 @@ use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct CategorizedWebApiTeams {
+    #[doc = "Teams that the user is a member of."]
+    #[serde(
+        rename = "myTeams",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub my_teams: Vec<WebApiTeam>,
+    #[doc = "Teams that the user can read but is not member of."]
+    #[serde(
+        rename = "otherReadableTeams",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub other_readable_teams: Vec<WebApiTeam>,
+}
+impl CategorizedWebApiTeams {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
@@ -828,6 +853,9 @@ pub mod team_project_collection {
 #[doc = "Reference object for a TeamProjectCollection."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectCollectionReference {
+    #[doc = "Collection avatar Url."]
+    #[serde(rename = "avatarUrl", default, skip_serializing_if = "Option::is_none")]
+    pub avatar_url: Option<String>,
     #[doc = "Collection Id."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1005,11 +1033,12 @@ impl UpdateTeam {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1021,6 +1050,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

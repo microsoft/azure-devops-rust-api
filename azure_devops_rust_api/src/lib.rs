@@ -16,6 +16,9 @@
 /// Accounts
 #[cfg(feature = "accounts")]
 pub mod accounts;
+/// Approvals and checks
+#[cfg(feature = "approvals_and_checks")]
+pub mod approvals_and_checks;
 /// Artifacts
 #[cfg(feature = "artifacts")]
 pub mod artifacts;
@@ -28,9 +31,6 @@ pub mod audit;
 /// Build
 #[cfg(feature = "build")]
 pub mod build;
-/// Cloud Load Test
-#[cfg(feature = "clt")]
-pub mod clt;
 /// Core
 #[cfg(feature = "core")]
 pub mod core;
@@ -43,6 +43,9 @@ pub mod distributed_task;
 /// Extension Management
 #[cfg(feature = "extension_management")]
 pub mod extension_management;
+/// Favorite
+#[cfg(feature = "favorite")]
+pub mod favorite;
 /// Git
 #[cfg(feature = "git")]
 pub mod git;
@@ -88,6 +91,9 @@ pub mod search;
 /// Security
 #[cfg(feature = "security")]
 pub mod security;
+/// Security roles
+#[cfg(feature = "security_roles")]
+pub mod security_roles;
 /// Service Endpoint (aka Service Connection)
 #[cfg(feature = "service_endpoint")]
 pub mod service_endpoint;

@@ -14,14 +14,14 @@ git submodule update
 echo "Crate vsts-rest-api-specs.patched"
 rm -rf vsts-rest-api-specs.patched
 cd vsts-api-patcher
-cargo run
+cargo run --release
 cd ..
 
 # Autogen the Rust crate
 echo "Autogen Rust crate"
 rm -rf azure_devops_rust_api/target
 cd autorust/codegen
-cargo run
+cargo run --release
 cd ../..
 
 # Format and build Rust crate

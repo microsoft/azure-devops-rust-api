@@ -323,6 +323,9 @@ pub struct Comment {
         skip_serializing_if = "Option::is_none"
     )]
     pub created_on_behalf_of: Option<IdentityRef>,
+    #[doc = "Represents the possible types for the comment format."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub format: Option<comment::Format>,
     #[doc = "The id assigned to the comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
@@ -358,6 +361,13 @@ pub struct Comment {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub reactions: Vec<CommentReaction>,
+    #[doc = "The text of the comment in HTML format."]
+    #[serde(
+        rename = "renderedText",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub rendered_text: Option<String>,
     #[doc = "The text of the comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
@@ -380,16 +390,29 @@ impl Comment {
             created_date: None,
             created_on_behalf_date: None,
             created_on_behalf_of: None,
+            format: None,
             id: None,
             is_deleted: None,
             mentions: Vec::new(),
             modified_by: None,
             modified_date: None,
             reactions: Vec::new(),
+            rendered_text: None,
             text: None,
             version: None,
             work_item_id: None,
         }
+    }
+}
+pub mod comment {
+    use super::*;
+    #[doc = "Represents the possible types for the comment format."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum Format {
+        #[serde(rename = "markdown")]
+        Markdown,
+        #[serde(rename = "html")]
+        Html,
     }
 }
 #[doc = "Represents a request to create a work item comment."]
@@ -818,6 +841,100 @@ impl FieldDependentRule {
             work_item_tracking_resource,
             dependent_fields: Vec::new(),
         }
+    }
+}
+#[doc = "Describes an update request for a work item field."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct FieldUpdate {
+    #[doc = "Indicates whether the user wants to restore the field."]
+    #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
+    pub is_deleted: Option<bool>,
+    #[doc = "Indicates whether the user wants to lock the field."]
+    #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
+    pub is_locked: Option<bool>,
+}
+impl FieldUpdate {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes Github connection."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GitHubConnectionModel {
+    #[doc = "Github connection authorization type (f. e. PAT, OAuth)"]
+    #[serde(
+        rename = "authorizationType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub authorization_type: Option<String>,
+    #[doc = ""]
+    #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
+    pub created_by: Option<IdentityRef>,
+    #[doc = "Github connection id"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[doc = "Whether current Github connection is valid or not"]
+    #[serde(
+        rename = "isConnectionValid",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_connection_valid: Option<bool>,
+    #[doc = "Github connection name (should contain organization/user name)"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+impl GitHubConnectionModel {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes Github connection's repo."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GitHubConnectionRepoModel {
+    #[doc = "Error message"]
+    #[serde(
+        rename = "errorMessage",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub error_message: Option<String>,
+    #[doc = "Repository web url"]
+    #[serde(
+        rename = "gitHubRepositoryUrl",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub git_hub_repository_url: Option<String>,
+}
+impl GitHubConnectionRepoModel {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes Github connection's repo bulk request"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GitHubConnectionReposBatchRequest {
+    #[doc = "Requested repos urls"]
+    #[serde(
+        rename = "gitHubRepositoryUrls",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub git_hub_repository_urls: Vec<GitHubConnectionRepoModel>,
+    #[doc = "Operation type (f. e. add, remove)"]
+    #[serde(
+        rename = "operationType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub operation_type: Option<String>,
+}
+impl GitHubConnectionReposBatchRequest {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -1645,6 +1762,35 @@ impl TeamContext {
         Self::default()
     }
 }
+#[doc = "Describes a request to create a temporary query"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct TemporaryQueryRequestModel {
+    #[serde(flatten)]
+    pub work_item_tracking_resource: WorkItemTrackingResource,
+    #[doc = "The WIQL text of the temporary query"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub wiql: Option<String>,
+}
+impl TemporaryQueryRequestModel {
+    pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
+        Self {
+            work_item_tracking_resource,
+            wiql: None,
+        }
+    }
+}
+#[doc = "The result of a temporary query creation."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TemporaryQueryResponseModel {
+    #[doc = "The id of the temporary query item."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+}
+impl TemporaryQueryResponseModel {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Describes an update request for a work item field."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateWorkItemField {
@@ -1657,11 +1803,12 @@ impl UpdateWorkItemField {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1673,6 +1820,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }
@@ -1931,6 +2079,16 @@ impl WorkItemClassificationNodeList {
 pub struct WorkItemComment {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
+    #[doc = "Represents the possible types for the comment format."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub format: Option<work_item_comment::Format>,
+    #[doc = "The text of the comment in HTML format."]
+    #[serde(
+        rename = "renderedText",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub rendered_text: Option<String>,
     #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
@@ -1953,11 +2111,24 @@ impl WorkItemComment {
     pub fn new(work_item_tracking_resource: WorkItemTrackingResource) -> Self {
         Self {
             work_item_tracking_resource,
+            format: None,
+            rendered_text: None,
             revised_by: None,
             revised_date: None,
             revision: None,
             text: None,
         }
+    }
+}
+pub mod work_item_comment {
+    use super::*;
+    #[doc = "Represents the possible types for the comment format."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum Format {
+        #[serde(rename = "markdown")]
+        Markdown,
+        #[serde(rename = "html")]
+        Html,
     }
 }
 #[doc = "Represents the reference to a specific version of a comment on a Work Item."]
@@ -2048,6 +2219,48 @@ pub struct WorkItemDelete {
     pub resource: Option<WorkItem>,
 }
 impl WorkItemDelete {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes response to delete a set of work items."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct WorkItemDeleteBatch {
+    #[doc = "List of results for each work item"]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub results: Vec<WorkItemDelete>,
+}
+impl WorkItemDeleteBatch {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes a request to delete a set of work items"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct WorkItemDeleteBatchRequest {
+    #[doc = "Optional parameter, if set to true, the work item is deleted permanently. Please note: the destroy action is PERMANENT and cannot be undone."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub destroy: Option<bool>,
+    #[doc = "The requested work item ids"]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub ids: Vec<i32>,
+    #[doc = "Optional parameter, if set to true, notifications will be disabled."]
+    #[serde(
+        rename = "skipNotifications",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub skip_notifications: Option<bool>,
+}
+impl WorkItemDeleteBatchRequest {
     pub fn new() -> Self {
         Self::default()
     }
@@ -2300,9 +2513,26 @@ pub mod work_item_field {
         WorkItemTypeExtension,
     }
 }
+#[doc = "Describes a field on a work item and it's properties specific to that work item type."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct WorkItemField2 {
+    #[serde(flatten)]
+    pub work_item_field: WorkItemField,
+    #[doc = "Indicates whether this field is marked as locked for editing."]
+    #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
+    pub is_locked: Option<bool>,
+}
+impl WorkItemField2 {
+    pub fn new(work_item_field: WorkItemField) -> Self {
+        Self {
+            work_item_field,
+            is_locked: None,
+        }
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
-pub struct WorkItemFieldList {
+pub struct WorkItemField2List {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[serde(
@@ -2310,9 +2540,29 @@ pub struct WorkItemFieldList {
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
-    pub value: Vec<WorkItemField>,
+    pub value: Vec<WorkItemField2>,
 }
-impl WorkItemFieldList {
+impl WorkItemField2List {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Describes the list of allowed values of the field."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct WorkItemFieldAllowedValues {
+    #[doc = "The list of field allowed values."]
+    #[serde(
+        rename = "allowedValues",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub allowed_values: Vec<String>,
+    #[doc = "Name of the field."]
+    #[serde(rename = "fieldName", default, skip_serializing_if = "Option::is_none")]
+    pub field_name: Option<String>,
+}
+impl WorkItemFieldAllowedValues {
     pub fn new() -> Self {
         Self::default()
     }
@@ -2815,6 +3065,13 @@ impl WorkItemStateTransition {
 pub struct WorkItemTagDefinition {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(
+        rename = "lastUpdated",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_updated: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3128,7 +3385,7 @@ impl WorkItemTypeColor {
         Self::default()
     }
 }
-#[doc = "Describes work item type nam, its icon and color."]
+#[doc = "Describes work item type name, its icon and color."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeColorAndIcon {
     #[doc = "The color of the work item type in hex format."]
@@ -3137,6 +3394,13 @@ pub struct WorkItemTypeColorAndIcon {
     #[doc = "The work item type icon."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub icon: Option<String>,
+    #[doc = "Indicates if the work item is disabled in the process."]
+    #[serde(
+        rename = "isDisabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_disabled: Option<bool>,
     #[doc = "The name of the work item type."]
     #[serde(
         rename = "workItemTypeName",

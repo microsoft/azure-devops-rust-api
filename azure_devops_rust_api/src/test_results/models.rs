@@ -3003,6 +3003,84 @@ pub mod test_log_reference {
         GeneralAttachment,
     }
 }
+#[doc = "Attachment metadata for test attachments from LogStore."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestLogStoreAttachment {
+    #[doc = "Attachment type."]
+    #[serde(
+        rename = "attachmentType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub attachment_type: Option<test_log_store_attachment::AttachmentType>,
+    #[doc = "Comment associated with attachment."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    #[doc = "Attachment created date."]
+    #[serde(
+        rename = "createdDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub created_date: Option<time::OffsetDateTime>,
+    #[doc = "Attachment file name."]
+    #[serde(rename = "fileName", default, skip_serializing_if = "Option::is_none")]
+    pub file_name: Option<String>,
+    #[doc = "Attachment size."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub size: Option<i64>,
+    #[doc = "Attachment Url."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+impl TestLogStoreAttachment {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+pub mod test_log_store_attachment {
+    use super::*;
+    #[doc = "Attachment type."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum AttachmentType {
+        #[serde(rename = "generalAttachment")]
+        GeneralAttachment,
+        #[serde(rename = "codeCoverage")]
+        CodeCoverage,
+        #[serde(rename = "consoleLog")]
+        ConsoleLog,
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestLogStoreAttachmentList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestLogStoreAttachment>,
+}
+impl TestLogStoreAttachmentList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Reference to test attachment."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestLogStoreAttachmentReference {
+    #[doc = "Url to download the attachment."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+impl TestLogStoreAttachmentReference {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Represents Test Log store endpoint details."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestLogStoreEndpointDetails {
@@ -3162,6 +3240,50 @@ pub struct TestResultDocument {
     pub payload: Option<TestResultPayload>,
 }
 impl TestResultDocument {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "The test failure type resource"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestResultFailureType {
+    #[doc = "ID of the test failure type"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[doc = "Name of the test failure type"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+impl TestResultFailureType {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestResultFailureTypeList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestResultFailureType>,
+}
+impl TestResultFailureTypeList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "The test failure type request model"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestResultFailureTypeRequestModel {
+    #[doc = "Name of the test failure type"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+impl TestResultFailureTypeRequestModel {
     pub fn new() -> Self {
         Self::default()
     }
@@ -4331,11 +4453,12 @@ impl TestToWorkItemLinks {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -4347,6 +4470,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

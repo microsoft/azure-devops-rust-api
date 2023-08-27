@@ -171,6 +171,14 @@ pub mod session_token_result {
         FullScopePatPolicyViolation,
         #[serde(rename = "patLifespanPolicyViolation")]
         PatLifespanPolicyViolation,
+        #[serde(rename = "invalidTokenType")]
+        InvalidTokenType,
+        #[serde(rename = "invalidAudience")]
+        InvalidAudience,
+        #[serde(rename = "invalidSubject")]
+        InvalidSubject,
+        #[serde(rename = "deploymentHostNotSupported")]
+        DeploymentHostNotSupported,
     }
 }
 #[doc = "A paginated list of session tokens. Session tokens correspond to OAuth credentials such as personal access tokens (PATs) and other OAuth authorizations."]
