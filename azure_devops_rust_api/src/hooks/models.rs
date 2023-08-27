@@ -588,7 +588,7 @@ pub mod input_filter_condition {
 #[doc = "Describes what values are valid for a subscription input"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValidation {
-    #[doc = "Gets or sets the data data type to validate."]
+    #[doc = "Gets or sets the data type to validate."]
     #[serde(rename = "dataType", default, skip_serializing_if = "Option::is_none")]
     pub data_type: Option<input_validation::DataType>,
     #[doc = "Gets or sets if this is a required field."]
@@ -628,7 +628,7 @@ impl InputValidation {
 }
 pub mod input_validation {
     use super::*;
-    #[doc = "Gets or sets the data data type to validate."]
+    #[doc = "Gets or sets the data type to validate."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum DataType {
         #[serde(rename = "none")]
@@ -1726,11 +1726,12 @@ impl VersionedResource {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1742,6 +1743,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

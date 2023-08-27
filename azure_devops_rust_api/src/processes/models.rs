@@ -244,6 +244,8 @@ pub struct FieldModel {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_identity: Option<bool>,
+    #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
+    pub is_locked: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -551,7 +553,7 @@ pub struct ProcessBehavior {
     #[doc = "Color."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-    #[doc = "Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process."]
+    #[doc = "Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub customization: Option<process_behavior::Customization>,
     #[doc = ". Description"]
@@ -591,7 +593,7 @@ impl ProcessBehavior {
 }
 pub mod process_behavior {
     use super::*;
-    #[doc = "Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process."]
+    #[doc = "Indicates the type of customization on this work item. System behaviors are inherited from parent process but not modified. Inherited behaviors are modified behaviors that were inherited from parent process. Custom behaviors are behaviors created by user in current process."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Customization {
         #[serde(rename = "system")]
@@ -1015,6 +1017,9 @@ pub struct ProcessWorkItemTypeField {
     #[doc = "Description of the field."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    #[doc = "Information about field definition being locked for editing"]
+    #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
+    pub is_locked: Option<bool>,
     #[doc = "Name of the field."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -1420,11 +1425,12 @@ impl UpdateProcessWorkItemTypeRequest {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1436,6 +1442,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

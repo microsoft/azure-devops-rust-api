@@ -385,6 +385,14 @@ pub mod pat_token_result {
         FullScopePatPolicyViolation,
         #[serde(rename = "patLifespanPolicyViolation")]
         PatLifespanPolicyViolation,
+        #[serde(rename = "invalidTokenType")]
+        InvalidTokenType,
+        #[serde(rename = "invalidAudience")]
+        InvalidAudience,
+        #[serde(rename = "invalidSubject")]
+        InvalidSubject,
+        #[serde(rename = "deploymentHostNotSupported")]
+        DeploymentHostNotSupported,
     }
 }
 #[doc = "Encapsulates the request parameters for updating a personal access token (PAT)"]

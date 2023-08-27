@@ -192,6 +192,13 @@ pub struct GitRepository {
     #[doc = "True if the repository was created as a fork."]
     #[serde(rename = "isFork", default, skip_serializing_if = "Option::is_none")]
     pub is_fork: Option<bool>,
+    #[doc = "True if the repository is in maintenance. False otherwise."]
+    #[serde(
+        rename = "isInMaintenance",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_in_maintenance: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[doc = ""]
@@ -418,6 +425,9 @@ impl ReferenceLinks {
 #[doc = "Reference object for a TeamProjectCollection."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectCollectionReference {
+    #[doc = "Collection avatar Url."]
+    #[serde(rename = "avatarUrl", default, skip_serializing_if = "Option::is_none")]
+    pub avatar_url: Option<String>,
     #[doc = "Collection Id."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
@@ -1559,11 +1569,12 @@ pub mod version_control_project_info {
         Git,
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1575,6 +1586,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

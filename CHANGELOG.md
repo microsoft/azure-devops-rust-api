@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Upgrade `azure_core`, `azure_identity` to 0.14
+- Update `vsts-rest-api-specs` to latest version
+  - Picks up API and docs updates
+  - Adds new modules:
+    - `approvals_and_checks`
+    - `favorite`
+    - `security_roles`
+  - Removes module:
+    - `clt`
+
 ## [0.8.0]
 
 ### Fixed

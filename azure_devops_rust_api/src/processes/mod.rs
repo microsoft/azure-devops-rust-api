@@ -2115,7 +2115,7 @@ pub mod work_item_types {
                 wit_ref_name: wit_ref_name.into(),
             }
         }
-        #[doc = "Removes a work itewm type in the process."]
+        #[doc = "Removes a work item type in the process."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]

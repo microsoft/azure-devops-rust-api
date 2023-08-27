@@ -468,6 +468,13 @@ pub struct Build {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent_specification: Option<AgentSpecification>,
+    #[doc = "Append Commit Message To BuildNumber in UI."]
+    #[serde(
+        rename = "appendCommitMessageToRunName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub append_commit_message_to_run_name: Option<bool>,
     #[doc = "The build number/name of the build."]
     #[serde(
         rename = "buildNumber",
@@ -701,6 +708,7 @@ impl Build {
         Self {
             links: None,
             agent_specification: None,
+            append_commit_message_to_run_name: None,
             build_number: None,
             build_number_revision: None,
             controller: None,
@@ -4124,6 +4132,34 @@ impl PhaseTarget {
 #[doc = "Contains pipeline general settings."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineGeneralSettings {
+    #[doc = "If enabled, audit logs will be generated whenever someone queues a pipeline run and defines variables that are not marked as \"Settable at queue time\"."]
+    #[serde(
+        rename = "auditEnforceSettableVar",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub audit_enforce_settable_var: Option<bool>,
+    #[doc = "Disable classic build pipelines creation."]
+    #[serde(
+        rename = "disableClassicBuildPipelineCreation",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_classic_build_pipeline_creation: Option<bool>,
+    #[doc = "Disable classic pipelines creation."]
+    #[serde(
+        rename = "disableClassicPipelineCreation",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_classic_pipeline_creation: Option<bool>,
+    #[doc = "Disable classic release pipelines creation."]
+    #[serde(
+        rename = "disableClassicReleasePipelineCreation",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disable_classic_release_pipeline_creation: Option<bool>,
     #[doc = "If enabled, scope of access for all non-release pipelines reduces to the current project."]
     #[serde(
         rename = "enforceJobAuthScope",
@@ -6039,11 +6075,12 @@ impl VariableMultipliersServerExecutionOptions {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -6055,6 +6092,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

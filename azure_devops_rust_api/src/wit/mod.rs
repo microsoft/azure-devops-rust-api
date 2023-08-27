@@ -178,6 +178,9 @@ impl Client {
     pub fn tags_client(&self) -> tags::Client {
         tags::Client(self.clone())
     }
+    pub fn temp_queries_client(&self) -> temp_queries::Client {
+        temp_queries::Client(self.clone())
+    }
     pub fn templates_client(&self) -> templates::Client {
         templates::Client(self.clone())
     }
@@ -2663,6 +2666,31 @@ pub mod comments {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Add a comment on a work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Comment create request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item."]
+        #[doc = "* `format`: Format of a work item comment (Markdown or Html)."]
+        pub fn add_work_item_comment(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::CommentCreate>,
+            project: impl Into<String>,
+            work_item_id: i32,
+            format: impl Into<String>,
+        ) -> add_work_item_comment::RequestBuilder {
+            add_work_item_comment::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                project: project.into(),
+                work_item_id,
+                format: format.into(),
+            }
+        }
         #[doc = "Returns a list of work item comments, pageable."]
         #[doc = ""]
         #[doc = "Arguments:"]
@@ -2685,6 +2713,33 @@ pub mod comments {
                 include_deleted: None,
                 expand: None,
                 order: None,
+            }
+        }
+        #[doc = "Update a comment on a work item."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Comment update request."]
+        #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `work_item_id`: Id of a work item."]
+        #[doc = "* `format`: Format of a work item comment (Markdown or Html)."]
+        pub fn update_work_item_comment(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::CommentUpdate>,
+            project: impl Into<String>,
+            work_item_id: i32,
+            comment_id: i32,
+            format: impl Into<String>,
+        ) -> update_work_item_comment::RequestBuilder {
+            update_work_item_comment::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                project: project.into(),
+                work_item_id,
+                comment_id,
+                format: format.into(),
             }
         }
         #[doc = "Returns a list of work item comments by ids."]
@@ -2718,14 +2773,14 @@ pub mod comments {
         #[doc = "* `body`: Comment create request."]
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `work_item_id`: Id of a work item."]
-        pub fn add(
+        pub fn add_comment(
             &self,
             organization: impl Into<String>,
             body: impl Into<models::CommentCreate>,
             project: impl Into<String>,
             work_item_id: i32,
-        ) -> add::RequestBuilder {
-            add::RequestBuilder {
+        ) -> add_comment::RequestBuilder {
+            add_comment::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -2764,15 +2819,15 @@ pub mod comments {
         #[doc = "* `body`: Comment update request."]
         #[doc = "* `project`: Project ID or project name"]
         #[doc = "* `work_item_id`: Id of a work item."]
-        pub fn update(
+        pub fn update_comment(
             &self,
             organization: impl Into<String>,
             body: impl Into<models::CommentUpdate>,
             project: impl Into<String>,
             work_item_id: i32,
             comment_id: i32,
-        ) -> update::RequestBuilder {
-            update::RequestBuilder {
+        ) -> update_comment::RequestBuilder {
+            update_comment::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -2800,6 +2855,119 @@ pub mod comments {
                 project: project.into(),
                 work_item_id,
                 comment_id,
+            }
+        }
+    }
+    pub mod add_work_item_comment {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::Comment> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::Comment = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::CommentCreate,
+            pub(crate) project: String,
+            pub(crate) work_item_id: i32,
+            pub(crate) format: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/wit/workItems/{}/comments?format={}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.project,
+                            &this.work_item_id,
+                            &this.format
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        let format = &this.format;
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("format", format);
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Comment>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::Comment>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2961,6 +3129,121 @@ pub mod comments {
             }
         }
     }
+    pub mod update_work_item_comment {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::Comment> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::Comment = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::CommentUpdate,
+            pub(crate) project: String,
+            pub(crate) work_item_id: i32,
+            pub(crate) comment_id: i32,
+            pub(crate) format: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/wit/workItems/{}/comments/{}?format={}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.project,
+                            &this.work_item_id,
+                            &this.comment_id,
+                            &this.format
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        let format = &this.format;
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("format", format);
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::Comment>;
+            type IntoFuture =
+                futures::future::BoxFuture<'static, azure_core::Result<models::Comment>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
     pub mod get_comments_batch {
         use super::models;
         pub struct Response(azure_core::Response);
@@ -3091,7 +3374,7 @@ pub mod comments {
             }
         }
     }
-    pub mod add {
+    pub mod add_comment {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
@@ -3327,7 +3610,7 @@ pub mod comments {
             }
         }
     }
-    pub mod update {
+    pub mod update_comment {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
@@ -4580,7 +4863,7 @@ pub mod attachments {
                 download: None,
             }
         }
-        #[doc = "Uploads an attachment chunk.\n\nBefore performing [**Upload a Chunk**](#upload_a_chunk), make sure to have an attachment id returned in **Start a Chunked Upload** example on **Create** section. Specify the byte range of the chunk using Content-Length. For example: \"Content - Length\": \"bytes 0 - 39999 / 50000\" for the first 40000 bytes of a 50000 byte file."]
+        #[doc = "Uploads an attachment chunk.\n\nBefore performing [**Upload a Chunk**](#upload-a-chunk), make sure to have an attachment id returned in **Start a Chunked Upload** example on **Create** section. Specify the byte range of the chunk using Content-Length. For example: \"Content - Length\": \"bytes 0 - 39999 / 50000\" for the first 40000 bytes of a 50000 byte file."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -5027,7 +5310,7 @@ pub mod fields {
         pub fn create(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::WorkItemField>,
+            body: impl Into<models::WorkItemField2>,
             project: impl Into<String>,
         ) -> create::RequestBuilder {
             create::RequestBuilder {
@@ -5066,7 +5349,7 @@ pub mod fields {
         pub fn update(
             &self,
             organization: impl Into<String>,
-            body: impl Into<models::UpdateWorkItemField>,
+            body: impl Into<models::FieldUpdate>,
             field_name_or_ref_name: impl Into<String>,
             project: impl Into<String>,
         ) -> update::RequestBuilder {
@@ -5102,9 +5385,9 @@ pub mod fields {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::WorkItemFieldList> {
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2List> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: models::WorkItemFieldList =
+                let body: models::WorkItemField2List =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
                             azure_core::error::ErrorKind::DataConversion,
@@ -5200,9 +5483,9 @@ pub mod fields {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<models::WorkItemFieldList>;
+            type Output = azure_core::Result<models::WorkItemField2List>;
             type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemFieldList>>;
+                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField2List>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5217,9 +5500,9 @@ pub mod fields {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: models::WorkItemField = serde_json::from_slice(&bytes).map_err(|e| {
+                let body: models::WorkItemField2 = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
                         e,
@@ -5266,7 +5549,7 @@ pub mod fields {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::WorkItemField,
+            pub(crate) body: models::WorkItemField2,
             pub(crate) project: String,
         }
         impl RequestBuilder {
@@ -5305,9 +5588,9 @@ pub mod fields {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<models::WorkItemField>;
+            type Output = azure_core::Result<models::WorkItemField2>;
             type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField>>;
+                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5322,9 +5605,9 @@ pub mod fields {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: models::WorkItemField = serde_json::from_slice(&bytes).map_err(|e| {
+                let body: models::WorkItemField2 = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
                         e,
@@ -5410,9 +5693,9 @@ pub mod fields {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<models::WorkItemField>;
+            type Output = azure_core::Result<models::WorkItemField2>;
             type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField>>;
+                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5427,9 +5710,9 @@ pub mod fields {
         use super::models;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField> {
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: models::WorkItemField = serde_json::from_slice(&bytes).map_err(|e| {
+                let body: models::WorkItemField2 = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
                         e,
@@ -5476,7 +5759,7 @@ pub mod fields {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) body: models::UpdateWorkItemField,
+            pub(crate) body: models::FieldUpdate,
             pub(crate) field_name_or_ref_name: String,
             pub(crate) project: String,
         }
@@ -5517,9 +5800,9 @@ pub mod fields {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<models::WorkItemField>;
+            type Output = azure_core::Result<models::WorkItemField2>;
             type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField>>;
+                futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemField2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6616,6 +6899,7 @@ pub mod tags {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
+        #[doc = "Get all the tags for the project."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -6631,10 +6915,12 @@ pub mod tags {
                 project: project.into(),
             }
         }
+        #[doc = "Get the tag for the project."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `tag_id_or_name`: Tag ID or tag name."]
         pub fn get(
             &self,
             organization: impl Into<String>,
@@ -6648,10 +6934,12 @@ pub mod tags {
                 tag_id_or_name: tag_id_or_name.into(),
             }
         }
+        #[doc = "Update the tag for the project."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `tag_id_or_name`: Tag ID or tag name."]
         pub fn update(
             &self,
             organization: impl Into<String>,
@@ -6667,10 +6955,12 @@ pub mod tags {
                 tag_id_or_name: tag_id_or_name.into(),
             }
         }
+        #[doc = "Delete the tag for the project. Please note, that the deleted tag will be removed from all Work Items as well as Pull Requests."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
+        #[doc = "* `tag_id_or_name`: Tag ID or tag name."]
         pub fn delete(
             &self,
             organization: impl Into<String>,
@@ -7085,6 +7375,141 @@ pub mod tags {
         }
     }
 }
+pub mod temp_queries {
+    use super::models;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Creates a temporary query\n\nLearn more about Work Item Query Language (WIQL) syntax [here](https://docs.microsoft.com/en-us/vsts/collaborate/wiql-syntax?toc=/vsts/work/track/toc.json&bc=/vsts/work/track/breadcrumb/toc.json&view=vsts)."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The temporary query to create"]
+        #[doc = "* `project`: Project ID or project name"]
+        pub fn create(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::TemporaryQueryRequestModel>,
+            project: impl Into<String>,
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                project: project.into(),
+            }
+        }
+    }
+    pub mod create {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(
+                self,
+            ) -> azure_core::Result<models::TemporaryQueryResponseModel> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::TemporaryQueryResponseModel = serde_json::from_slice(&bytes)
+                    .map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::TemporaryQueryRequestModel,
+            pub(crate) project: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/wit/tempqueries",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.project
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TemporaryQueryResponseModel>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::TemporaryQueryResponseModel>,
+            >;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+}
 pub mod work_items {
     use super::models;
     pub struct Client(pub(crate) super::Client);
@@ -7240,6 +7665,24 @@ pub mod work_items {
             project: impl Into<String>,
         ) -> get_work_items_batch::RequestBuilder {
             get_work_items_batch::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                project: project.into(),
+            }
+        }
+        #[doc = "Deletes specified work items and sends them to the Recycle Bin, so that it can be restored back, if required. Optionally, if the destroy parameter has been set to true, it destroys the work item permanently. WARNING: If the destroy parameter is set to true, work items deleted by this command will NOT go to recycle-bin and there is no way to restore/recover them after deletion."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `project`: Project ID or project name"]
+        pub fn delete_work_items(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::WorkItemDeleteBatchRequest>,
+            project: impl Into<String>,
+        ) -> delete_work_items::RequestBuilder {
+            delete_work_items::RequestBuilder {
                 client: self.0.clone(),
                 organization: organization.into(),
                 body: body.into(),
@@ -8191,6 +8634,114 @@ pub mod work_items {
             type Output = azure_core::Result<models::WorkItemList>;
             type IntoFuture =
                 futures::future::BoxFuture<'static, azure_core::Result<models::WorkItemList>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+    pub mod delete_work_items {
+        use super::models;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemDeleteBatch> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::WorkItemDeleteBatch =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::WorkItemDeleteBatchRequest,
+            pub(crate) project: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/wit/workitemsdelete",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.project
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes)
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::WorkItemDeleteBatch>;
+            type IntoFuture = futures::future::BoxFuture<
+                'static,
+                azure_core::Result<models::WorkItemDeleteBatch>,
+            >;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

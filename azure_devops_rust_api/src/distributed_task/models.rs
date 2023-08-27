@@ -1247,6 +1247,8 @@ pub mod elastic_node {
         Failed,
         #[serde(rename = "stopped")]
         Stopped,
+        #[serde(rename = "reimaging")]
+        Reimaging,
     }
     #[doc = "Users can force state changes to specific states (ToReimage, ToDelete, Save)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1277,6 +1279,20 @@ pub mod elastic_node {
         Deleted,
         #[serde(rename = "lost")]
         Lost,
+        #[serde(rename = "reimagingCompute")]
+        ReimagingCompute,
+        #[serde(rename = "restartingAgent")]
+        RestartingAgent,
+        #[serde(rename = "failedToStartPendingDelete")]
+        FailedToStartPendingDelete,
+        #[serde(rename = "failedToRestartPendingDelete")]
+        FailedToRestartPendingDelete,
+        #[serde(rename = "failedVMPendingDelete")]
+        FailedVmPendingDelete,
+        #[serde(rename = "assignedPendingDelete")]
+        AssignedPendingDelete,
+        #[serde(rename = "retryDelete")]
+        RetryDelete,
     }
     #[doc = "State of the ElasticNode"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1307,6 +1323,20 @@ pub mod elastic_node {
         Deleted,
         #[serde(rename = "lost")]
         Lost,
+        #[serde(rename = "reimagingCompute")]
+        ReimagingCompute,
+        #[serde(rename = "restartingAgent")]
+        RestartingAgent,
+        #[serde(rename = "failedToStartPendingDelete")]
+        FailedToStartPendingDelete,
+        #[serde(rename = "failedToRestartPendingDelete")]
+        FailedToRestartPendingDelete,
+        #[serde(rename = "failedVMPendingDelete")]
+        FailedVmPendingDelete,
+        #[serde(rename = "assignedPendingDelete")]
+        AssignedPendingDelete,
+        #[serde(rename = "retryDelete")]
+        RetryDelete,
     }
 }
 #[doc = ""]
@@ -1369,6 +1399,20 @@ pub mod elastic_node_settings {
         Deleted,
         #[serde(rename = "lost")]
         Lost,
+        #[serde(rename = "reimagingCompute")]
+        ReimagingCompute,
+        #[serde(rename = "restartingAgent")]
+        RestartingAgent,
+        #[serde(rename = "failedToStartPendingDelete")]
+        FailedToStartPendingDelete,
+        #[serde(rename = "failedToRestartPendingDelete")]
+        FailedToRestartPendingDelete,
+        #[serde(rename = "failedVMPendingDelete")]
+        FailedVmPendingDelete,
+        #[serde(rename = "assignedPendingDelete")]
+        AssignedPendingDelete,
+        #[serde(rename = "retryDelete")]
+        RetryDelete,
     }
 }
 #[doc = "Data and settings for an elastic pool"]
@@ -1421,6 +1465,13 @@ pub struct ElasticPool {
     )]
     pub offline_since: Option<time::OffsetDateTime>,
     #[doc = "Operating system type of the nodes in the pool"]
+    #[serde(
+        rename = "orchestrationType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub orchestration_type: Option<elastic_pool::OrchestrationType>,
+    #[doc = "Operating system type of the nodes in the pool"]
     #[serde(rename = "osType", default, skip_serializing_if = "Option::is_none")]
     pub os_type: Option<elastic_pool::OsType>,
     #[doc = "Id of the associated TaskAgentPool"]
@@ -1472,6 +1523,14 @@ impl ElasticPool {
 }
 pub mod elastic_pool {
     use super::*;
+    #[doc = "Operating system type of the nodes in the pool"]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum OrchestrationType {
+        #[serde(rename = "uniform")]
+        Uniform,
+        #[serde(rename = "flexible")]
+        Flexible,
+    }
     #[doc = "Operating system type of the nodes in the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OsType {
@@ -1646,6 +1705,13 @@ pub struct ElasticPoolSettings {
     )]
     pub max_saved_node_count: Option<i32>,
     #[doc = "Operating system type of the machines in the pool"]
+    #[serde(
+        rename = "orchestrationType",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub orchestration_type: Option<elastic_pool_settings::OrchestrationType>,
+    #[doc = "Operating system type of the machines in the pool"]
     #[serde(rename = "osType", default, skip_serializing_if = "Option::is_none")]
     pub os_type: Option<elastic_pool_settings::OsType>,
     #[doc = "Discard machines after each job completes"]
@@ -1684,6 +1750,14 @@ impl ElasticPoolSettings {
 }
 pub mod elastic_pool_settings {
     use super::*;
+    #[doc = "Operating system type of the machines in the pool"]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum OrchestrationType {
+        #[serde(rename = "uniform")]
+        Uniform,
+        #[serde(rename = "flexible")]
+        Flexible,
+    }
     #[doc = "Operating system type of the machines in the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OsType {
@@ -2402,7 +2476,7 @@ pub mod input_descriptor {
 #[doc = "Describes what values are valid for a subscription input"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValidation {
-    #[doc = "Gets or sets the data data type to validate."]
+    #[doc = "Gets or sets the data type to validate."]
     #[serde(rename = "dataType", default, skip_serializing_if = "Option::is_none")]
     pub data_type: Option<input_validation::DataType>,
     #[doc = "Gets or sets if this is a required field."]
@@ -2442,7 +2516,7 @@ impl InputValidation {
 }
 pub mod input_validation {
     use super::*;
-    #[doc = "Gets or sets the data data type to validate."]
+    #[doc = "Gets or sets the data type to validate."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum DataType {
         #[serde(rename = "none")]
@@ -2569,15 +2643,19 @@ impl InputValuesError {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "An issue (error, warning) associated with a pipeline run."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Issue {
+    #[doc = "The category of the issue. <br />Example: Code - refers to compilation errors <br />Example: General - refers to generic errors"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub category: Option<String>,
+    #[doc = "A dictionary containing details about the issue."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<serde_json::Value>,
+    #[doc = "A description of issue."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
+    #[doc = "The type (error, warning) of the issue."]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<issue::Type>,
 }
@@ -2588,6 +2666,7 @@ impl Issue {
 }
 pub mod issue {
     use super::*;
+    #[doc = "The type (error, warning) of the issue."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Type {
         #[serde(rename = "error")]
@@ -2682,8 +2761,10 @@ impl JobCancelMessage {
 pub struct JobCanceledEvent {
     #[serde(flatten)]
     pub job_event: JobEvent,
+    #[doc = "The reason for job cancellation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<String>,
+    #[doc = "The job's timeout interval."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub timeout: Option<String>,
 }
@@ -2697,14 +2778,17 @@ impl JobCanceledEvent {
 pub struct JobCompletedEvent {
     #[serde(flatten)]
     pub job_event: JobEvent,
+    #[doc = "Indicates whether the agent is in the process of shutting down."]
     #[serde(
         rename = "agentShuttingDown",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub agent_shutting_down: Option<bool>,
+    #[doc = "The ID of the request."]
     #[serde(rename = "requestId", default, skip_serializing_if = "Option::is_none")]
     pub request_id: Option<i64>,
+    #[doc = "The result of the request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<job_completed_event::Result>,
 }
@@ -2715,6 +2799,7 @@ impl JobCompletedEvent {
 }
 pub mod job_completed_event {
     use super::*;
+    #[doc = "The result of the request."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Result {
         #[serde(rename = "succeeded")]
@@ -2770,11 +2855,13 @@ impl JobEnvironment {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A pipeline job event to be processed by the execution plan."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobEvent {
+    #[doc = "The ID of the pipeline job affected by the event."]
     #[serde(rename = "jobId", default, skip_serializing_if = "Option::is_none")]
     pub job_id: Option<String>,
+    #[doc = "The name of the pipeline job event."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
@@ -2831,7 +2918,7 @@ impl JobEventsConfig {
 pub struct JobMetadataEvent {
     #[serde(flatten)]
     pub job_event: JobEvent,
-    #[doc = ""]
+    #[doc = "A message to be sent to an agent currently running the job."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<JobMetadataMessage>,
 }
@@ -2840,11 +2927,13 @@ impl JobMetadataEvent {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A message to be sent to an agent currently running the job."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobMetadataMessage {
+    #[doc = "The id of the job."]
     #[serde(rename = "jobId", default, skip_serializing_if = "Option::is_none")]
     pub job_id: Option<String>,
+    #[doc = "The agent's frequency of posting lines to the logs console expressed in milliseconds. There are 2 modes: Slow (10 seconds) and Fast (half a second)."]
     #[serde(
         rename = "postLinesFrequencyMillis",
         default,
@@ -2896,7 +2985,7 @@ pub struct JobRequestMessage {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub plan: Option<TaskOrchestrationPlanReference>,
-    #[doc = ""]
+    #[doc = "A reference to a timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub timeline: Option<TimelineReference>,
 }
@@ -4973,7 +5062,7 @@ pub struct TaskAgentPool {
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub properties: Option<PropertiesCollection>,
-    #[doc = "Target parallelism."]
+    #[doc = "Target parallelism - Only applies to agent pools that are backed by pool providers. It will be null for regular pools."]
     #[serde(
         rename = "targetSize",
         default,
@@ -5758,6 +5847,14 @@ pub mod task_command_restrictions {
 pub struct TaskCompletedEvent {
     #[serde(flatten)]
     pub task_event: TaskEvent,
+    #[doc = "The api request was no delivered successfully"]
+    #[serde(
+        rename = "deliveryFailed",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub delivery_failed: Option<bool>,
+    #[doc = "The result of the task."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<task_completed_event::Result>,
 }
@@ -5768,6 +5865,7 @@ impl TaskCompletedEvent {
 }
 pub mod task_completed_event {
     use super::*;
+    #[doc = "The result of the task."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Result {
         #[serde(rename = "succeeded")]
@@ -6050,6 +6148,7 @@ impl TaskDefinitionReference {
 pub struct TaskEvent {
     #[serde(flatten)]
     pub job_event: JobEvent,
+    #[doc = "The ID of the task definition."]
     #[serde(rename = "taskId", default, skip_serializing_if = "Option::is_none")]
     pub task_id: Option<String>,
 }
@@ -6061,7 +6160,7 @@ impl TaskEvent {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskExecution {
-    #[doc = ""]
+    #[doc = "A reference to a task."]
     #[serde(rename = "execTask", default, skip_serializing_if = "Option::is_none")]
     pub exec_task: Option<TaskReference>,
     #[doc = "If a task is going to run code, then this provides the type/script etc... information by platform. For example, it might look like. net45: { typeName: \"Microsoft.TeamFoundation.Automation.Tasks.PowerShellTask\", assemblyName: \"Microsoft.TeamFoundation.Automation.Tasks.PowerShell.dll\" } net20: { typeName: \"Microsoft.TeamFoundation.Automation.Tasks.PowerShellTask\", assemblyName: \"Microsoft.TeamFoundation.Automation.Tasks.PowerShell.dll\" } java: { jar: \"powershelltask.tasks.automation.teamfoundation.microsoft.com\", } node: { script: \"powershellhost.js\", }"]
@@ -6603,6 +6702,17 @@ impl TaskHubLicenseDetails {
 }
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TaskHubOidcToken {
+    #[serde(rename = "oidcToken", default, skip_serializing_if = "Option::is_none")]
+    pub oidc_token: Option<String>,
+}
+impl TaskHubOidcToken {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinition {
     #[serde(flatten)]
     pub task_input_definition_base: TaskInputDefinitionBase,
@@ -6728,11 +6838,12 @@ impl TaskInstance {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A task log connected to a timeline record."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskLog {
     #[serde(flatten)]
     pub task_log_reference: TaskLogReference,
+    #[doc = "The time of the task log creation."]
     #[serde(
         rename = "createdOn",
         default,
@@ -6740,12 +6851,14 @@ pub struct TaskLog {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
+    #[doc = "The REST URL of the task log when indexed."]
     #[serde(
         rename = "indexLocation",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub index_location: Option<String>,
+    #[doc = "The time of the last modification of the task log."]
     #[serde(
         rename = "lastChangedOn",
         default,
@@ -6753,8 +6866,10 @@ pub struct TaskLog {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
+    #[doc = "The number of the task log lines."]
     #[serde(rename = "lineCount", default, skip_serializing_if = "Option::is_none")]
     pub line_count: Option<i64>,
+    #[doc = "The path of the task log."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub path: Option<String>,
 }
@@ -6763,11 +6878,13 @@ impl TaskLog {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskLogReference {
+    #[doc = "The ID of the task log."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
+    #[doc = "The REST URL of the task log."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 }
@@ -6907,7 +7024,7 @@ pub struct TaskOrchestrationPlan {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<PlanEnvironment>,
-    #[doc = ""]
+    #[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
     #[serde(
         rename = "expandedYaml",
         default,
@@ -6924,7 +7041,7 @@ pub struct TaskOrchestrationPlan {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub implementation: Option<TaskOrchestrationContainer>,
-    #[doc = ""]
+    #[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
     #[serde(
         rename = "initializationLog",
         default,
@@ -6960,7 +7077,7 @@ pub struct TaskOrchestrationPlan {
     pub start_time: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<task_orchestration_plan::State>,
-    #[doc = ""]
+    #[doc = "A reference to a timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub timeline: Option<TimelineReference>,
 }
@@ -7195,15 +7312,19 @@ impl TaskPackageMetadata {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A reference to a task."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskReference {
+    #[doc = "The ID of the task definition. Corresponds to the id value of task.json file. <br />Example: CmdLineV2 { \"id\": \"D9BAFED4-0B18-4F58-968D-86655B4D2CE9\" }"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "A dictionary of inputs specific to a task definition. Corresponds to inputs value of task.json file."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub inputs: Option<serde_json::Value>,
+    #[doc = "The name of the task definition. Corresponds to the name value of task.json file. <br />Example: CmdLineV2 { \"name\": \"CmdLine\" }"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    #[doc = "The version of the task definition. Corresponds to the version value of task.json file. <br />Example: CmdLineV2 { \"version\": { \"Major\": 2, \"Minor\": 212, \"Patch\": 0 } }"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
 }
@@ -7338,19 +7459,19 @@ impl Timeline {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "An attempt to update a TimelineRecord."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineAttempt {
-    #[doc = "Gets or sets the attempt of the record."]
+    #[doc = "The attempt of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attempt: Option<i32>,
-    #[doc = "Gets or sets the unique identifier for the record."]
+    #[doc = "The unique identifier for the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identifier: Option<String>,
-    #[doc = "Gets or sets the record identifier located within the specified timeline."]
+    #[doc = "The record identifier located within the specified timeline."]
     #[serde(rename = "recordId", default, skip_serializing_if = "Option::is_none")]
     pub record_id: Option<String>,
-    #[doc = "Gets or sets the timeline identifier which owns the record representing this attempt."]
+    #[doc = "The timeline identifier which owns the record representing this attempt."]
     #[serde(
         rename = "timelineId",
         default,
@@ -7363,34 +7484,40 @@ impl TimelineAttempt {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "Detailed information about the execution of different operations during pipeline run."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecord {
+    #[doc = "The specification of an agent running a pipeline job, in binary format. Applicable when record is of type Job. <br />Example: { \"VMImage\" : \"windows-2019\" }"]
     #[serde(
         rename = "agentSpecification",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub agent_specification: Option<serde_json::Value>,
+    #[doc = "The number of record attempts."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attempt: Option<i32>,
+    #[doc = "The ID connecting all records updated at the same time. This value is taken from timeline's ChangeId."]
     #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]
     pub change_id: Option<i32>,
+    #[doc = "A string that indicates the current operation."]
     #[serde(
         rename = "currentOperation",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub current_operation: Option<String>,
-    #[doc = ""]
+    #[doc = "A reference to a timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub details: Option<TimelineReference>,
+    #[doc = "The number of errors produced by this operation."]
     #[serde(
         rename = "errorCount",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub error_count: Option<i32>,
+    #[doc = "The finish time of the record."]
     #[serde(
         rename = "finishTime",
         default,
@@ -7398,16 +7525,20 @@ pub struct TimelineRecord {
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
+    #[doc = "The ID of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "String identifier that is consistent across attempts."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identifier: Option<String>,
+    #[doc = "The list of issues produced by this operation."]
     #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub issues: Vec<Issue>,
+    #[doc = "The time the record was last modified."]
     #[serde(
         rename = "lastModified",
         default,
@@ -7415,23 +7546,29 @@ pub struct TimelineRecord {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified: Option<time::OffsetDateTime>,
+    #[doc = "The REST URL of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
-    #[doc = ""]
+    #[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub log: Option<TaskLogReference>,
+    #[doc = "The name of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
+    #[doc = "An ordinal value relative to other records within the timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub order: Option<i32>,
+    #[doc = "The ID of the record's parent. <br />Example: Stage is a parent of a Phase, Phase is a parent of a Job, Job is a parent of a Task."]
     #[serde(rename = "parentId", default, skip_serializing_if = "Option::is_none")]
     pub parent_id: Option<String>,
+    #[doc = "The percentage of record completion."]
     #[serde(
         rename = "percentComplete",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub percent_complete: Option<i32>,
+    #[doc = "The previous record attempts."]
     #[serde(
         rename = "previousAttempts",
         default,
@@ -7439,18 +7576,23 @@ pub struct TimelineRecord {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub previous_attempts: Vec<TimelineAttempt>,
+    #[doc = "The ID of the queue which connects projects to agent pools on which the operation ran on. Applicable when record is of type Job."]
     #[serde(rename = "queueId", default, skip_serializing_if = "Option::is_none")]
     pub queue_id: Option<i32>,
+    #[doc = "Name of the referenced record."]
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
     pub ref_name: Option<String>,
+    #[doc = "The result of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub result: Option<timeline_record::Result>,
+    #[doc = "Evaluation of predefined conditions upon completion of record's operation. <br />Example: Evaluating `succeeded()`, Result = True <br />Example: Evaluating `and(succeeded(), eq(variables['system.debug'], False))`, Result = False"]
     #[serde(
         rename = "resultCode",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub result_code: Option<String>,
+    #[doc = "The start time of the record."]
     #[serde(
         rename = "startTime",
         default,
@@ -7458,21 +7600,26 @@ pub struct TimelineRecord {
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
+    #[doc = "The state of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub state: Option<timeline_record::State>,
-    #[doc = ""]
+    #[doc = "A reference to a task."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub task: Option<TaskReference>,
+    #[doc = "The type of operation being tracked by the record. <br />Example: Stage, Phase, Job, Task..."]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
+    #[doc = "The variables of the record."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub variables: Option<serde_json::Value>,
+    #[doc = "The number of warnings produced by this operation."]
     #[serde(
         rename = "warningCount",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub warning_count: Option<i32>,
+    #[doc = "The name of the agent running the operation. Applicable when record is of type Job."]
     #[serde(
         rename = "workerName",
         default,
@@ -7487,6 +7634,7 @@ impl TimelineRecord {
 }
 pub mod timeline_record {
     use super::*;
+    #[doc = "The result of the record."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Result {
         #[serde(rename = "succeeded")]
@@ -7502,6 +7650,7 @@ pub mod timeline_record {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    #[doc = "The state of the record."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
         #[serde(rename = "pending")]
@@ -7535,13 +7684,16 @@ impl TimelineRecordFeedLinesWrapper {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A reference to a timeline."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineReference {
+    #[doc = "The change ID."]
     #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]
     pub change_id: Option<i32>,
+    #[doc = "The ID of the timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "The REST URL of the timeline."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 }
@@ -7721,17 +7873,20 @@ impl VariableGroupProviderData {
         Self::default()
     }
 }
-#[doc = ""]
+#[doc = "A wrapper class for a generic variable."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableValue {
+    #[doc = "Indicates whether the variable can be changed during script's execution runtime."]
     #[serde(
         rename = "isReadOnly",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub is_read_only: Option<bool>,
+    #[doc = "Indicates whether the variable should be encrypted at rest."]
     #[serde(rename = "isSecret", default, skip_serializing_if = "Option::is_none")]
     pub is_secret: Option<bool>,
+    #[doc = "The value of the variable."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -7814,11 +7969,12 @@ impl VirtualMachineResourceCreateParameters {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -7830,6 +7986,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

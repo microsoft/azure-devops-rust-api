@@ -158,6 +158,41 @@ impl Collection {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct CustomRepositoryBranchStatusResponse {
+    #[serde(
+        rename = "lastIndexedChangeId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_indexed_change_id: Option<i64>,
+    #[serde(
+        rename = "lastIndexedChangeIdChangeTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_indexed_change_id_change_time: Option<time::OffsetDateTime>,
+    #[serde(
+        rename = "latestChangeId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub latest_change_id: Option<i64>,
+    #[serde(
+        rename = "latestChangeIdChangeTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub latest_change_id_change_time: Option<time::OffsetDateTime>,
+}
+impl CustomRepositoryBranchStatusResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Defines the custom repository status."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CustomRepositoryStatusResponse {

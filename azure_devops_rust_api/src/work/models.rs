@@ -543,6 +543,8 @@ impl BoardReferenceList {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardRow {
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub color: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -710,7 +712,7 @@ pub struct CardFieldSettings {
     #[doc = "Flag indicating whether to show ID on cards"]
     #[serde(rename = "showId", default, skip_serializing_if = "Option::is_none")]
     pub show_id: Option<bool>,
-    #[doc = "Flag indicating whether to show show parent field on cards"]
+    #[doc = "Flag indicating whether to show parent field on cards"]
     #[serde(
         rename = "showParent",
         default,
@@ -1374,6 +1376,14 @@ pub struct Plan {
     #[doc = "Id of the plan"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "Date when the plan was last accessed. Default is null."]
+    #[serde(
+        rename = "lastAccessed",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_accessed: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(
         rename = "modifiedByIdentity",
@@ -2605,11 +2615,12 @@ impl UpdateTaskboardWorkItemColumn {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -2621,6 +2632,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

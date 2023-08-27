@@ -3,8 +3,8 @@
 
 // gen_ado.rs
 // Main Azure DevOps crate code generation entry point
-use autorust_codegen::{self, Result, RunConfig, CrateConfig};
 use autorust_codegen::autorust_toml;
+use autorust_codegen::{self, CrateConfig, Result, RunConfig};
 use camino::Utf8PathBuf;
 
 const API_VERSION: &str = "7.1";
@@ -20,6 +20,14 @@ fn main() -> Result<()> {
         (vec!["account/{VERSION}/accounts.json"], "accounts"),
         (
             vec![
+                "approvalsAndChecks/{VERSION}/pipelinePermissions.json",
+                "approvalsAndChecks/{VERSION}/pipelinesChecks.json",
+                "approvalsAndChecks/{VERSION}/pipelinesapproval.json",
+            ],
+            "approvals_and_checks",
+        ),
+        (
+            vec![
                 "artifacts/{VERSION}/feed.json",
                 "artifacts/{VERSION}/provenance.json",
             ],
@@ -27,7 +35,6 @@ fn main() -> Result<()> {
         ),
         (
             vec![
-                "artifactsPackageTypes/{VERSION}/maven.json",
                 "artifactsPackageTypes/{VERSION}/maven.json",
                 "artifactsPackageTypes/{VERSION}/npm.json",
                 "artifactsPackageTypes/{VERSION}/nuGet.json",
@@ -38,7 +45,6 @@ fn main() -> Result<()> {
         ),
         (vec!["audit/{VERSION}/audit.json"], "audit"),
         (vec!["build/{VERSION}/build.json"], "build"),
-        (vec!["clt/{VERSION}/cloudLoadTest.json"], "clt"),
         (vec!["core/{VERSION}/core.json"], "core"),
         (vec!["dashboard/{VERSION}/dashboard.json"], "dashboard"),
         (
@@ -52,15 +58,21 @@ fn main() -> Result<()> {
             vec!["extensionManagement/{VERSION}/extensionManagement.json"],
             "extension_management",
         ),
+        (vec!["favorite/{VERSION}/favorite.json"], "favorite"),
         (vec!["git/{VERSION}/git.json"], "git"),
         (vec!["graph/{VERSION}/graph.json"], "graph"),
         (vec!["hooks/{VERSION}/serviceHooks.json"], "hooks"),
         (vec!["ims/{VERSION}/identities.json"], "ims"),
+        // Fails autorust codegen with "array expected to have items"
         (
             vec!["memberEntitlementManagement/{VERSION}/memberEntitlementManagement.json"],
             "member_entitlement_management",
         ),
-        //(vec!["notification/{VERSION}/notification.json"], "notification"),
+        // Fails autorust codegen with "data did not match any variant of untagged enum ReferenceOr"
+        // (
+        //     vec!["notification/{VERSION}/notification.json"],
+        //     "notification",
+        // ),
         (vec!["operations/{VERSION}/operations.json"], "operations"),
         (
             vec!["permissionsReport/{VERSION}/permissionsReport.json"],
@@ -80,6 +92,14 @@ fn main() -> Result<()> {
         (vec!["release/{VERSION}/release.json"], "release"),
         (vec!["search/{VERSION}/search.json"], "search"),
         (vec!["security/{VERSION}/security.json"], "security"),
+        (
+            vec!["serviceEndpoint/{VERSION}/serviceEndpoint.json"],
+            "service_endpoint",
+        ),
+        (
+            vec!["securityRoles/{VERSION}/securityRoles.json"],
+            "security_roles",
+        ),
         (
             vec!["serviceEndpoint/{VERSION}/serviceEndpoint.json"],
             "service_endpoint",
@@ -104,26 +124,27 @@ fn main() -> Result<()> {
         let mut output_folder = root_output_folder.clone();
 
         let input_files = input_files
-        .iter()
-        .map(|filename| {
-            let mut input_file = root_spec_folder.clone();
-            input_file.push(
-                filename
-                    .replace("{VERSION}", API_VERSION)
-                    .replace("{ROOT_SPEC_DIR}", ROOT_SPEC_DIR),
-            );
-            input_file
-        })
-        .collect();
+            .iter()
+            .map(|filename| {
+                let mut input_file = root_spec_folder.clone();
+                input_file.push(
+                    filename
+                        .replace("{VERSION}", API_VERSION)
+                        .replace("{ROOT_SPEC_DIR}", ROOT_SPEC_DIR),
+                );
+                input_file
+            })
+            .collect();
 
         output_folder.push(module_name);
         let crate_config = CrateConfig {
             run_config,
             output_folder,
-            input_files
+            input_files,
         };
 
         // Generate module
+        println!("Generating module: {}", module_name);
         let _cg = crate::autorust_codegen::run(&crate_config, &package_config)?;
     }
 

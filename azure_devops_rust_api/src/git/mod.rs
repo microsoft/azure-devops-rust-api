@@ -2684,6 +2684,7 @@ pub mod items {
                 version_descriptor_version: None,
                 version_descriptor_version_options: None,
                 version_descriptor_version_type: None,
+                zip_for_unix: None,
             }
         }
         #[doc = "Post for retrieving a creating a batch out of a set of items in a repo / project given a list of paths or a long path"]
@@ -3034,6 +3035,7 @@ pub mod items {
             pub(crate) version_descriptor_version: Option<String>,
             pub(crate) version_descriptor_version_options: Option<String>,
             pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) zip_for_unix: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "The path scope.  The default is null."]
@@ -3094,6 +3096,11 @@ pub mod items {
                 version_descriptor_version_type: impl Into<String>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
+                self
+            }
+            #[doc = "Set to true to keep the file permissions for unix (and POSIX) systems like executables and symlinks"]
+            pub fn zip_for_unix(mut self, zip_for_unix: bool) -> Self {
+                self.zip_for_unix = Some(zip_for_unix);
                 self
             }
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -3181,6 +3188,11 @@ pub mod items {
                                 "versionDescriptor.versionType",
                                 version_descriptor_version_type,
                             );
+                        }
+                        if let Some(zip_for_unix) = &this.zip_for_unix {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("zipForUnix", &zip_for_unix.to_string());
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);
@@ -4396,6 +4408,9 @@ pub mod pull_requests {
                 project: project.into(),
                 search_criteria_creator_id: None,
                 search_criteria_include_links: None,
+                search_criteria_max_time: None,
+                search_criteria_min_time: None,
+                search_criteria_query_time_range_type: None,
                 search_criteria_repository_id: None,
                 search_criteria_reviewer_id: None,
                 search_criteria_source_ref_name: None,
@@ -4445,6 +4460,9 @@ pub mod pull_requests {
                 project: project.into(),
                 search_criteria_creator_id: None,
                 search_criteria_include_links: None,
+                search_criteria_max_time: None,
+                search_criteria_min_time: None,
+                search_criteria_query_time_range_type: None,
                 search_criteria_repository_id: None,
                 search_criteria_reviewer_id: None,
                 search_criteria_source_ref_name: None,
@@ -4591,6 +4609,9 @@ pub mod pull_requests {
             pub(crate) project: String,
             pub(crate) search_criteria_creator_id: Option<String>,
             pub(crate) search_criteria_include_links: Option<bool>,
+            pub(crate) search_criteria_max_time: Option<time::OffsetDateTime>,
+            pub(crate) search_criteria_min_time: Option<time::OffsetDateTime>,
+            pub(crate) search_criteria_query_time_range_type: Option<String>,
             pub(crate) search_criteria_repository_id: Option<String>,
             pub(crate) search_criteria_reviewer_id: Option<String>,
             pub(crate) search_criteria_source_ref_name: Option<String>,
@@ -4616,6 +4637,31 @@ pub mod pull_requests {
                 search_criteria_include_links: bool,
             ) -> Self {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
+                self
+            }
+            #[doc = "If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified."]
+            pub fn search_criteria_max_time(
+                mut self,
+                search_criteria_max_time: impl Into<time::OffsetDateTime>,
+            ) -> Self {
+                self.search_criteria_max_time = Some(search_criteria_max_time.into());
+                self
+            }
+            #[doc = "If specified, filters pull requests that created/closed after this date based on the queryTimeRangeType specified."]
+            pub fn search_criteria_min_time(
+                mut self,
+                search_criteria_min_time: impl Into<time::OffsetDateTime>,
+            ) -> Self {
+                self.search_criteria_min_time = Some(search_criteria_min_time.into());
+                self
+            }
+            #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
+            pub fn search_criteria_query_time_range_type(
+                mut self,
+                search_criteria_query_time_range_type: impl Into<String>,
+            ) -> Self {
+                self.search_criteria_query_time_range_type =
+                    Some(search_criteria_query_time_range_type.into());
                 self
             }
             #[doc = "If set, search for pull requests whose target branch is in this repository."]
@@ -4720,6 +4766,28 @@ pub mod pull_requests {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.includeLinks",
                                 &search_criteria_include_links.to_string(),
+                            );
+                        }
+                        if let Some(search_criteria_max_time) = &this.search_criteria_max_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_max_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.maxTime", &formatted_date_time);
+                        }
+                        if let Some(search_criteria_min_time) = &this.search_criteria_min_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_min_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.minTime", &formatted_date_time);
+                        }
+                        if let Some(search_criteria_query_time_range_type) =
+                            &this.search_criteria_query_time_range_type
+                        {
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "searchCriteria.queryTimeRangeType",
+                                search_criteria_query_time_range_type,
                             );
                         }
                         if let Some(search_criteria_repository_id) =
@@ -4965,6 +5033,9 @@ pub mod pull_requests {
             pub(crate) project: String,
             pub(crate) search_criteria_creator_id: Option<String>,
             pub(crate) search_criteria_include_links: Option<bool>,
+            pub(crate) search_criteria_max_time: Option<time::OffsetDateTime>,
+            pub(crate) search_criteria_min_time: Option<time::OffsetDateTime>,
+            pub(crate) search_criteria_query_time_range_type: Option<String>,
             pub(crate) search_criteria_repository_id: Option<String>,
             pub(crate) search_criteria_reviewer_id: Option<String>,
             pub(crate) search_criteria_source_ref_name: Option<String>,
@@ -4990,6 +5061,31 @@ pub mod pull_requests {
                 search_criteria_include_links: bool,
             ) -> Self {
                 self.search_criteria_include_links = Some(search_criteria_include_links);
+                self
+            }
+            #[doc = "If specified, filters pull requests that created/closed before this date based on the queryTimeRangeType specified."]
+            pub fn search_criteria_max_time(
+                mut self,
+                search_criteria_max_time: impl Into<time::OffsetDateTime>,
+            ) -> Self {
+                self.search_criteria_max_time = Some(search_criteria_max_time.into());
+                self
+            }
+            #[doc = "If specified, filters pull requests that created/closed after this date based on the queryTimeRangeType specified."]
+            pub fn search_criteria_min_time(
+                mut self,
+                search_criteria_min_time: impl Into<time::OffsetDateTime>,
+            ) -> Self {
+                self.search_criteria_min_time = Some(search_criteria_min_time.into());
+                self
+            }
+            #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
+            pub fn search_criteria_query_time_range_type(
+                mut self,
+                search_criteria_query_time_range_type: impl Into<String>,
+            ) -> Self {
+                self.search_criteria_query_time_range_type =
+                    Some(search_criteria_query_time_range_type.into());
                 self
             }
             #[doc = "If set, search for pull requests whose target branch is in this repository."]
@@ -5095,6 +5191,28 @@ pub mod pull_requests {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.includeLinks",
                                 &search_criteria_include_links.to_string(),
+                            );
+                        }
+                        if let Some(search_criteria_max_time) = &this.search_criteria_max_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_max_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.maxTime", &formatted_date_time);
+                        }
+                        if let Some(search_criteria_min_time) = &this.search_criteria_min_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_min_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.minTime", &formatted_date_time);
+                        }
+                        if let Some(search_criteria_query_time_range_type) =
+                            &this.search_criteria_query_time_range_type
+                        {
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "searchCriteria.queryTimeRangeType",
+                                search_criteria_query_time_range_type,
                             );
                         }
                         if let Some(search_criteria_repository_id) =
@@ -9690,7 +9808,7 @@ pub mod pull_request_labels {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = "Get all the labels assigned to a pull request."]
+        #[doc = "Get all the labels (tags) assigned to a pull request."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -9713,7 +9831,7 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
-        #[doc = "Create a label for a specified pull request. The only required field is the name of the new label."]
+        #[doc = "Create a tag (if that does not exists yet) and add that as a label (tag) for a specified pull request. The only required field is the name of the new label (tag)."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -9739,7 +9857,7 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
-        #[doc = "Retrieves a single label that has been assigned to a pull request."]
+        #[doc = "Retrieves a single label (tag) that has been assigned to a pull request."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
@@ -9765,7 +9883,7 @@ pub mod pull_request_labels {
                 project_id: None,
             }
         }
-        #[doc = "Removes a label from the set of those assigned to the pull request."]
+        #[doc = "Removes a label (tag) from the set of those assigned to the pull request. The tag itself will not be deleted."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]

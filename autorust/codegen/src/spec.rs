@@ -1,8 +1,9 @@
 use crate::io;
 use crate::{Error, ErrorKind, Result};
 use autorust_openapi::{
-    AdditionalProperties, CollectionFormat, DataType, MsExamples, MsPageable, OpenAPI, Operation, Parameter, ParameterType, PathItem,
-    Reference, ReferenceOr, Response, Schema, SchemaCommon, StatusCode,
+    AdditionalProperties, CollectionFormat, DataType, MsExamples, MsPageable, OpenAPI, Operation,
+    Parameter, ParameterType, PathItem, Reference, ReferenceOr, Response, Schema, SchemaCommon,
+    StatusCode,
 };
 use camino::{Utf8Path, Utf8PathBuf};
 use indexmap::{IndexMap, IndexSet};
@@ -56,12 +57,18 @@ impl Spec {
             docs,
             schemas,
             parameters,
-            input_files_paths: input_files_paths.iter().map(|f| f.as_ref().to_owned()).collect(),
+            input_files_paths: input_files_paths
+                .iter()
+                .map(|f| f.as_ref().to_owned())
+                .collect(),
         })
     }
 
     /// Read a file and references too, recursively into the map
-    fn read_file(docs: &mut IndexMap<Utf8PathBuf, OpenAPI>, file_path: impl AsRef<Utf8Path>) -> Result<()> {
+    fn read_file(
+        docs: &mut IndexMap<Utf8PathBuf, OpenAPI>,
+        file_path: impl AsRef<Utf8Path>,
+    ) -> Result<()> {
         let file_path = file_path.as_ref();
         if !docs.contains_key(file_path) {
             let doc = openapi::parse(&file_path)?;
@@ -80,9 +87,9 @@ impl Spec {
     }
 
     pub fn doc(&self, doc_file: &Utf8Path) -> Result<&OpenAPI> {
-        self.docs
-            .get(doc_file)
-            .ok_or_else(|| Error::with_message(ErrorKind::Parse, || format!("key not found {doc_file}")))
+        self.docs.get(doc_file).ok_or_else(|| {
+            Error::with_message(ErrorKind::Parse, || format!("key not found {doc_file}"))
+        })
     }
 
     pub fn title(&self) -> Option<&str> {
@@ -99,7 +106,11 @@ impl Spec {
 
     pub fn endpoint(&self) -> Option<String> {
         match (self.host(), self.base_path()) {
-            (Some(host), Some(base_path)) => Some(format!("https://{}{}", host, base_path).trim_end_matches('/').to_owned()),
+            (Some(host), Some(base_path)) => Some(
+                format!("https://{}{}", host, base_path)
+                    .trim_end_matches('/')
+                    .to_owned(),
+            ),
             (Some(host), None) => Some(format!("https://{}", host)),
             _ => None,
         }
@@ -171,12 +182,20 @@ impl Spec {
     }
 
     /// Find the schema for a given doc path and reference
-    pub fn resolve_schema_ref(&self, doc_file: impl AsRef<Utf8Path>, reference: &Reference) -> Result<ResolvedSchema> {
+    pub fn resolve_schema_ref(
+        &self,
+        doc_file: impl AsRef<Utf8Path>,
+        reference: &Reference,
+    ) -> Result<ResolvedSchema> {
         let ref_key = self.ref_key(doc_file, reference)?;
         let schema = self
             .schemas
             .get(&ref_key)
-            .ok_or_else(|| Error::with_message(ErrorKind::Parse, || format!("parameter not found {ref_key:?}")))?
+            .ok_or_else(|| {
+                Error::with_message(ErrorKind::Parse, || {
+                    format!("parameter not found {ref_key:?}")
+                })
+            })?
             .clone();
         Ok(ResolvedSchema {
             ref_key: Some(ref_key),
@@ -185,13 +204,19 @@ impl Spec {
     }
 
     /// Find the parameter for a given doc path and reference
-    pub fn resolve_parameter_ref(&self, doc_file: impl AsRef<Utf8Path>, reference: Reference) -> Result<Parameter> {
+    pub fn resolve_parameter_ref(
+        &self,
+        doc_file: impl AsRef<Utf8Path>,
+        reference: Reference,
+    ) -> Result<Parameter> {
         let doc_file = doc_file.as_ref();
         let full_path = match reference.file {
             None => doc_file.to_owned(),
             Some(file) => io::join(doc_file, &file)?,
         };
-        let name = reference.name.ok_or_else(|| Error::message(ErrorKind::Parse, "no name in ref"))?;
+        let name = reference
+            .name
+            .ok_or_else(|| Error::message(ErrorKind::Parse, "no name in ref"))?;
         let ref_key = RefKey {
             file_path: full_path,
             name,
@@ -199,18 +224,28 @@ impl Spec {
         Ok(self
             .parameters
             .get(&ref_key)
-            .ok_or_else(|| Error::with_message(ErrorKind::Parse, || format!("parameter not found {ref_key:?}")))?
+            .ok_or_else(|| {
+                Error::with_message(ErrorKind::Parse, || {
+                    format!("parameter not found {ref_key:?}")
+                })
+            })?
             .clone())
     }
 
     /// Resolve a reference or schema to a resolved schema
-    fn resolve_schema(&self, doc_file: impl AsRef<Utf8Path>, ref_or_schema: &ReferenceOr<Schema>) -> Result<ResolvedSchema> {
+    fn resolve_schema(
+        &self,
+        doc_file: impl AsRef<Utf8Path>,
+        ref_or_schema: &ReferenceOr<Schema>,
+    ) -> Result<ResolvedSchema> {
         match ref_or_schema {
             ReferenceOr::Item(schema) => Ok(ResolvedSchema {
                 ref_key: None,
                 schema: schema.clone(),
             }),
-            ReferenceOr::Reference { reference, .. } => self.resolve_schema_ref(doc_file, reference),
+            ReferenceOr::Reference { reference, .. } => {
+                self.resolve_schema_ref(doc_file, reference)
+            }
         }
     }
 
@@ -228,10 +263,16 @@ impl Spec {
         Ok(resolved)
     }
 
-    pub fn resolve_path(&self, _doc_file: impl AsRef<Utf8Path>, path: &ReferenceOr<PathItem>) -> Result<PathItem> {
+    pub fn resolve_path(
+        &self,
+        _doc_file: impl AsRef<Utf8Path>,
+        path: &ReferenceOr<PathItem>,
+    ) -> Result<PathItem> {
         match path {
             ReferenceOr::Item(path) => Ok(path.clone()),
-            ReferenceOr::Reference { .. } => Err(Error::message(ErrorKind::Parse, "not implemented")),
+            ReferenceOr::Reference { .. } => {
+                Err(Error::message(ErrorKind::Parse, "not implemented"))
+            }
         }
     }
 
@@ -247,14 +288,24 @@ impl Spec {
         Ok(resolved)
     }
 
-    fn resolve_parameter(&self, doc_file: &Utf8Path, parameter: &ReferenceOr<Parameter>) -> Result<Parameter> {
+    fn resolve_parameter(
+        &self,
+        doc_file: &Utf8Path,
+        parameter: &ReferenceOr<Parameter>,
+    ) -> Result<Parameter> {
         match parameter {
             ReferenceOr::Item(param) => Ok(param.clone()),
-            ReferenceOr::Reference { reference, .. } => self.resolve_parameter_ref(doc_file, reference.clone()),
+            ReferenceOr::Reference { reference, .. } => {
+                self.resolve_parameter_ref(doc_file, reference.clone())
+            }
         }
     }
 
-    fn resolve_parameters(&self, doc_file: &Utf8Path, parameters: &[ReferenceOr<Parameter>]) -> Result<Vec<WebParameter>> {
+    fn resolve_parameters(
+        &self,
+        doc_file: &Utf8Path,
+        parameters: &[ReferenceOr<Parameter>],
+    ) -> Result<Vec<WebParameter>> {
         let mut resolved = Vec::new();
         for param in parameters {
             resolved.push(WebParameter(self.resolve_parameter(doc_file, param)?));
@@ -335,7 +386,10 @@ pub mod openapi {
     }
 
     /// Returns a set of referenced relative file paths from an OpenAPI specficiation
-    pub fn get_reference_file_paths(doc_file: impl AsRef<Utf8Path>, api: &OpenAPI) -> IndexSet<String> {
+    pub fn get_reference_file_paths(
+        doc_file: impl AsRef<Utf8Path>,
+        api: &OpenAPI,
+    ) -> IndexSet<String> {
         get_references(doc_file, api)
             .into_iter()
             .filter_map(|reference| match reference {
@@ -355,16 +409,24 @@ pub mod openapi {
         // paths and operations
         for (path, item) in api.paths() {
             match item {
-                ReferenceOr::Reference { reference, .. } => list.push(TypedReference::PathItem(reference.clone())),
+                ReferenceOr::Reference { reference, .. } => {
+                    list.push(TypedReference::PathItem(reference.clone()))
+                }
                 ReferenceOr::Item(item) => {
                     for operation in path_operations_unresolved(&doc_file, &path, &item) {
                         // parameters
                         for param in &operation.parameters {
                             match param {
-                                ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Parameter(reference.clone())),
+                                ReferenceOr::Reference { reference, .. } => {
+                                    list.push(TypedReference::Parameter(reference.clone()))
+                                }
                                 ReferenceOr::Item(parameter) => match &parameter.schema {
-                                    Some(ReferenceOr::Reference { reference, .. }) => list.push(TypedReference::Schema(reference.clone())),
-                                    Some(ReferenceOr::Item(schema)) => add_references_for_schema(&mut list, schema),
+                                    Some(ReferenceOr::Reference { reference, .. }) => {
+                                        list.push(TypedReference::Schema(reference.clone()))
+                                    }
+                                    Some(ReferenceOr::Item(schema)) => {
+                                        add_references_for_schema(&mut list, schema)
+                                    }
                                     None => {}
                                 },
                             }
@@ -373,8 +435,12 @@ pub mod openapi {
                         // responses
                         for (_code, rsp) in &operation.responses {
                             match &rsp.schema {
-                                Some(ReferenceOr::Reference { reference, .. }) => list.push(TypedReference::Schema(reference.clone())),
-                                Some(ReferenceOr::Item(schema)) => add_references_for_schema(&mut list, schema),
+                                Some(ReferenceOr::Reference { reference, .. }) => {
+                                    list.push(TypedReference::Schema(reference.clone()))
+                                }
+                                Some(ReferenceOr::Item(schema)) => {
+                                    add_references_for_schema(&mut list, schema)
+                                }
                                 None => {}
                             }
                         }
@@ -393,7 +459,9 @@ pub mod openapi {
         // definitions
         for (_name, schema) in &api.definitions {
             match schema {
-                ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Schema(reference.clone())),
+                ReferenceOr::Reference { reference, .. } => {
+                    list.push(TypedReference::Schema(reference.clone()))
+                }
                 ReferenceOr::Item(schema) => add_references_for_schema(&mut list, schema),
             }
         }
@@ -501,7 +569,10 @@ impl WebParameter {
     }
 
     pub fn collection_format(&self) -> &CollectionFormat {
-        self.0.collection_format.as_ref().unwrap_or(&CollectionFormat::Csv)
+        self.0
+            .collection_format
+            .as_ref()
+            .unwrap_or(&CollectionFormat::Csv)
     }
 
     pub fn type_(&self) -> &ParameterType {
@@ -537,7 +608,10 @@ impl WebParameter {
 
     pub fn type_is_ref(&self) -> Result<bool> {
         Ok(if let Some(data_type) = self.data_type() {
-            matches!(data_type, DataType::String | DataType::Object | DataType::File)
+            matches!(
+                data_type,
+                DataType::String | DataType::Object | DataType::File
+            )
         } else {
             true
         })
@@ -561,7 +635,9 @@ impl WebOperation {
     }
 
     pub fn has_body_parameter(&self) -> bool {
-        self.parameters.iter().any(|p| p.type_() == &ParameterType::Body)
+        self.parameters
+            .iter()
+            .any(|p| p.type_() == &ParameterType::Body)
     }
 }
 
@@ -595,7 +671,11 @@ struct OperationVerb<'a> {
     pub verb: WebVerb,
 }
 
-fn path_operations_unresolved(doc_file: impl AsRef<Utf8Path>, path: &str, item: &PathItem) -> Vec<WebOperationUnresolved> {
+fn path_operations_unresolved(
+    doc_file: impl AsRef<Utf8Path>,
+    path: &str,
+    item: &PathItem,
+) -> Vec<WebOperationUnresolved> {
     vec![
         OperationVerb {
             operation: item.get.as_ref(),
@@ -687,7 +767,9 @@ pub fn get_schema_schema_references(schema: &Schema) -> Vec<Reference> {
 fn add_references_for_schema(list: &mut Vec<TypedReference>, schema: &Schema) {
     for (_, schema) in &schema.properties {
         match schema {
-            ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Schema(reference.clone())),
+            ReferenceOr::Reference { reference, .. } => {
+                list.push(TypedReference::Schema(reference.clone()))
+            }
             ReferenceOr::Item(schema) => add_references_for_schema(list, schema),
         }
     }
@@ -696,20 +778,26 @@ fn add_references_for_schema(list: &mut Vec<TypedReference>, schema: &Schema) {
         match ap {
             AdditionalProperties::Boolean(_) => {}
             AdditionalProperties::Schema(schema) => match schema {
-                ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Schema(reference.clone())),
+                ReferenceOr::Reference { reference, .. } => {
+                    list.push(TypedReference::Schema(reference.clone()))
+                }
                 ReferenceOr::Item(schema) => add_references_for_schema(list, schema),
             },
         }
     }
     if let Some(schema) = schema.common.items.as_ref() {
         match schema {
-            ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Schema(reference.clone())),
+            ReferenceOr::Reference { reference, .. } => {
+                list.push(TypedReference::Schema(reference.clone()))
+            }
             ReferenceOr::Item(schema) => add_references_for_schema(list, schema),
         }
     }
     for schema in &schema.all_of {
         match schema {
-            ReferenceOr::Reference { reference, .. } => list.push(TypedReference::Schema(reference.clone())),
+            ReferenceOr::Reference { reference, .. } => {
+                list.push(TypedReference::Schema(reference.clone()))
+            }
             ReferenceOr::Item(schema) => add_references_for_schema(list, schema),
         }
     }
@@ -790,9 +878,10 @@ pub fn get_type_name_for_schema_ref(schema: &ReferenceOr<Schema>) -> Result<Type
 }
 
 pub fn get_schema_array_items(schema: &SchemaCommon) -> Result<&ReferenceOr<Schema>> {
-    schema
-        .items
-        .as_ref()
-        .as_ref()
-        .ok_or_else(|| Error::message(ErrorKind::Parse, "array expected to have items"))
+    schema.items.as_ref().as_ref().ok_or_else(|| {
+        Error::message(
+            ErrorKind::Parse,
+            format!("array expected to have items. schema: {:?}", schema),
+        )
+    })
 }

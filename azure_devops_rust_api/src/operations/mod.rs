@@ -128,7 +128,7 @@ pub mod operations {
     use super::models;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = "Gets an operation from the the operationId using the given pluginId.\n\nSome scenarios don’t require a pluginId. If a pluginId is not included in the call then just the operationId will be used to find an operation."]
+        #[doc = "Gets an operation from the operationId using the given pluginId.\n\nSome scenarios don’t require a pluginId. If a pluginId is not included in the call then just the operationId will be used to find an operation."]
         #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `operation_id`: The ID for the operation."]

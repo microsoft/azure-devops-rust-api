@@ -8,7 +8,7 @@ use std::str::FromStr;
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AcquisitionOperation {
-    #[doc = "State of the the AcquisitionOperation for the current user"]
+    #[doc = "State of the AcquisitionOperation for the current user"]
     #[serde(
         rename = "operationState",
         default,
@@ -40,7 +40,7 @@ impl AcquisitionOperation {
 }
 pub mod acquisition_operation {
     use super::*;
-    #[doc = "State of the the AcquisitionOperation for the current user"]
+    #[doc = "State of the AcquisitionOperation for the current user"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationState {
         #[serde(rename = "disallow")]
@@ -1604,6 +1604,12 @@ impl IdentityRef {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstallationTarget {
     #[serde(
+        rename = "extensionVersion",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub extension_version: Option<String>,
+    #[serde(
         rename = "productArchitecture",
         default,
         skip_serializing_if = "Option::is_none"
@@ -1611,6 +1617,12 @@ pub struct InstallationTarget {
     pub product_architecture: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target: Option<String>,
+    #[serde(
+        rename = "targetPlatform",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub target_platform: Option<String>,
     #[serde(
         rename = "targetVersion",
         default,
@@ -1891,6 +1903,13 @@ pub struct PublishedExtension {
         skip_serializing_if = "Option::is_none"
     )]
     pub long_description: Option<String>,
+    #[doc = "Check if Extension is in conflict list or not. Taking as String and not as boolean because we don't want end customer to see this flag and by making it Boolean it is coming as false for all the cases."]
+    #[serde(
+        rename = "presentInConflictList",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub present_in_conflict_list: Option<String>,
     #[doc = "Date on which the extension was first uploaded."]
     #[serde(
         rename = "publishedDate",
@@ -2127,11 +2146,12 @@ impl UserExtensionPolicy {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -2143,6 +2163,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

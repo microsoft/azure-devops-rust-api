@@ -15,6 +15,13 @@ pub struct CopyDashboardOptions {
         skip_serializing_if = "Option::is_none"
     )]
     pub copy_dashboard_scope: Option<copy_dashboard_options::CopyDashboardScope>,
+    #[doc = "When this flag is set to true,option to select the folder to copy Queries of copy dashboard will appear."]
+    #[serde(
+        rename = "copyQueriesFlag",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub copy_queries_flag: Option<bool>,
     #[doc = "Description of the dashboard"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -24,6 +31,13 @@ pub struct CopyDashboardOptions {
     #[doc = "ID of the project. Provided by service at creation time."]
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
     pub project_id: Option<String>,
+    #[doc = "Path to which the queries should be copied of copy dashboard"]
+    #[serde(
+        rename = "queryFolderPath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub query_folder_path: Option<String>,
     #[doc = "Refresh interval of dashboard"]
     #[serde(
         rename = "refreshInterval",
@@ -101,6 +115,29 @@ pub struct Dashboard {
     #[doc = "ID of the Dashboard. Provided by service at creation time."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[doc = "Dashboard Last Accessed Date."]
+    #[serde(
+        rename = "lastAccessedDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_accessed_date: Option<time::OffsetDateTime>,
+    #[doc = "Id of the person who modified Dashboard."]
+    #[serde(
+        rename = "modifiedBy",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub modified_by: Option<String>,
+    #[doc = "Dashboard's last modified date."]
+    #[serde(
+        rename = "modifiedDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub modified_date: Option<time::OffsetDateTime>,
     #[doc = "Name of the Dashboard."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -327,11 +364,12 @@ impl TeamContext {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -343,6 +381,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

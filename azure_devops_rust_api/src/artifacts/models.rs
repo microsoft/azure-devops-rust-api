@@ -270,7 +270,7 @@ pub struct FeedCore {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = "OBSOLETE: This should always be true.  Setting to false will override all sources in UpstreamSources."]
+    #[doc = "This should always be true. Setting to false will override all sources in UpstreamSources."]
     #[serde(
         rename = "upstreamEnabled",
         default,
@@ -313,6 +313,27 @@ pub mod feed_core {
         UnderMaintenance,
         #[serde(rename = "defaultCapabilities")]
         DefaultCapabilities,
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct FeedIdsResult {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<String>,
+    #[serde(
+        rename = "projectName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub project_name: Option<String>,
+}
+impl FeedIdsResult {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -478,7 +499,7 @@ pub struct FeedUpdate {
     #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <!\\[CDATA\\[ @, ~, ;, {, }, \\\\, +, =, <, >, |, /, \\\\\\\\, ?, :, &, $, *, \\\", #, \\[, \\] \\]\\]></description></item></list>"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = "OBSOLETE: If set, the feed can proxy packages from an upstream feed"]
+    #[doc = "If set, the feed can proxy packages from an upstream feed"]
     #[serde(
         rename = "upstreamEnabled",
         default,
@@ -719,7 +740,7 @@ pub struct MinimalPackageVersion {
     #[doc = "True if this is the latest version of the package by package type sort order."]
     #[serde(rename = "isLatest", default, skip_serializing_if = "Option::is_none")]
     pub is_latest: Option<bool>,
-    #[doc = "(NuGet Only) True if this package is listed."]
+    #[doc = "(NuGet and Cargo Only) True if this package is listed."]
     #[serde(rename = "isListed", default, skip_serializing_if = "Option::is_none")]
     pub is_listed: Option<bool>,
     #[doc = "Normalized version using normalization rules specific to a package type."]
@@ -1578,11 +1599,12 @@ impl UpstreamStatusDetail {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1594,6 +1616,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

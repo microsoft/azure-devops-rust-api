@@ -88,6 +88,8 @@ pub struct LiveSiteEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub incident_uri: Option<String>,
+    #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
+    pub is_deleted: Option<bool>,
     #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",
@@ -518,6 +520,29 @@ impl Status {
         }
     }
 }
+#[doc = "Represents data for the impacted organization. Will be null if org is not impacted"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct StatusImpact {
+    #[serde(
+        rename = "liveSiteEvents",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub live_site_events: Vec<LiveSiteEvent>,
+    #[doc = ""]
+    #[serde(
+        rename = "serviceStatus",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_status: Option<ServiceStatus>,
+}
+impl StatusImpact {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StatusSummary {
@@ -545,11 +570,12 @@ pub mod status_summary {
         Healthy,
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -561,6 +587,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

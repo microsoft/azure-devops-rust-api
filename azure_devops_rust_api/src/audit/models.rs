@@ -72,13 +72,20 @@ pub struct AuditLogEntry {
         skip_serializing_if = "Option::is_none"
     )]
     pub activity_id: Option<String>,
+    #[doc = "The Actor's Client Id (if actor is a service principal)"]
+    #[serde(
+        rename = "actorClientId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub actor_client_id: Option<String>,
     #[doc = "The Actor's CUID"]
     #[serde(rename = "actorCUID", default, skip_serializing_if = "Option::is_none")]
     pub actor_cuid: Option<String>,
     #[doc = "The Actor's UPN"]
     #[serde(rename = "actorUPN", default, skip_serializing_if = "Option::is_none")]
     pub actor_upn: Option<String>,
-    #[doc = "The Actor's User Id"]
+    #[doc = "The Actor's User Id (if actor is a user)"]
     #[serde(
         rename = "actorUserId",
         default,
@@ -285,6 +292,13 @@ pub struct DecoratedAuditLogEntry {
         skip_serializing_if = "Option::is_none"
     )]
     pub activity_id: Option<String>,
+    #[doc = "The Actor's Client Id (if actor is a service principal)"]
+    #[serde(
+        rename = "actorClientId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub actor_client_id: Option<String>,
     #[doc = "The Actor's CUID"]
     #[serde(rename = "actorCUID", default, skip_serializing_if = "Option::is_none")]
     pub actor_cuid: Option<String>,
@@ -305,7 +319,7 @@ pub struct DecoratedAuditLogEntry {
     #[doc = "The Actor's UPN"]
     #[serde(rename = "actorUPN", default, skip_serializing_if = "Option::is_none")]
     pub actor_upn: Option<String>,
-    #[doc = "The Actor's User Id"]
+    #[doc = "The Actor's User Id (if actor is a user)"]
     #[serde(
         rename = "actorUserId",
         default,
@@ -423,11 +437,12 @@ pub mod decorated_audit_log_entry {
         Project,
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -439,6 +454,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }

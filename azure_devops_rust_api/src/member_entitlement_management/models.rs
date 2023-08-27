@@ -5,10 +5,38 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct AadGraphMember {
+    #[serde(flatten)]
+    pub graph_member: GraphMember,
+    #[doc = "The short, generally unique name for the user in the backing directory. For AAD users, this corresponds to the mail nickname, which is often but not necessarily similar to the part of the user's mail address before the @ sign. For GitHub users, this corresponds to the GitHub user handle."]
+    #[serde(
+        rename = "directoryAlias",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub directory_alias: Option<String>,
+    #[doc = "When true, the group has been deleted in the identity provider"]
+    #[serde(
+        rename = "isDeletedInOrigin",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_deleted_in_origin: Option<bool>,
+    #[doc = "The meta type of the user in the origin, such as \"member\", \"guest\", etc. See UserMetaType for the set of possible values."]
+    #[serde(rename = "metaType", default, skip_serializing_if = "Option::is_none")]
+    pub meta_type: Option<String>,
+}
+impl AadGraphMember {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "License assigned to a user"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessLevel {
-    #[doc = "Type of Account License (e.g. Express, Stakeholder etc.)"]
+    #[doc = "Type of Account License (e.g. Express, Stakeholder etc.). To use the AccountLicenseType, LicensingSource should be defined as 'account' in the request body."]
     #[serde(
         rename = "accountLicenseType",
         default,
@@ -36,7 +64,7 @@ pub struct AccessLevel {
         skip_serializing_if = "Option::is_none"
     )]
     pub licensing_source: Option<access_level::LicensingSource>,
-    #[doc = "Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.)"]
+    #[doc = "Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.). To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[serde(
         rename = "msdnLicenseType",
         default,
@@ -61,7 +89,7 @@ impl AccessLevel {
 }
 pub mod access_level {
     use super::*;
-    #[doc = "Type of Account License (e.g. Express, Stakeholder etc.)"]
+    #[doc = "Type of Account License (e.g. Express, Stakeholder etc.). To use the AccountLicenseType, LicensingSource should be defined as 'account' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum AccountLicenseType {
         #[serde(rename = "none")]
@@ -103,7 +131,7 @@ pub mod access_level {
         #[serde(rename = "trial")]
         Trial,
     }
-    #[doc = "Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.)"]
+    #[doc = "Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.). To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum MsdnLicenseType {
         #[serde(rename = "none")]
@@ -157,6 +185,79 @@ pub struct BaseOperationResult {
     pub is_success: Option<bool>,
 }
 impl BaseOperationResult {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct EntitlementBase {
+    #[doc = "License assigned to a user"]
+    #[serde(
+        rename = "accessLevel",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub access_level: Option<AccessLevel>,
+    #[doc = "\\[Readonly\\] Date the member was added to the collection."]
+    #[serde(
+        rename = "dateCreated",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub date_created: Option<time::OffsetDateTime>,
+    #[doc = "\\[Readonly\\] GroupEntitlements that this member belongs to."]
+    #[serde(
+        rename = "groupAssignments",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub group_assignments: Vec<GroupEntitlement>,
+    #[doc = "The unique identifier which matches the Id of the Identity associated with the GraphMember."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[doc = "\\[Readonly\\] Date the member last accessed the collection."]
+    #[serde(
+        rename = "lastAccessedDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_accessed_date: Option<time::OffsetDateTime>,
+    #[doc = "Relation between a project and the member's effective permissions in that project."]
+    #[serde(
+        rename = "projectEntitlements",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub project_entitlements: Vec<ProjectEntitlement>,
+}
+impl EntitlementBase {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct EntitlementOperationResultBase {
+    #[doc = "List of error codes paired with their corresponding error messages."]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub errors: Vec<serde_json::Value>,
+    #[doc = "Success status of the operation."]
+    #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
+    pub is_success: Option<bool>,
+    #[doc = "Resulting entitlement property.  For specific implementations, see also: <seealso cref=\"T:Microsoft.VisualStudio.Services.MemberEntitlementManagement.WebApi.ServicePrincipalEntitlementOperationResult\" /><seealso cref=\"T:Microsoft.VisualStudio.Services.MemberEntitlementManagement.WebApi.UserEntitlementOperationResult\" />"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub result: Option<String>,
+}
+impl EntitlementOperationResultBase {
     pub fn new() -> Self {
         Self::default()
     }
@@ -335,6 +436,23 @@ impl GraphMember {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GraphServicePrincipal {
+    #[serde(flatten)]
+    pub aad_graph_member: AadGraphMember,
+    #[serde(
+        rename = "applicationId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub application_id: Option<String>,
+}
+impl GraphServicePrincipal {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Top-level graph entity"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubject {
@@ -391,28 +509,11 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = "Graph user entity"]
+#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphUser {
     #[serde(flatten)]
-    pub graph_member: GraphMember,
-    #[doc = "The short, generally unique name for the user in the backing directory. For AAD users, this corresponds to the mail nickname, which is often but not necessarily similar to the part of the user's mail address before the @ sign. For GitHub users, this corresponds to the GitHub user handle."]
-    #[serde(
-        rename = "directoryAlias",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub directory_alias: Option<String>,
-    #[doc = "When true, the group has been deleted in the identity provider"]
-    #[serde(
-        rename = "isDeletedInOrigin",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub is_deleted_in_origin: Option<bool>,
-    #[doc = "The meta type of the user in the origin, such as \"member\", \"guest\", etc. See UserMetaType for the set of possible values."]
-    #[serde(rename = "metaType", default, skip_serializing_if = "Option::is_none")]
-    pub meta_type: Option<String>,
+    pub aad_graph_member: AadGraphMember,
 }
 impl GraphUser {
     pub fn new() -> Self {
@@ -652,7 +753,7 @@ pub mod json_patch_operation {
 pub struct LicenseSummaryData {
     #[serde(flatten)]
     pub summary_data: SummaryData,
-    #[doc = "Type of Account License."]
+    #[doc = "Type of Account License. To use the AccountLicenseType, LicensingSource should be defined as 'account' in the request body."]
     #[serde(
         rename = "accountLicenseType",
         default,
@@ -676,7 +777,7 @@ pub struct LicenseSummaryData {
         skip_serializing_if = "Option::is_none"
     )]
     pub license_name: Option<String>,
-    #[doc = "Type of MSDN License."]
+    #[doc = "Type of MSDN License. To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[serde(
         rename = "msdnLicenseType",
         default,
@@ -709,7 +810,7 @@ impl LicenseSummaryData {
 }
 pub mod license_summary_data {
     use super::*;
-    #[doc = "Type of Account License."]
+    #[doc = "Type of Account License. To use the AccountLicenseType, LicensingSource should be defined as 'account' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum AccountLicenseType {
         #[serde(rename = "none")]
@@ -725,7 +826,7 @@ pub mod license_summary_data {
         #[serde(rename = "stakeholder")]
         Stakeholder,
     }
-    #[doc = "Type of MSDN License."]
+    #[doc = "Type of MSDN License. To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum MsdnLicenseType {
         #[serde(rename = "none")]
@@ -772,6 +873,118 @@ pub struct MemberEntitlement {
     pub member: Option<GraphMember>,
 }
 impl MemberEntitlement {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "An AAD member entity"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2 {
+    #[serde(flatten)]
+    pub entitlement_base: EntitlementBase,
+    #[doc = ""]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub member: Option<AadGraphMember>,
+}
+impl MemberEntitlement2 {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2OperationReference {
+    #[serde(flatten)]
+    pub operation_reference: OperationReference,
+    #[doc = "Operation completed with success or failure."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub completed: Option<bool>,
+    #[doc = "True if all operations were successful."]
+    #[serde(
+        rename = "haveResultsSucceeded",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub have_results_succeeded: Option<bool>,
+    #[doc = "List of results for each operation."]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub results: Vec<MemberEntitlement2OperationResult>,
+}
+impl MemberEntitlement2OperationReference {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2OperationResult {
+    #[serde(flatten)]
+    pub entitlement_operation_result_base: EntitlementOperationResultBase,
+    #[doc = "Identifier of the Member being acted upon."]
+    #[serde(rename = "memberId", default, skip_serializing_if = "Option::is_none")]
+    pub member_id: Option<String>,
+}
+impl MemberEntitlement2OperationResult {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2PatchResponse {
+    #[serde(flatten)]
+    pub member_entitlement2_response_base: MemberEntitlement2ResponseBase,
+    #[doc = "List of results for each operation"]
+    #[serde(
+        rename = "operationResults",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub operation_results: Vec<MemberEntitlement2OperationResult>,
+}
+impl MemberEntitlement2PatchResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2PostResponse {
+    #[serde(flatten)]
+    pub member_entitlement2_response_base: MemberEntitlement2ResponseBase,
+    #[doc = ""]
+    #[serde(
+        rename = "operationResult",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub operation_result: Option<MemberEntitlement2OperationResult>,
+}
+impl MemberEntitlement2PostResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct MemberEntitlement2ResponseBase {
+    #[doc = "True if all operations were successful."]
+    #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
+    pub is_success: Option<bool>,
+    #[doc = "An AAD member entity"]
+    #[serde(
+        rename = "memberEntitlement",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub member_entitlement: Option<MemberEntitlement2>,
+}
+impl MemberEntitlement2ResponseBase {
     pub fn new() -> Self {
         Self::default()
     }
@@ -1033,6 +1246,124 @@ impl ReferenceLinks {
 }
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlement {
+    #[serde(flatten)]
+    pub entitlement_base: EntitlementBase,
+    #[doc = ""]
+    #[serde(
+        rename = "servicePrincipal",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_principal: Option<GraphServicePrincipal>,
+}
+impl ServicePrincipalEntitlement {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlementOperationReference {
+    #[serde(flatten)]
+    pub operation_reference: OperationReference,
+    #[doc = "Operation completed with success or failure."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub completed: Option<bool>,
+    #[doc = "True if all operations were successful."]
+    #[serde(
+        rename = "haveResultsSucceeded",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub have_results_succeeded: Option<bool>,
+    #[doc = "List of results for each operation."]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub results: Vec<ServicePrincipalEntitlementOperationResult>,
+}
+impl ServicePrincipalEntitlementOperationReference {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlementOperationResult {
+    #[serde(flatten)]
+    pub entitlement_operation_result_base: EntitlementOperationResultBase,
+    #[doc = "Identifier of the ServicePrincipal being acted upon."]
+    #[serde(
+        rename = "servicePrincipalId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_principal_id: Option<String>,
+}
+impl ServicePrincipalEntitlementOperationResult {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlementsPatchResponse {
+    #[serde(flatten)]
+    pub service_principal_entitlements_response_base: ServicePrincipalEntitlementsResponseBase,
+    #[serde(
+        rename = "operationResults",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub operation_results: Vec<ServicePrincipalEntitlementOperationResult>,
+}
+impl ServicePrincipalEntitlementsPatchResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlementsPostResponse {
+    #[serde(flatten)]
+    pub service_principal_entitlements_response_base: ServicePrincipalEntitlementsResponseBase,
+    #[doc = ""]
+    #[serde(
+        rename = "operationResult",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub operation_result: Option<ServicePrincipalEntitlementOperationResult>,
+}
+impl ServicePrincipalEntitlementsPostResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ServicePrincipalEntitlementsResponseBase {
+    #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
+    pub is_success: Option<bool>,
+    #[doc = ""]
+    #[serde(
+        rename = "servicePrincipalEntitlement",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub service_principal_entitlement: Option<ServicePrincipalEntitlement>,
+}
+impl ServicePrincipalEntitlementsResponseBase {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SummaryData {
     #[doc = "Count of Licenses already assigned."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1074,49 +1405,9 @@ impl TeamRef {
 #[doc = "A user entity with additional properties including their license, extensions, and project membership"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlement {
-    #[doc = "License assigned to a user"]
-    #[serde(
-        rename = "accessLevel",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub access_level: Option<AccessLevel>,
-    #[doc = "\\[Readonly\\] Date the user was added to the collection."]
-    #[serde(
-        rename = "dateCreated",
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
-    pub date_created: Option<time::OffsetDateTime>,
-    #[doc = "\\[Readonly\\] GroupEntitlements that this user belongs to."]
-    #[serde(
-        rename = "groupAssignments",
-        default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
-    )]
-    pub group_assignments: Vec<GroupEntitlement>,
-    #[doc = "The unique identifier which matches the Id of the Identity associated with the GraphMember."]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub id: Option<String>,
-    #[doc = "\\[Readonly\\] Date the user last accessed the collection."]
-    #[serde(
-        rename = "lastAccessedDate",
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
-    pub last_accessed_date: Option<time::OffsetDateTime>,
-    #[doc = "Relation between a project and the user's effective permissions in that project."]
-    #[serde(
-        rename = "projectEntitlements",
-        default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
-    )]
-    pub project_entitlements: Vec<ProjectEntitlement>,
-    #[doc = "Graph user entity"]
+    #[serde(flatten)]
+    pub entitlement_base: EntitlementBase,
+    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub user: Option<GraphUser>,
 }
@@ -1156,19 +1447,8 @@ impl UserEntitlementOperationReference {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementOperationResult {
-    #[doc = "List of error codes paired with their corresponding error messages."]
-    #[serde(
-        default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
-    )]
-    pub errors: Vec<serde_json::Value>,
-    #[doc = "Success status of the operation."]
-    #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
-    pub is_success: Option<bool>,
-    #[doc = "A user entity with additional properties including their license, extensions, and project membership"]
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub result: Option<UserEntitlement>,
+    #[serde(flatten)]
+    pub entitlement_operation_result_base: EntitlementOperationResultBase,
     #[doc = "Identifier of the Member being acted upon."]
     #[serde(rename = "userId", default, skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
@@ -1281,11 +1561,12 @@ impl UsersSummary {
         Self::default()
     }
 }
-#[doc = "This class is used to serialized collections as a single JSON object on the wire, to avoid serializing JSON arrays directly to the client, which can be a security hole"]
+#[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapper {
     #[serde(flatten)]
     pub vss_json_collection_wrapper_base: VssJsonCollectionWrapperBase,
+    #[doc = "The serialized item."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<String>,
 }
@@ -1297,6 +1578,7 @@ impl VssJsonCollectionWrapper {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
+    #[doc = "The number of serialized items."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
 }
