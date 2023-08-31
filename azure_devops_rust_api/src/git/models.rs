@@ -1527,7 +1527,8 @@ pub struct GitCommitRef {
     )]
     pub statuses: Vec<GitStatus>,
     #[doc = "REST URL for this resource."]
-    pub url: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
     #[doc = "A list of workitems associated with this commit."]
     #[serde(
         rename = "workItems",
@@ -1538,7 +1539,7 @@ pub struct GitCommitRef {
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new(commit_id: String, url: String) -> Self {
+    pub fn new(commit_id: String) -> Self {
         Self {
             links: None,
             author: None,
@@ -1553,7 +1554,7 @@ impl GitCommitRef {
             push: None,
             remote_url: None,
             statuses: Vec::new(),
-            url,
+            url: None,
             work_items: Vec::new(),
         }
     }
@@ -4119,6 +4120,13 @@ pub struct GitPullRequestUpdateOptions {
     #[doc = "Pull request status"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<PullRequestStatus>,
+    #[doc = ""]
+    #[serde(
+        rename = "autoCompleteSetBy",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_complete_set_by: Option<IdentityRef>,
 }
 impl GitPullRequestUpdateOptions {
     pub fn new() -> Self {

@@ -874,6 +874,10 @@ impl Patcher {
                           "status": {
                             "description": "The status of the pull request.",
                                 "$ref": "#/definitions/PullRequestStatus",
+                          },
+                          "autoCompleteSetBy": {
+                            "description": "If set, auto-complete is enabled for this pull request and this is the identity that enabled it.",
+                            "$ref": "#/definitions/IdentityRef"
                           }
                         }
                     },
@@ -1236,14 +1240,6 @@ impl Patcher {
                 r#"[
                     "changeType",
                     "item"
-                ]"#,
-            ),
-            (
-                "git.json",
-                "GitCommitRef",
-                r#"[
-                    "commitId",
-                    "url"
                 ]"#,
             ),
             (
