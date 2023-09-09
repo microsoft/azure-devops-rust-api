@@ -154,8 +154,8 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                 self.scopes.iter().map(String::as_str).collect()
             }
             pub(crate) async fn send(&self, request: &mut azure_core::Request) -> azure_core::Result<azure_core::Response> {
-                let mut context = azure_core::Context::default();
-                self.pipeline.send(&mut context, request).await
+                let context = azure_core::Context::default();
+                self.pipeline.send(&context, request).await
             }
 
             #[doc = "Create a new `ClientBuilder`."]
@@ -192,11 +192,12 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
 pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
     let mut file = TokenStream::new();
     file.extend(quote! {
-
         #![allow(unused_mut)]
         #![allow(unused_variables)]
         #![allow(unused_imports)]
+        #![allow(clippy::too_many_arguments)]
         #![allow(clippy::redundant_clone)]
+        #![allow(clippy::module_inception)]
         pub mod models;
     });
     let mut operations_code: IndexMap<Option<String>, OperationCode> = IndexMap::new();

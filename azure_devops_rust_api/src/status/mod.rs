@@ -3,7 +3,9 @@
 #![allow(unused_mut)]
 #![allow(unused_variables)]
 #![allow(unused_imports)]
+#![allow(clippy::too_many_arguments)]
 #![allow(clippy::redundant_clone)]
+#![allow(clippy::module_inception)]
 pub mod models;
 #[derive(Clone)]
 pub struct Client {
@@ -89,8 +91,8 @@ impl Client {
         &self,
         request: &mut azure_core::Request,
     ) -> azure_core::Result<azure_core::Response> {
-        let mut context = azure_core::Context::default();
-        self.pipeline.send(&mut context, request).await
+        let context = azure_core::Context::default();
+        self.pipeline.send(&context, request).await
     }
     #[doc = "Create a new `ClientBuilder`."]
     #[must_use]
