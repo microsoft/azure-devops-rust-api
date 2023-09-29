@@ -3,7 +3,7 @@
 
 [package]
 name = "azure_devops_rust_api"
-version = "0.11.0"
+version = "0.12.0"
 edition = "2021"
 authors = ["John Batty <johnbatty@microsoft.com>"]
 description = "Rust API library for Azure DevOps"
@@ -23,7 +23,7 @@ rust-version = "1.64.0"
 doctest = false
 
 [dependencies]
-azure_core = { version = "0.15", default-features = true }
+azure_core = { version = "0.16", default-features = true }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 bytes = "1.0"
@@ -32,7 +32,7 @@ base64 = "0.21"
 time = "0.3"
 
 [dev-dependencies]
-azure_identity = "0.15"
+azure_identity = "0.16"
 tokio = { version = "1.0", features = ["full"] }
 anyhow = "1"
 log = "0.4"
