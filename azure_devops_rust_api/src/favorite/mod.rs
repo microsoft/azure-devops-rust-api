@@ -455,8 +455,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::FavoriteList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -574,8 +573,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Favorite>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -711,8 +709,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Favorite>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -811,7 +808,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -956,8 +953,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Favorite>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1102,8 +1098,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::FavoriteList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1209,8 +1204,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Favorite>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1347,8 +1341,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Favorite>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1442,7 +1435,7 @@ pub mod favorites {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

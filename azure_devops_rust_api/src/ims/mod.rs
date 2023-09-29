@@ -313,8 +313,7 @@ pub mod identities {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::IdentityList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::IdentityList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::IdentityList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

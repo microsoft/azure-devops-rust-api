@@ -274,10 +274,7 @@ pub mod permissions_report {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PermissionsReportList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PermissionsReportList>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PermissionsReportList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -383,8 +380,7 @@ pub mod permissions_report {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ReferenceLinks>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ReferenceLinks>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ReferenceLinks>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -491,8 +487,7 @@ pub mod permissions_report {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PermissionsReport>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PermissionsReport>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PermissionsReport>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -624,7 +619,7 @@ pub mod permissions_report_download {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

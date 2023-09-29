@@ -291,10 +291,8 @@ pub mod personal_access_tokens {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TokenAdminPagedSessionTokens>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::TokenAdminPagedSessionTokens>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::TokenAdminPagedSessionTokens>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -394,7 +392,7 @@ pub mod revocation_rules {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -509,7 +507,7 @@ pub mod revocations {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

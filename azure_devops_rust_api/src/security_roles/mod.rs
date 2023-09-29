@@ -326,7 +326,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -438,8 +438,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RoleAssignmentList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RoleAssignmentList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RoleAssignmentList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -566,8 +565,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RoleAssignmentList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RoleAssignmentList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RoleAssignmentList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -645,7 +643,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -760,8 +758,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RoleAssignment>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RoleAssignment>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RoleAssignment>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -839,7 +836,7 @@ pub mod roleassignments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -973,8 +970,7 @@ pub mod roledefinitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::SecurityRoleList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::SecurityRoleList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::SecurityRoleList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

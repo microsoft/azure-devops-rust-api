@@ -363,8 +363,7 @@ pub mod pats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PagedPatTokens>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PagedPatTokens>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PagedPatTokens>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -473,8 +472,7 @@ pub mod pats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PatTokenResult>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -580,8 +578,7 @@ pub mod pats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PatTokenResult>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -687,8 +684,7 @@ pub mod pats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PatTokenResult>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PatTokenResult>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -765,7 +761,7 @@ pub mod pats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

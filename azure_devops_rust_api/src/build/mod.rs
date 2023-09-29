@@ -407,8 +407,7 @@ pub mod artifacts {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildArtifact>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildArtifact>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildArtifact>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -525,7 +524,7 @@ pub mod artifacts {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -634,8 +633,7 @@ pub mod artifacts {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildArtifactList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildArtifactList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildArtifactList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -745,8 +743,7 @@ pub mod artifacts {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildArtifact>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildArtifact>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildArtifact>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1026,8 +1023,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLeaseList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1166,8 +1162,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLeaseList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1279,8 +1274,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLeaseList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1389,8 +1383,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLeaseList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1467,7 +1460,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1578,8 +1571,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLease>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLease>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLease>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1689,8 +1681,7 @@ pub mod leases {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLease>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLease>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLease>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1839,10 +1830,7 @@ pub mod controllers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildControllerList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildControllerList>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildControllerList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1949,8 +1937,7 @@ pub mod controllers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildController>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildController>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildController>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2075,8 +2062,7 @@ pub mod resource_usage {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildResourceUsage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildResourceUsage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildResourceUsage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2212,10 +2198,7 @@ pub mod history {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildRetentionHistory>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildRetentionHistory>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildRetentionHistory>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2385,7 +2368,7 @@ pub mod badge {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2515,7 +2498,7 @@ pub mod badge {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2684,10 +2667,8 @@ pub mod authorizedresources {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::DefinitionResourceReferenceList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::DefinitionResourceReferenceList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::DefinitionResourceReferenceList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2798,10 +2779,8 @@ pub mod authorizedresources {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::DefinitionResourceReferenceList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::DefinitionResourceReferenceList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::DefinitionResourceReferenceList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -3446,8 +3425,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -3596,8 +3574,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Build>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Build>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Build>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -3705,8 +3682,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -3824,8 +3800,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Build>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Build>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Build>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -3945,8 +3920,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Build>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Build>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Build>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4022,7 +3996,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4165,8 +4139,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ChangeList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ChangeList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ChangeList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4275,8 +4248,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RetentionLeaseList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RetentionLeaseList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4384,8 +4356,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildLogList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildLogList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildLogList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4517,7 +4488,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4637,8 +4608,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ResourceRefList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4760,8 +4730,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ResourceRefList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -4900,8 +4869,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ChangeList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ChangeList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ChangeList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5029,8 +4997,7 @@ pub mod builds {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ResourceRefList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ResourceRefList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5209,7 +5176,7 @@ pub mod attachments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5319,8 +5286,7 @@ pub mod attachments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::AttachmentList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::AttachmentList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::AttachmentList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5534,10 +5500,7 @@ pub mod properties {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PropertiesCollection>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PropertiesCollection>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PropertiesCollection>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5648,10 +5611,7 @@ pub mod properties {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PropertiesCollection>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PropertiesCollection>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PropertiesCollection>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5771,10 +5731,7 @@ pub mod properties {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PropertiesCollection>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PropertiesCollection>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PropertiesCollection>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -5885,10 +5842,7 @@ pub mod properties {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PropertiesCollection>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PropertiesCollection>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PropertiesCollection>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6035,10 +5989,7 @@ pub mod report {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildReportMetadata>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildReportMetadata>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildReportMetadata>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6150,7 +6101,7 @@ pub mod stages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6521,7 +6472,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6631,7 +6582,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6741,7 +6692,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6851,7 +6802,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -6961,7 +6912,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7080,7 +7031,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7190,7 +7141,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7300,7 +7251,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7410,7 +7361,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7520,7 +7471,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7626,7 +7577,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7734,7 +7685,7 @@ pub mod tags {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -7896,8 +7847,7 @@ pub mod timeline {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Timeline>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Timeline>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Timeline>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8362,10 +8312,8 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinitionReferenceList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildDefinitionReferenceList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildDefinitionReferenceList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8501,8 +8449,7 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinition>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8660,8 +8607,7 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinition>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8804,8 +8750,7 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinition>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8919,8 +8864,7 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinition>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildDefinition>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -8996,7 +8940,7 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9110,10 +9054,8 @@ pub mod definitions {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinitionRevisionList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildDefinitionRevisionList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildDefinitionRevisionList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9288,8 +9230,7 @@ pub mod metrics {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildMetricList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildMetricList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildMetricList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9414,8 +9355,7 @@ pub mod metrics {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildMetricList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildMetricList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildMetricList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9572,10 +9512,8 @@ pub mod resources {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::DefinitionResourceReferenceList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::DefinitionResourceReferenceList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::DefinitionResourceReferenceList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9688,10 +9626,8 @@ pub mod resources {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::DefinitionResourceReferenceList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::DefinitionResourceReferenceList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::DefinitionResourceReferenceList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -9881,8 +9817,7 @@ pub mod yaml {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::YamlBuild>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::YamlBuild>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::YamlBuild>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10077,10 +10012,8 @@ pub mod templates {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinitionTemplateList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildDefinitionTemplateList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildDefinitionTemplateList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10189,10 +10122,8 @@ pub mod templates {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinitionTemplate>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildDefinitionTemplate>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildDefinitionTemplate>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10303,10 +10234,8 @@ pub mod templates {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildDefinitionTemplate>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildDefinitionTemplate>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildDefinitionTemplate>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10382,7 +10311,7 @@ pub mod templates {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10589,8 +10518,7 @@ pub mod folders {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Folder>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Folder>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Folder>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10701,8 +10629,7 @@ pub mod folders {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Folder>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Folder>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Folder>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10779,7 +10706,7 @@ pub mod folders {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -10901,8 +10828,7 @@ pub mod folders {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::FolderList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::FolderList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::FolderList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11053,10 +10979,8 @@ pub mod general_settings {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PipelineGeneralSettings>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PipelineGeneralSettings>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::PipelineGeneralSettings>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11165,10 +11089,8 @@ pub mod general_settings {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PipelineGeneralSettings>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::PipelineGeneralSettings>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::PipelineGeneralSettings>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11317,8 +11239,7 @@ pub mod latest {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Build>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::Build>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::Build>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11451,10 +11372,8 @@ pub mod options {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildOptionDefinitionList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::BuildOptionDefinitionList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::BuildOptionDefinitionList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11605,10 +11524,8 @@ pub mod retention {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ProjectRetentionSetting>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::ProjectRetentionSetting>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::ProjectRetentionSetting>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11717,10 +11634,8 @@ pub mod retention {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ProjectRetentionSetting>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::ProjectRetentionSetting>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::ProjectRetentionSetting>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11871,8 +11786,7 @@ pub mod settings {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildSettings>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildSettings>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildSettings>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -11980,8 +11894,7 @@ pub mod settings {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::BuildSettings>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::BuildSettings>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::BuildSettings>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -12176,7 +12089,7 @@ pub mod status {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -12472,10 +12385,8 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::SourceProviderAttributesList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::SourceProviderAttributesList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::SourceProviderAttributesList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -12616,7 +12527,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -12766,7 +12677,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<String>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<String>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<String>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -12917,10 +12828,8 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::SourceRepositoryItemList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::SourceRepositoryItemList>,
-            >;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::SourceRepositoryItemList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -13052,8 +12961,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::PullRequest>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::PullRequest>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PullRequest>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -13217,8 +13125,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::SourceRepositories>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::SourceRepositories>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::SourceRepositories>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -13349,10 +13256,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::RepositoryWebhookList>;
-            type IntoFuture = futures::future::BoxFuture<
-                'static,
-                azure_core::Result<models::RepositoryWebhookList>,
-            >;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::RepositoryWebhookList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -13452,7 +13356,7 @@ pub mod source_providers {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
-            type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

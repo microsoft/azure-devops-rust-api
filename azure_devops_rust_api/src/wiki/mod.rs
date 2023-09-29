@@ -340,8 +340,7 @@ pub mod wikis {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiV2List>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2List>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiV2List>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -449,8 +448,7 @@ pub mod wikis {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiV2>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -558,8 +556,7 @@ pub mod wikis {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiV2>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -669,8 +666,7 @@ pub mod wikis {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiV2>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -778,8 +774,7 @@ pub mod wikis {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiV2>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiV2>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiV2>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -990,8 +985,7 @@ pub mod attachments {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiAttachment>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiAttachment>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiAttachment>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1208,8 +1202,7 @@ pub mod page_moves {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPageMove>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageMove>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPageMove>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1577,8 +1570,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1764,8 +1756,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -1947,8 +1938,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2090,8 +2080,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2226,8 +2215,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2358,8 +2346,7 @@ pub mod pages {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPage>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPage>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPage>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2513,8 +2500,7 @@ pub mod page_stats {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPageDetail>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetail>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPageDetail>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
@@ -2710,8 +2696,7 @@ pub mod pages_batch {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::WikiPageDetailList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::WikiPageDetailList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::WikiPageDetailList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

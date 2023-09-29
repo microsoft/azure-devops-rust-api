@@ -256,8 +256,7 @@ pub mod health {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ServiceStatus>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ServiceStatus>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ServiceStatus>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]

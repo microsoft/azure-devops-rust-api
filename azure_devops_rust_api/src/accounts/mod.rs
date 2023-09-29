@@ -267,8 +267,7 @@ pub mod accounts {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::AccountList>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::AccountList>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::AccountList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
