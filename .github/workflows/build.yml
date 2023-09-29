@@ -37,6 +37,6 @@ jobs:
     - name: cleanup azure_devops_rust_api build artifacts
       run: rm -rf azure_devops_rust_api/target
     - name: azure_devops_rust_api test
-      run: cd azure_devops_rust_api && cargo test --all-features
+      run: cd azure_devops_rust_api && cargo test
     - name: azure_devops_rust_api documentation generation
       run: cd azure_devops_rust_api && cargo doc --all-features --no-deps
