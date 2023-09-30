@@ -128,6 +128,10 @@ impl Client {
 }
 pub mod health {
     use super::models;
+    #[cfg(not(target_arch = "wasm32"))]
+    use futures::future::BoxFuture;
+    #[cfg(target_arch = "wasm32")]
+    use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
         #[doc = "Queries status information for the service all-up, or scoped to a particular service and/or geography"]
@@ -141,6 +145,10 @@ pub mod health {
     }
     pub mod get {
         use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
         pub struct Response(azure_core::Response);
         impl Response {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceStatus> {
@@ -209,7 +217,7 @@ pub mod health {
             #[doc = ""]
             #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
             #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> futures::future::BoxFuture<'static, azure_core::Result<Response>> {
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -248,8 +256,7 @@ pub mod health {
         }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ServiceStatus>;
-            type IntoFuture =
-                futures::future::BoxFuture<'static, azure_core::Result<models::ServiceStatus>>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::ServiceStatus>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
