@@ -22,7 +22,7 @@ async fn main() -> Result<()> {
 
     // Create release client
     let release_client = release::ClientBuilder::new(credential).build();
-    let folder_path = r#"\"#.to_string();
+    let folder_path = r"\".to_string();
 
     // Get list of approvals
     println!("Approvals:");

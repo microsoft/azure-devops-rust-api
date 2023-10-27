@@ -53,7 +53,7 @@ async fn main() -> Result<()> {
         .results;
 
     println!("Found {} results", search_results.len());
-    if let Some(result) = search_results.iter().next() {
+    if let Some(result) = search_results.first() {
         println!("Example search result:\n{:#?}", result);
     }
 

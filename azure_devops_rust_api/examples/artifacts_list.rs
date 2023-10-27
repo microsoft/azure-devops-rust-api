@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
         println!("{:40}{:30}{}", id, name, url);
     }
 
-    if let Some(feed) = feeds.iter().next() {
+    if let Some(feed) = feeds.first() {
         println!("\nExample feed struct:\n{:#?}", feed);
 
         if let Some(feed_id) = &feed.feed_core.id {

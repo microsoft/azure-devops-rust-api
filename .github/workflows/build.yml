@@ -32,6 +32,8 @@ jobs:
       run: rm -rf vsts-api-patcher/target && rm -rf autorust/target
     - name: azure_devops_rust_api clippy
       run: cd azure_devops_rust_api && cargo clippy --all-features -- --deny warnings
+    - name: examples clippy
+      run: cd azure_devops_rust_api && cargo clippy --all-features --examples -- --deny warnings
     - name: azure_devops_rust_api build
       run: cd azure_devops_rust_api && cargo build --all-features
     - name: cleanup azure_devops_rust_api build artifacts

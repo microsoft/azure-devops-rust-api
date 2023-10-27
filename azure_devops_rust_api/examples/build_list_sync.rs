@@ -49,7 +49,7 @@ fn main() -> Result<()> {
         .value;
 
     println!("Found {} builds", builds.len());
-    if let Some(build) = builds.iter().next() {
+    if let Some(build) = builds.first() {
         println!("Example build struct: {:#?}", build);
     }
 

@@ -248,6 +248,10 @@ name = "wiki_pages_create_or_update"
 required-features = ["wiki"]
 
 [[example]]
+name = "wit_wiql"
+required-features = ["wit"]
+
+[[example]]
 name = "wit_work_item_create"
 required-features = ["wit"]
 

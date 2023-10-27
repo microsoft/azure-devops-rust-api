@@ -46,7 +46,7 @@ async fn main() -> Result<()> {
         println!("{:4} {}", pipeline.id, pipeline.name);
     }
 
-    if let Some(pipeline) = matched_pipelines.iter().next() {
+    if let Some(pipeline) = matched_pipelines.first() {
         println!("\nExample pipeline struct from list:");
         println!("{:#?}", pipeline);
 

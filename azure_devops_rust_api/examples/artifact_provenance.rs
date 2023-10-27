@@ -34,7 +34,7 @@ async fn main() -> Result<()> {
         .await?
         .value;
 
-    if let Some(feed) = feeds.iter().next() {
+    if let Some(feed) = feeds.first() {
         if let Some(feed_id) = &feed.feed_core.id {
             let packages = artifacts_client
                 .artifact_details_client()
@@ -42,7 +42,7 @@ async fn main() -> Result<()> {
                 .await?
                 .value;
 
-            if let Some(package) = packages.iter().next() {
+            if let Some(package) = packages.first() {
                 let name = package.name.as_deref().unwrap_or("");
                 let id = package.id.as_deref().unwrap_or("");
                 let version_id = package
