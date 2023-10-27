@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New example: `wit_wiql`
+
 ## [0.13.0]
+
+### Added
 
 - Add support for WASM builds
 

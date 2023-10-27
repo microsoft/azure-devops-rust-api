@@ -25,8 +25,10 @@ async fn main() -> Result<()> {
 
     // Create a wit client
     let wit_client = wit::ClientBuilder::new(credential).build();
+
     // Assign the type of work item to create
     let work_item_type = "User Story";
+
     // Define the title of the work item to be created
     let title = JsonPatchOperation {
         from: None,
@@ -34,9 +36,11 @@ async fn main() -> Result<()> {
         path: Some("/fields/System.Title".to_owned()),
         value: Some(json!("Example User Story title")),
     };
+
     // Each operation lives in a vector, additional elements can be added to fill in other fields
     // of a work item, see the comments at the end of this file for some examples
     let body = vec![title];
+
     // Create a work item
     let work_item = wit_client
         .work_items_client()
