@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
         .value;
 
     println!("Found {} subjects", subjects.len());
-    if let Some(subject) = subjects.iter().next() {
+    if let Some(subject) = subjects.first() {
         println!("subject: {:#?}", subject);
     }
 

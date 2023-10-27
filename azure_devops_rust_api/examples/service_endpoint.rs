@@ -41,7 +41,7 @@ async fn main() -> Result<()> {
     }
 
     // Display an example service endpoint struct
-    if let Some(endpoint) = service_endpoints.iter().next() {
+    if let Some(endpoint) = service_endpoints.first() {
         println!("\nExample service_endpoint struct:");
         println!("{:#?}", endpoint);
     }

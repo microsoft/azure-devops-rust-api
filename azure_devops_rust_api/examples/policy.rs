@@ -63,7 +63,7 @@ async fn main() -> Result<()> {
         .value;
     println!("{} work item policy configurations found", configs.len());
 
-    if let Some(config) = configs.iter().next() {
+    if let Some(config) = configs.first() {
         println!("Example config:\n{:#?}", config);
     }
 

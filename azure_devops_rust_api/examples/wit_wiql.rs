@@ -103,7 +103,7 @@ async fn main() -> Result<()> {
     println!("\nWork items:\n{work_items:#?}");
     println!("Work item count: {}", work_items.len());
 
-    for work_item in work_items {
+    for work_item in &work_items {
         let work_item_id = work_item.id;
 
         let state = work_item

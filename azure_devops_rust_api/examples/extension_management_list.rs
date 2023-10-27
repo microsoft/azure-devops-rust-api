@@ -33,21 +33,20 @@ async fn main() -> Result<()> {
 
     println!("Installed extensions:");
     for extension in installed_extensions.iter() {
-        match extension {
-            InstalledExtension {
-                extension_name: Some(name),
-                publisher_name: Some(publisher),
-                version: Some(version),
-                ..
-            } => {
-                println!("{:65}{:24}{:40}", name, version, publisher);
-            }
-            _ => {}
+        if let InstalledExtension {
+            extension_name: Some(name),
+            publisher_name: Some(publisher),
+            version: Some(version),
+            ..
+        } = extension
+        {
+            println!("{:65}{:24}{:40}", name, version, publisher);
         }
     }
 
-    if let Some(extension) = installed_extensions.iter().next() {
+    if let Some(extension) = installed_extensions.first() {
         println!("\nExample extension:\n{:#?}", extension);
     }
+
     Ok(())
 }

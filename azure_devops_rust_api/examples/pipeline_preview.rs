@@ -42,7 +42,7 @@ async fn main() -> Result<()> {
         .cloned()
         .collect();
 
-    if let Some(pipeline) = matched_pipelines.iter().next() {
+    if let Some(pipeline) = matched_pipelines.first() {
         // Demonstrate how to query a preview of pipeline YAML...
         // Define the pipeline params
         let run_pipeline_params = RunPipelineParameters {

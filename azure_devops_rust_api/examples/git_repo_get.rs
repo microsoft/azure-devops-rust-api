@@ -47,7 +47,7 @@ async fn main() -> Result<()> {
         println!("{:<8}{}", pr.pull_request_id, pr.title.as_ref().unwrap());
     }
 
-    if let Some(pr) = prs.iter().next() {
+    if let Some(pr) = prs.first() {
         println!("\nExample PR struct:");
         println!("{:#?}", pr);
     }
@@ -65,7 +65,7 @@ async fn main() -> Result<()> {
         println!("{:<50}{}", git_ref.name, git_ref.object_id);
     }
 
-    if let Some(git_ref) = git_refs.iter().next() {
+    if let Some(git_ref) = git_refs.first() {
         println!("\nExample ref struct:");
         println!("{:#?}", git_ref);
     }

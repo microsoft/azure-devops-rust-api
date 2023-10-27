@@ -26,8 +26,7 @@ async fn main() -> Result<()> {
         .nth(1)
         .expect("Usage: release-logs <release-id> <output-file>")
         .parse::<i32>()
-        .ok()
-        .expect("Must Provide release ID");
+        .expect("release-id parameter must be an integer");
     let output_file: String = env::args()
         .nth(2)
         .expect("Usage: release-logs <release-id> <output-file>");

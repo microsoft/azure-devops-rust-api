@@ -7,7 +7,6 @@ use anyhow::{anyhow, Context, Result};
 use azure_core::StatusCode;
 use azure_devops_rust_api::build;
 use azure_devops_rust_api::build::models::{Build, BuildList};
-use serde_json;
 use std::env;
 use time::format_description::well_known::Rfc3339;
 
@@ -76,7 +75,7 @@ async fn main() -> Result<()> {
         let (builds, new_continuation_token) =
             get_builds(&build_client, &organization, &project, &continuation_token).await?;
 
-        if let Some(build) = builds.iter().next() {
+        if let Some(build) = builds.first() {
             println!(
                 "First build of batch {} start time: {}\n",
                 batch,
@@ -85,7 +84,7 @@ async fn main() -> Result<()> {
         }
         continuation_token = new_continuation_token;
 
-        if continuation_token == None {
+        if continuation_token.is_none() {
             println!("continuation_token is None - exiting");
         }
     }
