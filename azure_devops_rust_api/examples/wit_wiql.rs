@@ -8,9 +8,10 @@
 // For more info see: https://docs.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax?view=azure-devops
 use anyhow::Result;
 use azure_devops_rust_api::wit;
-use azure_devops_rust_api::wit::models::WorkItemBatchGetRequest;
-use base64::display;
+use azure_devops_rust_api::wit::models::{Wiql, WorkItem, WorkItemBatchGetRequest, WorkItemList};
+use futures::TryStreamExt;
 use std::env;
+use std::future::IntoFuture;
 
 mod utils;
 
@@ -65,7 +66,7 @@ async fn query_workitem_ids(
     query: &str,
 ) -> Result<Vec<i32>> {
     // Create a WIQL query.
-    let wiql_query = wit::models::Wiql {
+    let wiql_query = Wiql {
         query: Some(query.to_string()),
     };
 
@@ -94,7 +95,9 @@ async fn query_workitems(
     organization: &str,
     project: &str,
     workitem_ids: &[i32],
-) -> Result<Vec<wit::models::WorkItem>> {
+) -> Result<Vec<WorkItem>> {
+    // The maximum number of work items that can be requested in a single batch is 200.
+    // https://learn.microsoft.com/en-us/rest/api/azure/devops/wit/work-items/get-work-items-batch?view=azure-devops-rest-7.1&tabs=HTTP
     const MAX_WORK_ITEMS_PER_BATCH_REQUEST: usize = 200;
 
     // Split the work item IDs into batches of `MAX_WORK_ITEMS_PER_BATCH_REQUEST`.
@@ -106,21 +109,34 @@ async fn query_workitems(
         })
         .collect();
 
-    let mut workitems = Vec::new();
-    for work_item_batch_get_request in workitem_batch_get_requests.into_iter() {
-        let mut workitems_batch = wit_client
-            .work_items_client()
-            .get_work_items_batch(organization, work_item_batch_get_request, project)
-            .await?
-            .value;
+    println!(
+        "workitem_batch_get_requests: {:#?}",
+        workitem_batch_get_requests
+    );
 
-        workitems.append(&mut workitems_batch);
-    }
+    // Get work item batches in parallel and collect into a vector
+    let workitem_batches: Vec<WorkItemList> = workitem_batch_get_requests
+        .into_iter()
+        .map(|work_item_batch_get_request| {
+            wit_client
+                .work_items_client()
+                .get_work_items_batch(organization, work_item_batch_get_request, project)
+                .into_future()
+        })
+        .collect::<futures::stream::FuturesOrdered<_>>()
+        .try_collect::<Vec<_>>()
+        .await?;
+
+    // Flatten the vector of work item batches into a vector of work items
+    let workitems: Vec<WorkItem> = workitem_batches
+        .into_iter()
+        .flat_map(|workitems_batch| workitems_batch.value)
+        .collect();
 
     Ok(workitems)
 }
 
-fn display_workitems(workitems: &[wit::models::WorkItem]) {
+fn display_workitems(workitems: &[WorkItem]) {
     for workitem in workitems {
         let workitem_id = workitem.id;
 
@@ -149,7 +165,7 @@ fn display_workitems(workitems: &[wit::models::WorkItem]) {
             .and_then(|value| value.as_str())
             .unwrap_or("");
 
-        println!("[{workitem_id}] {workitem_type:10} {state:10} {assigned_to:30} {title}");
+        println!("[{workitem_id:8}] {workitem_type:10} {state:10} {assigned_to:30} {title}");
     }
 }
 
@@ -166,11 +182,18 @@ async fn main() -> Result<()> {
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
     let team = env::var("ADO_TEAM").expect("Must define ADO_TEAM");
     let area_path = env::var("ADO_AREA_PATH").expect("Must define ADO_AREA_PATH");
+    let query = env::args()
+        .nth(1)
+        .expect("Usage: wit_wiql <workitems|bugs>");
+
+    let query = match query.as_str() {
+        "workitems" => active_workitems_query(&project, &area_path),
+        "bugs" => open_bugs_query(&project, &area_path),
+        _ => panic!("Usage: wit_wiql <workitems|bugs>"),
+    };
 
     // Create a wit client
     let wit_client = wit::ClientBuilder::new(credential).build();
-
-    let query = active_workitems_query(&project, &area_path);
 
     let workitem_ids =
         query_workitem_ids(&wit_client, &organization, &project, &team, &query).await?;
