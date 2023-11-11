@@ -26,7 +26,6 @@ mod utils;
 //   (2) get the work items via "Get a list of work items by ID and for specific fields."
 
 // Returns a WIQL query string to get all open bugs in the given project and area path.
-#[allow(dead_code)]
 fn open_bugs_query(project: &str, area_path: &str) -> String {
     format!(
         r#"
