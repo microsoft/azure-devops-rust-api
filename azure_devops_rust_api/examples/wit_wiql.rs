@@ -57,6 +57,7 @@ fn active_workitems_query(project: &str, area_path: &str) -> String {
     )
 }
 
+// Returns the ids of the work items matching the given WIQL query.
 async fn query_workitem_ids(
     wit_client: &wit::Client,
     organization: &str,
@@ -89,6 +90,7 @@ async fn query_workitem_ids(
     Ok(workitem_ids)
 }
 
+// Returns the work items matching the given work item IDs.
 async fn query_workitems(
     wit_client: &wit::Client,
     organization: &str,
@@ -135,6 +137,7 @@ async fn query_workitems(
     Ok(workitems)
 }
 
+// Displays the given work items.
 fn display_workitems(workitems: &[WorkItem]) {
     for workitem in workitems {
         let workitem_id = workitem.id;
