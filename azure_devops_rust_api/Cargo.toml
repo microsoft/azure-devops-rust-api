@@ -264,6 +264,10 @@ name = "wit_work_item_queries"
 required-features = ["wit"]
 
 [[example]]
+name = "work"
+required-features = ["work"]
+
+[[example]]
 name = "policy"
 required-features = ["policy"]
 
