@@ -133,6 +133,16 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                 self
             }
 
+            #[doc = "set per-retry policies."]
+            #[must_use]
+            pub fn per_retry_policies(
+                mut self,
+                policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
+            ) -> Self {
+                self.options = self.options.per_retry_policies(policies);
+                self
+            }
+
             #[doc = "Convert the builder into a `Client` instance."]
             #[must_use]
             pub fn build(self) -> Client {
