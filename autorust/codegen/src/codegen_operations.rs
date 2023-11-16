@@ -133,7 +133,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                 self
             }
 
-            #[doc = "set per-retry policies."]
+            #[doc = "Set per-retry policies."]
             #[must_use]
             pub fn per_retry_policies(
                 mut self,

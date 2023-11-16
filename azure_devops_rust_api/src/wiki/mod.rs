@@ -66,7 +66,7 @@ impl ClientBuilder {
         self.options = self.options.per_call_policies(policies);
         self
     }
-    #[doc = "set per-retry policies."]
+    #[doc = "Set per-retry policies."]
     #[must_use]
     pub fn per_retry_policies(
         mut self,
