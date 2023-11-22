@@ -6,7 +6,7 @@ use azure_identity::{AutoRefreshingTokenCredential, DefaultAzureCredentialBuilde
 use std::sync::Arc;
 
 fn authenticate_with_default_credential() -> Credential {
-    println!("Authenticate using auto-refereshing DefaultAzureCredential");
+    println!("Authenticate using auto-refreshing DefaultAzureCredential");
     // `DefaultAzureCredential` can authenticate using one of:
     // - `EnvironmentCredential`
     // - `ManagedIdentityCredential`
