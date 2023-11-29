@@ -240,6 +240,10 @@ name = "build_list_continuation_token"
 required-features = ["build"]
 
 [[example]]
+name = "build_source_providers_list"
+required-features = ["build"]
+
+[[example]]
 name = "status"
 required-features = ["status"]
 
