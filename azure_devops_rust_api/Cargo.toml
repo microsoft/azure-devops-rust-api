@@ -156,6 +156,10 @@ name = "git_pr_files_changed"
 required-features = ["git"]
 
 [[example]]
+name = "git_repo_download_zip"
+required-features = ["git"]
+
+[[example]]
 name = "git_diff_files_between_base_and_target_branch"
 required-features = ["git"]
 
