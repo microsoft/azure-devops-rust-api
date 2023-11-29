@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- New example: `git_repo_download_zip`
+- New examples:
+  - `git_repo_download_zip`
+  - `build_source_providers_list`
 - Updated example: `git_items_get` now includes downloading entire repo as a zip archive
 
 ## [0.14.1]
