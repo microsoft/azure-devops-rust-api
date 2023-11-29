@@ -48,6 +48,7 @@ pub fn get_credential() -> Credential {
 pub struct AcceptZipPolicy {}
 
 impl AcceptZipPolicy {
+    #[allow(dead_code)]
     pub fn new_policy() -> Arc<dyn Policy> {
         Arc::new(AcceptZipPolicy {})
     }
