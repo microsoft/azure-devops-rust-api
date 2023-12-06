@@ -602,6 +602,13 @@ impl Patcher {
                     }
                 })
             }
+            ["definitions", "Change", "properties", "changeType", "enum"] => {
+                println!("Update git Change changeType definition");
+                let mut value = value.clone();
+                // Add extra value discovered in testing.
+                value.push(JsonValue::from("delete, sourceRename")).unwrap();
+                Some(value)
+            }
             _ => None,
         }
     }

@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New value added to git `ChangeType` enum: `delete, sourceRename`
 - New examples:
   - `git_repo_download_zip`
   - `build_source_providers_list`
