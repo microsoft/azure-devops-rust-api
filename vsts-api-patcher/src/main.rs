@@ -607,6 +607,8 @@ impl Patcher {
                 let mut value = value.clone();
                 // Add extra value discovered in testing.
                 value.push(JsonValue::from("delete, sourceRename")).unwrap();
+                value.push(JsonValue::from("delete, targetRename")).unwrap();
+                value.push(JsonValue::from("edit, rename")).unwrap();
                 Some(value)
             }
             _ => None,

@@ -411,6 +411,10 @@ pub mod change {
         All,
         #[serde(rename = "delete, sourceRename")]
         DeleteSourceRename,
+        #[serde(rename = "delete, targetRename")]
+        DeleteTargetRename,
+        #[serde(rename = "edit, rename")]
+        EditRename,
     }
 }
 #[doc = ""]
