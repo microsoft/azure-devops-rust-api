@@ -409,6 +409,8 @@ pub mod change {
         Property,
         #[serde(rename = "all")]
         All,
+        #[serde(rename = "delete, sourceRename")]
+        DeleteSourceRename,
     }
 }
 #[doc = ""]
