@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- New value added to git `ChangeType` enum: `edit, rename`
+
 ### [0.14.2]
 
 ### Added
