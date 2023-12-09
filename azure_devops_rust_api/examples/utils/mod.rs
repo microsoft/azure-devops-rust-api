@@ -4,7 +4,7 @@
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
 use azure_devops_rust_api::Credential;
-use azure_identity::{AutoRefreshingTokenCredential, DefaultAzureCredentialBuilder};
+use azure_identity::DefaultAzureCredentialBuilder;
 use std::sync::Arc;
 
 fn authenticate_with_default_credential() -> Credential {
@@ -24,11 +24,7 @@ fn authenticate_with_default_credential() -> Credential {
             .build(),
     );
 
-    // Use the `AutoRefreshingTokenCredential` wrapper to cache the credentials,
-    // refreshing when required.
-    let auto_refreshing_credential =
-        Arc::new(AutoRefreshingTokenCredential::new(default_azure_credential));
-    Credential::from_token_credential(auto_refreshing_credential)
+    Credential::from_token_credential(default_azure_credential)
 }
 
 #[allow(dead_code)]

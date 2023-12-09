@@ -533,7 +533,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -606,7 +606,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -721,7 +721,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -800,7 +800,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -877,7 +877,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -988,7 +988,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -1063,7 +1063,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -1140,7 +1140,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -1220,7 +1220,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -1340,7 +1340,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -1417,7 +1417,7 @@ pub mod maven {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2107,7 +2107,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2222,7 +2222,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2337,7 +2337,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2449,7 +2449,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2562,7 +2562,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2675,7 +2675,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2788,7 +2788,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2869,7 +2869,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -2978,7 +2978,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3083,7 +3083,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3194,7 +3194,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3273,7 +3273,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3389,7 +3389,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3501,7 +3501,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3578,7 +3578,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3690,7 +3690,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3765,7 +3765,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3842,7 +3842,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -3952,7 +3952,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4026,7 +4026,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4102,7 +4102,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4182,7 +4182,7 @@ pub mod npm {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4581,7 +4581,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4660,7 +4660,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4782,7 +4782,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4868,7 +4868,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -4984,7 +4984,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5097,7 +5097,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5179,7 +5179,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5290,7 +5290,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5364,7 +5364,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5440,7 +5440,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5520,7 +5520,7 @@ pub mod nu_get {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -5921,7 +5921,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6000,7 +6000,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6122,7 +6122,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6208,7 +6208,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6324,7 +6324,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6429,7 +6429,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6506,7 +6506,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6617,7 +6617,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6691,7 +6691,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6767,7 +6767,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -6847,7 +6847,7 @@ pub mod python {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7179,7 +7179,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7265,7 +7265,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7381,7 +7381,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7458,7 +7458,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7569,7 +7569,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7643,7 +7643,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7719,7 +7719,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
@@ -7799,7 +7799,7 @@ pub mod universal {
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
-                            .http_authorization_header(&this.client.scopes)
+                            .http_authorization_header(&this.client.scopes())
                             .await?
                         {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);

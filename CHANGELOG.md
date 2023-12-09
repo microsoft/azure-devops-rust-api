@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Upgrade `azure_core`, `azure_identity` to 0.18
+  - Note: `AutoRefreshingTokenCredential` is no longer required (and has been removed from `azure_identity`), as token refreshing is now built in to each credential provider
+
 ### [0.14.3]
 
 ### Added
