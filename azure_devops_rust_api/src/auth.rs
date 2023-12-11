@@ -49,7 +49,7 @@ impl Credential {
     #[allow(dead_code)]
     pub(crate) async fn http_authorization_header(
         &self,
-        scopes: &[String],
+        scopes: &[&str],
     ) -> Result<Option<String>> {
         match self {
             Credential::Unauthenticated => Ok(None),
@@ -61,7 +61,7 @@ impl Credential {
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {
                 let token_response = token_credential
-                    .get_token(&scopes.join(" "))
+                    .get_token(scopes)
                     .await
                     .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                 Ok(Some(format!("Bearer {}", token_response.token.secret())))

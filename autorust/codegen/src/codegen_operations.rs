@@ -406,7 +406,7 @@ struct AuthCode {}
 impl ToTokens for AuthCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(quote! {
-            if let Some(auth_header) = this.client.token_credential().http_authorization_header(&this.client.scopes).await? {
+            if let Some(auth_header) = this.client.token_credential().http_authorization_header(&this.client.scopes()).await? {
                 req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
             }
         })
