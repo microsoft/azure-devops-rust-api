@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.15.1]
+
+### Added
+
+- New `headers` module with Azure DevOps custom rate-limiting response header definitions.
+
 ### [0.15.0]
 
 ### Changes
@@ -370,7 +376,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.1...HEAD
+[0.15.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.0...0.15.1
 [0.15.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.3...0.15.0
 [0.14.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.2...0.14.3
 [0.14.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.1...0.14.2
