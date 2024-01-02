@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 //! Azure DevOps rate limit headers.
+//!
 //! For more information see [Azure DevOps Rate and usage limits](https://learn.microsoft.com/en-us/azure/devops/integrate/concepts/rate-limits?view=azure-devops).
 
 use azure_core::headers::HeaderName;
