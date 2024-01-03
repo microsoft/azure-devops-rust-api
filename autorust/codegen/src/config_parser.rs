@@ -154,7 +154,7 @@ mod literate_config {
     }
 
     // based on https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
-    fn is_header_at_level<'a>(node: &'a AstNode<'a>, level: u32) -> bool {
+    fn is_header_at_level<'a>(node: &'a AstNode<'a>, level: u8) -> bool {
         match node.data.clone().into_inner().value {
             NodeValue::Heading(heading) => heading.level == level,
             _ => false,
@@ -164,7 +164,7 @@ mod literate_config {
     // from https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
     fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut Vec<u8>) {
         match node.data.borrow().value {
-            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => output.extend_from_slice(literal),
+            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => output.extend_from_slice(literal.as_bytes()),
             NodeValue::LineBreak | NodeValue::SoftBreak => output.push(b' '),
             _ => {
                 for n in node.children() {
@@ -235,9 +235,8 @@ mod literate_config {
                 if !fenced {
                     continue;
                 }
-                let info = std::str::from_utf8(info)?;
+                let info = std::str::from_utf8(info.as_bytes())?;
                 if info.trim_start().to_lowercase().starts_with("yaml") {
-                    let literal = std::str::from_utf8(literal)?;
                     return Ok(Some(literal.to_owned()));
                 }
             }
