@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.16.0]
+
+- Upgrade `azure_core`, `azure_identity` to 0.19
+
 ### [0.15.1]
 
 ### Added
@@ -376,7 +380,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.16.0...HEAD
+[0.16.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.1...0.16.0
 [0.15.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.0...0.15.1
 [0.15.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.3...0.15.0
 [0.14.3]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.2...0.14.3
