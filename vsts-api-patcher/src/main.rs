@@ -699,7 +699,8 @@ impl Patcher {
             return None;
         }
         match key {
-            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/itemsbatch", "post", "responses", "200", "schema"] => {
+            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/itemsbatch", "post", "responses", "200", "schema"] =>
+            {
                 println!("Replace git GetItemsBatch response schema definition");
                 self.new_definitions.insert(
                     "GitItems".to_string(),
@@ -717,11 +718,10 @@ impl Patcher {
                         "$ref": "#/definitions/GitItems"
                     }
                 })
-            },
+            }
             _ => None,
         }
     }
-
 
     fn patch_git_pull_request_create(
         &mut self,
