@@ -132,6 +132,10 @@ name = "git_items_get"
 required-features = ["git"]
 
 [[example]]
+name = "git_items_get_items_batch"
+required-features = ["git"]
+
+[[example]]
 name = "git_commit_changes"
 required-features = ["git"]
 

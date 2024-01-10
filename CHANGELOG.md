@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Fix response type for `git::items::get_items_batch()`
+
+### Added
+
+- New example: `git_items_get_items_batch`
+
 ### [0.15.1]
 
 ### Added

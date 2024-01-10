@@ -2864,6 +2864,24 @@ impl GitItemRequestData {
         Self::default()
     }
 }
+pub type GitItems = Vec<GitItem>;
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct GitItemsList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<GitItems>,
+}
+impl GitItemsList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitLastChangeItem {
