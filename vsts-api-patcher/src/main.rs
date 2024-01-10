@@ -149,8 +149,8 @@ impl Patcher {
         Patcher::patch_json_reference_links,
         Patcher::patch_teamproject_visibility_enum,
         Patcher::patch_array_array_schema,
-        Patcher::patch_response_schema,
         Patcher::patch_git_reference_links,
+        Patcher::patch_git_get_items_batch,
         Patcher::patch_pipelines_reference_links,
         Patcher::patch_build_reference_links,
         Patcher::patch_pipelines_pipeline_configuration,
@@ -172,6 +172,7 @@ impl Patcher {
         Patcher::patch_jobjects,
         Patcher::patch_identity_descriptors,
         Patcher::patch_security,
+        Patcher::patch_response_schema,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -686,6 +687,36 @@ impl Patcher {
                      "web": {
                        "$ref": "#/definitions/Link"
                      }
+                })
+            }
+            _ => None,
+        }
+    }
+
+    fn patch_git_get_items_batch(&mut self, key: &[&str], _value: &JsonValue) -> Option<JsonValue> {
+        // Only applies to git specs
+        if !self.spec_path.ends_with("git.json") {
+            return None;
+        }
+        match key {
+            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/itemsbatch", "post", "responses", "200", "schema"] =>
+            {
+                println!("Replace git GetItemsBatch response schema definition");
+                self.new_definitions.insert(
+                    "GitItems".to_string(),
+                    json::object! {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/GitItem"
+                        }
+                    },
+                );
+                Some(json::object! {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/GitItems"
+                    }
                 })
             }
             _ => None,
