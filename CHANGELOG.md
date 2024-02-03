@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.16.0]
+
+### Changes
+
+- Upgrade `azure_core`, `azure_identity` to 0.19
+- Change `ADO_SCOPE` definition to add `/.default`, as `TokenCredential::get_token(...)` has changed to take a scope rather than a resource
+
 ### [0.15.2]
 
 ### Changes
@@ -386,7 +393,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.2...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.16.0...HEAD
+[0.16.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.2...0.16.0
 [0.15.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.1...0.15.2
 [0.15.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.0...0.15.1
 [0.15.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.14.3...0.15.0
