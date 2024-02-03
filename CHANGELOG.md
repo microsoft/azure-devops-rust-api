@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 
 - Upgrade `azure_core`, `azure_identity` to 0.19
-- Change `ADO_SCOPE` definition to add `/.default`, as `TokenCredential::get_token(...) has changed to take a scope rather than a resource
+- Change `ADO_SCOPE` definition to add `/.default`, as `TokenCredential::get_token(...)` has changed to take a scope rather than a resource
 
 ### [0.15.2]
 
