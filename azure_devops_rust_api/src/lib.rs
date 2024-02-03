@@ -142,4 +142,4 @@ pub(crate) mod serde;
 /// The token scope for Azure DevOps
 ///
 /// For more info see [Azure DevOps Personal Access Tokens](https://learn.microsoft.com/en-us/rest/api/azure/devops/tokens/?view=azure-devops-rest-7.0&tabs=powershell#personal-access-tokens-pats).
-pub const ADO_SCOPE: &str = "499b84ac-1321-427f-aa17-267ca6975798";
+pub const ADO_SCOPE: &str = "499b84ac-1321-427f-aa17-267ca6975798/.default";

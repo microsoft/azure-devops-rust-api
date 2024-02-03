@@ -36,7 +36,7 @@ azure_identity = "0.19"
 tokio = { version = "1.0", features = ["full"] }
 anyhow = "1"
 log = "0.4"
-env_logger = "0.10"
+env_logger = "0.11"
 async-trait = "0.1"
 
 [features]
@@ -129,6 +129,10 @@ required-features = ["git"]
 
 [[example]]
 name = "git_items_get"
+required-features = ["git"]
+
+[[example]]
+name = "git_items_get_items_batch"
 required-features = ["git"]
 
 [[example]]

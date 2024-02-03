@@ -3297,9 +3297,9 @@ pub mod items {
         use futures::future::LocalBoxFuture as BoxFuture;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
+            pub async fn into_body(self) -> azure_core::Result<models::GitItemsList> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: Vec<String> = serde_json::from_slice(&bytes).map_err(|e| {
+                let body: models::GitItemsList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
                         e,
@@ -3387,8 +3387,8 @@ pub mod items {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<Vec<String>>;
-            type IntoFuture = BoxFuture<'static, azure_core::Result<Vec<String>>>;
+            type Output = azure_core::Result<models::GitItemsList>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::GitItemsList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
