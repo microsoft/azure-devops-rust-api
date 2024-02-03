@@ -38,10 +38,12 @@ jobs:
       run: cd azure_devops_rust_api && cargo build --all-features
     - name: cleanup azure_devops_rust_api build artifacts
       run: rm -rf azure_devops_rust_api/target
-    - name: install wasm target
-      run: rustup target add wasm32-unknown-unknown
-    - name: azure_devops_rust_api check wasm build
-      run: cd azure_devops_rust_api && cargo check --target wasm32-unknown-unknown --all-features
+    # TODO: wasm build is currently broken due to issue in azure_core 0.19.0.
+    # Should be re-enabled once azure_core 0.20.0 is released.
+    #- name: install wasm target
+    #  run: rustup target add wasm32-unknown-unknown
+    #- name: azure_devops_rust_api check wasm build
+    #  run: cd azure_devops_rust_api && cargo check --target wasm32-unknown-unknown --all-features
     - name: azure_devops_rust_api test
       run: cd azure_devops_rust_api && cargo test
     - name: azure_devops_rust_api documentation generation
