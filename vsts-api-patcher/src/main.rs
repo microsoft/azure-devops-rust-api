@@ -587,7 +587,7 @@ impl Patcher {
                 println!("Remove unused git Change properties");
                 // Remove properties that never seem to be used
                 let mut value = value.clone();
-                value.remove("newContent");
+                // value.remove("newContent");
                 value.remove("sourceServerItem");
                 value.remove("url");
                 Some(value)
@@ -1235,6 +1235,19 @@ impl Patcher {
                     "project",
                     "url"
                 ]"#,
+            ),
+            (
+                "git.json",
+                "GitCommitRef",
+                // Excluded
+                //   _links
+                //   defaultBranch
+                //   isDisabled
+                //   remoteUrl
+                //   size
+                //   sshUrl
+                //   webUrl
+                r#"[]"#,
             ),
             (
                 "git.json",

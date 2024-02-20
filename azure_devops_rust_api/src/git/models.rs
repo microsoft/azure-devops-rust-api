@@ -368,10 +368,21 @@ pub struct Change {
     #[serde(rename = "changeType")]
     pub change_type: change::ChangeType,
     pub item: serde_json::Value,
+    #[doc = ""]
+    #[serde(
+        rename = "newContent",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub new_content: Option<ItemContent>,
 }
 impl Change {
     pub fn new(change_type: change::ChangeType, item: serde_json::Value) -> Self {
-        Self { change_type, item }
+        Self {
+            change_type,
+            item,
+            new_content: None,
+        }
     }
 }
 pub mod change {
@@ -1372,7 +1383,7 @@ impl GitCherryPick {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommit {
     #[serde(flatten)]
     pub git_commit_ref: GitCommitRef,
@@ -1380,11 +1391,8 @@ pub struct GitCommit {
     pub tree_id: Option<String>,
 }
 impl GitCommit {
-    pub fn new(git_commit_ref: GitCommitRef) -> Self {
-        Self {
-            git_commit_ref,
-            tree_id: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -1466,7 +1474,7 @@ impl GitCommitDiffs {
     }
 }
 #[doc = "Provides properties that describe a Git commit and associated metadata."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitRef {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
@@ -1498,8 +1506,8 @@ pub struct GitCommitRef {
     )]
     pub comment_truncated: Option<bool>,
     #[doc = "ID (SHA-1) of the commit."]
-    #[serde(rename = "commitId")]
-    pub commit_id: String,
+    #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
+    pub commit_id: Option<String>,
     #[doc = "User info and date for Git operations."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub committer: Option<GitUserDate>,
@@ -1543,24 +1551,8 @@ pub struct GitCommitRef {
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new(commit_id: String) -> Self {
-        Self {
-            links: None,
-            author: None,
-            change_counts: None,
-            changes: Vec::new(),
-            comment: None,
-            comment_truncated: None,
-            commit_id,
-            committer: None,
-            commit_too_many_changes: None,
-            parents: Vec::new(),
-            push: None,
-            remote_url: None,
-            statuses: Vec::new(),
-            url: None,
-            work_items: Vec::new(),
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
