@@ -50,7 +50,7 @@ async fn main() -> Result<()> {
     // Get each commit in the PR
     println!("\nCommits:");
     for commit in pr_commits.iter() {
-        let commit_id = &commit.commit_id;
+        let commit_id = commit.commit_id.clone().unwrap_or("".to_string());
         let comment = match &commit.comment {
             Some(comment) => comment.clone(),
             _ => "".to_string(),
