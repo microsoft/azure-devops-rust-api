@@ -368,10 +368,33 @@ pub struct Change {
     #[serde(rename = "changeType")]
     pub change_type: change::ChangeType,
     pub item: serde_json::Value,
+    #[doc = ""]
+    #[serde(
+        rename = "newContent",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub new_content: Option<ItemContent>,
+    #[doc = "Path of the item on the server."]
+    #[serde(
+        rename = "sourceServerItem",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub source_server_item: Option<String>,
+    #[doc = "URL to retrieve the item."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
 }
 impl Change {
     pub fn new(change_type: change::ChangeType, item: serde_json::Value) -> Self {
-        Self { change_type, item }
+        Self {
+            change_type,
+            item,
+            new_content: None,
+            source_server_item: None,
+            url: None,
+        }
     }
 }
 pub mod change {
@@ -1348,10 +1371,32 @@ impl GitBranchStatsList {
 pub struct GitChange {
     #[serde(flatten)]
     pub change: Change,
+    #[doc = "ID of the change within the group of changes."]
+    #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]
+    pub change_id: Option<i32>,
+    #[doc = ""]
+    #[serde(
+        rename = "newContentTemplate",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub new_content_template: Option<GitTemplate>,
+    #[doc = "Original path of item if different from current path."]
+    #[serde(
+        rename = "originalPath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub original_path: Option<String>,
 }
 impl GitChange {
     pub fn new(change: Change) -> Self {
-        Self { change }
+        Self {
+            change,
+            change_id: None,
+            new_content_template: None,
+            original_path: None,
+        }
     }
 }
 #[doc = "This object is returned from Cherry Pick operations and provides the id and status of the operation"]
@@ -1372,7 +1417,7 @@ impl GitCherryPick {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommit {
     #[serde(flatten)]
     pub git_commit_ref: GitCommitRef,
@@ -1380,11 +1425,8 @@ pub struct GitCommit {
     pub tree_id: Option<String>,
 }
 impl GitCommit {
-    pub fn new(git_commit_ref: GitCommitRef) -> Self {
-        Self {
-            git_commit_ref,
-            tree_id: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]
@@ -1466,7 +1508,7 @@ impl GitCommitDiffs {
     }
 }
 #[doc = "Provides properties that describe a Git commit and associated metadata."]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitRef {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
@@ -1498,8 +1540,8 @@ pub struct GitCommitRef {
     )]
     pub comment_truncated: Option<bool>,
     #[doc = "ID (SHA-1) of the commit."]
-    #[serde(rename = "commitId")]
-    pub commit_id: String,
+    #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
+    pub commit_id: Option<String>,
     #[doc = "User info and date for Git operations."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub committer: Option<GitUserDate>,
@@ -1543,24 +1585,8 @@ pub struct GitCommitRef {
     pub work_items: Vec<ResourceRef>,
 }
 impl GitCommitRef {
-    pub fn new(commit_id: String) -> Self {
-        Self {
-            links: None,
-            author: None,
-            change_counts: None,
-            changes: Vec::new(),
-            comment: None,
-            comment_truncated: None,
-            commit_id,
-            committer: None,
-            commit_too_many_changes: None,
-            parents: Vec::new(),
-            push: None,
-            remote_url: None,
-            statuses: Vec::new(),
-            url: None,
-            work_items: Vec::new(),
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = ""]

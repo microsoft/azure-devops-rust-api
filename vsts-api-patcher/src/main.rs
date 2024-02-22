@@ -574,24 +574,6 @@ impl Patcher {
             return None;
         }
         match key {
-            ["definitions", "GitChange", "properties"] => {
-                println!("Remove unused git GitChange properties");
-                // Remove properties that never seem to be used
-                let mut value = value.clone();
-                value.remove("changeId");
-                value.remove("newContentTemplate");
-                value.remove("originalPath");
-                Some(value)
-            }
-            ["definitions", "Change", "properties"] => {
-                println!("Remove unused git Change properties");
-                // Remove properties that never seem to be used
-                let mut value = value.clone();
-                value.remove("newContent");
-                value.remove("sourceServerItem");
-                value.remove("url");
-                Some(value)
-            }
             ["definitions", "Change", "properties", "item"] => {
                 println!("Replace git Change item definition");
 
@@ -1286,13 +1268,6 @@ impl Patcher {
                 "IdentityRef",
                 r#"[
                     "id"
-                ]"#,
-            ),
-            (
-                "git.json",
-                "GitCommitRef",
-                r#"[
-                    "commitId"
                 ]"#,
             ),
             (

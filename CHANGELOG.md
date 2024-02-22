@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Change definitions of `GitChange` and `Change` to reinstate some optional fields that
+  were previously removed in the mistaken belief that they were unused.
+  - `GitChange`:
+    - `change_id`
+    - `new_content_template`
+    - `original_path`
+  - `Change`:
+    - `new_content`
+    - `source_server_item`
+    - `url`
+- Change `GitCommitRef` to make `commit_id` optional.
+
 ### [0.16.0]
 
 ### Changes
