@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [0.17.0]
 
+### Breaking change
+
+- Change `GitCommitRef` to make `commit_id` optional.
+  - Previously `String`, now `Option<String>`
+  - Any existing code using `commit_id` will need to be changed to extract the value from the `Option`.
+
+### Changes
+
 - Change definitions of `GitChange` and `Change` to reinstate some optional fields that
   were previously removed in the mistaken belief that they were unused.
   - `GitChange`:
@@ -19,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `new_content`
     - `source_server_item`
     - `url`
-- Change `GitCommitRef` to make `commit_id` optional.
 
 ### [0.16.0]
 
