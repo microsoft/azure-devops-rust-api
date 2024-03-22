@@ -1284,11 +1284,11 @@ impl Patcher {
                 //   description
                 //   revision
                 //   url
+                //   lastUpdateTime
+                //   id
+                //   state
                 r#"[
-                    "id",
-                    "lastUpdateTime",
                     "name",
-                    "state",
                     "visibility"
                 ]"#,
             ),
