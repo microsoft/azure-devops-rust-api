@@ -2094,34 +2094,35 @@ pub struct TeamProjectReference {
     pub default_team_image_url: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    pub id: String,
-    #[serde(rename = "lastUpdateTime", with = "crate::date_time::rfc3339")]
-    pub last_update_time: time::OffsetDateTime,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    #[serde(
+        rename = "lastUpdateTime",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
+    pub last_update_time: Option<time::OffsetDateTime>,
     pub name: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i64>,
-    pub state: team_project_reference::State,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub state: Option<team_project_reference::State>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
     pub visibility: team_project_reference::Visibility,
 }
 impl TeamProjectReference {
-    pub fn new(
-        id: String,
-        last_update_time: time::OffsetDateTime,
-        name: String,
-        state: team_project_reference::State,
-        visibility: team_project_reference::Visibility,
-    ) -> Self {
+    pub fn new(name: String, visibility: team_project_reference::Visibility) -> Self {
         Self {
             abbreviation: None,
             default_team_image_url: None,
             description: None,
-            id,
-            last_update_time,
+            id: None,
+            last_update_time: None,
             name,
             revision: None,
-            state,
+            state: None,
             url: None,
             visibility,
         }
