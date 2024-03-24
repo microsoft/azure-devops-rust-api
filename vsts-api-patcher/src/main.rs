@@ -1265,6 +1265,14 @@ impl Patcher {
             ),
             (
                 "git.json",
+                "ItemContent",
+                r#"[
+                    "content",
+                    "contentType"
+                ]"#,
+            ),
+            (
+                "git.json",
                 "IdentityRef",
                 r#"[
                     "id"
