@@ -6013,20 +6013,18 @@ impl IsDraftUpdatedEvent {
     }
 }
 #[doc = ""]
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ItemContent {
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub content: Option<String>,
-    #[serde(
-        rename = "contentType",
-        default,
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub content_type: Option<item_content::ContentType>,
+    pub content: String,
+    #[serde(rename = "contentType")]
+    pub content_type: item_content::ContentType,
 }
 impl ItemContent {
-    pub fn new() -> Self {
-        Self::default()
+    pub fn new(content: String, content_type: item_content::ContentType) -> Self {
+        Self {
+            content,
+            content_type,
+        }
     }
 }
 pub mod item_content {

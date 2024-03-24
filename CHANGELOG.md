@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.19.0]
+
+### Breaking change
+
+- Remove `Option` wrappers from `git::models::ItemContent` fields:
+  - `content`
+  - `contentType`
+
+### Changes
+
+- New example:
+  - `git_push`
+
 ### [0.18.0]
 
 ### Breaking change
@@ -424,7 +437,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.18.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.0...HEAD
+[0.19.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.18.0...0.19.0
 [0.18.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.17.0...0.18.0
 [0.17.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.16.0...0.17.0
 [0.16.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.15.2...0.16.0
