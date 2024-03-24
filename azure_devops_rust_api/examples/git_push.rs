@@ -30,15 +30,13 @@ async fn get_latest_commit_id(
         .await?
         .value;
 
-    let latest_commit_id = format!(
-        "{}",
-        latest_commit
-            .get(0)
-            .context("No commits found")?
-            .commit_id
-            .as_ref()
-            .context("Missing commit_id")?
-    );
+    let latest_commit_id = latest_commit
+        .first()
+        .context("No commits found")?
+        .commit_id
+        .as_ref()
+        .context("Missing commit_id")?
+        .to_string();
 
     Ok(latest_commit_id)
 }
