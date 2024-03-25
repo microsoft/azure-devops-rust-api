@@ -3,7 +3,7 @@
 
 //! Azure DevOps telemetry support.
 use async_trait::async_trait;
-use azure_core::{Context, Policy, PolicyResult, Request, Response};
+use azure_core::{headers::Headers, Context, Policy, PolicyResult, Request, Response};
 use std::sync::Arc;
 use tracing::{error, info};
 
@@ -36,7 +36,7 @@ impl azure_core::Policy for RequestLogger {
         next: &[Arc<dyn Policy>],
     ) -> PolicyResult {
         // Redact the Authorization header so that we don't log sensitive information
-        let mut redacted_headers = request.headers().clone();
+        let mut redacted_headers = Headers::new();
         for (header_name, header_value) in request.headers().iter() {
             if header_name.as_str().to_lowercase() == "authorization" {
                 redacted_headers.insert(header_name.clone(), "<redacted>");
