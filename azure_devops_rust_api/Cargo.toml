@@ -30,14 +30,14 @@ bytes = "1.0"
 futures = "0.3"
 base64 = "0.22"
 time = "0.3"
+async-trait = "0.1"
+tracing = "0.1"
 
 [dev-dependencies]
 azure_identity = "0.19"
 tokio = { version = "1.0", features = ["full"] }
 anyhow = "1"
-log = "0.4"
-env_logger = "0.11"
-async-trait = "0.1"
+tracing-subscriber = "0.3"
 
 [features]
 default = ["enable_reqwest"]
@@ -256,7 +256,7 @@ name = "status"
 required-features = ["status"]
 
 [[example]]
-name = "client_pipeline_policy"
+name = "telemetry_git_repo_get"
 required-features = ["git"]
 
 [[example]]
