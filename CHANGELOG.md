@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.19.1]
+
+### Changes
+
 - Add new `telemetry` module with a request logger
 - New example:
   - `telemetry_git_repo_get`
@@ -441,7 +445,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.1...HEAD
+[0.19.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.0...0.19.1
 [0.19.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.18.0...0.19.0
 [0.18.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.17.0...0.18.0
 [0.17.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.16.0...0.17.0
