@@ -35,10 +35,20 @@ impl azure_core::Policy for RequestLogger {
         request: &mut Request,
         next: &[Arc<dyn Policy>],
     ) -> PolicyResult {
+        // Redact the Authorization header so that we don't log sensitive information
+        let mut redacted_headers = request.headers().clone();
+        for (header_name, header_value) in request.headers().iter() {
+            if header_name.as_str().to_lowercase() == "authorization" {
+                redacted_headers.insert(header_name.clone(), "<redacted>");
+            } else {
+                redacted_headers.insert(header_name.clone(), header_value.clone());
+            }
+        }
+
         info!(
             method = %request.method(),
             url = %request.url(),
-            headers = ?request.headers(),
+            headers = ?redacted_headers,
             body = ?request.body(),
             "Request"
         );
