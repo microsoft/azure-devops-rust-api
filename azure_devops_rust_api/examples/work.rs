@@ -16,9 +16,6 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Initialize logging
-    env_logger::init();
-
     // Get authentication credential
     let credential = utils::get_credential();
 

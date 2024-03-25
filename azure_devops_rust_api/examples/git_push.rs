@@ -78,9 +78,6 @@ fn new_git_ref_update(base_commit_id: String, target_branch: &str) -> GitRefUpda
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Initialize logging
-    env_logger::init();
-
     // Get authentication credential
     let credential = utils::get_credential();
 

@@ -12,9 +12,6 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Initialize logging
-    env_logger::init();
-
     // The status API is unauthenticated, so don't provide usual credentials
     let credential = Credential::unauthenticated();
 

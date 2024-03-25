@@ -136,6 +136,7 @@ pub use auth::Credential;
 
 pub mod date_time;
 pub mod headers;
+pub mod telemetry;
 
 pub(crate) mod serde;
 

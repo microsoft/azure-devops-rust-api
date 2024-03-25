@@ -12,9 +12,6 @@ use time::{ext::NumericalDuration, OffsetDateTime};
 mod utils;
 
 fn main() -> Result<()> {
-    // Initialize logging
-    env_logger::init();
-
     // Get authentication credential
     let credential = utils::get_credential();
 
