@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Fix clippy failures
+  - Implement `Response` methods `into_raw_response()` and `as_raw_response` for all operations,
+    even if they do not return a value.
+
 ### [0.19.1]
 
 ### Changes

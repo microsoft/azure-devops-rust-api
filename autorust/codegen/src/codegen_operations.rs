@@ -894,6 +894,29 @@ impl ToTokens for ResponseCode {
         tokens.extend(quote! {
             pub struct Response(azure_core::Response);
         });
+
+        let raw_response_code = quote! {
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        };
+
+        let response_conversion_code = quote! {
+            impl From<Response> for azure_core::Response {
+                fn from(rsp: Response) -> Self {
+                    rsp.into_raw_response()
+                }
+            }
+            impl AsRef<azure_core::Response> for Response {
+                fn as_ref(&self) -> &azure_core::Response {
+                    self.as_raw_response()
+                }
+            }
+        };
+
         if let Some(response_type) = self.response_type() {
             let deserialize_body = if response_type.is_bytes() {
                 quote! {
@@ -927,26 +950,19 @@ impl ToTokens for ResponseCode {
                         #deserialize_body
                         Ok(body)
                     }
-                    pub fn into_raw_response(self) -> azure_core::Response {
-                        self.0
-                    }
-                    pub fn as_raw_response(&self) -> &azure_core::Response {
-                        &self.0
-                    }
+                    #raw_response_code
                     #headers_fn
                 }
-                impl From<Response> for azure_core::Response {
-                    fn from(rsp: Response) -> Self {
-                        rsp.into_raw_response()
-                    }
-                }
-                impl AsRef<azure_core::Response> for Response {
-                    fn as_ref(&self) -> &azure_core::Response {
-                        self.as_raw_response()
-                    }
-                }
+                #response_conversion_code
             });
             tokens.extend(self.headers.to_token_stream());
+        } else {
+            tokens.extend(quote! {
+                impl Response {
+                    #raw_response_code
+                }
+                #response_conversion_code
+            });
         }
     }
 }
