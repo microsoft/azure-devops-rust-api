@@ -52,12 +52,12 @@ impl azure_core::Policy for RequestLogger {
             body = ?request.body(),
             "Request"
         );
-        let now = time::Instant::now();
+        let now = std::time::Instant::now();
         // Call the next policy in the chain, and await the response
         let rsp = next[0].send(ctx, request, &next[1..]).await;
 
         // Log the response
-        let elapsed_time = now.elapsed().as_seconds_f32();
+        let elapsed_time = now.elapsed().as_secs_f32();
         match rsp {
             Ok(rsp) => {
                 // To get the body content, we need to consume the response stream.
