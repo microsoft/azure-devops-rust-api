@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix clippy failures
   - Implement `Response` methods `into_raw_response()` and `as_raw_response` for all operations,
     even if they do not return a value.
+  - Replace deprecated `time::Instant` with `std::time::Instant`.
 
 ### [0.19.1]
 
