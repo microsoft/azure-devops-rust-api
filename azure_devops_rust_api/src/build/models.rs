@@ -4139,6 +4139,13 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub audit_enforce_settable_var: Option<bool>,
+    #[doc = "Enable forked repositories to build pull requests."]
+    #[serde(
+        rename = "buildsEnabledForForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub builds_enabled_for_forks: Option<bool>,
     #[doc = "Disable classic build pipelines creation."]
     #[serde(
         rename = "disableClassicBuildPipelineCreation",
@@ -4160,6 +4167,20 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub disable_classic_release_pipeline_creation: Option<bool>,
+    #[doc = "Enable shell tasks args sanitizing."]
+    #[serde(
+        rename = "enableShellTasksArgsSanitizing",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_shell_tasks_args_sanitizing: Option<bool>,
+    #[doc = "Enable shell tasks args sanitizing preview."]
+    #[serde(
+        rename = "enableShellTasksArgsSanitizingAudit",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enable_shell_tasks_args_sanitizing_audit: Option<bool>,
     #[doc = "If enabled, scope of access for all non-release pipelines reduces to the current project."]
     #[serde(
         rename = "enforceJobAuthScope",
@@ -4167,6 +4188,13 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub enforce_job_auth_scope: Option<bool>,
+    #[doc = "Enforce job auth scope for builds of forked repositories."]
+    #[serde(
+        rename = "enforceJobAuthScopeForForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enforce_job_auth_scope_for_forks: Option<bool>,
     #[doc = "If enabled, scope of access for all release pipelines reduces to the current project."]
     #[serde(
         rename = "enforceJobAuthScopeForReleases",
@@ -4174,6 +4202,13 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub enforce_job_auth_scope_for_releases: Option<bool>,
+    #[doc = "Enforce no access to secrets for builds of forked repositories."]
+    #[serde(
+        rename = "enforceNoAccessToSecretsFromForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enforce_no_access_to_secrets_from_forks: Option<bool>,
     #[doc = "Restricts the scope of access for all pipelines to only repositories explicitly referenced by the pipeline."]
     #[serde(
         rename = "enforceReferencedRepoScopedToken",
@@ -4188,6 +4223,20 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub enforce_settable_var: Option<bool>,
+    #[doc = "Enable settings that enforce certain levels of protection for building pull requests from forks globally."]
+    #[serde(
+        rename = "forkProtectionEnabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub fork_protection_enabled: Option<bool>,
+    #[doc = "Make comments required to have builds in all pull requests."]
+    #[serde(
+        rename = "isCommentRequiredForPullRequest",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_comment_required_for_pull_request: Option<bool>,
     #[doc = "Allows pipelines to record metadata."]
     #[serde(
         rename = "publishPipelineMetadata",
@@ -4195,6 +4244,20 @@ pub struct PipelineGeneralSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub publish_pipeline_metadata: Option<bool>,
+    #[doc = "Make comments required to have builds in pull requests from non-team members and non-contributors."]
+    #[serde(
+        rename = "requireCommentsForNonTeamMemberAndNonContributors",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_comments_for_non_team_member_and_non_contributors: Option<bool>,
+    #[doc = "Make comments required to have builds in pull requests from non-team members."]
+    #[serde(
+        rename = "requireCommentsForNonTeamMembersOnly",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_comments_for_non_team_members_only: Option<bool>,
     #[doc = "Anonymous users can access the status badge API for all pipelines unless this option is enabled."]
     #[serde(
         rename = "statusBadgesArePrivate",
@@ -4241,6 +4304,64 @@ pub struct PipelineReference {
     pub stage_reference: Option<StageReference>,
 }
 impl PipelineReference {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "Represents the effective settings applicable to individual pipeline triggers."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct PipelineTriggerSettings {
+    #[doc = "Enable forked repositories to build pull requests."]
+    #[serde(
+        rename = "buildsEnabledForForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub builds_enabled_for_forks: Option<bool>,
+    #[doc = "Enforce job auth scope for builds of forked repositories."]
+    #[serde(
+        rename = "enforceJobAuthScopeForForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enforce_job_auth_scope_for_forks: Option<bool>,
+    #[doc = "Enforce no access to secrets for builds of forked repositories."]
+    #[serde(
+        rename = "enforceNoAccessToSecretsFromForks",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub enforce_no_access_to_secrets_from_forks: Option<bool>,
+    #[doc = "Enable settings that enforce certain levels of protection for building pull requests from forks globally."]
+    #[serde(
+        rename = "forkProtectionEnabled",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub fork_protection_enabled: Option<bool>,
+    #[doc = "Make comments required to have builds in all pull requests."]
+    #[serde(
+        rename = "isCommentRequiredForPullRequest",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_comment_required_for_pull_request: Option<bool>,
+    #[doc = "Make comments required to have builds in pull requests from non-team members and non-contributors."]
+    #[serde(
+        rename = "requireCommentsForNonTeamMemberAndNonContributors",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_comments_for_non_team_member_and_non_contributors: Option<bool>,
+    #[doc = "Make comments required to have builds in pull requests from non-team members."]
+    #[serde(
+        rename = "requireCommentsForNonTeamMembersOnly",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub require_comments_for_non_team_members_only: Option<bool>,
+}
+impl PipelineTriggerSettings {
     pub fn new() -> Self {
         Self::default()
     }
@@ -4439,6 +4560,13 @@ pub struct PullRequestTrigger {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub path_filters: Vec<String>,
+    #[doc = "Represents the effective settings applicable to individual pipeline triggers."]
+    #[serde(
+        rename = "pipelineTriggerSettings",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub pipeline_trigger_settings: Option<PipelineTriggerSettings>,
     #[serde(
         rename = "requireCommentsForNonTeamMemberAndNonContributors",
         default,

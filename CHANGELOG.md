@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Update `vsts-rest-api-specs` to latest version
+  - Additional parameters in `approvals_and_checks::ApprovalQueryParameters`
+    - `approver_status`
+    - `top`
+    - `user_ids`
+  - Additional fields in `build::PipelineGeneralSettings`
+    - `builds_enabled_for_forks`
+    - `enable_shell_tasks_args_sanitizing_audit`
+    - `enforce_job_auth_scope_for_forks`
+    - `enforce_no_access_to_secrets_from_forks`
+    - `fork_protection_enabled`
+    - `is_comment_required_for_pull_request`
+    - `require_comments_for_non_team_member_and_non_contributors`
+    - `require_comments_for_non_team_members_only`
+  - Additional field in `build::PullRequestTrigger`
+    - `pipeline_trigger_settings`
+  - Additional field in `git::IdentityRefWithVote`
+    - `is_reapprove`
+
 ### [0.19.2]
 
 ### Changes

@@ -449,6 +449,7 @@ pub mod endpoints {
                 owner: None,
                 include_failed: None,
                 include_details: None,
+                action_filter: None,
             }
         }
         #[doc = "Creates a new service endpoint"]
@@ -674,6 +675,7 @@ pub mod endpoints {
             pub(crate) owner: Option<String>,
             pub(crate) include_failed: Option<bool>,
             pub(crate) include_details: Option<bool>,
+            pub(crate) action_filter: Option<String>,
         }
         impl RequestBuilder {
             #[doc = "Type of the service endpoints."]
@@ -704,6 +706,11 @@ pub mod endpoints {
             #[doc = "Flag to include more details for service endpoints. This is for internal use only and the flag will be treated as false for all other requests"]
             pub fn include_details(mut self, include_details: bool) -> Self {
                 self.include_details = Some(include_details);
+                self
+            }
+            #[doc = "The \"actionFilter\" parameter allows users to evaluate requestor permissions and retrieve a list of endpoints that match the specified conditions, ensuring that only relevant endpoints are returned based on their permissions"]
+            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+                self.action_filter = Some(action_filter.into());
                 self
             }
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -757,6 +764,11 @@ pub mod endpoints {
                             req.url_mut()
                                 .query_pairs_mut()
                                 .append_pair("includeDetails", &include_details.to_string());
+                        }
+                        if let Some(action_filter) = &this.action_filter {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("actionFilter", action_filter);
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);

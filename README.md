@@ -48,15 +48,14 @@ To update the version to the latest revision:
 
 ```shell
 git submodule update --remote vsts-rest-api-specs
-# Build and test!
-./build.sh
-```
-
-Once you are happy with the update, commit the changes:
-
-```shell
 git add .
 git commit -m "Updated vsts-rest-api-specs to latest revision"
+# Build and test!
+./build.sh
+cargo clippy --all-features -- --deny warnings
+cargo clippy --all-features --examples -- --deny warnings
+# Inspect the differences in the generated code
+git diff
 ```
 
 ## Notes

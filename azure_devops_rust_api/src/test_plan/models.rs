@@ -479,6 +479,37 @@ impl DestinationTestSuiteInfo {
         Self::default()
     }
 }
+#[doc = "Parameters for test case export operation"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ExportTestCaseParams {
+    #[doc = "Test Case IDs to exported"]
+    #[serde(
+        rename = "testCaseIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub test_case_ids: Vec<i32>,
+    #[doc = "ID of test plan containing test cases"]
+    #[serde(
+        rename = "testPlanId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub test_plan_id: Option<i32>,
+    #[doc = "ID of test suite containing test cases"]
+    #[serde(
+        rename = "testSuiteId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub test_suite_id: Option<i32>,
+}
+impl ExportTestCaseParams {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {

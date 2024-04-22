@@ -1148,6 +1148,13 @@ pub struct CodeCoverageSummary {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub coverage_data: Vec<CodeCoverageData>,
+    #[serde(
+        rename = "coverageDetailedSummaryStatus",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub coverage_detailed_summary_status:
+        Option<code_coverage_summary::CoverageDetailedSummaryStatus>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
     #[serde(
         rename = "deltaBuild",
@@ -1166,6 +1173,55 @@ impl CodeCoverageSummary {
 }
 pub mod code_coverage_summary {
     use super::*;
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum CoverageDetailedSummaryStatus {
+        #[serde(rename = "none")]
+        None,
+        #[serde(rename = "inProgress")]
+        InProgress,
+        #[serde(rename = "finalized")]
+        Finalized,
+        #[serde(rename = "pending")]
+        Pending,
+        #[serde(rename = "updateRequestQueued")]
+        UpdateRequestQueued,
+        #[serde(rename = "noModulesFound")]
+        NoModulesFound,
+        #[serde(rename = "numberOfFilesExceeded")]
+        NumberOfFilesExceeded,
+        #[serde(rename = "noInputFiles")]
+        NoInputFiles,
+        #[serde(rename = "buildCancelled")]
+        BuildCancelled,
+        #[serde(rename = "failedJobs")]
+        FailedJobs,
+        #[serde(rename = "moduleMergeJobTimeout")]
+        ModuleMergeJobTimeout,
+        #[serde(rename = "codeCoverageSuccess")]
+        CodeCoverageSuccess,
+        #[serde(rename = "invalidBuildConfiguration")]
+        InvalidBuildConfiguration,
+        #[serde(rename = "coverageAnalyzerBuildNotFound")]
+        CoverageAnalyzerBuildNotFound,
+        #[serde(rename = "failedToRequeue")]
+        FailedToRequeue,
+        #[serde(rename = "buildBailedOut")]
+        BuildBailedOut,
+        #[serde(rename = "noCodeCoverageTask")]
+        NoCodeCoverageTask,
+        #[serde(rename = "mergeJobFailed")]
+        MergeJobFailed,
+        #[serde(rename = "mergeInvokerJobFailed")]
+        MergeInvokerJobFailed,
+        #[serde(rename = "monitorJobFailed")]
+        MonitorJobFailed,
+        #[serde(rename = "moduleMergeInvokerJobTimeout")]
+        ModuleMergeInvokerJobTimeout,
+        #[serde(rename = "monitorJobTimeout")]
+        MonitorJobTimeout,
+        #[serde(rename = "invalidCoverageInput")]
+        InvalidCoverageInput,
+    }
     #[doc = "Uri of build against which difference in coverage is computed"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
