@@ -42,6 +42,23 @@ impl AggregatedDataForResultTrend {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct AggregatedDataForResultTrendList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<AggregatedDataForResultTrend>,
+}
+impl AggregatedDataForResultTrendList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Result deatils for a particular test result outcome."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultDetailsByOutcome {
@@ -474,6 +491,23 @@ impl BuildCoverage {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct BuildCoverageList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<BuildCoverage>,
+}
+impl BuildCoverageList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Reference to a build."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildReference {
@@ -596,6 +630,13 @@ pub struct CodeCoverageSummary {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub coverage_data: Vec<CodeCoverageData>,
+    #[serde(
+        rename = "coverageDetailedSummaryStatus",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub coverage_detailed_summary_status:
+        Option<code_coverage_summary::CoverageDetailedSummaryStatus>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
     #[serde(
         rename = "deltaBuild",
@@ -614,6 +655,55 @@ impl CodeCoverageSummary {
 }
 pub mod code_coverage_summary {
     use super::*;
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum CoverageDetailedSummaryStatus {
+        #[serde(rename = "none")]
+        None,
+        #[serde(rename = "inProgress")]
+        InProgress,
+        #[serde(rename = "finalized")]
+        Finalized,
+        #[serde(rename = "pending")]
+        Pending,
+        #[serde(rename = "updateRequestQueued")]
+        UpdateRequestQueued,
+        #[serde(rename = "noModulesFound")]
+        NoModulesFound,
+        #[serde(rename = "numberOfFilesExceeded")]
+        NumberOfFilesExceeded,
+        #[serde(rename = "noInputFiles")]
+        NoInputFiles,
+        #[serde(rename = "buildCancelled")]
+        BuildCancelled,
+        #[serde(rename = "failedJobs")]
+        FailedJobs,
+        #[serde(rename = "moduleMergeJobTimeout")]
+        ModuleMergeJobTimeout,
+        #[serde(rename = "codeCoverageSuccess")]
+        CodeCoverageSuccess,
+        #[serde(rename = "invalidBuildConfiguration")]
+        InvalidBuildConfiguration,
+        #[serde(rename = "coverageAnalyzerBuildNotFound")]
+        CoverageAnalyzerBuildNotFound,
+        #[serde(rename = "failedToRequeue")]
+        FailedToRequeue,
+        #[serde(rename = "buildBailedOut")]
+        BuildBailedOut,
+        #[serde(rename = "noCodeCoverageTask")]
+        NoCodeCoverageTask,
+        #[serde(rename = "mergeJobFailed")]
+        MergeJobFailed,
+        #[serde(rename = "mergeInvokerJobFailed")]
+        MergeInvokerJobFailed,
+        #[serde(rename = "monitorJobFailed")]
+        MonitorJobFailed,
+        #[serde(rename = "moduleMergeInvokerJobTimeout")]
+        ModuleMergeInvokerJobTimeout,
+        #[serde(rename = "monitorJobTimeout")]
+        MonitorJobTimeout,
+        #[serde(rename = "invalidCoverageInput")]
+        InvalidCoverageInput,
+    }
     #[doc = "Uri of build against which difference in coverage is computed"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -750,6 +840,23 @@ pub struct FieldDetailsForTestResults {
     pub groups_for_field: Vec<serde_json::Value>,
 }
 impl FieldDetailsForTestResults {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct FieldDetailsForTestResultsList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<FieldDetailsForTestResults>,
+}
+impl FieldDetailsForTestResultsList {
     pub fn new() -> Self {
         Self::default()
     }
@@ -2051,6 +2158,23 @@ impl ShallowTestCaseResult {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ShallowTestCaseResultList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<ShallowTestCaseResult>,
+}
+impl ShallowTestCaseResultList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Reference to shared step workitem."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SharedStepModel {
@@ -2251,6 +2375,23 @@ pub mod test_attachment {
         CodeCoverage,
         #[serde(rename = "consoleLog")]
         ConsoleLog,
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestAttachmentList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestAttachment>,
+}
+impl TestAttachmentList {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Reference to test attachment."]
@@ -2644,6 +2785,23 @@ pub struct TestCaseResultIdentifier {
     pub test_run_id: Option<i32>,
 }
 impl TestCaseResultIdentifier {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestCaseResultList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestCaseResult>,
+}
+impl TestCaseResultList {
     pub fn new() -> Self {
         Self::default()
     }
@@ -3182,6 +3340,23 @@ impl TestMessageLogDetails {
 }
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestMessageLogDetailsList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestMessageLogDetails>,
+}
+impl TestMessageLogDetailsList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMethod {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub container: Option<String>,
@@ -3626,6 +3801,23 @@ pub struct TestResultSummary {
     pub total_runs_count: Option<i32>,
 }
 impl TestResultSummary {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestResultSummaryList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestResultSummary>,
+}
+impl TestResultSummaryList {
     pub fn new() -> Self {
         Self::default()
     }
@@ -4172,6 +4364,40 @@ impl TestRunCoverage {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestRunCoverageList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestRunCoverage>,
+}
+impl TestRunCoverageList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestRunList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestRun>,
+}
+impl TestRunList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Test run statistics."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunStatistic {
@@ -4392,6 +4618,23 @@ impl TestSummaryForWorkItem {
         Self::default()
     }
 }
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestSummaryForWorkItemList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestSummaryForWorkItem>,
+}
+impl TestSummaryForWorkItemList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Tag attached to a run or result."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestTag {
@@ -4400,6 +4643,23 @@ pub struct TestTag {
     pub name: Option<String>,
 }
 impl TestTag {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TestTagList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TestTag>,
+}
+impl TestTagList {
     pub fn new() -> Self {
         Self::default()
     }
@@ -4500,6 +4760,23 @@ pub struct WorkItemReference {
     pub web_url: Option<String>,
 }
 impl WorkItemReference {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct WorkItemReferenceList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<WorkItemReference>,
+}
+impl WorkItemReferenceList {
     pub fn new() -> Self {
         Self::default()
     }

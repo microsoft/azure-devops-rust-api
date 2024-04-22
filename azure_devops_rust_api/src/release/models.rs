@@ -2127,6 +2127,9 @@ impl DeploymentList {
 pub struct DeploymentManualInterventionPendingEvent {
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub approval: Option<ReleaseApproval>,
+    #[doc = ""]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<Deployment>,
     #[serde(
         rename = "emailRecipients",

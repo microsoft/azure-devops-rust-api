@@ -488,10 +488,57 @@ pub struct ApprovalsQueryParameters {
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub approval_ids: Vec<String>,
+    #[doc = "Query approvals based on approval status"]
+    #[serde(
+        rename = "approverStatus",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub approver_status: Option<approvals_query_parameters::ApproverStatus>,
+    #[doc = "Query approvals based on how many approvals to return."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    #[doc = "Query approvals based on list of approver IDs."]
+    #[serde(
+        rename = "userIds",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub user_ids: Vec<String>,
 }
 impl ApprovalsQueryParameters {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+pub mod approvals_query_parameters {
+    use super::*;
+    #[doc = "Query approvals based on approval status"]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum ApproverStatus {
+        #[serde(rename = "undefined")]
+        Undefined,
+        #[serde(rename = "uninitiated")]
+        Uninitiated,
+        #[serde(rename = "pending")]
+        Pending,
+        #[serde(rename = "approved")]
+        Approved,
+        #[serde(rename = "rejected")]
+        Rejected,
+        #[serde(rename = "skipped")]
+        Skipped,
+        #[serde(rename = "canceled")]
+        Canceled,
+        #[serde(rename = "timedOut")]
+        TimedOut,
+        #[serde(rename = "failed")]
+        Failed,
+        #[serde(rename = "completed")]
+        Completed,
+        #[serde(rename = "all")]
+        All,
     }
 }
 #[doc = ""]

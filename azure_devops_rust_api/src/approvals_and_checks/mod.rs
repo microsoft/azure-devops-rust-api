@@ -1688,6 +1688,9 @@ pub mod approvals {
                 project: project.into(),
                 approval_ids: None,
                 expand: None,
+                user_ids: None,
+                state: None,
+                top: None,
             }
         }
         #[doc = "Update approvals."]
@@ -1789,14 +1792,34 @@ pub mod approvals {
             pub(crate) project: String,
             pub(crate) approval_ids: Option<String>,
             pub(crate) expand: Option<String>,
+            pub(crate) user_ids: Option<String>,
+            pub(crate) state: Option<String>,
+            pub(crate) top: Option<i32>,
         }
         impl RequestBuilder {
+            #[doc = "List of approval Ids to get."]
             pub fn approval_ids(mut self, approval_ids: impl Into<String>) -> Self {
                 self.approval_ids = Some(approval_ids.into());
                 self
             }
+            #[doc = "Include these additional details in the returned objects."]
             pub fn expand(mut self, expand: impl Into<String>) -> Self {
                 self.expand = Some(expand.into());
+                self
+            }
+            #[doc = "List of user Ids approvals assigned to. Accepts either user Ids or user descriptors."]
+            pub fn user_ids(mut self, user_ids: impl Into<String>) -> Self {
+                self.user_ids = Some(user_ids.into());
+                self
+            }
+            #[doc = "Approval status. Returns approvals of any status if not provided"]
+            pub fn state(mut self, state: impl Into<String>) -> Self {
+                self.state = Some(state.into());
+                self
+            }
+            #[doc = "Maximum number of approvals to get."]
+            pub fn top(mut self, top: i32) -> Self {
+                self.top = Some(top);
                 self
             }
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -1834,6 +1857,19 @@ pub mod approvals {
                             req.url_mut()
                                 .query_pairs_mut()
                                 .append_pair("$expand", expand);
+                        }
+                        if let Some(user_ids) = &this.user_ids {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("userIds", user_ids);
+                        }
+                        if let Some(state) = &this.state {
+                            req.url_mut().query_pairs_mut().append_pair("state", state);
+                        }
+                        if let Some(top) = &this.top {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("top", &top.to_string());
                         }
                         let req_body = azure_core::EMPTY_BODY;
                         req.set_body(req_body);

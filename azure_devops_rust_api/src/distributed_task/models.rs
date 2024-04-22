@@ -1249,6 +1249,10 @@ pub mod elastic_node {
         Stopped,
         #[serde(rename = "reimaging")]
         Reimaging,
+        #[serde(rename = "unhealthyVm")]
+        UnhealthyVm,
+        #[serde(rename = "unhealthyVmssVm")]
+        UnhealthyVmssVm,
     }
     #[doc = "Users can force state changes to specific states (ToReimage, ToDelete, Save)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1293,6 +1297,10 @@ pub mod elastic_node {
         AssignedPendingDelete,
         #[serde(rename = "retryDelete")]
         RetryDelete,
+        #[serde(rename = "unhealthyVm")]
+        UnhealthyVm,
+        #[serde(rename = "unhealthyVmPendingDelete")]
+        UnhealthyVmPendingDelete,
     }
     #[doc = "State of the ElasticNode"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1337,6 +1345,10 @@ pub mod elastic_node {
         AssignedPendingDelete,
         #[serde(rename = "retryDelete")]
         RetryDelete,
+        #[serde(rename = "unhealthyVm")]
+        UnhealthyVm,
+        #[serde(rename = "unhealthyVmPendingDelete")]
+        UnhealthyVmPendingDelete,
     }
 }
 #[doc = ""]
@@ -1413,6 +1425,10 @@ pub mod elastic_node_settings {
         AssignedPendingDelete,
         #[serde(rename = "retryDelete")]
         RetryDelete,
+        #[serde(rename = "unhealthyVm")]
+        UnhealthyVm,
+        #[serde(rename = "unhealthyVmPendingDelete")]
+        UnhealthyVmPendingDelete,
     }
 }
 #[doc = "Data and settings for an elastic pool"]

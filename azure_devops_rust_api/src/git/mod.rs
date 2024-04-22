@@ -2640,12 +2640,12 @@ pub mod commits {
             pub(crate) include_statuses: Option<bool>,
         }
         impl RequestBuilder {
-            #[doc = "Number of commits to skip."]
+            #[doc = "Number of commits to skip. The value cannot exceed 3,000,000."]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Maximum number of commits to return."]
+            #[doc = "Maximum number of commits to return. The value cannot exceed 50,000."]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self

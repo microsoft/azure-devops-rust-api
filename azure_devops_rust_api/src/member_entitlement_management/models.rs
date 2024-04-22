@@ -1142,13 +1142,61 @@ impl OperationResult {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphMemberList {
     #[serde(
+        rename = "continuationToken",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub continuation_token: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub items: Vec<UserEntitlement>,
+    #[serde(
         default,
         skip_serializing_if = "Vec::is_empty",
         deserialize_with = "crate::serde::deserialize_null_default"
     )]
     pub members: Vec<UserEntitlement>,
+    #[serde(
+        rename = "totalCount",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub total_count: Option<i32>,
 }
 impl PagedGraphMemberList {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "A page of user entitlements"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct PagedUserEntitlementsList {
+    #[doc = "The continuation token for next page of data. Can be null, if no more data exists."]
+    #[serde(
+        rename = "continuationToken",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub continuation_token: Option<String>,
+    #[doc = "The requested user entitlement items."]
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub items: Vec<UserEntitlement>,
+    #[doc = "The total count of the existing user entitlement items."]
+    #[serde(
+        rename = "totalCount",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub total_count: Option<i32>,
+}
+impl PagedUserEntitlementsList {
     pub fn new() -> Self {
         Self::default()
     }

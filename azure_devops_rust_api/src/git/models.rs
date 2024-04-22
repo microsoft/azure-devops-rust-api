@@ -730,7 +730,7 @@ pub struct CommentPosition {
     #[doc = "The line number of a thread's position. Starts at 1."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub line: Option<i32>,
-    #[doc = "The character offset of a thread's position inside of a line. Starts at 0."]
+    #[doc = "The character offset of a thread's position inside of a line. Starts at 1."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub offset: Option<i32>,
 }
@@ -5891,6 +5891,13 @@ pub struct IdentityRefWithVote {
     #[doc = "Indicates if this reviewer is flagged for attention on this pull request."]
     #[serde(rename = "isFlagged", default, skip_serializing_if = "Option::is_none")]
     pub is_flagged: Option<bool>,
+    #[doc = "Indicates if this approve vote should still be handled even though vote didn't change."]
+    #[serde(
+        rename = "isReapprove",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_reapprove: Option<bool>,
     #[doc = "Indicates if this is a required reviewer for this pull request. <br /> Branches can have policies that require particular reviewers are required for pull requests."]
     #[serde(
         rename = "isRequired",
@@ -5923,6 +5930,7 @@ impl IdentityRefWithVote {
             identity_ref,
             has_declined: None,
             is_flagged: None,
+            is_reapprove: None,
             is_required: None,
             reviewer_url: None,
             vote: None,

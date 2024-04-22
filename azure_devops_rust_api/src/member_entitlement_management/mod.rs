@@ -2144,10 +2144,10 @@ pub mod user_entitlements {
         use futures::future::LocalBoxFuture as BoxFuture;
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PagedGraphMemberList> {
+            pub async fn into_body(self) -> azure_core::Result<models::PagedUserEntitlementsList> {
                 let bytes = self.0.into_body().collect().await?;
-                let body: models::PagedGraphMemberList =
-                    serde_json::from_slice(&bytes).map_err(|e| {
+                let body: models::PagedUserEntitlementsList = serde_json::from_slice(&bytes)
+                    .map_err(|e| {
                         azure_core::error::Error::full(
                             azure_core::error::ErrorKind::DataConversion,
                             e,
@@ -2210,7 +2210,7 @@ pub mod user_entitlements {
                 self.select = Some(select.into());
                 self
             }
-            #[doc = "Equality operators relating to searching user entitlements seperated by and clauses. Valid filters include: licenseId, licenseStatus, userType, and name. licenseId: filters based on license assignment using license names. i.e. licenseId eq 'Account-Stakeholder' or licenseId eq 'Account-Express'. licenseStatus: filters based on license status. currently only supports disabled. i.e. licenseStatus eq 'Disabled'. To get disabled basic licenses, you would pass (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled') userType: filters off identity type. Suppored types are member or guest i.e. userType eq 'member'. name: filters on if the user's display name or email contians given input. i.e. get all users with \"test\" in email or displayname is \"name eq 'test'\". A valid query could be: (licenseId eq 'Account-Stakeholder' or (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled')) and name eq 'test' and userType eq 'guest'."]
+            #[doc = "Equality operators relating to searching user entitlements separated by and clauses. Valid filters include: licenseId, licenseStatus, userType, and name. licenseId: filters based on license assignment using license names. i.e. licenseId eq 'Account-Stakeholder' or licenseId eq 'Account-Express'. licenseStatus: filters based on license status. currently only supports disabled. i.e. licenseStatus eq 'Disabled'. To get disabled basic licenses, you would pass (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled'). userType: filters off identity type. Supported types are member or guest i.e. userType eq 'member'. name: filters on if the user's display name or email contains given input. i.e. get all users with \"test\" in email or displayname is \"name eq 'test'\". A valid query could be: (licenseId eq 'Account-Stakeholder' or (licenseId eq 'Account-Express' and licenseStatus eq 'Disabled')) and name eq 'test' and userType eq 'guest'."]
             pub fn filter(mut self, filter: impl Into<String>) -> Self {
                 self.filter = Some(filter.into());
                 self
@@ -2273,8 +2273,9 @@ pub mod user_entitlements {
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
-            type Output = azure_core::Result<models::PagedGraphMemberList>;
-            type IntoFuture = BoxFuture<'static, azure_core::Result<models::PagedGraphMemberList>>;
+            type Output = azure_core::Result<models::PagedUserEntitlementsList>;
+            type IntoFuture =
+                BoxFuture<'static, azure_core::Result<models::PagedUserEntitlementsList>>;
             #[doc = "Returns a future that sends the request and returns the parsed response body."]
             #[doc = ""]
             #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
