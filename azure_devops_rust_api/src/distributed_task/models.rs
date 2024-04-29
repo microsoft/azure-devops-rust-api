@@ -2694,9 +2694,8 @@ pub mod issue {
 #[doc = "Represents a JSON object."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JObject {
-    #[doc = "Represents an abstract JSON token."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub item: Option<JToken>,
+    pub item: Option<String>,
     #[doc = "Gets the node type for this JToken."]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
@@ -7696,6 +7695,23 @@ pub struct TimelineRecordFeedLinesWrapper {
     pub value: Vec<String>,
 }
 impl TimelineRecordFeedLinesWrapper {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = ""]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct TimelineRecordList {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub count: Option<i32>,
+    #[serde(
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub value: Vec<TimelineRecord>,
+}
+impl TimelineRecordList {
     pub fn new() -> Self {
         Self::default()
     }

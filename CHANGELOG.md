@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Add missing `distributed_task` submodules:
+  - `events`
+  - `logs`
+  - `oidctoken`
+  - `records`
+
 ### [0.20.0]
 
 ### Changes
