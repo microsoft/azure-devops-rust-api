@@ -30,6 +30,7 @@ fn main() -> Result<()> {
             vec![
                 "artifacts/{VERSION}/feed.json",
                 "artifacts/{VERSION}/provenance.json",
+                "artifacts/{VERSION}/sbom.json",
             ],
             "artifacts",
         ),
@@ -93,10 +94,6 @@ fn main() -> Result<()> {
         (vec!["release/{VERSION}/release.json"], "release"),
         (vec!["search/{VERSION}/search.json"], "search"),
         (vec!["security/{VERSION}/security.json"], "security"),
-        (
-            vec!["serviceEndpoint/{VERSION}/serviceEndpoint.json"],
-            "service_endpoint",
-        ),
         (
             vec!["securityRoles/{VERSION}/securityRoles.json"],
             "security_roles",

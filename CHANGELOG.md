@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `logs`
   - `oidctoken`
   - `records`
+- Add missing `artifacts` SBOM-related data structures.
 
 ### [0.20.0]
 

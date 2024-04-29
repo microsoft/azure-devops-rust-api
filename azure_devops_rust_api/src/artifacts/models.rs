@@ -48,6 +48,174 @@ impl BuildPackage {
         Self::default()
     }
 }
+#[doc = "This holds the configuration for the ManifestTool. The values in this file are populated from the command line, config file and default."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct Configuration {
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "additionalComponentDetectorArgs",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub additional_component_detector_args: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "buildComponentPath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_component_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "buildDropPath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_drop_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "buildListFile",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub build_list_file: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "catalogFilePath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub catalog_file_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "configFilePath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub config_file_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "dockerImagesToScan",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub docker_images_to_scan: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "externalDocumentReferenceListFile",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub external_document_reference_list_file: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "hashAlgorithm",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub hash_algorithm: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "ignoreMissing",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ignore_missing: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "manifestDirPath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub manifest_dir_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "manifestInfo",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub manifest_info: Option<ConfigurationSetting>,
+    #[doc = "The action currently being performed by the manifest tool."]
+    #[serde(
+        rename = "manifestToolAction",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub manifest_tool_action: Option<configuration::ManifestToolAction>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "packageName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub package_name: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "packageVersion",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub package_version: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub parallelism: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "rootPathFilter",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub root_path_filter: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "telemetryFilePath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub telemetry_file_path: Option<ConfigurationSetting>,
+    #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+    #[serde(
+        rename = "validateSignature",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub validate_signature: Option<ConfigurationSetting>,
+}
+impl Configuration {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+pub mod configuration {
+    use super::*;
+    #[doc = "The action currently being performed by the manifest tool."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum ManifestToolAction {
+        #[serde(rename = "none")]
+        None,
+        #[serde(rename = "validate")]
+        Validate,
+        #[serde(rename = "generate")]
+        Generate,
+        #[serde(rename = "all")]
+        All,
+    }
+}
+#[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ConfigurationSetting {
+    #[doc = "The source where this setting came from."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    #[doc = "The actual value of the setting."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+impl ConfigurationSetting {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "A container for artifacts."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Feed {
@@ -589,6 +757,28 @@ impl FeedViewList {
         Self::default()
     }
 }
+#[doc = "Used to provide the filename and hash of the SBOM file to be added to the catalog file."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct FileHash {
+    #[doc = "The filename of the SBOM."]
+    #[serde(rename = "fileName", default, skip_serializing_if = "Option::is_none")]
+    pub file_name: Option<String>,
+    #[doc = "The string hash of the SBOM file."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub hash: Option<String>,
+    #[doc = "The HashAlgorithmName used to generate the hash of the file."]
+    #[serde(
+        rename = "hashAlgorithmName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub hash_algorithm_name: Option<String>,
+}
+impl FileHash {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = "Permissions for feed service-wide operations such as the creation of new feeds."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlobalPermission {
@@ -712,6 +902,21 @@ pub mod json_patch_operation {
         Copy,
         #[serde(rename = "test")]
         Test,
+    }
+}
+#[doc = "Defines a manifest name and version."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct ManifestInfo {
+    #[doc = "The name of the manifest."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[doc = "The version of the manifest."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub version: Option<String>,
+}
+impl ManifestInfo {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Core data about any package, including its id and version information and basic state."]
@@ -1410,6 +1615,99 @@ impl ReferenceLinks {
         Self::default()
     }
 }
+#[doc = "Represents a SBOM file object and contains additional properties related to the file."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct SbomFile {
+    #[doc = "The size of the SBOM file in bytes."]
+    #[serde(
+        rename = "fileSizeInBytes",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub file_size_in_bytes: Option<i64>,
+    #[doc = "The path where the final generated SBOM is placed."]
+    #[serde(
+        rename = "sbomFilePath",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sbom_file_path: Option<String>,
+    #[doc = "Defines a manifest name and version."]
+    #[serde(
+        rename = "sbomFormatName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub sbom_format_name: Option<ManifestInfo>,
+}
+impl SbomFile {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "The telemetry that is logged to a file/console for the given SBOM execution."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct SbomTelemetry {
+    #[doc = "All available bsi data from the task build execution which includes build and system environment variables like repository and build information."]
+    #[serde(rename = "bsiData", default, skip_serializing_if = "Option::is_none")]
+    pub bsi_data: Option<serde_json::Value>,
+    #[doc = "The source of the bsi data."]
+    #[serde(rename = "bsiSource", default, skip_serializing_if = "Option::is_none")]
+    pub bsi_source: Option<String>,
+    #[doc = "The end to end results of the extension task."]
+    #[serde(
+        rename = "e2ETaskResult",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub e2_e_task_result: Option<String>,
+    #[doc = "This holds the configuration for the ManifestTool. The values in this file are populated from the command line, config file and default."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub parameters: Option<Configuration>,
+    #[doc = "The result of the execution"]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub result: Option<String>,
+    #[doc = "A list of the SBOM formats and related file properties that was used in the generation/validation of the SBOM."]
+    #[serde(
+        rename = "sbomFormatsUsed",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "crate::serde::deserialize_null_default"
+    )]
+    pub sbom_formats_used: Vec<SbomFile>,
+    #[doc = "Any internal switches and their value that were used during the execution. A switch can be something that was provided through a configuraiton or an environment variable."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub switches: Option<serde_json::Value>,
+    #[doc = "Error messages that came from the extension task."]
+    #[serde(
+        rename = "taskErrorMessage",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub task_error_message: Option<String>,
+    #[doc = "The name of the task that logged SBOM telemetry"]
+    #[serde(rename = "taskName", default, skip_serializing_if = "Option::is_none")]
+    pub task_name: Option<String>,
+    #[doc = "The unique id for this telemetry"]
+    #[serde(
+        rename = "telemetryId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub telemetry_id: Option<String>,
+    #[doc = "The result of the tool as a numeric value."]
+    #[serde(
+        rename = "toolExecutionResult",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub tool_execution_result: Option<i32>,
+}
+impl SbomTelemetry {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SaveCachedPackagesData {
@@ -1468,6 +1766,61 @@ pub struct SessionResponse {
     pub session_name: Option<String>,
 }
 impl SessionResponse {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+#[doc = "The base reponse object for all responses from the signing api."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct SignResponseBase {
+    #[doc = "The customer correlation id that is sent to ESRP for correlating the current request to ESRP."]
+    #[serde(
+        rename = "customerCorrelationId",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub customer_correlation_id: Option<String>,
+    #[doc = "If this is an error response, it will have more information about the error."]
+    #[serde(rename = "errorInfo", default, skip_serializing_if = "Option::is_none")]
+    pub error_info: Option<String>,
+    #[doc = "The result of the response."]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub result: Option<sign_response_base::Result>,
+}
+impl SignResponseBase {
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+pub mod sign_response_base {
+    use super::*;
+    #[doc = "The result of the response."]
+    #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+    pub enum Result {
+        #[serde(rename = "success")]
+        Success,
+        #[serde(rename = "failure")]
+        Failure,
+        #[serde(rename = "inProgress")]
+        InProgress,
+        #[serde(rename = "failCanRetry")]
+        FailCanRetry,
+    }
+}
+#[doc = "The response returned by the sign status api."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct SignStatusResponse {
+    #[serde(flatten)]
+    pub sign_response_base: SignResponseBase,
+    #[doc = "The pre-signed download url used to download the signed catalog file."]
+    #[serde(
+        rename = "downloadUrl",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub download_url: Option<String>,
+}
+impl SignStatusResponse {
     pub fn new() -> Self {
         Self::default()
     }
