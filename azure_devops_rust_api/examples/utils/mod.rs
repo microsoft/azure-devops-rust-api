@@ -1,13 +1,14 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+use anyhow::Result;
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
 use azure_devops_rust_api::Credential;
 use azure_identity::DefaultAzureCredentialBuilder;
 use std::sync::Arc;
 
-fn authenticate_with_default_credential() -> Credential {
+fn authenticate_with_default_credential() -> Result<Credential> {
     println!("Authenticate using auto-refreshing DefaultAzureCredential");
     // `DefaultAzureCredential` can authenticate using one of:
     // - `EnvironmentCredential`
@@ -21,19 +22,19 @@ fn authenticate_with_default_credential() -> Credential {
         DefaultAzureCredentialBuilder::new()
             .exclude_environment_credential()
             .exclude_managed_identity_credential()
-            .build(),
+            .build()?,
     );
 
-    Credential::from_token_credential(default_azure_credential)
+    Ok(Credential::from_token_credential(default_azure_credential))
 }
 
 #[allow(dead_code)]
-pub fn get_credential() -> Credential {
+pub fn get_credential() -> Result<Credential> {
     // Get authentication credential either from a PAT ("ADO_TOKEN") or via the az cli
     match std::env::var("ADO_TOKEN") {
         Ok(token) if !token.is_empty() => {
             println!("Authenticate using PAT provided via $ADO_TOKEN");
-            Credential::from_pat(token)
+            Ok(Credential::from_pat(token))
         }
         _ => authenticate_with_default_credential(),
     }
