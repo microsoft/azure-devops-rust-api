@@ -6,6 +6,11 @@ boxed = [
         "triggeredByBuild",
     ],
     [
+        "../../vsts-rest-api-specs.patched/specification/distributedTask/7.1/task.json",
+        "TaskOrchestrationContainer",
+        "rollback",
+    ],
+    [
         "../../vsts-rest-api-specs.patched/specification/distributedTask/7.1/taskAgent.json",
         "TaskOrchestrationContainer",
         "rollback",

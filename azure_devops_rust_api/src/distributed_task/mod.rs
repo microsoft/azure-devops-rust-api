@@ -155,17 +155,29 @@ impl Client {
     pub fn environments_client(&self) -> environments::Client {
         environments::Client(self.clone())
     }
+    pub fn events_client(&self) -> events::Client {
+        events::Client(self.clone())
+    }
     pub fn kubernetes_client(&self) -> kubernetes::Client {
         kubernetes::Client(self.clone())
     }
+    pub fn logs_client(&self) -> logs::Client {
+        logs::Client(self.clone())
+    }
     pub fn nodes_client(&self) -> nodes::Client {
         nodes::Client(self.clone())
+    }
+    pub fn oidctoken_client(&self) -> oidctoken::Client {
+        oidctoken::Client(self.clone())
     }
     pub fn pools_client(&self) -> pools::Client {
         pools::Client(self.clone())
     }
     pub fn queues_client(&self) -> queues::Client {
         queues::Client(self.clone())
+    }
+    pub fn records_client(&self) -> records::Client {
+        records::Client(self.clone())
     }
     pub fn requests_client(&self) -> requests::Client {
         requests::Client(self.clone())
@@ -181,6 +193,747 @@ impl Client {
     }
     pub fn yamlschema_client(&self) -> yamlschema::Client {
         yamlschema::Client(self.clone())
+    }
+}
+pub mod events {
+    use super::models;
+    #[cfg(not(target_arch = "wasm32"))]
+    use futures::future::BoxFuture;
+    #[cfg(target_arch = "wasm32")]
+    use futures::future::LocalBoxFuture as BoxFuture;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Send a pipeline job event to be processed by the execution plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The event data to be processed by the plan."]
+        #[doc = "* `scope_identifier`: The project GUID to scope the request"]
+        #[doc = "* `hub_name`: The name of the server hub. Common examples: \"build\", \"rm\", \"checks\""]
+        #[doc = "* `plan_id`: The ID of the plan."]
+        pub fn post_event(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::JobEvent>,
+            scope_identifier: impl Into<String>,
+            hub_name: impl Into<String>,
+            plan_id: impl Into<String>,
+        ) -> post_event::RequestBuilder {
+            post_event::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                scope_identifier: scope_identifier.into(),
+                hub_name: hub_name.into(),
+                plan_id: plan_id.into(),
+            }
+        }
+    }
+    pub mod post_event {
+        use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::JobEvent,
+            pub(crate) scope_identifier: String,
+            pub(crate) hub_name: String,
+            pub(crate) plan_id: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/events",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.scope_identifier,
+                            &this.hub_name,
+                            &this.plan_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<()>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move {
+                    let _rsp = self.send().await?;
+                    Ok(())
+                })
+            }
+        }
+    }
+}
+pub mod oidctoken {
+    use super::models;
+    #[cfg(not(target_arch = "wasm32"))]
+    use futures::future::BoxFuture;
+    #[cfg(target_arch = "wasm32")]
+    use futures::future::LocalBoxFuture as BoxFuture;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `scope_identifier`: The project GUID to scope the request"]
+        #[doc = "* `hub_name`: The name of the server hub. Common examples: \"build\", \"rm\", \"checks\""]
+        pub fn create(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<serde_json::Value>,
+            scope_identifier: impl Into<String>,
+            hub_name: impl Into<String>,
+            plan_id: impl Into<String>,
+            job_id: impl Into<String>,
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                scope_identifier: scope_identifier.into(),
+                hub_name: hub_name.into(),
+                plan_id: plan_id.into(),
+                job_id: job_id.into(),
+                service_connection_id: None,
+            }
+        }
+    }
+    pub mod create {
+        use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::TaskHubOidcToken> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::TaskHubOidcToken =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: serde_json::Value,
+            pub(crate) scope_identifier: String,
+            pub(crate) hub_name: String,
+            pub(crate) plan_id: String,
+            pub(crate) job_id: String,
+            pub(crate) service_connection_id: Option<String>,
+        }
+        impl RequestBuilder {
+            pub fn service_connection_id(
+                mut self,
+                service_connection_id: impl Into<String>,
+            ) -> Self {
+                self.service_connection_id = Some(service_connection_id.into());
+                self
+            }
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/jobs/{}/oidctoken",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.scope_identifier,
+                            &this.hub_name,
+                            &this.plan_id,
+                            &this.job_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        if let Some(service_connection_id) = &this.service_connection_id {
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("serviceConnectionId", service_connection_id);
+                        }
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TaskHubOidcToken>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::TaskHubOidcToken>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+}
+pub mod logs {
+    use super::models;
+    #[cfg(not(target_arch = "wasm32"))]
+    use futures::future::BoxFuture;
+    #[cfg(target_arch = "wasm32")]
+    use futures::future::LocalBoxFuture as BoxFuture;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Create a log and connect it to a pipeline run's execution plan."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: An object that contains information about log's path."]
+        #[doc = "* `scope_identifier`: The project GUID to scope the request"]
+        #[doc = "* `hub_name`: The name of the server hub. Common examples: \"build\", \"rm\", \"checks\""]
+        #[doc = "* `plan_id`: The ID of the plan."]
+        pub fn create(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::TaskLog>,
+            scope_identifier: impl Into<String>,
+            hub_name: impl Into<String>,
+            plan_id: impl Into<String>,
+        ) -> create::RequestBuilder {
+            create::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                scope_identifier: scope_identifier.into(),
+                hub_name: hub_name.into(),
+                plan_id: plan_id.into(),
+            }
+        }
+        #[doc = "Append a log to a task's log. The log should be sent in the body of the request as a TaskLog object stream."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: Stream to upload"]
+        #[doc = "* `scope_identifier`: The project GUID to scope the request"]
+        #[doc = "* `hub_name`: The name of the server hub. Common examples: \"build\", \"rm\", \"checks\""]
+        #[doc = "* `plan_id`: The ID of the plan."]
+        #[doc = "* `log_id`: The ID of the log."]
+        pub fn append_log_content(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<String>,
+            scope_identifier: impl Into<String>,
+            hub_name: impl Into<String>,
+            plan_id: impl Into<String>,
+            log_id: i32,
+        ) -> append_log_content::RequestBuilder {
+            append_log_content::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                scope_identifier: scope_identifier.into(),
+                hub_name: hub_name.into(),
+                plan_id: plan_id.into(),
+                log_id,
+            }
+        }
+    }
+    pub mod create {
+        use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::TaskLog> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::TaskLog = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::TaskLog,
+            pub(crate) scope_identifier: String,
+            pub(crate) hub_name: String,
+            pub(crate) plan_id: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/logs",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.scope_identifier,
+                            &this.hub_name,
+                            &this.plan_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TaskLog>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::TaskLog>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+    pub mod append_log_content {
+        use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::TaskLog> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::TaskLog = serde_json::from_slice(&bytes).map_err(|e| {
+                    azure_core::error::Error::full(
+                        azure_core::error::ErrorKind::DataConversion,
+                        e,
+                        format!(
+                            "Failed to deserialize response:\n{}",
+                            String::from_utf8_lossy(&bytes)
+                        ),
+                    )
+                })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: String,
+            pub(crate) scope_identifier: String,
+            pub(crate) hub_name: String,
+            pub(crate) plan_id: String,
+            pub(crate) log_id: i32,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/logs/{}",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.scope_identifier,
+                            &this.hub_name,
+                            &this.plan_id,
+                            &this.log_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/octet-stream");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TaskLog>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::TaskLog>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
+    }
+}
+pub mod records {
+    use super::models;
+    #[cfg(not(target_arch = "wasm32"))]
+    use futures::future::BoxFuture;
+    #[cfg(target_arch = "wasm32")]
+    use futures::future::LocalBoxFuture as BoxFuture;
+    pub struct Client(pub(crate) super::Client);
+    impl Client {
+        #[doc = "Update timeline records if they already exist, otherwise create new ones for the same timeline."]
+        #[doc = ""]
+        #[doc = "Arguments:"]
+        #[doc = "* `organization`: The name of the Azure DevOps organization."]
+        #[doc = "* `body`: The array of timeline records to be updated."]
+        #[doc = "* `scope_identifier`: The project GUID to scope the request"]
+        #[doc = "* `hub_name`: The name of the server hub. Common examples: \"build\", \"rm\", \"checks\""]
+        #[doc = "* `plan_id`: The ID of the plan."]
+        #[doc = "* `timeline_id`: The ID of the timeline."]
+        pub fn update(
+            &self,
+            organization: impl Into<String>,
+            body: impl Into<models::VssJsonCollectionWrapper>,
+            scope_identifier: impl Into<String>,
+            hub_name: impl Into<String>,
+            plan_id: impl Into<String>,
+            timeline_id: impl Into<String>,
+        ) -> update::RequestBuilder {
+            update::RequestBuilder {
+                client: self.0.clone(),
+                organization: organization.into(),
+                body: body.into(),
+                scope_identifier: scope_identifier.into(),
+                hub_name: hub_name.into(),
+                plan_id: plan_id.into(),
+                timeline_id: timeline_id.into(),
+            }
+        }
+    }
+    pub mod update {
+        use super::models;
+        #[cfg(not(target_arch = "wasm32"))]
+        use futures::future::BoxFuture;
+        #[cfg(target_arch = "wasm32")]
+        use futures::future::LocalBoxFuture as BoxFuture;
+        pub struct Response(azure_core::Response);
+        impl Response {
+            pub async fn into_body(self) -> azure_core::Result<models::TimelineRecordList> {
+                let bytes = self.0.into_body().collect().await?;
+                let body: models::TimelineRecordList =
+                    serde_json::from_slice(&bytes).map_err(|e| {
+                        azure_core::error::Error::full(
+                            azure_core::error::ErrorKind::DataConversion,
+                            e,
+                            format!(
+                                "Failed to deserialize response:\n{}",
+                                String::from_utf8_lossy(&bytes)
+                            ),
+                        )
+                    })?;
+                Ok(body)
+            }
+            pub fn into_raw_response(self) -> azure_core::Response {
+                self.0
+            }
+            pub fn as_raw_response(&self) -> &azure_core::Response {
+                &self.0
+            }
+        }
+        impl From<Response> for azure_core::Response {
+            fn from(rsp: Response) -> Self {
+                rsp.into_raw_response()
+            }
+        }
+        impl AsRef<azure_core::Response> for Response {
+            fn as_ref(&self) -> &azure_core::Response {
+                self.as_raw_response()
+            }
+        }
+        #[derive(Clone)]
+        #[doc = r" `RequestBuilder` provides a mechanism for setting optional parameters on a request."]
+        #[doc = r""]
+        #[doc = r" Each `RequestBuilder` parameter method call returns `Self`, so setting of multiple"]
+        #[doc = r" parameters can be chained."]
+        #[doc = r""]
+        #[doc = r" The building of a request is typically finalized by invoking `.await` on"]
+        #[doc = r" `RequestBuilder`. This implicitly invokes the [`IntoFuture::into_future()`](#method.into_future)"]
+        #[doc = r" method, which converts `RequestBuilder` into a future that executes the request"]
+        #[doc = r" operation and returns a `Result` with the parsed response."]
+        #[doc = r""]
+        #[doc = r" If you need lower-level access to the raw response details (e.g. to inspect"]
+        #[doc = r" response headers or raw body data) then you can finalize the request using the"]
+        #[doc = r" [`RequestBuilder::send()`] method which returns a future that resolves to a lower-level"]
+        #[doc = r" [`Response`] value."]
+        pub struct RequestBuilder {
+            pub(crate) client: super::super::Client,
+            pub(crate) organization: String,
+            pub(crate) body: models::VssJsonCollectionWrapper,
+            pub(crate) scope_identifier: String,
+            pub(crate) hub_name: String,
+            pub(crate) plan_id: String,
+            pub(crate) timeline_id: String,
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let url = azure_core::Url::parse(&format!(
+                            "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/timelines/{}/records",
+                            this.client.endpoint(),
+                            &this.organization,
+                            &this.scope_identifier,
+                            &this.hub_name,
+                            &this.plan_id,
+                            &this.timeline_id
+                        ))?;
+                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                        }
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                        req.insert_header("content-type", "application/json");
+                        let req_body = azure_core::to_json(&this.body)?;
+                        req.set_body(req_body);
+                        Ok(Response(this.client.send(&mut req).await?))
+                    }
+                })
+            }
+        }
+        impl std::future::IntoFuture for RequestBuilder {
+            type Output = azure_core::Result<models::TimelineRecordList>;
+            type IntoFuture = BoxFuture<'static, azure_core::Result<models::TimelineRecordList>>;
+            #[doc = "Returns a future that sends the request and returns the parsed response body."]
+            #[doc = ""]
+            #[doc = "You should not normally call this method directly, simply invoke `.await` which implicitly calls `IntoFuture::into_future`."]
+            #[doc = ""]
+            #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
+            fn into_future(self) -> Self::IntoFuture {
+                Box::pin(async move { self.send().await?.into_body().await })
+            }
+        }
     }
 }
 pub mod pools {
