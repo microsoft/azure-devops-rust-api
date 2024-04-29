@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
+- Update `azure_core`, `azure_identity` to 0.20.
 - Update `vsts-rest-api-specs` to latest version
   - Additional parameters in `approvals_and_checks::ApprovalQueryParameters`
     - `approver_status`
