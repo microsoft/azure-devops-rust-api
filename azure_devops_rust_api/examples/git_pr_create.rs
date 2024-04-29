@@ -13,7 +13,7 @@ mod utils;
 #[tokio::main]
 async fn main() -> Result<()> {
     // Get authentication credential
-    let credential = utils::get_credential();
+    let credential = utils::get_credential()?;
 
     const USAGE: &str =
         "Usage: git_pr_create <repository-name> <src_branch> <target_branch> <title> <description>";

@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
+- Update `azure_core`, `azure_identity` to 0.20.
+  - Change example code `util::get_credential` return type from `Credential` to `Result<Credential>`,
+    as `DefaultAzureCredentialBuilder::build()` is now fallible.
+  - Reinstate wasm build in CI pipeline.
+  - Fix `telemetry` code wasm build. 
 - Update `vsts-rest-api-specs` to latest version
   - Additional parameters in `approvals_and_checks::ApprovalQueryParameters`
     - `approver_status`

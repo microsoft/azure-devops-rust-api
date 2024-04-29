@@ -27,7 +27,8 @@ impl RequestLogger {
     }
 }
 
-#[async_trait]
+#[cfg_attr(target_arch = "wasm32", async_trait(?Send))]
+#[cfg_attr(not(target_arch = "wasm32"), async_trait)]
 impl azure_core::Policy for RequestLogger {
     async fn send(
         &self,

@@ -174,7 +174,7 @@ fn display_workitems(workitems: &[WorkItem]) {
 #[tokio::main]
 async fn main() -> Result<()> {
     // Get authentication credential
-    let credential = utils::get_credential();
+    let credential = utils::get_credential()?;
 
     // Get ADO configuration via environment variables
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
