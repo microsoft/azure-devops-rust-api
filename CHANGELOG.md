@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.21.0]
+
 ### Changes
 
-- Updated `autorust` code generator to latest version from `azure-sdk-for-rust`
+- Update `autorust` code generator to latest version from `azure-sdk-for-rust`.
 
 ### [0.20.1]
 
@@ -497,7 +499,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...HEAD
+[0.21.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.1...0.21.0
 [0.20.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.0...0.20.1
 [0.20.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.2...0.20.0
 [0.19.2]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.1...0.19.2
