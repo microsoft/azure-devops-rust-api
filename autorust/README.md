@@ -1,13 +1,22 @@
 # AutoRust [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 
-A code generator similar to [AutoRest](https://github.com/azure/autorest), but is written in Rust to generate Rust code. It supports specifications found in [Azure/azure-rest-api-specs/specification](https://github.com/Azure/azure-rest-api-specs/tree/master/specification).
+A code generator similar to [AutoRest](https://github.com/azure/autorest), but is written in Rust to generate Rust code.
+
+This is a fork of [`autorust` in azure-sdk-for-rust](https://github.com/Azure/azure-sdk-for-rust/tree/main/services/autorust), and has a few modifications to work for the Azure DevOps REST API specifications.
 
 ## Building
+
+To build the autorust code:
 
 ```sh
 cargo build
 ```
 
-### Formatting
+## Running
 
-The generated code is not formatted. To format the generated code, run [cargo fmt](https://github.com/rust-lang/rustfmt#usage).
+To autogenerate the `azure_devops_rust_api` code:
+
+```sh
+cargo run --bin ado-autorust --release
+```
+

@@ -83,9 +83,12 @@ export ADO_PROJECT=<project-name>
 
 To run the examples you need to provide authentication credentials either via:
 
+- The `az` CLI, where you just need to have authenticated by running `az login` before running the examples.
 - A [Personal Access Token (PAT)](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate), provided via the environment variable `ADO_TOKEN`
-- The `az` CLI, where you just need to have authenticated by running `az login` before
-  running the examples.
+  > Note: A personal access token contains your security credentials for Azure DevOps.
+  > A PAT identifies you, your accessible organizations, and scopes of access.
+  > As such, they're as critical as passwords, so you should treat them the same way.
+  > When creating a PAT only grant it the minimum required scopes, and set the expiry time to be short.
 
 Run the example via `cargo run --example`. You will need to enable the features required
 by the example.  If you don't specify the necessary features you do get a helpful error

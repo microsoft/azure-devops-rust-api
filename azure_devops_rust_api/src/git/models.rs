@@ -19,7 +19,6 @@ pub struct AdvSecEnablementStatus {
     #[serde(
         rename = "changedOnDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_on_date: Option<time::OffsetDateTime>,
@@ -30,7 +29,6 @@ pub struct AdvSecEnablementStatus {
     #[serde(
         rename = "enabledChangedOnDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub enabled_changed_on_date: Option<time::OffsetDateTime>,
@@ -218,7 +216,6 @@ pub struct Attachment {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -254,8 +251,8 @@ pub struct AttachmentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Attachment>,
 }
@@ -309,7 +306,6 @@ pub struct BillableCommitterDetail {
     #[serde(
         rename = "commitTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub commit_time: Option<time::OffsetDateTime>,
@@ -327,7 +323,6 @@ pub struct BillableCommitterDetail {
     #[serde(
         rename = "pushedTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub pushed_time: Option<time::OffsetDateTime>,
@@ -463,8 +458,8 @@ pub struct ChangeList {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<Change>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -478,14 +473,13 @@ pub struct ChangeList {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub notes: Vec<CheckinNote>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -501,7 +495,6 @@ pub struct ChangeList {
     #[serde(
         rename = "sortDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub sort_date: Option<time::OffsetDateTime>,
@@ -554,8 +547,8 @@ pub struct ChangeListSearchCriteria {
     #[serde(
         rename = "itemPaths",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub item_paths: Vec<String>,
     #[doc = "Version of the items to search"]
@@ -628,7 +621,6 @@ pub struct Comment {
     #[serde(
         rename = "lastContentUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_content_updated_date: Option<time::OffsetDateTime>,
@@ -636,7 +628,6 @@ pub struct Comment {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -651,7 +642,6 @@ pub struct Comment {
     #[serde(
         rename = "publishedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -659,8 +649,8 @@ pub struct Comment {
     #[serde(
         rename = "usersLiked",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub users_liked: Vec<IdentityRef>,
 }
@@ -714,8 +704,8 @@ pub struct CommentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Comment>,
 }
@@ -748,8 +738,8 @@ pub struct CommentThread {
     #[doc = "A list of the comments."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<Comment>,
     #[doc = "The comment thread id."]
@@ -765,7 +755,6 @@ pub struct CommentThread {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -776,7 +765,6 @@ pub struct CommentThread {
     #[serde(
         rename = "publishedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -978,8 +966,8 @@ pub struct FileDiff {
     #[serde(
         rename = "lineDiffBlocks",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub line_diff_blocks: Vec<LineDiffBlock>,
     #[doc = "Original path of item if different from current path."]
@@ -1031,8 +1019,8 @@ pub struct FileDiffsCriteria {
     #[serde(
         rename = "fileDiffParams",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub file_diff_params: Vec<FileDiffParams>,
     #[doc = "Commit ID of the target version"]
@@ -1221,8 +1209,8 @@ pub struct GitAsyncRefOperationSource {
     #[serde(
         rename = "commitList",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commit_list: Vec<GitCommitRef>,
     #[doc = "Id of the pull request to cherry pick or revert"]
@@ -1356,8 +1344,8 @@ pub struct GitBranchStatsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitBranchStats>,
 }
@@ -1440,8 +1428,8 @@ pub struct GitCommitChanges {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
 }
@@ -1485,8 +1473,8 @@ pub struct GitCommitDiffs {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
     #[serde(
@@ -1525,8 +1513,8 @@ pub struct GitCommitRef {
     #[doc = "An enumeration of the changes included with the commit."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
     #[doc = "Comment or message of the commit."]
@@ -1555,8 +1543,8 @@ pub struct GitCommitRef {
     #[doc = "An enumeration of the parent commit IDs for this commit."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
     #[doc = ""]
@@ -1568,8 +1556,8 @@ pub struct GitCommitRef {
     #[doc = "A list of status metadata from services and extensions that may associate additional information to the commit."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub statuses: Vec<GitStatus>,
     #[doc = "REST URL for this resource."]
@@ -1579,8 +1567,8 @@ pub struct GitCommitRef {
     #[serde(
         rename = "workItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<ResourceRef>,
 }
@@ -1596,8 +1584,8 @@ pub struct GitCommitRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitCommitRef>,
 }
@@ -1617,8 +1605,8 @@ pub struct GitCommitToCreate {
     #[serde(
         rename = "pathActions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub path_actions: Vec<GitPathAction>,
 }
@@ -1701,7 +1689,6 @@ pub struct GitConflict {
     #[serde(
         rename = "resolvedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub resolved_date: Option<time::OffsetDateTime>,
@@ -2266,7 +2253,6 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -2276,7 +2262,6 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -2300,8 +2285,8 @@ pub struct GitDeletedRepositoryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitDeletedRepository>,
 }
@@ -2317,8 +2302,8 @@ pub struct GitFilePathsCollection {
     pub commit_id: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub paths: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2336,8 +2321,8 @@ pub struct GitForkOperationStatusDetail {
     #[serde(
         rename = "allSteps",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub all_steps: Vec<String>,
     #[doc = "Index into AllSteps for the current step"]
@@ -2404,8 +2389,8 @@ pub struct GitForkSyncRequest {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2439,8 +2424,8 @@ pub struct GitForkSyncRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitForkSyncRequest>,
 }
@@ -2459,8 +2444,8 @@ pub struct GitForkSyncRequestParameters {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
 }
@@ -2581,8 +2566,8 @@ pub struct GitImportRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitImportRequest>,
 }
@@ -2631,8 +2616,8 @@ pub struct GitImportStatusDetail {
     #[serde(
         rename = "allSteps",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub all_steps: Vec<String>,
     #[doc = "Index into AllSteps for the current step"]
@@ -2842,8 +2827,8 @@ pub struct GitItemList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitItem>,
 }
@@ -2873,8 +2858,8 @@ pub struct GitItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub item_descriptors: Vec<GitItemDescriptor>,
     #[doc = "Whether to include shallow ref to commit that last changed each item"]
@@ -2898,8 +2883,8 @@ pub struct GitItemsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitItems>,
 }
@@ -2929,22 +2914,21 @@ pub struct GitLastChangeTreeItems {
     #[doc = "The list of commits referenced by Items, if they were requested."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "The last change of items."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<GitLastChangeItem>,
     #[doc = "The last explored time, in case the result is not comprehensive. Null otherwise."]
     #[serde(
         rename = "lastExploredTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_explored_time: Option<time::OffsetDateTime>,
@@ -3057,8 +3041,8 @@ pub struct GitMergeParameters {
     #[doc = "An enumeration of the parent commit IDs for the merge  commit."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
 }
@@ -3180,8 +3164,8 @@ pub struct GitPolicyConfigurationResponse {
     #[serde(
         rename = "policyConfigurations",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub policy_configurations: Vec<PolicyConfiguration>,
 }
@@ -3217,7 +3201,6 @@ pub struct GitPullRequest {
     #[serde(
         rename = "closedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub closed_date: Option<time::OffsetDateTime>,
@@ -3231,8 +3214,8 @@ pub struct GitPullRequest {
     #[doc = "The commits contained in the pull request."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "Preferences about how the pull request should be completed."]
@@ -3246,7 +3229,6 @@ pub struct GitPullRequest {
     #[serde(
         rename = "completionQueueTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completion_queue_time: Option<time::OffsetDateTime>,
@@ -3279,8 +3261,8 @@ pub struct GitPullRequest {
     #[doc = "The labels associated with the pull request."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub labels: Vec<WebApiTagDefinition>,
     #[doc = "Provides properties that describe a Git commit and associated metadata."]
@@ -3346,8 +3328,8 @@ pub struct GitPullRequest {
     #[doc = "A list of reviewers on the pull request along with the state of their votes."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityRefWithVote>,
     #[doc = "The name of the source branch of the pull request."]
@@ -3374,8 +3356,8 @@ pub struct GitPullRequest {
     #[serde(
         rename = "workItemRefs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_refs: Vec<ResourceRef>,
 }
@@ -3551,8 +3533,8 @@ pub struct GitPullRequestCommentThreadList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestCommentThread>,
 }
@@ -3568,8 +3550,8 @@ pub struct GitPullRequestCompletionOptions {
     #[serde(
         rename = "autoCompleteIgnoreConfigIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub auto_complete_ignore_config_ids: Vec<i32>,
     #[doc = "If true, policies will be explicitly bypassed while the pull request is completed."]
@@ -3661,8 +3643,8 @@ pub struct GitPullRequestCreateOptions {
     #[doc = "The labels associated with the pull request."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub labels: Vec<WebApiCreateTagRequestData>,
     #[doc = "The name of the source branch of the pull request."]
@@ -3691,15 +3673,15 @@ pub struct GitPullRequestCreateOptions {
     #[serde(
         rename = "workItemRefs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_refs: Vec<ResourceRef>,
     #[doc = "A list of reviewers on the pull request."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityId>,
 }
@@ -3732,15 +3714,15 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "changeList",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub change_list: Vec<GitPullRequestChange>,
     #[doc = "The commits included with the pull request iteration."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "Provides properties that describe a Git commit and associated metadata."]
@@ -3754,7 +3736,6 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -3809,7 +3790,6 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "updatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
@@ -3847,8 +3827,8 @@ pub struct GitPullRequestIterationChanges {
     #[serde(
         rename = "changeEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub change_entries: Vec<GitPullRequestChange>,
     #[doc = "Value to specify as skip to get the next page of changes.  This will be zero if there are no more changes."]
@@ -3870,8 +3850,8 @@ pub struct GitPullRequestIterationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestIteration>,
 }
@@ -3887,8 +3867,8 @@ pub struct GitPullRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequest>,
 }
@@ -3932,15 +3912,15 @@ pub struct GitPullRequestQuery {
     #[doc = "The queries to perform."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub queries: Vec<GitPullRequestQueryInput>,
     #[doc = "The results of the queries. This matches the QueryInputs list so Results\\[n\\] are the results of QueryInputs\\[n\\]. Each entry in the list is a dictionary of commit->pull requests."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<serde_json::Value>,
 }
@@ -3955,8 +3935,8 @@ pub struct GitPullRequestQueryInput {
     #[doc = "The list of commit IDs to search for."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<String>,
     #[doc = "The type of query to perform."]
@@ -4016,7 +3996,6 @@ pub struct GitPullRequestSearchCriteria {
     #[serde(
         rename = "maxTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_time: Option<time::OffsetDateTime>,
@@ -4024,7 +4003,6 @@ pub struct GitPullRequestSearchCriteria {
     #[serde(
         rename = "minTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub min_time: Option<time::OffsetDateTime>,
@@ -4132,8 +4110,8 @@ pub struct GitPullRequestStatusList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestStatus>,
 }
@@ -4154,8 +4132,8 @@ pub struct GitPullRequestUpdateOptions {
     #[doc = "A list of reviewers on the pull request."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityId>,
     #[doc = "The options which are used when a pull request merge is created."]
@@ -4188,15 +4166,15 @@ pub struct GitPush {
     pub git_push_ref: GitPushRef,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[serde(
         rename = "refUpdates",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_updates: Vec<GitRefUpdate>,
     #[doc = ""]
@@ -4219,8 +4197,8 @@ pub struct GitPushEventData {
     pub branch: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommit>,
     #[doc = ""]
@@ -4239,8 +4217,8 @@ pub struct GitPushList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPush>,
 }
@@ -4255,11 +4233,7 @@ pub struct GitPushRef {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(rename = "pushedBy", default, skip_serializing_if = "Option::is_none")]
@@ -4280,7 +4254,6 @@ pub struct GitPushSearchCriteria {
     #[serde(
         rename = "fromDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub from_date: Option<time::OffsetDateTime>,
@@ -4301,12 +4274,7 @@ pub struct GitPushSearchCriteria {
     pub pusher_id: Option<String>,
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
     pub ref_name: Option<String>,
-    #[serde(
-        rename = "toDate",
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(rename = "toDate", default, with = "crate::date_time::rfc3339::option")]
     pub to_date: Option<time::OffsetDateTime>,
 }
 impl GitPushSearchCriteria {
@@ -4327,8 +4295,8 @@ pub struct GitQueryBranchStatsCriteria {
     #[serde(
         rename = "targetCommits",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub target_commits: Vec<GitVersionDescriptor>,
 }
@@ -4383,8 +4351,8 @@ pub struct GitQueryCommitsCriteria {
     #[doc = "If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<String>,
     #[doc = "Whether to include the _links field on the shallow references"]
@@ -4473,16 +4441,16 @@ pub struct GitQueryRefsCriteria {
     #[serde(
         rename = "commitIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub commit_ids: Vec<String>,
     #[doc = "List of complete or partial names for refs to be searched"]
     #[serde(
         rename = "refNames",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_names: Vec<String>,
     #[doc = "Type of search on refNames, if provided"]
@@ -4552,8 +4520,8 @@ pub struct GitRef {
     pub peeled_object_id: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub statuses: Vec<GitStatus>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4625,8 +4593,8 @@ pub struct GitRefFavoriteList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRefFavorite>,
 }
@@ -4642,8 +4610,8 @@ pub struct GitRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRef>,
 }
@@ -4789,8 +4757,8 @@ pub struct GitRefUpdateResultList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRefUpdateResult>,
 }
@@ -4850,8 +4818,8 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub valid_remote_urls: Vec<String>,
     #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
@@ -4906,8 +4874,8 @@ pub struct GitRepositoryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRepository>,
 }
@@ -4951,8 +4919,8 @@ pub struct GitRepositoryRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRepositoryRef>,
 }
@@ -5023,8 +4991,8 @@ pub struct GitResolutionMergeContent {
     #[serde(
         rename = "userMergedContent",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub user_merged_content: Vec<String>,
 }
@@ -5165,7 +5133,6 @@ pub struct GitStatus {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -5185,7 +5152,6 @@ pub struct GitStatus {
     #[serde(
         rename = "updatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
@@ -5236,8 +5202,8 @@ pub struct GitStatusList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitStatus>,
 }
@@ -5268,8 +5234,8 @@ pub struct GitSuggestionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitSuggestion>,
 }
@@ -5362,8 +5328,8 @@ pub struct GitTreeDiff {
     #[serde(
         rename = "diffEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub diff_entries: Vec<GitTreeDiffEntry>,
     #[doc = "ObjectId of the target tree of this diff."]
@@ -5486,8 +5452,8 @@ pub struct GitTreeDiffResponse {
     #[serde(
         rename = "continuationToken",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
     #[doc = ""]
@@ -5573,8 +5539,8 @@ pub struct GitTreeRef {
     #[serde(
         rename = "treeEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tree_entries: Vec<GitTreeEntryRef>,
     #[doc = "Url to tree"]
@@ -5590,11 +5556,7 @@ impl GitTreeRef {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitUserDate {
     #[doc = "Date of the Git operation."]
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Email address of the user performing the Git operation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5866,8 +5828,8 @@ pub struct IdentityRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<IdentityRef>,
 }
@@ -5919,8 +5881,8 @@ pub struct IdentityRefWithVote {
     #[serde(
         rename = "votedFor",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub voted_for: Vec<IdentityRefWithVote>,
 }
@@ -5945,8 +5907,8 @@ pub struct IdentityRefWithVoteList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<IdentityRefWithVote>,
 }
@@ -5986,15 +5948,14 @@ pub struct IncludedGitCommit {
     #[serde(
         rename = "commitTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub commit_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "parentCommitIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parent_commit_ids: Vec<String>,
     #[serde(
@@ -6266,7 +6227,6 @@ pub struct PolicyConfiguration {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6306,8 +6266,8 @@ pub struct PolicyConfigurationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PolicyConfiguration>,
 }
@@ -6378,15 +6338,15 @@ pub struct PropertiesCollection {
     #[doc = "The set of keys in the collection."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
 }
@@ -6518,8 +6478,8 @@ pub struct ResourceRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ResourceRef>,
 }
@@ -6581,8 +6541,8 @@ pub struct ShareNotificationContext {
     #[doc = "Identities of users who will receive a share notification."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub receivers: Vec<IdentityRef>,
 }
@@ -6666,8 +6626,8 @@ pub struct SupportedIde {
     #[serde(
         rename = "supportedPlatforms",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_platforms: Vec<String>,
 }
@@ -6757,7 +6717,6 @@ pub struct TeamProjectReference {
     #[serde(
         rename = "lastUpdateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
@@ -6832,15 +6791,15 @@ pub struct TfvcBranch {
     #[doc = "List of children for the branch."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<TfvcBranch>,
     #[doc = "List of branch mappings."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<TfvcBranchMapping>,
     #[doc = "This is the shallow branchref class."]
@@ -6850,8 +6809,8 @@ pub struct TfvcBranch {
     #[serde(
         rename = "relatedBranches",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub related_branches: Vec<TfvcShallowBranchRef>,
 }
@@ -6894,7 +6853,6 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6925,8 +6883,8 @@ pub struct TfvcChange {
     #[serde(
         rename = "mergeSources",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub merge_sources: Vec<TfvcMergeSource>,
     #[doc = "Version at which a (shelved) change was pended against"]
@@ -6957,16 +6915,16 @@ pub struct TfvcChangeset {
     #[doc = "List of associated changes."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of Checkin Notes for the changeset."]
     #[serde(
         rename = "checkinNotes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub checkin_notes: Vec<CheckinNote>,
     #[doc = "Changeset collection Id."]
@@ -6994,16 +6952,16 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "teamProjectIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub team_project_ids: Vec<String>,
     #[doc = "List of work items associated with the changeset."]
     #[serde(
         rename = "workItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
@@ -7049,7 +7007,6 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -7093,8 +7050,8 @@ pub struct TfvcChangesetSearchCriteria {
     pub item_path: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<TfvcMappingFilter>,
     #[doc = "If provided, only include changesets created before this date (string)."]
@@ -7116,8 +7073,8 @@ pub struct TfvcChangesetsRequestData {
     #[serde(
         rename = "changesetIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changeset_ids: Vec<i32>,
     #[doc = "Max length of the comment."]
@@ -7181,7 +7138,6 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
@@ -7339,8 +7295,8 @@ pub struct TfvcItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub item_descriptors: Vec<TfvcItemDescriptor>,
 }
@@ -7357,8 +7313,8 @@ pub struct TfvcLabel {
     #[doc = "List of items."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<TfvcItem>,
 }
@@ -7390,7 +7346,6 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -7524,8 +7479,8 @@ pub struct TfvcPolicyOverrideInfo {
     #[serde(
         rename = "policyFailures",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub policy_failures: Vec<TfvcPolicyFailureInfo>,
 }
@@ -7554,15 +7509,15 @@ pub struct TfvcShelveset {
     #[doc = "List of changes."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of checkin notes."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub notes: Vec<CheckinNote>,
     #[doc = "Information on the policy override."]
@@ -7576,8 +7531,8 @@ pub struct TfvcShelveset {
     #[serde(
         rename = "workItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<AssociatedWorkItem>,
 }
@@ -7606,7 +7561,6 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -7773,8 +7727,8 @@ pub struct UpdateRefsRequest {
     #[serde(
         rename = "refUpdateRequests",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_update_requests: Vec<GitRefUpdate>,
     #[serde(
@@ -7918,8 +7872,8 @@ pub struct WebApiTagDefinitionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WebApiTagDefinition>,
 }

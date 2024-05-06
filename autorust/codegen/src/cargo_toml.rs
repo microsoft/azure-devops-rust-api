@@ -3,7 +3,7 @@ use crate::{config_parser::Tag, jinja::CargoToml};
 use camino::Utf8Path;
 
 pub fn create(package_name: &str, tags: &[&Tag], default_tag: &Tag, has_xml: bool, path: &Utf8Path) -> Result<()> {
-    let default_feature = &default_tag.rust_feature_name();
+    let default_tag = &default_tag.rust_feature_name();
 
     // https://docs.rs/about/metadata
     // let docs_rs_features = docs_rs_features(tags, &default_feature);
@@ -12,7 +12,7 @@ pub fn create(package_name: &str, tags: &[&Tag], default_tag: &Tag, has_xml: boo
     let azure_core_features = if has_xml { vec!["xml"] } else { Vec::new() };
     let cargo_toml = CargoToml {
         package_name,
-        default_feature,
+        default_tag,
         features,
         azure_core_features,
     };
@@ -27,14 +27,7 @@ pub fn get_default_tag<'a>(tags: &[&'a Tag], default_tag: Option<&str>) -> &'a T
     match (default_tag, is_preview, stable_tag) {
         (Some(default_tag), false, _) => default_tag,
         (Some(default_tag), true, None) => default_tag,
-        (Some(default_tag), true, Some(stable_tag)) => {
-            println!(
-                "  WARN preview tag `{}` used instead of stable tag `{}`",
-                default_tag.name(),
-                stable_tag.name()
-            );
-            default_tag
-        }
+        (Some(_default_tag), true, Some(stable_tag)) => stable_tag,
         (_, _, Some(tag)) => tag,
         _ => tags[0],
     }

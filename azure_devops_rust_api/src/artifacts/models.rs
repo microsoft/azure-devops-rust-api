@@ -242,7 +242,6 @@ pub struct Feed {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -260,22 +259,20 @@ pub struct Feed {
     #[serde(
         rename = "permanentDeletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub permanent_deleted_date: Option<time::OffsetDateTime>,
     #[doc = "Explicit permissions for the feed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub permissions: Vec<FeedPermission>,
     #[doc = "The date that this feed is scheduled to be permanently deleted."]
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
@@ -283,7 +280,6 @@ pub struct Feed {
     #[serde(
         rename = "upstreamEnabledChangedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub upstream_enabled_changed_date: Option<time::OffsetDateTime>,
@@ -385,8 +381,8 @@ pub struct FeedChangesResponse {
     #[serde(
         rename = "feedChanges",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub feed_changes: Vec<FeedChange>,
     #[doc = "When iterating through the log of changes this value indicates the value that should be used for the next continuation token."]
@@ -449,8 +445,8 @@ pub struct FeedCore {
     #[serde(
         rename = "upstreamSources",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
     #[doc = "A view on top of a feed."]
@@ -511,8 +507,8 @@ pub struct FeedList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Feed>,
 }
@@ -587,8 +583,8 @@ pub struct FeedPermissionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<FeedPermission>,
 }
@@ -678,8 +674,8 @@ pub struct FeedUpdate {
     #[serde(
         rename = "upstreamSources",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
 }
@@ -747,8 +743,8 @@ pub struct FeedViewList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<FeedView>,
 }
@@ -827,8 +823,8 @@ pub struct GlobalPermissionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GlobalPermission>,
 }
@@ -966,7 +962,6 @@ pub struct MinimalPackageVersion {
     #[serde(
         rename = "publishDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub publish_date: Option<time::OffsetDateTime>,
@@ -979,8 +974,8 @@ pub struct MinimalPackageVersion {
     #[doc = "List of views containing this package version."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub views: Vec<FeedView>,
 }
@@ -1067,8 +1062,8 @@ pub struct Package {
     #[doc = "All versions for this package within its feed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<MinimalPackageVersion>,
 }
@@ -1116,8 +1111,8 @@ pub struct PackageChangesResponse {
     #[serde(
         rename = "packageChanges",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub package_changes: Vec<PackageChange>,
 }
@@ -1158,8 +1153,8 @@ pub struct PackageFile {
     #[doc = "Hierarchical representation of files."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<PackageFile>,
     #[doc = "File name."]
@@ -1185,8 +1180,8 @@ pub struct PackageList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Package>,
 }
@@ -1216,7 +1211,6 @@ pub struct PackageMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
@@ -1236,8 +1230,8 @@ pub struct PackageMetricsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageMetrics>,
 }
@@ -1253,8 +1247,8 @@ pub struct PackageMetricsQuery {
     #[serde(
         rename = "packageIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub package_ids: Vec<String>,
 }
@@ -1278,15 +1272,14 @@ pub struct PackageVersion {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
     #[doc = "List of dependencies for this package version."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<PackageDependency>,
     #[doc = "Package version description."]
@@ -1295,16 +1288,16 @@ pub struct PackageVersion {
     #[doc = "Files associated with this package version, only relevant for multi-file package types."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<PackageFile>,
     #[doc = "Other versions of this package."]
     #[serde(
         rename = "otherVersions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub other_versions: Vec<MinimalPackageVersion>,
     #[doc = "Extended metadata for a specific package type."]
@@ -1318,8 +1311,8 @@ pub struct PackageVersion {
     #[serde(
         rename = "sourceChain",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub source_chain: Vec<UpstreamSource>,
     #[doc = "Package version summary."]
@@ -1328,8 +1321,8 @@ pub struct PackageVersion {
     #[doc = "Package version tags."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[doc = "Package version url."]
@@ -1391,8 +1384,8 @@ pub struct PackageVersionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageVersion>,
 }
@@ -1422,7 +1415,6 @@ pub struct PackageVersionMetrics {
     #[serde(
         rename = "lastDownloaded",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_downloaded: Option<time::OffsetDateTime>,
@@ -1449,8 +1441,8 @@ pub struct PackageVersionMetricsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageVersionMetrics>,
 }
@@ -1466,8 +1458,8 @@ pub struct PackageVersionMetricsQuery {
     #[serde(
         rename = "packageVersionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub package_version_ids: Vec<String>,
 }
@@ -1576,7 +1568,6 @@ pub struct RecycleBinPackageVersion {
     #[serde(
         rename = "scheduledPermanentDeleteDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub scheduled_permanent_delete_date: Option<time::OffsetDateTime>,
@@ -1593,8 +1584,8 @@ pub struct RecycleBinPackageVersionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<RecycleBinPackageVersion>,
 }
@@ -1671,8 +1662,8 @@ pub struct SbomTelemetry {
     #[serde(
         rename = "sbomFormatsUsed",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub sbom_formats_used: Vec<SbomFile>,
     #[doc = "Any internal switches and their value that were used during the execution. A switch can be something that was provided through a configuraiton or an environment variable."]
@@ -1711,20 +1702,18 @@ impl SbomTelemetry {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SaveCachedPackagesData {
-    #[serde(flatten)]
-    pub feed_batch_operation_data: FeedBatchOperationData,
     #[serde(
         rename = "normalizedPackageNames",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub normalized_package_names: Vec<String>,
     #[serde(
         rename = "viewsForPromotion",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub views_for_promotion: Vec<String>,
 }
@@ -1832,7 +1821,6 @@ pub struct UpstreamSource {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -1904,8 +1892,8 @@ pub struct UpstreamSource {
     #[serde(
         rename = "statusDetails",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub status_details: Vec<UpstreamStatusDetail>,
     #[doc = "Source type, such as Public or Internal."]

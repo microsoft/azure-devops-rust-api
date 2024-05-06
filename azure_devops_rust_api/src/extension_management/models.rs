@@ -28,8 +28,8 @@ pub struct AcquisitionOperation {
     #[doc = "List of reasons indicating why the operation is not allowed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub reasons: Vec<AcquisitionOperationDisallowReason>,
 }
@@ -100,8 +100,8 @@ pub struct AcquisitionOptions {
     #[doc = "Operations allowed for the ItemId in this target"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub operations: Vec<AcquisitionOperation>,
     #[doc = "Additional properties which can be added to the request."]
@@ -128,8 +128,8 @@ pub struct ClientContribution {
     #[doc = "Includes is a set of contributions that should have this contribution included in their targets list."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub includes: Vec<String>,
     #[doc = "Properties/attributes of this contribution"]
@@ -138,8 +138,8 @@ pub struct ClientContribution {
     #[doc = "The ids of the contribution(s) that this contribution targets. (parent contributions)"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub targets: Vec<String>,
     #[doc = "Id of the Contribution Type"]
@@ -157,8 +157,8 @@ pub struct ClientContributionNode {
     #[doc = "List of ids for contributions which are children to the current contribution."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<String>,
     #[doc = "Representation of a ContributionNode that can be used for serialized to clients."]
@@ -167,8 +167,8 @@ pub struct ClientContributionNode {
     #[doc = "List of ids for contributions which are parents to the current contribution."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
 }
@@ -228,15 +228,15 @@ pub struct Contribution {
     #[doc = "List of constraints (filters) that should be applied to the availability of this contribution"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub constraints: Vec<ContributionConstraint>,
     #[doc = "Includes is a set of contributions that should have this contribution included in their targets list."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub includes: Vec<String>,
     #[doc = "Properties/attributes of this contribution"]
@@ -246,15 +246,15 @@ pub struct Contribution {
     #[serde(
         rename = "restrictedTo",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub restricted_to: Vec<String>,
     #[doc = "The ids of the contribution(s) that this contribution targets. (parent contributions)"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub targets: Vec<String>,
     #[doc = "Id of the Contribution Type"]
@@ -279,8 +279,8 @@ pub struct ContributionBase {
     #[serde(
         rename = "visibleTo",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub visible_to: Vec<String>,
 }
@@ -310,8 +310,8 @@ pub struct ContributionConstraint {
     #[doc = "Constraints can be optionally be applied to one or more of the relationships defined in the contribution. If no relationships are defined then all relationships are associated with the constraint. This means the default behaviour will eliminate the contribution from the tree completely if the constraint is applied."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub relationships: Vec<String>,
 }
@@ -327,8 +327,8 @@ pub struct ContributionNodeQuery {
     #[serde(
         rename = "contributionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub contribution_ids: Vec<String>,
     #[doc = "Contextual information that data providers can examine when populating their data"]
@@ -539,8 +539,8 @@ pub struct DataProviderQuery {
     #[serde(
         rename = "contributionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub contribution_ids: Vec<String>,
 }
@@ -569,8 +569,8 @@ pub struct DataProviderResult {
     #[serde(
         rename = "resolvedProviders",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub resolved_providers: Vec<ResolvedDataProvider>,
     #[doc = "Scope name applied to this data provider result."]
@@ -676,8 +676,8 @@ pub struct ExtensionAuditLog {
     #[doc = "Collection of audit log entries"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub entries: Vec<ExtensionAuditLogEntry>,
     #[doc = "Extension that the change was made for"]
@@ -714,7 +714,6 @@ pub struct ExtensionAuditLogEntry {
     #[serde(
         rename = "auditDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub audit_date: Option<time::OffsetDateTime>,
@@ -737,8 +736,8 @@ pub struct ExtensionAuthorization {
     pub id: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub scopes: Vec<String>,
 }
@@ -775,8 +774,8 @@ pub struct ExtensionDataCollection {
     #[doc = "A list of documents belonging to the collection"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub documents: Vec<serde_json::Value>,
     #[doc = "The type of the collection's scope, such as Default or User"]
@@ -801,8 +800,8 @@ pub struct ExtensionDataCollectionQuery {
     #[doc = "A list of collections to query"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub collections: Vec<ExtensionDataCollection>,
 }
@@ -1016,8 +1015,8 @@ pub struct ExtensionLicensing {
     #[doc = "A list of contributions which deviate from the default licensing behavior"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub overrides: Vec<LicensingOverride>,
 }
@@ -1035,30 +1034,30 @@ pub struct ExtensionManifest {
     #[doc = "List of shared constraints defined by this extension"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub constraints: Vec<ContributionConstraint>,
     #[doc = "List of contributions made by this extension"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub contributions: Vec<Contribution>,
     #[doc = "List of contribution types defined by this extension"]
     #[serde(
         rename = "contributionTypes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub contribution_types: Vec<ContributionType>,
     #[doc = "List of explicit demands required by this extension"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<String>,
     #[doc = "Collection of event callbacks - endpoints called when particular extension events occur."]
@@ -1092,15 +1091,15 @@ pub struct ExtensionManifest {
     #[serde(
         rename = "restrictedTo",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub restricted_to: Vec<String>,
     #[doc = "List of all oauth scopes required by this extension"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub scopes: Vec<String>,
     #[doc = "The ServiceInstanceType(Guid) of the VSTS service that must be available to an account in order for the extension to be installed"]
@@ -1184,7 +1183,6 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "requestDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub request_date: Option<time::OffsetDateTime>,
@@ -1213,7 +1211,6 @@ pub struct ExtensionRequest {
     #[serde(
         rename = "resolveDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub resolve_date: Option<time::OffsetDateTime>,
@@ -1322,8 +1319,8 @@ pub struct ExtensionRequestsEvent {
     #[doc = "The extension request object"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub requests: Vec<ExtensionRequest>,
     #[doc = "The type of update that was made"]
@@ -1386,7 +1383,6 @@ pub struct ExtensionState {
     #[serde(
         rename = "lastVersionCheck",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_version_check: Option<time::OffsetDateTime>,
@@ -1451,8 +1447,8 @@ pub struct ExtensionVersion {
     pub asset_uri: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub badges: Vec<ExtensionBadge>,
     #[serde(
@@ -1463,8 +1459,8 @@ pub struct ExtensionVersion {
     pub fallback_asset_uri: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<ExtensionFile>,
     #[doc = ""]
@@ -1473,14 +1469,13 @@ pub struct ExtensionVersion {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub properties: Vec<serde_json::Value>,
     #[serde(
@@ -1657,8 +1652,8 @@ pub struct InstalledExtension {
     #[doc = "This is the set of files available from the extension."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<ExtensionFile>,
     #[doc = "Extension flags relevant to contribution consumers"]
@@ -1675,7 +1670,6 @@ pub struct InstalledExtension {
     #[serde(
         rename = "lastPublished",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_published: Option<time::OffsetDateTime>,
@@ -1716,8 +1710,8 @@ pub struct InstalledExtensionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<InstalledExtension>,
 }
@@ -1732,14 +1726,14 @@ pub struct InstalledExtensionQuery {
     #[serde(
         rename = "assetTypes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub asset_types: Vec<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub monikers: Vec<ExtensionIdentifier>,
 }
@@ -1758,15 +1752,14 @@ pub struct InstalledExtensionState {
     #[serde(
         rename = "installationIssues",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub installation_issues: Vec<InstalledExtensionStateIssue>,
     #[doc = "The time at which this installation was last updated"]
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -1852,8 +1845,8 @@ pub mod licensing_override {
 pub struct PublishedExtension {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub categories: Vec<String>,
     #[serde(
@@ -1886,14 +1879,13 @@ pub struct PublishedExtension {
     #[serde(
         rename = "installationTargets",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub installation_targets: Vec<InstallationTarget>,
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -1914,7 +1906,6 @@ pub struct PublishedExtension {
     #[serde(
         rename = "publishedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -1925,15 +1916,14 @@ pub struct PublishedExtension {
     #[serde(
         rename = "releaseDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "sharedWith",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub shared_with: Vec<ExtensionShare>,
     #[serde(
@@ -1944,20 +1934,20 @@ pub struct PublishedExtension {
     pub short_description: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub statistics: Vec<ExtensionStatistic>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<ExtensionVersion>,
 }
@@ -2044,8 +2034,8 @@ pub struct RequestedExtension {
     #[serde(
         rename = "extensionRequests",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub extension_requests: Vec<ExtensionRequest>,
     #[doc = "DisplayName of the publisher that owns the extension being published."]

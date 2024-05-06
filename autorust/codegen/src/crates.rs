@@ -1,10 +1,12 @@
 use crate::{ErrorKind, Result, ResultExt};
 use camino::{Utf8Path, Utf8PathBuf};
+use cargo_toml::Manifest;
 use serde::Deserialize;
-use std::io::BufRead;
 use std::{
+    collections::BTreeSet,
     fs::{self, File},
-    io::BufReader,
+    io::{BufRead, BufReader},
+    path::Path,
     str::FromStr,
 };
 
@@ -22,23 +24,26 @@ fn list_dirs_in(dir: impl AsRef<Utf8Path>) -> Result<Vec<Utf8PathBuf>> {
     Ok(dirs)
 }
 
-pub fn list_dirs() -> Result<Vec<Utf8PathBuf>> {
-    let mut names: Vec<_> = list_dirs_in("../mgmt")?.into_iter().collect();
-    names.extend(list_dirs_in("../svc")?.into_iter());
-    names.sort();
-    Ok(names)
+pub fn list_crates(services_dir: &Path) -> Result<BTreeSet<String>> {
+    let mut package_names = BTreeSet::new();
+    let base_path = services_dir.join("Cargo.toml");
+    let manifest = Manifest::from_path(base_path)?;
+    if let Some(workspaces) = manifest.workspace {
+        for member in workspaces.members {
+            let member_path = services_dir.join(member).join("Cargo.toml");
+            let Ok(manifest) = Manifest::from_path(member_path) else { continue };
+            let Some(package) = manifest.package else {
+                continue;
+            };
+            package_names.insert(package.name);
+        }
+    }
+    Ok(package_names)
 }
 
-pub fn list_crate_names() -> Result<Vec<String>> {
-    let mut names: Vec<_> = list_dirs_in("../mgmt")?
-        .into_iter()
-        .filter_map(|d| d.file_name().map(|d| format!("azure_mgmt_{}", d)))
-        .collect();
-    names.extend(
-        list_dirs_in("../svc")?
-            .into_iter()
-            .filter_map(|d| d.file_name().map(|d| format!("azure_svc_{}", d))),
-    );
+pub fn list_dirs() -> Result<Vec<Utf8PathBuf>> {
+    let mut names: Vec<_> = list_dirs_in("../mgmt")?.into_iter().collect();
+    names.extend(list_dirs_in("../svc")?);
     names.sort();
     Ok(names)
 }
@@ -51,7 +56,7 @@ pub fn has_version(name: &str, version: &str) -> Result<bool> {
 /// Expects https://github.com/rust-lang/crates.io-index to be cloned as a sibling directory.
 fn get_versions(crate_name: &str) -> Result<Vec<CrateVersion>> {
     // all of these crates begin with "azure".
-    let path = format!("../../../crates.io-index/az/ur/{}", crate_name);
+    let path = format!("../../../crates.io-index/az/ur/{crate_name}");
     let path = Utf8PathBuf::from_str(&path).map_kind(ErrorKind::Parse)?;
     let mut versions = Vec::new();
     if path.exists() {

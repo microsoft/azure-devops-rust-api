@@ -55,14 +55,14 @@ pub struct Container {
     pub options: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ports: Vec<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub volumes: Vec<String>,
 }
@@ -158,7 +158,6 @@ pub struct Log {
     #[serde(
         rename = "createdOn",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -169,7 +168,6 @@ pub struct Log {
     #[serde(
         rename = "lastChangedOn",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_changed_on: Option<time::OffsetDateTime>,
@@ -197,8 +195,8 @@ pub struct LogCollection {
     #[doc = "The list of logs."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub logs: Vec<Log>,
     #[doc = "A signed url allowing limited-time anonymous access to private resources."]
@@ -346,8 +344,8 @@ pub struct PipelineList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Pipeline>,
 }
@@ -500,7 +498,6 @@ pub struct Run {
     #[serde(
         rename = "finishedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finished_date: Option<time::OffsetDateTime>,
@@ -579,8 +576,8 @@ pub struct RunList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Run>,
 }
@@ -605,8 +602,8 @@ pub struct RunPipelineParameters {
     #[serde(
         rename = "stagesToSkip",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub stages_to_skip: Vec<String>,
     #[serde(
@@ -698,7 +695,6 @@ pub struct SignedUrl {
     #[serde(
         rename = "signatureExpires",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub signature_expires: Option<time::OffsetDateTime>,

@@ -37,8 +37,8 @@ pub struct AccessControlEntryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AccessControlEntry>,
 }
@@ -96,8 +96,8 @@ pub struct AccessControlListList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AccessControlList>,
 }
@@ -251,8 +251,8 @@ pub struct PermissionEvaluationBatch {
     #[doc = "Array of permission evaluations to evaluate."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub evaluations: Vec<PermissionEvaluation>,
 }
@@ -267,8 +267,8 @@ pub struct SecurityNamespaceDescription {
     #[doc = "The list of actions that this Security Namespace is responsible for securing."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub actions: Vec<ActionDefinition>,
     #[doc = "This is the dataspace category that describes where the security information for this SecurityNamespace should be stored."]
@@ -371,8 +371,8 @@ pub struct SecurityNamespaceDescriptionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SecurityNamespaceDescription>,
 }

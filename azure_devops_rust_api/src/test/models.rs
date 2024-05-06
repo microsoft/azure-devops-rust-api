@@ -40,7 +40,6 @@ pub struct AfnStrip {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -433,8 +432,8 @@ pub struct BatchResponse {
     pub error: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub responses: Vec<Response>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -573,7 +572,6 @@ pub struct BuildConfiguration {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -648,8 +646,8 @@ pub struct BuildCoverage {
     #[doc = "List of Modules"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub modules: Vec<ModuleCoverage>,
     #[doc = "State"]
@@ -668,8 +666,8 @@ pub struct BuildCoverageList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildCoverage>,
 }
@@ -788,7 +786,6 @@ pub struct BuildReference2 {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -821,8 +818,8 @@ pub struct BulkResultUpdateRequest {
     pub project_name: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub requests: Vec<ResultUpdateRequest>,
 }
@@ -845,7 +842,6 @@ pub struct CloneOperationInformation {
     #[serde(
         rename = "completionDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completion_date: Option<time::OffsetDateTime>,
@@ -853,7 +849,6 @@ pub struct CloneOperationInformation {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -1093,8 +1088,8 @@ pub struct CodeCoverageData {
     #[serde(
         rename = "coverageStats",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub coverage_stats: Vec<CodeCoverageStatistics>,
 }
@@ -1144,8 +1139,8 @@ pub struct CodeCoverageSummary {
     #[serde(
         rename = "coverageData",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub coverage_data: Vec<CodeCoverageData>,
     #[serde(
@@ -1276,14 +1271,12 @@ pub struct Coverage2 {
     #[serde(
         rename = "dateCreated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateModified",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
@@ -1348,8 +1341,8 @@ pub struct CreateTestMessageLogEntryRequest {
     #[serde(
         rename = "testMessageLogEntry",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_message_log_entry: Vec<TestMessageLogEntry>,
     #[serde(rename = "testRunId", default, skip_serializing_if = "Option::is_none")]
@@ -1371,8 +1364,8 @@ pub struct CreateTestResultsRequest {
     pub project_name: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<LegacyTestCaseResult>,
 }
@@ -1392,8 +1385,8 @@ pub struct CreateTestRunRequest {
     pub project_name: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<LegacyTestCaseResult>,
     #[doc = ""]
@@ -1478,11 +1471,7 @@ pub mod custom_test_field_definition {
 #[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DatedTestFieldData {
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1528,8 +1517,8 @@ pub struct DeleteTestRunRequest {
     #[serde(
         rename = "testRunIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_run_ids: Vec<i32>,
 }
@@ -1543,14 +1532,14 @@ impl DeleteTestRunRequest {
 pub struct DownloadAttachmentsRequest {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub lengths: Vec<i64>,
 }
@@ -1593,11 +1582,7 @@ pub struct FailingSince {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub build: Option<BuildReference>,
     #[doc = "Time since failing(UTC)."]
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Reference to a release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1614,8 +1599,8 @@ pub struct FetchTestResultsRequest {
     #[serde(
         rename = "idAndRevs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub id_and_revs: Vec<TestCaseResultIdAndRev>,
     #[serde(
@@ -1642,34 +1627,34 @@ pub struct FetchTestResultsResponse {
     #[serde(
         rename = "actionResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_results: Vec<TestActionResult>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments: Vec<TestResultAttachment>,
     #[serde(
         rename = "deletedIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub deleted_ids: Vec<LegacyTestCaseResultIdentifier>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<LegacyTestCaseResult>,
     #[serde(
         rename = "testParameters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_parameters: Vec<TestResultParameter>,
 }
@@ -1688,8 +1673,8 @@ pub struct FieldDetailsForTestResults {
     #[serde(
         rename = "groupsForField",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub groups_for_field: Vec<serde_json::Value>,
 }
@@ -1705,8 +1690,8 @@ pub struct FileCoverage {
     #[serde(
         rename = "lineBlocksCoverage",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub line_blocks_coverage: Vec<LineBlockCoverage>,
     #[doc = "File path for which coverage information is sought for"]
@@ -1757,22 +1742,22 @@ pub struct FilterPointQuery {
     #[serde(
         rename = "pointIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub point_ids: Vec<i32>,
     #[serde(
         rename = "pointOutcome",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub point_outcome: Vec<String>,
     #[serde(
         rename = "resultState",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub result_state: Vec<String>,
 }
@@ -1822,8 +1807,8 @@ pub struct FlakyDetectionPipelines {
     #[serde(
         rename = "allowedPipelines",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_pipelines: Vec<i32>,
     #[doc = "IsAllPipelinesAllowed if users configure all system's pipelines."]
@@ -2107,7 +2092,6 @@ pub struct LastResultDetails {
     #[serde(
         rename = "dateCompleted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
@@ -2187,14 +2171,12 @@ pub struct LegacyBuildConfiguration {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -2242,7 +2224,6 @@ pub struct LegacyReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
@@ -2267,7 +2248,6 @@ pub struct LegacyReleaseReference {
     #[serde(
         rename = "releaseCreationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_creation_date: Option<time::OffsetDateTime>,
@@ -2406,28 +2386,25 @@ pub struct LegacyTestCaseResult {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<TestExtensionField>,
     #[serde(
         rename = "dateCompleted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
@@ -2460,7 +2437,6 @@ pub struct LegacyTestCaseResult {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -2690,15 +2666,14 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "completeDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub complete_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "configurationIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration_ids: Vec<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2706,7 +2681,6 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -2725,8 +2699,8 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<TestExtensionField>,
     #[serde(
@@ -2752,7 +2726,6 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "dueDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
@@ -2790,7 +2763,6 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -2864,8 +2836,8 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "rowVersion",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub row_version: Vec<String>,
     #[serde(
@@ -2895,7 +2867,6 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "startDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -2936,8 +2907,8 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "testMessageLogEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_message_log_entries: Vec<TestMessageLogDetails>,
     #[serde(
@@ -2957,8 +2928,8 @@ pub struct LegacyTestRun {
     #[serde(
         rename = "testRunStatistics",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_run_statistics: Vec<LegacyTestRunStatistic>,
     #[serde(
@@ -3033,7 +3004,6 @@ pub struct LegacyTestSettings {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -3052,7 +3022,6 @@ pub struct LegacyTestSettings {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -3071,8 +3040,8 @@ pub struct LegacyTestSettings {
     #[serde(
         rename = "machineRoles",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub machine_roles: Vec<TestSettingsMachineRole>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3117,8 +3086,8 @@ pub struct LinkedWorkItemsQuery {
     #[serde(
         rename = "automatedTestNames",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub automated_test_names: Vec<String>,
     #[serde(rename = "planId", default, skip_serializing_if = "Option::is_none")]
@@ -3126,22 +3095,22 @@ pub struct LinkedWorkItemsQuery {
     #[serde(
         rename = "pointIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub point_ids: Vec<i32>,
     #[serde(
         rename = "suiteIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub suite_ids: Vec<i32>,
     #[serde(
         rename = "testCaseIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_case_ids: Vec<i32>,
     #[serde(
@@ -3180,8 +3149,8 @@ pub struct LinkedWorkItemsQueryResult {
     #[serde(
         rename = "workItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<WorkItemReference>,
 }
@@ -3202,8 +3171,8 @@ pub struct ModuleCoverage {
     #[serde(
         rename = "blockData",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub block_data: Vec<String>,
     #[doc = "Code Coverage File Url"]
@@ -3211,8 +3180,8 @@ pub struct ModuleCoverage {
     pub file_url: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub functions: Vec<FunctionCoverage>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3246,8 +3215,8 @@ pub struct ModuleCoverage2 {
     #[serde(
         rename = "blockData",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub block_data: Vec<String>,
     #[serde(
@@ -3434,8 +3403,8 @@ pub struct PipelineTestMetrics {
     #[serde(
         rename = "summaryAtChild",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub summary_at_child: Vec<PipelineTestMetrics>,
 }
@@ -3464,8 +3433,8 @@ pub struct PlanUpdateModel {
     #[serde(
         rename = "configurationIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration_ids: Vec<i32>,
     #[doc = "Description of the test plan."]
@@ -3530,7 +3499,6 @@ pub struct PointLastResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -3583,23 +3551,23 @@ pub struct PointsFilter {
     #[serde(
         rename = "configurationNames",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration_names: Vec<String>,
     #[doc = "List of test case id for filtering."]
     #[serde(
         rename = "testcaseIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub testcase_ids: Vec<i32>,
     #[doc = "List of tester for filtering."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub testers: Vec<IdentityRef>,
 }
@@ -3669,7 +3637,6 @@ pub struct PointsResults2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -3794,22 +3761,22 @@ pub struct QueryTestActionResultResponse {
     #[serde(
         rename = "testActionResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_action_results: Vec<TestActionResult>,
     #[serde(
         rename = "testAttachments",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_attachments: Vec<TestResultAttachment>,
     #[serde(
         rename = "testResultParameters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_result_parameters: Vec<TestResultParameter>,
 }
@@ -3948,7 +3915,6 @@ pub struct ReleaseReference {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -3963,7 +3929,6 @@ pub struct ReleaseReference {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
@@ -4015,7 +3980,6 @@ pub struct ReleaseReference2 {
     #[serde(
         rename = "environmentCreationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub environment_creation_date: Option<time::OffsetDateTime>,
@@ -4024,7 +3988,6 @@ pub struct ReleaseReference2 {
     #[serde(
         rename = "releaseCreationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub release_creation_date: Option<time::OffsetDateTime>,
@@ -4092,7 +4055,6 @@ pub struct RequirementsToTestsMapping2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -4101,7 +4063,6 @@ pub struct RequirementsToTestsMapping2 {
     #[serde(
         rename = "deletionDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deletion_date: Option<time::OffsetDateTime>,
@@ -4136,8 +4097,8 @@ impl RequirementsToTestsMapping2 {
 pub struct ResetTestResultsRequest {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<LegacyTestCaseResultIdentifier>,
     #[serde(
@@ -4290,7 +4251,6 @@ pub struct ResultRetentionSettings {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -4329,41 +4289,41 @@ pub struct ResultUpdateRequest {
     #[serde(
         rename = "actionResultDeletes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_result_deletes: Vec<TestActionResult>,
     #[serde(
         rename = "actionResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_results: Vec<TestActionResult>,
     #[serde(
         rename = "attachmentDeletes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachment_deletes: Vec<TestResultAttachmentIdentity>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments: Vec<TestResultAttachment>,
     #[serde(
         rename = "parameterDeletes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parameter_deletes: Vec<TestResultParameter>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parameters: Vec<TestResultParameter>,
     #[doc = ""]
@@ -4393,28 +4353,28 @@ pub struct ResultUpdateRequestModel {
     #[serde(
         rename = "actionResultDeletes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_result_deletes: Vec<TestActionResultModel>,
     #[serde(
         rename = "actionResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_results: Vec<TestActionResultModel>,
     #[serde(
         rename = "parameterDeletes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parameter_deletes: Vec<TestResultParameterModel>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parameters: Vec<TestResultParameterModel>,
     #[doc = ""]
@@ -4436,14 +4396,13 @@ pub struct ResultUpdateResponse {
     #[serde(
         rename = "attachmentIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachment_ids: Vec<i32>,
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -4546,15 +4505,15 @@ pub struct ResultsByQueryResponse {
     #[serde(
         rename = "excessIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub excess_ids: Vec<LegacyTestCaseResultIdentifier>,
     #[serde(
         rename = "testResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_results: Vec<LegacyTestCaseResult>,
 }
@@ -4585,7 +4544,6 @@ pub struct ResultsFilter {
     #[serde(
         rename = "maxCompleteDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -4604,8 +4562,8 @@ pub struct ResultsFilter {
     #[serde(
         rename = "testCaseReferenceIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_case_reference_ids: Vec<i32>,
     #[serde(
@@ -4617,8 +4575,8 @@ pub struct ResultsFilter {
     #[serde(
         rename = "testPointIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_point_ids: Vec<i32>,
     #[doc = ""]
@@ -4757,8 +4715,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "configurationIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration_ids: Vec<i32>,
     #[doc = "Name of the test controller used for automated run."]
@@ -4768,8 +4726,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "customTestFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_test_fields: Vec<CustomTestField>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -4829,8 +4787,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "pointIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub point_ids: Vec<i32>,
     #[doc = "URI of release environment associated with the run."]
@@ -4858,8 +4816,8 @@ pub struct RunCreateModel {
     #[serde(
         rename = "runSummary",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub run_summary: Vec<RunSummaryModel>,
     #[doc = "Timespan till the run times out."]
@@ -4885,8 +4843,8 @@ pub struct RunCreateModel {
     #[doc = "Tags to attach with the test run, maximum of 5 tags can be added to run."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<TestTag>,
     #[doc = "TestConfigurationMapping of the test run."]
@@ -5173,8 +5131,8 @@ pub struct RunUpdateModel {
     #[serde(
         rename = "logEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub log_entries: Vec<TestMessageLogDetails>,
     #[doc = "Name of the test run."]
@@ -5198,8 +5156,8 @@ pub struct RunUpdateModel {
     #[serde(
         rename = "runSummary",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub run_summary: Vec<RunSummaryModel>,
     #[doc = "SourceWorkFlow(CI/CD) of the test run."]
@@ -5225,8 +5183,8 @@ pub struct RunUpdateModel {
     #[doc = "Tags to attach with the test run."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<TestTag>,
     #[doc = "ID of the test environment associated with the run."]
@@ -5329,8 +5287,8 @@ pub struct ShallowTestCaseResult {
     pub run_id: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[serde(
@@ -5392,8 +5350,8 @@ pub struct SuiteCreateModel {
     #[serde(
         rename = "requirementIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub requirement_ids: Vec<i32>,
     #[doc = "Type of test suite to create. It can have value from DynamicTestSuite, StaticTestSuite and RequirementTestSuite."]
@@ -5475,8 +5433,8 @@ pub struct SuiteTestCase {
     #[serde(
         rename = "pointAssignments",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub point_assignments: Vec<PointAssignment>,
     #[doc = "WorkItem reference Details."]
@@ -5495,8 +5453,8 @@ pub struct SuiteTestCaseList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SuiteTestCase>,
 }
@@ -5511,8 +5469,8 @@ pub struct SuiteTestCaseUpdateModel {
     #[doc = "Shallow reference of configurations for the test cases in the suite."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configurations: Vec<ShallowReference>,
 }
@@ -5528,16 +5486,16 @@ pub struct SuiteUpdateModel {
     #[serde(
         rename = "defaultConfigurations",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub default_configurations: Vec<ShallowReference>,
     #[doc = "Shallow reference of test suite."]
     #[serde(
         rename = "defaultTesters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub default_testers: Vec<ShallowReference>,
     #[doc = "Specifies if the default configurations have to be inherited from the parent test suite in which the test suite is created."]
@@ -5635,7 +5593,6 @@ pub struct TeamProjectReference {
     #[serde(
         rename = "lastUpdateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
@@ -5716,21 +5673,18 @@ pub struct TestActionResult {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
@@ -5754,7 +5708,6 @@ pub struct TestActionResult {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -5798,21 +5751,18 @@ pub struct TestActionResult2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
@@ -5833,7 +5783,6 @@ pub struct TestActionResult2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -5924,7 +5873,6 @@ pub struct TestAttachment {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -5966,8 +5914,8 @@ pub struct TestAttachmentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestAttachment>,
 }
@@ -6034,7 +5982,6 @@ pub struct TestAuthoringDetails {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -6115,8 +6062,8 @@ pub struct TestCaseReference2 {
     #[serde(
         rename = "automatedTestNameHash",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub automated_test_name_hash: Vec<String>,
     #[serde(
@@ -6128,8 +6075,8 @@ pub struct TestCaseReference2 {
     #[serde(
         rename = "automatedTestStorageHash",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub automated_test_storage_hash: Vec<String>,
     #[serde(
@@ -6149,14 +6096,12 @@ pub struct TestCaseReference2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "lastRefTestRunDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_ref_test_run_date: Option<time::OffsetDateTime>,
@@ -6219,8 +6164,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "associatedBugs",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub associated_bugs: Vec<ShallowReference>,
     #[doc = "ID representing test method in a dll."]
@@ -6275,7 +6220,6 @@ pub struct TestCaseResult {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -6293,7 +6237,6 @@ pub struct TestCaseResult {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6301,8 +6244,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Duration of test execution in milliseconds. If not provided value will be set as CompletedDate - StartedDate"]
@@ -6340,8 +6283,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "iterationDetails",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub iteration_details: Vec<TestIterationDetailsModel>,
     #[doc = ""]
@@ -6355,7 +6298,6 @@ pub struct TestCaseResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -6426,7 +6368,6 @@ pub struct TestCaseResult {
     #[serde(
         rename = "startedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -6437,8 +6378,8 @@ pub struct TestCaseResult {
     #[serde(
         rename = "subResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub sub_results: Vec<TestSubResult>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -6578,8 +6519,8 @@ pub struct TestCaseResultList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestCaseResult>,
 }
@@ -6594,8 +6535,8 @@ pub struct TestCaseResultUpdateModel {
     #[serde(
         rename = "associatedWorkItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub associated_work_items: Vec<i32>,
     #[serde(
@@ -6621,8 +6562,8 @@ pub struct TestCaseResultUpdateModel {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[serde(
@@ -6716,7 +6657,6 @@ pub struct TestConfiguration {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -6738,8 +6678,8 @@ pub struct TestConfiguration {
     #[doc = "Dictionary of Test Variable, Selected Value"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<NameValuePair>,
 }
@@ -6788,8 +6728,8 @@ pub struct TestExecutionReportData {
     #[serde(
         rename = "reportData",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub report_data: Vec<DatedTestFieldData>,
 }
@@ -6921,8 +6861,8 @@ pub struct TestFailureDetails {
     #[serde(
         rename = "testResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_results: Vec<TestCaseResultIdentifier>,
 }
@@ -7085,7 +7025,6 @@ pub struct TestHistoryQuery {
     #[serde(
         rename = "maxCompleteDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -7100,8 +7039,8 @@ pub struct TestHistoryQuery {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results_for_group: Vec<TestResultHistoryForGroup>,
     #[doc = "Get the results history only for this testCaseId. This to get used in query to filter the result along with automatedtestname"]
@@ -7138,15 +7077,15 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "actionResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub action_results: Vec<TestActionResultModel>,
     #[doc = "Reference to attachments in test iteration result."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments: Vec<TestCaseResultAttachmentModel>,
     #[doc = "Comment in test iteration result."]
@@ -7156,7 +7095,6 @@ pub struct TestIterationDetailsModel {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -7183,15 +7121,14 @@ pub struct TestIterationDetailsModel {
     #[doc = "Test parameters in an iteration."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub parameters: Vec<TestResultParameterModel>,
     #[doc = "Time when execution started(UTC)."]
     #[serde(
         rename = "startedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -7211,8 +7148,8 @@ pub struct TestIterationDetailsModelList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestIterationDetailsModel>,
 }
@@ -7238,7 +7175,6 @@ pub struct TestLog {
     #[serde(
         rename = "modifiedOn",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
@@ -7390,7 +7326,6 @@ pub struct TestLogStoreAttachment {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -7531,7 +7466,6 @@ pub struct TestMessageLogDetails {
     #[serde(
         rename = "dateCreated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
@@ -7553,7 +7487,6 @@ pub struct TestMessageLogEntry {
     #[serde(
         rename = "dateCreated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
@@ -7589,7 +7522,6 @@ pub struct TestMessageLogEntry2 {
     #[serde(
         rename = "dateCreated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_created: Option<time::OffsetDateTime>,
@@ -7668,14 +7600,13 @@ pub struct TestParameter2 {
     pub action_path: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub actual: Vec<String>,
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -7684,14 +7615,13 @@ pub struct TestParameter2 {
     #[serde(
         rename = "dateModified",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub expected: Vec<String>,
     #[serde(
@@ -7743,7 +7673,6 @@ pub struct TestPlan {
     #[serde(
         rename = "endDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
@@ -7786,7 +7715,6 @@ pub struct TestPlan {
     #[serde(
         rename = "startDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -7806,7 +7734,6 @@ pub struct TestPlan {
     #[serde(
         rename = "updatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
@@ -7835,8 +7762,8 @@ pub struct TestPlanCloneRequest {
     #[serde(
         rename = "suiteIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub suite_ids: Vec<i32>,
 }
@@ -7860,15 +7787,15 @@ pub struct TestPlanHubData {
     #[serde(
         rename = "testPoints",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_points: Vec<TestPoint>,
     #[serde(
         rename = "testSuites",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_suites: Vec<TestSuite>,
     #[serde(
@@ -7900,8 +7827,8 @@ pub struct TestPlansWithSelection {
     pub last_selected_suite: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub plans: Vec<TestPlan>,
 }
@@ -7943,7 +7870,6 @@ pub struct TestPoint {
     #[serde(
         rename = "lastResetToActive",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_reset_to_active: Option<time::OffsetDateTime>,
@@ -8000,7 +7926,6 @@ pub struct TestPoint {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -8029,8 +7954,8 @@ pub struct TestPoint {
     #[serde(
         rename = "workItemProperties",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_properties: Vec<serde_json::Value>,
 }
@@ -8046,8 +7971,8 @@ pub struct TestPointList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestPoint>,
 }
@@ -8099,8 +8024,8 @@ pub struct TestPointsEvent {
     #[serde(
         rename = "testPoints",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_points: Vec<TestPointReference>,
 }
@@ -8118,8 +8043,8 @@ pub struct TestPointsQuery {
     #[doc = "List of test points"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub points: Vec<TestPoint>,
     #[doc = "Filter class for test point."]
@@ -8133,8 +8058,8 @@ pub struct TestPointsQuery {
     #[serde(
         rename = "witFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub wit_fields: Vec<String>,
 }
@@ -8190,21 +8115,18 @@ pub struct TestResult2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateCompleted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_completed: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateStarted",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_started: Option<time::OffsetDateTime>,
@@ -8223,7 +8145,6 @@ pub struct TestResult2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -8319,7 +8240,6 @@ pub struct TestResultAttachment {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -8411,8 +8331,8 @@ pub struct TestResultCreateModel {
     #[serde(
         rename = "associatedWorkItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub associated_work_items: Vec<i32>,
     #[serde(
@@ -8465,8 +8385,8 @@ pub struct TestResultCreateModel {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[serde(
@@ -8627,8 +8547,8 @@ pub struct TestResultHistory {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results_for_group: Vec<TestResultHistoryDetailsForGroup>,
 }
@@ -8679,8 +8599,8 @@ pub struct TestResultHistoryForGroup {
     #[doc = "List of results for GroupByValue"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<TestCaseResult>,
 }
@@ -8710,8 +8630,8 @@ pub struct TestResultMetaData {
     #[serde(
         rename = "flakyIdentifiers",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub flaky_identifiers: Vec<TestFlakyIdentifier>,
     #[doc = "Owner of test result."]
@@ -8747,8 +8667,8 @@ pub struct TestResultMetaDataUpdateInput {
     #[serde(
         rename = "flakyIdentifiers",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub flaky_identifiers: Vec<TestFlakyIdentifier>,
 }
@@ -8778,7 +8698,6 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -8803,7 +8722,6 @@ pub struct TestResultModelBase {
     #[serde(
         rename = "startedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -8824,14 +8742,14 @@ pub struct TestResultParameter {
     pub action_path: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub actual: Vec<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub expected: Vec<String>,
     #[serde(
@@ -8930,7 +8848,6 @@ pub struct TestResultReset2 {
     #[serde(
         rename = "dateModified",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_modified: Option<time::OffsetDateTime>,
@@ -8947,8 +8864,8 @@ pub struct TestResultReset2 {
     #[serde(
         rename = "testResultRV",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_result_rv: Vec<String>,
     #[serde(rename = "testRunId", default, skip_serializing_if = "Option::is_none")]
@@ -9014,8 +8931,8 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "branchNames",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub branch_names: Vec<String>,
     #[serde(
@@ -9027,21 +8944,20 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "definitionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub definition_ids: Vec<i32>,
     #[serde(
         rename = "envDefinitionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub env_definition_ids: Vec<i32>,
     #[serde(
         rename = "maxCompleteDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_complete_date: Option<time::OffsetDateTime>,
@@ -9054,8 +8970,8 @@ pub struct TestResultTrendFilter {
     #[serde(
         rename = "testRunTitles",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub test_run_titles: Vec<String>,
     #[serde(rename = "trendDays", default, skip_serializing_if = "Option::is_none")]
@@ -9118,8 +9034,8 @@ pub struct TestResultsDetails {
     #[serde(
         rename = "resultsForGroup",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results_for_group: Vec<TestResultsDetailsForGroup>,
 }
@@ -9139,8 +9055,8 @@ pub struct TestResultsDetailsForGroup {
     pub group_by_value: Option<serde_json::Value>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<TestCaseResult>,
     #[serde(
@@ -9151,8 +9067,8 @@ pub struct TestResultsDetailsForGroup {
     pub results_count_by_outcome: Option<serde_json::Value>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
 }
@@ -9169,14 +9085,12 @@ pub struct TestResultsEx2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateTimeValue",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_time_value: Option<time::OffsetDateTime>,
@@ -9225,8 +9139,8 @@ pub struct TestResultsGroupsForBuild {
     #[doc = "The group by results"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<FieldDetailsForTestResults>,
 }
@@ -9241,8 +9155,8 @@ pub struct TestResultsGroupsForRelease {
     #[doc = "The group by results"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<FieldDetailsForTestResults>,
     #[doc = "Release Environment Id for which groupby result is fetched."]
@@ -9266,14 +9180,14 @@ impl TestResultsGroupsForRelease {
 pub struct TestResultsQuery {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<TestCaseResult>,
     #[doc = ""]
@@ -9341,15 +9255,14 @@ pub struct TestResultsWithWatermark {
     #[serde(
         rename = "changedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "pointsResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub points_results: Vec<PointsResults2>,
     #[serde(rename = "resultId", default, skip_serializing_if = "Option::is_none")]
@@ -9382,7 +9295,6 @@ pub struct TestRun {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -9393,7 +9305,6 @@ pub struct TestRun {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -9401,8 +9312,8 @@ pub struct TestRun {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Drop Location for the test Run."]
@@ -9437,7 +9348,6 @@ pub struct TestRun {
     #[serde(
         rename = "dueDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
@@ -9482,7 +9392,6 @@ pub struct TestRun {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -9552,15 +9461,14 @@ pub struct TestRun {
     #[serde(
         rename = "runStatistics",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub run_statistics: Vec<RunStatistic>,
     #[doc = "Start date time of the run."]
     #[serde(
         rename = "startedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -9573,8 +9481,8 @@ pub struct TestRun {
     #[doc = "Tags attached with this test run."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<TestTag>,
     #[doc = "Test environment Detail."]
@@ -9672,7 +9580,6 @@ pub struct TestRun2 {
     #[serde(
         rename = "completeDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub complete_date: Option<time::OffsetDateTime>,
@@ -9687,14 +9594,12 @@ pub struct TestRun2 {
     #[serde(
         rename = "creationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "deletedOn",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_on: Option<time::OffsetDateTime>,
@@ -9707,7 +9612,6 @@ pub struct TestRun2 {
     #[serde(
         rename = "dueDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub due_date: Option<time::OffsetDateTime>,
@@ -9746,7 +9650,6 @@ pub struct TestRun2 {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -9813,7 +9716,6 @@ pub struct TestRun2 {
     #[serde(
         rename = "startDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -9930,8 +9832,8 @@ pub struct TestRunCoverage {
     #[doc = "List of Modules Coverage"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub modules: Vec<ModuleCoverage>,
     #[doc = "State"]
@@ -9953,8 +9855,8 @@ pub struct TestRunCoverageList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestRunCoverage>,
 }
@@ -9994,14 +9896,12 @@ pub struct TestRunEx2 {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "dateTimeValue",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub date_time_value: Option<time::OffsetDateTime>,
@@ -10099,8 +9999,8 @@ pub struct TestRunList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestRun>,
 }
@@ -10129,8 +10029,8 @@ pub struct TestRunStatistic {
     #[serde(
         rename = "runStatistics",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub run_statistics: Vec<RunStatistic>,
 }
@@ -10173,7 +10073,6 @@ pub struct TestRunSummary2 {
     #[serde(
         rename = "testRunCompletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub test_run_completed_date: Option<time::OffsetDateTime>,
@@ -10205,8 +10104,8 @@ pub struct TestRunWithDtlEnvEvent {
     #[serde(
         rename = "configurationIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration_ids: Vec<i32>,
     #[serde(
@@ -10246,7 +10145,6 @@ pub struct TestSession {
     #[serde(
         rename = "endDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
@@ -10264,7 +10162,6 @@ pub struct TestSession {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -10291,7 +10188,6 @@ pub struct TestSession {
     #[serde(
         rename = "startDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -10356,15 +10252,14 @@ pub struct TestSessionExploredWorkItemReference {
     #[serde(
         rename = "associatedWorkItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub associated_work_items: Vec<TestSessionWorkItemReference>,
     #[doc = "Time when exploration of workitem ended."]
     #[serde(
         rename = "endTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_time: Option<time::OffsetDateTime>,
@@ -10372,7 +10267,6 @@ pub struct TestSessionExploredWorkItemReference {
     #[serde(
         rename = "startTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -10389,8 +10283,8 @@ pub struct TestSessionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestSession>,
 }
@@ -10472,7 +10366,6 @@ pub struct TestSettings2 {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -10492,7 +10385,6 @@ pub struct TestSettings2 {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -10557,7 +10449,6 @@ pub struct TestSubResult {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -10575,8 +10466,8 @@ pub struct TestSubResult {
     #[serde(
         rename = "customFields",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub custom_fields: Vec<CustomTestField>,
     #[doc = "Name of sub result."]
@@ -10607,7 +10498,6 @@ pub struct TestSubResult {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -10642,7 +10532,6 @@ pub struct TestSubResult {
     #[serde(
         rename = "startedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,
@@ -10650,8 +10539,8 @@ pub struct TestSubResult {
     #[serde(
         rename = "subResults",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub sub_results: Vec<TestSubResult>,
     #[doc = "Reference to a test result."]
@@ -10696,24 +10585,24 @@ pub struct TestSuite {
     #[doc = "Child test suites of current test suite."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<TestSuite>,
     #[doc = "Test suite default configuration."]
     #[serde(
         rename = "defaultConfigurations",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub default_configurations: Vec<ShallowReference>,
     #[doc = "Test suite default testers."]
     #[serde(
         rename = "defaultTesters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub default_testers: Vec<ShallowReference>,
     #[doc = "Id of test suite."]
@@ -10733,7 +10622,6 @@ pub struct TestSuite {
     #[serde(
         rename = "lastPopulatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_populated_date: Option<time::OffsetDateTime>,
@@ -10748,7 +10636,6 @@ pub struct TestSuite {
     #[serde(
         rename = "lastUpdatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -10787,8 +10674,8 @@ pub struct TestSuite {
     #[doc = "List of shallow reference of suites."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub suites: Vec<ShallowReference>,
     #[doc = "Test suite type."]
@@ -10898,8 +10785,8 @@ impl TestTagSummary {
 pub struct TestTagsUpdateModel {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<serde_json::Value>,
 }
@@ -10917,8 +10804,8 @@ pub struct TestToWorkItemLinks {
     #[serde(
         rename = "workItems",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<WorkItemReference>,
 }
@@ -10951,8 +10838,8 @@ pub struct TestVariable {
     #[doc = "List of allowed values"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
 }
@@ -10967,15 +10854,15 @@ pub struct UpdateTestRunRequest {
     #[serde(
         rename = "attachmentsToAdd",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments_to_add: Vec<TestResultAttachment>,
     #[serde(
         rename = "attachmentsToDelete",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments_to_delete: Vec<TestResultAttachmentIdentity>,
     #[serde(
@@ -11005,8 +10892,8 @@ pub struct UpdateTestRunResponse {
     #[serde(
         rename = "attachmentIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachment_ids: Vec<i32>,
     #[doc = ""]
@@ -11030,7 +10917,6 @@ pub struct UpdatedProperties {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -11059,8 +10945,8 @@ impl UpdatedProperties {
 pub struct UploadAttachmentsRequest {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub attachments: Vec<HttpPostedTcmAttachment>,
     #[serde(
@@ -11136,8 +11022,8 @@ pub struct WorkItemToTestLinks {
     pub executed_in: Option<work_item_to_test_links::ExecutedIn>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub tests: Vec<TestMethod>,
     #[doc = "WorkItem reference Details."]

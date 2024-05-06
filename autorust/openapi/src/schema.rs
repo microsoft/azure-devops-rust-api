@@ -1,23 +1,30 @@
 use crate::*;
 use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
+use std::fmt::Display;
 
 // http://json.schemastore.org/swagger-2.0
 
 /// The transfer protocol of the API. Values MUST be from the list: "http", "https", "ws", "wss".
 /// If the schemes is not included, the default scheme to be used is the one used to access the Swagger definition itself.
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Scheme {
+    #[default]
     Http,
     Https,
     Ws,
     Wss,
 }
 
-impl Default for Scheme {
-    fn default() -> Self {
-        Scheme::Http
+impl Display for Scheme {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Scheme::Http => write!(f, "http"),
+            Scheme::Https => write!(f, "https"),
+            Scheme::Ws => write!(f, "ws"),
+            Scheme::Wss => write!(f, "wss"),
+        }
     }
 }
 
@@ -64,7 +71,7 @@ pub enum AdditionalProperties {
 /// common fields in both Schema Object & Parameter Object
 /// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject
 /// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#parameter-object
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct SchemaCommon {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -130,7 +137,7 @@ pub struct SchemaCommon {
 }
 
 /// https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#schemaObject
-#[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct Schema {
     #[serde(flatten)]

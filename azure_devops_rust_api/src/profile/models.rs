@@ -64,14 +64,13 @@ pub struct Avatar {
     #[serde(
         rename = "timeStamp",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<String>,
 }
@@ -242,7 +241,6 @@ pub struct Profile {
     #[serde(
         rename = "timeStamp",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
@@ -289,7 +287,6 @@ pub struct ProfileAttributeBase {
     #[serde(
         rename = "timeStamp",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub time_stamp: Option<time::OffsetDateTime>,
@@ -324,23 +321,23 @@ pub struct ProfileRegions {
     #[serde(
         rename = "noticeContactConsentRequirementRegions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub notice_contact_consent_requirement_regions: Vec<String>,
     #[doc = "List of country/region code with contact consent requirement type of opt-out"]
     #[serde(
         rename = "optOutContactConsentRequirementRegions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub opt_out_contact_consent_requirement_regions: Vec<String>,
     #[doc = "List of country/regions"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub regions: Vec<ProfileRegion>,
 }

@@ -29,14 +29,12 @@ pub struct PermissionsReport {
     #[serde(
         rename = "reportStatusLastUpdatedTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub report_status_last_updated_time: Option<time::OffsetDateTime>,
     #[serde(
         rename = "requestedTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub requested_time: Option<time::OffsetDateTime>,
@@ -72,8 +70,8 @@ pub struct PermissionsReportList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PermissionsReport>,
 }
@@ -88,8 +86,8 @@ pub struct PermissionsReportRequest {
     #[doc = "List of groups and users to fetch permissions on.  An empty list will fetch all groups and users in the organization"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub descriptors: Vec<String>,
     #[doc = "Name of the report to create, make it unique"]
@@ -102,8 +100,8 @@ pub struct PermissionsReportRequest {
     #[doc = "List of resources to fetch permisions on"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub resources: Vec<PermissionsReportResource>,
 }

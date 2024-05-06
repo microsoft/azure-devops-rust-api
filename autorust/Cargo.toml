@@ -2,4 +2,10 @@
 members = [
   "codegen",
   "openapi",
+  "ado-autorust",
 ]
+
+resolver = "2"
+
+[workspace.lints]
+

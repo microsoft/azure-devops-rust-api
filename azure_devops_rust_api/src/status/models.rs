@@ -12,8 +12,8 @@ pub struct EnterpriseStatus {
     pub status: Status,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub organizations: Vec<OrganizationHealth>,
 }
@@ -70,7 +70,6 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "endTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_time: Option<time::OffsetDateTime>,
@@ -78,8 +77,8 @@ pub struct LiveSiteEvent {
     pub id: Option<i64>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub impact: Vec<LiveSiteEventImpact>,
     #[serde(
@@ -92,14 +91,13 @@ pub struct LiveSiteEvent {
     pub is_deleted: Option<bool>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub logs: Vec<LiveSiteEventLog>,
     #[serde(
         rename = "nextUpdateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub next_update_time: Option<time::OffsetDateTime>,
@@ -108,7 +106,6 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "startTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -192,7 +189,6 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "creationDateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
@@ -211,7 +207,6 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "lastUpdatedDateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date_time: Option<time::OffsetDateTime>,
@@ -253,7 +248,6 @@ pub struct LiveSiteEventLogAttachment {
     #[serde(
         rename = "creationDateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
@@ -325,8 +319,8 @@ pub struct LiveSiteEventTemplateData {
     pub intermediate_description: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub templates: Vec<LiveSiteEventTemplate>,
 }
@@ -345,14 +339,14 @@ pub struct MicroService {
     #[serde(
         rename = "scaleUnits",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub scale_units: Vec<MicroServiceScaleUnit>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<Service>,
 }
@@ -390,8 +384,8 @@ pub struct OrganizationHealth {
     pub name: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<ServiceWithHealth>,
 }
@@ -436,8 +430,8 @@ pub mod service {
 pub struct ServiceHealth {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub geographies: Vec<GeographyWithHealth>,
     pub id: String,
@@ -457,8 +451,8 @@ pub struct ServiceStatus {
     pub status: Status,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<ServiceHealth>,
 }
@@ -505,7 +499,6 @@ pub struct Status {
     #[serde(
         rename = "lastUpdated",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
@@ -526,8 +519,8 @@ pub struct StatusImpact {
     #[serde(
         rename = "liveSiteEvents",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub live_site_events: Vec<LiveSiteEvent>,
     #[doc = ""]

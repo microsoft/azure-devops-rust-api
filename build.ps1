@@ -19,14 +19,12 @@ Set-Location ..
 # Autogen the Rust crate
 Write-Host "Autogen Rust crate"
 Remove-Item -Recurse -Force azure_devops_rust_api/target -ErrorAction Ignore
-Set-Location autorust/codegen
-cargo run --release
-Set-Location ../..
+Set-Location autorust
+cargo run --bin ado-autorust --release
+Set-Location ..
 
-# Format and build Rust crate
+# Build Rust crate
 Set-Location azure_devops_rust_api
-Write-Host "Format azure_devops_rust_api"
-cargo fmt
 Write-Host "Build azure_devops_rust_api"
 cargo build --all-features
 Set-Location ..
