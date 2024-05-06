@@ -20,14 +20,12 @@ cd ..
 # Autogen the Rust crate
 echo "Autogen Rust crate"
 rm -rf azure_devops_rust_api/target
-cd autorust/codegen
-cargo run --release
-cd ../..
+cd autorust
+cargo run --bin ado-autorust --release
+cd ..
 
-# Format and build Rust crate
+# Build Rust crate
 cd azure_devops_rust_api
-echo "Format azure_devops_rust_api"
-cargo fmt
 echo "Build azure_devops_rust_api"
 cargo build --all-features
 cd ..

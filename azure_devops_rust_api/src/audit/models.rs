@@ -49,8 +49,8 @@ pub struct AuditActionInfoList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AuditActionInfo>,
 }
@@ -125,11 +125,7 @@ pub struct AuditLogEntry {
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<audit_log_entry::ScopeType>,
     #[doc = "The time when the event occurred in UTC"]
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub timestamp: Option<time::OffsetDateTime>,
     #[doc = "The user agent from the request"]
     #[serde(rename = "userAgent", default, skip_serializing_if = "Option::is_none")]
@@ -171,8 +167,8 @@ pub struct AuditLogQueryResult {
     #[serde(
         rename = "decoratedAuditLogEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub decorated_audit_log_entries: Vec<DecoratedAuditLogEntry>,
     #[doc = "True when there are more matching results to be fetched, false otherwise."]
@@ -205,7 +201,6 @@ pub struct AuditStream {
     #[serde(
         rename = "createdTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_time: Option<time::OffsetDateTime>,
@@ -233,7 +228,6 @@ pub struct AuditStream {
     #[serde(
         rename = "updatedTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_time: Option<time::OffsetDateTime>,
@@ -269,8 +263,8 @@ pub struct AuditStreamList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AuditStream>,
 }
@@ -389,11 +383,7 @@ pub struct DecoratedAuditLogEntry {
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<decorated_audit_log_entry::ScopeType>,
     #[doc = "The time when the event occurred in UTC"]
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub timestamp: Option<time::OffsetDateTime>,
     #[doc = "The user agent from the request"]
     #[serde(rename = "userAgent", default, skip_serializing_if = "Option::is_none")]

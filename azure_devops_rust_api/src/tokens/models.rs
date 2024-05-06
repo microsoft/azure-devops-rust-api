@@ -55,7 +55,6 @@ pub struct AccessTokenResult {
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -210,8 +209,8 @@ pub struct PagedPatTokens {
     #[serde(
         rename = "patTokens",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub pat_tokens: Vec<PatToken>,
 }
@@ -244,8 +243,8 @@ pub struct PatToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,
     #[doc = "The unique token string generated at creation"]
@@ -255,7 +254,6 @@ pub struct PatToken {
     #[serde(
         rename = "validFrom",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_from: Option<time::OffsetDateTime>,
@@ -263,7 +261,6 @@ pub struct PatToken {
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -293,7 +290,6 @@ pub struct PatTokenCreateRequest {
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -422,7 +418,6 @@ pub struct PatTokenUpdateRequest {
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -497,8 +492,8 @@ pub struct SessionToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,
     #[doc = "This is computed and not returned in Get queries"]
@@ -509,14 +504,12 @@ pub struct SessionToken {
     #[serde(
         rename = "validFrom",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_from: Option<time::OffsetDateTime>,
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,

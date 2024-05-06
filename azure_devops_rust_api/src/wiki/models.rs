@@ -24,7 +24,6 @@ pub struct Comment {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -37,8 +36,8 @@ pub struct Comment {
     #[doc = "The mentions of the comment."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub mentions: Vec<CommentMention>,
     #[doc = ""]
@@ -52,7 +51,6 @@ pub struct Comment {
     #[serde(
         rename = "modifiedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -62,8 +60,8 @@ pub struct Comment {
     #[doc = "The reactions on the comment."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub reactions: Vec<CommentReaction>,
     #[doc = "The rendered text of the comment"]
@@ -116,7 +114,6 @@ pub struct CommentAttachment {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -151,8 +148,8 @@ pub struct CommentList {
     #[doc = "List of comments in the current batch."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<Comment>,
     #[doc = "A string token that can be used to retrieving next page of comments if available. Otherwise null."]
@@ -365,8 +362,8 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub valid_remote_urls: Vec<String>,
     #[serde(rename = "webUrl", default, skip_serializing_if = "Option::is_none")]
@@ -592,7 +589,6 @@ pub struct TeamProjectReference {
     #[serde(
         rename = "lastUpdateTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
@@ -727,8 +723,8 @@ pub struct WikiAttachmentResponse {
     #[serde(
         rename = "eTag",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
 }
@@ -851,8 +847,8 @@ pub struct WikiPage {
     #[serde(
         rename = "subPages",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub sub_pages: Vec<WikiPage>,
     #[doc = "REST url for this wiki page."]
@@ -889,8 +885,8 @@ pub struct WikiPageDetail {
     #[serde(
         rename = "viewStats",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub view_stats: Vec<WikiPageStat>,
 }
@@ -906,8 +902,8 @@ pub struct WikiPageDetailList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WikiPageDetail>,
 }
@@ -955,8 +951,8 @@ pub struct WikiPageMoveResponse {
     #[serde(
         rename = "eTag",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
     #[doc = "Request contract for Wiki Page Move."]
@@ -975,8 +971,8 @@ pub struct WikiPageResponse {
     #[serde(
         rename = "eTag",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
     #[doc = "Defines a page in a wiki."]
@@ -995,11 +991,7 @@ pub struct WikiPageStat {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub count: Option<i32>,
     #[doc = "Day of the stat"]
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        with = "crate::date_time::rfc3339::option"
-    )]
+    #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub day: Option<time::OffsetDateTime>,
 }
 impl WikiPageStat {
@@ -1017,7 +1009,6 @@ pub struct WikiPageViewStats {
     #[serde(
         rename = "lastViewedTime",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_viewed_time: Option<time::OffsetDateTime>,
@@ -1065,8 +1056,8 @@ pub struct WikiUpdateParameters {
     #[doc = "Versions of the wiki."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<GitVersionDescriptor>,
 }
@@ -1128,8 +1119,8 @@ pub struct WikiV2 {
     #[doc = "Versions of the wiki."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<GitVersionDescriptor>,
 }
@@ -1145,8 +1136,8 @@ pub struct WikiV2List {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WikiV2>,
 }

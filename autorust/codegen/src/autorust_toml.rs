@@ -3,7 +3,6 @@ use crate::{config_parser::Tag, io};
 use camino::Utf8Path;
 use serde::Deserialize;
 use std::collections::HashSet;
-use std::str;
 
 /// `autorust.toml` files are used to configure code generation for a crate
 #[derive(Deserialize, Debug, Default)]
@@ -140,9 +139,9 @@ impl<'a> PackageConfig {
 /// If the file does not exist, then returns a default instance
 pub fn read(path: &Utf8Path) -> Result<PackageConfig> {
     if path.exists() {
-        let file_data = io::read_file(path)?;
-        let file_data_str = str::from_utf8(&file_data)?;
-        Ok(toml::from_str(file_data_str)?)
+        let bytes = io::read_file(path)?;
+        let as_str = String::from_utf8_lossy(&bytes);
+        Ok(toml::from_str(&as_str)?)
     } else {
         Ok(PackageConfig::default())
     }

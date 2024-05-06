@@ -65,6 +65,10 @@ pub fn parse_ident(text: &str) -> Result<Ident> {
     syn::parse_str::<Ident>(&id(text)).with_context(ErrorKind::Parse, || format!("parse ident {text}"))
 }
 
+pub fn raw_str_to_ident(text: &str) -> Result<Ident> {
+    syn::parse_str::<Ident>(text).with_context(ErrorKind::Parse, || format!("parse ident {text}"))
+}
+
 fn remove_spaces(text: &str) -> String {
     text.replace(' ', "")
 }
@@ -97,7 +101,7 @@ fn replace_first(text: &str, uppercase: bool, remove: bool) -> String {
     let first = text.chars().next().unwrap_or_default();
     if first.is_numeric() {
         let n = if uppercase { 'N' } else { 'n' };
-        format!("{}{}", n, text)
+        format!("{n}{text}")
     } else if !first.is_ascii_alphanumeric() {
         if text.len() > 1 {
             if remove {
@@ -116,7 +120,7 @@ fn replace_first(text: &str, uppercase: bool, remove: bool) -> String {
 /// add an underscore suffix it is a keyword
 fn suffix_keyword(text: &str) -> String {
     if is_keyword(text) {
-        format!("{}_", text)
+        format!("{text}_")
     } else {
         text.to_owned()
     }
@@ -179,6 +183,8 @@ fn is_keyword(word: &str) -> bool {
             | "where"
             | "while"
             | "yield"
+            // names used by autorust that we shouldn't stomp on
+            | "models"
     )
 }
 

@@ -12,7 +12,7 @@ pub struct PublishServicesYml<'a> {
 pub fn render<T: Template>(template: &T, path: impl AsRef<Utf8Path>) -> Result<()> {
     let rendered = template.render().with_context(ErrorKind::Io, || "render {path}")?;
     let mut file = File::create(path.as_ref())?;
-    write!(file, "{}", rendered)?;
+    write!(file, "{rendered}")?;
     Ok(())
 }
 
@@ -50,7 +50,7 @@ impl<'a> CheckAllServicesYml<'a> {
 #[template(path = "Cargo.toml.jinja")]
 pub struct CargoToml<'a> {
     pub package_name: &'a str,
-    pub default_feature: &'a str,
+    pub default_tag: &'a str,
     pub features: Vec<String>,
     pub azure_core_features: Vec<&'a str>,
 }

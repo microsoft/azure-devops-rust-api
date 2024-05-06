@@ -8,8 +8,6 @@ use std::str::FromStr;
 #[doc = "Data required to deprecate multiple package versions. Pass this while performing NpmBatchOperationTypes.Deprecate batch operation."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BatchDeprecateData {
-    #[serde(flatten)]
-    pub batch_operation_data: BatchOperationData,
     #[doc = "Deprecate message that will be added to packages"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
@@ -22,8 +20,6 @@ impl BatchDeprecateData {
 #[doc = "Data required to unlist or relist multiple package versions. Pass this while performing NuGetBatchOperationTypes.List batch operation."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BatchListData {
-    #[serde(flatten)]
-    pub batch_operation_data: BatchOperationData,
     #[doc = "The desired listed status for the package versions."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub listed: Option<bool>,
@@ -144,7 +140,6 @@ pub struct MavenPackage {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -202,7 +197,6 @@ pub struct MavenPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -230,8 +224,8 @@ pub struct MavenPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MavenMinimalPackageDetails>,
 }
@@ -260,8 +254,8 @@ pub mod maven_packages_batch_request {
 pub struct MavenPomBuild {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub plugins: Vec<Plugin>,
 }
@@ -275,8 +269,8 @@ impl MavenPomBuild {
 pub struct MavenPomCi {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub notifiers: Vec<MavenPomCiNotifier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -294,8 +288,8 @@ impl MavenPomCi {
 pub struct MavenPomCiNotifier {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration: Vec<String>,
     #[serde(
@@ -352,8 +346,8 @@ impl MavenPomDependency {
 pub struct MavenPomDependencyManagement {
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<MavenPomDependency>,
 }
@@ -417,8 +411,8 @@ pub struct MavenPomMailingList {
     #[serde(
         rename = "otherArchives",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub other_archives: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -450,14 +444,14 @@ pub struct MavenPomMetadata {
     pub ci_management: Option<MavenPomCi>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub contributors: Vec<MavenPomPerson>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<MavenPomDependency>,
     #[doc = ""]
@@ -471,8 +465,8 @@ pub struct MavenPomMetadata {
     pub description: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub developers: Vec<MavenPomPerson>,
     #[doc = ""]
@@ -497,15 +491,15 @@ pub struct MavenPomMetadata {
     pub issue_management: Option<MavenPomIssueManagement>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub licenses: Vec<MavenPomLicense>,
     #[serde(
         rename = "mailingLists",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub mailing_lists: Vec<MavenPomMailingList>,
     #[serde(
@@ -516,8 +510,8 @@ pub struct MavenPomMetadata {
     pub model_version: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub modules: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -594,8 +588,8 @@ pub struct MavenPomPerson {
     pub organization_url: Option<String>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub roles: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -692,7 +686,6 @@ pub struct NpmPackageVersionDeletionState {
     #[serde(
         rename = "unpublishedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub unpublished_date: Option<time::OffsetDateTime>,
@@ -717,8 +710,8 @@ pub struct NpmPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
 }
@@ -765,7 +758,6 @@ pub struct NuGetPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -793,8 +785,8 @@ pub struct NuGetPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
 }
@@ -842,7 +834,6 @@ pub struct Package {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -856,7 +847,6 @@ pub struct Package {
     #[serde(
         rename = "permanentlyDeletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub permanently_deleted_date: Option<time::OffsetDateTime>,
@@ -864,8 +854,8 @@ pub struct Package {
     #[serde(
         rename = "sourceChain",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub source_chain: Vec<UpstreamSourceInfo>,
     #[doc = "The version of the package."]
@@ -925,7 +915,6 @@ pub struct PyPiPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -953,8 +942,8 @@ pub struct PyPiPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
 }
@@ -1020,7 +1009,6 @@ pub struct UPackPackageVersionDeletionState {
     #[serde(
         rename = "deletedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -1048,8 +1036,8 @@ pub struct UPackPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
 }

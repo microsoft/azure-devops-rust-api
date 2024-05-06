@@ -104,16 +104,16 @@ pub struct DebugEntryCreateBatch {
     #[serde(
         rename = "debugEntries",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub debug_entries: Vec<DebugEntry>,
     #[doc = "Serialized Proof nodes, used to verify uploads on server side for Chunk Dedup DebugEntry"]
     #[serde(
         rename = "proofNodes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub proof_nodes: Vec<String>,
 }
@@ -142,8 +142,8 @@ pub struct DebugEntryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<DebugEntry>,
 }
@@ -167,8 +167,8 @@ pub struct JsonBlobBlockHash {
     #[serde(
         rename = "hashBytes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub hash_bytes: Vec<String>,
 }
@@ -183,8 +183,8 @@ pub struct JsonBlobIdentifier {
     #[serde(
         rename = "identifierValue",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub identifier_value: Vec<String>,
 }
@@ -200,16 +200,16 @@ pub struct JsonBlobIdentifierWithBlocks {
     #[serde(
         rename = "blockHashes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub block_hashes: Vec<JsonBlobBlockHash>,
     #[doc = "Array of blobId bytes."]
     #[serde(
         rename = "identifierValue",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub identifier_value: Vec<String>,
 }
@@ -233,7 +233,6 @@ pub struct Request {
     #[serde(
         rename = "expirationDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub expiration_date: Option<time::OffsetDateTime>,
@@ -280,7 +279,6 @@ pub struct ResourceBase {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,

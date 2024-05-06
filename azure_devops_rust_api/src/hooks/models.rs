@@ -14,8 +14,8 @@ pub struct Consumer {
     #[doc = "Gets this consumer's actions."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub actions: Vec<ConsumerAction>,
     #[doc = "Gets or sets this consumer's authentication type."]
@@ -52,8 +52,8 @@ pub struct Consumer {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[doc = "Gets or sets this consumer's localized name."]
@@ -111,8 +111,8 @@ pub struct ConsumerAction {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[doc = "Gets or sets this action's localized name."]
@@ -122,8 +122,8 @@ pub struct ConsumerAction {
     #[serde(
         rename = "supportedEventTypes",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_event_types: Vec<String>,
     #[doc = "Gets or sets this action's supported resource versions."]
@@ -149,8 +149,8 @@ pub struct ConsumerActionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ConsumerAction>,
 }
@@ -166,8 +166,8 @@ pub struct ConsumerList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Consumer>,
 }
@@ -183,7 +183,6 @@ pub struct Event {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -253,8 +252,8 @@ pub struct EventTypeDescriptor {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[doc = "A localized friendly name for the event type"]
@@ -271,8 +270,8 @@ pub struct EventTypeDescriptor {
     #[serde(
         rename = "supportedResourceVersions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_resource_versions: Vec<String>,
     #[doc = "The url for this resource"]
@@ -291,8 +290,8 @@ pub struct EventTypeDescriptorList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<EventTypeDescriptor>,
 }
@@ -447,8 +446,8 @@ pub struct InputDescriptor {
     #[serde(
         rename = "dependencyInputIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub dependency_input_ids: Vec<String>,
     #[doc = "Description of what this input is used for"]
@@ -535,8 +534,8 @@ pub struct InputFilter {
     #[doc = "Groups of input filter expressions. This filter matches a set of inputs if any (one or more) of the groups evaluates to true."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub conditions: Vec<InputFilterCondition>,
 }
@@ -708,8 +707,8 @@ pub struct InputValues {
     #[serde(
         rename = "possibleValues",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub possible_values: Vec<InputValue>,
 }
@@ -743,8 +742,8 @@ pub struct InputValuesQuery {
     #[serde(
         rename = "inputValues",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_values: Vec<InputValues>,
     #[doc = "Subscription containing information about the publisher/consumer and the current input values"]
@@ -763,7 +762,6 @@ pub struct Notification {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -780,7 +778,6 @@ pub struct Notification {
     #[serde(
         rename = "modifiedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -844,7 +841,6 @@ pub struct NotificationDetails {
     #[serde(
         rename = "completedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -873,7 +869,6 @@ pub struct NotificationDetails {
     #[serde(
         rename = "dequeuedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub dequeued_date: Option<time::OffsetDateTime>,
@@ -901,7 +896,6 @@ pub struct NotificationDetails {
     #[serde(
         rename = "processedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub processed_date: Option<time::OffsetDateTime>,
@@ -923,7 +917,6 @@ pub struct NotificationDetails {
     #[serde(
         rename = "queuedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queued_date: Option<time::OffsetDateTime>,
@@ -960,8 +953,8 @@ pub struct NotificationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Notification>,
 }
@@ -1010,8 +1003,8 @@ pub struct NotificationSummary {
     #[doc = "The notification results for this particular subscription."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<NotificationResultsSummaryDetail>,
     #[doc = "The subscription id associated with this notification"]
@@ -1034,8 +1027,8 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "associatedSubscriptions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub associated_subscriptions: Vec<Subscription>,
     #[doc = "If true, we will return all notification history for the query provided; otherwise, the summary is returned."]
@@ -1049,7 +1042,6 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "maxCreatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_created_date: Option<time::OffsetDateTime>,
@@ -1071,7 +1063,6 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "minCreatedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub min_created_date: Option<time::OffsetDateTime>,
@@ -1085,8 +1076,8 @@ pub struct NotificationsQuery {
     #[doc = "Results from the query"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<Notification>,
     #[doc = "Optional notification result type to filter results to"]
@@ -1103,15 +1094,15 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "subscriptionIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub subscription_ids: Vec<String>,
     #[doc = "Summary of notifications - the count of each result type (success, fail, ..)."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub summary: Vec<NotificationSummary>,
 }
@@ -1163,8 +1154,8 @@ pub struct Publisher {
     #[serde(
         rename = "inputDescriptors",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
     #[doc = "Gets this publisher's localized name."]
@@ -1181,8 +1172,8 @@ pub struct Publisher {
     #[serde(
         rename = "supportedEvents",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_events: Vec<EventTypeDescriptor>,
     #[doc = "The url for this resource"]
@@ -1221,16 +1212,16 @@ pub struct PublisherEvent {
     #[serde(
         rename = "otherResourceVersions",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub other_resource_versions: Vec<VersionedResource>,
     #[doc = "Optional publisher-input filters which restricts the set of subscriptions which are triggered by the event"]
     #[serde(
         rename = "publisherInputFilters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub publisher_input_filters: Vec<InputFilter>,
     #[doc = "Encapsulates an event subscription."]
@@ -1249,8 +1240,8 @@ pub struct PublisherList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Publisher>,
 }
@@ -1266,8 +1257,8 @@ pub struct PublishersQuery {
     #[serde(
         rename = "publisherIds",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub publisher_ids: Vec<String>,
     #[doc = "Filter for publisher inputs"]
@@ -1280,8 +1271,8 @@ pub struct PublishersQuery {
     #[doc = "Results from the query"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<Publisher>,
 }
@@ -1336,7 +1327,6 @@ pub struct SessionToken {
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -1383,7 +1373,6 @@ pub struct Subscription {
     #[serde(
         rename = "createdDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -1400,7 +1389,6 @@ pub struct Subscription {
     #[serde(
         rename = "lastProbationRetryDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_probation_retry_date: Option<time::OffsetDateTime>,
@@ -1414,7 +1402,6 @@ pub struct Subscription {
     #[serde(
         rename = "modifiedDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -1509,8 +1496,8 @@ pub struct SubscriptionInputValuesQuery {
     #[serde(
         rename = "inputValues",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub input_values: Vec<InputValues>,
     #[doc = "The scope at which the properties to query belong"]
@@ -1543,8 +1530,8 @@ pub struct SubscriptionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Subscription>,
 }
@@ -1563,7 +1550,6 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "endDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
@@ -1578,7 +1564,6 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "startDate",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -1616,8 +1601,8 @@ pub struct SubscriptionsQuery {
     #[serde(
         rename = "consumerInputFilters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub consumer_input_filters: Vec<InputFilter>,
     #[doc = "Optional event type id to restrict the results to (null for any)"]
@@ -1634,15 +1619,15 @@ pub struct SubscriptionsQuery {
     #[serde(
         rename = "publisherInputFilters",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub publisher_input_filters: Vec<InputFilter>,
     #[doc = "Results from the query"]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<Subscription>,
     #[doc = "Optional subscriber filter."]

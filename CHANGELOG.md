@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Updated `autorust` code generator to latest version from `azure-sdk-for-rust`
+
 ### [0.20.1]
 
 ### Changes

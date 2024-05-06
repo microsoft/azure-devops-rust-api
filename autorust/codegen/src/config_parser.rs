@@ -142,6 +142,9 @@ mod literate_config {
                 let yaml = extract_yaml(node)?
                     .ok_or_else(|| Error::message(ErrorKind::Parse, "Expected configuration tag to contain a YAML code block."))?;
                 let mut tag: Tag = serde_yaml::from_str(&yaml).context(ErrorKind::Parse, "reading configuration block yaml")?;
+                for input_file in tag.input_files.iter_mut() {
+                    *input_file = input_file.replace('\\', "/");
+                }
                 tag.tag = tag_name;
                 tags.push(tag);
             } else if is_header_at_level(node, 2) {
@@ -162,10 +165,10 @@ mod literate_config {
     }
 
     // from https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
-    fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut Vec<u8>) {
+    fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut String) {
         match node.data.borrow().value {
-            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => output.extend_from_slice(literal.as_bytes()),
-            NodeValue::LineBreak | NodeValue::SoftBreak => output.push(b' '),
+            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => output.push_str(literal),
+            NodeValue::LineBreak | NodeValue::SoftBreak => output.push(' '),
             _ => {
                 for n in node.children() {
                     collect_text(n, output);
@@ -179,13 +182,9 @@ mod literate_config {
     fn get_configuration_section_heading_node<'a>(root: &'a AstNode<'a>) -> Option<&'a AstNode<'a>> {
         root.children().find(|node| {
             if is_header_at_level(node, 2) {
-                let mut text = Vec::new();
+                let mut text = String::new();
                 collect_text(node, &mut text);
-                if let Ok(text) = std::str::from_utf8(&text) {
-                    text.trim() == LITERATE_CONFIGURATION_HEADING_TEXT
-                } else {
-                    false
-                }
+                text.trim() == LITERATE_CONFIGURATION_HEADING_TEXT
             } else {
                 false
             }
@@ -196,14 +195,10 @@ mod literate_config {
     /// (e.g. "### Tag: package-2020-01")
     fn get_tag_name<'a>(node: &'a AstNode<'a>) -> Option<String> {
         if is_header_at_level(node, 3) {
-            let mut text = Vec::new();
+            let mut text = String::new();
             collect_text(node, &mut text);
-            if let Ok(text) = std::str::from_utf8(&text) {
-                text.find(LITERATE_CONFIGURATION_TAG_PREFIX)
-                    .map(|start| text[start + LITERATE_CONFIGURATION_TAG_PREFIX.len()..].to_owned())
-            } else {
-                None
-            }
+            text.find(LITERATE_CONFIGURATION_TAG_PREFIX)
+                .map(|start| text[start + LITERATE_CONFIGURATION_TAG_PREFIX.len()..].to_owned())
         } else {
             None
         }
@@ -213,13 +208,9 @@ mod literate_config {
     /// (e.g. "### Basic Information")
     fn is_basic_information<'a>(node: &'a AstNode<'a>) -> bool {
         if is_header_at_level(node, 3) {
-            let mut text = Vec::new();
+            let mut text = String::new();
             collect_text(node, &mut text);
-            if let Ok(text) = std::str::from_utf8(&text) {
-                text.contains(LITERATE_CONFIGURATION_HEADING_BASIC_INFORMATION)
-            } else {
-                false
-            }
+            text.contains(LITERATE_CONFIGURATION_HEADING_BASIC_INFORMATION)
         } else {
             false
         }
@@ -235,7 +226,6 @@ mod literate_config {
                 if !fenced {
                     continue;
                 }
-                let info = std::str::from_utf8(info.as_bytes())?;
                 if info.trim_start().to_lowercase().starts_with("yaml") {
                     return Ok(Some(literal.to_owned()));
                 }
@@ -276,7 +266,7 @@ fn to_rust_mod_name(feature_name: &str) -> String {
     if starts_with_number(&name) {
         name = format!("v{}", &name);
     }
-    name.replace('-', "_").replace('.', "_").to_lowercase()
+    name.replace(['-', '.'], "_").to_lowercase()
 }
 
 #[cfg(test)]

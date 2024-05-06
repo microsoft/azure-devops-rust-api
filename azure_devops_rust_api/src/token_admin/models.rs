@@ -56,8 +56,8 @@ pub struct SessionToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,
     #[doc = "This is computed and not returned in Get queries"]
@@ -68,14 +68,12 @@ pub struct SessionToken {
     #[serde(
         rename = "validFrom",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_from: Option<time::OffsetDateTime>,
     #[serde(
         rename = "validTo",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -194,8 +192,8 @@ pub struct TokenAdminPagedSessionTokens {
     #[doc = "The list of all session tokens in the current page."]
     #[serde(
         default,
-        skip_serializing_if = "Vec::is_empty",
-        deserialize_with = "crate::serde::deserialize_null_default"
+        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SessionToken>,
 }
@@ -227,7 +225,6 @@ pub struct TokenAdminRevocationRule {
     #[serde(
         rename = "createdBefore",
         default,
-        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_before: Option<time::OffsetDateTime>,
