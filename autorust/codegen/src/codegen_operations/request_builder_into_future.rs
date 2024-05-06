@@ -189,7 +189,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
             quote! {
                 impl std::future::IntoFuture for RequestBuilder {
                     type Output = azure_core::Result<()>;
-                    type IntoFuture = futures::future::BoxFuture<'static, azure_core::Result<()>>;
+                    type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
 
                     #[doc = "Returns a future that sends the request and waits for the response."]
                     #[doc = ""]
