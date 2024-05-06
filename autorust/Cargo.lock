@@ -608,13 +608,14 @@ checksum = "0b6a852b24ab71dffc585bcb46eaf7959d175cb865a7152e35b348d1b2960422"
 
 [[package]]
 name = "comrak"
-version = "0.22.0"
+version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d0436149c9f6a1935b13306206c739b1ba84fa81f551b5eb87fc2ca7a13700af"
+checksum = "ab5681b26a36dc46800a908f7d932672a4e82f74759419dd4018bf40658457d5"
 dependencies = [
  "clap",
  "derive_builder",
  "entities",
+ "in-place",
  "memchr",
  "once_cell",
  "regex",
@@ -1326,6 +1327,15 @@ checksum = "634d9b1461af396cad843f47fdba5597a4f9e6ddd4bfb6ff5d85028c25cb12f6"
 dependencies = [
  "unicode-bidi",
  "unicode-normalization",
+]
+
+[[package]]
+name = "in-place"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1cdb69f3adfd5f493210cece799f4620417bf9965bc1536c22ae0e29ba27a8c0"
+dependencies = [
+ "tempfile",
 ]
 
 [[package]]
