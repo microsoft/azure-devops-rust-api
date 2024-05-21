@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentArtifactDefinition {
     #[doc = "Gets or sets the artifact definition alias."]
@@ -62,12 +61,10 @@ pub mod agent_artifact_definition {
         Tfvc,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentBasedDeployPhase {
     #[serde(flatten)]
     pub deploy_phase: DeployPhase,
-    #[doc = ""]
     #[serde(
         rename = "deploymentInput",
         default,
@@ -80,7 +77,6 @@ impl AgentBasedDeployPhase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentDeploymentInput {
     #[serde(flatten)]
@@ -95,7 +91,6 @@ pub struct AgentDeploymentInput {
     #[doc = "Gets or sets the image ID."]
     #[serde(rename = "imageId", default, skip_serializing_if = "Option::is_none")]
     pub image_id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "parallelExecution",
         default,
@@ -134,7 +129,6 @@ impl AgentSpecification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalOptions {
     #[doc = "Specify whether the approval can be skipped if the same approver approved the previous stage."]
@@ -198,7 +192,6 @@ pub mod approval_options {
         AfterGatesAlways,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Artifact {
     #[doc = "Gets or sets alias."]
@@ -230,10 +223,8 @@ impl Artifact {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactContributionDefinition {
-    #[doc = ""]
     #[serde(
         rename = "artifactTriggerConfiguration",
         default,
@@ -322,7 +313,6 @@ impl ArtifactContributionDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactDownloadInputBase {
     #[doc = "Gets or sets the alias of artifact."]
@@ -356,7 +346,6 @@ impl ArtifactDownloadInputBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactFilter {
     #[doc = "Gets or sets whether a release should be created on build tagging."]
@@ -373,7 +362,6 @@ pub struct ArtifactFilter {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_branch: Option<String>,
-    #[doc = ""]
     #[serde(rename = "tagFilter", default, skip_serializing_if = "Option::is_none")]
     pub tag_filter: Option<TagFilter>,
     #[doc = "Gets or sets the list of tags for the filter."]
@@ -396,7 +384,6 @@ impl ArtifactFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactInstanceData {
     #[serde(
@@ -421,13 +408,11 @@ impl ArtifactInstanceData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactMetadata {
     #[doc = "Sets alias of artifact."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "instanceReference",
         default,
@@ -440,7 +425,6 @@ impl ArtifactMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactProvider {
     #[doc = "Gets or sets the id of artifact provider."]
@@ -461,7 +445,6 @@ impl ArtifactProvider {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactSourceId {
     #[doc = "Gets or sets the artifact type of artifact source."]
@@ -485,7 +468,6 @@ impl ArtifactSourceId {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactSourceIdsQueryResult {
     #[doc = "Gets or sets the list of artifactsourceIds."]
@@ -502,7 +484,6 @@ impl ArtifactSourceIdsQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactSourceReference {
     #[doc = "ID of the artifact source."]
@@ -517,7 +498,6 @@ impl ArtifactSourceReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactSourceTrigger {
     #[serde(flatten)]
@@ -542,7 +522,6 @@ impl ArtifactSourceTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactTriggerConfiguration {
     #[doc = "Gets or sets the whether trigger is supported or not."]
@@ -589,10 +568,8 @@ impl ArtifactTriggerConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactTypeDefinition {
-    #[doc = ""]
     #[serde(
         rename = "artifactTriggerConfiguration",
         default,
@@ -658,13 +635,11 @@ impl ArtifactTypeDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactVersion {
     #[doc = "Gets or sets the alias of artifact."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "defaultVersion",
         default,
@@ -691,7 +666,6 @@ impl ArtifactVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactVersionQueryResult {
     #[doc = "Gets or sets the list for artifact versions of artifact version query result."]
@@ -708,7 +682,6 @@ impl ArtifactVersionQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactsDownloadInput {
     #[serde(
@@ -724,7 +697,6 @@ impl ArtifactsDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationHeader {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -737,10 +709,8 @@ impl AuthorizationHeader {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AutoTriggerIssue {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub issue: Option<Issue>,
     #[serde(
@@ -749,10 +719,8 @@ pub struct AutoTriggerIssue {
         skip_serializing_if = "Option::is_none"
     )]
     pub issue_source: Option<auto_trigger_issue::IssueSource>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinitionReference",
         default,
@@ -800,7 +768,6 @@ pub mod auto_trigger_issue {
         PullRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultVariableGroupProviderData {
     #[doc = "Gets or sets last refreshed time."]
@@ -826,7 +793,6 @@ impl AzureKeyVaultVariableGroupProviderData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultVariableValue {
     #[serde(flatten)]
@@ -850,7 +816,6 @@ impl AzureKeyVaultVariableValue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BaseDeploymentInput {
     #[doc = "Gets or sets the job condition."]
@@ -883,7 +848,6 @@ impl BaseDeploymentInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildArtifactDownloadInput {
     #[serde(flatten)]
@@ -894,7 +858,6 @@ impl BuildArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildVersion {
     #[doc = "Gets or sets the commit message for the artifact."]
@@ -938,7 +901,6 @@ pub struct BuildVersion {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_branch: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "sourcePullRequestVersion",
         default,
@@ -975,7 +937,6 @@ impl BuildVersion {
 #[doc = "Represents a change associated with a build."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Change {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "The type of source. \"TfsVersionControl\", \"TfsGit\", etc."]
@@ -1001,7 +962,6 @@ pub struct Change {
     #[doc = "A description of the change. This might be a commit message or changeset description."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-    #[doc = ""]
     #[serde(rename = "pushedBy", default, skip_serializing_if = "Option::is_none")]
     pub pushed_by: Option<IdentityRef>,
     #[doc = "A timestamp for the change."]
@@ -1013,7 +973,6 @@ impl Change {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CodeRepositoryReference {
     #[doc = "Gets and sets the repository references."]
@@ -1049,7 +1008,6 @@ pub mod code_repository_reference {
         GitHub,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ComplianceSettings {
     #[doc = "Scan the release definition for secrets"]
@@ -1065,7 +1023,6 @@ impl ComplianceSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Condition {
     #[doc = "Gets or sets the condition type."]
@@ -1102,7 +1059,6 @@ pub mod condition {
         Artifact,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ConfigurationVariableValue {
     #[doc = "Gets and sets if a variable can be overridden at deployment time or not."]
@@ -1124,7 +1080,6 @@ impl ConfigurationVariableValue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Consumer {
     #[doc = "ID of the consumer."]
@@ -1147,7 +1102,6 @@ impl Consumer {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContainerImageTrigger {
     #[serde(flatten)]
@@ -1169,7 +1123,6 @@ impl ContainerImageTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContinuousDeploymentTriggerIssue {
     #[serde(flatten)]
@@ -1197,7 +1150,6 @@ impl ContinuousDeploymentTriggerIssue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ControlOptions {
     #[doc = "Always run the job."]
@@ -1219,7 +1171,6 @@ impl ControlOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CustomArtifactDownloadInput {
     #[serde(flatten)]
@@ -1230,7 +1181,6 @@ impl CustomArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DataSourceBinding {
     #[doc = "Pagination format supported by this data source(ContinuationToken/SkipTop)."]
@@ -1407,7 +1357,6 @@ impl DataSourceBindingBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DefinitionEnvironmentReference {
     #[doc = "Definition environment ID."]
@@ -1444,7 +1393,6 @@ impl DefinitionEnvironmentReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Demand {
     #[doc = "Gets and sets the name of demand."]
@@ -1459,7 +1407,6 @@ impl Demand {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeployPhase {
     #[doc = "Gets and sets the name of deploy phase."]
@@ -1505,7 +1452,6 @@ pub mod deploy_phase {
         DeploymentGates,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Deployment {
     #[doc = "Gets attempt number."]
@@ -1542,7 +1488,6 @@ pub struct Deployment {
     #[doc = "Gets the unique identifier for deployment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -1579,7 +1524,6 @@ pub struct Deployment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pre_deploy_approvals: Vec<ReleaseApproval>,
-    #[doc = ""]
     #[serde(
         rename = "projectReference",
         default,
@@ -1596,31 +1540,26 @@ pub struct Deployment {
     #[doc = "Gets reason of deployment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<deployment::Reason>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<ReleaseReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub release_definition: Option<ReleaseDefinitionShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseEnvironment",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub release_environment: Option<ReleaseEnvironmentShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub requested_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "requestedFor",
         default,
@@ -1706,18 +1645,14 @@ pub mod deployment {
         RedeployTrigger,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentApprovalCompletedEvent {
     #[serde(flatten)]
     pub deployment_event: DeploymentEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approval: Option<ReleaseApproval>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -1726,15 +1661,12 @@ impl DeploymentApprovalCompletedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentApprovalPendingEvent {
     #[serde(flatten)]
     pub deployment_event: DeploymentEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approval: Option<ReleaseApproval>,
-    #[doc = ""]
     #[serde(
         rename = "approvalOptions",
         default,
@@ -1750,7 +1682,6 @@ pub struct DeploymentApprovalPendingEvent {
     pub completed_approvals: Vec<ReleaseApproval>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<Deployment>,
     #[serde(
@@ -1766,10 +1697,8 @@ pub struct DeploymentApprovalPendingEvent {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pending_approvals: Vec<ReleaseApproval>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -1778,7 +1707,6 @@ impl DeploymentApprovalPendingEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentAttempt {
     #[doc = "Deployment attempt."]
@@ -1808,7 +1736,6 @@ pub struct DeploymentAttempt {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub issues: Vec<Issue>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -1829,14 +1756,12 @@ pub struct DeploymentAttempt {
         skip_serializing_if = "Option::is_none"
     )]
     pub operation_status: Option<deployment_attempt::OperationStatus>,
-    #[doc = ""]
     #[serde(
         rename = "postDeploymentGates",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub post_deployment_gates: Option<ReleaseGates>,
-    #[doc = ""]
     #[serde(
         rename = "preDeploymentGates",
         default,
@@ -1861,14 +1786,12 @@ pub struct DeploymentAttempt {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub release_deploy_phases: Vec<ReleaseDeployPhase>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub requested_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "requestedFor",
         default,
@@ -1943,7 +1866,6 @@ pub mod deployment_attempt {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentAuthorizationInfo {
     #[doc = "Authorization header type, typically either RevalidateApproverIdentity or OnBehalfOf."]
@@ -1987,7 +1909,6 @@ pub mod deployment_authorization_info {
         OnBehalfOf,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentCompletedEvent {
     #[serde(flatten)]
@@ -1996,13 +1917,10 @@ pub struct DeploymentCompletedEvent {
     pub comment: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<Deployment>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<ReleaseEnvironment>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
 }
@@ -2011,7 +1929,6 @@ impl DeploymentCompletedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentEvent {
     #[serde(flatten)]
@@ -2026,12 +1943,10 @@ impl DeploymentEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentInput {
     #[serde(flatten)]
     pub base_deployment_input: BaseDeploymentInput,
-    #[doc = ""]
     #[serde(
         rename = "artifactsDownloadInput",
         default,
@@ -2068,10 +1983,8 @@ impl DeploymentInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentJob {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub job: Option<ReleaseTask>,
     #[doc = "List of  executed tasks with in job."]
@@ -2087,7 +2000,6 @@ impl DeploymentJob {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2104,13 +2016,10 @@ impl DeploymentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentManualInterventionPendingEvent {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approval: Option<ReleaseApproval>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<Deployment>,
     #[serde(
@@ -2120,24 +2029,20 @@ pub struct DeploymentManualInterventionPendingEvent {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub email_recipients: Vec<String>,
-    #[doc = ""]
     #[serde(
         rename = "environmentOwner",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub environment_owner: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "manualIntervention",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub manual_intervention: Option<ManualIntervention>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -2146,7 +2051,6 @@ impl DeploymentManualInterventionPendingEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentQueryParameters {
     #[doc = "Query deployments based specified artifact source id."]
@@ -2286,18 +2190,14 @@ pub mod deployment_query_parameters {
         FailingSince,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentStartedEvent {
     #[serde(flatten)]
     pub deployment_event: DeploymentEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<ReleaseEnvironment>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -2306,7 +2206,6 @@ impl DeploymentStartedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EmailRecipients {
     #[doc = "List of email addresses."]
@@ -2354,7 +2253,6 @@ impl EnvironmentExecutionPolicy {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentOptions {
     #[doc = "Gets and sets as the auto link workitems or not."]
@@ -2391,7 +2289,6 @@ impl EnvironmentOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentRetentionPolicy {
     #[doc = "Gets and sets the number of days to keep environment."]
@@ -2421,7 +2318,6 @@ impl EnvironmentRetentionPolicy {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentTrigger {
     #[doc = "Definition environment ID on which this trigger applicable."]
@@ -2471,7 +2367,6 @@ pub mod environment_trigger {
         RollbackRedeploy,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentTriggerContent {
     #[doc = "Gets or sets action."]
@@ -2491,7 +2386,6 @@ impl EnvironmentTriggerContent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExecutionInput {
     #[doc = "Parallel execution type, for example MultiConfiguration or MultiMachine."]
@@ -2541,10 +2435,8 @@ impl FavoriteItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Folder {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Time when this folder created."]
@@ -2557,7 +2449,6 @@ pub struct Folder {
     #[doc = "Description of the folder."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "lastChangedBy",
         default,
@@ -2580,7 +2471,6 @@ impl Folder {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FolderList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2597,7 +2487,6 @@ impl FolderList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GateUpdateMetadata {
     #[doc = "Comment."]
@@ -2617,12 +2506,10 @@ impl GateUpdateMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GatesDeployPhase {
     #[serde(flatten)]
     pub deploy_phase: DeployPhase,
-    #[doc = ""]
     #[serde(
         rename = "deploymentInput",
         default,
@@ -2635,7 +2522,6 @@ impl GatesDeployPhase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GatesDeploymentInput {
     #[serde(flatten)]
@@ -2667,7 +2553,6 @@ impl GatesDeploymentInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitArtifactDownloadInput {
     #[serde(flatten)]
@@ -2678,7 +2563,6 @@ impl GitArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitHubArtifactDownloadInput {
     #[serde(flatten)]
@@ -2689,7 +2573,6 @@ impl GitHubArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -2714,7 +2597,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -2780,7 +2662,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IgnoredGate {
     #[doc = "Gets the date on which gate is last ignored."]
@@ -3033,7 +2914,6 @@ impl InputValuesError {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValuesQuery {
     #[serde(
@@ -3059,7 +2939,6 @@ impl InputValuesQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Issue {
     #[doc = "Issue data."]
@@ -3077,7 +2956,6 @@ impl Issue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JenkinsArtifactDownloadInput {
     #[serde(flatten)]
@@ -3088,12 +2966,10 @@ impl JenkinsArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MachineGroupBasedDeployPhase {
     #[serde(flatten)]
     pub deploy_phase: DeployPhase,
-    #[doc = ""]
     #[serde(
         rename = "deploymentInput",
         default,
@@ -3106,7 +2982,6 @@ impl MachineGroupBasedDeployPhase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MachineGroupDeploymentInput {
     #[serde(flatten)]
@@ -3138,13 +3013,11 @@ impl MachineGroupDeploymentInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MailMessage {
     #[doc = "Body of mail."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cc: Option<EmailRecipients>,
     #[doc = "Reply to."]
@@ -3160,7 +3033,6 @@ pub struct MailMessage {
         with = "crate::date_time::rfc3339::option"
     )]
     pub reply_by: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(rename = "replyTo", default, skip_serializing_if = "Option::is_none")]
     pub reply_to: Option<EmailRecipients>,
     #[doc = "List of mail section types."]
@@ -3180,7 +3052,6 @@ pub struct MailMessage {
     #[doc = "Subject of the mail."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subject: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub to: Option<EmailRecipients>,
 }
@@ -3200,10 +3071,8 @@ pub mod mail_message {
         RequestingUser,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ManualIntervention {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approver: Option<IdentityRef>,
     #[doc = "Gets or sets comments for approval."]
@@ -3232,17 +3101,14 @@ pub struct ManualIntervention {
     #[doc = "Gets or sets the name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<ReleaseShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub release_definition: Option<ReleaseDefinitionShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseEnvironment",
         default,
@@ -3285,7 +3151,6 @@ pub mod manual_intervention {
         Canceled,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ManualInterventionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3302,7 +3167,6 @@ impl ManualInterventionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ManualInterventionUpdateMetadata {
     #[doc = "Sets the comment for manual intervention update."]
@@ -3334,7 +3198,6 @@ pub mod manual_intervention_update_metadata {
         Canceled,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MappingDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3345,7 +3208,6 @@ impl MappingDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Metric {
     #[doc = "Name of the Metric."]
@@ -3360,7 +3222,6 @@ impl Metric {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MultiConfigInput {
     #[serde(flatten)]
@@ -3374,7 +3235,6 @@ impl MultiConfigInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MultiMachineInput {
     #[serde(flatten)]
@@ -3385,7 +3245,6 @@ impl MultiMachineInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OrgPipelineReleaseSettings {
     #[doc = "Defines whether user can manage pipeline settings."]
@@ -3408,7 +3267,6 @@ impl OrgPipelineReleaseSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OrgPipelineReleaseSettingsUpdateParameters {
     #[doc = "EnforceJobAuthScope setting at organisaion level. If enabled, scope of access for all release pipelines in the organisation reduces to the current project."]
@@ -3424,7 +3282,6 @@ impl OrgPipelineReleaseSettingsUpdateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageTrigger {
     #[serde(flatten)]
@@ -3438,7 +3295,6 @@ impl PackageTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ParallelExecutionInputBase {
     #[serde(flatten)]
@@ -3463,7 +3319,6 @@ impl ParallelExecutionInputBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineProcess {
     #[doc = "Pipeline process type."]
@@ -3486,7 +3341,6 @@ pub mod pipeline_process {
         Yaml,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessParameters {
     #[serde(
@@ -3515,7 +3369,6 @@ impl ProcessParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectPipelineReleaseSettings {
     #[doc = "EnforceJobAuthScope setting at project level. If enabled, scope of access for all release pipelines reduces to the current project."]
@@ -3552,7 +3405,6 @@ impl ProjectPipelineReleaseSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectPipelineReleaseSettingsUpdateParameters {
     #[doc = "EnforceJobAuthScope setting at project level. If enabled, scope of access for all release pipelines reduces to the current project."]
@@ -3568,7 +3420,6 @@ impl ProjectPipelineReleaseSettingsUpdateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectReference {
     #[doc = "Gets the unique identifier of this field."]
@@ -3611,7 +3462,6 @@ impl PropertiesCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PropertySelector {
     #[doc = "List of properties."]
@@ -3645,10 +3495,8 @@ pub mod property_selector {
         Exclusion,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PullRequestConfiguration {
-    #[doc = ""]
     #[serde(
         rename = "codeRepositoryReference",
         default,
@@ -3668,7 +3516,6 @@ impl PullRequestConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PullRequestFilter {
     #[doc = "List of tags."]
@@ -3691,7 +3538,6 @@ impl PullRequestFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PullRequestTrigger {
     #[serde(flatten)]
@@ -3703,7 +3549,6 @@ pub struct PullRequestTrigger {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_alias: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "pullRequestConfiguration",
         default,
@@ -3731,7 +3576,6 @@ impl PullRequestTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueuedReleaseData {
     #[doc = "Project ID of the release."]
@@ -3753,7 +3597,6 @@ impl QueuedReleaseData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RealtimeReleaseDefinitionEvent {
     #[serde(
@@ -3770,7 +3613,6 @@ impl RealtimeReleaseDefinitionEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RealtimeReleaseEvent {
     #[serde(
@@ -3801,7 +3643,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Release {
     #[doc = "Links"]
@@ -3817,10 +3658,8 @@ pub struct Release {
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "createdFor",
         default,
@@ -3868,7 +3707,6 @@ pub struct Release {
         skip_serializing_if = "Option::is_none"
     )]
     pub logs_container_url: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -3888,7 +3726,6 @@ pub struct Release {
     #[doc = "Gets pool name."]
     #[serde(rename = "poolName", default, skip_serializing_if = "Option::is_none")]
     pub pool_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "projectReference",
         default,
@@ -3901,7 +3738,6 @@ pub struct Release {
     #[doc = "Gets reason of release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<release::Reason>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
@@ -3984,15 +3820,12 @@ pub mod release {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseAbandonedEvent {
     #[serde(flatten)]
     pub release_event: ReleaseEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -4001,7 +3834,6 @@ impl ReleaseAbandonedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseApproval {
     #[doc = "Gets or sets the type of approval."]
@@ -4011,14 +3843,12 @@ pub struct ReleaseApproval {
         skip_serializing_if = "Option::is_none"
     )]
     pub approval_type: Option<release_approval::ApprovalType>,
-    #[doc = ""]
     #[serde(
         rename = "approvedBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub approved_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approver: Option<IdentityRef>,
     #[doc = "Gets or sets attempt which specifies as which deployment attempt it belongs."]
@@ -4061,17 +3891,14 @@ pub struct ReleaseApproval {
     #[doc = "Gets or sets rank which specifies the order of the approval. e.g. Same rank denotes parallel approval."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rank: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<ReleaseShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub release_definition: Option<ReleaseDefinitionShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseEnvironment",
         default,
@@ -4126,13 +3953,10 @@ pub mod release_approval {
         Skipped,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseApprovalHistory {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approver: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(rename = "changedBy", default, skip_serializing_if = "Option::is_none")]
     pub changed_by: Option<IdentityRef>,
     #[doc = "Approval history comments."]
@@ -4161,7 +3985,6 @@ impl ReleaseApprovalHistory {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseApprovalList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4178,13 +4001,10 @@ impl ReleaseApprovalList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseApprovalPendingEvent {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approval: Option<ReleaseApproval>,
-    #[doc = ""]
     #[serde(
         rename = "approvalOptions",
         default,
@@ -4204,7 +4024,6 @@ pub struct ReleaseApprovalPendingEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub definition_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<Deployment>,
     #[serde(
@@ -4264,10 +4083,8 @@ impl ReleaseApprovalPendingEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseArtifact {
-    #[doc = ""]
     #[serde(
         rename = "artifactProvider",
         default,
@@ -4313,7 +4130,6 @@ impl ReleaseArtifact {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseCondition {
     #[serde(flatten)]
@@ -4327,15 +4143,12 @@ impl ReleaseCondition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseCreatedEvent {
     #[serde(flatten)]
     pub release_event: ReleaseEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -4344,7 +4157,6 @@ impl ReleaseCreatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinition {
     #[serde(flatten)]
@@ -4359,7 +4171,6 @@ pub struct ReleaseDefinition {
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets date on which it got created."]
@@ -4382,14 +4193,12 @@ pub struct ReleaseDefinition {
     #[doc = "Whether release definition is deleted."]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "lastRelease",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub last_release: Option<ReleaseReference>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -4467,12 +4276,10 @@ pub mod release_definition {
         PortalExtensionApi,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionApprovalStep {
     #[serde(flatten)]
     pub release_definition_environment_step: ReleaseDefinitionEnvironmentStep,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approver: Option<IdentityRef>,
     #[doc = "Indicates whether the approval automated."]
@@ -4498,10 +4305,8 @@ impl ReleaseDefinitionApprovalStep {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionApprovals {
-    #[doc = ""]
     #[serde(
         rename = "approvalOptions",
         default,
@@ -4521,7 +4326,6 @@ impl ReleaseDefinitionApprovals {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionDeployStep {
     #[serde(flatten)]
@@ -4539,7 +4343,6 @@ impl ReleaseDefinitionDeployStep {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionEnvironment {
     #[doc = "Gets or sets the BadgeUrl. BadgeUrl will be used when Badge will be enabled in Release Definition Environment."]
@@ -4552,7 +4355,6 @@ pub struct ReleaseDefinitionEnvironment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub conditions: Vec<Condition>,
-    #[doc = ""]
     #[serde(
         rename = "currentRelease",
         default,
@@ -4574,14 +4376,12 @@ pub struct ReleaseDefinitionEnvironment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub deploy_phases: Vec<DeployPhase>,
-    #[doc = ""]
     #[serde(
         rename = "deployStep",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub deploy_step: Option<ReleaseDefinitionDeployStep>,
-    #[doc = ""]
     #[serde(
         rename = "environmentOptions",
         default,
@@ -4609,38 +4409,32 @@ pub struct ReleaseDefinitionEnvironment {
     #[doc = "Gets and sets the name of the ReleaseDefinitionEnvironment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "postDeployApprovals",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub post_deploy_approvals: Option<ReleaseDefinitionApprovals>,
-    #[doc = ""]
     #[serde(
         rename = "postDeploymentGates",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub post_deployment_gates: Option<ReleaseDefinitionGatesStep>,
-    #[doc = ""]
     #[serde(
         rename = "preDeployApprovals",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub pre_deploy_approvals: Option<ReleaseDefinitionApprovals>,
-    #[doc = ""]
     #[serde(
         rename = "preDeploymentGates",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub pre_deployment_gates: Option<ReleaseDefinitionGatesStep>,
-    #[doc = ""]
     #[serde(
         rename = "processParameters",
         default,
@@ -4656,7 +4450,6 @@ pub struct ReleaseDefinitionEnvironment {
     #[doc = "Gets and sets the rank of the ReleaseDefinitionEnvironment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rank: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "retentionPolicy",
         default,
@@ -4687,7 +4480,6 @@ impl ReleaseDefinitionEnvironment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionEnvironmentStep {
     #[doc = "ID of the approval or deploy step."]
@@ -4699,7 +4491,6 @@ impl ReleaseDefinitionEnvironmentStep {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionEnvironmentSummary {
     #[doc = "ID of ReleaseDefinition environment summary."]
@@ -4722,7 +4513,6 @@ impl ReleaseDefinitionEnvironmentSummary {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionEnvironmentTemplate {
     #[doc = "Indicates whether template can be deleted or not."]
@@ -4734,7 +4524,6 @@ pub struct ReleaseDefinitionEnvironmentTemplate {
     #[doc = "Description of the ReleaseDefinition environment template."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<ReleaseDefinitionEnvironment>,
     #[doc = "ID of the task which used to display icon used for this template."]
@@ -4762,7 +4551,6 @@ impl ReleaseDefinitionEnvironmentTemplate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGate {
     #[doc = "Gets or sets the gates workflow."]
@@ -4778,7 +4566,6 @@ impl ReleaseDefinitionGate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGatesOptions {
     #[doc = "Gets or sets as the gates enabled or not."]
@@ -4814,7 +4601,6 @@ impl ReleaseDefinitionGatesOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGatesStep {
     #[doc = "Gets or sets the gates."]
@@ -4824,7 +4610,6 @@ pub struct ReleaseDefinitionGatesStep {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub gates: Vec<ReleaseDefinitionGate>,
-    #[doc = ""]
     #[serde(
         rename = "gatesOptions",
         default,
@@ -4840,7 +4625,6 @@ impl ReleaseDefinitionGatesStep {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4857,7 +4641,6 @@ impl ReleaseDefinitionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionRevision {
     #[doc = "Gets api-version for revision object."]
@@ -4867,7 +4650,6 @@ pub struct ReleaseDefinitionRevision {
         skip_serializing_if = "Option::is_none"
     )]
     pub api_version: Option<String>,
-    #[doc = ""]
     #[serde(rename = "changedBy", default, skip_serializing_if = "Option::is_none")]
     pub changed_by: Option<IdentityRef>,
     #[doc = "Gets date on which ReleaseDefinition changed."]
@@ -4925,7 +4707,6 @@ pub mod release_definition_revision {
         Undelete,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionRevisionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4942,7 +4723,6 @@ impl ReleaseDefinitionRevisionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionShallowReference {
     #[doc = "Links"]
@@ -4957,7 +4737,6 @@ pub struct ReleaseDefinitionShallowReference {
     #[doc = "Gets or sets the path of the release definition."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "projectReference",
         default,
@@ -4973,7 +4752,6 @@ impl ReleaseDefinitionShallowReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionSummary {
     #[doc = "List of Release Definition environment summary."]
@@ -4983,7 +4761,6 @@ pub struct ReleaseDefinitionSummary {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub environments: Vec<ReleaseDefinitionEnvironmentSummary>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
@@ -5003,7 +4780,6 @@ impl ReleaseDefinitionSummary {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionUndeleteParameter {
     #[doc = "Gets or sets comment."]
@@ -5015,7 +4791,6 @@ impl ReleaseDefinitionUndeleteParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDeployPhase {
     #[doc = "Deployment jobs of the phase."]
@@ -5107,7 +4882,6 @@ pub mod release_deploy_phase {
         Cancelling,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironment {
     #[doc = "Gets list of conditions."]
@@ -5147,7 +4921,6 @@ pub struct ReleaseEnvironment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub deploy_steps: Vec<DeploymentAttempt>,
-    #[doc = ""]
     #[serde(
         rename = "environmentOptions",
         default,
@@ -5174,10 +4947,8 @@ pub struct ReleaseEnvironment {
         with = "crate::date_time::rfc3339::option"
     )]
     pub next_scheduled_utc_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "postApprovalsSnapshot",
         default,
@@ -5192,14 +4963,12 @@ pub struct ReleaseEnvironment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub post_deploy_approvals: Vec<ReleaseApproval>,
-    #[doc = ""]
     #[serde(
         rename = "postDeploymentGatesSnapshot",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub post_deployment_gates_snapshot: Option<ReleaseDefinitionGatesStep>,
-    #[doc = ""]
     #[serde(
         rename = "preApprovalsSnapshot",
         default,
@@ -5214,14 +4983,12 @@ pub struct ReleaseEnvironment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pre_deploy_approvals: Vec<ReleaseApproval>,
-    #[doc = ""]
     #[serde(
         rename = "preDeploymentGatesSnapshot",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub pre_deployment_gates_snapshot: Option<ReleaseDefinitionGatesStep>,
-    #[doc = ""]
     #[serde(
         rename = "processParameters",
         default,
@@ -5231,17 +4998,14 @@ pub struct ReleaseEnvironment {
     #[doc = "Gets rank."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rank: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<ReleaseShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "releaseCreatedBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub release_created_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
@@ -5324,7 +5088,6 @@ pub mod release_environment {
         PartiallySucceeded,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentCompletedEvent {
     #[serde(
@@ -5345,7 +5108,6 @@ pub struct ReleaseEnvironmentCompletedEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub definition_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<ReleaseEnvironment>,
     #[serde(
@@ -5362,7 +5124,6 @@ pub struct ReleaseEnvironmentCompletedEvent {
     pub project_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<release_environment_completed_event::Reason>,
-    #[doc = ""]
     #[serde(
         rename = "releaseCreatedBy",
         default,
@@ -5413,7 +5174,6 @@ pub mod release_environment_completed_event {
         RedeployTrigger,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentShallowReference {
     #[doc = "Links"]
@@ -5434,7 +5194,6 @@ impl ReleaseEnvironmentShallowReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentStatusUpdatedEvent {
     #[serde(flatten)]
@@ -5557,7 +5316,6 @@ pub mod release_environment_status_updated_event {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentUpdateMetadata {
     #[doc = "Gets or sets comment."]
@@ -5607,7 +5365,6 @@ pub mod release_environment_update_metadata {
         PartiallySucceeded,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEvent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5620,7 +5377,6 @@ impl ReleaseEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseGates {
     #[doc = "Contains the gates job details of each evaluation."]
@@ -5701,7 +5457,6 @@ pub mod release_gates {
         Canceled,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseGatesPhase {
     #[serde(flatten)]
@@ -5734,7 +5489,6 @@ impl ReleaseGatesPhase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5751,7 +5505,6 @@ impl ReleaseList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseManagementInputValue {
     #[doc = "The text to show for the display of this value."]
@@ -5770,10 +5523,8 @@ impl ReleaseManagementInputValue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseNotCreatedEvent {
-    #[doc = ""]
     #[serde(
         rename = "definitionReference",
         default,
@@ -5788,7 +5539,6 @@ pub struct ReleaseNotCreatedEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub release_reason: Option<release_not_created_event::ReleaseReason>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
@@ -5817,7 +5567,6 @@ pub mod release_not_created_event {
         PullRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseReference {
     #[doc = "Links"]
@@ -5830,7 +5579,6 @@ pub struct ReleaseReference {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub artifacts: Vec<Artifact>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets date on when this release created."]
@@ -5846,7 +5594,6 @@ pub struct ReleaseReference {
     #[doc = "ID of the Release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -5859,7 +5606,6 @@ pub struct ReleaseReference {
     #[doc = "Gets reason for release."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<release_reference::Reason>,
-    #[doc = ""]
     #[serde(
         rename = "releaseDefinition",
         default,
@@ -5889,10 +5635,8 @@ pub mod release_reference {
         PullRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseRevision {
-    #[doc = ""]
     #[serde(rename = "changedBy", default, skip_serializing_if = "Option::is_none")]
     pub changed_by: Option<IdentityRef>,
     #[doc = "Change date of the revision."]
@@ -5935,7 +5679,6 @@ impl ReleaseRevision {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseSchedule {
     #[doc = "Days of the week to release."]
@@ -6007,17 +5750,14 @@ pub mod release_schedule {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseSettings {
-    #[doc = ""]
     #[serde(
         rename = "complianceSettings",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub compliance_settings: Option<ComplianceSettings>,
-    #[doc = ""]
     #[serde(
         rename = "retentionSettings",
         default,
@@ -6030,7 +5770,6 @@ impl ReleaseSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseShallowReference {
     #[doc = "Links"]
@@ -6051,7 +5790,6 @@ impl ReleaseShallowReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseStartEnvironmentMetadata {
     #[doc = "Sets release definition environment id."]
@@ -6070,7 +5808,6 @@ impl ReleaseStartEnvironmentMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseStartMetadata {
     #[doc = "Sets list of artifact to create a release."]
@@ -6141,7 +5878,6 @@ pub mod release_start_metadata {
         PullRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTask {
     #[doc = "Agent name on which task executed."]
@@ -6200,7 +5936,6 @@ pub struct ReleaseTask {
     #[doc = "Status of release task."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<release_task::Status>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub task: Option<WorkflowTaskReference>,
     #[doc = "Timeline record ID of the release task."]
@@ -6243,7 +5978,6 @@ pub mod release_task {
         PartiallySucceeded,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTaskAttachment {
     #[doc = "Links"]
@@ -6256,7 +5990,6 @@ pub struct ReleaseTaskAttachment {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -6292,7 +6025,6 @@ impl ReleaseTaskAttachment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTaskAttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6309,7 +6041,6 @@ impl ReleaseTaskAttachmentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTaskLogUpdatedEvent {
     #[serde(flatten)]
@@ -6338,12 +6069,10 @@ impl ReleaseTaskLogUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTasksUpdatedEvent {
     #[serde(flatten)]
     pub realtime_release_event: RealtimeReleaseEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub job: Option<ReleaseTask>,
     #[serde(rename = "planId", default, skip_serializing_if = "Option::is_none")]
@@ -6366,7 +6095,6 @@ impl ReleaseTasksUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTriggerBase {
     #[doc = "Type of release trigger."]
@@ -6403,7 +6131,6 @@ pub mod release_trigger_base {
         PullRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseUpdateMetadata {
     #[doc = "Sets comment for release."]
@@ -6451,12 +6178,10 @@ pub mod release_update_metadata {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseUpdatedEvent {
     #[serde(flatten)]
     pub realtime_release_event: RealtimeReleaseEvent,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub release: Option<Release>,
 }
@@ -6465,7 +6190,6 @@ impl ReleaseUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseWorkItemRef {
     #[doc = "Gets or sets the ID."]
@@ -6504,7 +6228,6 @@ impl ResourceReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RetentionPolicy {
     #[doc = "Indicates the number of days to keep deployment."]
@@ -6520,7 +6243,6 @@ impl RetentionPolicy {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RetentionSettings {
     #[doc = "Number of days to keep deleted releases."]
@@ -6530,14 +6252,12 @@ pub struct RetentionSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub days_to_keep_deleted_releases: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "defaultEnvironmentRetentionPolicy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub default_environment_retention_policy: Option<EnvironmentRetentionPolicy>,
-    #[doc = ""]
     #[serde(
         rename = "maximumEnvironmentRetentionPolicy",
         default,
@@ -6550,12 +6270,10 @@ impl RetentionSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunOnServerDeployPhase {
     #[serde(flatten)]
     pub deploy_phase: DeployPhase,
-    #[doc = ""]
     #[serde(
         rename = "deploymentInput",
         default,
@@ -6568,12 +6286,10 @@ impl RunOnServerDeployPhase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ScheduledReleaseTrigger {
     #[serde(flatten)]
     pub release_trigger_base: ReleaseTriggerBase,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub schedule: Option<ReleaseSchedule>,
 }
@@ -6582,12 +6298,10 @@ impl ScheduledReleaseTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServerDeploymentInput {
     #[serde(flatten)]
     pub base_deployment_input: BaseDeploymentInput,
-    #[doc = ""]
     #[serde(
         rename = "parallelExecution",
         default,
@@ -6614,7 +6328,6 @@ impl ServiceEndpointReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceIdInput {
     #[doc = "ID of source."]
@@ -6629,7 +6342,6 @@ impl SourceIdInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourcePullRequestVersion {
     #[doc = "Pull Request Iteration Id for which the release will publish status."]
@@ -6680,7 +6392,6 @@ impl SourcePullRequestVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceRepoTrigger {
     #[serde(flatten)]
@@ -6701,7 +6412,6 @@ impl SourceRepoTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SummaryMailSection {
     #[doc = "Html content of summary mail."]
@@ -6749,7 +6459,6 @@ pub mod summary_mail_section {
         ReleaseInfo,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TagFilter {
     #[doc = "Gets or sets the tag filter pattern."]
@@ -6761,7 +6470,6 @@ impl TagFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinitionBase {
     #[serde(
@@ -6796,7 +6504,6 @@ pub struct TaskInputDefinitionBase {
     pub required: Option<bool>,
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation: Option<TaskInputValidation>,
     #[serde(
@@ -6811,7 +6518,6 @@ impl TaskInputDefinitionBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputValidation {
     #[doc = "Conditional expression"]
@@ -6826,7 +6532,6 @@ impl TaskInputValidation {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroupReference {
     #[doc = "Gets or sets the plan group."]
@@ -6841,7 +6546,6 @@ impl TaskOrchestrationPlanGroupReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroupsStartedEvent {
     #[serde(
@@ -6857,7 +6561,6 @@ impl TaskOrchestrationPlanGroupsStartedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskSourceDefinitionBase {
     #[serde(rename = "authKey", default, skip_serializing_if = "Option::is_none")]
@@ -6880,7 +6583,6 @@ impl TaskSourceDefinitionBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcArtifactDownloadInput {
     #[serde(flatten)]
@@ -6891,7 +6593,6 @@ impl TfvcArtifactDownloadInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimeZone {
     #[doc = "Display name of the time zone."]
@@ -6910,10 +6611,8 @@ impl TimeZone {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimeZoneList {
-    #[doc = ""]
     #[serde(
         rename = "utcTimeZone",
         default,
@@ -6934,10 +6633,8 @@ impl TimeZoneList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroup {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets date on which it got created."]
@@ -6956,7 +6653,6 @@ pub struct VariableGroup {
     #[doc = "Denotes if a variable group is shared with other project or not."]
     #[serde(rename = "isShared", default, skip_serializing_if = "Option::is_none")]
     pub is_shared: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -6973,7 +6669,6 @@ pub struct VariableGroup {
     #[doc = "Gets or sets name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "providerData",
         default,
@@ -7009,7 +6704,6 @@ pub struct VariableGroupProjectReference {
     #[doc = "Gets or sets name of the variable group."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "projectReference",
         default,
@@ -7022,7 +6716,6 @@ impl VariableGroupProjectReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroupProviderData {}
 impl VariableGroupProviderData {
@@ -7030,7 +6723,6 @@ impl VariableGroupProviderData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableValue {
     #[doc = "Gets or sets if the variable is read only or not."]
@@ -7066,7 +6758,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -7078,7 +6769,6 @@ impl VssJsonCollectionWrapperBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkflowTask {
     #[doc = "Gets or sets as the task always run or not."]
@@ -7149,7 +6839,6 @@ impl WorkflowTask {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkflowTaskReference {
     #[doc = "Task identifier."]
@@ -7167,7 +6856,6 @@ impl WorkflowTaskReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct YamlFileSource {
     #[doc = "Gets or sets definition reference. e.g. {\"project\":{\"id\":\"fed755ea-49c5-4399-acea-fd5b5aa90a6c\",\"name\":\"myProject\"},\"definition\":{\"id\":\"1\",\"name\":\"mybuildDefinition\"},\"connection\":{\"id\":\"1\",\"name\":\"myConnection\"}}"]
@@ -7195,7 +6883,6 @@ pub mod yaml_file_source {
         TfsGit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct YamlPipelineProcess {
     #[serde(flatten)]
@@ -7208,14 +6895,12 @@ pub struct YamlPipelineProcess {
     pub errors: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "fileSource",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub file_source: Option<YamlFileSource>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resources: Option<YamlPipelineProcessResources>,
 }
@@ -7224,7 +6909,6 @@ impl YamlPipelineProcess {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct YamlPipelineProcessResources {
     #[serde(
@@ -7245,7 +6929,6 @@ impl YamlPipelineProcessResources {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct YamlSourceReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]

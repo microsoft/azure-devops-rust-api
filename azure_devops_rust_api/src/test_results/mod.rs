@@ -255,7 +255,6 @@ pub mod codecoverage {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -274,7 +273,6 @@ pub mod codecoverage {
                 flags,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -311,7 +309,6 @@ pub mod codecoverage {
                 body: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -881,7 +878,6 @@ pub mod runs {
                 continuation_token: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -904,7 +900,6 @@ pub mod runs {
                 top: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -921,7 +916,6 @@ pub mod runs {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -940,7 +934,6 @@ pub mod runs {
                 include_tags: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -959,7 +952,6 @@ pub mod runs {
                 run_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -3942,7 +3934,6 @@ pub mod attachments {
                 test_sub_result_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -3965,7 +3956,6 @@ pub mod attachments {
                 test_sub_result_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4037,7 +4027,6 @@ pub mod attachments {
                 iteration_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4054,7 +4043,6 @@ pub mod attachments {
                 run_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4093,7 +4081,6 @@ pub mod attachments {
                 attachment_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4112,7 +4099,6 @@ pub mod attachments {
                 attachment_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4131,7 +4117,6 @@ pub mod attachments {
                 test_case_result_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -4174,7 +4159,6 @@ pub mod attachments {
                 attachment_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6503,7 +6487,6 @@ pub mod tags {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6522,7 +6505,6 @@ pub mod tags {
                 release_env_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6541,7 +6523,6 @@ pub mod tags {
                 run_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6937,7 +6918,6 @@ pub mod tagsummary {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6956,7 +6936,6 @@ pub mod tagsummary {
                 release_env_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -7232,7 +7211,6 @@ pub mod workitems {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -7273,7 +7251,6 @@ pub mod workitems {
                 work_item_count: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -7292,7 +7269,6 @@ pub mod workitems {
                 test_case_result_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -7309,7 +7285,6 @@ pub mod workitems {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -8529,7 +8504,6 @@ pub mod resultdetailsbybuild {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -8751,7 +8725,6 @@ pub mod resultdetailsbyrelease {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -8980,7 +8953,6 @@ pub mod resultgroupsbybuild {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9161,7 +9133,6 @@ pub mod resultgroupsbyrelease {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9353,7 +9324,6 @@ pub mod results {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9370,7 +9340,6 @@ pub mod results {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9391,7 +9360,6 @@ pub mod results {
                 top: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9413,7 +9381,6 @@ pub mod results {
                 new_tests_only: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9432,7 +9399,6 @@ pub mod results {
                 run_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -9451,7 +9417,6 @@ pub mod results {
                 run_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -10302,7 +10267,6 @@ pub mod history {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -10900,7 +10864,6 @@ pub mod resultsbybuild {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -11316,7 +11279,6 @@ pub mod resultsbyrelease {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -11746,7 +11708,6 @@ pub mod resultsummarybybuild {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -12229,7 +12190,6 @@ pub mod resultsummarybyrelease {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -12260,7 +12220,6 @@ pub mod resultsummarybyrelease {
                 release_to_compare_name: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -12716,7 +12675,6 @@ pub mod resultsummarybyrequirement {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -12874,7 +12832,6 @@ pub mod result_trend_by_build {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -13023,7 +12980,6 @@ pub mod result_trend_by_release {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -13321,7 +13277,6 @@ pub mod result_document {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -13471,7 +13426,6 @@ pub mod bugs {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -14797,7 +14751,6 @@ pub mod testsettings {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -14814,7 +14767,6 @@ pub mod testsettings {
                 test_settings_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -14831,7 +14783,6 @@ pub mod testsettings {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

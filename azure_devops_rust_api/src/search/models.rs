@@ -158,7 +158,6 @@ impl Collection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CustomRepositoryBranchStatusResponse {
     #[serde(
@@ -479,7 +478,6 @@ impl PackageSearchRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageSearchResponse {
     #[serde(

@@ -5,10 +5,8 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessTokenResult {
-    #[doc = ""]
     #[serde(
         rename = "accessToken",
         default,
@@ -41,7 +39,6 @@ pub struct AccessTokenResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_first_party_client: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "refreshToken",
         default,
@@ -140,7 +137,6 @@ pub mod access_token_result {
         InvalidScope,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationGrant {
     #[serde(rename = "grantType", default, skip_serializing_if = "Option::is_none")]
@@ -226,7 +222,6 @@ impl ChangedIdentitiesContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateScopeInfo {
     #[serde(
@@ -271,7 +266,6 @@ pub mod create_scope_info {
         TeamProject,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FrameworkIdentityInfo {
     #[serde(
@@ -310,7 +304,6 @@ pub mod framework_identity_info {
         ImportedIdentity,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GroupMembership {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -327,7 +320,6 @@ impl GroupMembership {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Identity {
     #[serde(flatten)]
@@ -434,7 +426,6 @@ impl IdentityBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityBatchInfo {
     #[serde(
@@ -524,7 +515,6 @@ impl IdentityDescriptor {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -541,7 +531,6 @@ impl IdentityList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRightsTransferData {
     #[serde(
@@ -556,7 +545,6 @@ impl IdentityRightsTransferData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityScope {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -651,7 +639,6 @@ impl IdentitySelf {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentitySnapshot {
     #[serde(
@@ -687,7 +674,6 @@ impl IdentitySnapshot {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityUpdateData {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -702,7 +688,6 @@ impl IdentityUpdateData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IssuedToken {
     #[serde(
@@ -781,7 +766,6 @@ pub mod json_patch_operation {
         Test,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonWebToken {
     #[serde(flatten)]
@@ -792,7 +776,6 @@ impl JsonWebToken {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedIdentities {
     #[serde(
@@ -842,12 +825,10 @@ impl PropertiesCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RefreshTokenGrant {
     #[serde(flatten)]
     pub authorization_grant: AuthorizationGrant,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub jwt: Option<JsonWebToken>,
 }
@@ -856,7 +837,6 @@ impl RefreshTokenGrant {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SwapIdentityInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -869,7 +849,6 @@ impl SwapIdentityInfo {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TenantInfo {
     #[serde(
@@ -913,7 +892,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

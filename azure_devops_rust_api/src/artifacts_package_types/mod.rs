@@ -1763,7 +1763,6 @@ pub mod npm {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -1841,7 +1840,6 @@ pub mod npm {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -1942,7 +1940,6 @@ pub mod npm {
                 project: project.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

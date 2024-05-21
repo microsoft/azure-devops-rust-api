@@ -77,13 +77,10 @@ pub mod json_patch_operation {
         Test,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenDistributionManagement {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<MavenRepository>,
-    #[doc = ""]
     #[serde(
         rename = "snapshotRepository",
         default,
@@ -114,7 +111,6 @@ impl MavenMinimalPackageDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPackage {
     #[serde(
@@ -148,7 +144,6 @@ pub struct MavenPackage {
     pub files: Option<ReferenceLinks>,
     #[serde(rename = "groupId", default, skip_serializing_if = "Option::is_none")]
     pub group_id: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pom: Option<MavenPomMetadata>,
     #[doc = "The class to represent a REST reference link.  RFC:<http://tools>.ietf.org/html/draft-kelly-json-hal-06  The RFC is not fully implemented, additional properties are allowed on the reference link but as of yet we don't have a need for them."]
@@ -249,7 +244,6 @@ pub mod maven_packages_batch_request {
         RestoreToFeed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomBuild {
     #[serde(
@@ -264,7 +258,6 @@ impl MavenPomBuild {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomCi {
     #[serde(
@@ -283,7 +276,6 @@ impl MavenPomCi {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomCiNotifier {
     #[serde(
@@ -324,7 +316,6 @@ impl MavenPomCiNotifier {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomDependency {
     #[serde(flatten)]
@@ -341,7 +332,6 @@ impl MavenPomDependency {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomDependencyManagement {
     #[serde(
@@ -356,7 +346,6 @@ impl MavenPomDependencyManagement {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomGav {
     #[serde(
@@ -375,7 +364,6 @@ impl MavenPomGav {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomIssueManagement {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -388,7 +376,6 @@ impl MavenPomIssueManagement {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomLicense {
     #[serde(flatten)]
@@ -401,7 +388,6 @@ impl MavenPomLicense {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomMailingList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -427,15 +413,12 @@ impl MavenPomMailingList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomMetadata {
     #[serde(flatten)]
     pub maven_pom_gav: MavenPomGav,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub build: Option<MavenPomBuild>,
-    #[doc = ""]
     #[serde(
         rename = "ciManagement",
         default,
@@ -454,7 +437,6 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<MavenPomDependency>,
-    #[doc = ""]
     #[serde(
         rename = "dependencyManagement",
         default,
@@ -469,7 +451,6 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub developers: Vec<MavenPomPerson>,
-    #[doc = ""]
     #[serde(
         rename = "distributionManagement",
         default,
@@ -482,7 +463,6 @@ pub struct MavenPomMetadata {
         skip_serializing_if = "Option::is_none"
     )]
     pub inception_year: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "issueManagement",
         default,
@@ -516,19 +496,16 @@ pub struct MavenPomMetadata {
     pub modules: Vec<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub organization: Option<MavenPomOrganization>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub packaging: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub parent: Option<MavenPomParent>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub prerequisites: Option<serde_json::Value>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub properties: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub scm: Option<MavenPomScm>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -539,7 +516,6 @@ impl MavenPomMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomOrganization {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -552,7 +528,6 @@ impl MavenPomOrganization {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomParent {
     #[serde(flatten)]
@@ -569,7 +544,6 @@ impl MavenPomParent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomPerson {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -602,7 +576,6 @@ impl MavenPomPerson {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenPomScm {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -623,7 +596,6 @@ impl MavenPomScm {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenRecycleBinPackageVersionDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the package to feed."]
@@ -635,7 +607,6 @@ impl MavenRecycleBinPackageVersionDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenRepository {
     #[serde(
@@ -650,7 +621,6 @@ impl MavenRepository {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenSnapshotRepository {
     #[serde(flatten)]
@@ -739,7 +709,6 @@ pub mod npm_packages_batch_request {
         Delete,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NpmRecycleBinPackageVersionDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the package to feed."]
@@ -812,7 +781,6 @@ pub mod nu_get_packages_batch_request {
         RestoreToFeed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NuGetRecycleBinPackageVersionDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the package to feed."]
@@ -867,7 +835,6 @@ impl Package {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageVersionDetails {
     #[doc = "The JSON model for a JSON Patch operation"]
@@ -879,12 +846,10 @@ impl PackageVersionDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Plugin {
     #[serde(flatten)]
     pub maven_pom_gav: MavenPomGav,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<PluginConfiguration>,
 }
@@ -893,7 +858,6 @@ impl Plugin {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PluginConfiguration {
     #[serde(
@@ -967,7 +931,6 @@ pub mod py_pi_packages_batch_request {
         RestoreToFeed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PyPiRecycleBinPackageVersionDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the package to feed."]
@@ -1061,7 +1024,6 @@ pub mod u_pack_packages_batch_request {
         RestoreToFeed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UPackRecycleBinPackageVersionDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the package to feed."]

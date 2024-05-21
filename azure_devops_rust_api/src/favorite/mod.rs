@@ -141,7 +141,6 @@ pub mod favorites {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_favorites_of_owner(
@@ -161,7 +160,6 @@ pub mod favorites {
                 include_extended_details: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn create_favorite_of_owner(
@@ -179,7 +177,6 @@ pub mod favorites {
                 owner_scope_id: owner_scope_id.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_favorite_by_artifact(
@@ -199,7 +196,6 @@ pub mod favorites {
                 include_extended_details: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete_favorite_of_owner_by_id(
@@ -222,7 +218,6 @@ pub mod favorites {
                 artifact_scope_id: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_favorite_of_owner_by_id(
@@ -246,7 +241,6 @@ pub mod favorites {
                 include_extended_details: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_favorites(
@@ -262,7 +256,6 @@ pub mod favorites {
                 include_extended_details: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn create_favorite(
@@ -276,7 +269,6 @@ pub mod favorites {
                 body: body.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get_favorite_by_id(
@@ -296,7 +288,6 @@ pub mod favorites {
                 include_extended_details: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete_favorite_by_id(

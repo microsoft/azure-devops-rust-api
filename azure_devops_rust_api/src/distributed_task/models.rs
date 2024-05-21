@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadOauthTokenRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -22,7 +21,6 @@ impl AadOauthTokenRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadOauthTokenResult {
     #[serde(
@@ -43,7 +41,6 @@ impl AadOauthTokenResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentChangeEvent {
     #[doc = "A task agent."]
@@ -51,7 +48,6 @@ pub struct AgentChangeEvent {
     pub agent: Option<TaskAgent>,
     #[serde(rename = "eventType", default, skip_serializing_if = "Option::is_none")]
     pub event_type: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
 }
@@ -60,7 +56,6 @@ impl AgentChangeEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentJobRequestMessage {
     #[serde(flatten)]
@@ -87,7 +82,6 @@ impl AgentJobRequestMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentPoolEvent {
     #[serde(rename = "eventType", default, skip_serializing_if = "Option::is_none")]
@@ -101,7 +95,6 @@ impl AgentPoolEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentQueueEvent {
     #[serde(rename = "eventType", default, skip_serializing_if = "Option::is_none")]
@@ -115,7 +108,6 @@ impl AgentQueueEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentQueuesEvent {
     #[serde(rename = "eventType", default, skip_serializing_if = "Option::is_none")]
@@ -132,7 +124,6 @@ impl AgentQueuesEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentRefreshMessage {
     #[serde(rename = "agentId", default, skip_serializing_if = "Option::is_none")]
@@ -151,7 +142,6 @@ impl AgentRefreshMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthenticationSchemeReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -164,7 +154,6 @@ impl AuthenticationSchemeReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationHeader {
     #[doc = "Gets or sets the name of authorization header."]
@@ -179,7 +168,6 @@ impl AuthorizationHeader {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultPermission {
     #[serde(flatten)]
@@ -192,7 +180,6 @@ impl AzureKeyVaultPermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultVariableGroupProviderData {
     #[serde(
@@ -215,7 +202,6 @@ impl AzureKeyVaultVariableGroupProviderData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultVariableValue {
     #[serde(flatten)]
@@ -284,7 +270,6 @@ impl AzureManagementGroupQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzurePermission {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -301,7 +286,6 @@ impl AzurePermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureResourcePermission {
     #[serde(flatten)]
@@ -318,7 +302,6 @@ impl AzureResourcePermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureRoleAssignmentPermission {
     #[serde(flatten)]
@@ -335,7 +318,6 @@ impl AzureRoleAssignmentPermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSpnOperationStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -352,7 +334,6 @@ impl AzureSpnOperationStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSubscription {
     #[serde(
@@ -385,7 +366,6 @@ impl AzureSubscription {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSubscriptionQueryResult {
     #[serde(
@@ -406,7 +386,6 @@ impl AzureSubscriptionQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ClientCertificate {
     #[doc = "Gets or sets the value of client certificate."]
@@ -418,7 +397,6 @@ impl ClientCertificate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CounterVariable {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -433,10 +411,8 @@ impl CounterVariable {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DataSource {
-    #[doc = ""]
     #[serde(
         rename = "authenticationScheme",
         default,
@@ -475,7 +451,6 @@ impl DataSource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DataSourceBinding {
     #[serde(flatten)]
@@ -578,7 +553,6 @@ impl DataSourceBindingBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DataSourceDetails {
     #[serde(
@@ -619,7 +593,6 @@ impl DataSourceDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Demand {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -632,7 +605,6 @@ impl Demand {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DemandEquals {
     #[serde(flatten)]
@@ -643,7 +615,6 @@ impl DemandEquals {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DemandExists {
     #[serde(flatten)]
@@ -654,12 +625,10 @@ impl DemandExists {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DemandMinimumVersion {
     #[serde(flatten)]
     pub demand: Demand,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub source: Option<DemandSource>,
 }
@@ -668,7 +637,6 @@ impl DemandMinimumVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DemandSource {
     #[serde(
@@ -705,7 +673,6 @@ pub mod demand_source {
         Feature,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DependencyBinding {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -718,7 +685,6 @@ impl DependencyBinding {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DependencyData {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -735,7 +701,6 @@ impl DependencyData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DependsOn {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -752,7 +717,6 @@ impl DependsOn {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentGatesChangeEvent {
     #[serde(
@@ -834,7 +798,6 @@ impl DeploymentGroupCreateParameterPoolProperty {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -890,10 +853,8 @@ pub struct DeploymentGroupReference {
     #[doc = "Name of the deployment group."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
 }
@@ -942,7 +903,6 @@ impl DeploymentMachine {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentMachineChangedData {
     #[serde(flatten)]
@@ -967,7 +927,6 @@ impl DeploymentMachineChangedData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentMachineGroup {
     #[serde(flatten)]
@@ -986,17 +945,14 @@ impl DeploymentMachineGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentMachineGroupReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
 }
@@ -1005,7 +961,6 @@ impl DeploymentMachineGroupReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentMachineList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1022,7 +977,6 @@ impl DeploymentMachineList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentMachinesChangeEvent {
     #[doc = "Deployment group reference. This is useful for referring a deployment group in another object."]
@@ -1069,7 +1023,6 @@ pub struct DeploymentPoolSummary {
         skip_serializing_if = "Option::is_none"
     )]
     pub online_agents_count: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
     #[doc = "EnvironmentResourceReference."]
@@ -1099,7 +1052,6 @@ impl DeploymentTargetUpdateParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DiagnosticLogMetadata {
     #[serde(rename = "agentId", default, skip_serializing_if = "Option::is_none")]
@@ -1124,7 +1076,6 @@ impl DiagnosticLogMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticAgentPoolResizedEvent {
     #[serde(rename = "newSize", default, skip_serializing_if = "Option::is_none")]
@@ -1342,7 +1293,6 @@ pub mod elastic_node {
         UnhealthyVmPendingDelete,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticNodeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1584,7 +1534,6 @@ impl ElasticPoolCreationResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticPoolList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1655,7 +1604,6 @@ pub mod elastic_pool_log {
         DeleteVMs,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ElasticPoolLogList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1769,7 +1717,6 @@ pub mod elastic_pool_settings {
         Linux,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EndpointAuthorization {
     #[doc = "Gets or sets the parameters for the selected authorization scheme."]
@@ -1787,7 +1734,6 @@ impl EndpointAuthorization {
 #[doc = "Represents url of the service endpoint."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EndpointUrl {
-    #[doc = ""]
     #[serde(rename = "dependsOn", default, skip_serializing_if = "Option::is_none")]
     pub depends_on: Option<DependsOn>,
     #[doc = "Gets or sets the display name of service endpoint url."]
@@ -1830,7 +1776,6 @@ impl EnvironmentCreateParameter {
 #[doc = "EnvironmentDeploymentExecutionRecord."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentDeploymentExecutionRecord {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
     #[doc = "Id of the Environment"]
@@ -1860,7 +1805,6 @@ pub struct EnvironmentDeploymentExecutionRecord {
     #[doc = "Job name"]
     #[serde(rename = "jobName", default, skip_serializing_if = "Option::is_none")]
     pub job_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[doc = "Plan Id"]
@@ -1945,7 +1889,6 @@ pub mod environment_deployment_execution_record {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentDeploymentExecutionRecordList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1965,7 +1908,6 @@ impl EnvironmentDeploymentExecutionRecordList {
 #[doc = "Environment."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentInstance {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Creation time of the Environment"]
@@ -1981,7 +1923,6 @@ pub struct EnvironmentInstance {
     #[doc = "Id of the Environment"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -1998,7 +1939,6 @@ pub struct EnvironmentInstance {
     #[doc = "Name of the Environment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
     #[serde(
@@ -2013,7 +1953,6 @@ impl EnvironmentInstance {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentInstanceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2045,7 +1984,6 @@ impl EnvironmentLinkedResourceReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2058,10 +1996,8 @@ impl EnvironmentReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentResource {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[serde(
@@ -2070,7 +2006,6 @@ pub struct EnvironmentResource {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "environmentReference",
         default,
@@ -2079,7 +2014,6 @@ pub struct EnvironmentResource {
     pub environment_reference: Option<EnvironmentReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -2242,7 +2176,6 @@ impl EnvironmentUpdateParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EventsConfig {}
 impl EventsConfig {
@@ -2250,7 +2183,6 @@ impl EventsConfig {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExpressionValidationItem {
     #[serde(flatten)]
@@ -2261,7 +2193,6 @@ impl ExpressionValidationItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -2286,7 +2217,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct HelpLink {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2299,7 +2229,6 @@ impl HelpLink {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -2365,7 +2294,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputBindingContext {
     #[doc = "Value of the input"]
@@ -2526,12 +2454,10 @@ pub mod input_validation {
         Uri,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValidationItem {
     #[serde(flatten)]
     pub validation_item: ValidationItem,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub context: Option<InputBindingContext>,
 }
@@ -2540,7 +2466,6 @@ impl InputValidationItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValidationRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2721,7 +2646,6 @@ impl JToken {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobAssignedEvent {
     #[serde(flatten)]
@@ -2735,7 +2659,6 @@ impl JobAssignedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobCancelMessage {
     #[serde(rename = "jobId", default, skip_serializing_if = "Option::is_none")]
@@ -2748,7 +2671,6 @@ impl JobCancelMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobCanceledEvent {
     #[serde(flatten)]
@@ -2765,7 +2687,6 @@ impl JobCanceledEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobCompletedEvent {
     #[serde(flatten)]
@@ -2862,7 +2783,6 @@ impl JobEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobEventConfig {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2873,24 +2793,20 @@ impl JobEventConfig {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobEventsConfig {
-    #[doc = ""]
     #[serde(
         rename = "jobAssigned",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub job_assigned: Option<JobEventConfig>,
-    #[doc = ""]
     #[serde(
         rename = "jobCompleted",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub job_completed: Option<JobEventConfig>,
-    #[doc = ""]
     #[serde(
         rename = "jobStarted",
         default,
@@ -2903,7 +2819,6 @@ impl JobEventsConfig {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobMetadataEvent {
     #[serde(flatten)]
@@ -2950,7 +2865,6 @@ impl JobOption {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobRequestMessage {
     #[doc = "Represents the context of variables and vectors for a job request."]
@@ -2972,7 +2886,6 @@ pub struct JobRequestMessage {
         skip_serializing_if = "Option::is_none"
     )]
     pub message_type: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub plan: Option<TaskOrchestrationPlanReference>,
     #[doc = "A reference to a timeline."]
@@ -2984,7 +2897,6 @@ impl JobRequestMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JobStartedEvent {
     #[serde(flatten)]
@@ -2995,7 +2907,6 @@ impl JobStartedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct KubernetesResource {
     #[serde(flatten)]
@@ -3020,7 +2931,6 @@ impl KubernetesResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct KubernetesResourceCreateParameters {
     #[serde(
@@ -3046,7 +2956,6 @@ impl KubernetesResourceCreateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct KubernetesResourceCreateParametersExistingEndpoint {
     #[serde(flatten)]
@@ -3063,7 +2972,6 @@ impl KubernetesResourceCreateParametersExistingEndpoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct KubernetesResourceCreateParametersNewEndpoint {
     #[serde(flatten)]
@@ -3077,7 +2985,6 @@ impl KubernetesResourceCreateParametersNewEndpoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct KubernetesResourcePatchParameters {
     #[serde(
@@ -3135,7 +3042,6 @@ impl MarketplacePurchasedLicense {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MaskHint {
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -3259,7 +3165,6 @@ pub struct PackageMetadata {
     #[doc = "The type of package (e.g. \"agent\")"]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<PackageVersion>,
 }
@@ -3268,7 +3173,6 @@ impl PackageMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageVersion {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3283,7 +3187,6 @@ impl PackageVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PlanEnvironment {
     #[serde(
@@ -3302,7 +3205,6 @@ impl PlanEnvironment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3343,7 +3245,6 @@ impl PropertiesCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PublishTaskGroupMetadata {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3386,7 +3287,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceFilterOptions {
     #[serde(
@@ -3408,7 +3308,6 @@ impl ResourceFilterOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceFilters {
     #[serde(
@@ -3440,7 +3339,6 @@ impl ResourceFilters {
 #[doc = "Resources include Service Connections, Variable Groups and Secure Files."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceItem {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets or sets description of the resource."]
@@ -3474,7 +3372,6 @@ impl ResourceItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceLimit {
     #[serde(
@@ -3631,10 +3528,8 @@ pub mod resource_lock_request {
         WaitingOnChecks,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceUsage {
-    #[doc = ""]
     #[serde(
         rename = "resourceLimit",
         default,
@@ -3662,7 +3557,6 @@ impl ResourceUsage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourcesHubData {
     #[serde(
@@ -3677,14 +3571,12 @@ pub struct ResourcesHubData {
         skip_serializing_if = "Option::is_none"
     )]
     pub has_project_level_manage_permission: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "resourceFilterOptions",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub resource_filter_options: Option<ResourceFilterOptions>,
-    #[doc = ""]
     #[serde(
         rename = "resourceFilters",
         default,
@@ -3704,7 +3596,6 @@ impl ResourcesHubData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultTransformationDetails {
     #[serde(
@@ -3719,10 +3610,8 @@ impl ResultTransformationDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecureFile {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[serde(
@@ -3733,7 +3622,6 @@ pub struct SecureFile {
     pub created_on: Option<time::OffsetDateTime>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -3758,7 +3646,6 @@ impl SecureFile {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecureFileEvent {
     #[serde(rename = "eventType", default, skip_serializing_if = "Option::is_none")]
@@ -3778,10 +3665,8 @@ impl SecureFileEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SendJobResponse {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub events: Option<JobEventsConfig>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3792,10 +3677,8 @@ impl SendJobResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServerExecutionDefinition {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub events: Option<EventsConfig>,
     #[serde(
@@ -3810,19 +3693,16 @@ impl ServerExecutionDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServerTaskRequestMessage {
     #[serde(flatten)]
     pub job_request_message: JobRequestMessage,
-    #[doc = ""]
     #[serde(
         rename = "taskDefinition",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub task_definition: Option<TaskDefinition>,
-    #[doc = ""]
     #[serde(
         rename = "taskInstance",
         default,
@@ -3838,17 +3718,14 @@ impl ServerTaskRequestMessage {
 #[doc = "Represents an endpoint which may be used by an orchestration job."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpoint {
-    #[doc = ""]
     #[serde(
         rename = "administratorsGroup",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub administrators_group: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization: Option<EndpointAuthorization>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3884,7 +3761,6 @@ pub struct ServiceEndpoint {
     #[doc = "Gets or sets the owner of the endpoint."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "readersGroup",
         default,
@@ -3903,7 +3779,6 @@ impl ServiceEndpoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointAuthenticationScheme {
     #[doc = "Gets or sets the authorization headers of service endpoint authentication scheme."]
@@ -3946,10 +3821,8 @@ impl ServiceEndpointAuthenticationScheme {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointDetails {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization: Option<EndpointAuthorization>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3967,7 +3840,6 @@ impl ServiceEndpointDetails {
 #[doc = "Represents service endpoint execution data."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionData {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
     #[doc = "Gets the finish time of service endpoint execution."]
@@ -3980,7 +3852,6 @@ pub struct ServiceEndpointExecutionData {
     #[doc = "Gets the Id of service endpoint execution data."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i64>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[doc = "Gets the plan type of service endpoint execution data."]
@@ -4021,7 +3892,6 @@ pub mod service_endpoint_execution_data {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionRecord {
     #[doc = "Represents service endpoint execution data."]
@@ -4040,7 +3910,6 @@ impl ServiceEndpointExecutionRecord {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionRecordsInput {
     #[doc = "Represents service endpoint execution data."]
@@ -4059,24 +3928,20 @@ impl ServiceEndpointExecutionRecordsInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointRequest {
-    #[doc = ""]
     #[serde(
         rename = "dataSourceDetails",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub data_source_details: Option<DataSourceDetails>,
-    #[doc = ""]
     #[serde(
         rename = "resultTransformationDetails",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub result_transformation_details: Option<ResultTransformationDetails>,
-    #[doc = ""]
     #[serde(
         rename = "serviceEndpointDetails",
         default,
@@ -4089,7 +3954,6 @@ impl ServiceEndpointRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointRequestResult {
     #[serde(
@@ -4257,7 +4121,6 @@ pub struct ServiceEndpointType {
         skip_serializing_if = "Option::is_none"
     )]
     pub endpoint_url: Option<EndpointUrl>,
-    #[doc = ""]
     #[serde(rename = "helpLink", default, skip_serializing_if = "Option::is_none")]
     pub help_link: Option<HelpLink>,
     #[serde(
@@ -4306,7 +4169,6 @@ impl ServiceEndpointType {
 pub struct TaskAgent {
     #[serde(flatten)]
     pub task_agent_reference: TaskAgentReference,
-    #[doc = ""]
     #[serde(
         rename = "assignedAgentCloudRequest",
         default,
@@ -4403,7 +4265,6 @@ impl TaskAgentAuthorization {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloud {
     #[doc = "Gets or sets a AcquireAgentEndpoint using which a request can be made to acquire new agent"]
@@ -4477,7 +4338,6 @@ impl TaskAgentCloud {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloudList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4494,7 +4354,6 @@ impl TaskAgentCloudList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloudRequest {
     #[doc = "A reference to an agent."]
@@ -4520,7 +4379,6 @@ pub struct TaskAgentCloudRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub agent_specification: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
     #[serde(
@@ -4549,7 +4407,6 @@ impl TaskAgentCloudRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloudRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4566,7 +4423,6 @@ impl TaskAgentCloudRequestList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloudType {
     #[doc = "Gets or sets the display name of agent cloud type."]
@@ -4593,7 +4449,6 @@ impl TaskAgentCloudType {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentCloudTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4610,7 +4465,6 @@ impl TaskAgentCloudTypeList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentDowngrade {
     #[serde(flatten)]
@@ -4621,7 +4475,6 @@ impl TaskAgentDowngrade {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJob {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4673,7 +4526,6 @@ pub struct TaskAgentJobRequest {
     #[doc = "Additional data about the request."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
     #[doc = "A list of demands required to fulfill this request."]
@@ -4725,7 +4577,6 @@ pub struct TaskAgentJobRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub orchestration_id: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[serde(rename = "planGroup", default, skip_serializing_if = "Option::is_none")]
@@ -4818,7 +4669,6 @@ pub mod task_agent_job_request {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobStep {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4845,7 +4695,6 @@ pub struct TaskAgentJobStep {
         skip_serializing_if = "Option::is_none"
     )]
     pub retry_count_on_task_failure: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub task: Option<TaskAgentJobTask>,
     #[serde(
@@ -4872,7 +4721,6 @@ pub mod task_agent_job_step {
         Action,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobTask {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4887,7 +4735,6 @@ impl TaskAgentJobTask {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobVariable {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4902,7 +4749,6 @@ impl TaskAgentJobVariable {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4919,7 +4765,6 @@ impl TaskAgentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentManualUpdate {
     #[serde(flatten)]
@@ -4959,22 +4804,18 @@ impl TaskAgentMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentMinAgentVersionRequiredUpdate {
     #[serde(flatten)]
     pub task_agent_update_reason: TaskAgentUpdateReason,
-    #[doc = ""]
     #[serde(
         rename = "jobDefinition",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub job_definition: Option<TaskOrchestrationOwner>,
-    #[doc = ""]
     #[serde(rename = "jobOwner", default, skip_serializing_if = "Option::is_none")]
     pub job_owner: Option<TaskOrchestrationOwner>,
-    #[doc = ""]
     #[serde(
         rename = "minAgentVersion",
         default,
@@ -5016,7 +4857,6 @@ pub struct TaskAgentPool {
         skip_serializing_if = "Option::is_none"
     )]
     pub auto_update: Option<bool>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The date/time of the pool creation."]
@@ -5026,7 +4866,6 @@ pub struct TaskAgentPool {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
@@ -5045,7 +4884,6 @@ impl TaskAgentPool {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5062,7 +4900,6 @@ impl TaskAgentPoolList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceDefinition {
     #[doc = "Enable maintenance"]
@@ -5085,20 +4922,16 @@ pub struct TaskAgentPoolMaintenanceDefinition {
         skip_serializing_if = "Option::is_none"
     )]
     pub max_concurrent_agents_percentage: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub options: Option<TaskAgentPoolMaintenanceOptions>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
-    #[doc = ""]
     #[serde(
         rename = "retentionPolicy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub retention_policy: Option<TaskAgentPoolMaintenanceRetentionPolicy>,
-    #[doc = ""]
     #[serde(
         rename = "scheduleSetting",
         default,
@@ -5111,7 +4944,6 @@ impl TaskAgentPoolMaintenanceDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceJob {
     #[doc = "The maintenance definition for the maintenance job"]
@@ -5152,7 +4984,6 @@ pub struct TaskAgentPoolMaintenanceJob {
         skip_serializing_if = "Option::is_none"
     )]
     pub orchestration_id: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
     #[doc = "Time that the maintenance job was queued"]
@@ -5162,7 +4993,6 @@ pub struct TaskAgentPoolMaintenanceJob {
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
@@ -5227,7 +5057,6 @@ pub mod task_agent_pool_maintenance_job {
         Queued,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceJobTargetAgent {
     #[doc = "A reference to an agent."]
@@ -5268,7 +5097,6 @@ pub mod task_agent_pool_maintenance_job_target_agent {
         Queued,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceOptions {
     #[doc = "time to consider a System.DefaultWorkingDirectory is stale"]
@@ -5284,7 +5112,6 @@ impl TaskAgentPoolMaintenanceOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceRetentionPolicy {
     #[doc = "Number of records to keep for maintenance job executed with this definition."]
@@ -5300,7 +5127,6 @@ impl TaskAgentPoolMaintenanceRetentionPolicy {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolMaintenanceSchedule {
     #[doc = "Days for a build (flags enum for days of the week)"]
@@ -5369,7 +5195,6 @@ pub mod task_agent_pool_maintenance_schedule {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5422,7 +5247,6 @@ pub mod task_agent_pool_reference {
         Deployment,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolStatus {
     #[serde(flatten)]
@@ -5454,7 +5278,6 @@ impl TaskAgentPoolStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolSummary {
     #[doc = "Metrics columns header"]
@@ -5471,7 +5294,6 @@ pub struct TaskAgentPoolSummary {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub deployment_groups: Vec<DeploymentGroupReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
     #[serde(
@@ -5524,7 +5346,6 @@ pub struct TaskAgentQueue {
     #[doc = "Name of the queue"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
     #[doc = "Project ID"]
@@ -5536,7 +5357,6 @@ impl TaskAgentQueue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentQueueList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5672,10 +5492,8 @@ pub struct TaskAgentUpdate {
         skip_serializing_if = "Option::is_none"
     )]
     pub current_state: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<TaskAgentUpdateReason>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
@@ -5689,14 +5507,12 @@ pub struct TaskAgentUpdate {
         with = "crate::date_time::rfc3339::option"
     )]
     pub request_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "sourceVersion",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_version: Option<PackageVersion>,
-    #[doc = ""]
     #[serde(
         rename = "targetVersion",
         default,
@@ -5709,7 +5525,6 @@ impl TaskAgentUpdate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentUpdateReason {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5732,7 +5547,6 @@ pub mod task_agent_update_reason {
         Downgrade,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAssignedEvent {
     #[serde(flatten)]
@@ -5743,7 +5557,6 @@ impl TaskAssignedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAttachment {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -5785,7 +5598,6 @@ impl TaskAttachment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCommandRestrictions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5806,7 +5618,6 @@ pub mod task_command_restrictions {
         Restricted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCompletedEvent {
     #[serde(flatten)]
@@ -5846,10 +5657,8 @@ pub mod task_completed_event {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskDefinition {
-    #[doc = ""]
     #[serde(
         rename = "agentExecution",
         default,
@@ -5990,7 +5799,6 @@ pub struct TaskDefinition {
         skip_serializing_if = "Option::is_none"
     )]
     pub release_notes: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub restrictions: Option<TaskRestrictions>,
     #[serde(
@@ -6031,7 +5839,6 @@ pub struct TaskDefinition {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_location: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<TaskVersion>,
     #[serde(
@@ -6046,7 +5853,6 @@ impl TaskDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskDefinitionEndpoint {
     #[doc = "An ID that identifies a service connection to be used for authenticating endpoint requests."]
@@ -6081,7 +5887,6 @@ impl TaskDefinitionEndpoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskDefinitionReference {
     #[doc = "Gets or sets the definition type. Values can be 'task' or 'metaTask'."]
@@ -6107,7 +5912,6 @@ impl TaskDefinitionReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskEvent {
     #[serde(flatten)]
@@ -6121,7 +5925,6 @@ impl TaskEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskExecution {
     #[doc = "A reference to a task."]
@@ -6140,7 +5943,6 @@ impl TaskExecution {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroup {
     #[serde(flatten)]
@@ -6148,7 +5950,6 @@ pub struct TaskGroup {
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets or sets date on which it got created."]
@@ -6161,7 +5962,6 @@ pub struct TaskGroup {
     #[doc = "Gets or sets as 'true' to indicate as deleted, 'false' otherwise."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deleted: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -6201,7 +6001,6 @@ impl TaskGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupCreateParameter {
     #[doc = "Sets author name of the task group."]
@@ -6262,7 +6061,6 @@ pub struct TaskGroupCreateParameter {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tasks: Vec<TaskGroupStep>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<TaskVersion>,
 }
@@ -6271,7 +6069,6 @@ impl TaskGroupCreateParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupDefinition {
     #[serde(
@@ -6306,7 +6103,6 @@ impl TaskGroupDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6323,7 +6119,6 @@ impl TaskGroupList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupPublishPreviewParameter {
     #[serde(flatten)]
@@ -6341,7 +6136,6 @@ pub struct TaskGroupPublishPreviewParameter {
     #[doc = "This is the revision of task group that is getting published"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<TaskVersion>,
 }
@@ -6350,7 +6144,6 @@ impl TaskGroupPublishPreviewParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupRestoreParameter {
     #[serde(flatten)]
@@ -6364,10 +6157,8 @@ impl TaskGroupRestoreParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupRevision {
-    #[doc = ""]
     #[serde(rename = "changedBy", default, skip_serializing_if = "Option::is_none")]
     pub changed_by: Option<IdentityRef>,
     #[serde(
@@ -6459,7 +6250,6 @@ pub struct TaskGroupStep {
         skip_serializing_if = "Option::is_none"
     )]
     pub retry_count_on_task_failure: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub task: Option<TaskDefinitionReference>,
     #[doc = "Gets or sets the maximum time, in minutes, that a task is allowed to execute on agent before being cancelled by server. A zero value indicates an infinite timeout."]
@@ -6475,7 +6265,6 @@ impl TaskGroupStep {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupUpdateParameter {
     #[doc = "Sets author name of the task group."]
@@ -6545,7 +6334,6 @@ pub struct TaskGroupUpdateParameter {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tasks: Vec<TaskGroupStep>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<TaskVersion>,
 }
@@ -6554,7 +6342,6 @@ impl TaskGroupUpdateParameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskGroupUpdatePropertiesBase {
     #[doc = "Comment for this update request"]
@@ -6566,7 +6353,6 @@ impl TaskGroupUpdatePropertiesBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskHubLicenseDetails {
     #[serde(
@@ -6661,7 +6447,6 @@ impl TaskHubLicenseDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskHubOidcToken {
     #[serde(rename = "oidcToken", default, skip_serializing_if = "Option::is_none")]
@@ -6672,7 +6457,6 @@ impl TaskHubOidcToken {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinition {
     #[serde(flatten)]
@@ -6683,7 +6467,6 @@ impl TaskInputDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinitionBase {
     #[serde(
@@ -6718,7 +6501,6 @@ pub struct TaskInputDefinitionBase {
     pub required: Option<bool>,
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation: Option<TaskInputValidation>,
     #[serde(
@@ -6733,7 +6515,6 @@ impl TaskInputDefinitionBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputValidation {
     #[doc = "Conditional expression"]
@@ -6748,7 +6529,6 @@ impl TaskInputValidation {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInstance {
     #[serde(flatten)]
@@ -6852,7 +6632,6 @@ impl TaskLogReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationContainer {
     #[serde(flatten)]
@@ -6879,7 +6658,6 @@ pub struct TaskOrchestrationContainer {
     pub max_concurrency: Option<i32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub parallel: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rollback: Option<Box<TaskOrchestrationContainer>>,
 }
@@ -6888,7 +6666,6 @@ impl TaskOrchestrationContainer {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationItem {
     #[serde(rename = "itemType", default, skip_serializing_if = "Option::is_none")]
@@ -6909,7 +6686,6 @@ pub mod task_orchestration_item {
         Job,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationJob {
     #[serde(flatten)]
@@ -6920,7 +6696,6 @@ pub struct TaskOrchestrationJob {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<Demand>,
-    #[doc = ""]
     #[serde(rename = "executeAs", default, skip_serializing_if = "Option::is_none")]
     pub execute_as: Option<IdentityRef>,
     #[serde(
@@ -6959,7 +6734,6 @@ impl TaskOrchestrationJob {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationOwner {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -6975,12 +6749,10 @@ impl TaskOrchestrationOwner {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlan {
     #[serde(flatten)]
     pub task_orchestration_plan_reference: TaskOrchestrationPlanReference,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<PlanEnvironment>,
     #[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
@@ -6996,7 +6768,6 @@ pub struct TaskOrchestrationPlan {
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub implementation: Option<TaskOrchestrationContainer>,
     #[doc = "A reference to a task log. This class contains information about the output printed to the timeline record's logs console during pipeline run."]
@@ -7072,12 +6843,10 @@ pub mod task_orchestration_plan {
         Throttled,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroup {
     #[serde(rename = "planGroup", default, skip_serializing_if = "Option::is_none")]
     pub plan_group: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
     #[serde(
@@ -7093,7 +6862,6 @@ impl TaskOrchestrationPlanGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroupsQueueMetrics {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7118,7 +6886,6 @@ pub mod task_orchestration_plan_groups_queue_metrics {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanReference {
     #[serde(
@@ -7133,10 +6900,8 @@ pub struct TaskOrchestrationPlanReference {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_uri: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[serde(rename = "planGroup", default, skip_serializing_if = "Option::is_none")]
@@ -7159,7 +6924,6 @@ impl TaskOrchestrationPlanReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationQueuedPlan {
     #[serde(
@@ -7168,10 +6932,8 @@ pub struct TaskOrchestrationQueuedPlan {
         with = "crate::date_time::rfc3339::option"
     )]
     pub assign_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[serde(rename = "planGroup", default, skip_serializing_if = "Option::is_none")]
@@ -7204,13 +6966,10 @@ impl TaskOrchestrationQueuedPlan {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationQueuedPlanGroup {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<TaskOrchestrationOwner>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<TaskOrchestrationOwner>,
     #[serde(rename = "planGroup", default, skip_serializing_if = "Option::is_none")]
@@ -7221,7 +6980,6 @@ pub struct TaskOrchestrationQueuedPlanGroup {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub plans: Vec<TaskOrchestrationQueuedPlan>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
     #[serde(
@@ -7236,7 +6994,6 @@ impl TaskOrchestrationQueuedPlanGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOutputVariable {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7249,7 +7006,6 @@ impl TaskOutputVariable {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskPackageMetadata {
     #[doc = "Gets the name of the package."]
@@ -7288,13 +7044,10 @@ impl TaskReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskRestrictions {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub commands: Option<TaskCommandRestrictions>,
-    #[doc = ""]
     #[serde(
         rename = "settableVariables",
         default,
@@ -7307,7 +7060,6 @@ impl TaskRestrictions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskSourceDefinition {
     #[serde(flatten)]
@@ -7318,7 +7070,6 @@ impl TaskSourceDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskSourceDefinitionBase {
     #[serde(rename = "authKey", default, skip_serializing_if = "Option::is_none")]
@@ -7341,7 +7092,6 @@ impl TaskSourceDefinitionBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskStartedEvent {
     #[serde(flatten)]
@@ -7352,7 +7102,6 @@ impl TaskStartedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskVariableRestrictions {
     #[serde(
@@ -7367,7 +7116,6 @@ impl TaskVariableRestrictions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskVersion {
     #[serde(rename = "isTest", default, skip_serializing_if = "Option::is_none")]
@@ -7384,7 +7132,6 @@ impl TaskVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Timeline {
     #[serde(flatten)]
@@ -7612,7 +7359,6 @@ pub mod timeline_record {
         Completed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecordFeedLinesWrapper {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7635,7 +7381,6 @@ impl TimelineRecordFeedLinesWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecordList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7670,7 +7415,6 @@ impl TimelineReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ValidationItem {
     #[doc = "Tells whether the current input is valid or not"]
@@ -7694,7 +7438,6 @@ impl ValidationItem {
 #[doc = "A variable group is a collection of related variables."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroup {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets or sets the time when variable group was created."]
@@ -7713,7 +7456,6 @@ pub struct VariableGroup {
     #[doc = "Indicates whether variable group is shared with other projects or not."]
     #[serde(rename = "isShared", default, skip_serializing_if = "Option::is_none")]
     pub is_shared: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -7757,7 +7499,6 @@ impl VariableGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7774,7 +7515,6 @@ impl VariableGroupList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroupParameters {
     #[doc = "Sets description of the variable group."]
@@ -7818,7 +7558,6 @@ pub struct VariableGroupProjectReference {
     #[doc = "Gets or sets name of the variable group."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "projectReference",
         default,
@@ -7861,7 +7600,6 @@ impl VariableValue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VirtualMachine {
     #[doc = "A task agent."]
@@ -7881,7 +7619,6 @@ impl VirtualMachine {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VirtualMachineGroup {
     #[serde(flatten)]
@@ -7894,7 +7631,6 @@ impl VirtualMachineGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VirtualMachineGroupCreateParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7905,7 +7641,6 @@ impl VirtualMachineGroupCreateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VirtualMachineResource {
     #[serde(flatten)]
@@ -7919,10 +7654,8 @@ impl VirtualMachineResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VirtualMachineResourceCreateParameters {
-    #[doc = ""]
     #[serde(
         rename = "virtualMachineResource",
         default,
@@ -7949,7 +7682,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

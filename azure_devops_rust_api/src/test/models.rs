@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AbortTestRunRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -26,7 +25,6 @@ impl AbortTestRunRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AfnStrip {
     #[doc = "Auxiliary Url to be consumed by MTM"]
@@ -91,7 +89,6 @@ impl AfnStrip {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedDataForResultTrend {
     #[doc = "This is tests execution duration."]
@@ -109,7 +106,6 @@ pub struct AggregatedDataForResultTrend {
         skip_serializing_if = "Option::is_none"
     )]
     pub run_summary_by_state: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "testResultsContext",
         default,
@@ -190,7 +186,6 @@ pub mod aggregated_result_details_by_outcome {
         NotImpacted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsAnalysis {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -201,7 +196,6 @@ pub struct AggregatedResultsAnalysis {
         skip_serializing_if = "Option::is_none"
     )]
     pub not_reported_results_by_outcome: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "previousContext",
         default,
@@ -214,7 +208,6 @@ pub struct AggregatedResultsAnalysis {
         skip_serializing_if = "Option::is_none"
     )]
     pub results_by_outcome: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "resultsDifference",
         default,
@@ -245,7 +238,6 @@ impl AggregatedResultsAnalysis {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsByOutcome {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -314,7 +306,6 @@ pub mod aggregated_results_by_outcome {
         NotImpacted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsDifference {
     #[serde(
@@ -359,7 +350,6 @@ impl AggregatedResultsDifference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByOutcome {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -386,7 +376,6 @@ pub mod aggregated_runs_by_outcome {
         Others,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByState {
     #[serde(
@@ -425,7 +414,6 @@ pub mod aggregated_runs_by_state {
         NeedsInvestigation,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BatchResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -659,7 +647,6 @@ impl BuildCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildCoverageList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -722,7 +709,6 @@ impl BuildReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildReference2 {
     #[serde(
@@ -807,7 +793,6 @@ impl BuildReference2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BulkResultUpdateRequest {
     #[serde(
@@ -1037,7 +1022,6 @@ impl CloneStatistics {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CloneTestCaseOptions {
     #[doc = "If set to true, include the attachments"]
@@ -1234,7 +1218,6 @@ pub mod code_coverage_summary {
         UpdateRequestQueued,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CodeCoverageSummary2 {
     #[serde(
@@ -1259,7 +1242,6 @@ impl CodeCoverageSummary2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Coverage2 {
     #[serde(
@@ -1290,7 +1272,6 @@ impl Coverage2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CoverageStatistics {
     #[serde(
@@ -1329,7 +1310,6 @@ impl CoverageStatistics {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateTestMessageLogEntryRequest {
     #[serde(
@@ -1353,7 +1333,6 @@ impl CreateTestMessageLogEntryRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateTestResultsRequest {
     #[serde(
@@ -1374,7 +1353,6 @@ impl CreateTestResultsRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateTestRunRequest {
     #[serde(
@@ -1389,10 +1367,8 @@ pub struct CreateTestRunRequest {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<LegacyTestCaseResult>,
-    #[doc = ""]
     #[serde(rename = "testRun", default, skip_serializing_if = "Option::is_none")]
     pub test_run: Option<LegacyTestRun>,
-    #[doc = ""]
     #[serde(
         rename = "testSettings",
         default,
@@ -1420,7 +1396,6 @@ impl CustomTestField {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CustomTestFieldDefinition {
     #[serde(rename = "fieldId", default, skip_serializing_if = "Option::is_none")]
@@ -1468,12 +1443,10 @@ pub mod custom_test_field_definition {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DatedTestFieldData {
     #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub value: Option<TestFieldData>,
 }
@@ -1482,7 +1455,6 @@ impl DatedTestFieldData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DefaultAfnStripBinding {
     #[serde(
@@ -1505,7 +1477,6 @@ impl DefaultAfnStripBinding {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeleteTestRunRequest {
     #[serde(
@@ -1527,7 +1498,6 @@ impl DeleteTestRunRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DownloadAttachmentsRequest {
     #[serde(
@@ -1593,7 +1563,6 @@ impl FailingSince {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FetchTestResultsRequest {
     #[serde(
@@ -1621,7 +1590,6 @@ impl FetchTestResultsRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FetchTestResultsResponse {
     #[serde(
@@ -1663,7 +1631,6 @@ impl FetchTestResultsResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldDetailsForTestResults {
     #[doc = "Group by field name"]
@@ -1683,7 +1650,6 @@ impl FieldDetailsForTestResults {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FileCoverage {
     #[doc = "List of line blocks along with their coverage status"]
@@ -1703,7 +1669,6 @@ impl FileCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FileCoverageRequest {
     #[serde(rename = "filePath", default, skip_serializing_if = "Option::is_none")]
@@ -1734,7 +1699,6 @@ impl FileCoverageRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FilterPointQuery {
     #[serde(rename = "planId", default, skip_serializing_if = "Option::is_none")]
@@ -1766,10 +1730,8 @@ impl FilterPointQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FlakyDetection {
-    #[doc = ""]
     #[serde(
         rename = "flakyDetectionPipelines",
         default,
@@ -1800,7 +1762,6 @@ pub mod flaky_detection {
         System,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FlakyDetectionPipelines {
     #[doc = "AllowedPipelines - List All Pipelines allowed for detection."]
@@ -1824,10 +1785,8 @@ impl FlakyDetectionPipelines {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FlakySettings {
-    #[doc = ""]
     #[serde(
         rename = "flakyDetection",
         default,
@@ -1861,7 +1820,6 @@ impl FlakySettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FunctionCoverage {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1876,7 +1834,6 @@ pub struct FunctionCoverage {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_file: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub statistics: Option<CoverageStatistics>,
 }
@@ -1885,7 +1842,6 @@ impl FunctionCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FunctionCoverage2 {
     #[serde(
@@ -1950,7 +1906,6 @@ impl FunctionCoverage2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -1975,7 +1930,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct HttpPostedTcmAttachment {
     #[serde(
@@ -2004,7 +1958,6 @@ impl HttpPostedTcmAttachment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -2098,7 +2051,6 @@ pub struct LastResultDetails {
     #[doc = "Duration of the last result in milliseconds."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
 }
@@ -2107,7 +2059,6 @@ impl LastResultDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyBuildConfiguration {
     #[serde(
@@ -2216,7 +2167,6 @@ impl LegacyBuildConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyReleaseReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2307,7 +2257,6 @@ impl LegacyReleaseReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyTestCaseResult {
     #[serde(
@@ -2356,7 +2305,6 @@ pub struct LegacyTestCaseResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub build_number: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "buildReference",
         default,
@@ -2429,7 +2377,6 @@ pub struct LegacyTestCaseResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub failure_type: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<LegacyTestCaseResultIdentifier>,
     #[serde(rename = "isRerun", default, skip_serializing_if = "Option::is_none")]
@@ -2460,7 +2407,6 @@ pub struct LegacyTestCaseResult {
     pub owner_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub priority: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "releaseReference",
         default,
@@ -2497,7 +2443,6 @@ pub struct LegacyTestCaseResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub sequence_id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "stackTrace",
         default,
@@ -2604,7 +2549,6 @@ pub mod legacy_test_case_result {
         Generic,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyTestCaseResultIdentifier {
     #[serde(rename = "areaUri", default, skip_serializing_if = "Option::is_none")]
@@ -2623,7 +2567,6 @@ impl LegacyTestCaseResultIdentifier {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyTestRun {
     #[serde(rename = "bugsCount", default, skip_serializing_if = "Option::is_none")]
@@ -2652,7 +2595,6 @@ pub struct LegacyTestRun {
         skip_serializing_if = "Option::is_none"
     )]
     pub build_platform: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "buildReference",
         default,
@@ -2818,7 +2760,6 @@ pub struct LegacyTestRun {
         skip_serializing_if = "Option::is_none"
     )]
     pub release_environment_uri: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "releaseReference",
         default,
@@ -2962,7 +2903,6 @@ impl LegacyTestRun {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyTestRunStatistic {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2986,7 +2926,6 @@ impl LegacyTestRunStatistic {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LegacyTestSettings {
     #[serde(rename = "areaId", default, skip_serializing_if = "Option::is_none")]
@@ -3062,7 +3001,6 @@ impl LegacyTestSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LineBlockCoverage {
     #[doc = "End of line block"]
@@ -3080,7 +3018,6 @@ impl LineBlockCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LinkedWorkItemsQuery {
     #[serde(
@@ -3125,7 +3062,6 @@ impl LinkedWorkItemsQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LinkedWorkItemsQueryResult {
     #[serde(
@@ -3159,7 +3095,6 @@ impl LinkedWorkItemsQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ModuleCoverage {
     #[serde(
@@ -3194,7 +3129,6 @@ pub struct ModuleCoverage {
         skip_serializing_if = "Option::is_none"
     )]
     pub signature_age: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub statistics: Option<CoverageStatistics>,
 }
@@ -3203,7 +3137,6 @@ impl ModuleCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ModuleCoverage2 {
     #[serde(
@@ -3300,7 +3233,6 @@ impl NameValuePair {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NewTestResultLoggingSettings {
     #[doc = "LogNewTests defines whether or not we will record new test cases coming into the system"]
@@ -3449,7 +3381,6 @@ pub struct PlanUpdateModel {
     #[doc = "Name of the test plan."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Reference to release environment resource."]
@@ -3484,7 +3415,6 @@ pub struct PointAssignment {
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<ShallowReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -3493,7 +3423,6 @@ impl PointAssignment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PointLastResult {
     #[serde(
@@ -3523,7 +3452,6 @@ pub struct PointUpdateModel {
         skip_serializing_if = "Option::is_none"
     )]
     pub reset_to_active: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -3576,7 +3504,6 @@ impl PointsFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PointsReference2 {
     #[serde(rename = "planId", default, skip_serializing_if = "Option::is_none")]
@@ -3589,7 +3516,6 @@ impl PointsReference2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PointsResults2 {
     #[serde(
@@ -3668,7 +3594,6 @@ impl PropertyBag {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryByPointRequest {
     #[serde(
@@ -3695,7 +3620,6 @@ impl QueryByPointRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryByRunRequest {
     #[serde(
@@ -3726,7 +3650,6 @@ impl QueryByRunRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3737,10 +3660,8 @@ impl QueryModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestActionResultRequest {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identifier: Option<LegacyTestCaseResultIdentifier>,
     #[serde(
@@ -3755,7 +3676,6 @@ impl QueryTestActionResultRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestActionResultResponse {
     #[serde(
@@ -3785,7 +3705,6 @@ impl QueryTestActionResultResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestMessageLogEntryRequest {
     #[serde(
@@ -3808,7 +3727,6 @@ impl QueryTestMessageLogEntryRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestRunStatsRequest {
     #[serde(
@@ -3825,7 +3743,6 @@ impl QueryTestRunStatsRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestRuns2Request {
     #[serde(
@@ -3834,7 +3751,6 @@ pub struct QueryTestRuns2Request {
         skip_serializing_if = "Option::is_none"
     )]
     pub include_statistics: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub query: Option<ResultsStoreQuery>,
 }
@@ -3843,7 +3759,6 @@ impl QueryTestRuns2Request {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryTestRunsRequest {
     #[serde(rename = "buildUri", default, skip_serializing_if = "Option::is_none")]
@@ -3972,7 +3887,6 @@ impl ReleaseReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseReference2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4047,7 +3961,6 @@ impl ReleaseReference2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RequirementsToTestsMapping2 {
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
@@ -4092,7 +4005,6 @@ impl RequirementsToTestsMapping2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResetTestResultsRequest {
     #[serde(
@@ -4113,7 +4025,6 @@ impl ResetTestResultsRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Response {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4240,7 +4151,6 @@ pub struct ResultRetentionSettings {
         skip_serializing_if = "Option::is_none"
     )]
     pub automated_results_retention_duration: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -4283,7 +4193,6 @@ impl ResultSummary {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultUpdateRequest {
     #[serde(
@@ -4326,7 +4235,6 @@ pub struct ResultUpdateRequest {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parameters: Vec<TestResultParameter>,
-    #[doc = ""]
     #[serde(
         rename = "testCaseResult",
         default,
@@ -4347,7 +4255,6 @@ impl ResultUpdateRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultUpdateRequestModel {
     #[serde(
@@ -4377,7 +4284,6 @@ pub struct ResultUpdateRequestModel {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parameters: Vec<TestResultParameterModel>,
-    #[doc = ""]
     #[serde(
         rename = "testCaseResult",
         default,
@@ -4390,7 +4296,6 @@ impl ResultUpdateRequestModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultUpdateResponse {
     #[serde(
@@ -4444,7 +4349,6 @@ impl ResultUpdateResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultUpdateResponseModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4465,14 +4369,12 @@ pub struct ResultsAnalysis {
         skip_serializing_if = "Option::is_none"
     )]
     pub previous_context: Option<PipelineReference>,
-    #[doc = ""]
     #[serde(
         rename = "resultsDifference",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub results_difference: Option<AggregatedResultsDifference>,
-    #[doc = ""]
     #[serde(
         rename = "testFailuresAnalysis",
         default,
@@ -4485,12 +4387,10 @@ impl ResultsAnalysis {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultsByQueryRequest {
     #[serde(rename = "pageSize", default, skip_serializing_if = "Option::is_none")]
     pub page_size: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub query: Option<ResultsStoreQuery>,
 }
@@ -4499,7 +4399,6 @@ impl ResultsByQueryRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultsByQueryResponse {
     #[serde(
@@ -4522,7 +4421,6 @@ impl ResultsByQueryResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultsFilter {
     #[serde(
@@ -4579,7 +4477,6 @@ pub struct ResultsFilter {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_point_ids: Vec<i32>,
-    #[doc = ""]
     #[serde(
         rename = "testResultsContext",
         default,
@@ -4606,7 +4503,6 @@ pub mod results_filter {
         Tfs,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultsStoreQuery {
     #[serde(
@@ -4770,7 +4666,6 @@ pub struct RunCreateModel {
     #[doc = "Name of the test run."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Pipeline reference"]
@@ -5046,7 +4941,6 @@ pub mod run_summary_model {
         NotImpacted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunUpdateModel {
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -5250,7 +5144,6 @@ impl ShallowReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ShallowTestCaseResult {
     #[serde(
@@ -5446,7 +5339,6 @@ impl SuiteTestCase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SuiteTestCaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5524,7 +5416,6 @@ impl SuiteUpdateModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TcmPropertyBag2 {
     #[serde(
@@ -5659,7 +5550,6 @@ pub mod team_project_reference {
         Unchanged,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestActionResult {
     #[serde(
@@ -5696,7 +5586,6 @@ pub struct TestActionResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub error_message: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<LegacyTestCaseResultIdentifier>,
     #[serde(
@@ -5737,7 +5626,6 @@ impl TestActionResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestActionResult2 {
     #[serde(
@@ -5856,7 +5744,6 @@ impl TestActionResultModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestAttachment {
     #[doc = "Attachment type."]
@@ -5907,7 +5794,6 @@ pub mod test_attachment {
         ConsoleLog,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestAttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5964,7 +5850,6 @@ impl TestAttachmentRequestModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestAuthoringDetails {
     #[serde(
@@ -6021,7 +5906,6 @@ pub mod test_authoring_details {
         MaxValue,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseMetadata2 {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6042,7 +5926,6 @@ impl TestCaseMetadata2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseReference2 {
     #[serde(rename = "areaId", default, skip_serializing_if = "Option::is_none")]
@@ -6287,7 +6170,6 @@ pub struct TestCaseResult {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub iteration_details: Vec<TestIterationDetailsModel>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -6304,7 +6186,6 @@ pub struct TestCaseResult {
     #[doc = "Test outcome of test result. Valid values = (Unspecified, None, Passed, Failed, Inconclusive, Timeout, Aborted, Blocked, NotExecuted, Warning, Error, NotApplicable, Paused, InProgress, NotImpacted)"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub outcome: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Priority of test executed."]
@@ -6354,7 +6235,6 @@ pub struct TestCaseResult {
     #[doc = "Revision number of test result."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub revision: Option<i32>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
     #[doc = "Stacktrace with maxSize= 1000 chars."]
@@ -6479,10 +6359,8 @@ impl TestCaseResultAttachmentModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseResultIdAndRev {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<LegacyTestCaseResultIdentifier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6512,7 +6390,6 @@ impl TestCaseResultIdentifier {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseResultList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6529,7 +6406,6 @@ impl TestCaseResultList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseResultUpdateModel {
     #[serde(
@@ -6586,7 +6462,6 @@ pub struct TestCaseResultUpdateModel {
     pub failure_type: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub outcome: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[serde(
@@ -6595,7 +6470,6 @@ pub struct TestCaseResultUpdateModel {
         skip_serializing_if = "Option::is_none"
     )]
     pub resolution_state: Option<String>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
     #[serde(
@@ -6646,7 +6520,6 @@ pub struct TestConfiguration {
     #[doc = "Is the configuration a default for the test plans"]
     #[serde(rename = "isDefault", default, skip_serializing_if = "Option::is_none")]
     pub is_default: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -6722,7 +6595,6 @@ impl TestEnvironment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestExecutionReportData {
     #[serde(
@@ -6738,10 +6610,8 @@ impl TestExecutionReportData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestExtensionField {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub field: Option<TestExtensionFieldDetails>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6752,7 +6622,6 @@ impl TestExtensionField {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestExtensionFieldDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6853,7 +6722,6 @@ pub mod test_extension_field_details {
         DateTimeOffset,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestFailureDetails {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6871,7 +6739,6 @@ impl TestFailureDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestFailureType {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6887,31 +6754,26 @@ impl TestFailureType {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestFailuresAnalysis {
-    #[doc = ""]
     #[serde(
         rename = "existingFailures",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub existing_failures: Option<TestFailureDetails>,
-    #[doc = ""]
     #[serde(
         rename = "fixedTests",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub fixed_tests: Option<TestFailureDetails>,
-    #[doc = ""]
     #[serde(
         rename = "newFailures",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub new_failures: Option<TestFailureDetails>,
-    #[doc = ""]
     #[serde(
         rename = "previousContext",
         default,
@@ -6924,7 +6786,6 @@ impl TestFailuresAnalysis {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestFieldData {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6937,7 +6798,6 @@ impl TestFieldData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestFieldsEx2 {
     #[serde(rename = "fieldId", default, skip_serializing_if = "Option::is_none")]
@@ -7141,7 +7001,6 @@ impl TestIterationDetailsModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestIterationDetailsModelList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7444,7 +7303,6 @@ pub mod test_log_store_endpoint_details {
         StorageCapacityExceeded,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMessageLog2 {
     #[serde(
@@ -7481,7 +7339,6 @@ impl TestMessageLogDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMessageLogEntry {
     #[serde(
@@ -7516,7 +7373,6 @@ impl TestMessageLogEntry {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMessageLogEntry2 {
     #[serde(
@@ -7545,7 +7401,6 @@ impl TestMessageLogEntry2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMethod {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7589,7 +7444,6 @@ impl TestOutcomeSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestParameter2 {
     #[serde(
@@ -7685,7 +7539,6 @@ pub struct TestPlan {
     #[doc = "Name of the test plan."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -7728,7 +7581,6 @@ pub struct TestPlan {
         skip_serializing_if = "Option::is_none"
     )]
     pub test_outcome_settings: Option<TestOutcomeSettings>,
-    #[doc = ""]
     #[serde(rename = "updatedBy", default, skip_serializing_if = "Option::is_none")]
     pub updated_by: Option<IdentityRef>,
     #[serde(
@@ -7746,7 +7598,6 @@ impl TestPlan {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPlanCloneRequest {
     #[doc = "The test plan resource."]
@@ -7772,7 +7623,6 @@ impl TestPlanCloneRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPlanHubData {
     #[serde(
@@ -7810,7 +7660,6 @@ impl TestPlanHubData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPlansWithSelection {
     #[serde(
@@ -7840,7 +7689,6 @@ impl TestPlansWithSelection {
 #[doc = "Test point."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPoint {
-    #[doc = ""]
     #[serde(
         rename = "assignedTo",
         default,
@@ -7915,7 +7763,6 @@ pub struct TestPoint {
         skip_serializing_if = "Option::is_none"
     )]
     pub last_test_run: Option<ShallowReference>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -7964,7 +7811,6 @@ impl TestPoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -7981,7 +7827,6 @@ impl TestPointList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -8012,7 +7857,6 @@ pub mod test_point_reference {
         MaxValue,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointsEvent {
     #[serde(
@@ -8068,7 +7912,6 @@ impl TestPointsQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointsUpdatedEvent {
     #[serde(flatten)]
@@ -8097,7 +7940,6 @@ impl TestResolutionState {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResult2 {
     #[serde(
@@ -8198,7 +8040,6 @@ impl TestResult2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultAcrossProjectResponse {
     #[serde(
@@ -8207,7 +8048,6 @@ pub struct TestResultAcrossProjectResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub project_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "testResult",
         default,
@@ -8220,7 +8060,6 @@ impl TestResultAcrossProjectResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultAttachment {
     #[serde(
@@ -8297,7 +8136,6 @@ pub mod test_result_attachment {
         ConsoleLog,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultAttachmentIdentity {
     #[serde(
@@ -8322,7 +8160,6 @@ impl TestResultAttachmentIdentity {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultCreateModel {
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -8409,7 +8246,6 @@ pub struct TestResultCreateModel {
     pub failure_type: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub outcome: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[serde(
@@ -8418,7 +8254,6 @@ pub struct TestResultCreateModel {
         skip_serializing_if = "Option::is_none"
     )]
     pub resolution_state: Option<String>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
     #[serde(
@@ -8459,7 +8294,6 @@ impl TestResultCreateModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultDocument {
     #[doc = "Class representing a reference to an operation."]
@@ -8469,7 +8303,6 @@ pub struct TestResultDocument {
         skip_serializing_if = "Option::is_none"
     )]
     pub operation_reference: Option<TestOperationReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub payload: Option<TestResultPayload>,
 }
@@ -8505,24 +8338,20 @@ impl TestResultFailureTypeRequestModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultFailuresAnalysis {
-    #[doc = ""]
     #[serde(
         rename = "existingFailures",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub existing_failures: Option<TestFailureDetails>,
-    #[doc = ""]
     #[serde(
         rename = "fixedTests",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub fixed_tests: Option<TestFailureDetails>,
-    #[doc = ""]
     #[serde(
         rename = "newFailures",
         default,
@@ -8535,7 +8364,6 @@ impl TestResultFailuresAnalysis {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultHistory {
     #[serde(
@@ -8557,7 +8385,6 @@ impl TestResultHistory {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultHistoryDetailsForGroup {
     #[serde(
@@ -8677,7 +8504,6 @@ impl TestResultMetaDataUpdateInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultMetaDataUpdateResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -8688,7 +8514,6 @@ impl TestResultMetaDataUpdateResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultModelBase {
     #[doc = "Comment in result."]
@@ -8731,7 +8556,6 @@ impl TestResultModelBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultParameter {
     #[serde(
@@ -8821,7 +8645,6 @@ impl TestResultParameterModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultPayload {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -8836,7 +8659,6 @@ impl TestResultPayload {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultReset2 {
     #[serde(
@@ -8876,10 +8698,8 @@ impl TestResultReset2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultSummary {
-    #[doc = ""]
     #[serde(
         rename = "aggregatedResultsAnalysis",
         default,
@@ -8899,14 +8719,12 @@ pub struct TestResultSummary {
         skip_serializing_if = "Option::is_none"
     )]
     pub team_project: Option<TeamProjectReference>,
-    #[doc = ""]
     #[serde(
         rename = "testFailures",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub test_failures: Option<TestFailuresAnalysis>,
-    #[doc = ""]
     #[serde(
         rename = "testResultsContext",
         default,
@@ -8925,7 +8743,6 @@ impl TestResultSummary {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultTrendFilter {
     #[serde(
@@ -8982,7 +8799,6 @@ impl TestResultTrendFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsContext {
     #[doc = "Reference to a build."]
@@ -9022,7 +8838,6 @@ pub mod test_results_context {
         Pipeline,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsDetails {
     #[serde(
@@ -9044,7 +8859,6 @@ impl TestResultsDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsDetailsForGroup {
     #[serde(
@@ -9077,7 +8891,6 @@ impl TestResultsDetailsForGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsEx2 {
     #[serde(rename = "bitValue", default, skip_serializing_if = "Option::is_none")]
@@ -9130,7 +8943,6 @@ impl TestResultsEx2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsGroupsForBuild {
     #[doc = "BuildId for which groupby result is fetched."]
@@ -9149,7 +8961,6 @@ impl TestResultsGroupsForBuild {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsGroupsForRelease {
     #[doc = "The group by results"]
@@ -9175,7 +8986,6 @@ impl TestResultsGroupsForRelease {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsQuery {
     #[serde(
@@ -9190,7 +9000,6 @@ pub struct TestResultsQuery {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<TestCaseResult>,
-    #[doc = ""]
     #[serde(
         rename = "resultsFilter",
         default,
@@ -9203,17 +9012,14 @@ impl TestResultsQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsSettings {
-    #[doc = ""]
     #[serde(
         rename = "flakySettings",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub flaky_settings: Option<FlakySettings>,
-    #[doc = ""]
     #[serde(
         rename = "newTestResultLoggingSettings",
         default,
@@ -9226,17 +9032,14 @@ impl TestResultsSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsUpdateSettings {
-    #[doc = ""]
     #[serde(
         rename = "flakySettings",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub flaky_settings: Option<FlakySettings>,
-    #[doc = ""]
     #[serde(
         rename = "newTestResultLoggingSettings",
         default,
@@ -9249,7 +9052,6 @@ impl TestResultsUpdateSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsWithWatermark {
     #[serde(
@@ -9381,7 +9183,6 @@ pub struct TestRun {
     #[doc = "The iteration to which the run belongs."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub iteration: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -9405,7 +9206,6 @@ pub struct TestRun {
         skip_serializing_if = "Option::is_none"
     )]
     pub not_applicable_tests: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Number of passed tests in the run"]
@@ -9560,7 +9360,6 @@ pub mod test_run {
         CancellationInProgress,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRun2 {
     #[serde(
@@ -9777,7 +9576,6 @@ impl TestRun2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunCanceledEvent {
     #[serde(flatten)]
@@ -9788,7 +9586,6 @@ impl TestRunCanceledEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunContext2 {
     #[serde(
@@ -9848,7 +9645,6 @@ impl TestRunCoverage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunCoverageList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -9865,7 +9661,6 @@ impl TestRunCoverageList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunCreatedEvent {
     #[serde(flatten)]
@@ -9876,7 +9671,6 @@ impl TestRunCreatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunEvent {
     #[doc = "Test run details."]
@@ -9888,7 +9682,6 @@ impl TestRunEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunEx2 {
     #[serde(rename = "bitValue", default, skip_serializing_if = "Option::is_none")]
@@ -9935,7 +9728,6 @@ impl TestRunEx2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunExtended2 {
     #[serde(
@@ -9992,7 +9784,6 @@ impl TestRunExtended2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10009,7 +9800,6 @@ impl TestRunList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunStartedEvent {
     #[serde(flatten)]
@@ -10039,7 +9829,6 @@ impl TestRunStatistic {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunSummary2 {
     #[serde(rename = "isRerun", default, skip_serializing_if = "Option::is_none")]
@@ -10096,7 +9885,6 @@ impl TestRunSummary2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestRunWithDtlEnvEvent {
     #[serde(flatten)]
@@ -10151,7 +9939,6 @@ pub struct TestSession {
     #[doc = "Id of the test session"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -10165,7 +9952,6 @@ pub struct TestSession {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -10243,7 +10029,6 @@ pub mod test_session {
         Declined,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSessionExploredWorkItemReference {
     #[serde(flatten)]
@@ -10276,7 +10061,6 @@ impl TestSessionExploredWorkItemReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSessionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10293,7 +10077,6 @@ impl TestSessionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSessionWorkItemReference {
     #[doc = "Id of the workitem"]
@@ -10360,7 +10143,6 @@ pub struct TestSettings2 {
     #[doc = "Area path required to create test settings"]
     #[serde(rename = "areaPath", default, skip_serializing_if = "Option::is_none")]
     pub area_path: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[serde(
@@ -10375,7 +10157,6 @@ pub struct TestSettings2 {
     #[doc = "Indicates if the tests settings is public or private.Used in create test settings."]
     #[serde(rename = "isPublic", default, skip_serializing_if = "Option::is_none")]
     pub is_public: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -10422,7 +10203,6 @@ impl TestSettings2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSettingsMachineRole {
     #[serde(
@@ -10625,7 +10405,6 @@ pub struct TestSuite {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_populated_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -10737,10 +10516,8 @@ impl TestSuiteCloneRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSummaryForWorkItem {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub summary: Option<AggregatedDataForResultTrend>,
     #[doc = "WorkItem reference Details."]
@@ -10795,10 +10572,8 @@ impl TestTagsUpdateModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestToWorkItemLinks {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub test: Option<TestMethod>,
     #[serde(
@@ -10814,7 +10589,6 @@ impl TestToWorkItemLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestVariable {
     #[doc = "Description of the test variable"]
@@ -10848,7 +10622,6 @@ impl TestVariable {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateTestRunRequest {
     #[serde(
@@ -10877,7 +10650,6 @@ pub struct UpdateTestRunRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub should_hyderate: Option<bool>,
-    #[doc = ""]
     #[serde(rename = "testRun", default, skip_serializing_if = "Option::is_none")]
     pub test_run: Option<LegacyTestRun>,
 }
@@ -10886,7 +10658,6 @@ impl UpdateTestRunRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateTestRunResponse {
     #[serde(
@@ -10896,7 +10667,6 @@ pub struct UpdateTestRunResponse {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub attachment_ids: Vec<i32>,
-    #[doc = ""]
     #[serde(
         rename = "updatedProperties",
         default,
@@ -10909,7 +10679,6 @@ impl UpdateTestRunResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdatedProperties {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -10940,7 +10709,6 @@ impl UpdatedProperties {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UploadAttachmentsRequest {
     #[serde(
@@ -10975,7 +10743,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -11011,7 +10778,6 @@ impl WorkItemReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemToTestLinks {
     #[serde(

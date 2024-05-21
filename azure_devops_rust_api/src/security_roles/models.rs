@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -30,7 +29,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -108,7 +106,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RoleAssignment {
     #[doc = "Designates the role as explicitly assigned or inherited."]
@@ -121,10 +118,8 @@ pub struct RoleAssignment {
         skip_serializing_if = "Option::is_none"
     )]
     pub access_display_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identity: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub role: Option<SecurityRole>,
 }
@@ -144,7 +139,6 @@ pub mod role_assignment {
         Inherited,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RoleAssignmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -161,7 +155,6 @@ impl RoleAssignmentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecurityRole {
     #[doc = "Permissions the role is allowed."]
@@ -203,7 +196,6 @@ impl SecurityRole {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecurityRoleList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -220,7 +212,6 @@ impl SecurityRoleList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserRoleAssignmentRef {
     #[doc = "The name of the role assigned."]
@@ -256,7 +247,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

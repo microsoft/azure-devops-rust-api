@@ -2713,7 +2713,6 @@ pub mod authorizedresources {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -2730,7 +2729,6 @@ pub mod authorizedresources {
                 id: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -10070,7 +10068,6 @@ pub mod resources {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -10087,7 +10084,6 @@ pub mod resources {
                 definition_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

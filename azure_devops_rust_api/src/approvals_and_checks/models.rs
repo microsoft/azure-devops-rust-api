@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Approval {
     #[doc = "Links"]
@@ -125,7 +124,6 @@ pub mod approval {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalCheckConfiguration {
     #[serde(flatten)]
@@ -139,7 +137,6 @@ impl ApprovalCheckConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalCompletedNotificationEvent {
     #[serde(flatten)]
@@ -220,7 +217,6 @@ impl ApprovalConfigSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -240,7 +236,6 @@ impl ApprovalList {
 #[doc = "Data for notification base class for approval events."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalNotificationEventBase {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub approval: Option<Approval>,
     #[serde(rename = "projectId", default, skip_serializing_if = "Option::is_none")]
@@ -273,14 +268,12 @@ impl ApprovalRequest {
 #[doc = "Data for a single approval step."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalStep {
-    #[doc = ""]
     #[serde(
         rename = "actualApprover",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub actual_approver: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "assignedApprover",
         default,
@@ -304,7 +297,6 @@ pub struct ApprovalStep {
         with = "crate::date_time::rfc3339::option"
     )]
     pub initiated_on: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -381,7 +373,6 @@ pub mod approval_step {
 #[doc = "Data for a single approval step history."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalStepHistory {
-    #[doc = ""]
     #[serde(
         rename = "assignedTo",
         default,
@@ -391,7 +382,6 @@ pub struct ApprovalStepHistory {
     #[doc = "Comment associated with this step history."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Timestamp at which this step history was created."]
@@ -417,7 +407,6 @@ pub struct ApprovalUpdateParameters {
         skip_serializing_if = "Option::is_none"
     )]
     pub approval_id: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "assignedApprover",
         default,
@@ -427,7 +416,6 @@ pub struct ApprovalUpdateParameters {
     #[doc = "Gets or sets comment."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "reassignTo",
         default,
@@ -472,7 +460,6 @@ pub mod approval_update_parameters {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalsQueryParameters {
     #[doc = "Query approvals based on list of approval IDs."]
@@ -536,7 +523,6 @@ pub mod approvals_query_parameters {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckConfiguration {
     #[serde(flatten)]
@@ -544,7 +530,6 @@ pub struct CheckConfiguration {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Time when check got configured."]
@@ -564,7 +549,6 @@ pub struct CheckConfiguration {
     #[doc = "An issue (error, warning) associated with a check configuration."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub issue: Option<CheckIssue>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -587,10 +571,8 @@ impl CheckConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckConfigurationData {
-    #[doc = ""]
     #[serde(
         rename = "checkConfiguration",
         default,
@@ -610,7 +592,6 @@ impl CheckConfigurationData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -627,16 +608,13 @@ impl CheckConfigurationList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckConfigurationRef {
     #[doc = "Check configuration id."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resource: Option<Resource>,
-    #[doc = ""]
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<CheckType>,
     #[doc = "The URL from which one can fetch the configured check."]
@@ -648,7 +626,6 @@ impl CheckConfigurationRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckData {
     #[doc = "List of check configuration data"]
@@ -688,7 +665,6 @@ impl CheckData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckDefinitionData {
     #[doc = "Flag to allow multiple configurations of a particular check on a resource."]
@@ -715,7 +691,6 @@ pub struct CheckDefinitionData {
     #[doc = "Description about the check"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub icon: Option<CheckIcon>,
     #[doc = "Name of the check"]
@@ -742,7 +717,6 @@ impl CheckDefinitionData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckIcon {
     #[doc = "Asset Location of the icon"]
@@ -800,7 +774,6 @@ pub mod check_issue {
         Warning,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckIssueData {
     #[doc = "List of default check issue settings"]
@@ -824,12 +797,10 @@ impl CheckIssueData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckRun {
     #[serde(flatten)]
     pub check_run_result: CheckRunResult,
-    #[doc = ""]
     #[serde(
         rename = "checkConfigurationRef",
         default,
@@ -856,7 +827,6 @@ impl CheckRun {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckRunResult {
     #[serde(
@@ -899,7 +869,6 @@ pub mod check_run_result {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckSuite {
     #[serde(flatten)]
@@ -961,7 +930,6 @@ pub mod check_suite {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckSuiteRef {
     #[doc = "Evaluation context for the check suite request"]
@@ -976,7 +944,6 @@ impl CheckSuiteRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckSuiteRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -995,7 +962,6 @@ impl CheckSuiteRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckType {
     #[doc = "Gets or sets check type id."]
@@ -1010,7 +976,6 @@ impl CheckType {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GenericCheckConfiguration {
     #[serde(flatten)]
@@ -1024,7 +989,6 @@ impl GenericCheckConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -1049,7 +1013,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -1129,12 +1092,10 @@ impl JObject {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Permission {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorized: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "authorizedBy",
         default,
@@ -1153,7 +1114,6 @@ impl Permission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelinePermission {
     #[serde(flatten)]
@@ -1166,7 +1126,6 @@ impl PipelinePermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineProcessResources {
     #[serde(
@@ -1181,7 +1140,6 @@ impl PipelineProcessResources {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineResourceReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1226,7 +1184,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Resource {
     #[doc = "Id of the resource."]
@@ -1254,7 +1211,6 @@ pub struct ResourceCheckIssue {
         skip_serializing_if = "Option::is_none"
     )]
     pub check_issue: Option<CheckIssue>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resource: Option<Resource>,
 }
@@ -1263,10 +1219,8 @@ impl ResourceCheckIssue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourcePipelinePermissions {
-    #[doc = ""]
     #[serde(
         rename = "allPipelines",
         default,
@@ -1279,7 +1233,6 @@ pub struct ResourcePipelinePermissions {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pipelines: Vec<PipelinePermission>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resource: Option<Resource>,
 }
@@ -1288,7 +1241,6 @@ impl ResourcePipelinePermissions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourcePipelinePermissionsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1308,7 +1260,6 @@ impl ResourcePipelinePermissionsList {
 #[doc = "Config to facilitate task check"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCheckConfig {
-    #[doc = ""]
     #[serde(
         rename = "definitionRef",
         default,
@@ -1341,7 +1292,6 @@ impl TaskCheckConfig {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCheckConfiguration {
     #[serde(flatten)]
@@ -1355,7 +1305,6 @@ impl TaskCheckConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCheckDefinitionReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1370,7 +1319,6 @@ impl TaskCheckDefinitionReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimeZone {
     #[doc = "Display name of the time zone."]
@@ -1403,7 +1351,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

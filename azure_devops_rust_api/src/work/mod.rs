@@ -5949,7 +5949,6 @@ pub mod taskboard_columns {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -5967,7 +5966,6 @@ pub mod taskboard_columns {
                 team: team.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6237,7 +6235,6 @@ pub mod taskboard_work_items {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -6257,7 +6254,6 @@ pub mod taskboard_work_items {
                 iteration_id: iteration_id.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

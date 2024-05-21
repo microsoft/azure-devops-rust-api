@@ -27,7 +27,6 @@ impl Artifact {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -38,7 +37,6 @@ impl BuildResourceParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Container {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -71,10 +69,8 @@ impl Container {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContainerResource {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub container: Option<Container>,
 }
@@ -83,7 +79,6 @@ impl ContainerResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContainerResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -215,7 +210,6 @@ impl LogCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -232,7 +226,6 @@ pub struct Pipeline {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links")]
     pub links: ReferenceLinks,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<PipelineConfiguration>,
     #[doc = "URL of the pipeline"]
@@ -266,7 +259,6 @@ impl Pipeline {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PipelineBase {
     #[doc = "Pipeline folder"]
@@ -288,7 +280,6 @@ impl PipelineBase {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PipelineConfiguration {
     #[serde(rename = "type")]
@@ -337,7 +328,6 @@ pub mod pipeline_configuration {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -370,7 +360,6 @@ impl PipelineReference {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineResource {
     #[doc = "A reference to a Pipeline."]
@@ -384,7 +373,6 @@ impl PipelineResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PipelineResourceParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -395,7 +383,6 @@ impl PipelineResourceParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PreviewRun {
     #[serde(rename = "finalYaml", default, skip_serializing_if = "Option::is_none")]
@@ -421,7 +408,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Repository {
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
@@ -448,12 +434,10 @@ pub mod repository {
         AzureReposGitHyphenated,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RepositoryResource {
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
     pub ref_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<Repository>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -464,7 +448,6 @@ impl RepositoryResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RepositoryResourceParameters {
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
@@ -483,7 +466,6 @@ impl RepositoryResourceParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Run {
     #[serde(flatten)]
@@ -503,7 +485,6 @@ pub struct Run {
     pub finished_date: Option<time::OffsetDateTime>,
     #[doc = "A reference to a Pipeline."]
     pub pipeline: PipelineReference,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resources: Option<RunResources>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -569,7 +550,6 @@ pub mod run {
         Completed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -596,7 +576,6 @@ pub struct RunPipelineParameters {
         skip_serializing_if = "Option::is_none"
     )]
     pub preview_run: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resources: Option<RunResourcesParameters>,
     #[serde(
@@ -627,7 +606,6 @@ impl RunPipelineParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RunReference {
     pub id: i32,
@@ -638,7 +616,6 @@ impl RunReference {
         Self { id, name }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunResources {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -653,7 +630,6 @@ impl RunResources {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RunResourcesParameters {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -672,7 +648,6 @@ impl RunResourcesParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SignalRConnection {
     #[doc = "A signed url allowing limited-time anonymous access to private resources."]
@@ -707,7 +682,6 @@ impl SignedUrl {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Variable {
     #[serde(rename = "isSecret", default, skip_serializing_if = "Option::is_none")]
@@ -734,7 +708,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

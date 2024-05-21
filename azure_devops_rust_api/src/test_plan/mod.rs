@@ -5107,7 +5107,6 @@ pub mod test_case_clone {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

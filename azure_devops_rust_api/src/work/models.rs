@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Activity {
     #[serde(
@@ -22,7 +21,6 @@ impl Activity {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogColumn {
     #[doc = "Reference to a field in a work item"]
@@ -40,10 +38,8 @@ impl BacklogColumn {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogConfiguration {
-    #[doc = ""]
     #[serde(
         rename = "backlogFields",
         default,
@@ -80,14 +76,12 @@ pub struct BacklogConfiguration {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub portfolio_backlogs: Vec<BacklogLevelConfiguration>,
-    #[doc = ""]
     #[serde(
         rename = "requirementBacklog",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub requirement_backlog: Option<BacklogLevelConfiguration>,
-    #[doc = ""]
     #[serde(
         rename = "taskBacklog",
         default,
@@ -123,7 +117,6 @@ pub mod backlog_configuration {
         AsTasks,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogFields {
     #[doc = "Field Type (e.g. Order, Activity) to Field Reference Name map"]
@@ -178,7 +171,6 @@ impl BacklogLevel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogLevelConfiguration {
     #[doc = "List of fields to include in Add Panel"]
@@ -256,7 +248,6 @@ pub mod backlog_level_configuration {
         Task,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogLevelConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -290,7 +281,6 @@ impl BacklogLevelWorkItems {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Board {
     #[serde(flatten)]
@@ -312,7 +302,6 @@ pub struct Board {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<BoardColumn>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fields: Option<BoardFields>,
     #[serde(rename = "isValid", default, skip_serializing_if = "Option::is_none")]
@@ -346,7 +335,6 @@ impl BoardBadge {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardCardRuleSettings {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -362,7 +350,6 @@ impl BoardCardRuleSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardCardSettings {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -373,7 +360,6 @@ impl BoardCardSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardChart {
     #[serde(flatten)]
@@ -390,7 +376,6 @@ impl BoardChart {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardChartReference {
     #[doc = "Name of the resource"]
@@ -405,7 +390,6 @@ impl BoardChartReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardChartReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -422,7 +406,6 @@ impl BoardChartReferenceList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardColumn {
     #[serde(
@@ -465,7 +448,6 @@ pub mod board_column {
         Outgoing,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardColumnList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -482,7 +464,6 @@ impl BoardColumnList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardFields {
     #[doc = "An abstracted reference to a field"]
@@ -504,7 +485,6 @@ impl BoardFields {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardReference {
     #[doc = "Id of the resource"]
@@ -522,7 +502,6 @@ impl BoardReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -539,7 +518,6 @@ impl BoardReferenceList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardRow {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -554,7 +532,6 @@ impl BoardRow {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardRowList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -571,7 +548,6 @@ impl BoardRowList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardSuggestedValue {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -582,7 +558,6 @@ impl BoardSuggestedValue {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardSuggestedValueList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -599,7 +574,6 @@ impl BoardSuggestedValueList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BoardUserSettings {
     #[serde(
@@ -614,7 +588,6 @@ impl BoardUserSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CapacityContractBase {
     #[serde(flatten)]
@@ -783,7 +756,6 @@ impl CategoryConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreatePlan {
     #[doc = "Description of the plan"]
@@ -813,7 +785,6 @@ pub mod create_plan {
         DeliveryTimelineView,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DateRange {
     #[doc = "End of the date range."]
@@ -840,7 +811,6 @@ pub struct DeliveryViewData {
         skip_serializing_if = "Option::is_none"
     )]
     pub child_id_to_parent_id_map: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "criteriaStatus",
         default,
@@ -1032,7 +1002,6 @@ impl FieldReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldSetting {}
 impl FieldSetting {
@@ -1040,7 +1009,6 @@ impl FieldSetting {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FilterClause {
     #[serde(rename = "fieldName", default, skip_serializing_if = "Option::is_none")]
@@ -1063,7 +1031,6 @@ impl FilterClause {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FilterGroup {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1078,7 +1045,6 @@ impl FilterGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -1103,7 +1069,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ITaskboardColumnMapping {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1120,7 +1085,6 @@ impl ITaskboardColumnMapping {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -1268,7 +1232,6 @@ impl Marker {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Member {
     #[serde(
@@ -1295,7 +1258,6 @@ impl Member {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ParentChildWiMap {
     #[serde(
@@ -1321,7 +1283,6 @@ impl ParentChildWiMap {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ParentChildWiMapList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1341,7 +1302,6 @@ impl ParentChildWiMapList {
 #[doc = "Data contract for the plan definition"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Plan {
-    #[doc = ""]
     #[serde(
         rename = "createdByIdentity",
         default,
@@ -1368,7 +1328,6 @@ pub struct Plan {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_accessed: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedByIdentity",
         default,
@@ -1435,7 +1394,6 @@ pub mod plan {
         AllPermissions,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PlanList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1455,7 +1413,6 @@ impl PlanList {
 #[doc = "Metadata about a plan definition that is stored in favorites service"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PlanMetadata {
-    #[doc = ""]
     #[serde(
         rename = "createdByIdentity",
         default,
@@ -1658,7 +1615,6 @@ impl ReorderResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReorderResultList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1675,7 +1631,6 @@ impl ReorderResultList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Rule {
     #[serde(
@@ -1690,7 +1645,6 @@ pub struct Rule {
     pub is_enabled: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub settings: Option<Attribute>,
 }
@@ -1743,7 +1697,6 @@ impl TaskboardColumnMapping {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskboardColumns {
     #[serde(
@@ -1800,7 +1753,6 @@ impl TaskboardWorkItemColumn {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskboardWorkItemColumnList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1972,7 +1924,6 @@ impl TeamFieldValuesPatch {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamIterationAttributes {
     #[doc = "Finish date of the iteration. Date-only, correct unadjusted at midnight in UTC."]
@@ -2016,7 +1967,6 @@ pub mod team_iteration_attributes {
 pub struct TeamMemberCapacity {
     #[serde(flatten)]
     pub capacity_contract_base: CapacityContractBase,
-    #[doc = ""]
     #[serde(
         rename = "teamMember",
         default,
@@ -2034,7 +1984,6 @@ impl TeamMemberCapacity {
 pub struct TeamMemberCapacityIdentityRef {
     #[serde(flatten)]
     pub capacity_contract_base: CapacityContractBase,
-    #[doc = ""]
     #[serde(
         rename = "teamMember",
         default,
@@ -2047,7 +1996,6 @@ impl TeamMemberCapacityIdentityRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamMemberCapacityIdentityRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2146,7 +2094,6 @@ impl TeamSettingsDataContractBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamSettingsDaysOff {
     #[serde(flatten)]
@@ -2164,7 +2111,6 @@ impl TeamSettingsDaysOff {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamSettingsDaysOffPatch {
     #[serde(
@@ -2185,7 +2131,6 @@ impl TeamSettingsDaysOffPatch {
 pub struct TeamSettingsIteration {
     #[serde(flatten)]
     pub team_settings_data_contract_base: TeamSettingsDataContractBase,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub attributes: Option<TeamIterationAttributes>,
     #[doc = "Id of the iteration."]
@@ -2203,7 +2148,6 @@ impl TeamSettingsIteration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamSettingsIterationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2278,7 +2222,6 @@ pub mod team_settings_patch {
         AsTasks,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineCriteriaStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2303,7 +2246,6 @@ pub mod timeline_criteria_status {
         Unknown,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineIterationStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2326,7 +2268,6 @@ pub mod timeline_iteration_status {
         IsOverlapping,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineTeamData {
     #[doc = "Contract representing a backlog level"]
@@ -2393,7 +2334,6 @@ pub struct TimelineTeamData {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub rollup_work_item_types: Vec<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<TimelineTeamStatus>,
     #[doc = "The team field default value"]
@@ -2440,7 +2380,6 @@ impl TimelineTeamData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineTeamIteration {
     #[doc = "The iteration CSS Node Id"]
@@ -2474,7 +2413,6 @@ pub struct TimelineTeamIteration {
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<TimelineIterationStatus>,
     #[doc = "The work items that have been paged in this iteration"]
@@ -2491,7 +2429,6 @@ impl TimelineTeamIteration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineTeamStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2524,7 +2461,6 @@ pub mod timeline_team_status {
         NoIterationsExist,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdatePlan {
     #[doc = "Description of the plan"]
@@ -2557,7 +2493,6 @@ pub mod update_plan {
         DeliveryTimelineView,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateTaskboardColumn {
     #[doc = "Column ID, keep it null for new column"]
@@ -2582,7 +2517,6 @@ impl UpdateTaskboardColumn {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateTaskboardWorkItemColumn {
     #[serde(rename = "newColumn", default, skip_serializing_if = "Option::is_none")]
@@ -2607,7 +2541,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -2761,7 +2694,6 @@ impl WorkItemReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemRelation {
     #[serde(flatten)]
@@ -2811,7 +2743,6 @@ impl WorkItemTypeReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeStateInfo {
     #[doc = "State name to state category map"]
@@ -2830,7 +2761,6 @@ impl WorkItemTypeStateInfo {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Attribute {}
 impl Attribute {

@@ -36,12 +36,17 @@ impl From<Option<String>> for DocCommentCode {
 
 impl From<&Option<String>> for DocCommentCode {
     fn from(comment: &Option<String>) -> Self {
-        Self { comment: comment.clone() }
+        Self {
+            comment: comment.clone(),
+        }
     }
 }
 
 impl ToTokens for DocCommentCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
+        if self.is_empty() {
+            return;
+        }
         if let Some(comment) = &self.comment {
             tokens.extend(quote! { #[doc = #comment] })
         }

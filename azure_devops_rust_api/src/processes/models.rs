@@ -105,7 +105,6 @@ impl Control {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ControlList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -231,7 +230,6 @@ impl Extension {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -292,7 +290,6 @@ pub mod field_model {
         PicklistDouble,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldRuleModel {
     #[serde(
@@ -530,7 +527,6 @@ impl PickListMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PickListMetadataList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -651,7 +647,6 @@ impl ProcessBehaviorField {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -767,7 +762,6 @@ pub mod process_info {
         Custom,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessInfoList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -784,7 +778,6 @@ impl ProcessInfoList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessModel {
     #[doc = "Description of the process"]
@@ -897,7 +890,6 @@ pub mod process_rule {
         Custom,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessRuleList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1093,7 +1085,6 @@ pub mod process_work_item_type_field {
         PicklistDouble,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessWorkItemTypeFieldList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1110,7 +1101,6 @@ impl ProcessWorkItemTypeFieldList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessWorkItemTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1287,7 +1277,6 @@ pub mod rule_condition {
         WhenCurrentUserIsNotMemberOfGroup,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RuleConditionModel {
     #[serde(
@@ -1439,7 +1428,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -1480,7 +1468,6 @@ impl WitContribution {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemBehavior {
     #[serde(rename = "abstract", default, skip_serializing_if = "Option::is_none")]
@@ -1514,7 +1501,6 @@ impl WorkItemBehavior {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemBehaviorField {
     #[serde(
@@ -1627,7 +1613,6 @@ pub mod work_item_state_result_model {
         Custom,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemStateResultModelList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1669,7 +1654,6 @@ impl WorkItemTypeBehavior {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1686,7 +1670,6 @@ impl WorkItemTypeBehaviorList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeModel {
     #[serde(

@@ -347,7 +347,6 @@ pub mod oidctoken {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `scope_identifier`: The project GUID to scope the request"]
@@ -3924,7 +3923,6 @@ pub mod agentclouds {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(&self, organization: impl Into<String>) -> list::RequestBuilder {
@@ -3933,7 +3931,6 @@ pub mod agentclouds {
                 organization: organization.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn add(
@@ -3947,7 +3944,6 @@ pub mod agentclouds {
                 body: body.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
@@ -3961,7 +3957,6 @@ pub mod agentclouds {
                 agent_cloud_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(
@@ -3977,7 +3972,6 @@ pub mod agentclouds {
                 agent_cloud_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn delete(
@@ -4582,7 +4576,6 @@ pub mod requests {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(
@@ -8342,7 +8335,6 @@ pub mod kubernetes {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -8361,7 +8353,6 @@ pub mod kubernetes {
                 environment_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]
@@ -8380,7 +8371,6 @@ pub mod kubernetes {
                 resource_id,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         #[doc = "* `project`: Project ID or project name"]

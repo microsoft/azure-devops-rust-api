@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AdvSecEnablementStatus {
     #[doc = "Enabled by VSID"]
@@ -48,7 +47,6 @@ impl AdvSecEnablementStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AdvSecEnablementUpdate {
     #[doc = "New status"]
@@ -70,7 +68,6 @@ impl AdvSecEnablementUpdate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AssociatedWorkItem {
     #[serde(
@@ -103,7 +100,6 @@ impl AssociatedWorkItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncGitOperationNotification {
     #[serde(
@@ -118,7 +114,6 @@ impl AsyncGitOperationNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationCommitLevelEventNotification {
     #[serde(flatten)]
@@ -131,7 +126,6 @@ impl AsyncRefOperationCommitLevelEventNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationCompletedNotification {
     #[serde(flatten)]
@@ -148,7 +142,6 @@ impl AsyncRefOperationCompletedNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationConflictNotification {
     #[serde(flatten)]
@@ -160,7 +153,6 @@ impl AsyncRefOperationConflictNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationGeneralFailureNotification {
     #[serde(flatten)]
@@ -171,7 +163,6 @@ impl AsyncRefOperationGeneralFailureNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationProgressNotification {
     #[serde(flatten)]
@@ -185,7 +176,6 @@ impl AsyncRefOperationProgressNotification {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AsyncRefOperationTimeoutNotification {
     #[serde(flatten)]
@@ -202,7 +192,6 @@ pub struct Attachment {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Content hash of on-disk representation of file content. Its calculated by the server by using SHA1 hash function."]
@@ -244,7 +233,6 @@ impl Attachment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -287,7 +275,6 @@ impl BillableCommitter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BillableCommitterDetail {
     #[serde(flatten)]
@@ -356,14 +343,12 @@ impl BranchUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Change {
     #[doc = "The type of change that was made to the item."]
     #[serde(rename = "changeType")]
     pub change_type: change::ChangeType,
     pub item: serde_json::Value,
-    #[doc = ""]
     #[serde(
         rename = "newContent",
         default,
@@ -433,7 +418,6 @@ pub mod change {
         EditRename,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ChangeCountDictionary {}
 impl ChangeCountDictionary {
@@ -441,7 +425,6 @@ impl ChangeCountDictionary {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ChangeList {
     #[serde(
@@ -579,7 +562,6 @@ impl ChangeListSearchCriteria {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckinNote {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -598,7 +580,6 @@ pub struct Comment {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "The comment type at the time of creation."]
@@ -697,7 +678,6 @@ impl CommentIterationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CommentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -714,7 +694,6 @@ impl CommentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CommentPosition {
     #[doc = "The line number of a thread's position. Starts at 1."]
@@ -771,7 +750,6 @@ pub struct CommentThread {
     #[doc = "The status of the comment thread."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<comment_thread::Status>,
-    #[doc = ""]
     #[serde(
         rename = "threadContext",
         default,
@@ -805,34 +783,29 @@ pub mod comment_thread {
         Pending,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CommentThreadContext {
     #[doc = "File path relative to the root of the repository. It's up to the client to use any path format."]
     #[serde(rename = "filePath", default, skip_serializing_if = "Option::is_none")]
     pub file_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "leftFileEnd",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub left_file_end: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "leftFileStart",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub left_file_start: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "rightFileEnd",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub right_file_end: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "rightFileStart",
         default,
@@ -862,28 +835,24 @@ pub struct CommentTrackingCriteria {
         skip_serializing_if = "Option::is_none"
     )]
     pub orig_file_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "origLeftFileEnd",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub orig_left_file_end: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "origLeftFileStart",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub orig_left_file_start: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "origRightFileEnd",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub orig_right_file_end: Option<CommentPosition>,
-    #[doc = ""]
     #[serde(
         rename = "origRightFileStart",
         default,
@@ -932,7 +901,6 @@ impl DiscussionsUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FileContentMetadata {
     #[serde(
@@ -1066,7 +1034,6 @@ impl GitAnnotatedTag {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitAsyncRefOperation {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -1190,7 +1157,6 @@ pub struct GitAsyncRefOperationParameters {
         skip_serializing_if = "Option::is_none"
     )]
     pub onto_ref_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
     #[doc = "GitAsyncRefOperationSource specifies the pull request or list of commits to use when making a cherry pick and revert operation request. Only one should be provided."]
@@ -1226,7 +1192,6 @@ impl GitAsyncRefOperationSource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitBaseVersionDescriptor {
     #[serde(flatten)]
@@ -1281,7 +1246,6 @@ pub mod git_base_version_descriptor {
         Commit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitBlobRef {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -1337,7 +1301,6 @@ impl GitBranchStats {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitBranchStatsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1354,7 +1317,6 @@ impl GitBranchStatsList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitChange {
     #[serde(flatten)]
@@ -1362,7 +1324,6 @@ pub struct GitChange {
     #[doc = "ID of the change within the group of changes."]
     #[serde(rename = "changeId", default, skip_serializing_if = "Option::is_none")]
     pub change_id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "newContentTemplate",
         default,
@@ -1404,7 +1365,6 @@ impl GitCherryPick {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommit {
     #[serde(flatten)]
@@ -1417,7 +1377,6 @@ impl GitCommit {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitChanges {
     #[serde(
@@ -1438,7 +1397,6 @@ impl GitCommitChanges {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitDiffs {
     #[serde(
@@ -1547,7 +1505,6 @@ pub struct GitCommitRef {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub push: Option<GitPushRef>,
     #[doc = "Remote URL path to the commit."]
@@ -1577,7 +1534,6 @@ impl GitCommitRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1594,10 +1550,8 @@ impl GitCommitRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitCommitToCreate {
-    #[doc = ""]
     #[serde(rename = "baseRef", default, skip_serializing_if = "Option::is_none")]
     pub base_ref: Option<GitRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1615,7 +1569,6 @@ impl GitCommitToCreate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitConflict {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -1646,7 +1599,6 @@ pub struct GitConflict {
         skip_serializing_if = "Option::is_none"
     )]
     pub merge_base_commit: Option<GitCommitRef>,
-    #[doc = ""]
     #[serde(
         rename = "mergeOrigin",
         default,
@@ -1679,7 +1631,6 @@ pub struct GitConflict {
         skip_serializing_if = "Option::is_none"
     )]
     pub resolution_status: Option<git_conflict::ResolutionStatus>,
-    #[doc = ""]
     #[serde(
         rename = "resolvedBy",
         default,
@@ -1767,17 +1718,14 @@ pub mod git_conflict {
 pub struct GitConflictAddAdd {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionMergeContent>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1795,20 +1743,16 @@ impl GitConflictAddAdd {
 pub struct GitConflictAddRename {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPathConflict>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1832,13 +1776,10 @@ impl GitConflictAddRename {
 pub struct GitConflictDeleteEdit {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPickOneAction>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1856,13 +1797,10 @@ impl GitConflictDeleteEdit {
 pub struct GitConflictDeleteRename {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPickOneAction>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1886,17 +1824,14 @@ impl GitConflictDeleteRename {
 pub struct GitConflictDirectoryFile {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPathConflict>,
-    #[doc = ""]
     #[serde(
         rename = "sourceTree",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_tree: Option<GitTreeRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1914,13 +1849,10 @@ impl GitConflictDirectoryFile {
 pub struct GitConflictEditDelete {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPickOneAction>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
@@ -1938,20 +1870,16 @@ impl GitConflictEditDelete {
 pub struct GitConflictEditEdit {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionMergeContent>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -1969,17 +1897,14 @@ impl GitConflictEditEdit {
 pub struct GitConflictFileDirectory {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPathConflict>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetTree",
         default,
@@ -1997,13 +1922,10 @@ impl GitConflictFileDirectory {
 pub struct GitConflictRename1to2 {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionRename1to2>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
@@ -2016,7 +1938,6 @@ pub struct GitConflictRename1to2 {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_new_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -2040,17 +1961,14 @@ impl GitConflictRename1to2 {
 pub struct GitConflictRename2to1 {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPathConflict>,
-    #[doc = ""]
     #[serde(
         rename = "sourceNewBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_new_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "sourceOriginalBlob",
         default,
@@ -2063,14 +1981,12 @@ pub struct GitConflictRename2to1 {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_original_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "targetNewBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub target_new_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetOriginalBlob",
         default,
@@ -2094,13 +2010,10 @@ impl GitConflictRename2to1 {
 pub struct GitConflictRenameAdd {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPathConflict>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
@@ -2113,7 +2026,6 @@ pub struct GitConflictRenameAdd {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_original_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -2131,13 +2043,10 @@ impl GitConflictRenameAdd {
 pub struct GitConflictRenameDelete {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionPickOneAction>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
@@ -2161,7 +2070,6 @@ impl GitConflictRenameDelete {
 pub struct GitConflictRenameRename {
     #[serde(flatten)]
     pub git_conflict: GitConflict,
-    #[doc = ""]
     #[serde(rename = "baseBlob", default, skip_serializing_if = "Option::is_none")]
     pub base_blob: Option<GitBlobRef>,
     #[serde(
@@ -2170,17 +2078,14 @@ pub struct GitConflictRenameRename {
         skip_serializing_if = "Option::is_none"
     )]
     pub original_path: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resolution: Option<GitResolutionMergeContent>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBlob",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub source_blob: Option<GitBlobRef>,
-    #[doc = ""]
     #[serde(
         rename = "targetBlob",
         default,
@@ -2193,7 +2098,6 @@ impl GitConflictRenameRename {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitConflictUpdateResult {
     #[doc = "Conflict ID that was provided by input"]
@@ -2210,7 +2114,6 @@ pub struct GitConflictUpdateResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub custom_message: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "updatedConflict",
         default,
@@ -2247,7 +2150,6 @@ pub mod git_conflict_update_result {
         NotFound,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitDeletedRepository {
     #[serde(
@@ -2256,7 +2158,6 @@ pub struct GitDeletedRepository {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(rename = "deletedBy", default, skip_serializing_if = "Option::is_none")]
     pub deleted_by: Option<IdentityRef>,
     #[serde(
@@ -2278,7 +2179,6 @@ impl GitDeletedRepository {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitDeletedRepositoryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2295,7 +2195,6 @@ impl GitDeletedRepositoryList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitFilePathsCollection {
     #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
@@ -2350,7 +2249,6 @@ impl GitForkOperationStatusDetail {
 pub struct GitForkRef {
     #[serde(flatten)]
     pub git_ref: GitRef,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
 }
@@ -2417,7 +2315,6 @@ pub mod git_fork_sync_request {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitForkSyncRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2454,7 +2351,6 @@ impl GitForkSyncRequestParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitForkTeamProjectReference {
     #[serde(flatten)]
@@ -2467,7 +2363,6 @@ impl GitForkTeamProjectReference {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitImportFailedEvent {
     #[serde(
@@ -2476,7 +2371,6 @@ pub struct GitImportFailedEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_repository_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "targetRepository",
         default,
@@ -2527,7 +2421,6 @@ pub struct GitImportRequest {
     #[doc = "Parameters for creating an import request"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub parameters: Option<GitImportRequestParameters>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
     #[doc = "Current status of the import."]
@@ -2559,7 +2452,6 @@ pub mod git_import_request {
         Abandoned,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitImportRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2640,7 +2532,6 @@ impl GitImportStatusDetail {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitImportSucceededEvent {
     #[serde(
@@ -2649,7 +2540,6 @@ pub struct GitImportSucceededEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub source_repository_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "targetRepository",
         default,
@@ -2688,7 +2578,6 @@ impl GitImportTfvcSource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItem {
     #[serde(flatten)]
@@ -2749,7 +2638,6 @@ pub mod git_item {
         RefDelta,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItemDescriptor {
     #[doc = "Path to item"]
@@ -2820,7 +2708,6 @@ pub mod git_item_descriptor {
         Commit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2837,7 +2724,6 @@ impl GitItemList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItemRequestData {
     #[doc = "Whether to include metadata for all items"]
@@ -2876,7 +2762,6 @@ impl GitItemRequestData {
     }
 }
 pub type GitItems = Vec<GitItem>;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItemsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2893,7 +2778,6 @@ impl GitItemsList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitLastChangeItem {
     #[doc = "Gets or sets the commit Id this item was modified most recently for the provided version."]
@@ -2908,7 +2792,6 @@ impl GitLastChangeItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitLastChangeTreeItems {
     #[doc = "The list of commits referenced by Items, if they were requested."]
@@ -2938,7 +2821,6 @@ impl GitLastChangeTreeItems {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitMerge {
     #[serde(flatten)]
@@ -3009,7 +2891,6 @@ impl GitMergeOperationStatusDetail {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitMergeOriginRef {
     #[serde(
@@ -3093,7 +2974,6 @@ pub mod git_object {
         RefDelta,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPathAction {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3140,7 +3020,6 @@ pub mod git_path_action {
         Rename,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPathToItemsCollection {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3151,7 +3030,6 @@ impl GitPathToItemsCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPolicyConfigurationResponse {
     #[doc = "The HTTP client methods find the continuation token header in the response and populate this field."]
@@ -3187,14 +3065,12 @@ pub struct GitPullRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_id: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "autoCompleteSetBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub auto_complete_set_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(rename = "closedBy", default, skip_serializing_if = "Option::is_none")]
     pub closed_by: Option<IdentityRef>,
     #[doc = "The date when the pull request was closed (completed, abandoned, or merged externally)."]
@@ -3232,7 +3108,6 @@ pub struct GitPullRequest {
         with = "crate::date_time::rfc3339::option"
     )]
     pub completion_queue_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(rename = "createdBy")]
     pub created_by: IdentityRef,
     #[doc = "The date when the pull request was created."]
@@ -3323,7 +3198,6 @@ pub struct GitPullRequest {
     #[doc = "Used internally."]
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
     pub remote_url: Option<String>,
-    #[doc = ""]
     pub repository: GitRepository,
     #[doc = "A list of reviewers on the pull request along with the state of their votes."]
     #[serde(
@@ -3526,7 +3400,6 @@ impl GitPullRequestCommentThreadContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestCommentThreadList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3707,7 +3580,6 @@ pub struct GitPullRequestIteration {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Changes included with the pull request iteration."]
@@ -3766,7 +3638,6 @@ pub struct GitPullRequestIteration {
         skip_serializing_if = "Option::is_none"
     )]
     pub old_target_ref_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub push: Option<GitPushRef>,
     #[doc = "The reason for which the pull request iteration was created."]
@@ -3843,7 +3714,6 @@ impl GitPullRequestIterationChanges {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestIterationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3860,7 +3730,6 @@ impl GitPullRequestIterationList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3961,7 +3830,6 @@ pub mod git_pull_request_query_input {
         Commit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestReviewFileContentInfo {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -4103,7 +3971,6 @@ impl GitPullRequestStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestStatusList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4146,7 +4013,6 @@ pub struct GitPullRequestUpdateOptions {
     #[doc = "Pull request status"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<PullRequestStatus>,
-    #[doc = ""]
     #[serde(
         rename = "autoCompleteSetBy",
         default,
@@ -4159,7 +4025,6 @@ impl GitPullRequestUpdateOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPush {
     #[serde(flatten)]
@@ -4177,7 +4042,6 @@ pub struct GitPush {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_updates: Vec<GitRefUpdate>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
 }
@@ -4186,7 +4050,6 @@ impl GitPush {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPushEventData {
     #[serde(rename = "afterId", default, skip_serializing_if = "Option::is_none")]
@@ -4201,7 +4064,6 @@ pub struct GitPushEventData {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommit>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
 }
@@ -4210,7 +4072,6 @@ impl GitPushEventData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPushList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4227,7 +4088,6 @@ impl GitPushList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPushRef {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -4235,7 +4095,6 @@ pub struct GitPushRef {
     pub links: Option<ReferenceLinks>,
     #[serde(default, with = "crate::date_time::rfc3339::option")]
     pub date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(rename = "pushedBy", default, skip_serializing_if = "Option::is_none")]
     pub pushed_by: Option<IdentityRef>,
     #[serde(rename = "pushId", default, skip_serializing_if = "Option::is_none")]
@@ -4248,7 +4107,6 @@ impl GitPushRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPushSearchCriteria {
     #[serde(
@@ -4282,10 +4140,8 @@ impl GitPushSearchCriteria {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitQueryBranchStatsCriteria {
-    #[doc = ""]
     #[serde(
         rename = "baseCommit",
         default,
@@ -4305,7 +4161,6 @@ impl GitQueryBranchStatsCriteria {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitQueryCommitsCriteria {
     #[doc = "Number of entries to skip"]
@@ -4317,7 +4172,6 @@ pub struct GitQueryCommitsCriteria {
     #[doc = "Alias or display name of the author"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "compareVersion",
         default,
@@ -4386,7 +4240,6 @@ pub struct GitQueryCommitsCriteria {
     #[doc = "Path of item to search under"]
     #[serde(rename = "itemPath", default, skip_serializing_if = "Option::is_none")]
     pub item_path: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "itemVersion",
         default,
@@ -4434,7 +4287,6 @@ pub mod git_query_commits_criteria {
         FullHistorySimplifyMerges,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitQueryRefsCriteria {
     #[doc = "List of commit Ids to be searched"]
@@ -4479,7 +4331,6 @@ pub mod git_query_refs_criteria {
         Contains,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRecycleBinRepositoryDetails {
     #[doc = "Setting to false will undo earlier deletion and restore the repository."]
@@ -4491,18 +4342,15 @@ impl GitRecycleBinRepositoryDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRef {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub creator: Option<IdentityRef>,
     #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
     pub is_locked: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "isLockedBy",
         default,
@@ -4542,7 +4390,6 @@ impl GitRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefFavorite {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -4586,7 +4433,6 @@ pub mod git_ref_favorite {
         Ref,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefFavoriteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4603,7 +4449,6 @@ impl GitRefFavoriteList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4620,7 +4465,6 @@ impl GitRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefUpdate {
     #[serde(rename = "isLocked", default, skip_serializing_if = "Option::is_none")]
@@ -4651,7 +4495,6 @@ impl GitRefUpdate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefUpdateResult {
     #[doc = "Custom message for the result object For instance, Reason for failing."]
@@ -4750,7 +4593,6 @@ pub mod git_ref_update_result {
         SucceededCorruptRef,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRefUpdateResultList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4767,7 +4609,6 @@ impl GitRefUpdateResultList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GitRepository {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -4798,7 +4639,6 @@ pub struct GitRepository {
     )]
     pub is_in_maintenance: Option<bool>,
     pub name: String,
-    #[doc = ""]
     #[serde(
         rename = "parentRepository",
         default,
@@ -4846,12 +4686,10 @@ impl GitRepository {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryCreateOptions {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "parentRepository",
         default,
@@ -4867,7 +4705,6 @@ impl GitRepositoryCreateOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4884,7 +4721,6 @@ impl GitRepositoryList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryRef {
     #[doc = "Reference object for a TeamProjectCollection."]
@@ -4912,7 +4748,6 @@ impl GitRepositoryRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4929,7 +4764,6 @@ impl GitRepositoryRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryStats {
     #[serde(
@@ -4962,10 +4796,8 @@ impl GitRepositoryStats {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolution {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
 }
@@ -4974,14 +4806,12 @@ impl GitResolution {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionMergeContent {
     #[serde(flatten)]
     pub git_resolution: GitResolution,
     #[serde(rename = "mergeType", default, skip_serializing_if = "Option::is_none")]
     pub merge_type: Option<git_resolution_merge_content::MergeType>,
-    #[doc = ""]
     #[serde(
         rename = "userMergedBlob",
         default,
@@ -5017,7 +4847,6 @@ pub mod git_resolution_merge_content {
         UserMerged,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionPathConflict {
     #[serde(flatten)]
@@ -5052,7 +4881,6 @@ pub mod git_resolution_path_conflict {
         KeepTargetDeleteSource,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionPickOneAction {
     #[serde(flatten)]
@@ -5077,7 +4905,6 @@ pub mod git_resolution_pick_one_action {
         PickTargetAction,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionRename1to2 {
     #[serde(flatten)]
@@ -5104,7 +4931,6 @@ pub mod git_resolution_rename1to2 {
         KeepBothFiles,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRevert {
     #[serde(flatten)]
@@ -5126,7 +4952,6 @@ pub struct GitStatus {
     #[doc = "Status context that uniquely identifies the status."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub context: Option<GitStatusContext>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Creation date and time of the status."]
@@ -5195,7 +5020,6 @@ impl GitStatusContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitStatusList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5227,7 +5051,6 @@ impl GitSuggestion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitSuggestionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5244,7 +5067,6 @@ impl GitSuggestionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTargetVersionDescriptor {
     #[serde(flatten)]
@@ -5299,7 +5121,6 @@ pub mod git_target_version_descriptor {
         Commit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTemplate {
     #[doc = "Name of the Template"]
@@ -5314,7 +5135,6 @@ impl GitTemplate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeDiff {
     #[doc = "ObjectId of the base tree of this diff."]
@@ -5348,7 +5168,6 @@ impl GitTreeDiff {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeDiffEntry {
     #[doc = "SHA1 hash of the object in the base tree, if it exists. Will be null in case of adds."]
@@ -5445,7 +5264,6 @@ pub mod git_tree_diff_entry {
         RefDelta,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeDiffResponse {
     #[doc = "The HTTP client methods find the continuation token header in the response and populate this field."]
@@ -5456,7 +5274,6 @@ pub struct GitTreeDiffResponse {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
-    #[doc = ""]
     #[serde(rename = "treeDiff", default, skip_serializing_if = "Option::is_none")]
     pub tree_diff: Option<GitTreeDiff>,
 }
@@ -5465,7 +5282,6 @@ impl GitTreeDiffResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeEntryRef {
     #[doc = "Blob or tree"]
@@ -5523,7 +5339,6 @@ pub mod git_tree_entry_ref {
         RefDelta,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitTreeRef {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -5573,7 +5388,6 @@ impl GitUserDate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitVersionDescriptor {
     #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -5648,7 +5462,6 @@ impl GlobalGitRepositoryKey {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -5673,10 +5486,8 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct HistoryEntry {
-    #[doc = ""]
     #[serde(
         rename = "changeList",
         default,
@@ -5751,7 +5562,6 @@ impl IdentityId {
         Self { id }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -5821,7 +5631,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5900,7 +5709,6 @@ impl IdentityRefWithVote {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRefWithVoteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5917,7 +5725,6 @@ impl IdentityRefWithVoteList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ImportRepositoryValidation {
     #[doc = "Parameter for creating a git import request when source is Git version control"]
@@ -5940,7 +5747,6 @@ impl ImportRepositoryValidation {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IncludedGitCommit {
     #[serde(rename = "commitId", default, skip_serializing_if = "Option::is_none")]
@@ -5981,7 +5787,6 @@ impl IsDraftUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ItemContent {
     pub content: String,
@@ -6044,7 +5849,6 @@ pub mod item_details_options {
         Full,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ItemModel {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -6052,7 +5856,6 @@ pub struct ItemModel {
     pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "contentMetadata",
         default,
@@ -6220,7 +6023,6 @@ pub struct PolicyConfiguration {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The date and time when the policy was created."]
@@ -6259,7 +6061,6 @@ impl PolicyConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PolicyConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6458,7 +6259,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6471,7 +6271,6 @@ impl ResourceRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6551,7 +6350,6 @@ impl ShareNotificationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceToTargetRef {
     #[doc = "The source ref to copy. For example, refs/heads/master."]
@@ -6862,7 +6660,6 @@ pub struct TfvcBranchRef {
     #[doc = "Is the branch deleted?"]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "URL to retrieve the item."]
@@ -6976,7 +6773,6 @@ pub struct TfvcChangesetRef {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Changeset Id."]
@@ -6986,7 +6782,6 @@ pub struct TfvcChangesetRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub changeset_id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "checkedInBy",
         default,
@@ -7097,7 +6892,6 @@ impl TfvcChangesetsRequestData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcCheckinEventData {
     #[doc = "A collection of changes."]
@@ -7112,7 +6906,6 @@ impl TfvcCheckinEventData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcHistoryEntry {
     #[serde(flatten)]
@@ -7352,7 +7145,6 @@ pub struct TfvcLabelRef {
     #[doc = "Label name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Label Url."]
@@ -7364,7 +7156,6 @@ impl TfvcLabelRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcLabelRequestData {
     #[doc = "Whether to include the _links field on the shallow references"]
@@ -7421,7 +7212,6 @@ impl TfvcMappingFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcMergeSource {
     #[doc = "Indicates if this a rename source. If false, it is a merge source."]
@@ -7570,7 +7360,6 @@ pub struct TfvcShelvesetRef {
     #[doc = "Shelveset name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Shelveset Url."]
@@ -7582,7 +7371,6 @@ impl TfvcShelvesetRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcShelvesetRequestData {
     #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
@@ -7632,7 +7420,6 @@ impl TfvcShelvesetRequestData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcStatistics {
     #[doc = "Id of the last changeset the stats are based on."]
@@ -7721,7 +7508,6 @@ impl TitleDescriptionUpdatedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateRefsRequest {
     #[serde(
@@ -7753,7 +7539,6 @@ pub mod update_refs_request {
         AllOrNone,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VersionControlProjectInfo {
     #[serde(
@@ -7821,7 +7606,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -7865,7 +7649,6 @@ impl WebApiTagDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiTagDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]

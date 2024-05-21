@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuditActionInfo {
     #[doc = "The action id for the event, i.e Git.CreateRepo, Project.RenameProject"]
@@ -42,7 +41,6 @@ pub mod audit_action_info {
         Execute,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuditActionInfoList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -59,7 +57,6 @@ impl AuditActionInfoList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuditLogEntry {
     #[doc = "The action if for the event, i.e Git.CreateRepo, Project.RenameProject"]
@@ -256,7 +253,6 @@ pub mod audit_stream {
         Backfilling,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuditStreamList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -273,7 +269,6 @@ impl AuditStreamList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DecoratedAuditLogEntry {
     #[doc = "The action id for the event, i.e Git.CreateRepo, Project.RenameProject"]
@@ -441,7 +436,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

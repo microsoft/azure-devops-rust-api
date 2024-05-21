@@ -27,7 +27,6 @@ pub struct Operation {
         skip_serializing_if = "Option::is_none"
     )]
     pub result_message: Option<String>,
-    #[doc = ""]
     #[serde(rename = "resultUrl", default, skip_serializing_if = "Option::is_none")]
     pub result_url: Option<OperationResultReference>,
 }
@@ -76,7 +75,6 @@ pub mod operation_reference {
         Failed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OperationResultReference {
     #[doc = "URL to the operation result."]

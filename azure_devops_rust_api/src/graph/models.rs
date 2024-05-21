@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadGraphMember {
     #[serde(flatten)]
@@ -33,7 +32,6 @@ impl AadGraphMember {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Avatar {
     #[serde(
@@ -74,7 +72,6 @@ pub mod avatar {
         Large,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphCachePolicies {
     #[doc = "Size of the cache"]
@@ -133,7 +130,6 @@ impl GraphFederatedProviderData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphGlobalExtendedPropertyBatch {
     #[serde(
@@ -186,7 +182,6 @@ impl GraphGroupCreationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -279,7 +274,6 @@ impl GraphGroupVstsCreationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphMember {
     #[serde(flatten)]
@@ -331,7 +325,6 @@ impl GraphMembership {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphMembershipList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -363,7 +356,6 @@ impl GraphMembershipState {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphMembershipTraversal {
     #[doc = "Reason why the subject could not be traversed completely"]
@@ -533,7 +525,6 @@ pub mod graph_scope_creation_context {
         TeamProject,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphServicePrincipal {
     #[serde(flatten)]
@@ -566,7 +557,6 @@ impl GraphServicePrincipalCreationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphServicePrincipalList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -662,7 +652,6 @@ impl GraphSubject {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -687,7 +676,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -720,7 +708,6 @@ impl GraphSubjectLookup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectLookupKey {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -758,7 +745,6 @@ impl GraphSubjectQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSystemSubject {
     #[serde(flatten)]
@@ -769,7 +755,6 @@ impl GraphSystemSubject {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphUser {
     #[serde(flatten)]
@@ -796,7 +781,6 @@ impl GraphUserCreationContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphUserList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -902,13 +886,10 @@ impl GraphUserUpdateContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityMapping {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub source: Option<UserPrincipalName>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub target: Option<UserPrincipalName>,
 }
@@ -917,7 +898,6 @@ impl IdentityMapping {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityMappings {
     #[serde(
@@ -1019,7 +999,6 @@ pub mod json_patch_operation {
         Test,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MappingResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1036,7 +1015,6 @@ impl MappingResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphGroups {
     #[doc = "This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request."]
@@ -1061,7 +1039,6 @@ impl PagedGraphGroups {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphMembers {
     #[doc = "This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request."]
@@ -1086,7 +1063,6 @@ impl PagedGraphMembers {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphServicePrincipals {
     #[doc = "This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request."]
@@ -1111,7 +1087,6 @@ impl PagedGraphServicePrincipals {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PagedGraphUsers {
     #[doc = "This will be non-null if there is another page of data. There will never be more than one continuation token returned by a request."]
@@ -1148,7 +1123,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RequestAccessPayLoad {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1171,7 +1145,6 @@ impl RequestAccessPayLoad {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResolveDisconnectedUsersResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1195,7 +1168,6 @@ impl ResolveDisconnectedUsersResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserPrincipalName {
     #[serde(
@@ -1224,7 +1196,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

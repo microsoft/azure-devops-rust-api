@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactProperties {}
 impl ArtifactProperties {
@@ -58,7 +57,6 @@ pub struct Favorite {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "artifactProperties",
         default,
@@ -89,7 +87,6 @@ pub struct Favorite {
     #[doc = "Unique Id of the favorite item, defined by server at creation time."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Fully-Qualified link to this Resource"]
@@ -101,7 +98,6 @@ impl Favorite {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FavoriteCreateParameters {
     #[serde(
@@ -116,7 +112,6 @@ pub struct FavoriteCreateParameters {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "artifactProperties",
         default,
@@ -142,7 +137,6 @@ impl FavoriteCreateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FavoriteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -228,7 +222,6 @@ impl FavoriteProvider {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FavoritesSecuredObject {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -239,7 +232,6 @@ impl FavoritesSecuredObject {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -264,7 +256,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -356,7 +347,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadOauthTokenRequest {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -22,7 +21,6 @@ impl AadOauthTokenRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadOauthTokenResult {
     #[serde(
@@ -43,7 +41,6 @@ impl AadOauthTokenResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthConfiguration {
     #[serde(flatten)]
@@ -87,7 +84,6 @@ impl AuthorizationHeader {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureAppService {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -100,7 +96,6 @@ impl AzureAppService {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureKeyVaultPermission {
     #[serde(flatten)]
@@ -113,7 +108,6 @@ impl AzureKeyVaultPermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureMlWorkspace {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -176,7 +170,6 @@ impl AzureManagementGroupQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzurePermission {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -193,7 +186,6 @@ impl AzurePermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureResourcePermission {
     #[serde(flatten)]
@@ -210,7 +202,6 @@ impl AzureResourcePermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureRoleAssignmentPermission {
     #[serde(flatten)]
@@ -227,7 +218,6 @@ impl AzureRoleAssignmentPermission {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSpnOperationStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -246,7 +236,6 @@ impl AzureSpnOperationStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSubscription {
     #[serde(
@@ -279,7 +268,6 @@ impl AzureSubscription {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AzureSubscriptionQueryResult {
     #[serde(
@@ -633,7 +621,6 @@ impl EndpointAuthorization {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EndpointOperationStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -681,7 +668,6 @@ impl EndpointUrl {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -721,7 +707,6 @@ impl HelpLink {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -1079,7 +1064,6 @@ impl JToken {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OAuth2TokenResult {
     #[serde(
@@ -1114,7 +1098,6 @@ impl OAuth2TokenResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OAuthConfiguration {
     #[doc = "Gets or sets the ClientId"]
@@ -1127,7 +1110,6 @@ pub struct OAuthConfiguration {
         skip_serializing_if = "Option::is_none"
     )]
     pub client_secret: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Gets or sets the time when config was created."]
@@ -1147,7 +1129,6 @@ pub struct OAuthConfiguration {
     #[doc = "Gets or sets the unique identifier of this field"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -1173,7 +1154,6 @@ impl OAuthConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OAuthConfigurationParams {
     #[doc = "Gets or sets the ClientId"]
@@ -1205,7 +1185,6 @@ impl OAuthConfigurationParams {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OAuthEndpointStatus {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1222,7 +1201,6 @@ impl OAuthEndpointStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Parameter {
     #[serde(rename = "isSecret", default, skip_serializing_if = "Option::is_none")]
@@ -1235,7 +1213,6 @@ impl Parameter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ProjectReference {
     pub id: String,
@@ -1321,7 +1298,6 @@ impl ResultTransformationDetails {
 #[doc = "Represents an endpoint which may be used by an orchestration job."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceEndpoint {
-    #[doc = ""]
     #[serde(
         rename = "administratorsGroup",
         default,
@@ -1330,7 +1306,6 @@ pub struct ServiceEndpoint {
     pub administrators_group: Option<IdentityRef>,
     #[doc = "Represents the authorization used for service endpoint."]
     pub authorization: EndpointAuthorization,
-    #[doc = ""]
     #[serde(rename = "createdBy")]
     pub created_by: IdentityRef,
     pub data: serde_json::Value,
@@ -1362,7 +1337,6 @@ pub struct ServiceEndpoint {
     pub operation_status: Option<serde_json::Value>,
     #[doc = "Owner of the endpoint Supported values are \"library\", \"agentcloud\""]
     pub owner: String,
-    #[doc = ""]
     #[serde(
         rename = "readersGroup",
         default,
@@ -1607,7 +1581,6 @@ impl ServiceEndpointExecutionRecord {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionRecordList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1624,7 +1597,6 @@ impl ServiceEndpointExecutionRecordList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionRecordsInput {
     #[doc = "Represents service endpoint execution data."]
@@ -1643,7 +1615,6 @@ impl ServiceEndpointExecutionRecordsInput {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1660,7 +1631,6 @@ impl ServiceEndpointList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointOAuthConfigurationReference {
     #[serde(
@@ -1687,14 +1657,12 @@ impl ServiceEndpointOAuthConfigurationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceEndpointProjectReference {
     #[doc = "Gets or sets description of the service endpoint."]
     pub description: String,
     #[doc = "Gets or sets name of the service endpoint."]
     pub name: String,
-    #[doc = ""]
     #[serde(rename = "projectReference")]
     pub project_reference: ProjectReference,
 }
@@ -1707,7 +1675,6 @@ impl ServiceEndpointProjectReference {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointRequest {
     #[doc = "Represents details of the service endpoint data source."]
@@ -1967,7 +1934,6 @@ impl ServiceEndpointType {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1998,7 +1964,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

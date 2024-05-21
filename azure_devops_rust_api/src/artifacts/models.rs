@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildPackage {
     #[doc = "Display name of the feed."]
@@ -292,10 +291,8 @@ impl Feed {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedBatchData {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data: Option<FeedBatchOperationData>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -314,7 +311,6 @@ pub mod feed_batch_data {
         SaveCachedPackages,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedBatchOperationData {}
 impl FeedBatchOperationData {
@@ -431,7 +427,6 @@ pub struct FeedCore {
     #[doc = "A name for the feed. feed names must follow these rules: <list type=\"bullet\"><item><description> Must not exceed 64 characters </description></item><item><description> Must not contain whitespaces </description></item><item><description> Must not start with an underscore or a period </description></item><item><description> Must not end with a period </description></item><item><description> Must not contain any of the following illegal characters: <!\\[CDATA\\[ @, ~, ;, {, }, \\\\, +, =, <, >, |, /, \\\\\\\\, ?, :, &, $, *, \\\", #, \\[, \\] \\]\\]></description></item></list>"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<ProjectReference>,
     #[doc = "This should always be true. Setting to false will override all sources in UpstreamSources."]
@@ -479,7 +474,6 @@ pub mod feed_core {
         DefaultCapabilities,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedIdsResult {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -500,7 +494,6 @@ impl FeedIdsResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -576,7 +569,6 @@ pub mod feed_permission {
         Collaborator,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedPermissionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -736,7 +728,6 @@ pub mod feed_view {
         AadTenant,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedViewList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -816,7 +807,6 @@ pub mod global_permission {
         Administrator,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlobalPermissionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1173,7 +1163,6 @@ impl PackageFile {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1223,7 +1212,6 @@ impl PackageMetrics {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageMetricsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1377,7 +1365,6 @@ pub mod package_version_change {
         PermanentDelete,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageVersionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1434,7 +1421,6 @@ impl PackageVersionMetrics {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PackageVersionMetricsList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1493,7 +1479,6 @@ impl PackageVersionProvenance {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectReference {
     #[doc = "Gets or sets id of the project."]
@@ -1577,7 +1562,6 @@ impl RecycleBinPackageVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RecycleBinPackageVersionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1699,7 +1683,6 @@ impl SbomTelemetry {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SaveCachedPackagesData {
     #[serde(
@@ -1722,7 +1705,6 @@ impl SaveCachedPackagesData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SessionRequest {
     #[doc = "Generic property bag to store data about the session"]
@@ -1740,7 +1722,6 @@ impl SessionRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SessionResponse {
     #[doc = "The unique identifier for the session"]
@@ -1928,7 +1909,6 @@ pub mod upstream_source {
         Internal,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpstreamStatusDetail {
     #[doc = "Provides a human-readable reason for the status of the upstream."]
@@ -1954,7 +1934,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

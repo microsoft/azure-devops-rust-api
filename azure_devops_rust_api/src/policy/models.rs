@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -30,7 +29,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -118,7 +116,6 @@ pub struct PolicyConfiguration {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The date and time when the policy was created."]
@@ -157,7 +154,6 @@ impl PolicyConfiguration {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PolicyConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -260,7 +256,6 @@ pub mod policy_evaluation_record {
         Broken,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PolicyEvaluationRecordList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -301,7 +296,6 @@ impl PolicyType {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PolicyTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -378,7 +372,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

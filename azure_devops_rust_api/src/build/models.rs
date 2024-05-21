@@ -111,7 +111,6 @@ impl AgentTargetExecutionOptions {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsAnalysis {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -122,7 +121,6 @@ pub struct AggregatedResultsAnalysis {
         skip_serializing_if = "Option::is_none"
     )]
     pub not_reported_results_by_outcome: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "previousContext",
         default,
@@ -135,7 +133,6 @@ pub struct AggregatedResultsAnalysis {
         skip_serializing_if = "Option::is_none"
     )]
     pub results_by_outcome: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "resultsDifference",
         default,
@@ -166,7 +163,6 @@ impl AggregatedResultsAnalysis {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsByOutcome {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -235,7 +231,6 @@ pub mod aggregated_results_by_outcome {
         NotImpacted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsDifference {
     #[serde(
@@ -280,7 +275,6 @@ impl AggregatedResultsDifference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByOutcome {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -307,7 +301,6 @@ pub mod aggregated_runs_by_outcome {
         Others,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByState {
     #[serde(
@@ -346,7 +339,6 @@ pub mod aggregated_runs_by_state {
         NeedsInvestigation,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ArtifactResource {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -377,7 +369,6 @@ impl ArtifactResource {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AssociatedWorkItem {
     #[serde(
@@ -425,7 +416,6 @@ impl Attachment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AttachmentList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -442,7 +432,6 @@ impl AttachmentList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationHeader {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -489,7 +478,6 @@ pub struct Build {
         skip_serializing_if = "Option::is_none"
     )]
     pub build_number_revision: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub controller: Option<BuildController>,
     #[doc = "Represents a reference to a definition."]
@@ -497,7 +485,6 @@ pub struct Build {
     #[doc = "Indicates whether the build has been deleted."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deleted: Option<bool>,
-    #[doc = ""]
     #[serde(rename = "deletedBy", default, skip_serializing_if = "Option::is_none")]
     pub deleted_by: Option<IdentityRef>,
     #[doc = "The date the build was deleted."]
@@ -530,7 +517,6 @@ pub struct Build {
     pub finish_time: Option<time::OffsetDateTime>,
     #[doc = "The ID of the build."]
     pub id: i32,
-    #[doc = ""]
     #[serde(
         rename = "lastChangedBy",
         default,
@@ -603,14 +589,12 @@ pub struct Build {
     #[doc = "Represents a repository used by a build definition."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<BuildRepository>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub requested_by: Option<IdentityRef>,
-    #[doc = ""]
     #[serde(
         rename = "requestedFor",
         default,
@@ -838,7 +822,6 @@ pub mod build {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildAgent {
     #[serde(
@@ -847,7 +830,6 @@ pub struct BuildAgent {
         skip_serializing_if = "Option::is_none"
     )]
     pub build_directory: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub controller: Option<XamlBuildControllerReference>,
     #[serde(
@@ -876,7 +858,6 @@ pub struct BuildAgent {
         skip_serializing_if = "Option::is_none"
     )]
     pub reserved_for_build: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub server: Option<XamlBuildServerReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -915,7 +896,6 @@ pub mod build_agent {
         Offline,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildAgentReference {
     #[doc = "Id of the resource"]
@@ -942,7 +922,6 @@ pub struct BuildArtifact {
     #[doc = "The name of the artifact."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub resource: Option<ArtifactResource>,
     #[doc = "The artifact source, which will be the ID of the job that produced this artifact. If an artifact is associated with multiple sources, this points to the first source."]
@@ -954,7 +933,6 @@ impl BuildArtifact {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildArtifactList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -986,7 +964,6 @@ impl BuildBadge {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildCompletedEvent {
     #[serde(flatten)]
@@ -1005,7 +982,6 @@ pub struct BuildCompletedEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub pull_request: Option<PullRequest>,
-    #[doc = ""]
     #[serde(
         rename = "testResults",
         default,
@@ -1061,7 +1037,6 @@ impl BuildCompletionTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildController {
     #[serde(flatten)]
@@ -1114,7 +1089,6 @@ pub mod build_controller {
         Offline,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildControllerList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1199,7 +1173,6 @@ pub struct BuildDefinition {
     #[doc = "Represents a build process."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub process: Option<BuildProcess>,
-    #[doc = ""]
     #[serde(
         rename = "processParameters",
         default,
@@ -1363,7 +1336,6 @@ pub struct BuildDefinition32 {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub options: Vec<BuildOption>,
-    #[doc = ""]
     #[serde(
         rename = "processParameters",
         default,
@@ -1444,7 +1416,6 @@ pub struct BuildDefinitionReference {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[doc = ""]
     #[serde(
         rename = "authoredBy",
         default,
@@ -1523,7 +1494,6 @@ pub struct BuildDefinitionReference32 {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[doc = ""]
     #[serde(
         rename = "authoredBy",
         default,
@@ -1578,7 +1548,6 @@ pub mod build_definition_reference3_2 {
         Draft,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDefinitionReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1598,7 +1567,6 @@ impl BuildDefinitionReferenceList {
 #[doc = "Represents a revision of a build definition."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDefinitionRevision {
-    #[doc = ""]
     #[serde(rename = "changedBy", default, skip_serializing_if = "Option::is_none")]
     pub changed_by: Option<IdentityRef>,
     #[doc = "The date and time that the definition was changed."]
@@ -1650,7 +1618,6 @@ pub mod build_definition_revision {
         Delete,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDefinitionRevisionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1667,7 +1634,6 @@ impl BuildDefinitionRevisionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDefinitionSourceProvider {
     #[doc = "Uri of the associated definition"]
@@ -1866,7 +1832,6 @@ impl BuildDefinitionTemplate32 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDefinitionTemplateList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1905,7 +1870,6 @@ impl BuildDefinitionVariable {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDeletedEvent {
     #[serde(flatten)]
@@ -1919,13 +1883,10 @@ impl BuildDeletedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildDeployment {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deployment: Option<BuildSummary>,
-    #[doc = ""]
     #[serde(
         rename = "sourceBuild",
         default,
@@ -1938,7 +1899,6 @@ impl BuildDeployment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildEvent {
     #[serde(
@@ -1955,7 +1915,6 @@ impl BuildEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2005,7 +1964,6 @@ impl BuildLog {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildLogList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2059,7 +2017,6 @@ impl BuildMetric {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildMetricList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2127,7 +2084,6 @@ impl BuildOptionDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildOptionDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2291,7 +2247,6 @@ impl BuildProcessResources {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildProcessTemplate {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2383,7 +2338,6 @@ pub mod build_process_template {
         Upgrade,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildQueuedEvent {
     #[serde(flatten)]
@@ -2427,7 +2381,6 @@ pub struct BuildReference {
         with = "crate::date_time::rfc3339::option"
     )]
     pub queue_time: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "requestedFor",
         default,
@@ -2669,7 +2622,6 @@ impl BuildRetentionSample {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildServer {
     #[serde(
@@ -2678,7 +2630,6 @@ pub struct BuildServer {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub agents: Vec<BuildAgentReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub controller: Option<XamlBuildControllerReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2759,10 +2710,8 @@ impl BuildSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildSummary {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub build: Option<XamlBuildReference>,
     #[serde(
@@ -2781,7 +2730,6 @@ pub struct BuildSummary {
     pub quality: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reason: Option<build_summary::Reason>,
-    #[doc = ""]
     #[serde(
         rename = "requestedFor",
         default,
@@ -2853,7 +2801,6 @@ pub mod build_summary {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildTagsAddedEvent {
     #[serde(flatten)]
@@ -2919,7 +2866,6 @@ pub mod build_trigger {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildUpdatedEvent {
     #[serde(flatten)]
@@ -2948,7 +2894,6 @@ impl BuildWorkspace {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildsDeletedEvent {
     #[serde(flatten)]
@@ -2959,7 +2904,6 @@ impl BuildsDeletedEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildsDeletedEvent1 {
     #[serde(
@@ -2988,7 +2932,6 @@ impl BuildsDeletedEvent1 {
 #[doc = "Represents a change associated with a build."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Change {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "The location of a user-friendly representation of the resource."]
@@ -3029,7 +2972,6 @@ impl Change {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ChangeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3046,7 +2988,6 @@ impl ChangeList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ConsoleLogEvent {
     #[serde(flatten)]
@@ -3081,17 +3022,14 @@ impl ConsoleLogEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContinuousDeploymentDefinition {
-    #[doc = ""]
     #[serde(
         rename = "connectedService",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub connected_service: Option<WebApiConnectedServiceRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub definition: Option<XamlDefinitionReference>,
     #[serde(rename = "gitBranch", default, skip_serializing_if = "Option::is_none")]
@@ -3361,7 +3299,6 @@ pub mod definition_reference {
         Build,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DefinitionResourceReference {
     #[doc = "Indicates whether the resource is authorized for use."]
@@ -3382,7 +3319,6 @@ impl DefinitionResourceReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DefinitionResourceReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3515,7 +3451,6 @@ impl DesignerProcessTarget {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DockerProcess {
     #[serde(flatten)]
@@ -3543,7 +3478,6 @@ impl DockerProcessTarget {
 #[doc = "Represents a folder that contains build definitions."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Folder {
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The date the folder was created."]
@@ -3556,7 +3490,6 @@ pub struct Folder {
     #[doc = "The description."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "lastChangedBy",
         default,
@@ -3582,7 +3515,6 @@ impl Folder {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FolderList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3657,7 +3589,6 @@ impl GatedCheckInTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -3682,7 +3613,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -3877,7 +3807,6 @@ pub mod json_patch_operation {
         Test,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JustInTimeProcess {
     #[serde(flatten)]
@@ -3924,7 +3853,6 @@ impl MappingDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MinimalRetentionLease {
     #[doc = "The pipeline definition of the run."]
@@ -4334,7 +4262,6 @@ impl PipelineTriggerSettings {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessParameters {
     #[serde(
@@ -4430,7 +4357,6 @@ pub struct PullRequest {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Current state of the pull request, e.g. open, merged, closed, conflicts, etc."]
@@ -4559,7 +4485,6 @@ impl PullRequestTrigger {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RealtimeBuildEvent {
     #[serde(rename = "buildId", default, skip_serializing_if = "Option::is_none")]
@@ -4686,7 +4611,6 @@ impl RepositoryWebhook {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RepositoryWebhookList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4703,7 +4627,6 @@ impl RepositoryWebhookList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4716,7 +4639,6 @@ impl ResourceRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4791,7 +4713,6 @@ impl RetentionLease {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RetentionLeaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -4898,7 +4819,6 @@ impl RetentionSetting {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Schedule {
     #[serde(
@@ -5056,7 +4976,6 @@ impl ServiceEndpointReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceProviderAttributes {
     #[doc = "The name of the source provider."]
@@ -5083,7 +5002,6 @@ impl SourceProviderAttributes {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceProviderAttributesList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5106,7 +5024,6 @@ pub struct SourceRelatedWorkItem {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[doc = ""]
     #[serde(
         rename = "assignedTo",
         default,
@@ -5244,7 +5161,6 @@ impl SourceRepositoryItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SourceRepositoryItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5276,7 +5192,6 @@ impl StageReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SupportedTrigger {
     #[doc = "The default interval to wait between polls (only relevant when NotificationType is Polling)."]
@@ -5427,7 +5342,6 @@ impl TaskDefinitionReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputDefinitionBase {
     #[serde(
@@ -5462,7 +5376,6 @@ pub struct TaskInputDefinitionBase {
     pub required: Option<bool>,
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub type_: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub validation: Option<TaskInputValidation>,
     #[serde(
@@ -5477,7 +5390,6 @@ impl TaskInputDefinitionBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskInputValidation {
     #[doc = "Conditional expression"]
@@ -5507,7 +5419,6 @@ impl TaskOrchestrationPlanGroupReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationPlanGroupsStartedEvent {
     #[serde(
@@ -5563,7 +5474,6 @@ impl TaskReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskSourceDefinitionBase {
     #[serde(rename = "authKey", default, skip_serializing_if = "Option::is_none")]
@@ -5675,7 +5585,6 @@ pub mod team_project_reference {
         Unchanged,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsContext {
     #[doc = "Represents a reference to a build."]
@@ -5746,7 +5655,6 @@ impl Timeline {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineAttempt {
     #[doc = "Gets or sets the attempt of the record."]
@@ -5930,7 +5838,6 @@ pub mod timeline_record {
         Completed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineRecordsUpdatedEvent {
     #[serde(flatten)]
@@ -5969,28 +5876,24 @@ impl TimelineReference {
 #[doc = "Contains members for updating the retention settings values. All fields are optional."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateProjectRetentionSettingModel {
-    #[doc = ""]
     #[serde(
         rename = "artifactsRetention",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub artifacts_retention: Option<UpdateRetentionSettingModel>,
-    #[doc = ""]
     #[serde(
         rename = "pullRequestRunRetention",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub pull_request_run_retention: Option<UpdateRetentionSettingModel>,
-    #[doc = ""]
     #[serde(
         rename = "retainRunsPerProtectedBranch",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub retain_runs_per_protected_branch: Option<UpdateRetentionSettingModel>,
-    #[doc = ""]
     #[serde(
         rename = "runRetention",
         default,
@@ -6003,7 +5906,6 @@ impl UpdateProjectRetentionSettingModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateRetentionSettingModel {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6014,7 +5916,6 @@ impl UpdateRetentionSettingModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateStageParameters {
     #[serde(
@@ -6041,7 +5942,6 @@ pub mod update_stage_parameters {
         Retry,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdateTagParameters {
     #[serde(
@@ -6177,7 +6077,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -6189,7 +6088,6 @@ impl VssJsonCollectionWrapperBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiConnectedServiceRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -6256,7 +6154,6 @@ pub mod workspace_mapping {
         Cloak,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkspaceTemplate {
     #[doc = "Uri of the associated definition"]
@@ -6300,7 +6197,6 @@ impl WorkspaceTemplate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct XamlBuildControllerReference {
     #[doc = "Id of the resource"]
@@ -6318,7 +6214,6 @@ impl XamlBuildControllerReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct XamlBuildDefinition {
     #[serde(flatten)]
@@ -6338,7 +6233,6 @@ pub struct XamlBuildDefinition {
         skip_serializing_if = "Option::is_none"
     )]
     pub continuous_integration_quiet_period: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub controller: Option<BuildController>,
     #[doc = "The date this definition was created"]
@@ -6358,7 +6252,6 @@ pub struct XamlBuildDefinition {
     #[doc = "Description of the definition"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(rename = "lastBuild", default, skip_serializing_if = "Option::is_none")]
     pub last_build: Option<XamlBuildReference>,
     #[doc = "Represents a repository used by a build definition."]
@@ -6455,7 +6348,6 @@ pub mod xaml_build_definition {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct XamlBuildReference {
     #[doc = "Id of the resource"]
@@ -6473,7 +6365,6 @@ impl XamlBuildReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct XamlBuildServerReference {
     #[doc = "Id of the resource"]
@@ -6491,7 +6382,6 @@ impl XamlBuildServerReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct XamlDefinitionReference {
     #[doc = "Id of the resource"]

@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CategorizedWebApiTeams {
     #[doc = "Teams that the user is a member of."]
@@ -30,7 +29,6 @@ impl CategorizedWebApiTeams {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -55,7 +53,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Identity {
     #[serde(flatten)]
@@ -161,7 +158,6 @@ impl IdentityBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityData {
     #[serde(
@@ -196,7 +192,6 @@ impl IdentityDescriptor {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -350,7 +345,6 @@ pub mod operation_reference {
         Failed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Process {
     #[serde(flatten)]
@@ -384,7 +378,6 @@ pub mod process {
         Inherited,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -401,7 +394,6 @@ impl ProcessList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -509,7 +501,6 @@ pub mod project_info {
         Public,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectMessage {
     #[doc = "Contains information describing a project."]
@@ -545,7 +536,6 @@ pub mod project_message {
         Added,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectProperties {
     #[doc = "The team project Id"]
@@ -579,7 +569,6 @@ impl ProjectProperty {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProjectPropertyList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -624,10 +613,8 @@ impl PropertiesCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Proxy {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization: Option<ProxyAuthorization>,
     #[doc = "This is a description string"]
@@ -664,7 +651,6 @@ impl Proxy {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProxyAuthorization {
     #[doc = "Gets or sets the endpoint used to obtain access tokens from the configured token service."]
@@ -745,10 +731,8 @@ impl TeamContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamMember {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identity: Option<IdentityRef>,
     #[serde(
@@ -763,7 +747,6 @@ impl TeamMember {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamMemberList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -791,7 +774,6 @@ pub struct TeamProject {
     #[doc = "Set of capabilities this project has (such as process template & version control)."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub capabilities: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(
         rename = "defaultTeam",
         default,
@@ -959,7 +941,6 @@ pub mod team_project_reference {
         Unchanged,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1045,7 +1026,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -1057,12 +1037,10 @@ impl VssJsonCollectionWrapperBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiConnectedService {
     #[serde(flatten)]
     pub web_api_connected_service_ref: WebApiConnectedServiceRef,
-    #[doc = ""]
     #[serde(
         rename = "authenticatedBy",
         default,
@@ -1101,12 +1079,10 @@ impl WebApiConnectedService {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiConnectedServiceDetails {
     #[serde(flatten)]
     pub web_api_connected_service_ref: WebApiConnectedServiceRef,
-    #[doc = ""]
     #[serde(
         rename = "connectedServiceMetaData",
         default,
@@ -1129,7 +1105,6 @@ impl WebApiConnectedServiceDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiConnectedServiceRef {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1154,7 +1129,6 @@ impl WebApiCreateTagRequestData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebApiProject {
     #[serde(flatten)]
@@ -1162,10 +1136,8 @@ pub struct WebApiProject {
     #[doc = "Set of capabilities this project has"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub capabilities: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub collection: Option<WebApiProjectCollectionRef>,
-    #[doc = ""]
     #[serde(
         rename = "defaultTeam",
         default,
@@ -1183,7 +1155,6 @@ impl WebApiProject {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiProjectCollection {
     #[serde(flatten)]
@@ -1200,7 +1171,6 @@ impl WebApiProjectCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiProjectCollectionRef {
     #[doc = "Collection Tfs Url (Host Url)"]
@@ -1246,7 +1216,6 @@ impl WebApiTagDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiTeam {
     #[serde(flatten)]
@@ -1254,7 +1223,6 @@ pub struct WebApiTeam {
     #[doc = "Team description"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub identity: Option<Identity>,
     #[doc = "Identity REST API Url to this team"]
@@ -1278,7 +1246,6 @@ impl WebApiTeam {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiTeamList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1295,7 +1262,6 @@ impl WebApiTeamList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WebApiTeamRef {
     #[doc = "Team (Identity) Guid. A Team Foundation ID."]

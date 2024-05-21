@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AadGraphMember {
     #[serde(flatten)]
@@ -170,7 +169,6 @@ pub mod access_level {
         PendingDisabled,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BaseOperationResult {
     #[doc = "List of error codes paired with their corresponding error messages"]
@@ -189,7 +187,6 @@ impl BaseOperationResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EntitlementBase {
     #[doc = "License assigned to a user"]
@@ -238,7 +235,6 @@ impl EntitlementBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EntitlementOperationResultBase {
     #[doc = "List of error codes paired with their corresponding error messages."]
@@ -405,7 +401,6 @@ impl GraphGroup {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphMember {
     #[serde(flatten)]
@@ -433,7 +428,6 @@ impl GraphMember {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphServicePrincipal {
     #[serde(flatten)]
@@ -481,7 +475,6 @@ impl GraphSubject {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -506,7 +499,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphUser {
     #[serde(flatten)]
@@ -615,7 +607,6 @@ pub mod group_entitlement {
         UnableToApply,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GroupEntitlementList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -632,7 +623,6 @@ impl GroupEntitlementList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GroupEntitlementOperationReference {
     #[serde(flatten)]
@@ -660,7 +650,6 @@ impl GroupEntitlementOperationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GroupOperationResult {
     #[serde(flatten)]
@@ -863,7 +852,6 @@ pub mod license_summary_data {
 pub struct MemberEntitlement {
     #[serde(flatten)]
     pub user_entitlement: UserEntitlement,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub member: Option<GraphMember>,
 }
@@ -877,7 +865,6 @@ impl MemberEntitlement {
 pub struct MemberEntitlement2 {
     #[serde(flatten)]
     pub entitlement_base: EntitlementBase,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub member: Option<AadGraphMember>,
 }
@@ -886,7 +873,6 @@ impl MemberEntitlement2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlement2OperationReference {
     #[serde(flatten)]
@@ -914,7 +900,6 @@ impl MemberEntitlement2OperationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlement2OperationResult {
     #[serde(flatten)]
@@ -928,7 +913,6 @@ impl MemberEntitlement2OperationResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlement2PatchResponse {
     #[serde(flatten)]
@@ -947,12 +931,10 @@ impl MemberEntitlement2PatchResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlement2PostResponse {
     #[serde(flatten)]
     pub member_entitlement2_response_base: MemberEntitlement2ResponseBase,
-    #[doc = ""]
     #[serde(
         rename = "operationResult",
         default,
@@ -965,7 +947,6 @@ impl MemberEntitlement2PostResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlement2ResponseBase {
     #[doc = "True if all operations were successful."]
@@ -984,7 +965,6 @@ impl MemberEntitlement2ResponseBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlementOperationReference {
     #[serde(flatten)]
@@ -1012,7 +992,6 @@ impl MemberEntitlementOperationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlementsPatchResponse {
     #[serde(flatten)]
@@ -1031,12 +1010,10 @@ impl MemberEntitlementsPatchResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlementsPostResponse {
     #[serde(flatten)]
     pub member_entitlements_response_base: MemberEntitlementsResponseBase,
-    #[doc = ""]
     #[serde(
         rename = "operationResult",
         default,
@@ -1049,7 +1026,6 @@ impl MemberEntitlementsPostResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MemberEntitlementsResponseBase {
     #[doc = "True if all operations were successful."]
@@ -1108,7 +1084,6 @@ pub mod operation_reference {
         Failed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OperationResult {
     #[doc = "List of error codes paired with their corresponding error messages."]
@@ -1287,12 +1262,10 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlement {
     #[serde(flatten)]
     pub entitlement_base: EntitlementBase,
-    #[doc = ""]
     #[serde(
         rename = "servicePrincipal",
         default,
@@ -1305,7 +1278,6 @@ impl ServicePrincipalEntitlement {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlementOperationReference {
     #[serde(flatten)]
@@ -1333,7 +1305,6 @@ impl ServicePrincipalEntitlementOperationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlementOperationResult {
     #[serde(flatten)]
@@ -1351,7 +1322,6 @@ impl ServicePrincipalEntitlementOperationResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlementsPatchResponse {
     #[serde(flatten)]
@@ -1369,12 +1339,10 @@ impl ServicePrincipalEntitlementsPatchResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlementsPostResponse {
     #[serde(flatten)]
     pub service_principal_entitlements_response_base: ServicePrincipalEntitlementsResponseBase,
-    #[doc = ""]
     #[serde(
         rename = "operationResult",
         default,
@@ -1387,12 +1355,10 @@ impl ServicePrincipalEntitlementsPostResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlementsResponseBase {
     #[serde(rename = "isSuccess", default, skip_serializing_if = "Option::is_none")]
     pub is_success: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "servicePrincipalEntitlement",
         default,
@@ -1405,7 +1371,6 @@ impl ServicePrincipalEntitlementsResponseBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SummaryData {
     #[doc = "Count of Licenses already assigned."]
@@ -1450,7 +1415,6 @@ impl TeamRef {
 pub struct UserEntitlement {
     #[serde(flatten)]
     pub entitlement_base: EntitlementBase,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub user: Option<GraphUser>,
 }
@@ -1459,7 +1423,6 @@ impl UserEntitlement {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementOperationReference {
     #[serde(flatten)]
@@ -1487,7 +1450,6 @@ impl UserEntitlementOperationReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementOperationResult {
     #[serde(flatten)]
@@ -1501,7 +1463,6 @@ impl UserEntitlementOperationResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementsPatchResponse {
     #[serde(flatten)]
@@ -1520,12 +1481,10 @@ impl UserEntitlementsPatchResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementsPostResponse {
     #[serde(flatten)]
     pub user_entitlements_response_base: UserEntitlementsResponseBase,
-    #[doc = ""]
     #[serde(
         rename = "operationResult",
         default,
@@ -1538,7 +1497,6 @@ impl UserEntitlementsPostResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UserEntitlementsResponseBase {
     #[doc = "True if all operations were successful."]
@@ -1618,7 +1576,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

@@ -1383,7 +1383,6 @@ pub mod publishers {
                 event_type_id: event_type_id.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn query_input_values(
@@ -2962,7 +2961,6 @@ pub mod diagnostics {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn get(
@@ -2976,7 +2974,6 @@ pub mod diagnostics {
                 subscription_id: subscription_id.into(),
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn update(

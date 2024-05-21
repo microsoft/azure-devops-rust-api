@@ -144,7 +144,6 @@ pub mod roleassignments {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn change_inheritance(
@@ -204,7 +203,6 @@ pub mod roleassignments {
                 limit_to_caller_identity_domain: None,
             }
         }
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn remove_role_assignments(
@@ -980,7 +978,6 @@ pub mod roledefinitions {
     use futures::future::LocalBoxFuture as BoxFuture;
     pub struct Client(pub(crate) super::Client);
     impl Client {
-        #[doc = ""]
         #[doc = "Arguments:"]
         #[doc = "* `organization`: The name of the Azure DevOps organization."]
         pub fn list(
