@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AcquisitionOperation {
     #[doc = "State of the AcquisitionOperation for the current user"]
@@ -69,7 +68,6 @@ pub mod acquisition_operation {
         PurchaseRequest,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AcquisitionOperationDisallowReason {
     #[doc = "User-friendly message clarifying the reason for disallowance"]
@@ -87,7 +85,6 @@ impl AcquisitionOperationDisallowReason {
 #[doc = "Market item acquisition options (install, buy, etc) for an installation target."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AcquisitionOptions {
-    #[doc = ""]
     #[serde(
         rename = "defaultOperation",
         default,
@@ -177,7 +174,6 @@ impl ClientContributionNode {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ClientContributionProviderDetails {
     #[doc = "Friendly name for the provider."]
@@ -446,7 +442,6 @@ pub mod contribution_property_description {
         Object,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ContributionProviderDetails {
     #[doc = "Friendly name for the provider."]
@@ -503,7 +498,6 @@ impl DataProviderContext {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DataProviderExceptionDetails {
     #[doc = "The type of the exception that was thrown."]
@@ -720,7 +714,6 @@ pub struct ExtensionAuditLogEntry {
     #[doc = "Extra information about the change"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub comment: Option<String>,
-    #[doc = ""]
     #[serde(rename = "updatedBy", default, skip_serializing_if = "Option::is_none")]
     pub updated_by: Option<IdentityRef>,
 }
@@ -729,7 +722,6 @@ impl ExtensionAuditLogEntry {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionAuthorization {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -746,7 +738,6 @@ impl ExtensionAuthorization {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionBadge {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -810,10 +801,8 @@ impl ExtensionDataCollectionQuery {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionEvent {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub extension: Option<PublishedExtension>,
     #[doc = "The current version of the extension that was updated"]
@@ -823,13 +812,10 @@ pub struct ExtensionEvent {
         skip_serializing_if = "Option::is_none"
     )]
     pub extension_version: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub host: Option<ExtensionHost>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ExtensionEventUrls>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -940,7 +926,6 @@ impl ExtensionEventCallbackCollection {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionEventUrls {
     #[serde(flatten)]
@@ -958,7 +943,6 @@ impl ExtensionEventUrls {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionFile {
     #[serde(rename = "assetType", default, skip_serializing_if = "Option::is_none")]
@@ -973,7 +957,6 @@ impl ExtensionFile {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionHost {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1186,7 +1169,6 @@ pub struct ExtensionRequest {
         with = "crate::date_time::rfc3339::option"
     )]
     pub request_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "requestedBy",
         default,
@@ -1214,7 +1196,6 @@ pub struct ExtensionRequest {
         with = "crate::date_time::rfc3339::option"
     )]
     pub resolve_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "resolvedBy",
         default,
@@ -1240,19 +1221,15 @@ pub mod extension_request {
         Rejected,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionRequestEvent {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub extension: Option<PublishedExtension>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub host: Option<ExtensionHost>,
     #[doc = "Name of the collection for which the extension was requested"]
     #[serde(rename = "hostName", default, skip_serializing_if = "Option::is_none")]
     pub host_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ExtensionRequestUrls>,
     #[doc = "A request for an extension (to be installed or have a license assigned)"]
@@ -1286,7 +1263,6 @@ pub mod extension_request_event {
         Deleted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionRequestUrls {
     #[serde(flatten)]
@@ -1304,16 +1280,12 @@ impl ExtensionRequestUrls {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionRequestsEvent {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub extension: Option<PublishedExtension>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub host: Option<ExtensionHost>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ExtensionRequestUrls>,
     #[doc = "The extension request object"]
@@ -1351,7 +1323,6 @@ pub mod extension_requests_event {
         Deleted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionShare {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1400,7 +1371,6 @@ impl ExtensionState {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionStatistic {
     #[serde(
@@ -1417,7 +1387,6 @@ impl ExtensionStatistic {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionUrls {
     #[doc = "Url of the extension icon"]
@@ -1440,7 +1409,6 @@ impl ExtensionUrls {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionVersion {
     #[serde(rename = "assetUri", default, skip_serializing_if = "Option::is_none")]
@@ -1463,7 +1431,6 @@ pub struct ExtensionVersion {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<ExtensionFile>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub flags: Option<String>,
     #[serde(
@@ -1504,7 +1471,6 @@ impl ExtensionVersion {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -1529,7 +1495,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -1595,7 +1560,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstallationTarget {
     #[serde(
@@ -1703,7 +1667,6 @@ impl InstalledExtension {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstalledExtensionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1720,7 +1683,6 @@ impl InstalledExtensionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InstalledExtensionQuery {
     #[serde(
@@ -1840,7 +1802,6 @@ pub mod licensing_override {
         AlwaysInclude,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PublishedExtension {
     #[serde(
@@ -1873,7 +1834,6 @@ pub struct PublishedExtension {
         skip_serializing_if = "Option::is_none"
     )]
     pub extension_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub flags: Option<String>,
     #[serde(
@@ -1981,7 +1941,6 @@ pub struct PublisherFacts {
     pub display_name: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub domain: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub flags: Option<String>,
     #[serde(
@@ -2081,7 +2040,6 @@ impl ResolvedDataProvider {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Scope {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2150,7 +2108,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

@@ -172,7 +172,6 @@ impl CloneStatistics {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CloneTestCaseOperationInformation {
     #[doc = "Common Response for clone operation"]
@@ -182,7 +181,6 @@ pub struct CloneTestCaseOperationInformation {
         skip_serializing_if = "Option::is_none"
     )]
     pub clone_operation_response: Option<CloneOperationCommonResponse>,
-    #[doc = ""]
     #[serde(
         rename = "cloneOptions",
         default,
@@ -209,7 +207,6 @@ impl CloneTestCaseOperationInformation {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CloneTestCaseOptions {
     #[doc = "If set to true, include the attachments"]
@@ -242,7 +239,6 @@ impl CloneTestCaseOptions {
 #[doc = "Parameters for Test Suite clone operation"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CloneTestCaseParams {
-    #[doc = ""]
     #[serde(
         rename = "cloneOptions",
         default,
@@ -508,7 +504,6 @@ impl ExportTestCaseParams {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -533,7 +528,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -612,7 +606,6 @@ pub struct LastResultDetails {
     #[doc = "Duration of the last result in milliseconds."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
 }
@@ -805,7 +798,6 @@ pub struct PointAssignment {
     #[doc = "Id of the Test Point"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -990,7 +982,6 @@ impl SuiteEntry {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SuiteEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1188,7 +1179,6 @@ impl TestCase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseAssociatedResult {
     #[serde(
@@ -1209,7 +1199,6 @@ pub struct TestCaseAssociatedResult {
     pub point_id: Option<i32>,
     #[serde(rename = "resultId", default, skip_serializing_if = "Option::is_none")]
     pub result_id: Option<i32>,
-    #[doc = ""]
     #[serde(rename = "runBy", default, skip_serializing_if = "Option::is_none")]
     pub run_by: Option<IdentityRef>,
     #[serde(rename = "runId", default, skip_serializing_if = "Option::is_none")]
@@ -1217,7 +1206,6 @@ pub struct TestCaseAssociatedResult {
     #[doc = "The test suite reference resource."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub suite: Option<TestSuiteReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -1266,7 +1254,6 @@ pub mod test_case_associated_result {
         MaxValue,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1286,7 +1273,6 @@ impl TestCaseList {
 #[doc = "Test Case Reference"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseReference {
-    #[doc = ""]
     #[serde(
         rename = "assignedTo",
         default,
@@ -1311,7 +1297,6 @@ impl TestCaseReference {
 #[doc = "This data model is used in TestCaseResultsDataProvider and populates the data required for initial page load"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestCaseResultsData {
-    #[doc = ""]
     #[serde(
         rename = "contextPoint",
         default,
@@ -1394,7 +1379,6 @@ pub mod test_configuration_create_update_parameters {
         Inactive,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1522,7 +1506,6 @@ pub struct TestPlan {
     #[doc = "The test suite reference resource."]
     #[serde(rename = "rootSuite", default, skip_serializing_if = "Option::is_none")]
     pub root_suite: Option<TestSuiteReference>,
-    #[doc = ""]
     #[serde(rename = "updatedBy", default, skip_serializing_if = "Option::is_none")]
     pub updated_by: Option<IdentityRef>,
     #[doc = "Updated date of the test plan"]
@@ -1570,7 +1553,6 @@ pub struct TestPlanCreateParams {
     #[doc = "Name of the test plan."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Reference to release environment resource."]
@@ -1641,7 +1623,6 @@ impl TestPlanDetailedReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPlanList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1867,7 +1848,6 @@ pub struct TestPoint {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_reset_to_active: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -1897,7 +1877,6 @@ pub struct TestPoint {
         skip_serializing_if = "Option::is_none"
     )]
     pub test_case_reference: Option<TestCaseReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
     #[doc = "The test plan reference resource."]
@@ -1912,7 +1891,6 @@ impl TestPoint {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointDetailedReference {
     #[doc = "Test Configuration Reference"]
@@ -1926,7 +1904,6 @@ pub struct TestPointDetailedReference {
     #[doc = "The test suite reference resource."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub suite: Option<TestSuiteReference>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -1935,7 +1912,6 @@ impl TestPointDetailedReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2137,7 +2113,6 @@ pub struct TestPointUpdateParams {
     #[doc = "Results class for Test Point"]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub results: Option<Results>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tester: Option<IdentityRef>,
 }
@@ -2227,7 +2202,6 @@ pub struct TestSuite {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_populated_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "lastUpdatedBy",
         default,
@@ -2341,7 +2315,6 @@ impl TestSuiteCreateUpdateCommonParams {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestSuiteList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2440,7 +2413,6 @@ impl TestVariableCreateUpdateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestVariableList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2471,7 +2443,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

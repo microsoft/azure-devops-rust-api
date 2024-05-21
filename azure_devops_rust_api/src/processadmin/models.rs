@@ -70,7 +70,6 @@ impl AdminBehaviorField {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AdminBehaviorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -195,7 +194,6 @@ impl ProcessPromoteStatus {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ValidationIssue {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -238,7 +236,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

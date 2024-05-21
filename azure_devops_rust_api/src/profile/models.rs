@@ -50,7 +50,6 @@ impl AttributesContainer {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Avatar {
     #[serde(
@@ -102,7 +101,6 @@ impl CoreProfileAttribute {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CreateProfileContext {
     #[serde(rename = "ciData", default, skip_serializing_if = "Option::is_none")]
@@ -171,7 +169,6 @@ pub mod create_profile_context {
         ReadOnly,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GeoRegion {
     #[serde(
@@ -274,7 +271,6 @@ impl ProfileAttribute {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProfileAttributeBase {
     #[doc = "Identifies an attribute with a name and a container."]
@@ -360,7 +356,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

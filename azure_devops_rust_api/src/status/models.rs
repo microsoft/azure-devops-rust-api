@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EnterpriseStatus {
     #[serde(flatten)]
@@ -25,7 +24,6 @@ impl EnterpriseStatus {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Geography {
     pub id: String,
@@ -36,7 +34,6 @@ impl Geography {
         Self { id, name }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GeographyWithHealth {
     #[serde(flatten)]
@@ -64,7 +61,6 @@ pub mod geography_with_health {
         Healthy,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEvent {
     #[serde(
@@ -138,7 +134,6 @@ pub mod live_site_event {
         Resolved,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventAuthor {
     #[serde(
@@ -155,7 +150,6 @@ impl LiveSiteEventAuthor {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventImpact {
     #[serde(rename = "scopeName", default, skip_serializing_if = "Option::is_none")]
@@ -180,10 +174,8 @@ pub mod live_site_event_impact {
         Organization,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventLog {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<LiveSiteEventAuthor>,
     #[serde(
@@ -239,10 +231,8 @@ pub mod live_site_event_log {
         Notification,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventLogAttachment {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<LiveSiteEventAuthor>,
     #[serde(
@@ -281,7 +271,6 @@ pub mod live_site_event_log_attachment {
         Organization,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventTemplate {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -300,7 +289,6 @@ impl LiveSiteEventTemplate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEventTemplateData {
     #[serde(rename = "defaultId", default, skip_serializing_if = "Option::is_none")]
@@ -329,7 +317,6 @@ impl LiveSiteEventTemplateData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MicroService {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -355,10 +342,8 @@ impl MicroService {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MicroServiceScaleUnit {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub geography: Option<Geography>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -375,7 +360,6 @@ impl MicroServiceScaleUnit {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OrganizationHealth {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -394,7 +378,6 @@ impl OrganizationHealth {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Service {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -425,7 +408,6 @@ pub mod service {
         Deleted,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceHealth {
     #[serde(
@@ -444,7 +426,6 @@ impl ServiceHealth {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceStatus {
     #[serde(flatten)]
@@ -464,7 +445,6 @@ impl ServiceStatus {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceWithHealth {
     #[serde(flatten)]
@@ -493,7 +473,6 @@ pub mod service_with_health {
         Healthy,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Status {
     #[serde(
@@ -502,7 +481,6 @@ pub struct Status {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,
-    #[doc = ""]
     pub status: StatusSummary,
 }
 impl Status {
@@ -523,7 +501,6 @@ pub struct StatusImpact {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub live_site_events: Vec<LiveSiteEvent>,
-    #[doc = ""]
     #[serde(
         rename = "serviceStatus",
         default,
@@ -536,7 +513,6 @@ impl StatusImpact {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StatusSummary {
     pub health: status_summary::Health,
@@ -577,7 +553,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

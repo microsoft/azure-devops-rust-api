@@ -67,7 +67,6 @@ pub mod copy_dashboard_options {
         Project,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CopyDashboardResponse {
     #[doc = "Model of a Dashboard."]
@@ -265,7 +264,6 @@ impl DashboardGroupEntryResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DashboardList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -282,7 +280,6 @@ impl DashboardList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DashboardResponse {
     #[serde(flatten)]
@@ -376,7 +373,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -471,7 +467,6 @@ pub struct Widget {
     pub loading_image_url: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub position: Option<WidgetPosition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -483,7 +478,6 @@ pub struct Widget {
         skip_serializing_if = "Option::is_none"
     )]
     pub settings_version: Option<SemanticVersion>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size: Option<WidgetSize>,
     #[serde(rename = "typeId", default, skip_serializing_if = "Option::is_none")]
@@ -496,7 +490,6 @@ impl Widget {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -669,7 +662,6 @@ impl WidgetMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetMetadataResponse {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -687,7 +679,6 @@ impl WidgetMetadataResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetPosition {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -711,7 +702,6 @@ impl WidgetResponse {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetSize {
     #[doc = "The Width of the widget, expressed in dashboard grid columns."]
@@ -730,7 +720,6 @@ impl WidgetSize {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetTypesResponse {
     #[doc = "The class to represent a collection of REST reference links."]

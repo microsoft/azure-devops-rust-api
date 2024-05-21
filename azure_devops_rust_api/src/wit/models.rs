@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccountMyWorkResult {
     #[doc = "True, when length of WorkItemDetails is same as the limit"]
@@ -52,7 +51,6 @@ impl AccountRecentActivityWorkItemModel {
 pub struct AccountRecentActivityWorkItemModel2 {
     #[serde(flatten)]
     pub account_recent_activity_work_item_model_base: AccountRecentActivityWorkItemModelBase,
-    #[doc = ""]
     #[serde(
         rename = "assignedTo",
         default,
@@ -65,7 +63,6 @@ impl AccountRecentActivityWorkItemModel2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccountRecentActivityWorkItemModel2List {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -203,7 +200,6 @@ impl AccountRecentMentionWorkItemModel {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccountWorkWorkItemModel {
     #[serde(
@@ -275,7 +271,6 @@ impl ArtifactUriQueryResult {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AttachmentReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -293,7 +288,6 @@ impl AttachmentReference {
 pub struct Comment {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The creation date of the comment."]
@@ -310,7 +304,6 @@ pub struct Comment {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "createdOnBehalfOf",
         default,
@@ -333,7 +326,6 @@ pub struct Comment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mentions: Vec<CommentMention>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -465,7 +457,6 @@ impl CommentList {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CommentMention {
     #[serde(flatten)]
@@ -554,7 +545,6 @@ pub mod comment_reaction {
         Confused,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CommentReactionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -588,7 +578,6 @@ impl CommentUpdate {
 pub struct CommentVersion {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The creation date of the comment."]
@@ -605,7 +594,6 @@ pub struct CommentVersion {
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on_behalf_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "createdOnBehalfOf",
         default,
@@ -618,7 +606,6 @@ pub struct CommentVersion {
     #[doc = "Indicates if the comment has been deleted at this version."]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -664,7 +651,6 @@ impl CommentVersion {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CommentVersionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -681,7 +667,6 @@ impl CommentVersionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EmailRecipients {
     #[doc = "Plaintext email addresses."]
@@ -714,7 +699,6 @@ impl EmailRecipients {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExternalDeployment {
     #[serde(
@@ -733,12 +717,10 @@ pub struct ExternalDeployment {
         skip_serializing_if = "Option::is_none"
     )]
     pub display_name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub environment: Option<ExternalEnvironment>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub group: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pipeline: Option<ExternalPipeline>,
     #[serde(
@@ -772,7 +754,6 @@ impl ExternalDeployment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExternalEnvironment {
     #[serde(
@@ -791,7 +772,6 @@ impl ExternalEnvironment {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExternalPipeline {
     #[serde(
@@ -857,7 +837,6 @@ pub struct GitHubConnectionModel {
         skip_serializing_if = "Option::is_none"
     )]
     pub authorization_type: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "Github connection id"]
@@ -926,7 +905,6 @@ impl GitHubConnectionReposBatchRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -951,7 +929,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -1017,7 +994,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1034,7 +1010,6 @@ impl IdentityRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityReference {
     #[serde(flatten)]
@@ -1161,13 +1136,11 @@ impl Link {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MailMessage {
     #[doc = "The mail body in HTML format."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub body: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub cc: Option<EmailRecipients>,
     #[doc = "The in-reply-to header value"]
@@ -1176,13 +1149,11 @@ pub struct MailMessage {
     #[doc = "The Message Id value"]
     #[serde(rename = "messageId", default, skip_serializing_if = "Option::is_none")]
     pub message_id: Option<String>,
-    #[doc = ""]
     #[serde(rename = "replyTo", default, skip_serializing_if = "Option::is_none")]
     pub reply_to: Option<EmailRecipients>,
     #[doc = "The mail subject."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subject: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub to: Option<EmailRecipients>,
 }
@@ -1332,7 +1303,6 @@ pub struct QueryHierarchyItem {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<WorkItemFieldReference>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityReference>,
     #[doc = "When the query item was created."]
@@ -1375,7 +1345,6 @@ pub struct QueryHierarchyItem {
     #[doc = "Indicates if this query item is public or private."]
     #[serde(rename = "isPublic", default, skip_serializing_if = "Option::is_none")]
     pub is_public: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "lastExecutedBy",
         default,
@@ -1389,7 +1358,6 @@ pub struct QueryHierarchyItem {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_executed_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "lastModifiedBy",
         default,
@@ -1523,7 +1491,6 @@ pub mod query_hierarchy_item {
         OneHop,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryHierarchyItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1540,7 +1507,6 @@ impl QueryHierarchyItemList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct QueryHierarchyItemsResult {
     #[doc = "The count of items."]
@@ -1574,7 +1540,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReportingWorkItemLinksBatch {
     #[serde(flatten)]
@@ -1585,7 +1550,6 @@ impl ReportingWorkItemLinksBatch {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReportingWorkItemRevisionsBatch {
     #[serde(flatten)]
@@ -1647,7 +1611,6 @@ impl ReportingWorkItemRevisionsFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SendMailBody {
     #[serde(
@@ -1662,7 +1625,6 @@ pub struct SendMailBody {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub message: Option<MailMessage>,
     #[serde(
@@ -1803,7 +1765,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -1849,7 +1810,6 @@ impl WorkArtifactLink {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkArtifactLinkList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2038,7 +1998,6 @@ pub mod work_item_classification_node {
         Iteration,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemClassificationNodeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2070,7 +2029,6 @@ pub struct WorkItemComment {
         skip_serializing_if = "Option::is_none"
     )]
     pub rendered_text: Option<String>,
-    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[doc = "The date of comment."]
@@ -2285,7 +2243,6 @@ impl WorkItemDeleteReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemDeleteReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2317,7 +2274,6 @@ impl WorkItemDeleteShallowReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemDeleteShallowReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2510,7 +2466,6 @@ impl WorkItemField2 {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemField2List {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2603,14 +2558,12 @@ impl WorkItemFieldUpdate {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemHistory {
     #[serde(flatten)]
     pub work_item_tracking_resource: WorkItemTrackingResource,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rev: Option<i32>,
-    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[serde(
@@ -2648,7 +2601,6 @@ impl WorkItemIcon {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemIconList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2683,7 +2635,6 @@ impl WorkItemLink {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2725,7 +2676,6 @@ impl WorkItemNextStateOnTransition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemNextStateOnTransitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2905,7 +2855,6 @@ impl WorkItemReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemRelation {
     #[serde(flatten)]
@@ -2933,7 +2882,6 @@ impl WorkItemRelationType {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemRelationTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -2998,7 +2946,6 @@ impl WorkItemStateColor {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemStateColorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3034,7 +2981,6 @@ impl WorkItemStateTransition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTagDefinition {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3055,7 +3001,6 @@ impl WorkItemTagDefinition {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTagDefinitionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3122,7 +3067,6 @@ impl WorkItemTemplateReference {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTemplateReferenceList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3139,7 +3083,6 @@ impl WorkItemTemplateReferenceList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WorkItemTrackingReference {
     #[serde(flatten)]
@@ -3311,7 +3254,6 @@ impl WorkItemTypeCategory {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeCategoryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3468,7 +3410,6 @@ impl WorkItemTypeFieldWithReferences {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeFieldWithReferencesList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3485,7 +3426,6 @@ impl WorkItemTypeFieldWithReferencesList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemTypeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -3620,7 +3560,6 @@ pub struct WorkItemUpdate {
     #[doc = "The revision number of work item update."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rev: Option<i32>,
-    #[doc = ""]
     #[serde(rename = "revisedBy", default, skip_serializing_if = "Option::is_none")]
     pub revised_by: Option<IdentityReference>,
     #[doc = "The work item updates revision date."]
@@ -3652,7 +3591,6 @@ impl WorkItemUpdate {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemUpdateList {
     #[serde(default, skip_serializing_if = "Option::is_none")]

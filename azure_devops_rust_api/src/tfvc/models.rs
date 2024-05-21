@@ -5,7 +5,6 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AssociatedWorkItem {
     #[serde(
@@ -38,7 +37,6 @@ impl AssociatedWorkItem {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AssociatedWorkItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -55,7 +53,6 @@ impl AssociatedWorkItemList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Change {
     #[doc = "The type of change that was made to the item."]
@@ -68,7 +65,6 @@ pub struct Change {
     #[doc = "Current version."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub item: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "newContent",
         default,
@@ -128,7 +124,6 @@ pub mod change {
         All,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckinNote {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -141,7 +136,6 @@ impl CheckinNote {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FileContentMetadata {
     #[serde(
@@ -168,7 +162,6 @@ impl FileContentMetadata {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepository {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -201,7 +194,6 @@ pub struct GitRepository {
     pub is_in_maintenance: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "parentRepository",
         default,
@@ -235,7 +227,6 @@ impl GitRepository {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryRef {
     #[doc = "Reference object for a TeamProjectCollection."]
@@ -263,7 +254,6 @@ impl GitRepositoryRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -288,7 +278,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -354,7 +343,6 @@ impl IdentityRef {
         }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ItemContent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -381,7 +369,6 @@ pub mod item_content {
         Base64Encoded,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ItemModel {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -389,7 +376,6 @@ pub struct ItemModel {
     pub links: Option<ReferenceLinks>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "contentMetadata",
         default,
@@ -568,7 +554,6 @@ impl TfvcBranch {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcBranchList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -628,7 +613,6 @@ pub struct TfvcBranchRef {
     #[doc = "Is the branch deleted?"]
     #[serde(rename = "isDeleted", default, skip_serializing_if = "Option::is_none")]
     pub is_deleted: Option<bool>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "URL to retrieve the item."]
@@ -640,7 +624,6 @@ impl TfvcBranchRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcBranchRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -683,7 +666,6 @@ impl TfvcChange {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcChangeList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -772,7 +754,6 @@ pub struct TfvcChangesetRef {
     #[doc = "Links"]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub author: Option<IdentityRef>,
     #[doc = "Changeset Id."]
@@ -782,7 +763,6 @@ pub struct TfvcChangesetRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub changeset_id: Option<i32>,
-    #[doc = ""]
     #[serde(
         rename = "checkedInBy",
         default,
@@ -815,7 +795,6 @@ impl TfvcChangesetRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcChangesetRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1038,7 +1017,6 @@ pub mod tfvc_item_descriptor {
         MergeSource,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcItemList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1132,7 +1110,6 @@ pub struct TfvcLabelRef {
     #[doc = "Label name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Label Url."]
@@ -1144,7 +1121,6 @@ impl TfvcLabelRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcLabelRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1161,7 +1137,6 @@ impl TfvcLabelRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcLabelRequestData {
     #[doc = "Whether to include the _links field on the shallow references"]
@@ -1218,7 +1193,6 @@ impl TfvcMappingFilter {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcMergeSource {
     #[doc = "Indicates if this a rename source. If false, it is a merge source."]
@@ -1367,7 +1341,6 @@ pub struct TfvcShelvesetRef {
     #[doc = "Shelveset name."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub owner: Option<IdentityRef>,
     #[doc = "Shelveset Url."]
@@ -1379,7 +1352,6 @@ impl TfvcShelvesetRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcShelvesetRefList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1396,7 +1368,6 @@ impl TfvcShelvesetRefList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcShelvesetRequestData {
     #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
@@ -1446,7 +1417,6 @@ impl TfvcShelvesetRequestData {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TfvcStatistics {
     #[doc = "Id of the last changeset the stats are based on."]
@@ -1524,7 +1494,6 @@ pub mod tfvc_version_descriptor {
         MergeSource,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VersionControlProjectInfo {
     #[serde(
@@ -1578,7 +1547,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

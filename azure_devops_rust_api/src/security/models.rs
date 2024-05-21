@@ -30,7 +30,6 @@ impl AccessControlEntry {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessControlEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -89,7 +88,6 @@ impl AccessControlListBody {
         Self { value }
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessControlListList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -151,7 +149,6 @@ impl AceExtendedInformation {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ActionDefinition {
     #[doc = "The bit mask integer for this action. Must be a power of 2."]
@@ -364,7 +361,6 @@ impl SecurityNamespaceDescription {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SecurityNamespaceDescriptionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -395,7 +391,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

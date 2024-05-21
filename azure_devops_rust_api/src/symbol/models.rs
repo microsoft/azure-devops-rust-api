@@ -17,7 +17,6 @@ pub struct DebugEntry {
         skip_serializing_if = "Option::is_none"
     )]
     pub blob_details: Option<JsonBlobIdentifierWithBlocks>,
-    #[doc = ""]
     #[serde(
         rename = "blobIdentifier",
         default,
@@ -30,7 +29,6 @@ pub struct DebugEntry {
     #[doc = "A key the client (debugger, for example) uses to find the debug entry. Note it is not unique for each different symbol file as it does not distinguish between those which only differ by information level."]
     #[serde(rename = "clientKey", default, skip_serializing_if = "Option::is_none")]
     pub client_key: Option<String>,
-    #[doc = ""]
     #[serde(rename = "domainId", default, skip_serializing_if = "Option::is_none")]
     pub domain_id: Option<IDomainId>,
     #[doc = "The information level this debug entry contains."]
@@ -135,7 +133,6 @@ pub mod debug_entry_create_batch {
         OverwriteIfExists,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DebugEntryList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -152,7 +149,6 @@ impl DebugEntryList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IDomainId {}
 impl IDomainId {
@@ -177,7 +173,6 @@ impl JsonBlobBlockHash {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonBlobIdentifier {
     #[serde(
@@ -226,7 +221,6 @@ pub struct Request {
     #[doc = "An optional human-facing description."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[doc = ""]
     #[serde(rename = "domainId", default, skip_serializing_if = "Option::is_none")]
     pub domain_id: Option<IDomainId>,
     #[doc = "An optional expiration date for the request. The request will become inaccessible and get deleted after the date, regardless of its status.  On an HTTP POST, if expiration date is null/missing, the server will assign a default expiration data (30 days unless overwridden in the registry at the account level). On PATCH, if expiration date is null/missing, the behavior is to not change whatever the request's current expiration date is."]
@@ -269,7 +263,6 @@ pub mod request {
         Unavailable,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResourceBase {
     #[doc = "The ID of user who created this item. Optional."]

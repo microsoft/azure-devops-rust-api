@@ -17,7 +17,6 @@ pub struct Comment {
         skip_serializing_if = "Option::is_none"
     )]
     pub artifact_id: Option<String>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The creation date of the comment."]
@@ -40,7 +39,6 @@ pub struct Comment {
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mentions: Vec<CommentMention>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -107,7 +105,6 @@ pub mod comment {
 pub struct CommentAttachment {
     #[serde(flatten)]
     pub comment_resource_reference: CommentResourceReference,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[doc = "The creation date of the attachment."]
@@ -307,7 +304,6 @@ pub mod comment_update_parameters {
         Closed,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepository {
     #[doc = "The class to represent a collection of REST reference links."]
@@ -340,14 +336,12 @@ pub struct GitRepository {
     pub is_in_maintenance: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(
         rename = "parentRepository",
         default,
         skip_serializing_if = "Option::is_none"
     )]
     pub parent_repository: Option<GitRepositoryRef>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<TeamProjectReference>,
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
@@ -374,10 +368,8 @@ impl GitRepository {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitRepositoryRef {
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub collection: Option<TeamProjectCollectionReference>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -387,7 +379,6 @@ pub struct GitRepositoryRef {
     pub is_fork: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub project: Option<TeamProjectReference>,
     #[serde(rename = "remoteUrl", default, skip_serializing_if = "Option::is_none")]
@@ -402,7 +393,6 @@ impl GitRepositoryRef {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitVersionDescriptor {
     #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -451,7 +441,6 @@ pub mod git_version_descriptor {
         Commit,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -476,7 +465,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -554,7 +542,6 @@ impl ReferenceLinks {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TeamProjectCollectionReference {
     #[serde(rename = "avatarUrl", default, skip_serializing_if = "Option::is_none")]
@@ -571,7 +558,6 @@ impl TeamProjectCollectionReference {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TeamProjectReference {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -662,7 +648,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]
@@ -689,7 +674,6 @@ pub struct Wiki {
     #[doc = "The ID of the wiki which is same as the ID of the Git repository that it is backed by."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub repository: Option<GitRepository>,
 }
@@ -796,7 +780,6 @@ impl WikiCreateParameters {
 pub struct WikiCreateParametersV2 {
     #[serde(flatten)]
     pub wiki_create_base_parameters: WikiCreateBaseParameters,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub version: Option<GitVersionDescriptor>,
 }
@@ -895,7 +878,6 @@ impl WikiPageDetail {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WikiPageDetailList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1066,7 +1048,6 @@ impl WikiUpdateParameters {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WikiUpdatedNotificationMessage {
     #[doc = "Collection host Id for which the wikis are updated."]
@@ -1129,7 +1110,6 @@ impl WikiV2 {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WikiV2List {
     #[serde(default, skip_serializing_if = "Option::is_none")]

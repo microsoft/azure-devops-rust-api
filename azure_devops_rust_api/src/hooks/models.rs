@@ -142,7 +142,6 @@ impl ConsumerAction {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ConsumerActionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -159,7 +158,6 @@ impl ConsumerActionList {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ConsumerList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -283,7 +281,6 @@ impl EventTypeDescriptor {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EventTypeDescriptorList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -348,7 +345,6 @@ impl FormattedEventMessage {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -373,7 +369,6 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IdentityRef {
     #[serde(flatten)]
@@ -729,7 +724,6 @@ impl InputValuesError {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct InputValuesQuery {
     #[serde(
@@ -946,7 +940,6 @@ impl NotificationDetails {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NotificationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1233,7 +1226,6 @@ impl PublisherEvent {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PublisherList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1367,7 +1359,6 @@ pub struct Subscription {
         skip_serializing_if = "Option::is_none"
     )]
     pub consumer_inputs: Option<serde_json::Value>,
-    #[doc = ""]
     #[serde(rename = "createdBy", default, skip_serializing_if = "Option::is_none")]
     pub created_by: Option<IdentityRef>,
     #[serde(
@@ -1392,7 +1383,6 @@ pub struct Subscription {
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_probation_retry_date: Option<time::OffsetDateTime>,
-    #[doc = ""]
     #[serde(
         rename = "modifiedBy",
         default,
@@ -1432,7 +1422,6 @@ pub struct Subscription {
     pub resource_version: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub status: Option<subscription::Status>,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub subscriber: Option<IdentityRef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1523,7 +1512,6 @@ pub mod subscription_input_values_query {
         Consumer,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SubscriptionList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1725,7 +1713,6 @@ impl VssJsonCollectionWrapper {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VssJsonCollectionWrapperBase {
     #[doc = "The number of serialized items."]

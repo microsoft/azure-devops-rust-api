@@ -5,10 +5,8 @@
 use serde::de::{value, Deserializer, IntoDeserializer};
 use serde::{Deserialize, Serialize, Serializer};
 use std::str::FromStr;
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AccessTokenResult {
-    #[doc = ""]
     #[serde(
         rename = "accessToken",
         default,
@@ -41,7 +39,6 @@ pub struct AccessTokenResult {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_first_party_client: Option<bool>,
-    #[doc = ""]
     #[serde(
         rename = "refreshToken",
         default,
@@ -140,7 +137,6 @@ pub mod access_token_result {
         InvalidScope,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationGrant {
     #[serde(rename = "grantType", default, skip_serializing_if = "Option::is_none")]
@@ -167,7 +163,6 @@ pub mod authorization_grant {
         ClientCredentials,
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IssuedToken {
     #[serde(
@@ -184,7 +179,6 @@ impl IssuedToken {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonWebToken {
     #[serde(flatten)]
@@ -427,12 +421,10 @@ impl PatTokenUpdateRequest {
         Self::default()
     }
 }
-#[doc = ""]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RefreshTokenGrant {
     #[serde(flatten)]
     pub authorization_grant: AuthorizationGrant,
-    #[doc = ""]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub jwt: Option<JsonWebToken>,
 }
