@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.21.1]
+
+### Changes
+
 - Fix datetime model fields being serialized when empty, causing invalid JSON to be sent to ADO for some requests
 - Fix clippy failure with empty doc comments.
 - Cleanup vsts-api-patcher structure.
@@ -503,7 +507,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...HEAD
+[0.21.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.1...0.21.0
 [0.20.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.0...0.20.1
 [0.20.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.19.2...0.20.0
