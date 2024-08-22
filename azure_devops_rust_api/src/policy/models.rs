@@ -122,6 +122,7 @@ pub struct PolicyConfiguration {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -205,6 +206,7 @@ pub struct PolicyEvaluationRecord {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -225,6 +227,7 @@ pub struct PolicyEvaluationRecord {
     #[serde(
         rename = "startedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub started_date: Option<time::OffsetDateTime>,

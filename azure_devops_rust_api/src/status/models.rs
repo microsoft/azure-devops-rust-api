@@ -66,6 +66,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "endTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_time: Option<time::OffsetDateTime>,
@@ -94,6 +95,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "nextUpdateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub next_update_time: Option<time::OffsetDateTime>,
@@ -102,6 +104,7 @@ pub struct LiveSiteEvent {
     #[serde(
         rename = "startTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_time: Option<time::OffsetDateTime>,
@@ -181,6 +184,7 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "creationDateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
@@ -199,6 +203,7 @@ pub struct LiveSiteEventLog {
     #[serde(
         rename = "lastUpdatedDateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date_time: Option<time::OffsetDateTime>,
@@ -238,6 +243,7 @@ pub struct LiveSiteEventLogAttachment {
     #[serde(
         rename = "creationDateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date_time: Option<time::OffsetDateTime>,
@@ -478,6 +484,7 @@ pub struct Status {
     #[serde(
         rename = "lastUpdated",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated: Option<time::OffsetDateTime>,

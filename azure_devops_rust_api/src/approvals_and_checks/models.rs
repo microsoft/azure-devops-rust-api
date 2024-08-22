@@ -22,6 +22,7 @@ pub struct Approval {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -42,6 +43,7 @@ pub struct Approval {
     #[serde(
         rename = "lastModifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
@@ -294,6 +296,7 @@ pub struct ApprovalStep {
     #[serde(
         rename = "initiatedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub initiated_on: Option<time::OffsetDateTime>,
@@ -307,6 +310,7 @@ pub struct ApprovalStep {
     #[serde(
         rename = "lastModifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_modified_on: Option<time::OffsetDateTime>,
@@ -388,6 +392,7 @@ pub struct ApprovalStepHistory {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -536,6 +541,7 @@ pub struct CheckConfiguration {
     #[serde(
         rename = "createdOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_on: Option<time::OffsetDateTime>,
@@ -559,6 +565,7 @@ pub struct CheckConfiguration {
     #[serde(
         rename = "modifiedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_on: Option<time::OffsetDateTime>,
@@ -810,12 +817,14 @@ pub struct CheckRun {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -888,6 +897,7 @@ pub struct CheckSuite {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -1105,6 +1115,7 @@ pub struct Permission {
     #[serde(
         rename = "authorizedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub authorized_on: Option<time::OffsetDateTime>,
@@ -1153,6 +1164,7 @@ pub struct PipelineResourceReference {
     #[serde(
         rename = "authorizedOn",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub authorized_on: Option<time::OffsetDateTime>,
