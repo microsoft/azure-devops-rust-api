@@ -452,6 +452,7 @@ pub struct TeamProjectReference {
     #[serde(
         rename = "lastUpdateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
@@ -604,6 +605,7 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -783,6 +785,7 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -898,6 +901,7 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
@@ -1104,6 +1108,7 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -1332,6 +1337,7 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,

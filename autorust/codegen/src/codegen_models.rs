@@ -1154,6 +1154,7 @@ fn create_struct(
             if type_name.is_date_time() {
                 // Must specify `default` when using `with` for `Option`
                 serde.add_default();
+                serde.add_skip_serializing_if("Option::is_none");
                 #[cfg(feature = "azure_devops")]
                 serde.add_with("crate::date_time::rfc3339::option");
                 #[cfg(not(feature = "azure_devops"))]
@@ -1161,6 +1162,7 @@ fn create_struct(
             } else if type_name.is_date_time_rfc1123() {
                 // Must specify `default` when using `with` for `Option`
                 serde.add_default();
+                serde.add_skip_serializing_if("Option::is_none");
                 serde.add_with("azure_core::date::rfc1123::option");
             } else if type_name.is_vec() {
                 serde.add_default();

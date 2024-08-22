@@ -788,10 +788,18 @@ pub mod create_plan {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DateRange {
     #[doc = "End of the date range."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub end: Option<time::OffsetDateTime>,
     #[doc = "Start of the date range."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub start: Option<time::OffsetDateTime>,
 }
 impl DateRange {
@@ -821,6 +829,7 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "endDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
@@ -843,6 +852,7 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "startDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -1221,7 +1231,11 @@ pub struct Marker {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[doc = "Where the marker should be displayed on the timeline."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Label/title for the marker."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1312,6 +1326,7 @@ pub struct Plan {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -1325,6 +1340,7 @@ pub struct Plan {
     #[serde(
         rename = "lastAccessed",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_accessed: Option<time::OffsetDateTime>,
@@ -1338,6 +1354,7 @@ pub struct Plan {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -1426,6 +1443,7 @@ pub struct PlanMetadata {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -1930,6 +1948,7 @@ pub struct TeamIterationAttributes {
     #[serde(
         rename = "finishDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_date: Option<time::OffsetDateTime>,
@@ -1937,6 +1956,7 @@ pub struct TeamIterationAttributes {
     #[serde(
         rename = "startDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
@@ -2389,6 +2409,7 @@ pub struct TimelineTeamIteration {
     #[serde(
         rename = "finishDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub finish_date: Option<time::OffsetDateTime>,
@@ -2410,6 +2431,7 @@ pub struct TimelineTeamIteration {
     #[serde(
         rename = "startDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,

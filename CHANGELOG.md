@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fix datetime model fields being serialized when empty, causing invalid JSON to be sent to ADO for some requests
 - Fix clippy failure with empty doc comments.
 - Cleanup vsts-api-patcher structure.
 

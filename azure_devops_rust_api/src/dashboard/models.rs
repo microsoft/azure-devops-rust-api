@@ -118,6 +118,7 @@ pub struct Dashboard {
     #[serde(
         rename = "lastAccessedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_accessed_date: Option<time::OffsetDateTime>,
@@ -132,6 +133,7 @@ pub struct Dashboard {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,

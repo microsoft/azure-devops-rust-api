@@ -169,6 +169,7 @@ pub struct CustomRepositoryBranchStatusResponse {
     #[serde(
         rename = "lastIndexedChangeIdChangeTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_indexed_change_id_change_time: Option<time::OffsetDateTime>,
@@ -181,6 +182,7 @@ pub struct CustomRepositoryBranchStatusResponse {
     #[serde(
         rename = "latestChangeIdChangeTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub latest_change_id_change_time: Option<time::OffsetDateTime>,

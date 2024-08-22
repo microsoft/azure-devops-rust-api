@@ -81,6 +81,7 @@ pub struct Favorite {
     #[serde(
         rename = "creationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,

@@ -18,6 +18,7 @@ pub struct AdvSecEnablementStatus {
     #[serde(
         rename = "changedOnDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub changed_on_date: Option<time::OffsetDateTime>,
@@ -28,6 +29,7 @@ pub struct AdvSecEnablementStatus {
     #[serde(
         rename = "enabledChangedOnDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub enabled_changed_on_date: Option<time::OffsetDateTime>,
@@ -205,6 +207,7 @@ pub struct Attachment {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -293,6 +296,7 @@ pub struct BillableCommitterDetail {
     #[serde(
         rename = "commitTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub commit_time: Option<time::OffsetDateTime>,
@@ -310,6 +314,7 @@ pub struct BillableCommitterDetail {
     #[serde(
         rename = "pushedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub pushed_time: Option<time::OffsetDateTime>,
@@ -456,6 +461,7 @@ pub struct ChangeList {
     #[serde(
         rename = "creationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -478,6 +484,7 @@ pub struct ChangeList {
     #[serde(
         rename = "sortDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub sort_date: Option<time::OffsetDateTime>,
@@ -602,6 +609,7 @@ pub struct Comment {
     #[serde(
         rename = "lastContentUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_content_updated_date: Option<time::OffsetDateTime>,
@@ -609,6 +617,7 @@ pub struct Comment {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -623,6 +632,7 @@ pub struct Comment {
     #[serde(
         rename = "publishedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -734,6 +744,7 @@ pub struct CommentThread {
     #[serde(
         rename = "lastUpdatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_updated_date: Option<time::OffsetDateTime>,
@@ -744,6 +755,7 @@ pub struct CommentThread {
     #[serde(
         rename = "publishedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub published_date: Option<time::OffsetDateTime>,
@@ -1640,6 +1652,7 @@ pub struct GitConflict {
     #[serde(
         rename = "resolvedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub resolved_date: Option<time::OffsetDateTime>,
@@ -2155,6 +2168,7 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -2163,6 +2177,7 @@ pub struct GitDeletedRepository {
     #[serde(
         rename = "deletedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub deleted_date: Option<time::OffsetDateTime>,
@@ -2812,6 +2827,7 @@ pub struct GitLastChangeTreeItems {
     #[serde(
         rename = "lastExploredTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_explored_time: Option<time::OffsetDateTime>,
@@ -3077,6 +3093,7 @@ pub struct GitPullRequest {
     #[serde(
         rename = "closedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub closed_date: Option<time::OffsetDateTime>,
@@ -3105,6 +3122,7 @@ pub struct GitPullRequest {
     #[serde(
         rename = "completionQueueTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completion_queue_time: Option<time::OffsetDateTime>,
@@ -3608,6 +3626,7 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -3661,6 +3680,7 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "updatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
@@ -3864,6 +3884,7 @@ pub struct GitPullRequestSearchCriteria {
     #[serde(
         rename = "maxTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_time: Option<time::OffsetDateTime>,
@@ -3871,6 +3892,7 @@ pub struct GitPullRequestSearchCriteria {
     #[serde(
         rename = "minTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub min_time: Option<time::OffsetDateTime>,
@@ -4093,7 +4115,11 @@ pub struct GitPushRef {
     #[doc = "The class to represent a collection of REST reference links."]
     #[serde(rename = "_links", default, skip_serializing_if = "Option::is_none")]
     pub links: Option<ReferenceLinks>,
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub date: Option<time::OffsetDateTime>,
     #[serde(rename = "pushedBy", default, skip_serializing_if = "Option::is_none")]
     pub pushed_by: Option<IdentityRef>,
@@ -4112,6 +4138,7 @@ pub struct GitPushSearchCriteria {
     #[serde(
         rename = "fromDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub from_date: Option<time::OffsetDateTime>,
@@ -4132,7 +4159,12 @@ pub struct GitPushSearchCriteria {
     pub pusher_id: Option<String>,
     #[serde(rename = "refName", default, skip_serializing_if = "Option::is_none")]
     pub ref_name: Option<String>,
-    #[serde(rename = "toDate", default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        rename = "toDate",
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub to_date: Option<time::OffsetDateTime>,
 }
 impl GitPushSearchCriteria {
@@ -4958,6 +4990,7 @@ pub struct GitStatus {
     #[serde(
         rename = "creationDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub creation_date: Option<time::OffsetDateTime>,
@@ -4977,6 +5010,7 @@ pub struct GitStatus {
     #[serde(
         rename = "updatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_date: Option<time::OffsetDateTime>,
@@ -5371,7 +5405,11 @@ impl GitTreeRef {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitUserDate {
     #[doc = "Date of the Git operation."]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub date: Option<time::OffsetDateTime>,
     #[doc = "Email address of the user performing the Git operation."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5754,6 +5792,7 @@ pub struct IncludedGitCommit {
     #[serde(
         rename = "commitTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub commit_time: Option<time::OffsetDateTime>,
@@ -6029,6 +6068,7 @@ pub struct PolicyConfiguration {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6515,6 +6555,7 @@ pub struct TeamProjectReference {
     #[serde(
         rename = "lastUpdateTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_update_time: Option<time::OffsetDateTime>,
@@ -6651,6 +6692,7 @@ pub struct TfvcBranchRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6802,6 +6844,7 @@ pub struct TfvcChangesetRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -6931,6 +6974,7 @@ pub struct TfvcItem {
     #[serde(
         rename = "changeDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub change_date: Option<time::OffsetDateTime>,
@@ -7139,6 +7183,7 @@ pub struct TfvcLabelRef {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -7351,6 +7396,7 @@ pub struct TfvcShelvesetRef {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,

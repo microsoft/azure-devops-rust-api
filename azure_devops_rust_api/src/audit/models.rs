@@ -122,7 +122,11 @@ pub struct AuditLogEntry {
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<audit_log_entry::ScopeType>,
     #[doc = "The time when the event occurred in UTC"]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub timestamp: Option<time::OffsetDateTime>,
     #[doc = "The user agent from the request"]
     #[serde(rename = "userAgent", default, skip_serializing_if = "Option::is_none")]
@@ -198,6 +202,7 @@ pub struct AuditStream {
     #[serde(
         rename = "createdTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_time: Option<time::OffsetDateTime>,
@@ -225,6 +230,7 @@ pub struct AuditStream {
     #[serde(
         rename = "updatedTime",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub updated_time: Option<time::OffsetDateTime>,
@@ -378,7 +384,11 @@ pub struct DecoratedAuditLogEntry {
     #[serde(rename = "scopeType", default, skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<decorated_audit_log_entry::ScopeType>,
     #[doc = "The time when the event occurred in UTC"]
-    #[serde(default, with = "crate::date_time::rfc3339::option")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        with = "crate::date_time::rfc3339::option"
+    )]
     pub timestamp: Option<time::OffsetDateTime>,
     #[doc = "The user agent from the request"]
     #[serde(rename = "userAgent", default, skip_serializing_if = "Option::is_none")]

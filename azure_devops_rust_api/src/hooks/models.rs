@@ -181,6 +181,7 @@ pub struct Event {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -756,6 +757,7 @@ pub struct Notification {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -772,6 +774,7 @@ pub struct Notification {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -835,6 +838,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "completedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub completed_date: Option<time::OffsetDateTime>,
@@ -863,6 +867,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "dequeuedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub dequeued_date: Option<time::OffsetDateTime>,
@@ -890,6 +895,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "processedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub processed_date: Option<time::OffsetDateTime>,
@@ -911,6 +917,7 @@ pub struct NotificationDetails {
     #[serde(
         rename = "queuedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub queued_date: Option<time::OffsetDateTime>,
@@ -1035,6 +1042,7 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "maxCreatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub max_created_date: Option<time::OffsetDateTime>,
@@ -1056,6 +1064,7 @@ pub struct NotificationsQuery {
     #[serde(
         rename = "minCreatedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub min_created_date: Option<time::OffsetDateTime>,
@@ -1319,6 +1328,7 @@ pub struct SessionToken {
     #[serde(
         rename = "validTo",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub valid_to: Option<time::OffsetDateTime>,
@@ -1364,6 +1374,7 @@ pub struct Subscription {
     #[serde(
         rename = "createdDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub created_date: Option<time::OffsetDateTime>,
@@ -1380,6 +1391,7 @@ pub struct Subscription {
     #[serde(
         rename = "lastProbationRetryDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub last_probation_retry_date: Option<time::OffsetDateTime>,
@@ -1392,6 +1404,7 @@ pub struct Subscription {
     #[serde(
         rename = "modifiedDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub modified_date: Option<time::OffsetDateTime>,
@@ -1538,6 +1551,7 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "endDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub end_date: Option<time::OffsetDateTime>,
@@ -1552,6 +1566,7 @@ pub struct SubscriptionTracing {
     #[serde(
         rename = "startDate",
         default,
+        skip_serializing_if = "Option::is_none",
         with = "crate::date_time::rfc3339::option"
     )]
     pub start_date: Option<time::OffsetDateTime>,
