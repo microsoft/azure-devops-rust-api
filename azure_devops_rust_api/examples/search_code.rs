@@ -8,6 +8,7 @@ use azure_devops_rust_api::search;
 use azure_devops_rust_api::search::models::{
     CodeSearchRequest, EntitySearchRequest, EntitySearchRequestBase,
 };
+use serde_json::json;
 use std::env;
 
 mod utils;
@@ -21,13 +22,45 @@ async fn main() -> Result<()> {
     let organization = env::var("ADO_ORGANIZATION").expect("Must define ADO_ORGANIZATION");
     let project = env::var("ADO_PROJECT").expect("Must define ADO_PROJECT");
 
+    let repository_name = env::args()
+        .nth(1)
+        .expect("Usage: search_code <repository-name> <branch> <search-text>");
+
+    let branch_name = env::args()
+        .nth(2)
+        .expect("Usage: search_code <repository-name> <branch> <search-text>");
+
+    let search_text = env::args()
+        .nth(3)
+        .expect("Usage: search_code <repository-name> <branch> <search-text>");
+
     // Create a search client
     println!("Create search client");
     let search_client = search::ClientBuilder::new(credential).build();
 
+    // Create a search request to search within a specific repository and branch.
+    // You could make the same query without a filter which would search the entire project.
+    //
+    // Unfortunately the filters field format is not currently documented.
+    //
+    // There is an example request in the REST API documentation which shows a selection of fields
+    // that can be used in the filter field:
+    //   https://learn.microsoft.com/en-us/rest/api/azure/devops/search/code-search-results/fetch-code-search-results?view=azure-devops-rest-7.1&tabs=HTTP
+    //
+    // In testing I found that if you specify a filter, it must include the `Project` field.
     let entity_search_request_base = EntitySearchRequestBase {
-        filters: None,
-        search_text: Some("file:Cargo.toml futures".to_string()),
+        filters: Some(json!({
+            "Project": [
+                project
+            ],
+            "Repository": [
+                repository_name
+            ],
+            "Branch": [
+                branch_name
+            ]
+        })),
+        search_text: Some(search_text),
     };
 
     let entity_search_request = EntitySearchRequest {

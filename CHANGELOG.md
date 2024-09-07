@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update `search_code` example to demonstrate use of filters.
+
 ### [0.21.1]
 
 ### Changes
