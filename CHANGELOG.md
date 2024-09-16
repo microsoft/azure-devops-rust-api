@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking change
+- Change `IdentityRef` `unique_name` to be optional
+  - Discovered that in some returned values this field is not present.
+    Any code accessing this field now needs to wrap it in an `Option`, or deal with
+    the returned value being wrapped in an `Option`.
+
+### Changes
 - Update `search_code` example to demonstrate use of filters.
 
 ### [0.21.1]

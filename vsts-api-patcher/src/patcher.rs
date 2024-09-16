@@ -1365,9 +1365,10 @@ impl Patcher {
             (
                 "*",
                 "IdentityRef",
+                // Excluded
+                //   uniqueName
                 r#"[
-                    "id",
-                    "uniqueName"
+                    "id"
                 ]"#,
             ),
             (

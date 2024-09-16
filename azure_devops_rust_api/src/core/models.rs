@@ -238,11 +238,15 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(rename = "uniqueName")]
-    pub unique_name: String,
+    #[serde(
+        rename = "uniqueName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_name: Option<String>,
 }
 impl IdentityRef {
-    pub fn new(id: String, unique_name: String) -> Self {
+    pub fn new(id: String) -> Self {
         Self {
             graph_subject_base: GraphSubjectBase::default(),
             directory_alias: None,
@@ -253,7 +257,7 @@ impl IdentityRef {
             is_container: None,
             is_deleted_in_origin: None,
             profile_url: None,
-            unique_name,
+            unique_name: None,
         }
     }
 }
