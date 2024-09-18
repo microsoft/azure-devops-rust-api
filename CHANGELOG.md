@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.23.0]
+
 ### Breaking change
 - Change `IdentityRef` `id` to be optional
   - Discovered that in some returned values this field is not present.
@@ -524,7 +526,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.22.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.23.0...HEAD
+[0.23.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.22.0...0.23.0
 [0.22.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.1...0.21.0
