@@ -1362,15 +1362,15 @@ impl Patcher {
             //     r#"[
             //     ]"#,
             // ),
-            (
-                "*",
-                "IdentityRef",
-                // Excluded
-                //   uniqueName
-                r#"[
-                    "id"
-                ]"#,
-            ),
+            // (
+            //     "*",
+            //     "IdentityRef",
+            //     // Excluded
+            //     //   uniqueName
+            //     //   id
+            //     r#"[
+            //     ]"#,
+            // ),
             (
                 "workItemTracking.json",
                 "Link",

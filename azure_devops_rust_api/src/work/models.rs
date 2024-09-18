@@ -1095,7 +1095,7 @@ impl ITaskboardColumnMapping {
         Self::default()
     }
 }
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -1106,7 +1106,8 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    pub id: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -1149,19 +1150,8 @@ pub struct IdentityRef {
     pub unique_name: Option<String>,
 }
 impl IdentityRef {
-    pub fn new(id: String) -> Self {
-        Self {
-            graph_subject_base: GraphSubjectBase::default(),
-            directory_alias: None,
-            id,
-            image_url: None,
-            inactive: None,
-            is_aad_identity: None,
-            is_container: None,
-            is_deleted_in_origin: None,
-            profile_url: None,
-            unique_name: None,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Capacity and teams for all teams in an iteration"]
