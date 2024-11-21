@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changes
+## [0.24.0]
+
+### Breaking change
 - Update `azure_core`, `azure_identity` to 0.21.
 
 
-### [0.23.0]
+## [0.23.0]
 
 ### Breaking change
 - Change `IdentityRef` `id` to be optional
@@ -19,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     Any code accessing this field now needs to wrap it in an `Option`, or deal with
     the returned value being wrapped in an `Option`.
 
-### [0.22.0]
+## [0.22.0]
 
 ### Breaking change
 - Change `IdentityRef` `unique_name` to be optional
@@ -30,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 - Update `search_code` example to demonstrate use of filters.
 
-### [0.21.1]
+## [0.21.1]
 
 ### Changes
 
@@ -38,13 +40,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix clippy failure with empty doc comments.
 - Cleanup vsts-api-patcher structure.
 
-### [0.21.0]
+## [0.21.0]
 
 ### Changes
 
 - Update `autorust` code generator to latest version from `azure-sdk-for-rust`.
 
-### [0.20.1]
+## [0.20.1]
 
 ### Changes
 
@@ -55,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `records`
 - Add missing `artifacts` SBOM-related data structures.
 
-### [0.20.0]
+## [0.20.0]
 
 ### Changes
 
@@ -83,7 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Additional field in `git::IdentityRefWithVote`
     - `is_reapprove`
 
-### [0.19.2]
+## [0.19.2]
 
 ### Changes
 
@@ -92,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     even if they do not return a value.
   - Replace deprecated `time::Instant` with `std::time::Instant`.
 
-### [0.19.1]
+## [0.19.1]
 
 ### Changes
 
@@ -100,7 +102,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New example:
   - `telemetry_git_repo_get`
 
-### [0.19.0]
+## [0.19.0]
 
 ### Breaking change
 
@@ -113,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New example:
   - `git_push`
 
-### [0.18.0]
+## [0.18.0]
 
 ### Breaking change
 
@@ -123,7 +125,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `state`
   - `lastUpdateTime`
 
-### [0.17.0]
+## [0.17.0]
 
 ### Breaking change
 
@@ -144,14 +146,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `source_server_item`
     - `url`
 
-### [0.16.0]
+## [0.16.0]
 
 ### Changes
 
 - Upgrade `azure_core`, `azure_identity` to 0.19
 - Change `ADO_SCOPE` definition to add `/.default`, as `TokenCredential::get_token(...)` has changed to take a scope rather than a resource
 
-### [0.15.2]
+## [0.15.2]
 
 ### Changes
 
@@ -161,26 +163,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New example: `git_items_get_items_batch`
 
-### [0.15.1]
+## [0.15.1]
 
 ### Added
 
 - New `headers` module with Azure DevOps custom rate-limiting response header definitions.
 
-### [0.15.0]
+## [0.15.0]
 
 ### Changes
 
 - Upgrade `azure_core`, `azure_identity` to 0.18
   - Note: `AutoRefreshingTokenCredential` is no longer required (and has been removed from `azure_identity`), as token refreshing is now built in to each credential provider
 
-### [0.14.3]
+## [0.14.3]
 
 ### Added
 
 - New value added to git `ChangeType` enum: `edit, rename`
 
-### [0.14.2]
+## [0.14.2]
 
 ### Added
 
@@ -530,7 +532,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.23.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.24.0...HEAD
+[0.24.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.23.0...0.24.0
 [0.23.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.22.0...0.23.0
 [0.22.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...0.21.1
