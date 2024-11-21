@@ -29,7 +29,7 @@ qstring = "0.7"
 cargo_toml = "0.20"
 
 [dev-dependencies]
-thiserror = "1"
+thiserror = "2"
 crates_io_api = "0.11"
 
 [lints]
