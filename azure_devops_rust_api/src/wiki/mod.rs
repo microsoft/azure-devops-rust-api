@@ -924,7 +924,7 @@ pub mod attachments {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -1143,7 +1143,7 @@ pub mod page_moves {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -1503,7 +1503,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -1712,7 +1712,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -1908,7 +1908,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -2100,7 +2100,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -2252,7 +2252,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))
@@ -2397,7 +2397,7 @@ pub mod pages {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn e_tag(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("etag"))

@@ -4660,7 +4660,7 @@ pub mod policy_configurations {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn x_ms_continuationtoken(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static(
