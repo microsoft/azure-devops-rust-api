@@ -1627,7 +1627,6 @@ impl Patcher {
         let regex = regex::Regex::new(r"\s(?P<url>(http|https)://[_A-Za-z0-9/]+)").unwrap();
         let patched_s = regex.replace_all(&patched_s, "<${url}>");
         if patched_s != s {
-            format!("[patched]{}", patched_s);
             println!("patch_docstring: {} => {}", s, patched_s);
         }
         patched_s.to_string()

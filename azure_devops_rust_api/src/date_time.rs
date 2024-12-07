@@ -39,7 +39,7 @@ pub mod rfc3339 {
 
     struct DateTimeVisitor;
 
-    impl<'de> de::Visitor<'de> for DateTimeVisitor {
+    impl de::Visitor<'_> for DateTimeVisitor {
         type Value = OffsetDateTime;
 
         fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {

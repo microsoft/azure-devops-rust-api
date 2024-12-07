@@ -444,7 +444,7 @@ pub mod groups {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static(
@@ -2118,7 +2118,7 @@ pub mod service_principals {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static(
@@ -3534,7 +3534,7 @@ pub mod users {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static(

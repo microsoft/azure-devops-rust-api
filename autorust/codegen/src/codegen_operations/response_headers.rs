@@ -110,7 +110,7 @@ impl ToTokens for HeadersCode {
             let headers = &self.headers;
             tokens.extend(quote! {
                 pub struct Headers<'a>(&'a azure_core::headers::Headers);
-                impl<'a> Headers<'a> {
+                impl Headers<'_> {
                     #(#headers)*
                 }
             })

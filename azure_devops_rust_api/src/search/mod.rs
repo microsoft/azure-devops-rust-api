@@ -220,7 +220,7 @@ pub mod package_search_results {
             }
         }
         pub struct Headers<'a>(&'a azure_core::headers::Headers);
-        impl<'a> Headers<'a> {
+        impl Headers<'_> {
             pub fn activity_id(&self) -> azure_core::Result<&str> {
                 self.0
                     .get_str(&azure_core::headers::HeaderName::from_static("activityid"))
