@@ -353,7 +353,8 @@ pub struct Change {
     #[doc = "The type of change that was made to the item."]
     #[serde(rename = "changeType")]
     pub change_type: change::ChangeType,
-    pub item: serde_json::Value,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub item: Option<serde_json::Value>,
     #[serde(
         rename = "newContent",
         default,
@@ -372,10 +373,10 @@ pub struct Change {
     pub url: Option<String>,
 }
 impl Change {
-    pub fn new(change_type: change::ChangeType, item: serde_json::Value) -> Self {
+    pub fn new(change_type: change::ChangeType) -> Self {
         Self {
             change_type,
-            item,
+            item: None,
             new_content: None,
             source_server_item: None,
             url: None,
