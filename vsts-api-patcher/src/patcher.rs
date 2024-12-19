@@ -1186,8 +1186,7 @@ impl Patcher {
                 "git.json",
                 "Change",
                 r#"[
-                    "changeType",
-                    "item"
+                    "changeType"
                 ]"#,
             ),
             (
