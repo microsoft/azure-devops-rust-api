@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Clippy fixes for `needless_lifetime` warnings.
 
+### Breaking change
+- Change git 'Change::item' field to be optional. 
+  - Discovered that in some returned values this field is not present.
+    Any code accessing this field now needs to wrap it in an `Option`, or deal with the returned value being wrapped in an `Option`.
+
 ## [0.24.0]
 
 ### Breaking change
