@@ -51,9 +51,9 @@ fn new_git_change_with_content(
     GitChange {
         change: Change {
             change_type,
-            item: json!({
+            item: Some(json!({
                 "path": filename
-            }),
+            })),
             new_content: Some(ItemContent {
                 content: file_content,
                 content_type: ContentType::RawText,

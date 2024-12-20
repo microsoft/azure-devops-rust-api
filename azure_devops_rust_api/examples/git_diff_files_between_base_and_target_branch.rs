@@ -53,10 +53,12 @@ async fn main() -> Result<()> {
 
     // Get files name which are present in the target branch
     for diff in diffs.iter() {
-        let git_object_type = diff.change.item["gitObjectType"].as_str().unwrap();
-        if git_object_type == "blob" {
-            let file_name = diff.change.item["path"].as_str().unwrap();
-            files_diff_between_branches.insert(file_name.to_string());
+        if let Some(item) = &diff.change.item {
+            let git_object_type = item["gitObjectType"].as_str().unwrap();
+            if git_object_type == "blob" {
+                let file_name = item["path"].as_str().unwrap();
+                files_diff_between_branches.insert(file_name.to_string());
+            }
         }
     }
 

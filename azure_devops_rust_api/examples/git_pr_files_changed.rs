@@ -63,13 +63,14 @@ async fn main() -> Result<()> {
 
         // Get files changed in the commit
         for change in pr_commits_changes.iter() {
-            let item = &change.change.item;
-            // We are only interested in files not directories.
-            // files are "blob" type, directories are "folder" type.
-            if let (Some("blob"), Some(filename)) =
-                (item["git_object_type"].as_str(), item["path"].as_str())
-            {
-                files_changed.insert(filename.to_string());
+            if let Some(item) = &change.change.item {
+                // We are only interested in files not directories.
+                // files are "blob" type, directories are "folder" type.
+                if let (Some("blob"), Some(filename)) =
+                    (item["git_object_type"].as_str(), item["path"].as_str())
+                {
+                    files_changed.insert(filename.to_string());
+                }
             }
         }
     }
