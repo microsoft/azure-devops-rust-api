@@ -6,12 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Clippy fixes for `needless_lifetime` warnings.
+
+## [0.25.0]
 
 ### Breaking change
 - Change git 'Change::item' field to be optional. 
   - Discovered that in some returned values this field is not present.
     Any code accessing this field now needs to wrap it in an `Option`, or deal with the returned value being wrapped in an `Option`.
+
+### Changes
+- Clippy fixes for `needless_lifetime` warnings.
 
 ## [0.24.0]
 
@@ -538,7 +542,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.24.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.25.0...HEAD
+[0.25.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.24.0...0.25.0
 [0.24.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.23.0...0.24.0
 [0.23.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.22.0...0.23.0
 [0.22.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...0.22.0
