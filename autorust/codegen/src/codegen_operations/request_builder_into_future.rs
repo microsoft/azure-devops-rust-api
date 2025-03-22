@@ -74,7 +74,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                                         let response = self.client.send(&mut req).await?;
                                         let headers = response.headers();
                                         let retry_after = get_retry_after(headers);
-                                        let bytes = response.into_body().collect().await?;
+                                        let bytes = response.into_raw_body().collect().await?;
                                         let provisioning_state = get_provisioning_state(&bytes).ok_or_else(||
                                             Error::message(ErrorKind::Other, "Long running operation failed (missing provisioning state)".to_string())
                                         )?;
@@ -113,7 +113,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
 
                         (
                             quote! {
-                                self.send().await?.into_body().await
+                                self.send().await?.into_raw_body().await
                             },
                             quote! {
                                     #[doc = "Returns a future that sends the request and returns the parsed response body."]
@@ -159,7 +159,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
             } else {
                 (
                     quote! {
-                        self.send().await?.into_body().await
+                        self.send().await?.into_raw_body().await
                     },
                     quote! {
                             #[doc = "Returns a future that sends the request and returns the parsed response body."]

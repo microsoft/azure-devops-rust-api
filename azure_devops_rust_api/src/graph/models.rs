@@ -51,7 +51,7 @@ pub struct Avatar {
     pub time_stamp: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<String>,
@@ -136,14 +136,14 @@ pub struct GraphGlobalExtendedPropertyBatch {
     #[serde(
         rename = "propertyNameFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub property_name_filters: Vec<String>,
     #[serde(
         rename = "subjectDescriptors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub subject_descriptors: Vec<String>,
@@ -189,7 +189,7 @@ pub struct GraphGroupList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GraphGroup>,
@@ -332,7 +332,7 @@ pub struct GraphMembershipList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GraphMembership>,
@@ -384,7 +384,7 @@ pub struct GraphMembershipTraversal {
     #[serde(
         rename = "traversedSubjectIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub traversed_subject_ids: Vec<String>,
@@ -392,7 +392,7 @@ pub struct GraphMembershipTraversal {
     #[serde(
         rename = "traversedSubjects",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub traversed_subjects: Vec<String>,
@@ -564,7 +564,7 @@ pub struct GraphServicePrincipalList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GraphServicePrincipal>,
@@ -683,7 +683,7 @@ pub struct GraphSubjectList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GraphSubject>,
@@ -699,7 +699,7 @@ pub struct GraphSubjectLookup {
     #[serde(
         rename = "lookupKeys",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub lookup_keys: Vec<GraphSubjectLookupKey>,
@@ -736,7 +736,7 @@ pub struct GraphSubjectQuery {
     #[serde(
         rename = "subjectKind",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub subject_kind: Vec<String>,
@@ -788,7 +788,7 @@ pub struct GraphUserList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GraphUser>,
@@ -903,7 +903,7 @@ impl IdentityMapping {
 pub struct IdentityMappings {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<IdentityMapping>,
@@ -1022,7 +1022,7 @@ pub struct PagedGraphGroups {
     #[serde(
         rename = "continuationToken",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
@@ -1030,7 +1030,7 @@ pub struct PagedGraphGroups {
     #[serde(
         rename = "graphGroups",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub graph_groups: Vec<GraphGroup>,
@@ -1046,7 +1046,7 @@ pub struct PagedGraphMembers {
     #[serde(
         rename = "continuationToken",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
@@ -1054,7 +1054,7 @@ pub struct PagedGraphMembers {
     #[serde(
         rename = "graphMembers",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub graph_members: Vec<GraphMember>,
@@ -1070,7 +1070,7 @@ pub struct PagedGraphServicePrincipals {
     #[serde(
         rename = "continuationToken",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
@@ -1078,7 +1078,7 @@ pub struct PagedGraphServicePrincipals {
     #[serde(
         rename = "graphServicePrincipals",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub graph_service_principals: Vec<GraphServicePrincipal>,
@@ -1094,7 +1094,7 @@ pub struct PagedGraphUsers {
     #[serde(
         rename = "continuationToken",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
@@ -1102,7 +1102,7 @@ pub struct PagedGraphUsers {
     #[serde(
         rename = "graphUsers",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub graph_users: Vec<GraphUser>,
@@ -1159,7 +1159,7 @@ pub struct ResolveDisconnectedUsersResponse {
     #[serde(
         rename = "mappingResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mapping_results: Vec<MappingResult>,

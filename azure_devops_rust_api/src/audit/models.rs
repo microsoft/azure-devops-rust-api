@@ -47,7 +47,7 @@ pub struct AuditActionInfoList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AuditActionInfo>,
@@ -168,7 +168,7 @@ pub struct AuditLogQueryResult {
     #[serde(
         rename = "decoratedAuditLogEntries",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub decorated_audit_log_entries: Vec<DecoratedAuditLogEntry>,
@@ -265,7 +265,7 @@ pub struct AuditStreamList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AuditStream>,

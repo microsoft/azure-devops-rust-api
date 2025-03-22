@@ -111,10 +111,12 @@ impl ToTokens for SetRequestParamsCode {
 
                     // TODO: more work needs to be done to ensure we're using
                     // the right encoder.
-                    let encoder = if !self.params.has_content_type_header() && self.content_type.starts_with("application/xml") {
+                    let encoder = if !self.params.has_content_type_header()
+                        && self.content_type.starts_with("application/xml")
+                    {
                         quote! {azure_core::xml::to_xml}
                     } else {
-                        quote! { azure_core::to_json }
+                        quote! { azure_core::json::to_json }
                     };
 
                     if !param.is_optional() || is_vec {

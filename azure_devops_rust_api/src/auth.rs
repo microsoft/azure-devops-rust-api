@@ -5,7 +5,7 @@
 //!
 //! For more background information on Azure DevOps authentication see: [Azure DevOps authentication](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance)
 
-use azure_core::auth::TokenCredential;
+use azure_core::credentials::TokenCredential;
 use azure_core::error::{Result, ResultExt};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use std::sync::Arc;

@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.26.0]
+
+This is a significant change due to updating to the first offical releases of
+`azure_core` (0.22) and `azure_identity` (0.22).  These crates have a number of
+breaking changes over previous versions.
+
+## Breaking changes
+- Update `azure_core`, `azure_identity` to 0.22.
+- `ClientBuilder::per_retry_policies()` renamed to `per_try_policies()` to align with
+  `azure_core` API naming.
+- `Response::into_body()` renamed to `Response::into_raw_body()` to align with
+  `azure_core` API naming.
+- Renamed crate features to align with `azure_core`:
+  - `enable_reqwest` => `reqwest`
+  - `enable_reqwest_rustls` => `reqwest_rustls`
+
+- Notes on changes to `azure_core` API:
+  - `Response::into_body()` is renamed `Response::into_raw_body()`
+- Notes on changes to `azure_identity` API:
+  - The credential creation functions now return values wrapped in `Arc<_>`,
+    so you no longer need to do this in your client code.
+    - Example: `DefaultAzureCredential::new()` previously returned
+      `Result<DefaultAzureCredential>` but now returns a
+      `Result<Arc<DefaultAzureCredential>>`.
+
 ## [0.25.0]
 
 ### Breaking change

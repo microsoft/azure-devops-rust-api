@@ -36,7 +36,7 @@ pub struct Comment {
     #[doc = "The mentions of the comment."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mentions: Vec<CommentMention>,
@@ -60,7 +60,7 @@ pub struct Comment {
     #[doc = "The reactions on the comment."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub reactions: Vec<CommentReaction>,
@@ -148,7 +148,7 @@ pub struct CommentList {
     #[doc = "List of comments in the current batch."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<Comment>,
@@ -359,7 +359,7 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub valid_remote_urls: Vec<String>,
@@ -705,7 +705,7 @@ pub struct WikiAttachmentResponse {
     #[serde(
         rename = "eTag",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
@@ -828,7 +828,7 @@ pub struct WikiPage {
     #[serde(
         rename = "subPages",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sub_pages: Vec<WikiPage>,
@@ -866,7 +866,7 @@ pub struct WikiPageDetail {
     #[serde(
         rename = "viewStats",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub view_stats: Vec<WikiPageStat>,
@@ -882,7 +882,7 @@ pub struct WikiPageDetailList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WikiPageDetail>,
@@ -931,7 +931,7 @@ pub struct WikiPageMoveResponse {
     #[serde(
         rename = "eTag",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
@@ -951,7 +951,7 @@ pub struct WikiPageResponse {
     #[serde(
         rename = "eTag",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
@@ -1041,7 +1041,7 @@ pub struct WikiUpdateParameters {
     #[doc = "Versions of the wiki."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<GitVersionDescriptor>,
@@ -1103,7 +1103,7 @@ pub struct WikiV2 {
     #[doc = "Versions of the wiki."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<GitVersionDescriptor>,
@@ -1119,7 +1119,7 @@ pub struct WikiV2List {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WikiV2>,

@@ -48,13 +48,13 @@ impl ClientBuilder {
     #[doc = "Set the retry options."]
     #[must_use]
     pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
-        self.options = self.options.retry(retry);
+        self.options.retry = Some(retry.into());
         self
     }
     #[doc = "Set the transport options."]
     #[must_use]
     pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
-        self.options = self.options.transport(transport);
+        self.options.transport = Some(transport.into());
         self
     }
     #[doc = "Set per-call policies."]
@@ -63,16 +63,16 @@ impl ClientBuilder {
         mut self,
         policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
     ) -> Self {
-        self.options = self.options.per_call_policies(policies);
+        self.options.per_call_policies = policies.into();
         self
     }
-    #[doc = "Set per-retry policies."]
+    #[doc = "Set per-try policies."]
     #[must_use]
-    pub fn per_retry_policies(
+    pub fn per_try_policies(
         mut self,
         policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
     ) -> Self {
-        self.options = self.options.per_retry_policies(policies);
+        self.options.per_try_policies = policies.into();
         self
     }
     #[doc = "Convert the builder into a `Client` instance."]
@@ -202,8 +202,8 @@ pub mod service_settings {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::GlobalPermissionList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::GlobalPermissionList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GlobalPermissionList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -315,7 +315,7 @@ pub mod service_settings {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -328,8 +328,8 @@ pub mod service_settings {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::GlobalPermissionList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::GlobalPermissionList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GlobalPermissionList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -401,7 +401,7 @@ pub mod service_settings {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -432,7 +432,7 @@ pub mod service_settings {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -514,8 +514,8 @@ pub mod change_tracking {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedChangesResponse> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedChangesResponse> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedChangesResponse =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -651,7 +651,7 @@ pub mod change_tracking {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -664,8 +664,8 @@ pub mod change_tracking {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedChange> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedChange> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedChange = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -769,7 +769,7 @@ pub mod change_tracking {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -782,8 +782,8 @@ pub mod change_tracking {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageChangesResponse> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageChangesResponse> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageChangesResponse =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -911,7 +911,7 @@ pub mod change_tracking {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -984,8 +984,8 @@ pub mod feed_recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -1087,7 +1087,7 @@ pub mod feed_recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -1160,7 +1160,7 @@ pub mod feed_recycle_bin {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json-patch+json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -1580,8 +1580,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -1717,7 +1717,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -1730,8 +1730,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Feed> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::Feed> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Feed = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -1803,7 +1803,7 @@ pub mod feed_management {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -1835,7 +1835,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -1848,8 +1848,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Feed> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::Feed> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Feed = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -1965,7 +1965,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -1978,8 +1978,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Feed> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::Feed> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Feed = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2052,7 +2052,7 @@ pub mod feed_management {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -2085,7 +2085,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2205,8 +2205,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedPermissionList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedPermissionList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedPermissionList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2362,7 +2362,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2375,8 +2375,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedPermissionList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedPermissionList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedPermissionList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2450,7 +2450,7 @@ pub mod feed_management {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -2483,7 +2483,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2496,8 +2496,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedViewList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedViewList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedViewList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2601,7 +2601,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2614,8 +2614,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedView> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedView = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2688,7 +2688,7 @@ pub mod feed_management {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -2721,7 +2721,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2734,8 +2734,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedView> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedView = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2841,7 +2841,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -2854,8 +2854,8 @@ pub mod feed_management {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedView> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedView> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedView = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2929,7 +2929,7 @@ pub mod feed_management {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -2963,7 +2963,7 @@ pub mod feed_management {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -3294,8 +3294,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageMetricsList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageMetricsList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageMetricsList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -3369,7 +3369,7 @@ pub mod artifact_details {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -3402,7 +3402,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -3415,8 +3415,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3680,7 +3680,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -3693,8 +3693,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Package> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::Package> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Package = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3868,7 +3868,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -3881,8 +3881,10 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageVersionMetricsList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(
+                self,
+            ) -> azure_core::Result<models::PackageVersionMetricsList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageVersionMetricsList = serde_json::from_slice(&bytes)
                     .map_err(|e| {
                         azure_core::error::Error::full(
@@ -3957,7 +3959,7 @@ pub mod artifact_details {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -3992,7 +3994,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4005,8 +4007,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageVersionList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageVersionList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageVersionList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -4146,7 +4148,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4159,8 +4161,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageVersion> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageVersion> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageVersion = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -4301,7 +4303,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4314,8 +4316,10 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageVersionProvenance> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(
+                self,
+            ) -> azure_core::Result<models::PackageVersionProvenance> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageVersionProvenance = serde_json::from_slice(&bytes)
                     .map_err(|e| {
                         azure_core::error::Error::full(
@@ -4425,7 +4429,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4438,8 +4442,8 @@ pub mod artifact_details {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<String> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: String = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -4545,7 +4549,7 @@ pub mod artifact_details {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4684,8 +4688,8 @@ pub mod recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::PackageList> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::PackageList> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::PackageList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -4856,7 +4860,7 @@ pub mod recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4869,8 +4873,8 @@ pub mod recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::OperationReference> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::OperationReference> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::OperationReference =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -4975,7 +4979,7 @@ pub mod recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -4988,8 +4992,8 @@ pub mod recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Package> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::Package> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Package = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -5106,7 +5110,7 @@ pub mod recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -5119,10 +5123,10 @@ pub mod recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(
+            pub async fn into_raw_body(
                 self,
             ) -> azure_core::Result<models::RecycleBinPackageVersionList> {
-                let bytes = self.0.into_body().collect().await?;
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::RecycleBinPackageVersionList = serde_json::from_slice(&bytes)
                     .map_err(|e| {
                         azure_core::error::Error::full(
@@ -5241,7 +5245,7 @@ pub mod recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -5254,8 +5258,10 @@ pub mod recycle_bin {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::RecycleBinPackageVersion> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(
+                self,
+            ) -> azure_core::Result<models::RecycleBinPackageVersion> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::RecycleBinPackageVersion = serde_json::from_slice(&bytes)
                     .map_err(|e| {
                         azure_core::error::Error::full(
@@ -5376,7 +5382,7 @@ pub mod recycle_bin {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -5459,8 +5465,8 @@ pub mod retention_policies {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedRetentionPolicy =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -5565,7 +5571,7 @@ pub mod retention_policies {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -5578,8 +5584,8 @@ pub mod retention_policies {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::FeedRetentionPolicy> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::FeedRetentionPolicy =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -5653,7 +5659,7 @@ pub mod retention_policies {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -5686,7 +5692,7 @@ pub mod retention_policies {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }
@@ -5838,8 +5844,8 @@ pub mod provenance {
         #[derive(Debug)]
         pub struct Response(azure_core::Response);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::SessionResponse> {
-                let bytes = self.0.into_body().collect().await?;
+            pub async fn into_raw_body(self) -> azure_core::Result<models::SessionResponse> {
+                let bytes = self.0.into_raw_body().collect().await?;
                 let body: models::SessionResponse =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -5913,7 +5919,7 @@ pub mod provenance {
                             req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
                         }
                         req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::to_json(&this.body)?;
+                        let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
@@ -5946,7 +5952,7 @@ pub mod provenance {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_raw_body().await })
             }
         }
     }

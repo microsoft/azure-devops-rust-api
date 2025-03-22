@@ -6,7 +6,9 @@ use crate::codegen::PARAM_RE;
 use crate::Result;
 use crate::{codegen::parse_path_params, identifier::SnakeCaseIdent};
 
-use super::{new_request_code::NewRequestCode, response_code::ResponseCode, set_request_code::SetRequestCode};
+use super::{
+    new_request_code::NewRequestCode, response_code::ResponseCode, set_request_code::SetRequestCode,
+};
 /// The `send` function of the request builder.
 pub struct RequestBuilderSendCode {
     new_request_code: NewRequestCode,
@@ -16,7 +18,11 @@ pub struct RequestBuilderSendCode {
 }
 
 impl RequestBuilderSendCode {
-    pub fn new(new_request_code: NewRequestCode, request_builder: SetRequestCode, response_code: ResponseCode) -> Result<Self> {
+    pub fn new(
+        new_request_code: NewRequestCode,
+        request_builder: SetRequestCode,
+        response_code: ResponseCode,
+    ) -> Result<Self> {
         let params = parse_path_params(&new_request_code.path);
         let url_args: Result<Vec<_>> = params.iter().map(|s| s.to_snake_case_ident()).collect();
         let url_args = url_args?;
@@ -121,12 +127,17 @@ impl ToTokens for RequestBuilderSendCode {
                         req.insert_header(azure_core::headers::VERSION, #api_version);
                     });
                 }
-                let response_type = self.response_code.response_type().expect("pageable response has a body");
+                let response_type = self
+                    .response_code
+                    .response_type()
+                    .expect("pageable response has a body");
 
                 // some of the pageable requests specify the continuation token
                 // as a parameter.  In this case, use the basic request builder,
                 // but insert the continuation parameter
-                if let Some(continuable_param) = get_continuable_param(next_link_name, request_builder) {
+                if let Some(continuable_param) =
+                    get_continuable_param(next_link_name, request_builder)
+                {
                     quote! {
                         pub fn into_stream(self) -> azure_core::Pageable<#response_type, azure_core::error::Error> {
                             let make_request = move |continuation: Option<String>| {
@@ -144,7 +155,7 @@ impl ToTokens for RequestBuilderSendCode {
                                         match rsp.status() {
                                             #match_status
                                         };
-                                    rsp?.into_body().await
+                                    rsp?.into_raw_body().await
                                 }
                             };
 

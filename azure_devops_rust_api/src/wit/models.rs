@@ -18,7 +18,7 @@ pub struct AccountMyWorkResult {
     #[serde(
         rename = "workItemDetails",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_details: Vec<AccountWorkWorkItemModel>,
@@ -69,7 +69,7 @@ pub struct AccountRecentActivityWorkItemModel2List {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AccountRecentActivityWorkItemModel2>,
@@ -249,7 +249,7 @@ pub struct ArtifactUriQuery {
     #[serde(
         rename = "artifactUris",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub artifact_uris: Vec<String>,
@@ -328,7 +328,7 @@ pub struct Comment {
     #[doc = "The mentions of the comment."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mentions: Vec<CommentMention>,
@@ -349,7 +349,7 @@ pub struct Comment {
     #[doc = "The reactions of the comment."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub reactions: Vec<CommentReaction>,
@@ -427,7 +427,7 @@ pub struct CommentList {
     #[doc = "List of comments in the current batch."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<Comment>,
@@ -558,7 +558,7 @@ pub struct CommentReactionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<CommentReaction>,
@@ -667,7 +667,7 @@ pub struct CommentVersionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<CommentVersion>,
@@ -683,7 +683,7 @@ pub struct EmailRecipients {
     #[serde(
         rename = "emailAddresses",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub email_addresses: Vec<String>,
@@ -691,7 +691,7 @@ pub struct EmailRecipients {
     #[serde(
         rename = "tfIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tf_ids: Vec<String>,
@@ -699,7 +699,7 @@ pub struct EmailRecipients {
     #[serde(
         rename = "unresolvedEntityIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub unresolved_entity_ids: Vec<String>,
@@ -736,7 +736,7 @@ pub struct ExternalDeployment {
     #[serde(
         rename = "relatedWorkItemIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub related_work_item_ids: Vec<i32>,
@@ -810,7 +810,7 @@ pub struct FieldDependentRule {
     #[serde(
         rename = "dependentFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependent_fields: Vec<WorkItemFieldReference>,
@@ -899,7 +899,7 @@ pub struct GitHubConnectionReposBatchRequest {
     #[serde(
         rename = "gitHubRepositoryUrls",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub git_hub_repository_urls: Vec<GitHubConnectionRepoModel>,
@@ -1005,7 +1005,7 @@ pub struct IdentityRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<IdentityRef>,
@@ -1208,7 +1208,7 @@ pub struct ProjectWorkItemStateColors {
     #[serde(
         rename = "workItemTypeStateColors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_type_state_colors: Vec<WorkItemTypeStateColors>,
@@ -1225,7 +1225,7 @@ pub struct ProvisioningResult {
     #[serde(
         rename = "provisioningImportEvents",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub provisioning_import_events: Vec<String>,
@@ -1251,7 +1251,7 @@ pub struct QueryBatchGetRequest {
     #[doc = "The requested query ids"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<String>,
@@ -1294,7 +1294,7 @@ pub struct QueryHierarchyItem {
     #[doc = "The child query items inside a query folder."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<QueryHierarchyItem>,
@@ -1304,7 +1304,7 @@ pub struct QueryHierarchyItem {
     #[doc = "The columns of the query."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<WorkItemFieldReference>,
@@ -1406,7 +1406,7 @@ pub struct QueryHierarchyItem {
     #[serde(
         rename = "sortColumns",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sort_columns: Vec<WorkItemQuerySortColumn>,
@@ -1505,7 +1505,7 @@ pub struct QueryHierarchyItemList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<QueryHierarchyItem>,
@@ -1526,7 +1526,7 @@ pub struct QueryHierarchyItemsResult {
     #[doc = "The list of items"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<QueryHierarchyItem>,
@@ -1574,7 +1574,7 @@ pub struct ReportingWorkItemRevisionsFilter {
     #[doc = "A list of fields to return in work item revisions. Omit this parameter to get all reportable fields."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<String>,
@@ -1609,7 +1609,7 @@ pub struct ReportingWorkItemRevisionsFilter {
     #[doc = "A list of types to filter the results to specific work item types. Omit this parameter to get work item revisions of all work item types."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub types: Vec<String>,
@@ -1623,13 +1623,13 @@ impl ReportingWorkItemRevisionsFilter {
 pub struct SendMailBody {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
@@ -1646,7 +1646,7 @@ pub struct SendMailBody {
     #[serde(
         rename = "sortFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sort_fields: Vec<String>,
@@ -1687,7 +1687,7 @@ pub struct StreamedBatch {
     #[doc = "Values such as rel, sourceId, TargetId, ChangedDate, isActive."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
@@ -1824,7 +1824,7 @@ pub struct WorkArtifactLinkList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkArtifactLink>,
@@ -1853,7 +1853,7 @@ pub struct WorkItem {
     #[doc = "Relations of the work item."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub relations: Vec<WorkItemRelation>,
@@ -1901,14 +1901,14 @@ pub struct WorkItemBatchGetRequest {
     #[doc = "The requested fields"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<String>,
     #[doc = "The requested work item ids"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
@@ -1954,7 +1954,7 @@ pub struct WorkItemClassificationNode {
     #[doc = "List of child nodes fetched."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<WorkItemClassificationNode>,
@@ -2017,7 +2017,7 @@ pub struct WorkItemClassificationNodeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemClassificationNode>,
@@ -2128,7 +2128,7 @@ pub struct WorkItemComments {
     #[doc = "Comments collection."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<WorkItemComment>,
@@ -2181,7 +2181,7 @@ pub struct WorkItemDeleteBatch {
     #[doc = "List of results for each work item"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<WorkItemDelete>,
@@ -2200,7 +2200,7 @@ pub struct WorkItemDeleteBatchRequest {
     #[doc = "The requested work item ids"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
@@ -2263,7 +2263,7 @@ pub struct WorkItemDeleteReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemDeleteReference>,
@@ -2294,7 +2294,7 @@ pub struct WorkItemDeleteShallowReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemDeleteShallowReference>,
@@ -2382,7 +2382,7 @@ pub struct WorkItemField {
     #[serde(
         rename = "supportedOperations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_operations: Vec<WorkItemFieldOperation>,
@@ -2486,7 +2486,7 @@ pub struct WorkItemField2List {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemField2>,
@@ -2503,7 +2503,7 @@ pub struct WorkItemFieldAllowedValues {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<String>,
@@ -2622,7 +2622,7 @@ pub struct WorkItemIconList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemIcon>,
@@ -2656,7 +2656,7 @@ pub struct WorkItemList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItem>,
@@ -2697,7 +2697,7 @@ pub struct WorkItemNextStateOnTransitionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemNextStateOnTransition>,
@@ -2713,7 +2713,7 @@ pub struct WorkItemQueryClause {
     #[doc = "Child clauses if the current clause is a logical operator"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub clauses: Vec<WorkItemQueryClause>,
@@ -2780,7 +2780,7 @@ pub struct WorkItemQueryResult {
     #[doc = "The columns of the query."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<WorkItemFieldReference>,
@@ -2798,7 +2798,7 @@ pub struct WorkItemQueryResult {
     #[serde(
         rename = "sortColumns",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sort_columns: Vec<WorkItemQuerySortColumn>,
@@ -2806,7 +2806,7 @@ pub struct WorkItemQueryResult {
     #[serde(
         rename = "workItemRelations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_relations: Vec<WorkItemLink>,
@@ -2814,7 +2814,7 @@ pub struct WorkItemQueryResult {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<WorkItemReference>,
@@ -2908,7 +2908,7 @@ pub struct WorkItemRelationTypeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemRelationType>,
@@ -2924,21 +2924,21 @@ pub struct WorkItemRelationUpdates {
     #[doc = "List of newly added relations."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub added: Vec<WorkItemRelation>,
     #[doc = "List of removed relations."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub removed: Vec<WorkItemRelation>,
     #[doc = "List of updated relations."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub updated: Vec<WorkItemRelation>,
@@ -2972,7 +2972,7 @@ pub struct WorkItemStateColorList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemStateColor>,
@@ -2988,7 +2988,7 @@ pub struct WorkItemStateTransition {
     #[doc = "Gets a list of actions needed to transition to that state."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub actions: Vec<String>,
@@ -3028,7 +3028,7 @@ pub struct WorkItemTagDefinitionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemTagDefinition>,
@@ -3094,7 +3094,7 @@ pub struct WorkItemTemplateReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemTemplateReference>,
@@ -3170,14 +3170,14 @@ pub struct WorkItemType {
     #[serde(
         rename = "fieldInstances",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub field_instances: Vec<WorkItemTypeFieldInstance>,
     #[doc = "The fields that exist on the work item type."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<WorkItemTypeFieldInstance>,
@@ -3204,7 +3204,7 @@ pub struct WorkItemType {
     #[doc = "Gets state information for the work item type."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub states: Vec<WorkItemStateColor>,
@@ -3259,7 +3259,7 @@ pub struct WorkItemTypeCategory {
     #[serde(
         rename = "workItemTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_types: Vec<WorkItemTypeReference>,
@@ -3281,7 +3281,7 @@ pub struct WorkItemTypeCategoryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemTypeCategory>,
@@ -3359,7 +3359,7 @@ pub struct WorkItemTypeFieldInstance {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<String>,
@@ -3392,7 +3392,7 @@ pub struct WorkItemTypeFieldInstanceBase {
     #[serde(
         rename = "dependentFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependent_fields: Vec<WorkItemFieldReference>,
@@ -3414,7 +3414,7 @@ pub struct WorkItemTypeFieldWithReferences {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<serde_json::Value>,
@@ -3437,7 +3437,7 @@ pub struct WorkItemTypeFieldWithReferencesList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemTypeFieldWithReferences>,
@@ -3453,7 +3453,7 @@ pub struct WorkItemTypeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemType>,
@@ -3487,7 +3487,7 @@ pub struct WorkItemTypeStateColors {
     #[serde(
         rename = "stateColors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub state_colors: Vec<WorkItemStateColor>,
@@ -3619,7 +3619,7 @@ pub struct WorkItemUpdateList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemUpdate>,

@@ -71,7 +71,7 @@ pub struct PermissionsReportList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PermissionsReport>,
@@ -87,7 +87,7 @@ pub struct PermissionsReportRequest {
     #[doc = "List of groups and users to fetch permissions on.  An empty list will fetch all groups and users in the organization"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub descriptors: Vec<String>,
@@ -101,7 +101,7 @@ pub struct PermissionsReportRequest {
     #[doc = "List of resources to fetch permisions on"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub resources: Vec<PermissionsReportResource>,

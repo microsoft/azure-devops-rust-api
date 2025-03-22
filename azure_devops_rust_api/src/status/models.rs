@@ -11,7 +11,7 @@ pub struct EnterpriseStatus {
     pub status: Status,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub organizations: Vec<OrganizationHealth>,
@@ -74,7 +74,7 @@ pub struct LiveSiteEvent {
     pub id: Option<i64>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub impact: Vec<LiveSiteEventImpact>,
@@ -88,7 +88,7 @@ pub struct LiveSiteEvent {
     pub is_deleted: Option<bool>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub logs: Vec<LiveSiteEventLog>,
@@ -313,7 +313,7 @@ pub struct LiveSiteEventTemplateData {
     pub intermediate_description: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub templates: Vec<LiveSiteEventTemplate>,
@@ -332,13 +332,13 @@ pub struct MicroService {
     #[serde(
         rename = "scaleUnits",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub scale_units: Vec<MicroServiceScaleUnit>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<Service>,
@@ -374,7 +374,7 @@ pub struct OrganizationHealth {
     pub name: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<ServiceWithHealth>,
@@ -418,7 +418,7 @@ pub mod service {
 pub struct ServiceHealth {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub geographies: Vec<GeographyWithHealth>,
@@ -438,7 +438,7 @@ pub struct ServiceStatus {
     pub status: Status,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub services: Vec<ServiceHealth>,
@@ -504,7 +504,7 @@ pub struct StatusImpact {
     #[serde(
         rename = "liveSiteEvents",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub live_site_events: Vec<LiveSiteEvent>,

@@ -57,7 +57,7 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "hiddenBacklogs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub hidden_backlogs: Vec<String>,
@@ -72,7 +72,7 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "portfolioBacklogs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub portfolio_backlogs: Vec<BacklogLevelConfiguration>,
@@ -94,7 +94,7 @@ pub struct BacklogConfiguration {
     #[serde(
         rename = "workItemTypeMappedStates",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_type_mapped_states: Vec<WorkItemTypeStateInfo>,
@@ -153,7 +153,7 @@ pub struct BacklogLevel {
     #[serde(
         rename = "workItemStates",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_states: Vec<String>,
@@ -161,7 +161,7 @@ pub struct BacklogLevel {
     #[serde(
         rename = "workItemTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_types: Vec<String>,
@@ -177,7 +177,7 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "addPanelFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub add_panel_fields: Vec<WorkItemFieldReference>,
@@ -188,7 +188,7 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "columnFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub column_fields: Vec<BacklogColumn>,
@@ -225,7 +225,7 @@ pub struct BacklogLevelConfiguration {
     #[serde(
         rename = "workItemTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_types: Vec<WorkItemTypeReference>,
@@ -254,7 +254,7 @@ pub struct BacklogLevelConfigurationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BacklogLevelConfiguration>,
@@ -271,7 +271,7 @@ pub struct BacklogLevelWorkItems {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<WorkItemLink>,
@@ -298,7 +298,7 @@ pub struct Board {
     pub can_edit: Option<bool>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<BoardColumn>,
@@ -310,7 +310,7 @@ pub struct Board {
     pub revision: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub rows: Vec<BoardRow>,
@@ -396,7 +396,7 @@ pub struct BoardChartReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BoardChartReference>,
@@ -454,7 +454,7 @@ pub struct BoardColumnList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BoardColumn>,
@@ -508,7 +508,7 @@ pub struct BoardReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BoardReference>,
@@ -538,7 +538,7 @@ pub struct BoardRowList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BoardRow>,
@@ -564,7 +564,7 @@ pub struct BoardSuggestedValueList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BoardSuggestedValue>,
@@ -595,7 +595,7 @@ pub struct CapacityContractBase {
     #[doc = "Collection of capacities associated with the team member"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub activities: Vec<Activity>,
@@ -603,7 +603,7 @@ pub struct CapacityContractBase {
     #[serde(
         rename = "daysOff",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub days_off: Vec<DateRange>,
@@ -618,14 +618,14 @@ impl CapacityContractBase {
 pub struct CapacityPatch {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub activities: Vec<Activity>,
     #[serde(
         rename = "daysOff",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub days_off: Vec<DateRange>,
@@ -642,7 +642,7 @@ pub struct CardFieldSettings {
     #[serde(
         rename = "additionalFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub additional_fields: Vec<FieldInfo>,
@@ -657,7 +657,7 @@ pub struct CardFieldSettings {
     #[serde(
         rename = "coreFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub core_fields: Vec<FieldInfo>,
@@ -746,7 +746,7 @@ pub struct CategoryConfiguration {
     #[serde(
         rename = "workItemTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_types: Vec<WorkItemTypeReference>,
@@ -844,7 +844,7 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "parentItemMaps",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parent_item_maps: Vec<ParentChildWiMap>,
@@ -859,7 +859,7 @@ pub struct DeliveryViewData {
     #[doc = "All the team data"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub teams: Vec<TimelineTeamData>,
@@ -867,7 +867,7 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "workItemDependencies",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_dependencies: Vec<i32>,
@@ -875,7 +875,7 @@ pub struct DeliveryViewData {
     #[serde(
         rename = "workItemViolations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_violations: Vec<i32>,
@@ -898,14 +898,14 @@ pub struct DeliveryViewPropertyCollection {
     #[doc = "Field criteria"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub criteria: Vec<FilterClause>,
     #[doc = "Markers. Will be missing/null if there are no markers."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub markers: Vec<Marker>,
@@ -913,7 +913,7 @@ pub struct DeliveryViewPropertyCollection {
     #[serde(
         rename = "styleSettings",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub style_settings: Vec<Rule>,
@@ -921,7 +921,7 @@ pub struct DeliveryViewPropertyCollection {
     #[serde(
         rename = "tagStyleSettings",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tag_style_settings: Vec<Rule>,
@@ -929,7 +929,7 @@ pub struct DeliveryViewPropertyCollection {
     #[serde(
         rename = "teamBacklogMappings",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub team_backlog_mappings: Vec<TeamBacklogMapping>,
@@ -1159,7 +1159,7 @@ impl IdentityRef {
 pub struct IterationCapacity {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub teams: Vec<TeamCapacityTotals>,
@@ -1190,7 +1190,7 @@ pub struct IterationWorkItems {
     #[serde(
         rename = "workItemRelations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_relations: Vec<WorkItemLink>,
@@ -1271,7 +1271,7 @@ pub struct ParentChildWiMap {
     #[serde(
         rename = "childWorkItemIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub child_work_item_ids: Vec<i32>,
@@ -1297,7 +1297,7 @@ pub struct ParentChildWiMapList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ParentChildWiMap>,
@@ -1411,7 +1411,7 @@ pub struct PlanList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Plan>,
@@ -1501,7 +1501,7 @@ pub struct PredefinedQuery {
     #[doc = "The results of the query.  This will be a set of WorkItem objects with only the 'id' set.  The client is responsible for paging in the data as needed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<WorkItem>,
@@ -1531,7 +1531,7 @@ pub struct ProcessConfiguration {
     #[serde(
         rename = "portfolioBacklogs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub portfolio_backlogs: Vec<CategoryConfiguration>,
@@ -1582,7 +1582,7 @@ pub struct ReorderOperation {
     #[doc = "IDs of the work items to be reordered.  Must be valid WorkItem Ids."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<i32>,
@@ -1633,7 +1633,7 @@ pub struct ReorderResultList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ReorderResult>,
@@ -1647,7 +1647,7 @@ impl ReorderResultList {
 pub struct Rule {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub clauses: Vec<FilterClause>,
@@ -1674,7 +1674,7 @@ pub struct TaskboardColumn {
     #[doc = "Work item type states mapped to this column to support auto state update when column is updated."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<ITaskboardColumnMapping>,
@@ -1713,7 +1713,7 @@ impl TaskboardColumnMapping {
 pub struct TaskboardColumns {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub columns: Vec<TaskboardColumn>,
@@ -1771,7 +1771,7 @@ pub struct TaskboardWorkItemColumnList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TaskboardWorkItemColumn>,
@@ -1804,7 +1804,7 @@ pub struct TeamCapacity {
     #[serde(
         rename = "teamMembers",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub team_members: Vec<TeamMemberCapacityIdentityRef>,
@@ -1905,7 +1905,7 @@ pub struct TeamFieldValues {
     #[doc = "Collection of all valid team field values"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<TeamFieldValue>,
@@ -1926,7 +1926,7 @@ pub struct TeamFieldValuesPatch {
     pub default_value: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<TeamFieldValue>,
@@ -2016,7 +2016,7 @@ pub struct TeamMemberCapacityIdentityRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TeamMemberCapacityIdentityRef>,
@@ -2070,7 +2070,7 @@ pub struct TeamSetting {
     #[serde(
         rename = "workingDays",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub working_days: Vec<serde_json::Value>,
@@ -2115,7 +2115,7 @@ pub struct TeamSettingsDaysOff {
     #[serde(
         rename = "daysOff",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub days_off: Vec<DateRange>,
@@ -2130,7 +2130,7 @@ pub struct TeamSettingsDaysOffPatch {
     #[serde(
         rename = "daysOff",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub days_off: Vec<DateRange>,
@@ -2168,7 +2168,7 @@ pub struct TeamSettingsIterationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TeamSettingsIteration>,
@@ -2214,7 +2214,7 @@ pub struct TeamSettingsPatch {
     #[serde(
         rename = "workingDays",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub working_days: Vec<serde_json::Value>,
@@ -2291,7 +2291,7 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "fieldReferenceNames",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub field_reference_names: Vec<String>,
@@ -2308,7 +2308,7 @@ pub struct TimelineTeamData {
     #[doc = "The iteration data, including the work items, in the queried date range."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub iterations: Vec<TimelineTeamIteration>,
@@ -2326,14 +2326,14 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "partiallyPagedFieldReferenceNames",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub partially_paged_field_reference_names: Vec<String>,
     #[serde(
         rename = "partiallyPagedWorkItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub partially_paged_work_items: Vec<Vec<serde_json::Value>>,
@@ -2344,7 +2344,7 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "rollupWorkItemTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub rollup_work_item_types: Vec<String>,
@@ -2368,7 +2368,7 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "teamFieldValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub team_field_values: Vec<TeamFieldValue>,
@@ -2376,7 +2376,7 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<Vec<serde_json::Value>>,
@@ -2384,7 +2384,7 @@ pub struct TimelineTeamData {
     #[serde(
         rename = "workItemTypeColors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_type_colors: Vec<WorkItemColor>,
@@ -2414,7 +2414,7 @@ pub struct TimelineTeamIteration {
     #[serde(
         rename = "partiallyPagedWorkItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub partially_paged_work_items: Vec<Vec<serde_json::Value>>,
@@ -2435,7 +2435,7 @@ pub struct TimelineTeamIteration {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<Vec<serde_json::Value>>,
@@ -2517,7 +2517,7 @@ pub struct UpdateTaskboardColumn {
     #[doc = "Work item type states mapped to this column to support auto state update when column is updated."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<TaskboardColumnMapping>,
@@ -2589,7 +2589,7 @@ pub struct WorkItem {
     #[doc = "Relations of the work item."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub relations: Vec<WorkItemRelation>,
