@@ -5,25 +5,12 @@ use anyhow::Result;
 use async_trait::async_trait;
 use azure_core::{Context, Policy, PolicyResult, Request};
 use azure_devops_rust_api::Credential;
-use azure_identity::DefaultAzureCredentialBuilder;
+use azure_identity::DefaultAzureCredential;
 use std::sync::Arc;
 
 fn authenticate_with_default_credential() -> Result<Credential> {
     println!("Authenticate using auto-refreshing DefaultAzureCredential");
-    // `DefaultAzureCredential` can authenticate using one of:
-    // - `EnvironmentCredential`
-    // - `ManagedIdentityCredential`
-    // - `AzureCliCredential`
-    // For examples we just want to use AzureCliCredential, so exclude the
-    // other mechanisms.
-    // It would be simpler to directly create `AzureCliCredential` here, but I want to
-    // demonstrate use of `DefaultAzureCredentialBuilder`.
-    let default_azure_credential = Arc::new(
-        DefaultAzureCredentialBuilder::new()
-            .exclude_environment_credential()
-            .exclude_managed_identity_credential()
-            .build()?,
-    );
+    let default_azure_credential = DefaultAzureCredential::new()?;
 
     Ok(Credential::from_token_credential(default_azure_credential))
 }

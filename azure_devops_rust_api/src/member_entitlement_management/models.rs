@@ -174,7 +174,7 @@ pub struct BaseOperationResult {
     #[doc = "List of error codes paired with their corresponding error messages"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub errors: Vec<serde_json::Value>,
@@ -208,7 +208,7 @@ pub struct EntitlementBase {
     #[serde(
         rename = "groupAssignments",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub group_assignments: Vec<GroupEntitlement>,
@@ -227,7 +227,7 @@ pub struct EntitlementBase {
     #[serde(
         rename = "projectEntitlements",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub project_entitlements: Vec<ProjectEntitlement>,
@@ -242,7 +242,7 @@ pub struct EntitlementOperationResultBase {
     #[doc = "List of error codes paired with their corresponding error messages."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub errors: Vec<serde_json::Value>,
@@ -575,7 +575,7 @@ pub struct GroupEntitlement {
     #[doc = "Group members. Only used when creating a new group."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub members: Vec<UserEntitlement>,
@@ -583,7 +583,7 @@ pub struct GroupEntitlement {
     #[serde(
         rename = "projectEntitlements",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub project_entitlements: Vec<ProjectEntitlement>,
@@ -617,7 +617,7 @@ pub struct GroupEntitlementList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GroupEntitlement>,
@@ -644,7 +644,7 @@ pub struct GroupEntitlementOperationReference {
     #[doc = "List of results for each operation."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<GroupOperationResult>,
@@ -895,7 +895,7 @@ pub struct MemberEntitlement2OperationReference {
     #[doc = "List of results for each operation."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<MemberEntitlement2OperationResult>,
@@ -926,7 +926,7 @@ pub struct MemberEntitlement2PatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub operation_results: Vec<MemberEntitlement2OperationResult>,
@@ -987,7 +987,7 @@ pub struct MemberEntitlementOperationReference {
     #[doc = "List of results for each operation"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<OperationResult>,
@@ -1005,7 +1005,7 @@ pub struct MemberEntitlementsPatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub operation_results: Vec<OperationResult>,
@@ -1094,7 +1094,7 @@ pub struct OperationResult {
     #[doc = "List of error codes paired with their corresponding error messages."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub errors: Vec<serde_json::Value>,
@@ -1124,13 +1124,13 @@ pub struct PagedGraphMemberList {
     pub continuation_token: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<UserEntitlement>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub members: Vec<UserEntitlement>,
@@ -1159,7 +1159,7 @@ pub struct PagedUserEntitlementsList {
     #[doc = "The requested user entitlement items."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<UserEntitlement>,
@@ -1207,7 +1207,7 @@ pub struct ProjectEntitlement {
     #[serde(
         rename = "teamRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub team_refs: Vec<TeamRef>,
@@ -1300,7 +1300,7 @@ pub struct ServicePrincipalEntitlementOperationReference {
     #[doc = "List of results for each operation."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<ServicePrincipalEntitlementOperationResult>,
@@ -1334,7 +1334,7 @@ pub struct ServicePrincipalEntitlementsPatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub operation_results: Vec<ServicePrincipalEntitlementOperationResult>,
@@ -1445,7 +1445,7 @@ pub struct UserEntitlementOperationReference {
     #[doc = "List of results for each operation."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<UserEntitlementOperationResult>,
@@ -1476,7 +1476,7 @@ pub struct UserEntitlementsPatchResponse {
     #[serde(
         rename = "operationResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub operation_results: Vec<UserEntitlementOperationResult>,
@@ -1527,7 +1527,7 @@ pub struct UsersSummary {
     #[serde(
         rename = "availableAccessLevels",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub available_access_levels: Vec<AccessLevel>,
@@ -1542,14 +1542,14 @@ pub struct UsersSummary {
     #[serde(
         rename = "groupOptions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub group_options: Vec<GroupOption>,
     #[doc = "Summary of Licenses in the organization"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub licenses: Vec<LicenseSummaryData>,
@@ -1557,7 +1557,7 @@ pub struct UsersSummary {
     #[serde(
         rename = "projectRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub project_refs: Vec<ProjectRef>,

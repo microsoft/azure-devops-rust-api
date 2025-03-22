@@ -12,7 +12,7 @@ pub struct AddProcessWorkItemTypeFieldRequest {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<String>,
@@ -111,7 +111,7 @@ pub struct ControlList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Control>,
@@ -156,14 +156,14 @@ pub struct CreateProcessRuleRequest {
     #[doc = "List of actions to take when the rule is triggered."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub actions: Vec<RuleAction>,
     #[doc = "List of conditions when the rule should be triggered."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub conditions: Vec<RuleCondition>,
@@ -294,13 +294,13 @@ pub mod field_model {
 pub struct FieldRuleModel {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub actions: Vec<RuleActionModel>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub conditions: Vec<RuleConditionModel>,
@@ -332,14 +332,14 @@ pub struct FormLayout {
     #[doc = "Gets and sets extensions list."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub extensions: Vec<Extension>,
     #[doc = "Top level tabs of the layout."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pages: Vec<Page>,
@@ -347,7 +347,7 @@ pub struct FormLayout {
     #[serde(
         rename = "systemControls",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub system_controls: Vec<Control>,
@@ -366,7 +366,7 @@ pub struct Group {
     #[doc = "Controls to be put in the group."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub controls: Vec<Control>,
@@ -453,7 +453,7 @@ pub struct Page {
     #[doc = "The sections of the page."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sections: Vec<Section>,
@@ -489,7 +489,7 @@ pub struct PickList {
     #[doc = "A list of PicklistItemModel."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<String>,
@@ -533,7 +533,7 @@ pub struct PickListMetadataList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PickListMetadata>,
@@ -558,7 +558,7 @@ pub struct ProcessBehavior {
     #[doc = "Process Behavior Fields."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<ProcessBehaviorField>,
@@ -653,7 +653,7 @@ pub struct ProcessBehaviorList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ProcessBehavior>,
@@ -729,7 +729,7 @@ pub struct ProcessInfo {
     #[doc = "Projects in this process to which the user is subscribed to."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub projects: Vec<ProjectReference>,
@@ -768,7 +768,7 @@ pub struct ProcessInfoList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ProcessInfo>,
@@ -789,7 +789,7 @@ pub struct ProcessModel {
     #[doc = "Projects in this process"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub projects: Vec<ProjectReference>,
@@ -896,7 +896,7 @@ pub struct ProcessRuleList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ProcessRule>,
@@ -911,7 +911,7 @@ impl ProcessRuleList {
 pub struct ProcessWorkItemType {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub behaviors: Vec<WorkItemTypeBehavior>,
@@ -952,7 +952,7 @@ pub struct ProcessWorkItemType {
     pub reference_name: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub states: Vec<WorkItemStateResultModel>,
@@ -985,7 +985,7 @@ pub struct ProcessWorkItemTypeField {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<serde_json::Value>,
@@ -1091,7 +1091,7 @@ pub struct ProcessWorkItemTypeFieldList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ProcessWorkItemTypeField>,
@@ -1107,7 +1107,7 @@ pub struct ProcessWorkItemTypeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ProcessWorkItemType>,
@@ -1301,7 +1301,7 @@ pub struct Section {
     #[doc = "List of child groups in this section"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub groups: Vec<Group>,
@@ -1359,7 +1359,7 @@ pub struct UpdateProcessWorkItemTypeFieldRequest {
     #[serde(
         rename = "allowedValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_values: Vec<String>,
@@ -1478,7 +1478,7 @@ pub struct WorkItemBehavior {
     pub description: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub fields: Vec<WorkItemBehaviorField>,
@@ -1619,7 +1619,7 @@ pub struct WorkItemStateResultModelList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemStateResultModel>,
@@ -1660,7 +1660,7 @@ pub struct WorkItemTypeBehaviorList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WorkItemTypeBehavior>,
@@ -1674,7 +1674,7 @@ impl WorkItemTypeBehaviorList {
 pub struct WorkItemTypeModel {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub behaviors: Vec<WorkItemTypeBehavior>,
@@ -1704,7 +1704,7 @@ pub struct WorkItemTypeModel {
     pub name: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub states: Vec<WorkItemStateResultModel>,

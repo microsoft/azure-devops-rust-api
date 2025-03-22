@@ -160,7 +160,7 @@ pub struct AzureManagementGroupQueryResult {
     #[doc = "List of azure management groups"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AzureManagementGroup>,
@@ -278,7 +278,7 @@ pub struct AzureSubscriptionQueryResult {
     pub error_message: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<AzureSubscription>,
@@ -334,7 +334,7 @@ pub struct DataSource {
     #[doc = "Gets or sets the authorization headers of the request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub headers: Vec<AuthorizationHeader>,
@@ -434,7 +434,7 @@ pub struct DataSourceBindingBase {
     #[doc = "Gets or sets the authorization headers."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub headers: Vec<AuthorizationHeader>,
@@ -505,7 +505,7 @@ pub struct DataSourceDetails {
     #[doc = "Gets or sets the request headers."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub headers: Vec<AuthorizationHeader>,
@@ -577,7 +577,7 @@ pub struct DependencyData {
     #[doc = "Gets or sets the key-value pair to specify properties and their values."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub map: Vec<serde_json::Value>,
@@ -596,7 +596,7 @@ pub struct DependsOn {
     #[doc = "Gets or sets key-value pair containing other's field value and corresponding url value."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub map: Vec<DependencyBinding>,
@@ -783,7 +783,7 @@ pub struct InputDescriptor {
     #[serde(
         rename = "dependencyInputIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependency_input_ids: Vec<String>,
@@ -988,7 +988,7 @@ pub struct InputValues {
     #[serde(
         rename = "possibleValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub possible_values: Vec<InputValue>,
@@ -1250,7 +1250,7 @@ pub struct RefreshAuthenticationParameters {
     #[doc = "Scope of the token requested. For GitHub marketplace apps, scope contains repository Ids"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub scope: Vec<i32>,
@@ -1349,7 +1349,7 @@ pub struct ServiceEndpoint {
     #[serde(
         rename = "serviceEndpointProjectReferences",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub service_endpoint_project_references: Vec<ServiceEndpointProjectReference>,
@@ -1400,7 +1400,7 @@ pub struct ServiceEndpointAuthenticationScheme {
     #[serde(
         rename = "authorizationHeaders",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub authorization_headers: Vec<AuthorizationHeader>,
@@ -1415,7 +1415,7 @@ pub struct ServiceEndpointAuthenticationScheme {
     #[serde(
         rename = "clientCertificates",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub client_certificates: Vec<ClientCertificate>,
@@ -1423,7 +1423,7 @@ pub struct ServiceEndpointAuthenticationScheme {
     #[serde(
         rename = "dataSourceBindings",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub data_source_bindings: Vec<DataSourceBinding>,
@@ -1438,7 +1438,7 @@ pub struct ServiceEndpointAuthenticationScheme {
     #[serde(
         rename = "inputDescriptors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
@@ -1591,7 +1591,7 @@ pub struct ServiceEndpointExecutionRecordList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ServiceEndpointExecutionRecord>,
@@ -1609,7 +1609,7 @@ pub struct ServiceEndpointExecutionRecordsInput {
     #[serde(
         rename = "endpointIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub endpoint_ids: Vec<String>,
@@ -1625,7 +1625,7 @@ pub struct ServiceEndpointList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ServiceEndpoint>,
@@ -1856,7 +1856,7 @@ pub struct ServiceEndpointType {
     #[serde(
         rename = "authenticationSchemes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub authentication_schemes: Vec<ServiceEndpointAuthenticationScheme>,
@@ -1864,7 +1864,7 @@ pub struct ServiceEndpointType {
     #[serde(
         rename = "dataSources",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub data_sources: Vec<DataSource>,
@@ -1872,7 +1872,7 @@ pub struct ServiceEndpointType {
     #[serde(
         rename = "dependencyData",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependency_data: Vec<DependencyData>,
@@ -1910,7 +1910,7 @@ pub struct ServiceEndpointType {
     #[serde(
         rename = "inputDescriptors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub input_descriptors: Vec<InputDescriptor>,
@@ -1921,7 +1921,7 @@ pub struct ServiceEndpointType {
     #[serde(
         rename = "trustedHosts",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub trusted_hosts: Vec<String>,
@@ -1944,7 +1944,7 @@ pub struct ServiceEndpointTypeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ServiceEndpointType>,

@@ -79,31 +79,31 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             #[doc = "Set the retry options."]
             #[must_use]
             pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
-                self.options = self.options.retry(retry);
+                self.options.retry = Some(retry.into());
                 self
             }
 
             #[doc = "Set the transport options."]
             #[must_use]
             pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
-                self.options = self.options.transport(transport);
+                self.options.transport = Some(transport.into());
                 self
             }
 
             #[doc = "Set per-call policies."]
             #[must_use]
             pub fn per_call_policies(mut self, policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>) -> Self {
-                self.options = self.options.per_call_policies(policies);
+                self.options.per_call_policies = policies.into();
                 self
             }
 
-            #[doc = "Set per-retry policies."]
+            #[doc = "Set per-try policies."]
             #[must_use]
-            pub fn per_retry_policies(
+            pub fn per_try_policies(
                 mut self,
                 policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
             ) -> Self {
-                self.options = self.options.per_retry_policies(policies);
+                self.options.per_try_policies = policies.into();
                 self
             }
 

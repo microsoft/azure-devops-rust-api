@@ -113,16 +113,15 @@ async fn get_wiki_page_etag(
         }
         Err(e) => {
             // If the response is a 404 then we need to create the page
-            if e.as_http_error()
-                .expect("Failed cast to http error")
-                .status()
+            if e.http_status()
+                .expect("Failed to retrieve HTTP status")
                 .canonical_reason()
                 == "Not Found"
             {
                 println!("Wiki page does not exist");
                 None
             } else {
-                panic!("Failed to retrieve etag: {}", e)
+                panic!("Failed to retrieve etag")
             }
         }
     }

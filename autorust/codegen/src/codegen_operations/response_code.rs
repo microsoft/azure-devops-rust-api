@@ -115,8 +115,8 @@ impl ToTokens for ResponseCode {
                 }
             };
             let into_body = quote! {
-                pub async fn into_body(self) -> azure_core::Result<#response_type> {
-                    let bytes = self.0.into_body().collect().await?;
+                pub async fn into_raw_body(self) -> azure_core::Result<#response_type> {
+                    let bytes = self.0.into_raw_body().collect().await?;
                     #deserialize_body
                     Ok(body)
                 }

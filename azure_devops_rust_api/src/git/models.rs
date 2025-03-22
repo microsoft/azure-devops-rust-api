@@ -242,7 +242,7 @@ pub struct AttachmentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Attachment>,
@@ -447,7 +447,7 @@ pub struct ChangeList {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<Change>,
@@ -468,7 +468,7 @@ pub struct ChangeList {
     pub creation_date: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub notes: Vec<CheckinNote>,
@@ -538,7 +538,7 @@ pub struct ChangeListSearchCriteria {
     #[serde(
         rename = "itemPaths",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub item_paths: Vec<String>,
@@ -641,7 +641,7 @@ pub struct Comment {
     #[serde(
         rename = "usersLiked",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub users_liked: Vec<IdentityRef>,
@@ -695,7 +695,7 @@ pub struct CommentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Comment>,
@@ -728,7 +728,7 @@ pub struct CommentThread {
     #[doc = "A list of the comments."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub comments: Vec<Comment>,
@@ -947,7 +947,7 @@ pub struct FileDiff {
     #[serde(
         rename = "lineDiffBlocks",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub line_diff_blocks: Vec<LineDiffBlock>,
@@ -1000,7 +1000,7 @@ pub struct FileDiffsCriteria {
     #[serde(
         rename = "fileDiffParams",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub file_diff_params: Vec<FileDiffParams>,
@@ -1188,7 +1188,7 @@ pub struct GitAsyncRefOperationSource {
     #[serde(
         rename = "commitList",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commit_list: Vec<GitCommitRef>,
@@ -1320,7 +1320,7 @@ pub struct GitBranchStatsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitBranchStats>,
@@ -1400,7 +1400,7 @@ pub struct GitCommitChanges {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
@@ -1444,7 +1444,7 @@ pub struct GitCommitDiffs {
     pub change_counts: Option<serde_json::Value>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
@@ -1484,7 +1484,7 @@ pub struct GitCommitRef {
     #[doc = "An enumeration of the changes included with the commit."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<GitChange>,
@@ -1514,7 +1514,7 @@ pub struct GitCommitRef {
     #[doc = "An enumeration of the parent commit IDs for this commit."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
@@ -1526,7 +1526,7 @@ pub struct GitCommitRef {
     #[doc = "A list of status metadata from services and extensions that may associate additional information to the commit."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub statuses: Vec<GitStatus>,
@@ -1537,7 +1537,7 @@ pub struct GitCommitRef {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<ResourceRef>,
@@ -1553,7 +1553,7 @@ pub struct GitCommitRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitCommitRef>,
@@ -1572,7 +1572,7 @@ pub struct GitCommitToCreate {
     #[serde(
         rename = "pathActions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub path_actions: Vec<GitPathAction>,
@@ -2201,7 +2201,7 @@ pub struct GitDeletedRepositoryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitDeletedRepository>,
@@ -2217,7 +2217,7 @@ pub struct GitFilePathsCollection {
     pub commit_id: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub paths: Vec<String>,
@@ -2236,7 +2236,7 @@ pub struct GitForkOperationStatusDetail {
     #[serde(
         rename = "allSteps",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub all_steps: Vec<String>,
@@ -2303,7 +2303,7 @@ pub struct GitForkSyncRequest {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
@@ -2337,7 +2337,7 @@ pub struct GitForkSyncRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitForkSyncRequest>,
@@ -2357,7 +2357,7 @@ pub struct GitForkSyncRequestParameters {
     #[serde(
         rename = "sourceToTargetRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub source_to_target_refs: Vec<SourceToTargetRef>,
@@ -2474,7 +2474,7 @@ pub struct GitImportRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitImportRequest>,
@@ -2524,7 +2524,7 @@ pub struct GitImportStatusDetail {
     #[serde(
         rename = "allSteps",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub all_steps: Vec<String>,
@@ -2730,7 +2730,7 @@ pub struct GitItemList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitItem>,
@@ -2760,7 +2760,7 @@ pub struct GitItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub item_descriptors: Vec<GitItemDescriptor>,
@@ -2784,7 +2784,7 @@ pub struct GitItemsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitItems>,
@@ -2813,14 +2813,14 @@ pub struct GitLastChangeTreeItems {
     #[doc = "The list of commits referenced by Items, if they were requested."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[doc = "The last change of items."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<GitLastChangeItem>,
@@ -2939,7 +2939,7 @@ pub struct GitMergeParameters {
     #[doc = "An enumeration of the parent commit IDs for the merge  commit."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parents: Vec<String>,
@@ -3059,7 +3059,7 @@ pub struct GitPolicyConfigurationResponse {
     #[serde(
         rename = "policyConfigurations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub policy_configurations: Vec<PolicyConfiguration>,
@@ -3108,7 +3108,7 @@ pub struct GitPullRequest {
     #[doc = "The commits contained in the pull request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
@@ -3155,7 +3155,7 @@ pub struct GitPullRequest {
     #[doc = "The labels associated with the pull request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub labels: Vec<WebApiTagDefinition>,
@@ -3221,7 +3221,7 @@ pub struct GitPullRequest {
     #[doc = "A list of reviewers on the pull request along with the state of their votes."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityRefWithVote>,
@@ -3249,7 +3249,7 @@ pub struct GitPullRequest {
     #[serde(
         rename = "workItemRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_refs: Vec<ResourceRef>,
@@ -3425,7 +3425,7 @@ pub struct GitPullRequestCommentThreadList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestCommentThread>,
@@ -3442,7 +3442,7 @@ pub struct GitPullRequestCompletionOptions {
     #[serde(
         rename = "autoCompleteIgnoreConfigIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub auto_complete_ignore_config_ids: Vec<i32>,
@@ -3535,7 +3535,7 @@ pub struct GitPullRequestCreateOptions {
     #[doc = "The labels associated with the pull request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub labels: Vec<WebApiCreateTagRequestData>,
@@ -3565,14 +3565,14 @@ pub struct GitPullRequestCreateOptions {
     #[serde(
         rename = "workItemRefs",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_refs: Vec<ResourceRef>,
     #[doc = "A list of reviewers on the pull request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityId>,
@@ -3605,14 +3605,14 @@ pub struct GitPullRequestIteration {
     #[serde(
         rename = "changeList",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub change_list: Vec<GitPullRequestChange>,
     #[doc = "The commits included with the pull request iteration."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
@@ -3719,7 +3719,7 @@ pub struct GitPullRequestIterationChanges {
     #[serde(
         rename = "changeEntries",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub change_entries: Vec<GitPullRequestChange>,
@@ -3741,7 +3741,7 @@ pub struct GitPullRequestIterationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestIteration>,
@@ -3757,7 +3757,7 @@ pub struct GitPullRequestList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequest>,
@@ -3802,14 +3802,14 @@ pub struct GitPullRequestQuery {
     #[doc = "The queries to perform."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub queries: Vec<GitPullRequestQueryInput>,
     #[doc = "The results of the queries. This matches the QueryInputs list so Results\\[n\\] are the results of QueryInputs\\[n\\]. Each entry in the list is a dictionary of commit->pull requests."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<serde_json::Value>,
@@ -3825,7 +3825,7 @@ pub struct GitPullRequestQueryInput {
     #[doc = "The list of commit IDs to search for."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<String>,
@@ -4000,7 +4000,7 @@ pub struct GitPullRequestStatusList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPullRequestStatus>,
@@ -4022,7 +4022,7 @@ pub struct GitPullRequestUpdateOptions {
     #[doc = "A list of reviewers on the pull request."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub reviewers: Vec<IdentityId>,
@@ -4054,14 +4054,14 @@ pub struct GitPush {
     pub git_push_ref: GitPushRef,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommitRef>,
     #[serde(
         rename = "refUpdates",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_updates: Vec<GitRefUpdate>,
@@ -4083,7 +4083,7 @@ pub struct GitPushEventData {
     pub branch: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commits: Vec<GitCommit>,
@@ -4101,7 +4101,7 @@ pub struct GitPushList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitPush>,
@@ -4184,7 +4184,7 @@ pub struct GitQueryBranchStatsCriteria {
     #[serde(
         rename = "targetCommits",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub target_commits: Vec<GitVersionDescriptor>,
@@ -4238,7 +4238,7 @@ pub struct GitQueryCommitsCriteria {
     #[doc = "If provided, specifies the exact commit ids of the commits to fetch. May not be combined with other parameters."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ids: Vec<String>,
@@ -4326,7 +4326,7 @@ pub struct GitQueryRefsCriteria {
     #[serde(
         rename = "commitIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub commit_ids: Vec<String>,
@@ -4334,7 +4334,7 @@ pub struct GitQueryRefsCriteria {
     #[serde(
         rename = "refNames",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_names: Vec<String>,
@@ -4401,7 +4401,7 @@ pub struct GitRef {
     pub peeled_object_id: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub statuses: Vec<GitStatus>,
@@ -4472,7 +4472,7 @@ pub struct GitRefFavoriteList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRefFavorite>,
@@ -4488,7 +4488,7 @@ pub struct GitRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRef>,
@@ -4632,7 +4632,7 @@ pub struct GitRefUpdateResultList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRefUpdateResult>,
@@ -4691,7 +4691,7 @@ pub struct GitRepository {
     #[serde(
         rename = "validRemoteUrls",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub valid_remote_urls: Vec<String>,
@@ -4744,7 +4744,7 @@ pub struct GitRepositoryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRepository>,
@@ -4787,7 +4787,7 @@ pub struct GitRepositoryRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitRepositoryRef>,
@@ -4854,7 +4854,7 @@ pub struct GitResolutionMergeContent {
     #[serde(
         rename = "userMergedContent",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub user_merged_content: Vec<String>,
@@ -5061,7 +5061,7 @@ pub struct GitStatusList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitStatus>,
@@ -5092,7 +5092,7 @@ pub struct GitSuggestionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GitSuggestion>,
@@ -5183,7 +5183,7 @@ pub struct GitTreeDiff {
     #[serde(
         rename = "diffEntries",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub diff_entries: Vec<GitTreeDiffEntry>,
@@ -5305,7 +5305,7 @@ pub struct GitTreeDiffResponse {
     #[serde(
         rename = "continuationToken",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub continuation_token: Vec<String>,
@@ -5389,7 +5389,7 @@ pub struct GitTreeRef {
     #[serde(
         rename = "treeEntries",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tree_entries: Vec<GitTreeEntryRef>,
@@ -5676,7 +5676,7 @@ pub struct IdentityRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<IdentityRef>,
@@ -5729,7 +5729,7 @@ pub struct IdentityRefWithVote {
     #[serde(
         rename = "votedFor",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub voted_for: Vec<IdentityRefWithVote>,
@@ -5754,7 +5754,7 @@ pub struct IdentityRefWithVoteList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<IdentityRefWithVote>,
@@ -5800,7 +5800,7 @@ pub struct IncludedGitCommit {
     #[serde(
         rename = "parentCommitIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub parent_commit_ids: Vec<String>,
@@ -6108,7 +6108,7 @@ pub struct PolicyConfigurationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PolicyConfiguration>,
@@ -6180,14 +6180,14 @@ pub struct PropertiesCollection {
     #[doc = "The set of keys in the collection."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
@@ -6318,7 +6318,7 @@ pub struct ResourceRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ResourceRef>,
@@ -6381,7 +6381,7 @@ pub struct ShareNotificationContext {
     #[doc = "Identities of users who will receive a share notification."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub receivers: Vec<IdentityRef>,
@@ -6465,7 +6465,7 @@ pub struct SupportedIde {
     #[serde(
         rename = "supportedPlatforms",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_platforms: Vec<String>,
@@ -6631,14 +6631,14 @@ pub struct TfvcBranch {
     #[doc = "List of children for the branch."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<TfvcBranch>,
     #[doc = "List of branch mappings."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<TfvcBranchMapping>,
@@ -6649,7 +6649,7 @@ pub struct TfvcBranch {
     #[serde(
         rename = "relatedBranches",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub related_branches: Vec<TfvcShallowBranchRef>,
@@ -6723,7 +6723,7 @@ pub struct TfvcChange {
     #[serde(
         rename = "mergeSources",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub merge_sources: Vec<TfvcMergeSource>,
@@ -6755,7 +6755,7 @@ pub struct TfvcChangeset {
     #[doc = "List of associated changes."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<TfvcChange>,
@@ -6763,7 +6763,7 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "checkinNotes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub checkin_notes: Vec<CheckinNote>,
@@ -6792,7 +6792,7 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "teamProjectIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub team_project_ids: Vec<String>,
@@ -6800,7 +6800,7 @@ pub struct TfvcChangeset {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<AssociatedWorkItem>,
@@ -6889,7 +6889,7 @@ pub struct TfvcChangesetSearchCriteria {
     pub item_path: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<TfvcMappingFilter>,
@@ -6912,7 +6912,7 @@ pub struct TfvcChangesetsRequestData {
     #[serde(
         rename = "changesetIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changeset_ids: Vec<i32>,
@@ -7133,7 +7133,7 @@ pub struct TfvcItemRequestData {
     #[serde(
         rename = "itemDescriptors",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub item_descriptors: Vec<TfvcItemDescriptor>,
@@ -7151,7 +7151,7 @@ pub struct TfvcLabel {
     #[doc = "List of items."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub items: Vec<TfvcItem>,
@@ -7315,7 +7315,7 @@ pub struct TfvcPolicyOverrideInfo {
     #[serde(
         rename = "policyFailures",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub policy_failures: Vec<TfvcPolicyFailureInfo>,
@@ -7345,14 +7345,14 @@ pub struct TfvcShelveset {
     #[doc = "List of changes."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<TfvcChange>,
     #[doc = "List of checkin notes."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub notes: Vec<CheckinNote>,
@@ -7367,7 +7367,7 @@ pub struct TfvcShelveset {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<AssociatedWorkItem>,
@@ -7560,7 +7560,7 @@ pub struct UpdateRefsRequest {
     #[serde(
         rename = "refUpdateRequests",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub ref_update_requests: Vec<GitRefUpdate>,
@@ -7702,7 +7702,7 @@ pub struct WebApiTagDefinitionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<WebApiTagDefinition>,
