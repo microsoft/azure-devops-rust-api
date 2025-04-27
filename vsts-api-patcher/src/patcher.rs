@@ -826,6 +826,10 @@ impl Patcher {
                           "autoCompleteSetBy": {
                             "description": "If set, auto-complete is enabled for this pull request and this is the identity that enabled it.",
                             "$ref": "#/definitions/IdentityRef"
+                          },
+                          "completionOptions": {
+                            "description": "Options which affect how the pull request will be merged when it is completed.",
+                            "$ref": "#/definitions/GitPullRequestCompletionOptions"
                           }
                         }
                     },

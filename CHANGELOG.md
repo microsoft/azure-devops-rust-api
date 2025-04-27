@@ -7,13 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Add missing `completionOptions` field to `GitPullRequestUpdateOptions`.
+
 ## [0.26.0]
 
 This is a significant change due to updating to the first offical releases of
 `azure_core` (0.22) and `azure_identity` (0.22).  These crates have a number of
 breaking changes over previous versions.
 
-## Breaking changes
+### Breaking changes
 - Update `azure_core`, `azure_identity` to 0.22.
 - `ClientBuilder::per_retry_policies()` renamed to `per_try_policies()` to align with
   `azure_core` API naming.
