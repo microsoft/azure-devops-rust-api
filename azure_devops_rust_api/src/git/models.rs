@@ -4042,6 +4042,13 @@ pub struct GitPullRequestUpdateOptions {
         skip_serializing_if = "Option::is_none"
     )]
     pub auto_complete_set_by: Option<IdentityRef>,
+    #[doc = "Preferences about how the pull request should be completed."]
+    #[serde(
+        rename = "completionOptions",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub completion_options: Option<GitPullRequestCompletionOptions>,
 }
 impl GitPullRequestUpdateOptions {
     pub fn new() -> Self {
