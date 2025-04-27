@@ -3,7 +3,10 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use azure_core::{Context, Policy, PolicyResult, Request};
+use azure_core::http::{
+    policies::{Policy, PolicyResult},
+    Context, Request,
+};
 use azure_devops_rust_api::Credential;
 use azure_identity::DefaultAzureCredential;
 use std::sync::Arc;
@@ -40,7 +43,7 @@ impl AcceptZipPolicy {
 
 /// Always set the `accept` header to `application/zip`
 #[async_trait]
-impl azure_core::Policy for AcceptZipPolicy {
+impl Policy for AcceptZipPolicy {
     async fn send(
         &self,
         ctx: &Context,

@@ -3,7 +3,11 @@
 
 //! Azure DevOps telemetry support.
 use async_trait::async_trait;
-use azure_core::{headers::Headers, Context, Policy, PolicyResult, Request, Response};
+use azure_core::http::{
+    headers::Headers,
+    policies::{Policy, PolicyResult},
+    Context, Request, Response,
+};
 use std::sync::Arc;
 use tracing::{error, info};
 
@@ -29,7 +33,7 @@ impl RequestLogger {
 
 #[cfg_attr(target_arch = "wasm32", async_trait(?Send))]
 #[cfg_attr(not(target_arch = "wasm32"), async_trait)]
-impl azure_core::Policy for RequestLogger {
+impl Policy for RequestLogger {
     async fn send(
         &self,
         ctx: &Context,

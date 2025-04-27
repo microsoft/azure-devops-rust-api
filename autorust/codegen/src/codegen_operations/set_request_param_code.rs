@@ -131,7 +131,7 @@ impl ToTokens for SetRequestParamsCode {
                                     #set_content_type
                                     #encoder(#param_name_var)?
                                 } else {
-                                    azure_core::EMPTY_BODY
+                                    azure_core::Bytes::new()
                                 };
                         });
                     }
