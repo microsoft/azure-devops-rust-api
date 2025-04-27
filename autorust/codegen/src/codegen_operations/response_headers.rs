@@ -60,25 +60,25 @@ impl ToTokens for HeaderCode {
         let hdr_fn = if type_name_code.is_string() {
             quote! {
                 pub fn #function_name(&self) -> azure_core::Result<&str> {
-                    self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))
+                    self.0.get_str(&azure_core::http::headers::HeaderName::from_static(#header_name))
                 }
             }
         } else if type_name_code.is_date_time() {
             quote! {
                 pub fn #function_name(&self) -> azure_core::Result<time::OffsetDateTime> {
-                    crate::date_time::parse_rfc3339(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
+                    crate::date_time::parse_rfc3339(self.0.get_str(&azure_core::http::headers::HeaderName::from_static(#header_name))?)
                 }
             }
         } else if type_name_code.is_date_time_rfc1123() {
             quote! {
                 pub fn #function_name(&self) -> azure_core::Result<time::OffsetDateTime> {
-                    azure_core::date::parse_rfc1123(self.0.get_str(&azure_core::headers::HeaderName::from_static(#header_name))?)
+                    azure_core::date::parse_rfc1123(self.0.get_str(&azure_core::http::headers::HeaderName::from_static(#header_name))?)
                 }
             }
         } else {
             quote! {
                 pub fn #function_name(&self) -> azure_core::Result<#type_name_code> {
-                    self.0.get_as(&azure_core::headers::HeaderName::from_static(#header_name))
+                    self.0.get_as(&azure_core::http::headers::HeaderName::from_static(#header_name))
                 }
             }
         };
@@ -109,7 +109,7 @@ impl ToTokens for HeadersCode {
         if self.has_headers() {
             let headers = &self.headers;
             tokens.extend(quote! {
-                pub struct Headers<'a>(&'a azure_core::headers::Headers);
+                pub struct Headers<'a>(&'a azure_core::http::headers::Headers);
                 impl Headers<'_> {
                     #(#headers)*
                 }

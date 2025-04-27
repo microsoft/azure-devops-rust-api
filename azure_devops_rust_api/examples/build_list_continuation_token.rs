@@ -4,7 +4,8 @@
 // build_list_continuation_token.rs
 // Example demonstrating how to make large queries using continuation tokens.
 use anyhow::{anyhow, Context, Result};
-use azure_core::StatusCode;
+use azure_core::http::headers::HeaderName;
+use azure_core::http::StatusCode;
 use azure_devops_rust_api::build;
 use azure_devops_rust_api::build::models::{Build, BuildList};
 use std::env;
@@ -39,9 +40,8 @@ async fn get_builds(
         return Err(anyhow!("Request failed"));
     }
 
-    let new_continuation_token = headers.get_optional_string(
-        &azure_core::headers::HeaderName::from_static("x-ms-continuationtoken"),
-    );
+    let new_continuation_token =
+        headers.get_optional_string(&HeaderName::from_static("x-ms-continuationtoken"));
 
     let body_data = body.collect_string().await?;
     let build_list: BuildList = serde_json::from_str(&body_data)

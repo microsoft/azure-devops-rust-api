@@ -4,6 +4,7 @@
 // Release logs example.
 // The log data is saved as a zip file - use `unzip` to extract
 use anyhow::{anyhow, Result};
+use azure_core::http::StatusCode;
 use azure_devops_rust_api::release;
 use std::env;
 use std::fs::File;
@@ -41,7 +42,7 @@ async fn main() -> Result<()> {
         .into_raw_response()
         .deconstruct();
 
-    if status != azure_core::StatusCode::Ok {
+    if status != StatusCode::Ok {
         println!("Request failed. status:{}", status);
         return Err(anyhow!("Request failed"));
     }

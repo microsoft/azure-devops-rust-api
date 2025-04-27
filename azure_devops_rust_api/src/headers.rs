@@ -5,7 +5,7 @@
 //!
 //! For more information see [Azure DevOps Rate and usage limits](https://learn.microsoft.com/en-us/azure/devops/integrate/concepts/rate-limits?view=azure-devops).
 
-use azure_core::headers::HeaderName;
+use azure_core::http::headers::HeaderName;
 
 /// A custom header indicating the service and type of threshold that was reached. Threshold types and service names might vary over time and without warning.
 /// We recommend displaying this string to a human, but not relying on it for computation.

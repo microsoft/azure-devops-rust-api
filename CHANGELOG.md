@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Update `azure_core`, `azure_identity` to 0.23
+  - Update minimum rust-version to 1.80.0
+
 ## [0.26.1]
 
 ### Changes

@@ -64,29 +64,29 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                                 let location = get_location(headers, FinalState::#final_state)?;
                                 if let Some(url) = location {
                                     loop {
-                                        let mut req = azure_core::Request::new(url.clone(), azure_core::Method::Get);
+                                        let mut req = azure_core::http::Request::new(url.clone(), azure_core::http::Method::Get);
                                         // Note: Changed for azure-devops-rust-api
                                         // let bearer_token = self.client.bearer_token().await?;
-                                        // req.insert_header(azure_core::headers::AUTHORIZATION, format!("Bearer {}", bearer_token.secret()));
+                                        // req.insert_header(azure_core::http::headers::AUTHORIZATION, format!("Bearer {}", bearer_token.secret()));
                                         if let Some(auth_header) = this.client.token_credential().http_authorization_header(&this.client.scopes()).await? {
-                                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                                            req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                                         }
                                         let response = self.client.send(&mut req).await?;
                                         let headers = response.headers();
                                         let retry_after = get_retry_after(headers);
-                                        let bytes = response.into_raw_body().collect().await?;
+                                        let bytes: azure_core::Bytes = response.into_raw_body().collect().await?;
                                         let provisioning_state = get_provisioning_state(&bytes).ok_or_else(||
                                             Error::message(ErrorKind::Other, "Long running operation failed (missing provisioning state)".to_string())
                                         )?;
                                         log::trace!("current provisioning_state: {provisioning_state:?}");
                                         match provisioning_state {
                                             LroStatus::Succeeded => {
-                                                let mut req = azure_core::Request::new(self.url()?, azure_core::Method::Get);
+                                                let mut req = azure_core::http::Request::new(self.url()?, azure_core::http::Method::Get);
                                                 // Note: Changed for azure-devops-rust-api
                                                 // let bearer_token = self.client.bearer_token().await?;
-                                                // req.insert_header(azure_core::headers::AUTHORIZATION, format!("Bearer {}", bearer_token.secret()));
+                                                // req.insert_header(azure_core::http::headers::AUTHORIZATION, format!("Bearer {}", bearer_token.secret()));
                                                 if let Some(auth_header) = this.client.token_credential().http_authorization_header(&this.client.scopes()).await? {
-                                                    req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                                                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                                                 }
                                                 let response = self.client.send(&mut req).await?;
                                                 return Response(response).into_body().await

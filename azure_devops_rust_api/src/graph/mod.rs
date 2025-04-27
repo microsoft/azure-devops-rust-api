@@ -9,17 +9,17 @@
 pub mod models;
 #[derive(Clone)]
 pub struct Client {
-    endpoint: azure_core::Url,
+    endpoint: azure_core::http::Url,
     credential: crate::Credential,
     scopes: Vec<String>,
-    pipeline: azure_core::Pipeline,
+    pipeline: azure_core::http::Pipeline,
 }
 #[derive(Clone)]
 pub struct ClientBuilder {
     credential: crate::Credential,
-    endpoint: Option<azure_core::Url>,
+    endpoint: Option<azure_core::http::Url>,
     scopes: Option<Vec<String>>,
-    options: azure_core::ClientOptions,
+    options: azure_core::http::ClientOptions,
 }
 azure_core::static_url!(DEFAULT_ENDPOINT, "https://vssps.dev.azure.com");
 impl ClientBuilder {
@@ -30,12 +30,12 @@ impl ClientBuilder {
             credential,
             endpoint: None,
             scopes: None,
-            options: azure_core::ClientOptions::default(),
+            options: azure_core::http::ClientOptions::default(),
         }
     }
     #[doc = "Set the endpoint."]
     #[must_use]
-    pub fn endpoint(mut self, endpoint: impl Into<azure_core::Url>) -> Self {
+    pub fn endpoint(mut self, endpoint: impl Into<azure_core::http::Url>) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
@@ -47,13 +47,13 @@ impl ClientBuilder {
     }
     #[doc = "Set the retry options."]
     #[must_use]
-    pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
+    pub fn retry(mut self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
         self.options.retry = Some(retry.into());
         self
     }
     #[doc = "Set the transport options."]
     #[must_use]
-    pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
+    pub fn transport(mut self, transport: impl Into<azure_core::http::TransportOptions>) -> Self {
         self.options.transport = Some(transport.into());
         self
     }
@@ -61,7 +61,7 @@ impl ClientBuilder {
     #[must_use]
     pub fn per_call_policies(
         mut self,
-        policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
+        policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
     ) -> Self {
         self.options.per_call_policies = policies.into();
         self
@@ -70,7 +70,7 @@ impl ClientBuilder {
     #[must_use]
     pub fn per_try_policies(
         mut self,
-        policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
+        policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
     ) -> Self {
         self.options.per_try_policies = policies.into();
         self
@@ -85,7 +85,7 @@ impl ClientBuilder {
     }
 }
 impl Client {
-    pub(crate) fn endpoint(&self) -> &azure_core::Url {
+    pub(crate) fn endpoint(&self) -> &azure_core::http::Url {
         &self.endpoint
     }
     pub(crate) fn token_credential(&self) -> &crate::Credential {
@@ -96,9 +96,9 @@ impl Client {
     }
     pub(crate) async fn send(
         &self,
-        request: &mut azure_core::Request,
-    ) -> azure_core::Result<azure_core::Response> {
-        let context = azure_core::Context::default();
+        request: &mut azure_core::http::Request,
+    ) -> azure_core::Result<azure_core::http::Response> {
+        let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
     #[doc = "Create a new `ClientBuilder`."]
@@ -109,13 +109,13 @@ impl Client {
     #[doc = "Create a new `Client`."]
     #[must_use]
     pub fn new(
-        endpoint: impl Into<azure_core::Url>,
+        endpoint: impl Into<azure_core::http::Url>,
         credential: crate::Credential,
         scopes: Vec<String>,
-        options: azure_core::ClientOptions,
+        options: azure_core::http::ClientOptions,
     ) -> Self {
         let endpoint = endpoint.into();
-        let pipeline = azure_core::Pipeline::new(
+        let pipeline = azure_core::http::Pipeline::new(
             option_env!("CARGO_PKG_NAME"),
             option_env!("CARGO_PKG_VERSION"),
             options,
@@ -198,10 +198,10 @@ pub mod descriptors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphDescriptorResult> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphDescriptorResult =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -215,20 +215,20 @@ pub mod descriptors {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -263,23 +263,27 @@ pub mod descriptors {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/descriptors/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -287,10 +291,12 @@ pub mod descriptors {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -407,10 +413,10 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphGroupList> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphGroupList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -423,31 +429,31 @@ pub mod groups {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
             pub fn headers(&self) -> Headers {
                 Headers(self.0.headers())
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
-        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        pub struct Headers<'a>(&'a azure_core::http::headers::Headers);
         impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
-                    .get_str(&azure_core::headers::HeaderName::from_static(
+                    .get_str(&azure_core::http::headers::HeaderName::from_static(
                         "x-ms-continuationtoken",
                     ))
             }
@@ -500,14 +506,18 @@ pub mod groups {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         if let Some(scope_descriptor) = &this.scope_descriptor {
                             req.url_mut()
@@ -524,24 +534,26 @@ pub mod groups {
                                 .query_pairs_mut()
                                 .append_pair("continuationToken", continuation_token);
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -566,10 +578,10 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphGroup> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphGroup = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -582,20 +594,20 @@ pub mod groups {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -642,14 +654,18 @@ pub mod groups {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -668,18 +684,20 @@ pub mod groups {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -704,10 +722,10 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphGroup> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphGroup = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -720,20 +738,20 @@ pub mod groups {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -768,23 +786,27 @@ pub mod groups {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -792,10 +814,12 @@ pub mod groups {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -820,10 +844,10 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphGroup> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphGroup = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -836,20 +860,20 @@ pub mod groups {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -885,14 +909,18 @@ pub mod groups {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json-patch+json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -901,8 +929,8 @@ pub mod groups {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -910,10 +938,12 @@ pub mod groups {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -938,22 +968,22 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -988,23 +1018,27 @@ pub mod groups {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1012,10 +1046,12 @@ pub mod groups {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1147,10 +1183,10 @@ pub mod memberships {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphMembershipList> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphMembershipList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -1164,20 +1200,20 @@ pub mod memberships {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1224,14 +1260,18 @@ pub mod memberships {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         if let Some(direction) = &this.direction {
                             req.url_mut()
@@ -1243,14 +1283,14 @@ pub mod memberships {
                                 .query_pairs_mut()
                                 .append_pair("depth", &depth.to_string());
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Memberships/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1258,10 +1298,12 @@ pub mod memberships {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1286,10 +1328,10 @@ pub mod memberships {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphMembership> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphMembership =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -1303,20 +1345,20 @@ pub mod memberships {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1352,23 +1394,27 @@ pub mod memberships {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1377,10 +1423,12 @@ pub mod memberships {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1405,10 +1453,10 @@ pub mod memberships {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphMembership> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphMembership =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -1422,20 +1470,20 @@ pub mod memberships {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1471,23 +1519,27 @@ pub mod memberships {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Put);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Put);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1496,10 +1548,12 @@ pub mod memberships {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1524,22 +1578,22 @@ pub mod memberships {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1575,23 +1629,27 @@ pub mod memberships {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1600,10 +1658,12 @@ pub mod memberships {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1631,22 +1691,22 @@ pub mod memberships {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1682,23 +1742,27 @@ pub mod memberships {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Head);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Head);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1707,10 +1771,12 @@ pub mod memberships {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1764,10 +1830,10 @@ pub mod membership_states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphMembershipState> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphMembershipState =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -1781,20 +1847,20 @@ pub mod membership_states {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1829,23 +1895,27 @@ pub mod membership_states {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/membershipstates/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -1853,10 +1923,12 @@ pub mod membership_states {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -1904,22 +1976,22 @@ pub mod request_access {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -1954,14 +2026,18 @@ pub mod request_access {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -1970,18 +2046,20 @@ pub mod request_access {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/requestaccess",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2080,12 +2158,12 @@ pub mod service_principals {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(
                 self,
             ) -> azure_core::Result<models::GraphServicePrincipalList> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphServicePrincipalList = serde_json::from_slice(&bytes)
                     .map_err(|e| {
                         azure_core::error::Error::full(
@@ -2099,31 +2177,31 @@ pub mod service_principals {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
             pub fn headers(&self) -> Headers {
                 Headers(self.0.headers())
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
-        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        pub struct Headers<'a>(&'a azure_core::http::headers::Headers);
         impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
-                    .get_str(&azure_core::headers::HeaderName::from_static(
+                    .get_str(&azure_core::http::headers::HeaderName::from_static(
                         "x-ms-continuationtoken",
                     ))
             }
@@ -2170,14 +2248,18 @@ pub mod service_principals {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         if let Some(continuation_token) = &this.continuation_token {
                             req.url_mut()
@@ -2189,24 +2271,26 @@ pub mod service_principals {
                                 .query_pairs_mut()
                                 .append_pair("scopeDescriptor", scope_descriptor);
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2232,10 +2316,10 @@ pub mod service_principals {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphServicePrincipal> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphServicePrincipal =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2249,20 +2333,20 @@ pub mod service_principals {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2303,14 +2387,18 @@ pub mod service_principals {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -2324,18 +2412,20 @@ pub mod service_principals {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2360,10 +2450,10 @@ pub mod service_principals {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphServicePrincipal> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphServicePrincipal =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2377,20 +2467,20 @@ pub mod service_principals {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2425,23 +2515,27 @@ pub mod service_principals {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -2449,10 +2543,12 @@ pub mod service_principals {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2477,22 +2573,22 @@ pub mod service_principals {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2527,23 +2623,27 @@ pub mod service_principals {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -2551,10 +2651,12 @@ pub mod service_principals {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2607,10 +2709,10 @@ pub mod storage_keys {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphStorageKeyResult> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphStorageKeyResult =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2624,20 +2726,20 @@ pub mod storage_keys {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2672,23 +2774,27 @@ pub mod storage_keys {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/storagekeys/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -2696,10 +2802,12 @@ pub mod storage_keys {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2750,10 +2858,10 @@ pub mod subject_lookup {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<serde_json::Value> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: serde_json::Value = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -2766,20 +2874,20 @@ pub mod subject_lookup {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2814,14 +2922,18 @@ pub mod subject_lookup {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -2830,18 +2942,20 @@ pub mod subject_lookup {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/subjectlookup",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -2892,10 +3006,10 @@ pub mod subject_query {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphSubjectList> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphSubjectList =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -2909,20 +3023,20 @@ pub mod subject_query {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -2957,14 +3071,18 @@ pub mod subject_query {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -2973,18 +3091,20 @@ pub mod subject_query {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/subjectquery",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3062,10 +3182,10 @@ pub mod avatars {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::Avatar> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::Avatar = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3078,20 +3198,20 @@ pub mod avatars {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3136,14 +3256,18 @@ pub mod avatars {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         if let Some(size) = &this.size {
                             req.url_mut().query_pairs_mut().append_pair("size", size);
@@ -3153,14 +3277,14 @@ pub mod avatars {
                                 .query_pairs_mut()
                                 .append_pair("format", format);
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
                     &self.organization,
@@ -3168,10 +3292,12 @@ pub mod avatars {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3196,22 +3322,22 @@ pub mod avatars {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3247,14 +3373,18 @@ pub mod avatars {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Put);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Put);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -3263,8 +3393,8 @@ pub mod avatars {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
                     &self.organization,
@@ -3272,10 +3402,12 @@ pub mod avatars {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3303,22 +3435,22 @@ pub mod avatars {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3353,23 +3485,27 @@ pub mod avatars {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
                     &self.organization,
@@ -3377,10 +3513,12 @@ pub mod avatars {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3499,10 +3637,10 @@ pub mod users {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphUserList> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphUserList = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3515,31 +3653,31 @@ pub mod users {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
             pub fn headers(&self) -> Headers {
                 Headers(self.0.headers())
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
-        pub struct Headers<'a>(&'a azure_core::headers::Headers);
+        pub struct Headers<'a>(&'a azure_core::http::headers::Headers);
         impl Headers<'_> {
             pub fn x_ms_continuation_token(&self) -> azure_core::Result<&str> {
                 self.0
-                    .get_str(&azure_core::headers::HeaderName::from_static(
+                    .get_str(&azure_core::http::headers::HeaderName::from_static(
                         "x-ms-continuationtoken",
                     ))
             }
@@ -3592,14 +3730,18 @@ pub mod users {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         if let Some(subject_types) = &this.subject_types {
                             req.url_mut()
@@ -3616,24 +3758,26 @@ pub mod users {
                                 .query_pairs_mut()
                                 .append_pair("scopeDescriptor", scope_descriptor);
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3658,10 +3802,10 @@ pub mod users {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphUser> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphUser = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3674,20 +3818,20 @@ pub mod users {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3728,14 +3872,18 @@ pub mod users {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Post);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -3749,18 +3897,20 @@ pub mod users {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users",
                     self.client.endpoint(),
                     &self.organization
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3785,10 +3935,10 @@ pub mod users {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphUser> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphUser = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3801,20 +3951,20 @@ pub mod users {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3849,23 +3999,27 @@ pub mod users {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -3873,10 +4027,12 @@ pub mod users {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -3901,10 +4057,10 @@ pub mod users {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphUser> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphUser = serde_json::from_slice(&bytes).map_err(|e| {
                     azure_core::error::Error::full(
                         azure_core::error::ErrorKind::DataConversion,
@@ -3917,20 +4073,20 @@ pub mod users {
                 })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -3966,14 +4122,18 @@ pub mod users {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Patch);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
@@ -3982,8 +4142,8 @@ pub mod users {
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -3991,10 +4151,12 @@ pub mod users {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -4019,22 +4181,22 @@ pub mod users {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -4069,23 +4231,27 @@ pub mod users {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Delete);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
                     &self.organization,
@@ -4093,10 +4259,12 @@ pub mod users {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }
@@ -4147,10 +4315,10 @@ pub mod provider_info {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::Response);
+        pub struct Response(azure_core::http::Response);
         impl Response {
             pub async fn into_raw_body(self) -> azure_core::Result<models::GraphProviderInfo> {
-                let bytes = self.0.into_raw_body().collect().await?;
+                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
                 let body: models::GraphProviderInfo =
                     serde_json::from_slice(&bytes).map_err(|e| {
                         azure_core::error::Error::full(
@@ -4164,20 +4332,20 @@ pub mod provider_info {
                     })?;
                 Ok(body)
             }
-            pub fn into_raw_response(self) -> azure_core::Response {
+            pub fn into_raw_response(self) -> azure_core::http::Response {
                 self.0
             }
-            pub fn as_raw_response(&self) -> &azure_core::Response {
+            pub fn as_raw_response(&self) -> &azure_core::http::Response {
                 &self.0
             }
         }
-        impl From<Response> for azure_core::Response {
+        impl From<Response> for azure_core::http::Response {
             fn from(rsp: Response) -> Self {
                 rsp.into_raw_response()
             }
         }
-        impl AsRef<azure_core::Response> for Response {
-            fn as_ref(&self) -> &azure_core::Response {
+        impl AsRef<azure_core::http::Response> for Response {
+            fn as_ref(&self) -> &azure_core::http::Response {
                 self.as_raw_response()
             }
         }
@@ -4212,23 +4380,27 @@ pub mod provider_info {
                     let this = self.clone();
                     async move {
                         let url = this.url()?;
-                        let mut req = azure_core::Request::new(url, azure_core::Method::Get);
+                        let mut req =
+                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
                             .http_authorization_header(&this.client.scopes())
                             .await?
                         {
-                            req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
                         }
-                        let req_body = azure_core::EMPTY_BODY;
+                        let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::Url> {
-                let mut url = azure_core::Url::parse(&format!(
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Users/{}/providerinfo",
                     self.client.endpoint(),
                     &self.organization,
@@ -4236,10 +4408,12 @@ pub mod provider_info {
                 ))?;
                 let has_api_version_already = url
                     .query_pairs()
-                    .any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                 if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair(azure_core::query_param::API_VERSION, "7.1-preview");
+                    url.query_pairs_mut().append_pair(
+                        azure_core::http::headers::query_param::API_VERSION,
+                        "7.1-preview",
+                    );
                 }
                 Ok(url)
             }

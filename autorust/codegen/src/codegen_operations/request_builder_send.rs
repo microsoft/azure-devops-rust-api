@@ -63,20 +63,20 @@ impl ToTokens for RequestBuilderSendCode {
         let urlfn = if self.request_builder.has_param_api_version {
             let api_version = &self.request_builder.api_version;
             quote! {
-                fn url(&self) -> azure_core::Result<azure_core::Url> {
-                    let mut url = azure_core::Url::parse(&format!(#fpath, self.client.endpoint(), #url_str_args))?;
+                fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                    let mut url = azure_core::http::Url::parse(&format!(#fpath, self.client.endpoint(), #url_str_args))?;
 
-                    let has_api_version_already = url.query_pairs().any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                    let has_api_version_already = url.query_pairs().any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                     if !has_api_version_already {
-                        url.query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
+                        url.query_pairs_mut().append_pair(azure_core::http::headers::query_param::API_VERSION, #api_version);
                     }
                     Ok(url)
                 }
             }
         } else {
             quote! {
-                fn url(&self) -> azure_core::Result<azure_core::Url> {
-                    let url = azure_core::Url::parse(&format!(#fpath, self.client.endpoint(), #url_str_args))?;
+                fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                    let url = azure_core::http::Url::parse(&format!(#fpath, self.client.endpoint(), #url_str_args))?;
                     Ok(url)
                 }
             }
@@ -114,9 +114,9 @@ impl ToTokens for RequestBuilderSendCode {
                 if request_builder.has_param_api_version {
                     let api_version = &request_builder.api_version;
                     stream_api_version.extend(quote! {
-                        let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == azure_core::query_param::API_VERSION);
+                        let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
                         if !has_api_version_already {
-                            req.url_mut().query_pairs_mut().append_pair(azure_core::query_param::API_VERSION, #api_version);
+                            req.url_mut().query_pairs_mut().append_pair(azure_core::http::headers::query_param::API_VERSION, #api_version);
                         }
                     });
                 }
@@ -124,7 +124,7 @@ impl ToTokens for RequestBuilderSendCode {
                 if request_builder.has_param_x_ms_version {
                     let api_version = &request_builder.api_version;
                     stream_api_version.extend(quote! {
-                        req.insert_header(azure_core::headers::VERSION, #api_version);
+                        req.insert_header(azure_core::http::headers::VERSION, #api_version);
                     });
                 }
                 let response_type = self
@@ -176,7 +176,7 @@ impl ToTokens for RequestBuilderSendCode {
                                             url = url.join(&value)?;
                                             #new_request_code
                                             #stream_api_version
-                                            let req_body = azure_core::EMPTY_BODY;
+                                            let req_body = azure_core::Bytes::new();
                                             req.set_body(req_body);
                                             this.client.send(&mut req).await?
                                         }
