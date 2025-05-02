@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.27.0]
+
 ### Changes
 
 - Update `azure_core`, `azure_identity` to 0.23
-  - Update minimum rust-version to 1.80.0
+  - Update minimum rust-version to 1.80.0 (required by `azure_core`)
 
 ## [0.26.1]
 
@@ -578,7 +580,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.27.0...HEAD
+[0.27.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.1...0.27.0
 [0.26.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.0...0.26.1
 [0.26.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.25.0...0.26.0
 [0.25.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.24.0...0.25.0
