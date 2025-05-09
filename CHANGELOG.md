@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.28.0]
+
+- Update `azure_core`, `azure_identity` to 0.24
+- Fix formatting of date-time parameters
+  - Reapplying a previous fix that was lost
+
 ## [0.27.0]
 
 ### Changes
