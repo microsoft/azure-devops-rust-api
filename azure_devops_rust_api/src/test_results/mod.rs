@@ -1164,13 +1164,17 @@ pub mod runs {
                             );
                         }
                         let min_last_updated_date = &this.min_last_updated_date;
+                        let formatted_date_time =
+                            crate::date_time::format_date_time(min_last_updated_date)?;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("minLastUpdatedDate", &min_last_updated_date.to_string());
+                            .append_pair("minLastUpdatedDate", &formatted_date_time);
                         let max_last_updated_date = &this.max_last_updated_date;
+                        let formatted_date_time =
+                            crate::date_time::format_date_time(max_last_updated_date)?;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("maxLastUpdatedDate", &max_last_updated_date.to_string());
+                            .append_pair("maxLastUpdatedDate", &formatted_date_time);
                         if let Some(state) = &this.state {
                             req.url_mut().query_pairs_mut().append_pair("state", state);
                         }
@@ -7837,9 +7841,11 @@ pub mod workitems {
                                 .append_pair("testCaseId", &test_case_id.to_string());
                         }
                         if let Some(max_complete_date) = &this.max_complete_date {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(max_complete_date)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("maxCompleteDate", &max_complete_date.to_string());
+                                .append_pair("maxCompleteDate", &formatted_date_time);
                         }
                         if let Some(days) = &this.days {
                             req.url_mut()
@@ -12899,10 +12905,12 @@ pub mod resultsummarybyrelease {
                         if let Some(release_to_compare_creation_date) =
                             &this.release_to_compare_creation_date
                         {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "releaseToCompare.creationDate",
-                                &release_to_compare_creation_date.to_string(),
-                            );
+                            let formatted_date_time = crate::date_time::format_date_time(
+                                release_to_compare_creation_date,
+                            )?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("releaseToCompare.creationDate", &formatted_date_time);
                         }
                         if let Some(release_to_compare_definition_id) =
                             &this.release_to_compare_definition_id
@@ -12915,9 +12923,12 @@ pub mod resultsummarybyrelease {
                         if let Some(release_to_compare_environment_creation_date) =
                             &this.release_to_compare_environment_creation_date
                         {
+                            let formatted_date_time = crate::date_time::format_date_time(
+                                release_to_compare_environment_creation_date,
+                            )?;
                             req.url_mut().query_pairs_mut().append_pair(
                                 "releaseToCompare.environmentCreationDate",
-                                &release_to_compare_environment_creation_date.to_string(),
+                                &formatted_date_time,
                             );
                         }
                         if let Some(release_to_compare_environment_definition_id) =
