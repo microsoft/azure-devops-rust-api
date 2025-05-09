@@ -434,14 +434,17 @@ pub mod audit_log {
                             );
                         }
                         if let Some(start_time) = &this.start_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startTime", &start_time.to_string());
+                                .append_pair("startTime", &formatted_date_time);
                         }
                         if let Some(end_time) = &this.end_time {
+                            let formatted_date_time = crate::date_time::format_date_time(end_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("endTime", &end_time.to_string());
+                                .append_pair("endTime", &formatted_date_time);
                         }
                         if let Some(batch_size) = &this.batch_size {
                             req.url_mut()
@@ -624,14 +627,17 @@ pub mod download_log {
                             .query_pairs_mut()
                             .append_pair("format", format);
                         if let Some(start_time) = &this.start_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startTime", &start_time.to_string());
+                                .append_pair("startTime", &formatted_date_time);
                         }
                         if let Some(end_time) = &this.end_time {
+                            let formatted_date_time = crate::date_time::format_date_time(end_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("endTime", &end_time.to_string());
+                                .append_pair("endTime", &formatted_date_time);
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

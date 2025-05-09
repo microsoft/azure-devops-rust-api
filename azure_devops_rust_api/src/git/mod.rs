@@ -5344,16 +5344,18 @@ pub mod pull_requests {
                             );
                         }
                         if let Some(search_criteria_max_time) = &this.search_criteria_max_time {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.maxTime",
-                                &search_criteria_max_time.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_max_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.maxTime", &formatted_date_time);
                         }
                         if let Some(search_criteria_min_time) = &this.search_criteria_min_time {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.minTime",
-                                &search_criteria_min_time.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_min_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.minTime", &formatted_date_time);
                         }
                         if let Some(search_criteria_query_time_range_type) =
                             &this.search_criteria_query_time_range_type
@@ -5804,16 +5806,18 @@ pub mod pull_requests {
                             );
                         }
                         if let Some(search_criteria_max_time) = &this.search_criteria_max_time {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.maxTime",
-                                &search_criteria_max_time.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_max_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.maxTime", &formatted_date_time);
                         }
                         if let Some(search_criteria_min_time) = &this.search_criteria_min_time {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.minTime",
-                                &search_criteria_min_time.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_min_time)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.minTime", &formatted_date_time);
                         }
                         if let Some(search_criteria_query_time_range_type) =
                             &this.search_criteria_query_time_range_type
@@ -16617,10 +16621,11 @@ pub mod pushes {
                                 .append_pair("$top", &top.to_string());
                         }
                         if let Some(search_criteria_from_date) = &this.search_criteria_from_date {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.fromDate",
-                                &search_criteria_from_date.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_from_date)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.fromDate", &formatted_date_time);
                         }
                         if let Some(search_criteria_include_links) =
                             &this.search_criteria_include_links
@@ -16649,10 +16654,11 @@ pub mod pushes {
                                 .append_pair("searchCriteria.refName", search_criteria_ref_name);
                         }
                         if let Some(search_criteria_to_date) = &this.search_criteria_to_date {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "searchCriteria.toDate",
-                                &search_criteria_to_date.to_string(),
-                            );
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(search_criteria_to_date)?;
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("searchCriteria.toDate", &formatted_date_time);
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

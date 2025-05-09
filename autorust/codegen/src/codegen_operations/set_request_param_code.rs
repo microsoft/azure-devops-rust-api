@@ -51,6 +51,11 @@ impl ToTokens for SetRequestParamsCode {
                             quote! {
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, #param_name_var);
                             }
+                        } else if param.type_name.is_date_time() {
+                            quote! {
+                                let formatted_date_time = crate::date_time::format_date_time(#param_name_var)?;
+                                req.url_mut().query_pairs_mut().append_pair(#param_name, &formatted_date_time);
+                            }
                         } else {
                             quote! {
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, &#param_name_var.to_string());

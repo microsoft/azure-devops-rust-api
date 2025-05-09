@@ -7143,9 +7143,11 @@ pub mod reporting_work_item_links {
                                 .append_pair("continuationToken", continuation_token);
                         }
                         if let Some(start_date_time) = &this.start_date_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_date_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startDateTime", &start_date_time.to_string());
+                                .append_pair("startDateTime", &formatted_date_time);
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -7418,9 +7420,11 @@ pub mod reporting_work_item_revisions {
                                 .append_pair("continuationToken", continuation_token);
                         }
                         if let Some(start_date_time) = &this.start_date_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_date_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startDateTime", &start_date_time.to_string());
+                                .append_pair("startDateTime", &formatted_date_time);
                         }
                         if let Some(include_identity_ref) = &this.include_identity_ref {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -7616,9 +7620,11 @@ pub mod reporting_work_item_revisions {
                                 .append_pair("continuationToken", continuation_token);
                         }
                         if let Some(start_date_time) = &this.start_date_time {
+                            let formatted_date_time =
+                                crate::date_time::format_date_time(start_date_time)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("startDateTime", &start_date_time.to_string());
+                                .append_pair("startDateTime", &formatted_date_time);
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
@@ -9011,9 +9017,10 @@ pub mod work_items {
                                 .append_pair("fields", fields);
                         }
                         if let Some(as_of) = &this.as_of {
+                            let formatted_date_time = crate::date_time::format_date_time(as_of)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("asOf", &as_of.to_string());
+                                .append_pair("asOf", &formatted_date_time);
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
@@ -9172,9 +9179,10 @@ pub mod work_items {
                                 .append_pair("fields", fields);
                         }
                         if let Some(as_of) = &this.as_of {
+                            let formatted_date_time = crate::date_time::format_date_time(as_of)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("asOf", &as_of.to_string());
+                                .append_pair("asOf", &formatted_date_time);
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
@@ -9500,9 +9508,10 @@ pub mod work_items {
                                 .append_pair("fields", fields);
                         }
                         if let Some(as_of) = &this.as_of {
+                            let formatted_date_time = crate::date_time::format_date_time(as_of)?;
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("asOf", &as_of.to_string());
+                                .append_pair("asOf", &formatted_date_time);
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
