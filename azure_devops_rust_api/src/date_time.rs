@@ -60,7 +60,7 @@ pub mod rfc3339 {
             match OffsetDateTime::parse(value, &Rfc3339) {
                 Ok(dt) => Ok(dt),
                 Err(e) => {
-                    if let Ok(dt) = OffsetDateTime::parse(&format!("{}Z", value), &Rfc3339) {
+                    if let Ok(dt) = OffsetDateTime::parse(&format!("{value}Z"), &Rfc3339) {
                         Ok(dt)
                     } else {
                         Err(E::custom(format!("Parse error {e} for {value}")))
