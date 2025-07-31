@@ -6,7 +6,7 @@ use async_trait::async_trait;
 use azure_core::http::{
     headers::Headers,
     policies::{Policy, PolicyResult},
-    Context, Request, Response,
+    Context, RawResponse, Request,
 };
 use std::sync::Arc;
 use tracing::{error, info};
@@ -79,7 +79,7 @@ impl Policy for RequestLogger {
                 );
                 let response_stream =
                     Box::pin(futures::stream::once(futures::future::ready(response_body)));
-                Ok(Response::new(status_code, headers, response_stream))
+                Ok(RawResponse::new(status_code, headers, response_stream))
             }
             Err(err) => {
                 error!(

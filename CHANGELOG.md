@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update `azure_core`, `azure_identity` to 0.26
+  - Use `RawResponse` rather than `Response`
+
 ## [0.28.0]
 
 - Update `azure_core`, `azure_identity` to 0.24
