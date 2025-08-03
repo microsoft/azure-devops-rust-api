@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `Response::into_raw_body()` renamed `Response::into_body()`
     - `Response::into_raw_response()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
     - `Client::send()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
-- Fix up examples to work with response changes.
+    - Fix up examples to work with response changes.
+- Disable wasm32 CI build due to issues with `getrandom`
 
 ## [0.28.0]
 
