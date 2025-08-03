@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
         .format("json")
         .await?;
 
-    println!("\n{file_path} metadata:\n{:#?}", item);
+    println!("\n{file_path} metadata:\n{item:#?}");
 
     // If no format is specified, the file contents are returned
     let rsp = git_client
@@ -48,8 +48,8 @@ async fn main() -> Result<()> {
         .await?
         .into_raw_response();
 
-    let file_data = rsp.into_raw_body().collect_string().await?;
-    println!("\n{file_path} contents:\n{}", file_data);
+    let file_data = rsp.into_body().collect_string().await?;
+    println!("\n{file_path} contents:\n{file_data}");
 
     // Download the entire repo as a zip archive.
 
@@ -71,7 +71,7 @@ async fn main() -> Result<()> {
         .await?
         .into_raw_response();
 
-    let mut body = rsp.into_raw_body();
+    let mut body = rsp.into_body();
     let mut file = std::fs::File::create("full_repo.zip")?;
     while let Some(chunk_result) = body.next().await {
         let chunk = chunk_result.context("Error reading chunk")?;

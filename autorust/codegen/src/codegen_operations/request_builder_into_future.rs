@@ -89,7 +89,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
                                                     req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                                                 }
                                                 let response = self.client.send(&mut req).await?;
-                                                return Response(response).into_body().await
+                                                return Response(response.into()).into_body().await
                                             }
                                             LroStatus::Failed => return Err(Error::message(ErrorKind::Other, "Long running operation failed".to_string())),
                                             LroStatus::Canceled => return Err(Error::message(ErrorKind::Other, "Long running operation canceled".to_string())),
@@ -113,7 +113,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
 
                         (
                             quote! {
-                                self.send().await?.into_raw_body().await
+                                self.send().await?.into_body().await
                             },
                             quote! {
                                     #[doc = "Returns a future that sends the request and returns the parsed response body."]
@@ -159,7 +159,7 @@ impl ToTokens for RequestBuilderIntoFutureCode {
             } else {
                 (
                     quote! {
-                        self.send().await?.into_raw_body().await
+                        self.send().await?.into_body().await
                     },
                     quote! {
                             #[doc = "Returns a future that sends the request and returns the parsed response body."]

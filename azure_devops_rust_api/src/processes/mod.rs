@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::Response> {
+    ) -> azure_core::Result<azure_core::http::RawResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -343,37 +343,15 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Group, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Group> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Group = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Group> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -438,7 +416,7 @@ pub mod groups {
                             .query_pairs_mut()
                             .append_pair("removeFromSectionId", remove_from_section_id);
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -465,7 +443,7 @@ pub mod groups {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -476,37 +454,15 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Group, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Group> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Group = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Group> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -560,7 +516,7 @@ pub mod groups {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -587,7 +543,7 @@ pub mod groups {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -598,37 +554,15 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Group, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Group> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Group = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Group> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -688,7 +622,7 @@ pub mod groups {
                             .query_pairs_mut()
                             .append_pair("removeFromSectionId", remove_from_section_id);
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -715,7 +649,7 @@ pub mod groups {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -726,37 +660,15 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Group, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Group> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Group = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Group> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -811,7 +723,7 @@ pub mod groups {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -838,7 +750,7 @@ pub mod groups {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -849,23 +761,10 @@ pub mod groups {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -918,7 +817,7 @@ pub mod groups {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1044,38 +943,15 @@ pub mod processes {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessInfoList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessInfoList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessInfoList =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessInfoList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1133,7 +1009,7 @@ pub mod processes {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1164,7 +1040,7 @@ pub mod processes {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1175,37 +1051,15 @@ pub mod processes {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessInfo, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessInfo> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessInfo = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessInfo> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1255,7 +1109,7 @@ pub mod processes {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1286,7 +1140,7 @@ pub mod processes {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1297,37 +1151,15 @@ pub mod processes {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessInfo, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessInfo> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessInfo = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessInfo> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1386,7 +1218,7 @@ pub mod processes {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1418,7 +1250,7 @@ pub mod processes {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1429,37 +1261,15 @@ pub mod processes {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessInfo, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessInfo> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessInfo = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessInfo> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1510,7 +1320,7 @@ pub mod processes {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1542,7 +1352,7 @@ pub mod processes {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1553,23 +1363,10 @@ pub mod processes {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1618,7 +1415,7 @@ pub mod processes {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1769,38 +1566,15 @@ pub mod behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessBehaviorList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessBehaviorList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessBehaviorList =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessBehaviorList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1859,7 +1633,7 @@ pub mod behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -1891,7 +1665,7 @@ pub mod behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -1902,38 +1676,15 @@ pub mod behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -1984,7 +1735,7 @@ pub mod behaviors {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2016,7 +1767,7 @@ pub mod behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2027,38 +1778,15 @@ pub mod behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2118,7 +1846,7 @@ pub mod behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2151,7 +1879,7 @@ pub mod behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2162,38 +1890,15 @@ pub mod behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2245,7 +1950,7 @@ pub mod behaviors {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2278,7 +1983,7 @@ pub mod behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2289,23 +1994,10 @@ pub mod behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2355,7 +2047,7 @@ pub mod behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2507,40 +2199,18 @@ pub mod work_item_types {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::ProcessWorkItemTypeList,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::ProcessWorkItemTypeList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemTypeList = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemTypeList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2600,7 +2270,7 @@ pub mod work_item_types {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2633,7 +2303,7 @@ pub mod work_item_types {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2644,38 +2314,15 @@ pub mod work_item_types {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessWorkItemType, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemType =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2726,7 +2373,7 @@ pub mod work_item_types {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2758,7 +2405,7 @@ pub mod work_item_types {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2769,38 +2416,15 @@ pub mod work_item_types {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessWorkItemType, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemType =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2861,7 +2485,7 @@ pub mod work_item_types {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -2894,7 +2518,7 @@ pub mod work_item_types {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -2905,38 +2529,15 @@ pub mod work_item_types {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessWorkItemType, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemType =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemType> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -2988,7 +2589,7 @@ pub mod work_item_types {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3021,7 +2622,7 @@ pub mod work_item_types {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -3032,23 +2633,10 @@ pub mod work_item_types {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3098,7 +2686,7 @@ pub mod work_item_types {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3264,40 +2852,20 @@ pub mod fields {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::ProcessWorkItemTypeFieldList,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
+            pub async fn into_body(
                 self,
             ) -> azure_core::Result<models::ProcessWorkItemTypeFieldList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemTypeFieldList = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3347,7 +2915,7 @@ pub mod fields {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3381,7 +2949,7 @@ pub mod fields {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -3392,40 +2960,18 @@ pub mod fields {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::ProcessWorkItemTypeField,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::ProcessWorkItemTypeField> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemTypeField = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemTypeField> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3477,7 +3023,7 @@ pub mod fields {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3511,7 +3057,7 @@ pub mod fields {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -3522,40 +3068,18 @@ pub mod fields {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::ProcessWorkItemTypeField,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::ProcessWorkItemTypeField> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemTypeField = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemTypeField> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3616,7 +3140,7 @@ pub mod fields {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3651,7 +3175,7 @@ pub mod fields {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -3662,40 +3186,18 @@ pub mod fields {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::ProcessWorkItemTypeField,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::ProcessWorkItemTypeField> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessWorkItemTypeField = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessWorkItemTypeField> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3748,7 +3250,7 @@ pub mod fields {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3783,7 +3285,7 @@ pub mod fields {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -3794,23 +3296,10 @@ pub mod fields {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -3861,7 +3350,7 @@ pub mod fields {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -3938,37 +3427,15 @@ pub mod layout {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::FormLayout, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::FormLayout> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::FormLayout = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::FormLayout> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4018,7 +3485,7 @@ pub mod layout {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4051,7 +3518,7 @@ pub mod layout {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -4179,37 +3646,15 @@ pub mod controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Control, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Control> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Control = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Control> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4262,7 +3707,7 @@ pub mod controls {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4296,7 +3741,7 @@ pub mod controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -4307,37 +3752,15 @@ pub mod controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Control, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Control> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Control = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Control> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4402,7 +3825,7 @@ pub mod controls {
                                 .append_pair("removeFromGroupId", remove_from_group_id);
                         }
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4437,7 +3860,7 @@ pub mod controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -4448,37 +3871,15 @@ pub mod controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Control, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Control> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Control = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Control> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4532,7 +3933,7 @@ pub mod controls {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4567,7 +3968,7 @@ pub mod controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -4578,23 +3979,10 @@ pub mod controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4646,7 +4034,7 @@ pub mod controls {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4771,37 +4159,13 @@ pub mod pages {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<models::Page, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Page> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Page = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Page> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4853,7 +4217,7 @@ pub mod pages {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -4886,7 +4250,7 @@ pub mod pages {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -4897,37 +4261,13 @@ pub mod pages {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<models::Page, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Page> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Page = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Page> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -4979,7 +4319,7 @@ pub mod pages {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5012,7 +4352,7 @@ pub mod pages {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5023,23 +4363,10 @@ pub mod pages {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5090,7 +4417,7 @@ pub mod pages {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5213,37 +4540,15 @@ pub mod system_controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ControlList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ControlList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ControlList = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ControlList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5293,7 +4598,7 @@ pub mod system_controls {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5326,7 +4631,7 @@ pub mod system_controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5337,37 +4642,15 @@ pub mod system_controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::Control, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::Control> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::Control = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::Control> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5420,7 +4703,7 @@ pub mod system_controls {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5454,7 +4737,7 @@ pub mod system_controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5465,37 +4748,15 @@ pub mod system_controls {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ControlList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ControlList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ControlList = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ControlList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5546,7 +4807,7 @@ pub mod system_controls {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5580,7 +4841,7 @@ pub mod system_controls {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5709,38 +4970,15 @@ pub mod rules {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessRuleList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessRuleList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessRuleList =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessRuleList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5790,7 +5028,7 @@ pub mod rules {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5823,7 +5061,7 @@ pub mod rules {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5834,37 +5072,15 @@ pub mod rules {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessRule, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessRule> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessRule = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessRule> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -5916,7 +5132,7 @@ pub mod rules {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -5949,7 +5165,7 @@ pub mod rules {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -5960,37 +5176,15 @@ pub mod rules {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessRule, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessRule> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessRule = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessRule> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6041,7 +5235,7 @@ pub mod rules {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6075,7 +5269,7 @@ pub mod rules {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6086,37 +5280,15 @@ pub mod rules {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::ProcessRule, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::ProcessRule> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::ProcessRule = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::ProcessRule> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6169,7 +5341,7 @@ pub mod rules {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6203,7 +5375,7 @@ pub mod rules {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6214,23 +5386,10 @@ pub mod rules {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6281,7 +5440,7 @@ pub mod rules {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6471,40 +5630,20 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemStateResultModelList,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
+            pub async fn into_body(
                 self,
             ) -> azure_core::Result<models::WorkItemStateResultModelList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemStateResultModelList = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6554,7 +5693,7 @@ pub mod states {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6588,7 +5727,7 @@ pub mod states {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6599,40 +5738,18 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemStateResultModel,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::WorkItemStateResultModel> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemStateResultModel = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateResultModel> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6684,7 +5801,7 @@ pub mod states {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6718,7 +5835,7 @@ pub mod states {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6729,40 +5846,18 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemStateResultModel,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::WorkItemStateResultModel> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemStateResultModel = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateResultModel> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6813,7 +5908,7 @@ pub mod states {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6848,7 +5943,7 @@ pub mod states {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6859,40 +5954,18 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemStateResultModel,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::WorkItemStateResultModel> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemStateResultModel = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateResultModel> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -6945,7 +6018,7 @@ pub mod states {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -6980,7 +6053,7 @@ pub mod states {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -6991,40 +6064,18 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemStateResultModel,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::WorkItemStateResultModel> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemStateResultModel = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateResultModel> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7077,7 +6128,7 @@ pub mod states {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7112,7 +6163,7 @@ pub mod states {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -7123,23 +6174,10 @@ pub mod states {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7190,7 +6228,7 @@ pub mod states {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7353,40 +6391,18 @@ pub mod work_item_types_behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<
+                models::WorkItemTypeBehaviorList,
+                azure_core::http::JsonFormat,
+            >,
+        );
         impl Response {
-            pub async fn into_raw_body(
-                self,
-            ) -> azure_core::Result<models::WorkItemTypeBehaviorList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemTypeBehaviorList = serde_json::from_slice(&bytes)
-                    .map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeBehaviorList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7436,7 +6452,7 @@ pub mod work_item_types_behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7470,7 +6486,7 @@ pub mod work_item_types_behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -7481,38 +6497,15 @@ pub mod work_item_types_behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::WorkItemTypeBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemTypeBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7564,7 +6557,7 @@ pub mod work_item_types_behaviors {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7597,7 +6590,7 @@ pub mod work_item_types_behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -7608,38 +6601,15 @@ pub mod work_item_types_behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::WorkItemTypeBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemTypeBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7691,7 +6661,7 @@ pub mod work_item_types_behaviors {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7724,7 +6694,7 @@ pub mod work_item_types_behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -7735,38 +6705,15 @@ pub mod work_item_types_behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::WorkItemTypeBehavior, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::WorkItemTypeBehavior =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeBehavior> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7817,7 +6764,7 @@ pub mod work_item_types_behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -7851,7 +6798,7 @@ pub mod work_item_types_behaviors {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -7862,23 +6809,10 @@ pub mod work_item_types_behaviors {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -7929,7 +6863,7 @@ pub mod work_item_types_behaviors {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -8063,38 +6997,15 @@ pub mod lists {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::PickListMetadataList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::PickListMetadataList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::PickListMetadataList =
-                    serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::PickListMetadataList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -8142,7 +7053,7 @@ pub mod lists {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -8173,7 +7084,7 @@ pub mod lists {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -8184,37 +7095,15 @@ pub mod lists {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::PickList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::PickList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::PickList = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::PickList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -8264,7 +7153,7 @@ pub mod lists {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -8295,7 +7184,7 @@ pub mod lists {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -8306,37 +7195,15 @@ pub mod lists {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::PickList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::PickList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::PickList = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::PickList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -8385,7 +7252,7 @@ pub mod lists {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -8417,7 +7284,7 @@ pub mod lists {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -8428,37 +7295,15 @@ pub mod lists {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(
+            azure_core::http::Response<models::PickList, azure_core::http::JsonFormat>,
+        );
         impl Response {
-            pub async fn into_raw_body(self) -> azure_core::Result<models::PickList> {
-                let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                let body: models::PickList = serde_json::from_slice(&bytes).map_err(|e| {
-                    azure_core::error::Error::full(
-                        azure_core::error::ErrorKind::DataConversion,
-                        e,
-                        format!(
-                            "Failed to deserialize response:\n{}",
-                            String::from_utf8_lossy(&bytes)
-                        ),
-                    )
-                })?;
-                Ok(body)
+            pub async fn into_body(self) -> azure_core::Result<models::PickList> {
+                self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -8509,7 +7354,7 @@ pub mod lists {
                         req.insert_header("content-type", "application/json");
                         let req_body = azure_core::json::to_json(&this.body)?;
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
@@ -8541,7 +7386,7 @@ pub mod lists {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_raw_body().await })
+                Box::pin(async move { self.send().await?.into_body().await })
             }
         }
     }
@@ -8552,23 +7397,10 @@ pub mod lists {
         #[cfg(target_arch = "wasm32")]
         use futures::future::LocalBoxFuture as BoxFuture;
         #[derive(Debug)]
-        pub struct Response(azure_core::http::Response);
+        pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::Response {
-                self.0
-            }
-            pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                &self.0
-            }
-        }
-        impl From<Response> for azure_core::http::Response {
-            fn from(rsp: Response) -> Self {
-                rsp.into_raw_response()
-            }
-        }
-        impl AsRef<azure_core::http::Response> for Response {
-            fn as_ref(&self) -> &azure_core::http::Response {
-                self.as_raw_response()
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
             }
         }
         #[derive(Clone)]
@@ -8617,7 +7449,7 @@ pub mod lists {
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }

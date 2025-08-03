@@ -32,7 +32,7 @@ async fn main() -> Result<()> {
     let git_client = git::ClientBuilder::new(credential).build();
 
     // Create GitPullRequestCreateOptions with all the mandatory parameters
-    println!("Create PR to merge {} => {}", src_branch, target_branch);
+    println!("Create PR to merge {src_branch} => {target_branch}");
     let mut pr_create_options = GitPullRequestCreateOptions::new(
         // Need to specify full git refs path
         format!("refs/heads/{src_branch}"),
@@ -53,7 +53,7 @@ async fn main() -> Result<()> {
         .pull_requests_client()
         .create(organization, repo_name, project, pr_create_options)
         .await?;
-    println!("Created PR:\n{:#?}", pr);
+    println!("Created PR:\n{pr:#?}");
 
     Ok(())
 }

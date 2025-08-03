@@ -65,7 +65,7 @@ async fn main() -> Result<()> {
     // Unique files changed in the PR
     println!("These files are modified in pr(target) branch:");
     for file_name in files_diff_between_branches.iter() {
-        println!("{}", file_name)
+        println!("{file_name}")
     }
 
     Ok(())

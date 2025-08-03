@@ -37,7 +37,7 @@ async fn main() -> Result<()> {
         .get_pull_request_commits(&organization, &repository_name, pull_request_id, &project)
         .top(top_commits)
         .await?;
-    println!("{:#?}", pr_commits);
+    println!("{pr_commits:#?}");
 
     Ok(())
 }

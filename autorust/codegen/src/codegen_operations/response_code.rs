@@ -87,43 +87,50 @@ impl ResponseCode {
 
 impl ToTokens for ResponseCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
+        let (response_type_tokens, azure_core_response_tokens) = match self.response_type() {
+            Some(response_type) => {
+                if response_type.is_bytes() {
+                    (
+                        quote! { Bytes },
+                        quote! { azure_core::http::Response<Bytes, azure_core::http::NoFormat> },
+                    )
+                } else if self.produces_xml() {
+                    (
+                        quote! { #response_type },
+                        quote! { azure_core::http::Response<#response_type, azure_core::http::XmlFormat> },
+                    )
+                } else {
+                    (
+                        quote! { #response_type },
+                        quote! { azure_core::http::Response<#response_type, azure_core::http::JsonFormat> },
+                    )
+                }
+            }
+            None => (
+                quote! { () },
+                quote! { azure_core::http::Response<(), azure_core::http::NoFormat> },
+            ),
+        };
+
         tokens.extend(quote! {
             #[derive(Debug)]
-            pub struct Response(azure_core::http::Response);
+            pub struct Response(#azure_core_response_tokens);
         });
-        let body_fn = if let Some(response_type) = self.response_type() {
-            let deserialize_body = if response_type.is_bytes() {
-                quote! {
-                    let body = bytes;
+
+        let body_fn = if self.response_type().is_some() {
+            quote! {
+                pub async fn into_body(self) -> azure_core::Result<#response_type_tokens> {
+                    self.0.into_body().await
                 }
-            } else if self.produces_xml() {
-                quote! {
-                    let body: #response_type = azure_core::xml::read_xml(&bytes)?;
-                }
-            } else {
-                quote! {
-                    let body: #response_type = serde_json::from_slice(&bytes).map_err(|e| {
-                        azure_core::error::Error::full(
-                            azure_core::error::ErrorKind::DataConversion,
-                            e,
-                            format!(
-                                "Failed to deserialize response:\n{}",
-                                String::from_utf8_lossy(&bytes)
-                            ),
-                        )
-                    })?;
-                }
-            };
-            let into_body = quote! {
-                pub async fn into_raw_body(self) -> azure_core::Result<#response_type> {
-                    let bytes: azure_core::Bytes = self.0.into_raw_body().collect().await?;
-                    #deserialize_body
-                    Ok(body)
-                }
-            };
-            into_body
+            }
         } else {
             quote! {}
+        };
+
+        let raw_response_fn = quote! {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+                self.0.into()
+            }
         };
 
         let headers_fn = if self.headers.has_headers() {
@@ -135,23 +142,8 @@ impl ToTokens for ResponseCode {
         tokens.extend(quote! {
             impl Response {
                 #body_fn
-                pub fn into_raw_response(self) -> azure_core::http::Response {
-                    self.0
-                }
-                pub fn as_raw_response(&self) -> &azure_core::http::Response {
-                    &self.0
-                }
+                #raw_response_fn
                 #headers_fn
-            }
-            impl From<Response> for azure_core::http::Response {
-                fn from(rsp: Response) -> Self {
-                    rsp.into_raw_response()
-                }
-            }
-            impl AsRef<azure_core::http::Response> for Response {
-                fn as_ref(&self) -> &azure_core::http::Response {
-                    self.as_raw_response()
-                }
             }
         });
         tokens.extend(self.headers.to_token_stream());

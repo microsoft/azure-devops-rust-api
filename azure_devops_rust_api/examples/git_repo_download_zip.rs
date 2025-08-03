@@ -89,7 +89,7 @@ async fn main() -> Result<()> {
         .send()
         .await?
         .into_raw_response()
-        .into_raw_body();
+        .into_body();
 
     let mut file = std::fs::File::create("blobs.zip")?;
     while let Some(chunk_result) = body.next().await {

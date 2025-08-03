@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
         .value;
 
     println!("Found {} source_providers", source_providers.len());
-    println!("\nSource Providers:\n {:#?}", source_providers);
+    println!("\nSource Providers:\n {source_providers:#?}");
 
     Ok(())
 }

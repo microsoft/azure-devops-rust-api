@@ -110,10 +110,7 @@ async fn query_workitems(
         })
         .collect();
 
-    println!(
-        "workitem_batch_get_requests: {:#?}",
-        workitem_batch_get_requests
-    );
+    println!("workitem_batch_get_requests: {workitem_batch_get_requests:#?}");
 
     // Get work item batches in parallel and collect into a vector
     let workitem_batches: Vec<WorkItemList> = workitem_batch_get_requests

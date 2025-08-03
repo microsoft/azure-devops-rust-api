@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
         .commits_client()
         .get_changes(&organization, &commit_id, &repository_name, &project)
         .await?;
-    println!("Commit changes:\n{:#?}", commit_changes);
+    println!("Commit changes:\n{commit_changes:#?}");
 
     Ok(())
 }

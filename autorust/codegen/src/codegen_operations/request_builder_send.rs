@@ -95,7 +95,7 @@ impl ToTokens for RequestBuilderSendCode {
                         #new_request_code
                         #request_builder
                         req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?))
+                        Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }

@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking changes
+
 - Update `azure_core`, `azure_identity` to 0.26
-  - Use `RawResponse` rather than `Response`
+  - Some significant updates needed to handle changes to `azure_core::http::Response`
+    - `Response::into_raw_body()` renamed `Response::into_body()`
+    - `Response::into_raw_response()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
+    - `Client::send()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
+- Fix up examples to work with response changes.
 
 ## [0.28.0]
 
