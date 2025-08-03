@@ -61,7 +61,7 @@ impl Credential {
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {
                 let token_response = token_credential
-                    .get_token(scopes)
+                    .get_token(scopes, None)
                     .await
                     .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
                 Ok(Some(format!("Bearer {}", token_response.token.secret())))

@@ -49,7 +49,7 @@ async fn main() -> Result<()> {
                     .id
                     .as_deref()
                     .unwrap_or("");
-                println!("{:30}{:40}{:40}", name, id, version_id);
+                println!("{name:30}{id:40}{version_id:40}");
 
                 let provenance = artifacts_client
                     .artifact_details_client()
@@ -63,7 +63,7 @@ async fn main() -> Result<()> {
                     .await?
                     .provenance;
 
-                println!("{:#?}", provenance);
+                println!("{provenance:#?}");
             }
         }
     }

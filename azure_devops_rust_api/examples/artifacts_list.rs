@@ -34,11 +34,11 @@ async fn main() -> Result<()> {
         let id = feed.feed_core.id.as_deref().unwrap_or("");
         let name = feed.feed_core.name.as_deref().unwrap_or("");
         let url = feed.url.as_deref().unwrap_or("");
-        println!("{:40}{:30}{}", id, name, url);
+        println!("{id:40}{name:30}{url}");
     }
 
     if let Some(feed) = feeds.first() {
-        println!("\nExample feed struct:\n{:#?}", feed);
+        println!("\nExample feed struct:\n{feed:#?}");
 
         if let Some(feed_id) = &feed.feed_core.id {
             println!("\nFeed packages:");
@@ -52,7 +52,7 @@ async fn main() -> Result<()> {
                 let id = package.id.as_deref().unwrap_or("");
                 let name = package.name.as_deref().unwrap_or("");
                 let url = package.url.as_deref().unwrap_or("");
-                println!("{:40}{:30}{}", id, name, url);
+                println!("{id:40}{name:30}{url}");
             }
         }
     }

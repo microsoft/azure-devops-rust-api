@@ -70,7 +70,7 @@ fn new_git_change_with_content(
 // Create a new `GitRefUpdate` with the specified base commit id and target branch
 fn new_git_ref_update(base_commit_id: String, target_branch: &str) -> GitRefUpdate {
     GitRefUpdate {
-        name: Some(format!("refs/heads/{}", target_branch)),
+        name: Some(format!("refs/heads/{target_branch}")),
         old_object_id: Some(base_commit_id),
         ..Default::default()
     }
@@ -112,7 +112,7 @@ async fn main() -> Result<()> {
         &source_branch,
     )
     .await?;
-    println!("base_commit_id: {}", base_commit_id);
+    println!("base_commit_id: {base_commit_id}");
 
     // Define the base commit id and the target branch
     let ref_update = new_git_ref_update(base_commit_id, &target_branch);
@@ -142,7 +142,7 @@ async fn main() -> Result<()> {
         .pushes_client()
         .create(&organization, push_request, &repository_name, &project)
         .await?;
-    println!("Pushed commit.\npush_response: {:#?}", push_response);
+    println!("Pushed commit.\npush_response: {push_response:#?}");
 
     Ok(())
 }

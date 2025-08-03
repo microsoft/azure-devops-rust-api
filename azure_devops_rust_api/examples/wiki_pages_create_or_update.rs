@@ -64,7 +64,7 @@ async fn main() -> Result<()> {
                 .await
             {
                 Ok(p) => println!("Page updated: {:?}", p.remote_url),
-                Err(e) => panic!("Failed to update wiki page: {}", e),
+                Err(e) => panic!("Failed to update wiki page: {e}"),
             }
         }
         None => {
@@ -81,7 +81,7 @@ async fn main() -> Result<()> {
                 .await
             {
                 Ok(p) => println!("Page created: {:?}", p.remote_url),
-                Err(e) => panic!("Failed to create wiki page: {}", e),
+                Err(e) => panic!("Failed to create wiki page: {e}"),
             }
         }
     }
@@ -108,7 +108,7 @@ async fn get_wiki_page_etag(
     {
         Ok(r) => {
             let etag = r.headers().e_tag().unwrap().to_owned();
-            println!("Etag for page {}, {}", page_path, etag);
+            println!("Etag for page {page_path}, {etag}");
             Some(etag)
         }
         Err(e) => {

@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", approvals);
+    println!("{approvals:#?}");
 
     // Get list of folders
     println!("\nFolders:");
@@ -37,7 +37,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project, &folder_path)
         .await?
         .value;
-    println!("{:#?}", folders);
+    println!("{folders:#?}");
 
     // Get list of deployments
     println!("\nDeployments:");
@@ -46,7 +46,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", deployments);
+    println!("{deployments:#?}");
 
     // Get a list of releases
     println!("\nReleases:");
@@ -55,7 +55,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", releases);
+    println!("{releases:#?}");
 
     Ok(())
 }

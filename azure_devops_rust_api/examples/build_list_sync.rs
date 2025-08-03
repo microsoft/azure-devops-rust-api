@@ -47,7 +47,7 @@ fn main() -> Result<()> {
 
     println!("Found {} builds", builds.len());
     if let Some(build) = builds.first() {
-        println!("Example build struct: {:#?}", build);
+        println!("Example build struct: {build:#?}");
     }
 
     Ok(())

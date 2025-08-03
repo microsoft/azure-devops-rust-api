@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
     }
 
     if let Some(identity) = identities.first() {
-        println!("{:#?}", identity);
+        println!("{identity:#?}");
     }
 
     Ok(())

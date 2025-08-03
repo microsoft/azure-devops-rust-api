@@ -24,10 +24,7 @@ async fn get_builds(
     let mut list_builder = build_client.builds_client().list(organization, project);
 
     if let Some(continuation_token) = continuation_token {
-        println!(
-            "Query builds with continuation_token: {}",
-            continuation_token
-        );
+        println!("Query builds with continuation_token: {continuation_token}");
         list_builder = list_builder.continuation_token(continuation_token)
     } else {
         println!("Query builds with no continuation_token");
@@ -67,7 +64,7 @@ async fn main() -> Result<()> {
     let mut continuation_token = None;
 
     // Query several batches of builds. Each batch has 1000 builds (by default)
-    println!("Num build batches: {}", NUM_BUILD_BATCHES);
+    println!("Num build batches: {NUM_BUILD_BATCHES}");
     for batch in 0..NUM_BUILD_BATCHES {
         let (builds, new_continuation_token) =
             get_builds(&build_client, &organization, &project, &continuation_token).await?;

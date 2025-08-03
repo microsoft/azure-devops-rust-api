@@ -33,7 +33,7 @@ async fn main() -> Result<()> {
     let release_client = release::ClientBuilder::new(credential).build();
 
     // Get release logs
-    println!("\nDownloading release logs for release {}", release_id);
+    println!("\nDownloading release logs for release {release_id}");
     let (status, _headers, body) = release_client
         .releases_client()
         .get_logs(organization, project, release_id)
@@ -43,18 +43,18 @@ async fn main() -> Result<()> {
         .deconstruct();
 
     if status != StatusCode::Ok {
-        println!("Request failed. status:{}", status);
+        println!("Request failed. status:{status}");
         return Err(anyhow!("Request failed"));
     }
 
     // Write the data as a zipfile
-    println!("Writing data to zipfile: {}", output_file);
+    println!("Writing data to zipfile: {output_file}");
     let data = body.collect().await?;
     let mut file = File::create(&output_file)?;
     file.write_all(&data)?;
     println!("Logs saved");
 
-    println!("Use 'unzip {}' to extract the logs", output_file);
+    println!("Use 'unzip {output_file}' to extract the logs");
 
     Ok(())
 }

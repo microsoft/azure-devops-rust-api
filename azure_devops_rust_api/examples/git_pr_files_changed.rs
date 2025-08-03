@@ -52,7 +52,7 @@ async fn main() -> Result<()> {
             Some(comment) => comment.clone(),
             _ => "".to_string(),
         };
-        println!("{} {}", commit_id, comment);
+        println!("{commit_id} {comment}");
 
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
@@ -77,7 +77,7 @@ async fn main() -> Result<()> {
     println!("\nChanged files:");
     // Unique files changed in the PR
     for filename in files_changed.iter() {
-        println!("{}", filename)
+        println!("{filename}")
     }
 
     Ok(())

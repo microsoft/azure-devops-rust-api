@@ -26,7 +26,7 @@ async fn main() -> Result<()> {
         .get(organization)
         .select("AccessLevels,Licenses,Projects,Groups")
         .await?;
-    println!("{:#?}", entitlement_summary);
+    println!("{entitlement_summary:#?}");
 
     Ok(())
 }

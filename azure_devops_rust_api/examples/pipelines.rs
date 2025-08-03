@@ -45,7 +45,7 @@ async fn main() -> Result<()> {
 
     if let Some(pipeline) = matched_pipelines.first() {
         println!("\nExample pipeline struct from list:");
-        println!("{:#?}", pipeline);
+        println!("{pipeline:#?}");
 
         // The pipeline struct returned from list is different from that returned by get.
         // Query and display the struct returned by get for comparison.
@@ -54,7 +54,7 @@ async fn main() -> Result<()> {
             .get(&organization, &project, pipeline.id)
             .await?;
         println!("\nExample pipeline struct from get:");
-        println!("{:#?}", pipeline);
+        println!("{pipeline:#?}");
 
         // Use the client to list all runs of the selected pipeline
         let runs = pipelines_client
@@ -67,7 +67,7 @@ async fn main() -> Result<()> {
         // Display [result, state] for each pipeline run
         for run in runs.iter() {
             let result = match &run.result {
-                Some(result) => format!("{:?}", result),
+                Some(result) => format!("{result:?}"),
                 None => "-".to_string(),
             };
             println!(
