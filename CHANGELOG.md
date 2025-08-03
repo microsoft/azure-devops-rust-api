@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking changes
 
+## [0.29.0]
+
 - Update `azure_core`, `azure_identity` to 0.26
   - Some significant updates needed to handle changes to `azure_core::http::Response`
     - `Response::into_raw_body()` renamed `Response::into_body()`
