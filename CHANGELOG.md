@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Breaking changes
+- Update `azure_core`, `azure_identity` to 0.27
 
 ## [0.29.0]
+
+### Breaking changes
 
 - Update `azure_core`, `azure_identity` to 0.26
   - Some significant updates needed to handle changes to `azure_core::http::Response`
