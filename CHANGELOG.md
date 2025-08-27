@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.30.0]
+
+### Changes
+
 - Update `azure_core`, `azure_identity` to 0.27
+- Clippy fixes for `needless_lifetime` warnings.
 
 ## [0.29.0]
 
@@ -22,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disable wasm32 CI build due to issues with `getrandom`
 
 ## [0.28.0]
+
+### Changes
 
 - Update `azure_core`, `azure_identity` to 0.24
 - Fix formatting of date-time parameters
@@ -68,7 +75,7 @@ breaking changes over previous versions.
 ## [0.25.0]
 
 ### Breaking change
-- Change git 'Change::item' field to be optional. 
+- Change git 'Change::item' field to be optional.
   - Discovered that in some returned values this field is not present.
     Any code accessing this field now needs to wrap it in an `Option`, or deal with the returned value being wrapped in an `Option`.
 
@@ -600,7 +607,10 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.27.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.0...HEAD
+[0.30.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.29.0...0.30.0
+[0.29.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.28.0...0.29.0
+[0.28.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.27.0...0.28.0
 [0.27.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.1...0.27.0
 [0.26.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.0...0.26.1
 [0.26.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.25.0...0.26.0
