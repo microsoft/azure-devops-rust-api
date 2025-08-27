@@ -30,7 +30,7 @@ cargo_toml = "0.22"
 
 [dev-dependencies]
 thiserror = "2"
-crates_io_api = "0.11"
+crates_io_api = "0.12"
 
 [lints]
 workspace = true
