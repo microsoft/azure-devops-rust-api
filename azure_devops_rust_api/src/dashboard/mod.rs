@@ -1389,7 +1389,7 @@ pub mod widgets {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }
@@ -1618,7 +1618,7 @@ pub mod widgets {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }
@@ -1743,7 +1743,7 @@ pub mod widgets {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }

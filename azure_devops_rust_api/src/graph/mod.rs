@@ -400,7 +400,7 @@ pub mod groups {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }
@@ -1916,7 +1916,7 @@ pub mod service_principals {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }
@@ -3195,7 +3195,7 @@ pub mod users {
             pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
-            pub fn headers(&self) -> Headers {
+            pub fn headers(&self) -> Headers<'_> {
                 Headers(self.0.headers())
             }
         }
