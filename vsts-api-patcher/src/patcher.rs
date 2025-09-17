@@ -1042,11 +1042,11 @@ impl Patcher {
                 // Excluded
                 //   administratorsGroup
                 //   operationStatus
+                //   description
                 r#"[
                     "authorization",
                     "createdBy",
                     "data",
-                    "description",
                     "id",
                     "isReady",
                     "isShared",
