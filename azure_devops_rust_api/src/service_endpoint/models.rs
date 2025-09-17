@@ -1312,7 +1312,8 @@ pub struct ServiceEndpoint {
     pub created_by: IdentityRef,
     pub data: serde_json::Value,
     #[doc = "Gets or sets the description of endpoint."]
-    pub description: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[doc = "This is a deprecated field."]
     #[serde(
         rename = "groupScopeId",
@@ -1364,7 +1365,6 @@ impl ServiceEndpoint {
         authorization: EndpointAuthorization,
         created_by: IdentityRef,
         data: serde_json::Value,
-        description: String,
         id: String,
         is_ready: bool,
         is_shared: bool,
@@ -1378,7 +1378,7 @@ impl ServiceEndpoint {
             authorization,
             created_by,
             data,
-            description,
+            description: None,
             group_scope_id: None,
             id,
             is_ready,

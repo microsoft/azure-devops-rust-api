@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Change `ServiceEndpoint` field to be optional:
+  - `description`
+
 ## [0.30.0]
 
 ### Changes
