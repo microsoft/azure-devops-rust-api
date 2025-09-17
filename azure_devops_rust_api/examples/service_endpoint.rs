@@ -33,7 +33,9 @@ async fn main() -> Result<()> {
     for endpoint in service_endpoints.iter() {
         println!(
             "{:38} {:40} {:?}",
-            endpoint.id, endpoint.name, endpoint.description.as_deref().unwrap_or("")
+            endpoint.id,
+            endpoint.name,
+            endpoint.description.as_deref().unwrap_or("")
         );
     }
 
