@@ -1313,9 +1313,9 @@ impl Patcher {
                 // Excluded
                 //   _links
                 //   url
+                //   pool"
                 r#"[
                     "id",
-                    "pool",
                     "name"
                 ]"#,
             ),
