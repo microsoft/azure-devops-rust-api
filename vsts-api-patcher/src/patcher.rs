@@ -1059,18 +1059,20 @@ impl Patcher {
             (
                 "serviceEndpoint.json",
                 "ServiceEndpointProjectReference",
+                // Excluded:
+                //   description
+                //   name
                 r#"[
-                    "description",
-                    "name",
                     "projectReference"
                 ]"#,
             ),
             (
                 "serviceEndpoint.json",
                 "ProjectReference",
+                // Excluded:
+                //   name
                 r#"[
-                    "id",
-                    "name"
+                    "id"
                 ]"#,
             ),
             // (
@@ -1313,10 +1315,10 @@ impl Patcher {
                 // Excluded
                 //   _links
                 //   url
-                //   pool"
+                //   name
+                //   pool
                 r#"[
-                    "id",
-                    "name"
+                    "id"
                 ]"#,
             ),
             (
