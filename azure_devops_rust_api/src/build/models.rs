@@ -14,7 +14,8 @@ pub struct AgentPoolQueue {
     #[doc = "The ID of the queue."]
     pub id: i32,
     #[doc = "The name of the queue."]
-    pub name: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     #[doc = "Represents a reference to an agent pool."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pool: Option<TaskAgentPoolReference>,
@@ -23,11 +24,11 @@ pub struct AgentPoolQueue {
     pub url: Option<String>,
 }
 impl AgentPoolQueue {
-    pub fn new(id: i32, name: String) -> Self {
+    pub fn new(id: i32) -> Self {
         Self {
             links: None,
             id,
-            name,
+            name: None,
             pool: None,
             url: None,
         }

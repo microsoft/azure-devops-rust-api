@@ -1218,11 +1218,12 @@ impl Parameter {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ProjectReference {
     pub id: String,
-    pub name: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
 }
 impl ProjectReference {
-    pub fn new(id: String, name: String) -> Self {
-        Self { id, name }
+    pub fn new(id: String) -> Self {
+        Self { id, name: None }
     }
 }
 #[doc = "The class to represent a collection of REST reference links."]
@@ -1664,17 +1665,19 @@ impl ServiceEndpointOAuthConfigurationReference {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceEndpointProjectReference {
     #[doc = "Gets or sets description of the service endpoint."]
-    pub description: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
     #[doc = "Gets or sets name of the service endpoint."]
-    pub name: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     #[serde(rename = "projectReference")]
     pub project_reference: ProjectReference,
 }
 impl ServiceEndpointProjectReference {
-    pub fn new(description: String, name: String, project_reference: ProjectReference) -> Self {
+    pub fn new(project_reference: ProjectReference) -> Self {
         Self {
-            description,
-            name,
+            description: None,
+            name: None,
             project_reference,
         }
     }

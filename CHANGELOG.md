@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.31.0]
+
+- Change `AgentPoolQueue` field to be optional:
+  - `name`
+- Change `ProjectReference` field to be optional:
+  - `name`
+- Change `ServiceEndpointProjectReference` fields to be optional:
+  - `description`
+  - `name`
+
 ## [0.30.1]
 
 - Change `ServiceEndpoint` field to be optional:
@@ -614,7 +624,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.31.0...HEAD
+[0.31.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.1...0.31.0
 [0.30.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.0...0.30.1
 [0.30.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.29.0...0.30.0
 [0.29.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.28.0...0.29.0
