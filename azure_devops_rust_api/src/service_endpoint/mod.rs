@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -211,7 +212,7 @@ pub mod endpointproxy {
             ) -> azure_core::Result<models::ServiceEndpointRequestResult> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -318,7 +319,7 @@ pub mod endpointproxy {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -610,7 +611,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -783,7 +784,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -883,7 +884,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -983,7 +984,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1091,7 +1092,7 @@ pub mod endpoints {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1191,7 +1192,7 @@ pub mod endpoints {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1310,7 +1311,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1466,7 +1467,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1573,7 +1574,7 @@ pub mod endpoints {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpoint> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1711,7 +1712,7 @@ pub mod types {
             pub async fn into_body(self) -> azure_core::Result<models::ServiceEndpointTypeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1866,7 +1867,7 @@ pub mod executionhistory {
             ) -> azure_core::Result<models::ServiceEndpointExecutionRecordList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }

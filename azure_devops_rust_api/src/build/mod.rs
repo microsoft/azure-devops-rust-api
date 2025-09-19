@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -325,7 +326,7 @@ pub mod artifacts {
             pub async fn into_body(self) -> azure_core::Result<models::BuildArtifact> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -431,7 +432,7 @@ pub mod artifacts {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -542,7 +543,7 @@ pub mod artifacts {
             pub async fn into_body(self) -> azure_core::Result<models::BuildArtifactList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -644,7 +645,7 @@ pub mod artifacts {
             pub async fn into_body(self) -> azure_core::Result<models::BuildArtifact> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -893,7 +894,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLeaseList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1021,7 +1022,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLeaseList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1153,7 +1154,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLeaseList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1258,7 +1259,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLeaseList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1355,7 +1356,7 @@ pub mod leases {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1461,7 +1462,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLease> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1563,7 +1564,7 @@ pub mod leases {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLease> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1703,7 +1704,7 @@ pub mod controllers {
             pub async fn into_body(self) -> azure_core::Result<models::BuildControllerList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1809,7 +1810,7 @@ pub mod controllers {
             pub async fn into_body(self) -> azure_core::Result<models::BuildController> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1929,7 +1930,7 @@ pub mod resource_usage {
             pub async fn into_body(self) -> azure_core::Result<models::BuildResourceUsage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2048,7 +2049,7 @@ pub mod history {
             pub async fn into_body(self) -> azure_core::Result<models::BuildRetentionHistory> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2205,7 +2206,7 @@ pub mod badge {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2316,7 +2317,7 @@ pub mod badge {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2487,7 +2488,7 @@ pub mod authorizedresources {
             ) -> azure_core::Result<models::DefinitionResourceReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2609,7 +2610,7 @@ pub mod authorizedresources {
             ) -> azure_core::Result<models::DefinitionResourceReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3028,7 +3029,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::BuildList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3351,7 +3352,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::Build> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3494,7 +3495,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::BuildList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3596,7 +3597,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::Build> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3708,7 +3709,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::Build> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3817,7 +3818,7 @@ pub mod builds {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3922,7 +3923,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::ChangeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4056,7 +4057,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::RetentionLeaseList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4158,7 +4159,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::BuildLogList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4258,7 +4259,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4384,7 +4385,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::ResourceRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4497,7 +4498,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::ResourceRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4612,7 +4613,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::ChangeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4745,7 +4746,7 @@ pub mod builds {
             pub async fn into_body(self) -> azure_core::Result<models::ResourceRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4927,7 +4928,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5037,7 +5038,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5235,7 +5236,7 @@ pub mod properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5348,7 +5349,7 @@ pub mod properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5452,7 +5453,7 @@ pub mod properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5565,7 +5566,7 @@ pub mod properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5699,7 +5700,7 @@ pub mod report {
             pub async fn into_body(self) -> azure_core::Result<models::BuildReportMetadata> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5836,7 +5837,7 @@ pub mod stages {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6203,7 +6204,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6303,7 +6304,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6405,7 +6406,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6507,7 +6508,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6609,7 +6610,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6711,7 +6712,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6822,7 +6823,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6924,7 +6925,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7026,7 +7027,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7128,7 +7129,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7230,7 +7231,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7328,7 +7329,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7462,7 +7463,7 @@ pub mod timeline {
             pub async fn into_body(self) -> azure_core::Result<models::Timeline> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7761,7 +7762,7 @@ pub mod definitions {
             ) -> azure_core::Result<models::BuildDefinitionReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8048,7 +8049,7 @@ pub mod definitions {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8177,7 +8178,7 @@ pub mod definitions {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8328,7 +8329,7 @@ pub mod definitions {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8464,7 +8465,7 @@ pub mod definitions {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8566,7 +8567,7 @@ pub mod definitions {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8676,7 +8677,7 @@ pub mod definitions {
             ) -> azure_core::Result<models::BuildDefinitionRevisionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8829,7 +8830,7 @@ pub mod metrics {
             pub async fn into_body(self) -> azure_core::Result<models::BuildMetricList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8947,7 +8948,7 @@ pub mod metrics {
             pub async fn into_body(self) -> azure_core::Result<models::BuildMetricList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9114,7 +9115,7 @@ pub mod resources {
             ) -> azure_core::Result<models::DefinitionResourceReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9222,7 +9223,7 @@ pub mod resources {
             ) -> azure_core::Result<models::DefinitionResourceReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9360,7 +9361,7 @@ pub mod yaml {
             pub async fn into_body(self) -> azure_core::Result<models::YamlBuild> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9602,7 +9603,7 @@ pub mod templates {
             ) -> azure_core::Result<models::BuildDefinitionTemplateList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9706,7 +9707,7 @@ pub mod templates {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinitionTemplate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9812,7 +9813,7 @@ pub mod templates {
             pub async fn into_body(self) -> azure_core::Result<models::BuildDefinitionTemplate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9912,7 +9913,7 @@ pub mod templates {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10110,7 +10111,7 @@ pub mod folders {
             pub async fn into_body(self) -> azure_core::Result<models::Folder> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10215,7 +10216,7 @@ pub mod folders {
             pub async fn into_body(self) -> azure_core::Result<models::Folder> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10315,7 +10316,7 @@ pub mod folders {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10421,7 +10422,7 @@ pub mod folders {
             pub async fn into_body(self) -> azure_core::Result<models::FolderList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10581,7 +10582,7 @@ pub mod general_settings {
             pub async fn into_body(self) -> azure_core::Result<models::PipelineGeneralSettings> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10685,7 +10686,7 @@ pub mod general_settings {
             pub async fn into_body(self) -> azure_core::Result<models::PipelineGeneralSettings> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10818,7 +10819,7 @@ pub mod latest {
             pub async fn into_body(self) -> azure_core::Result<models::Build> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10960,7 +10961,7 @@ pub mod options {
             pub async fn into_body(self) -> azure_core::Result<models::BuildOptionDefinitionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11108,7 +11109,7 @@ pub mod retention {
             pub async fn into_body(self) -> azure_core::Result<models::ProjectRetentionSetting> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11212,7 +11213,7 @@ pub mod retention {
             pub async fn into_body(self) -> azure_core::Result<models::ProjectRetentionSetting> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11360,7 +11361,7 @@ pub mod settings {
             pub async fn into_body(self) -> azure_core::Result<models::BuildSettings> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11460,7 +11461,7 @@ pub mod settings {
             pub async fn into_body(self) -> azure_core::Result<models::BuildSettings> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11594,7 +11595,7 @@ pub mod status {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11941,7 +11942,7 @@ pub mod source_providers {
             ) -> azure_core::Result<models::SourceProviderAttributesList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12040,7 +12041,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12173,7 +12174,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12320,7 +12321,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<models::SourceRepositoryItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12465,7 +12466,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<models::PullRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12591,7 +12592,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<models::SourceRepositories> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12748,7 +12749,7 @@ pub mod source_providers {
             pub async fn into_body(self) -> azure_core::Result<models::RepositoryWebhookList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12867,7 +12868,7 @@ pub mod source_providers {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }

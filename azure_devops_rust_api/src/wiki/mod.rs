@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -266,7 +267,7 @@ pub mod wikis {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2List> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -366,7 +367,7 @@ pub mod wikis {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -468,7 +469,7 @@ pub mod wikis {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -570,7 +571,7 @@ pub mod wikis {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -674,7 +675,7 @@ pub mod wikis {
             pub async fn into_body(self) -> azure_core::Result<models::WikiV2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -814,7 +815,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<models::WikiAttachment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1017,7 +1018,7 @@ pub mod page_moves {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageMove> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1361,7 +1362,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1554,7 +1555,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1734,7 +1735,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1910,7 +1911,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -2046,7 +2047,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -2175,7 +2176,7 @@ pub mod pages {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPage> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -2333,7 +2334,7 @@ pub mod page_stats {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetail> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2483,7 +2484,7 @@ pub mod pages_batch {
             pub async fn into_body(self) -> azure_core::Result<models::WikiPageDetailList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
