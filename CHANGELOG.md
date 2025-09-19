@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+## [0.32.0]
+
+### Changes
+
+- Update `azure_core` and `azure_identity` to 0.30.
+- Changes to handle API changes in `azure_core`:
+  - Replace `azure_core::http::RawResponse` with `azure_core::http::BufResponse`
+  - Add extra parameter when creating new `azure_core::http::Pipeline`
+
 ## [0.31.0]
+
+### Changes
 
 - Change `AgentPoolQueue` field to be optional:
   - `name`
@@ -18,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `name`
 
 ## [0.30.1]
+
+### Changes
 
 - Change `ServiceEndpoint` field to be optional:
   - `description`
@@ -624,7 +639,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.31.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.32.0...HEAD
+[0.32.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.31.0...0.32.0
 [0.31.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.1...0.31.0
 [0.30.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.0...0.30.1
 [0.30.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.29.0...0.30.0

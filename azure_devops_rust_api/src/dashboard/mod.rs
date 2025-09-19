@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -199,7 +200,7 @@ pub mod widget_types {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetTypesResponse> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -305,7 +306,7 @@ pub mod widget_types {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetMetadataResponse> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -548,7 +549,7 @@ pub mod dashboards {
             pub async fn into_body(self) -> azure_core::Result<models::DashboardList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -650,7 +651,7 @@ pub mod dashboards {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -754,7 +755,7 @@ pub mod dashboards {
             pub async fn into_body(self) -> azure_core::Result<models::DashboardGroup> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -858,7 +859,7 @@ pub mod dashboards {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -962,7 +963,7 @@ pub mod dashboards {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1063,7 +1064,7 @@ pub mod dashboards {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1386,7 +1387,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1509,7 +1510,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1615,7 +1616,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1740,7 +1741,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::WidgetList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -1865,7 +1866,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1971,7 +1972,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2079,7 +2080,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::Widget> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2187,7 +2188,7 @@ pub mod widgets {
             pub async fn into_body(self) -> azure_core::Result<models::Dashboard> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }

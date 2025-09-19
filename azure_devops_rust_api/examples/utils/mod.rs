@@ -8,14 +8,14 @@ use azure_core::http::{
     Context, Request,
 };
 use azure_devops_rust_api::Credential;
-use azure_identity::DefaultAzureCredential;
+use azure_identity::AzureCliCredential;
 use std::sync::Arc;
 
-fn authenticate_with_default_credential() -> Result<Credential> {
-    println!("Authenticate using auto-refreshing DefaultAzureCredential");
-    let default_azure_credential = DefaultAzureCredential::new()?;
+fn authenticate_with_cli_credential() -> Result<Credential> {
+    println!("Authenticate using Azure CLI credential");
+    let azure_cli_credential = AzureCliCredential::new(None)?;
 
-    Ok(Credential::from_token_credential(default_azure_credential))
+    Ok(Credential::from_token_credential(azure_cli_credential))
 }
 
 #[allow(dead_code)]
@@ -26,7 +26,7 @@ pub fn get_credential() -> Result<Credential> {
             println!("Authenticate using PAT provided via $ADO_TOKEN");
             Ok(Credential::from_pat(token))
         }
-        _ => authenticate_with_default_credential(),
+        _ => authenticate_with_cli_credential(),
     }
 }
 

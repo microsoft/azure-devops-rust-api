@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -233,7 +234,7 @@ pub mod consumers {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -341,7 +342,7 @@ pub mod consumers {
             pub async fn into_body(self) -> azure_core::Result<models::Consumer> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -451,7 +452,7 @@ pub mod consumers {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerActionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -561,7 +562,7 @@ pub mod consumers {
             pub async fn into_body(self) -> azure_core::Result<models::ConsumerAction> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -751,7 +752,7 @@ pub mod notifications {
             pub async fn into_body(self) -> azure_core::Result<models::NotificationsQuery> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -851,7 +852,7 @@ pub mod notifications {
             pub async fn into_body(self) -> azure_core::Result<models::NotificationList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -984,7 +985,7 @@ pub mod notifications {
             pub async fn into_body(self) -> azure_core::Result<models::Notification> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1086,7 +1087,7 @@ pub mod notifications {
             pub async fn into_body(self) -> azure_core::Result<models::Notification> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1297,7 +1298,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::PublisherList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1395,7 +1396,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::Publisher> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1498,7 +1499,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::EventTypeDescriptorList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1599,7 +1600,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::EventTypeDescriptor> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1701,7 +1702,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::InputValuesQuery> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1803,7 +1804,7 @@ pub mod publishers {
             pub async fn into_body(self) -> azure_core::Result<models::PublishersQuery> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2007,7 +2008,7 @@ pub mod subscriptions {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2149,7 +2150,7 @@ pub mod subscriptions {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2249,7 +2250,7 @@ pub mod subscriptions {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2349,7 +2350,7 @@ pub mod subscriptions {
             pub async fn into_body(self) -> azure_core::Result<models::Subscription> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2446,7 +2447,7 @@ pub mod subscriptions {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2549,7 +2550,7 @@ pub mod subscriptions {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionsQuery> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2690,7 +2691,7 @@ pub mod diagnostics {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionDiagnostics> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2794,7 +2795,7 @@ pub mod diagnostics {
             pub async fn into_body(self) -> azure_core::Result<models::SubscriptionDiagnostics> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
