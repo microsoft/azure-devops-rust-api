@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -456,7 +457,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepository> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -567,7 +568,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitDeletedRepositoryList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -671,7 +672,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitDeletedRepositoryList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -772,7 +773,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepository> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -871,7 +872,7 @@ pub mod repositories {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -976,7 +977,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepositoryList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1109,7 +1110,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepository> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1222,7 +1223,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepository> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1324,7 +1325,7 @@ pub mod repositories {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepository> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1423,7 +1424,7 @@ pub mod repositories {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1677,7 +1678,7 @@ pub mod commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2139,7 +2140,7 @@ pub mod commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2279,7 +2280,7 @@ pub mod commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommit> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2394,7 +2395,7 @@ pub mod commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitChanges> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2520,7 +2521,7 @@ pub mod commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2753,7 +2754,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<models::GitItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3010,7 +3011,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<models::GitItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3252,7 +3253,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<models::GitItemsList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3413,7 +3414,7 @@ pub mod stats {
             pub async fn into_body(self) -> azure_core::Result<models::GitBranchStats> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3572,7 +3573,7 @@ pub mod stats {
             pub async fn into_body(self) -> azure_core::Result<models::GitBranchStatsList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3812,7 +3813,7 @@ pub mod refs_favorites {
             pub async fn into_body(self) -> azure_core::Result<models::GitRefFavoriteList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3934,7 +3935,7 @@ pub mod refs_favorites {
             pub async fn into_body(self) -> azure_core::Result<models::GitRefFavorite> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4036,7 +4037,7 @@ pub mod refs_favorites {
             pub async fn into_body(self) -> azure_core::Result<models::GitRefFavorite> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4133,7 +4134,7 @@ pub mod refs_favorites {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4272,7 +4273,7 @@ pub mod policy_configurations {
             pub async fn into_body(self) -> azure_core::Result<models::PolicyConfigurationList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
             pub fn headers(&self) -> Headers<'_> {
@@ -4609,7 +4610,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4923,7 +4924,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5025,7 +5026,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5341,7 +5342,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5457,7 +5458,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5617,7 +5618,7 @@ pub mod pull_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5800,7 +5801,7 @@ pub mod annotated_tags {
             pub async fn into_body(self) -> azure_core::Result<models::GitAnnotatedTag> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5904,7 +5905,7 @@ pub mod annotated_tags {
             pub async fn into_body(self) -> azure_core::Result<models::GitAnnotatedTag> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6065,7 +6066,7 @@ pub mod blobs {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6179,7 +6180,7 @@ pub mod blobs {
             pub async fn into_body(self) -> azure_core::Result<models::GitBlobRef> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6402,7 +6403,7 @@ pub mod cherry_picks {
             pub async fn into_body(self) -> azure_core::Result<models::GitCherryPick> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6509,7 +6510,7 @@ pub mod cherry_picks {
             pub async fn into_body(self) -> azure_core::Result<models::GitCherryPick> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6613,7 +6614,7 @@ pub mod cherry_picks {
             pub async fn into_body(self) -> azure_core::Result<models::GitCherryPick> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6777,7 +6778,7 @@ pub mod statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitStatusList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6914,7 +6915,7 @@ pub mod statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitStatus> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7058,7 +7059,7 @@ pub mod diffs {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitDiffs> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7361,7 +7362,7 @@ pub mod import_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitImportRequestList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7474,7 +7475,7 @@ pub mod import_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitImportRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7578,7 +7579,7 @@ pub mod import_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitImportRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7682,7 +7683,7 @@ pub mod import_requests {
             pub async fn into_body(self) -> azure_core::Result<models::GitImportRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7820,7 +7821,7 @@ pub mod pull_request_query {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestQuery> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8034,7 +8035,7 @@ pub mod pull_request_attachments {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8136,7 +8137,7 @@ pub mod pull_request_attachments {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8242,7 +8243,7 @@ pub mod pull_request_attachments {
             pub async fn into_body(self) -> azure_core::Result<models::Attachment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8345,7 +8346,7 @@ pub mod pull_request_attachments {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8515,7 +8516,7 @@ pub mod pull_request_commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8641,7 +8642,7 @@ pub mod pull_request_commits {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8832,7 +8833,7 @@ pub mod pull_request_iterations {
             ) -> azure_core::Result<models::GitPullRequestIterationList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8951,7 +8952,7 @@ pub mod pull_request_iterations {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestIteration> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9101,7 +9102,7 @@ pub mod pull_request_iteration_changes {
             ) -> azure_core::Result<models::GitPullRequestIterationChanges> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9391,7 +9392,7 @@ pub mod pull_request_iteration_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatusList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9498,7 +9499,7 @@ pub mod pull_request_iteration_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatus> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9601,7 +9602,7 @@ pub mod pull_request_iteration_statuses {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9712,7 +9713,7 @@ pub mod pull_request_iteration_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatus> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9815,7 +9816,7 @@ pub mod pull_request_iteration_statuses {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10040,7 +10041,7 @@ pub mod pull_request_labels {
             pub async fn into_body(self) -> azure_core::Result<models::WebApiTagDefinitionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10156,7 +10157,7 @@ pub mod pull_request_labels {
             pub async fn into_body(self) -> azure_core::Result<models::WebApiTagDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10273,7 +10274,7 @@ pub mod pull_request_labels {
             pub async fn into_body(self) -> azure_core::Result<models::WebApiTagDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10385,7 +10386,7 @@ pub mod pull_request_labels {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10562,7 +10563,7 @@ pub mod pull_request_properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10666,7 +10667,7 @@ pub mod pull_request_properties {
             pub async fn into_body(self) -> azure_core::Result<models::PropertiesCollection> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10988,7 +10989,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVoteList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11096,7 +11097,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVoteList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11203,7 +11204,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVote> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11304,7 +11305,7 @@ pub mod pull_request_reviewers {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11413,7 +11414,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVote> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11519,7 +11520,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVote> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11627,7 +11628,7 @@ pub mod pull_request_reviewers {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefWithVote> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11730,7 +11731,7 @@ pub mod pull_request_reviewers {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11868,7 +11869,7 @@ pub mod pull_request_share {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12112,7 +12113,7 @@ pub mod pull_request_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatusList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12217,7 +12218,7 @@ pub mod pull_request_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatus> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12318,7 +12319,7 @@ pub mod pull_request_statuses {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12427,7 +12428,7 @@ pub mod pull_request_statuses {
             pub async fn into_body(self) -> azure_core::Result<models::GitPullRequestStatus> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12528,7 +12529,7 @@ pub mod pull_request_statuses {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12756,7 +12757,7 @@ pub mod pull_request_threads {
             ) -> azure_core::Result<models::GitPullRequestCommentThreadList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12888,7 +12889,7 @@ pub mod pull_request_threads {
             ) -> azure_core::Result<models::GitPullRequestCommentThread> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13000,7 +13001,7 @@ pub mod pull_request_threads {
             ) -> azure_core::Result<models::GitPullRequestCommentThread> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13134,7 +13135,7 @@ pub mod pull_request_threads {
             ) -> azure_core::Result<models::GitPullRequestCommentThread> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13393,7 +13394,7 @@ pub mod pull_request_thread_comments {
             pub async fn into_body(self) -> azure_core::Result<models::CommentList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13499,7 +13500,7 @@ pub mod pull_request_thread_comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13607,7 +13608,7 @@ pub mod pull_request_thread_comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13715,7 +13716,7 @@ pub mod pull_request_thread_comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -13820,7 +13821,7 @@ pub mod pull_request_thread_comments {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14025,7 +14026,7 @@ pub mod pull_request_comment_likes {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14119,7 +14120,7 @@ pub mod pull_request_comment_likes {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14217,7 +14218,7 @@ pub mod pull_request_comment_likes {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14351,7 +14352,7 @@ pub mod pull_request_work_items {
             pub async fn into_body(self) -> azure_core::Result<models::ResourceRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14537,7 +14538,7 @@ pub mod pushes {
             pub async fn into_body(self) -> azure_core::Result<models::GitPushList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14756,7 +14757,7 @@ pub mod pushes {
             pub async fn into_body(self) -> azure_core::Result<models::GitPush> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -14860,7 +14861,7 @@ pub mod pushes {
             pub async fn into_body(self) -> azure_core::Result<models::GitPush> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15073,7 +15074,7 @@ pub mod refs {
             pub async fn into_body(self) -> azure_core::Result<models::GitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15278,7 +15279,7 @@ pub mod refs {
             pub async fn into_body(self) -> azure_core::Result<models::GitRefUpdateResultList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15394,7 +15395,7 @@ pub mod refs {
             pub async fn into_body(self) -> azure_core::Result<models::GitRef> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15589,7 +15590,7 @@ pub mod reverts {
             pub async fn into_body(self) -> azure_core::Result<models::GitRevert> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15696,7 +15697,7 @@ pub mod reverts {
             pub async fn into_body(self) -> azure_core::Result<models::GitRevert> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15800,7 +15801,7 @@ pub mod reverts {
             pub async fn into_body(self) -> azure_core::Result<models::GitRevert> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -15933,7 +15934,7 @@ pub mod suggestions {
             pub async fn into_body(self) -> azure_core::Result<models::GitSuggestionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16071,7 +16072,7 @@ pub mod trees {
             pub async fn into_body(self) -> azure_core::Result<models::GitTreeRef> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16256,7 +16257,7 @@ pub mod merge_bases {
             pub async fn into_body(self) -> azure_core::Result<models::GitCommitRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16487,7 +16488,7 @@ pub mod forks {
             pub async fn into_body(self) -> azure_core::Result<models::GitRepositoryRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16605,7 +16606,7 @@ pub mod forks {
             pub async fn into_body(self) -> azure_core::Result<models::GitForkSyncRequestList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16730,7 +16731,7 @@ pub mod forks {
             pub async fn into_body(self) -> azure_core::Result<models::GitForkSyncRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -16845,7 +16846,7 @@ pub mod forks {
             pub async fn into_body(self) -> azure_core::Result<models::GitForkSyncRequest> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -17016,7 +17017,7 @@ pub mod merges {
             pub async fn into_body(self) -> azure_core::Result<models::GitMerge> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -17131,7 +17132,7 @@ pub mod merges {
             pub async fn into_body(self) -> azure_core::Result<models::GitMerge> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
