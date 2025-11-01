@@ -13,10 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
-- Update `azure_core` and `azure_identity` to 0.30.
+- Update `azure_core` and `azure_identity` to 0.28.
 - Changes to handle API changes in `azure_core`:
   - Replace `azure_core::http::RawResponse` with `azure_core::http::BufResponse`
   - Add extra parameter when creating new `azure_core::http::Pipeline`
+- Changes to handle API changes in `azure_identity`:
+  - Updated examples to replace `DefaultAzureCredential` with `AzureCliCredential`
 
 ## [0.31.0]
 
