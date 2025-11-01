@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -244,7 +245,7 @@ pub mod shelvesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcShelvesetRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -466,7 +467,7 @@ pub mod shelvesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcShelveset> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -671,7 +672,7 @@ pub mod shelvesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -799,7 +800,7 @@ pub mod shelvesets {
             pub async fn into_body(self) -> azure_core::Result<models::AssociatedWorkItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -975,7 +976,7 @@ pub mod branches {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1101,7 +1102,7 @@ pub mod branches {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranchList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1245,7 +1246,7 @@ pub mod branches {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcBranchRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1449,7 +1450,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1656,7 +1657,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<Vec<String>> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1758,7 +1759,7 @@ pub mod items {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2083,7 +2084,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2219,7 +2220,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::AssociatedWorkItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2320,7 +2321,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2420,7 +2421,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2687,7 +2688,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangesetRef> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2789,7 +2790,7 @@ pub mod changesets {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcChangeset> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3180,7 +3181,7 @@ pub mod labels {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3302,7 +3303,7 @@ pub mod labels {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcLabelRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3502,7 +3503,7 @@ pub mod labels {
             pub async fn into_body(self) -> azure_core::Result<models::TfvcLabel> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }

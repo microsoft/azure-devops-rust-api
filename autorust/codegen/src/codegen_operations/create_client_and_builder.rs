@@ -134,7 +134,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             pub(crate) fn scopes(&self) -> Vec<&str> {
                 self.scopes.iter().map(String::as_str).collect()
             }
-            pub(crate) async fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::RawResponse> {
+            pub(crate) async fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::BufResponse> {
                 let context = azure_core::http::Context::default();
                 self.pipeline.send(&context, request).await
             }
@@ -155,6 +155,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                     options,
                     Vec::new(),
                     Vec::new(),
+                    None
                 );
                 Self {
                     endpoint,

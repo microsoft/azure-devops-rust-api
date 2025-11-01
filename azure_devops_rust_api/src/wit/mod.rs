@@ -97,7 +97,7 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::RawResponse> {
+    ) -> azure_core::Result<azure_core::http::BufResponse> {
         let context = azure_core::http::Context::default();
         self.pipeline.send(&context, request).await
     }
@@ -121,6 +121,7 @@ impl Client {
             options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Self {
             endpoint,
@@ -391,7 +392,7 @@ pub mod classification_nodes {
             ) -> azure_core::Result<models::WorkItemClassificationNodeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -523,7 +524,7 @@ pub mod classification_nodes {
             ) -> azure_core::Result<models::WorkItemClassificationNodeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -638,7 +639,7 @@ pub mod classification_nodes {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -757,7 +758,7 @@ pub mod classification_nodes {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -867,7 +868,7 @@ pub mod classification_nodes {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemClassificationNode> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -969,7 +970,7 @@ pub mod classification_nodes {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1247,7 +1248,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemsResult> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1389,7 +1390,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1523,7 +1524,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1669,7 +1670,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1784,7 +1785,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -1895,7 +1896,7 @@ pub mod queries {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2003,7 +2004,7 @@ pub mod queries {
             pub async fn into_body(self) -> azure_core::Result<models::QueryHierarchyItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2216,7 +2217,7 @@ pub mod recyclebin {
             ) -> azure_core::Result<models::WorkItemDeleteReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2326,7 +2327,7 @@ pub mod recyclebin {
             ) -> azure_core::Result<models::WorkItemDeleteShallowReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2427,7 +2428,7 @@ pub mod recyclebin {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2529,7 +2530,7 @@ pub mod recyclebin {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2628,7 +2629,7 @@ pub mod recyclebin {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -2934,7 +2935,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3044,7 +3045,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::CommentList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3199,7 +3200,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3311,7 +3312,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::CommentList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3438,7 +3439,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3542,7 +3543,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3668,7 +3669,7 @@ pub mod comments {
             pub async fn into_body(self) -> azure_core::Result<models::Comment> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3769,7 +3770,7 @@ pub mod comments {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -3896,7 +3897,7 @@ pub mod artifact_link_types {
             pub async fn into_body(self) -> azure_core::Result<models::WorkArtifactLinkList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4032,7 +4033,7 @@ pub mod work_item_icons {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemIconList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4130,7 +4131,7 @@ pub mod work_item_icons {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemIcon> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4289,7 +4290,7 @@ pub mod work_item_relation_types {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemRelationTypeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4388,7 +4389,7 @@ pub mod work_item_relation_types {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemRelationType> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4520,7 +4521,7 @@ pub mod work_item_transitions {
             ) -> azure_core::Result<models::WorkItemNextStateOnTransitionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4658,7 +4659,7 @@ pub mod account_my_work_recent_activity {
             ) -> azure_core::Result<models::AccountRecentActivityWorkItemModel2List> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4791,7 +4792,7 @@ pub mod artifact_uri_query {
             pub async fn into_body(self) -> azure_core::Result<models::ArtifactUriQueryResult> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -4973,7 +4974,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentReference> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5106,7 +5107,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<String> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5230,7 +5231,7 @@ pub mod attachments {
             pub async fn into_body(self) -> azure_core::Result<models::AttachmentReference> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5452,7 +5453,7 @@ pub mod fields {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2List> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5563,7 +5564,7 @@ pub mod fields {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5665,7 +5666,7 @@ pub mod fields {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5767,7 +5768,7 @@ pub mod fields {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemField2> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -5866,7 +5867,7 @@ pub mod fields {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6004,7 +6005,7 @@ pub mod project_process_migration {
             ) -> azure_core::Result<models::ProcessMigrationResultModel> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6142,7 +6143,7 @@ pub mod reporting_work_item_links {
             ) -> azure_core::Result<models::ReportingWorkItemLinksBatch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6354,7 +6355,7 @@ pub mod reporting_work_item_revisions {
             ) -> azure_core::Result<models::ReportingWorkItemRevisionsBatch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6591,7 +6592,7 @@ pub mod reporting_work_item_revisions {
             ) -> azure_core::Result<models::ReportingWorkItemRevisionsBatch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6762,7 +6763,7 @@ pub mod work_item_revisions_discussions {
             ) -> azure_core::Result<models::ReportingWorkItemRevisionsBatch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -6906,7 +6907,7 @@ pub mod send_mail {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7099,7 +7100,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinitionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7200,7 +7201,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7302,7 +7303,7 @@ pub mod tags {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTagDefinition> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7401,7 +7402,7 @@ pub mod tags {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7540,7 +7541,7 @@ pub mod temp_queries {
             ) -> azure_core::Result<models::TemporaryQueryResponseModel> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7828,7 +7829,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -7976,7 +7977,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8112,7 +8113,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8261,7 +8262,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8397,7 +8398,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8546,7 +8547,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDelete> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8659,7 +8660,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8761,7 +8762,7 @@ pub mod work_items {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemDeleteBatch> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -8915,7 +8916,7 @@ pub mod revisions {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9047,7 +9048,7 @@ pub mod revisions {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItem> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9211,7 +9212,7 @@ pub mod updates {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemUpdateList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9333,7 +9334,7 @@ pub mod updates {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemUpdate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9519,7 +9520,7 @@ pub mod comments_reactions {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReactionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9623,7 +9624,7 @@ pub mod comments_reactions {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReaction> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9729,7 +9730,7 @@ pub mod comments_reactions {
             pub async fn into_body(self) -> azure_core::Result<models::CommentReaction> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -9872,7 +9873,7 @@ pub mod comment_reactions_engaged_users {
             pub async fn into_body(self) -> azure_core::Result<models::IdentityRefList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10046,7 +10047,7 @@ pub mod comments_versions {
             pub async fn into_body(self) -> azure_core::Result<models::CommentVersionList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10150,7 +10151,7 @@ pub mod comments_versions {
             pub async fn into_body(self) -> azure_core::Result<models::CommentVersion> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10304,7 +10305,7 @@ pub mod work_item_type_categories {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeCategoryList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10405,7 +10406,7 @@ pub mod work_item_type_categories {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeCategory> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10552,7 +10553,7 @@ pub mod work_item_types {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTypeList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10652,7 +10653,7 @@ pub mod work_item_types {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemType> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10811,7 +10812,7 @@ pub mod work_item_types_field {
             ) -> azure_core::Result<models::WorkItemTypeFieldWithReferencesList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -10930,7 +10931,7 @@ pub mod work_item_types_field {
             ) -> azure_core::Result<models::WorkItemTypeFieldWithReferences> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11078,7 +11079,7 @@ pub mod work_item_type_states {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemStateColorList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11307,7 +11308,7 @@ pub mod templates {
             ) -> azure_core::Result<models::WorkItemTemplateReferenceList> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11421,7 +11422,7 @@ pub mod templates {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11525,7 +11526,7 @@ pub mod templates {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11629,7 +11630,7 @@ pub mod templates {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemTemplate> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11730,7 +11731,7 @@ pub mod templates {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -11919,7 +11920,7 @@ pub mod wiql {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemQueryResult> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12045,7 +12046,7 @@ pub mod wiql {
             pub async fn into_body(self) -> azure_core::Result<models::WorkItemQueryResult> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }
@@ -12169,7 +12170,7 @@ pub mod wiql {
             pub async fn into_body(self) -> azure_core::Result<i32> {
                 self.0.into_body().await
             }
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         }

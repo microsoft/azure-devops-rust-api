@@ -128,7 +128,7 @@ impl ToTokens for ResponseCode {
         };
 
         let raw_response_fn = quote! {
-            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
+            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
                 self.0.into()
             }
         };
