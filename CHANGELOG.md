@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.33.0]
+
 ### Changes
 
 - Update `azure_core` and `azure_identity` to 0.30.
@@ -654,7 +656,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.32.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.33.0...HEAD
+[0.33.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.32.0...0.33.0
 [0.32.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.31.0...0.32.0
 [0.31.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.1...0.31.0
 [0.30.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.0...0.30.1
