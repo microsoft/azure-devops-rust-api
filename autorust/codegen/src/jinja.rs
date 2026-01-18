@@ -10,7 +10,9 @@ pub struct PublishServicesYml<'a> {
 }
 
 pub fn render<T: Template>(template: &T, path: impl AsRef<Utf8Path>) -> Result<()> {
-    let rendered = template.render().with_context(ErrorKind::Io, || "render {path}")?;
+    let rendered = template
+        .render()
+        .with_context(ErrorKind::Io, || "render {path}")?;
     let mut file = File::create(path.as_ref())?;
     write!(file, "{rendered}")?;
     Ok(())

@@ -17,7 +17,11 @@ pub(crate) struct ClientFunctionCode {
 }
 
 impl ClientFunctionCode {
-    pub fn new(operation: &WebOperationGen, parameters: &FunctionParams, in_operation_group: bool) -> Result<Self> {
+    pub fn new(
+        operation: &WebOperationGen,
+        parameters: &FunctionParams,
+        in_operation_group: bool,
+    ) -> Result<Self> {
         let fname = operation.function_name()?;
         let summary = operation.0.summary.clone();
         let description = operation.0.description.clone();
@@ -41,7 +45,9 @@ impl ToTokens for ClientFunctionCode {
         }
         for param in self.parameters.required_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             let mut type_name = type_name.clone();
             let is_vec = type_name.is_vec();
@@ -54,7 +60,9 @@ impl ToTokens for ClientFunctionCode {
         }
         for param in self.parameters.optional_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             if type_name.is_vec() {
                 params.push(quote! { #variable_name: Vec::new() });

@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
+- Update `azure_core` and `azure_identity` to 0.30.
+- Changes to handle API changes in `azure_core`:
+  - Replace `azure_core::http::BufResponse` with `azure_core::http::RawResponse` / `AsyncRawResponse`
+  - Change `Response::into_body().await` to `Response::into_model()` (now synchronous)
+  - Update `ClientOptions::retry` field to be `RetryOptions` (no longer `Option<RetryOptions>`)
+  - Add required `PipelineSendOptions` parameter to `Pipeline::send()`
+  - Update `transport()` method to use `Transport` type (replaces `TransportOptions`)
+  - Fix `API_VERSION` reference to use string literal `"api-version"` instead of non-existent `query_param` module
+- Changes to handle API changes in manually written code:
+  - Update `auth.rs` to remove deprecated `ResultExt::context()` method
+  - Update `date_time.rs` to use direct error construction instead of `with_context()` closure
+  - Update `telemetry.rs` to use `AsyncRawResponse` and new construction API
+
 ## [0.32.0]
 
 ### Changes

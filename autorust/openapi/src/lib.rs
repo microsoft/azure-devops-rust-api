@@ -16,8 +16,9 @@ mod status_code;
 mod tag;
 
 pub use self::{
-    autorest::*, contact::*, external_documentation::*, header::*, info::*, license::*, openapi::*, operation::*, parameter::*, paths::*,
-    reference::*, schema::*, security::*, status_code::*, tag::*,
+    autorest::*, contact::*, external_documentation::*, header::*, info::*, license::*, openapi::*,
+    operation::*, parameter::*, paths::*, reference::*, schema::*, security::*, status_code::*,
+    tag::*,
 };
 
 #[derive(Debug, thiserror::Error)]

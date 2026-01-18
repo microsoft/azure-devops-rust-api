@@ -6,7 +6,7 @@
 //! For more background information on Azure DevOps authentication see: [Azure DevOps authentication](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/authentication-guidance)
 
 use azure_core::credentials::TokenCredential;
-use azure_core::error::{Result, ResultExt};
+use azure_core::error::Result;
 use base64::{prelude::BASE64_STANDARD, Engine};
 use std::sync::Arc;
 
@@ -60,10 +60,16 @@ impl Credential {
             ))),
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {
-                let token_response = token_credential
-                    .get_token(scopes, None)
-                    .await
-                    .context(azure_core::error::ErrorKind::Other, "get bearer token")?;
+                let token_response =
+                    token_credential
+                        .get_token(scopes, None)
+                        .await
+                        .map_err(|e| {
+                            azure_core::error::Error::new(
+                                azure_core::error::ErrorKind::Other,
+                                format!("get bearer token: {e}"),
+                            )
+                        })?;
                 Ok(Some(format!("Bearer {}", token_response.token.secret())))
             }
         }

@@ -6,7 +6,7 @@ use async_trait::async_trait;
 use azure_core::http::{
     headers::Headers,
     policies::{Policy, PolicyResult},
-    BufResponse, Context, Request,
+    AsyncRawResponse, Context, Request,
 };
 use std::sync::Arc;
 use tracing::{error, info};
@@ -69,17 +69,22 @@ impl Policy for RequestLogger {
                 // We then have to subsequently reconstruct the response stream
                 // to pass back to the caller.
                 let (status_code, headers, response_body) = rsp.deconstruct();
-                let response_body = response_body.collect().await;
+                let response_body_bytes = response_body.collect().await?;
                 info!(
                     status_code = %status_code,
                     headers = ?headers,
-                    response_body = ?response_body,
+                    response_body = ?response_body_bytes,
                     elapsed_time = %elapsed_time,
                     "Response"
                 );
-                let response_stream =
-                    Box::pin(futures::stream::once(futures::future::ready(response_body)));
-                Ok(BufResponse::new(status_code, headers, response_stream))
+                // Reconstruct the response with the collected body as a stream
+                use futures::stream;
+                let response_stream = stream::once(async move { Ok(response_body_bytes) });
+                Ok(AsyncRawResponse::new(
+                    status_code,
+                    headers,
+                    Box::pin(response_stream),
+                ))
             }
             Err(err) => {
                 error!(

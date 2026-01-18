@@ -3,10 +3,8 @@
 
 // git_items_get.rs
 // Git items (files and folders) get example.
-use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use azure_devops_rust_api::git;
-use futures::StreamExt;
 use std::env;
 use std::io::Write;
 
@@ -48,7 +46,7 @@ async fn main() -> Result<()> {
         .await?
         .into_raw_response();
 
-    let file_data = rsp.into_body().collect_string().await?;
+    let file_data = rsp.into_body().into_string()?;
     println!("\n{file_path} contents:\n{file_data}");
 
     // Download the entire repo as a zip archive.
@@ -71,13 +69,10 @@ async fn main() -> Result<()> {
         .await?
         .into_raw_response();
 
-    let mut body = rsp.into_body();
+    let body = rsp.into_body();
     let mut file = std::fs::File::create("full_repo.zip")?;
-    while let Some(chunk_result) = body.next().await {
-        let chunk = chunk_result.context("Error reading chunk")?;
-        println!("Writing chunk");
-        file.write_all(&chunk)?;
-    }
+    println!("Writing zip file");
+    file.write_all(body.as_ref())?;
     println!("Done writing full_repo.zip");
 
     Ok(())

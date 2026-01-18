@@ -21,7 +21,9 @@ impl ToTokens for RequestBuilderSettersCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         for param in self.parameters.optional_params() {
             let FunctionParam {
-                variable_name, type_name, ..
+                variable_name,
+                type_name,
+                ..
             } = param;
             let is_vec = type_name.is_vec();
             let mut type_name = type_name.clone();

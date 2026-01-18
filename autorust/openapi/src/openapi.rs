@@ -29,7 +29,11 @@ pub struct OpenAPI {
     // #[serde(default, skip_serializing_if = "IndexMap::is_empty")] // do not skip
     pub paths: IndexMap<String, ReferenceOr<PathItem>>,
     /// Relative paths to the individual endpoints. They must be relative to the 'basePath'.
-    #[serde(default, rename = "x-ms-paths", skip_serializing_if = "IndexMap::is_empty")]
+    #[serde(
+        default,
+        rename = "x-ms-paths",
+        skip_serializing_if = "IndexMap::is_empty"
+    )]
     pub x_ms_paths: IndexMap<String, ReferenceOr<PathItem>>,
     #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
     pub definitions: IndexMap<String, ReferenceOr<Schema>>,
@@ -49,7 +53,10 @@ pub struct OpenAPI {
 
     /// replaces the fixed host with a host template that can be replaced with variable parameters
     /// https://github.com/Azure/autorest/blob/master/docs/extensions/readme.md#x-ms-parameterized-host
-    #[serde(rename = "x-ms-parameterized-host", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "x-ms-parameterized-host",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub x_ms_parameterized_host: Option<MsParameterizedHost>,
 }
 
@@ -67,6 +74,11 @@ impl OpenAPI {
         result
     }
     pub fn version(&self) -> Result<&str, Error> {
-        Ok(self.info.version.as_ref().ok_or(Error::MissingApiVersion)?.as_str())
+        Ok(self
+            .info
+            .version
+            .as_ref()
+            .ok_or(Error::MissingApiVersion)?
+            .as_str())
     }
 }

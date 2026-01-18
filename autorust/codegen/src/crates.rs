@@ -31,7 +31,9 @@ pub fn list_crates(services_dir: &Path) -> Result<BTreeSet<String>> {
     if let Some(workspaces) = manifest.workspace {
         for member in workspaces.members {
             let member_path = services_dir.join(member).join("Cargo.toml");
-            let Ok(manifest) = Manifest::from_path(member_path) else { continue };
+            let Ok(manifest) = Manifest::from_path(member_path) else {
+                continue;
+            };
             let Some(package) = manifest.package else {
                 continue;
             };
@@ -49,7 +51,9 @@ pub fn list_dirs() -> Result<Vec<Utf8PathBuf>> {
 }
 
 pub fn has_version(name: &str, version: &str) -> Result<bool> {
-    Ok(get_versions(name)?.iter().any(|v| v.vers.as_str() == version))
+    Ok(get_versions(name)?
+        .iter()
+        .any(|v| v.vers.as_str() == version))
 }
 
 /// Gets all the versions for a given crate

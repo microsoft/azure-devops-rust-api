@@ -66,9 +66,9 @@ impl ToTokens for RequestBuilderSendCode {
                 fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                     let mut url = azure_core::http::Url::parse(&format!(#fpath, self.client.endpoint(), #url_str_args))?;
 
-                    let has_api_version_already = url.query_pairs().any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                    let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                     if !has_api_version_already {
-                        url.query_pairs_mut().append_pair(azure_core::http::headers::query_param::API_VERSION, #api_version);
+                        url.query_pairs_mut().append_pair("api-version", #api_version);
                     }
                     Ok(url)
                 }
@@ -114,9 +114,9 @@ impl ToTokens for RequestBuilderSendCode {
                 if request_builder.has_param_api_version {
                     let api_version = &request_builder.api_version;
                     stream_api_version.extend(quote! {
-                        let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                        let has_api_version_already = req.url_mut().query_pairs().any(|(k, _)| k == "api-version");
                         if !has_api_version_already {
-                            req.url_mut().query_pairs_mut().append_pair(azure_core::http::headers::query_param::API_VERSION, #api_version);
+                            req.url_mut().query_pairs_mut().append_pair("api-version", #api_version);
                         }
                     });
                 }
@@ -191,7 +191,7 @@ impl ToTokens for RequestBuilderSendCode {
                                         match rsp.status() {
                                             #match_status
                                         };
-                                    rsp?.into_body().await
+                                    rsp?.into_body()
                                 }
                             };
 
