@@ -79,13 +79,13 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             #[doc = "Set the retry options."]
             #[must_use]
             pub fn retry(mut self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
-                self.options.retry = Some(retry.into());
+                self.options.retry = retry.into();
                 self
             }
 
             #[doc = "Set the transport options."]
             #[must_use]
-            pub fn transport(mut self, transport: impl Into<azure_core::http::TransportOptions>) -> Self {
+            pub fn transport(mut self, transport: impl Into<azure_core::http::Transport>) -> Self {
                 self.options.transport = Some(transport.into());
                 self
             }
@@ -134,9 +134,9 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             pub(crate) fn scopes(&self) -> Vec<&str> {
                 self.scopes.iter().map(String::as_str).collect()
             }
-            pub(crate) async fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::BufResponse> {
+            pub(crate) async fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::RawResponse> {
                 let context = azure_core::http::Context::default();
-                self.pipeline.send(&context, request).await
+                self.pipeline.send(&context, request, None).await
             }
 
             #[doc = "Create a new `ClientBuilder`."]

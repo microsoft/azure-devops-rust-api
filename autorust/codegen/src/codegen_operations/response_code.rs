@@ -119,8 +119,8 @@ impl ToTokens for ResponseCode {
 
         let body_fn = if self.response_type().is_some() {
             quote! {
-                pub async fn into_body(self) -> azure_core::Result<#response_type_tokens> {
-                    self.0.into_body().await
+                pub fn into_body(self) -> azure_core::Result<#response_type_tokens> {
+                    self.0.into_model()
                 }
             }
         } else {
@@ -128,7 +128,7 @@ impl ToTokens for ResponseCode {
         };
 
         let raw_response_fn = quote! {
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         };

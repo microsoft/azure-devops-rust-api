@@ -24,7 +24,10 @@ pub enum ReferenceOr<T> {
 
         /// flattens client model property or parameter
         /// https://github.com/Azure/autorest/blob/master/docs/extensions/readme.md#x-ms-client-flatten
-        #[serde(rename = "x-ms-client-flatten", skip_serializing_if = "Option::is_none")]
+        #[serde(
+            rename = "x-ms-client-flatten",
+            skip_serializing_if = "Option::is_none"
+        )]
         x_ms_client_flatten: Option<bool>,
 
         #[serde(skip_serializing_if = "Option::is_none")]
@@ -152,7 +155,9 @@ mod tests {
         assert_eq!(
             reference,
             Reference {
-                file: Some("../../../../../common-types/resource-management/v1/types.json".to_owned()),
+                file: Some(
+                    "../../../../../common-types/resource-management/v1/types.json".to_owned()
+                ),
                 path: vec!["parameters".to_owned()],
                 name: Some("SubscriptionIdParameter".to_owned()),
             }
@@ -201,7 +206,10 @@ mod tests {
         let json = r#"{"$ref":"foo/bar"}"#;
         assert_eq!(
             json,
-            serde_json::to_string(&ReferenceOr::<Parameter>::from_reference(Reference::from_file("foo/bar"))).unwrap()
+            serde_json::to_string(&ReferenceOr::<Parameter>::from_reference(
+                Reference::from_file("foo/bar")
+            ))
+            .unwrap()
         );
     }
 }

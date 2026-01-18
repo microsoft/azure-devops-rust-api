@@ -49,9 +49,9 @@ async fn main() -> Result<()> {
 
     // Write the data as a zipfile
     println!("Writing data to zipfile: {output_file}");
-    let data = body.collect().await?;
+    let data = body.as_ref();
     let mut file = File::create(&output_file)?;
-    file.write_all(&data)?;
+    file.write_all(data)?;
     println!("Logs saved");
 
     println!("Use 'unzip {output_file}' to extract the logs");

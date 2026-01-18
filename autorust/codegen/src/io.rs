@@ -10,15 +10,20 @@ use std::path::PathBuf;
 pub fn join<P1: AsRef<Utf8Path>, P2: AsRef<Utf8Path>>(a: P1, b: P2) -> Result<Utf8PathBuf> {
     let mut c = a.as_ref();
     if c.extension().is_some() {
-        c = c
-            .parent()
-            .ok_or_else(|| Error::with_message(ErrorKind::Io, || "unable to get parent path of {c}"))?;
+        c = c.parent().ok_or_else(|| {
+            Error::with_message(ErrorKind::Io, || "unable to get parent path of {c}")
+        })?;
         // to directory
     }
     let mut c = PathBuf::from(c);
     let b = b.as_ref();
-    c.append(b).with_context(ErrorKind::Io, || format!("append path {b} to {c:?}"))?;
-    Utf8PathBuf::from_path_buf(c).map_err(|path| Error::with_message(ErrorKind::Io, || format!("converting path to UTF-8: {path:?}")))
+    c.append(b)
+        .with_context(ErrorKind::Io, || format!("append path {b} to {c:?}"))?;
+    Utf8PathBuf::from_path_buf(c).map_err(|path| {
+        Error::with_message(ErrorKind::Io, || {
+            format!("converting path to UTF-8: {path:?}")
+        })
+    })
 }
 
 pub fn join_several<P1: AsRef<Utf8Path>>(a: P1, b: &[Utf8PathBuf]) -> Result<Vec<Utf8PathBuf>> {

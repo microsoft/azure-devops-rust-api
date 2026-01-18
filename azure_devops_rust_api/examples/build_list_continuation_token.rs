@@ -40,7 +40,7 @@ async fn get_builds(
     let new_continuation_token =
         headers.get_optional_string(&HeaderName::from_static("x-ms-continuationtoken"));
 
-    let body_data = body.collect_string().await?;
+    let body_data = body.into_string()?;
     let build_list: BuildList = serde_json::from_str(&body_data)
         .with_context(|| format!("Failed to parse BuildList: {}", &body_data))?;
 

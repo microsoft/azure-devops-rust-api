@@ -48,12 +48,12 @@ impl ClientBuilder {
     #[doc = "Set the retry options."]
     #[must_use]
     pub fn retry(mut self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
-        self.options.retry = Some(retry.into());
+        self.options.retry = retry.into();
         self
     }
     #[doc = "Set the transport options."]
     #[must_use]
-    pub fn transport(mut self, transport: impl Into<azure_core::http::TransportOptions>) -> Self {
+    pub fn transport(mut self, transport: impl Into<azure_core::http::Transport>) -> Self {
         self.options.transport = Some(transport.into());
         self
     }
@@ -97,9 +97,9 @@ impl Client {
     pub(crate) async fn send(
         &self,
         request: &mut azure_core::http::Request,
-    ) -> azure_core::Result<azure_core::http::BufResponse> {
+    ) -> azure_core::Result<azure_core::http::RawResponse> {
         let context = azure_core::http::Context::default();
-        self.pipeline.send(&context, request).await
+        self.pipeline.send(&context, request, None).await
     }
     #[doc = "Create a new `ClientBuilder`."]
     #[must_use]
@@ -417,10 +417,10 @@ pub mod releases {
             azure_core::http::Response<models::Release, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Release> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Release> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -527,14 +527,10 @@ pub mod releases {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -548,7 +544,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -563,10 +559,10 @@ pub mod releases {
             azure_core::http::Response<models::ReleaseList, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -866,14 +862,10 @@ pub mod releases {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -887,7 +879,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -902,10 +894,10 @@ pub mod releases {
             azure_core::http::Response<models::Release, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Release> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Release> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -968,14 +960,10 @@ pub mod releases {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -989,7 +977,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1002,10 +990,10 @@ pub mod releases {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1074,14 +1062,10 @@ pub mod releases {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1095,7 +1079,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1110,10 +1094,10 @@ pub mod releases {
             azure_core::http::Response<models::Release, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Release> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Release> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1178,14 +1162,10 @@ pub mod releases {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1199,7 +1179,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1214,10 +1194,10 @@ pub mod releases {
             azure_core::http::Response<models::Release, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Release> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Release> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1282,14 +1262,10 @@ pub mod releases {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1303,7 +1279,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1318,10 +1294,10 @@ pub mod releases {
             azure_core::http::Response<models::ReleaseEnvironment, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1397,14 +1373,10 @@ pub mod releases {
                     &self.release_id,
                     &self.environment_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1418,7 +1390,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1433,10 +1405,10 @@ pub mod releases {
             azure_core::http::Response<models::ReleaseEnvironment, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseEnvironment> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1503,14 +1475,10 @@ pub mod releases {
                     &self.release_id,
                     &self.environment_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1524,7 +1492,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1537,10 +1505,10 @@ pub mod releases {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1622,14 +1590,10 @@ pub mod releases {
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/release/releases/{}/environments/{}/deployPhases/{}/tasks/{}/logs" , self . client . endpoint () , & self . organization , & self . project , & self . release_id , & self . environment_id , & self . release_deploy_phase_id , & self . task_id)) ? ;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1643,7 +1607,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1656,10 +1620,10 @@ pub mod releases {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1722,14 +1686,10 @@ pub mod releases {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1743,7 +1703,7 @@ pub mod releases {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -1814,10 +1774,10 @@ pub mod approvals {
             azure_core::http::Response<models::ReleaseApprovalList, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseApprovalList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseApprovalList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -1967,14 +1927,10 @@ pub mod approvals {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -1988,7 +1944,7 @@ pub mod approvals {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2003,10 +1959,10 @@ pub mod approvals {
             azure_core::http::Response<models::ReleaseApproval, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseApproval> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseApproval> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2071,14 +2027,10 @@ pub mod approvals {
                     &self.project,
                     &self.approval_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2092,7 +2044,7 @@ pub mod approvals {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2267,10 +2219,10 @@ pub mod definitions {
             azure_core::http::Response<models::ReleaseDefinitionList, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinitionList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseDefinitionList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2489,14 +2441,10 @@ pub mod definitions {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2510,7 +2458,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2525,10 +2473,10 @@ pub mod definitions {
             azure_core::http::Response<models::ReleaseDefinition, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2591,14 +2539,10 @@ pub mod definitions {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2612,7 +2556,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2627,10 +2571,10 @@ pub mod definitions {
             azure_core::http::Response<models::ReleaseDefinition, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2693,14 +2637,10 @@ pub mod definitions {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2714,7 +2654,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2729,10 +2669,10 @@ pub mod definitions {
             azure_core::http::Response<models::ReleaseDefinition, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseDefinition> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2806,14 +2746,10 @@ pub mod definitions {
                     &self.project,
                     &self.definition_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2827,7 +2763,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -2840,7 +2776,7 @@ pub mod definitions {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -2925,14 +2861,10 @@ pub mod definitions {
                     &self.project,
                     &self.definition_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -2967,12 +2899,10 @@ pub mod definitions {
             >,
         );
         impl Response {
-            pub async fn into_body(
-                self,
-            ) -> azure_core::Result<models::ReleaseDefinitionRevisionList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseDefinitionRevisionList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3035,14 +2965,10 @@ pub mod definitions {
                     &self.project,
                     &self.definition_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3057,7 +2983,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3070,10 +2996,10 @@ pub mod definitions {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3138,14 +3064,10 @@ pub mod definitions {
                     &self.definition_id,
                     &self.revision
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3159,7 +3081,7 @@ pub mod definitions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3213,10 +3135,10 @@ pub mod deployments {
             azure_core::http::Response<models::DeploymentList, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::DeploymentList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::DeploymentList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3449,14 +3371,10 @@ pub mod deployments {
                     &self.organization,
                     &self.project
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3470,7 +3388,7 @@ pub mod deployments {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3578,10 +3496,10 @@ pub mod folders {
             azure_core::http::Response<models::FolderList, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::FolderList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::FolderList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3655,14 +3573,10 @@ pub mod folders {
                     &self.project,
                     &self.path
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3676,7 +3590,7 @@ pub mod folders {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3691,10 +3605,10 @@ pub mod folders {
             azure_core::http::Response<models::Folder, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Folder> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Folder> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3759,14 +3673,10 @@ pub mod folders {
                     &self.project,
                     &self.path
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3780,7 +3690,7 @@ pub mod folders {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3795,10 +3705,10 @@ pub mod folders {
             azure_core::http::Response<models::Folder, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::Folder> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::Folder> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3863,14 +3773,10 @@ pub mod folders {
                     &self.project,
                     &self.path
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -3884,7 +3790,7 @@ pub mod folders {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -3897,7 +3803,7 @@ pub mod folders {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<(), azure_core::http::NoFormat>);
         impl Response {
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -3960,14 +3866,10 @@ pub mod folders {
                     &self.project,
                     &self.path
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4031,10 +3933,10 @@ pub mod gates {
             azure_core::http::Response<models::ReleaseGates, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseGates> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseGates> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4099,14 +4001,10 @@ pub mod gates {
                     &self.project,
                     &self.gate_step_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4120,7 +4018,7 @@ pub mod gates {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4287,10 +4185,10 @@ pub mod attachments {
             >,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4351,14 +4249,10 @@ pub mod attachments {
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/release/releases/{}/environments/{}/attempts/{}/plan/{}/attachments/{}" , self . client . endpoint () , & self . organization , & self . project , & self . release_id , & self . environment_id , & self . attempt_id , & self . plan_id , & self . type_)) ? ;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4373,7 +4267,7 @@ pub mod attachments {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4386,10 +4280,10 @@ pub mod attachments {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4453,14 +4347,10 @@ pub mod attachments {
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/release/releases/{}/environments/{}/attempts/{}/plan/{}/timelines/{}/records/{}/attachments/{}/{}" , self . client . endpoint () , & self . organization , & self . project , & self . release_id , & self . environment_id , & self . attempt_id , & self . plan_id , & self . timeline_id , & self . record_id , & self . type_ , & self . name)) ? ;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4474,7 +4364,7 @@ pub mod attachments {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4492,10 +4382,10 @@ pub mod attachments {
             >,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ReleaseTaskAttachmentList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4556,14 +4446,10 @@ pub mod attachments {
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/release/releases/{}/environments/{}/attempts/{}/timelines/{}/attachments/{}" , self . client . endpoint () , & self . organization , & self . project , & self . release_id , & self . environment_id , & self . attempt_id , & self . timeline_id , & self . type_)) ? ;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4578,7 +4464,7 @@ pub mod attachments {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4591,10 +4477,10 @@ pub mod attachments {
         #[derive(Debug)]
         pub struct Response(azure_core::http::Response<String, azure_core::http::JsonFormat>);
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<String> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<String> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4657,14 +4543,10 @@ pub mod attachments {
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/release/releases/{}/environments/{}/attempts/{}/timelines/{}/records/{}/attachments/{}/{}" , self . client . endpoint () , & self . organization , & self . project , & self . release_id , & self . environment_id , & self . attempt_id , & self . timeline_id , & self . record_id , & self . type_ , & self . name)) ? ;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4678,7 +4560,7 @@ pub mod attachments {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4772,10 +4654,10 @@ pub mod manual_interventions {
             >,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ManualInterventionList> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ManualInterventionList> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4838,14 +4720,10 @@ pub mod manual_interventions {
                     &self.project,
                     &self.release_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4860,7 +4738,7 @@ pub mod manual_interventions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4875,10 +4753,10 @@ pub mod manual_interventions {
             azure_core::http::Response<models::ManualIntervention, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ManualIntervention> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ManualIntervention> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -4943,14 +4821,10 @@ pub mod manual_interventions {
                     &self.release_id,
                     &self.manual_intervention_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -4964,7 +4838,7 @@ pub mod manual_interventions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }
@@ -4979,10 +4853,10 @@ pub mod manual_interventions {
             azure_core::http::Response<models::ManualIntervention, azure_core::http::JsonFormat>,
         );
         impl Response {
-            pub async fn into_body(self) -> azure_core::Result<models::ManualIntervention> {
-                self.0.into_body().await
+            pub fn into_body(self) -> azure_core::Result<models::ManualIntervention> {
+                self.0.into_model()
             }
-            pub fn into_raw_response(self) -> azure_core::http::BufResponse {
+            pub fn into_raw_response(self) -> azure_core::http::RawResponse {
                 self.0.into()
             }
         }
@@ -5049,14 +4923,10 @@ pub mod manual_interventions {
                     &self.release_id,
                     &self.manual_intervention_id
                 ))?;
-                let has_api_version_already = url
-                    .query_pairs()
-                    .any(|(k, _)| k == azure_core::http::headers::query_param::API_VERSION);
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
-                    url.query_pairs_mut().append_pair(
-                        azure_core::http::headers::query_param::API_VERSION,
-                        "7.1-preview",
-                    );
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
             }
@@ -5070,7 +4940,7 @@ pub mod manual_interventions {
             #[doc = ""]
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
-                Box::pin(async move { self.send().await?.into_body().await })
+                Box::pin(async move { self.send().await?.into_body() })
             }
         }
     }

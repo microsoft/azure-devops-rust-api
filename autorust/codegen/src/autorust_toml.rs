@@ -116,7 +116,8 @@ impl<'a> PackageConfig {
             let deny: HashSet<&str> = self.tags.deny.iter().map(String::as_str).collect();
             tags.retain(|tag| !deny.contains(tag.name()));
         }
-        let mut deny_contains: Vec<&str> = self.tags.deny_contains.iter().map(String::as_str).collect();
+        let mut deny_contains: Vec<&str> =
+            self.tags.deny_contains.iter().map(String::as_str).collect();
         if self.tags.deny_contains_preview.unwrap_or_default() {
             deny_contains.push("preview");
         }
@@ -325,7 +326,10 @@ mod tests {
             default = "package-resources-2021-04"
             "#,
         )?;
-        assert_eq!(Some("package-resources-2021-04".to_string()), config.tags.default);
+        assert_eq!(
+            Some("package-resources-2021-04".to_string()),
+            config.tags.default
+        );
         Ok(())
     }
 

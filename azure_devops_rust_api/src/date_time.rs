@@ -9,7 +9,7 @@
 //! is not RFC3339 compliant (no offset), so we need to
 //! have a custom deserializer to handle this gracefully.
 
-use azure_core::error::{ErrorKind, ResultExt};
+use azure_core::error::ErrorKind;
 use serde::de;
 use std::fmt;
 use time::format_description::well_known::Rfc3339;
@@ -17,11 +17,12 @@ use time::OffsetDateTime;
 
 /// Returns the given date-time as a String in RFC3339 format
 pub fn format_date_time(date_time: &OffsetDateTime) -> azure_core::error::Result<String> {
-    date_time
-        .format(&Rfc3339)
-        .with_context(ErrorKind::DataConversion, || {
-            format!("Failed to format date_time: {date_time}")
-        })
+    date_time.format(&Rfc3339).map_err(|e| {
+        azure_core::error::Error::new(
+            ErrorKind::DataConversion,
+            format!("Failed to format date_time: {date_time}: {e}"),
+        )
+    })
 }
 
 pub mod rfc3339 {
@@ -111,13 +112,16 @@ pub mod rfc3339 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use azure_core::error::{ErrorKind, ResultExt};
+    use azure_core::error::ErrorKind;
     use serde::{Deserialize, Serialize};
     use serde_json;
 
     pub fn parse_rfc3339(s: &str) -> azure_core::Result<OffsetDateTime> {
-        OffsetDateTime::parse(s, &Rfc3339).with_context(ErrorKind::DataConversion, || {
-            format!("unable to parse rfc3339 date '{s}")
+        OffsetDateTime::parse(s, &Rfc3339).map_err(|e| {
+            azure_core::error::Error::new(
+                ErrorKind::DataConversion,
+                format!("unable to parse rfc3339 date '{s}': {e}"),
+            )
         })
     }
 

@@ -3,12 +3,10 @@
 
 // git_items_list.rs
 // Git items (files and folders) list example.
-use anyhow::Context as AnyhowContext;
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::git::models::git_item::GitObjectType;
 use azure_devops_rust_api::git::models::GitItem;
-use futures::StreamExt;
 use std::env;
 use std::io::Write;
 
@@ -83,7 +81,7 @@ async fn main() -> Result<()> {
         .per_call_policies(vec![AcceptZipPolicy::new_policy()])
         .build();
 
-    let mut body = git_zip_client
+    let body = git_zip_client
         .blobs_client()
         .get_blobs_zip(organization, blob_ids, repository_name, project)
         .send()
@@ -92,11 +90,8 @@ async fn main() -> Result<()> {
         .into_body();
 
     let mut file = std::fs::File::create("blobs.zip")?;
-    while let Some(chunk_result) = body.next().await {
-        let chunk = chunk_result.context("Error reading chunk")?;
-        println!("Writing chunk");
-        file.write_all(&chunk)?;
-    }
+    println!("Writing zip file");
+    file.write_all(body.as_ref())?;
     println!("Done writing blobs.zip");
 
     Ok(())
