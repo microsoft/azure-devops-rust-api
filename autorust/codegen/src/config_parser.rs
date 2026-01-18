@@ -103,8 +103,8 @@ pub fn parse_configurations_from_autorest_config_file(
 mod literate_config {
     use super::*;
     use comrak::{
-        nodes::{AstNode, NodeCode, NodeCodeBlock, NodeValue},
-        parse_document, Arena, ComrakOptions,
+        nodes::{AstNode, NodeCode, NodeValue},
+        parse_document, Arena, Options,
     };
 
     // Per the [Literage Configuration format](https://azure.github.io/autorest/user/literate-file-formats/configuration.html),
@@ -121,7 +121,7 @@ mod literate_config {
     /// [Literate Configuration](http://azure.github.io/autorest/user/literate-file-formats/configuration.html) [CommonMark](https://commonmark.org/) file.
     pub(crate) fn parse_configuration(cmark_content: &str) -> Result<Configuration> {
         let arena = Arena::new();
-        let root = parse_document(&arena, cmark_content, &ComrakOptions::default());
+        let root = parse_document(&arena, cmark_content, &Options::default());
 
         // Get the AST node corresponding with "## Configuration".
         let configuration_heading_node =
@@ -186,8 +186,11 @@ mod literate_config {
     // from https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
     fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut String) {
         match node.data.borrow().value {
-            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => {
-                output.push_str(literal)
+            NodeValue::Text(ref literal) => {
+                output.push_str(literal.as_ref())
+            }
+            NodeValue::Code(NodeCode { ref literal, .. }) => {
+                output.push_str(literal.as_ref())
             }
             NodeValue::LineBreak | NodeValue::SoftBreak => output.push(' '),
             _ => {
@@ -250,18 +253,12 @@ mod literate_config {
                 )
             })?;
         loop {
-            if let NodeValue::CodeBlock(NodeCodeBlock {
-                info,
-                literal,
-                fenced,
-                ..
-            }) = &current_node.data.borrow().value
-            {
-                if !fenced {
+            if let NodeValue::CodeBlock(ref code_block) = &current_node.data.borrow().value {
+                if !code_block.fenced {
                     continue;
                 }
-                if info.trim_start().to_lowercase().starts_with("yaml") {
-                    return Ok(Some(literal.to_owned()));
+                if code_block.info.trim_start().to_lowercase().starts_with("yaml") {
+                    return Ok(Some(code_block.literal.to_string()));
                 }
             }
             current_node = current_node.next_sibling().ok_or_else(|| {
