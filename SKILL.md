@@ -1,3 +1,51 @@
+# Skills
+
+## Creating a release
+
+### 1. Ensure changes are on main
+
+All changes for the release (dependency updates, bug fixes, etc.) should already be merged to `main`.
+
+### 2. Create a release branch
+
+```sh
+git checkout main
+git pull
+git checkout -b release-X.Y.0
+```
+
+### 3. Bump the crate version
+
+Edit `azure_devops_rust_api/Cargo.toml`:
+- Update `version = "X.Y.0"`
+
+### 4. Update the README version
+
+Edit `azure_devops_rust_api/README.md`:
+- Update the example `Cargo.toml` snippet: `azure_devops_rust_api = { version = "X.Y.0", ... }`
+
+### 5. Update the CHANGELOG
+
+Edit `CHANGELOG.md`:
+- Insert `## [X.Y.0]` between `## [Unreleased]` and the existing `### Changes` section (the changes stay, they just move under the new version heading)
+- At the bottom of the file, update the version comparison links:
+  - Change `[Unreleased]` to compare from the new version: `compare/X.Y.0...HEAD`
+  - Add a new link: `[X.Y.0]: https://github.com/microsoft/azure-devops-rust-api/compare/PREV.0...X.Y.0`
+
+### 6. Commit and push
+
+```sh
+git add CHANGELOG.md azure_devops_rust_api/Cargo.toml azure_devops_rust_api/README.md
+git commit -m "Release X.Y.0"
+git push -u origin release-X.Y.0
+```
+
+### 7. Create a PR and merge
+
+Create a PR to `main`. After merging, the crate can be published to crates.io.
+
+---
+
 # Updating azure_core and azure_identity
 
 ## Overview
