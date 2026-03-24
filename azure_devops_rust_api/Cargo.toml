@@ -48,6 +48,7 @@ no-default-tag = []
 accounts = []
 approvals_and_checks = []
 artifacts = []
+artifacts_download = []
 artifacts_package_types = []
 audit = []
 build = []
@@ -295,3 +296,7 @@ required-features = ["release"]
 [[example]]
 name = "member_entitlement_management"
 required-features = ["member_entitlement_management"]
+
+[[example]]
+name = "download_artifact"
+required-features = ["artifacts_download"]

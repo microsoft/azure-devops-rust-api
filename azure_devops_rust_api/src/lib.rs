@@ -22,6 +22,9 @@ pub mod approvals_and_checks;
 /// Artifacts
 #[cfg(feature = "artifacts")]
 pub mod artifacts;
+/// Artifacts download (Universal Packages)
+#[cfg(feature = "artifacts_download")]
+pub mod artifacts_download;
 /// Artifacts Package Types
 #[cfg(feature = "artifacts_package_types")]
 pub mod artifacts_package_types;
