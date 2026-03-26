@@ -212,10 +212,7 @@ impl Client {
 
     /// Discover Azure DevOps service URLs via the ResourceAreas API.
     /// Returns a map of service name -> location URL.
-    pub async fn discover_services(
-        &self,
-        organization: &str,
-    ) -> Result<HashMap<String, String>> {
+    pub async fn discover_services(&self, organization: &str) -> Result<HashMap<String, String>> {
         let url = Url::parse(&format!(
             "https://dev.azure.com/{}/_apis/ResourceAreas",
             organization
@@ -232,10 +229,7 @@ impl Client {
     }
 
     /// Find the packages service URL from discovered services.
-    pub fn find_packages_url(
-        services: &HashMap<String, String>,
-        organization: &str,
-    ) -> String {
+    pub fn find_packages_url(services: &HashMap<String, String>, organization: &str) -> String {
         services
             .values()
             .find(|url| url.contains("pkgs."))
@@ -245,15 +239,12 @@ impl Client {
 
     /// Find the blob/dedup service URL from discovered services.
     pub fn find_blob_url(services: &HashMap<String, String>) -> Result<String> {
-        services
-            .get("dedup")
-            .cloned()
-            .ok_or_else(|| {
-                Error::message(
-                    ErrorKind::Other,
-                    "Could not find 'dedup' service in ResourceAreas",
-                )
-            })
+        services.get("dedup").cloned().ok_or_else(|| {
+            Error::message(
+                ErrorKind::Other,
+                "Could not find 'dedup' service in ResourceAreas",
+            )
+        })
     }
 
     // --- Package metadata ---
@@ -325,8 +316,8 @@ impl Client {
 
     /// Download a blob from a SAS URL (no auth required).
     pub async fn download_blob(&self, url: &str) -> Result<Vec<u8>> {
-        let parsed = Url::parse(url)
-            .context(ErrorKind::DataConversion, "invalid blob download URL")?;
+        let parsed =
+            Url::parse(url).context(ErrorKind::DataConversion, "invalid blob download URL")?;
         self.get_bytes(parsed).await
     }
 
@@ -335,7 +326,11 @@ impl Client {
     /// Parse the dedup manifest blob (JSON) to extract file entries.
     pub fn parse_manifest(data: &[u8]) -> Result<Manifest> {
         serde_json::from_slice(data).map_err(|e| {
-            Error::full(ErrorKind::DataConversion, e, "Failed to parse manifest JSON")
+            Error::full(
+                ErrorKind::DataConversion,
+                e,
+                "Failed to parse manifest JSON",
+            )
         })
     }
 
@@ -450,9 +445,9 @@ impl Client {
             let file_root_urls = self
                 .resolve_blob_urls(&blob_service_url, &[item.blob.id.clone()])
                 .await?;
-            let file_root_url = file_root_urls.get(&item.blob.id).ok_or_else(|| {
-                Error::message(ErrorKind::Other, "File root URL not found")
-            })?;
+            let file_root_url = file_root_urls
+                .get(&item.blob.id)
+                .ok_or_else(|| Error::message(ErrorKind::Other, "File root URL not found"))?;
             let file_root_data = self.download_blob(file_root_url).await?;
 
             let is_node = item.blob.id.ends_with("02");
@@ -498,9 +493,8 @@ impl Client {
                     format!("Failed to create file: {:?}", file_path),
                 )
             })?;
-            file.write_all(&file_data).map_err(|e| {
-                Error::full(ErrorKind::Io, e, "Failed to write file data")
-            })?;
+            file.write_all(&file_data)
+                .map_err(|e| Error::full(ErrorKind::Io, e, "Failed to write file data"))?;
         }
 
         Ok(metadata)
@@ -516,8 +510,14 @@ mod tests {
     #[test]
     fn test_find_packages_url_with_pkgs_service() {
         let mut services = HashMap::new();
-        services.insert("packaging".to_string(), "https://pkgs.dev.azure.com/myorg/".to_string());
-        services.insert("dedup".to_string(), "https://vsblob.dev.azure.com/myorg/".to_string());
+        services.insert(
+            "packaging".to_string(),
+            "https://pkgs.dev.azure.com/myorg/".to_string(),
+        );
+        services.insert(
+            "dedup".to_string(),
+            "https://vsblob.dev.azure.com/myorg/".to_string(),
+        );
 
         let url = Client::find_packages_url(&services, "myorg");
         assert!(url.contains("pkgs."));
@@ -535,7 +535,10 @@ mod tests {
     #[test]
     fn test_find_blob_url_found() {
         let mut services = HashMap::new();
-        services.insert("dedup".to_string(), "https://vsblob.dev.azure.com/myorg/".to_string());
+        services.insert(
+            "dedup".to_string(),
+            "https://vsblob.dev.azure.com/myorg/".to_string(),
+        );
 
         let url = Client::find_blob_url(&services).unwrap();
         assert_eq!(url, "https://vsblob.dev.azure.com/myorg/");
@@ -592,14 +595,18 @@ mod tests {
 
         let ids = Client::parse_dedup_node(&data).unwrap();
         assert_eq!(ids.len(), 1);
-        let expected: String = hash.iter().map(|b| format!("{:02X}", b)).collect::<String>() + "01";
+        let expected: String = hash
+            .iter()
+            .map(|b| format!("{:02X}", b))
+            .collect::<String>()
+            + "01";
         assert_eq!(ids[0], expected);
     }
 
     #[test]
     fn test_parse_dedup_node_two_entries() {
         let mut data = vec![0x00, 0x01, 0x00, 0x00]; // header
-        // Entry 1
+                                                     // Entry 1
         data.extend_from_slice(&[0x00; 4]); // metadata
         let hash1: Vec<u8> = (0..32).collect();
         data.extend_from_slice(&hash1);
