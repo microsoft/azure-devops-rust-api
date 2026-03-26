@@ -56,7 +56,10 @@ pub struct Response {
     #[serde(default, skip_serializing_if = "IndexMap::is_empty")]
     pub headers: IndexMap<String, ReferenceOr<Header>>,
 
-    #[serde(rename = "x-ms-error-response", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "x-ms-error-response",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub x_ms_error_response: Option<bool>,
 }
 
@@ -172,12 +175,19 @@ pub struct Schema {
 
     /// indicates that the Definition Schema Object is a resource as defined by the Resource Manager API
     /// https://github.com/Azure/autorest/blob/master/docs/extensions/readme.md#x-ms-azure-resource
-    #[serde(rename = "x-ms-azure-resource", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "x-ms-azure-resource",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub x_ms_azure_resource: Option<bool>,
 
     /// provides insight to Autorest on how to generate code. It doesn't alter the modeling of what is actually sent on the wire
     /// https://github.com/Azure/autorest/blob/master/docs/extensions/readme.md#x-ms-mutability
-    #[serde(rename = "x-ms-mutability", default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(
+        rename = "x-ms-mutability",
+        default,
+        skip_serializing_if = "Vec::is_empty"
+    )]
     pub x_ms_mutability: Vec<MsMutability>,
 
     /// allows specific Definition Objects to be excluded from code generation
@@ -188,7 +198,10 @@ pub struct Schema {
     #[serde(rename = "x-nullable", skip_serializing_if = "Option::is_none")]
     pub x_nullable: Option<bool>,
 
-    #[serde(rename = "x-ms-discriminator-value", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "x-ms-discriminator-value",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub x_ms_discriminator_value: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none")]

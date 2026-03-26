@@ -51,7 +51,10 @@ impl Error {
         E: Into<Box<dyn std::error::Error + Send + Sync>>,
     {
         Self {
-            context: Context::Custom(Custom { kind, error: error.into() }),
+            context: Context::Custom(Custom {
+                kind,
+                error: error.into(),
+            }),
         }
     }
 
@@ -63,7 +66,13 @@ impl Error {
         C: Into<Cow<'static, str>>,
     {
         Self {
-            context: Context::Full(Custom { kind, error: error.into() }, message.into()),
+            context: Context::Full(
+                Custom {
+                    kind,
+                    error: error.into(),
+                },
+                message.into(),
+            ),
         }
     }
 
@@ -122,7 +131,10 @@ impl Error {
             return Err(self);
         }
         // Unwrapping is ok here since we already check above that the downcast will work
-        Ok(*self.into_inner()?.downcast().expect("failed to unwrap downcast"))
+        Ok(*self
+            .into_inner()?
+            .downcast()
+            .expect("failed to unwrap downcast"))
     }
 
     /// Returns a reference to the inner error wrapped by this error (if any).
@@ -279,7 +291,13 @@ where
         C: Into<Cow<'static, str>>,
     {
         self.map_err(|e| Error {
-            context: Context::Full(Custom { error: Box::new(e), kind }, message.into()),
+            context: Context::Full(
+                Custom {
+                    error: Box::new(e),
+                    kind,
+                },
+                message.into(),
+            ),
         })
     }
 
@@ -296,7 +314,10 @@ where
 #[derive(Debug)]
 enum Context {
     Simple(ErrorKind),
-    Message { kind: ErrorKind, message: Cow<'static, str> },
+    Message {
+        kind: ErrorKind,
+        message: Cow<'static, str>,
+    },
     Custom(Custom),
     Full(Custom, Cow<'static, str>),
 }
@@ -351,7 +372,8 @@ mod tests {
         assert_eq!(errors.join(","), "second error,third error");
 
         let inner = io::Error::new(io::ErrorKind::BrokenPipe, "third error");
-        let error: Result<()> = std::result::Result::<(), std::io::Error>::Err(inner).context(ErrorKind::Io, "oh no broken pipe!");
+        let error: Result<()> = std::result::Result::<(), std::io::Error>::Err(inner)
+            .context(ErrorKind::Io, "oh no broken pipe!");
         assert_eq!(format!("{}", error.unwrap_err()), "oh no broken pipe!");
     }
 
@@ -359,7 +381,11 @@ mod tests {
     fn downcasting_works() {
         let error = &create_error() as &dyn std::error::Error;
         assert!(error.is::<Error>());
-        let downcasted = error.source().unwrap().downcast_ref::<std::io::Error>().unwrap();
+        let downcasted = error
+            .source()
+            .unwrap()
+            .downcast_ref::<std::io::Error>()
+            .unwrap();
         assert_eq!(format!("{downcasted}"), "third error");
     }
 

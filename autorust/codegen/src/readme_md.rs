@@ -26,7 +26,10 @@ impl<'a> ReadmeMd<'a> {
         self.api_version_totals.get(tag.name()).unwrap_or(&0)
     }
     pub fn api_versions(&self, tag: &'a Tag) -> &str {
-        self.api_versions.get(tag.name()).map(String::as_str).unwrap_or_default()
+        self.api_versions
+            .get(tag.name())
+            .map(String::as_str)
+            .unwrap_or_default()
     }
 }
 

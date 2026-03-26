@@ -9,15 +9,20 @@ use proc_macro2::Ident;
 use std::convert::TryFrom;
 
 fn try_from_u16(status_code: u16) -> Result<HttpStatusCode> {
-    HttpStatusCode::try_from(status_code)
-        .map_err(|_| Error::with_message(ErrorKind::Parse, || format!("invalid status code '{status_code}'")))
+    HttpStatusCode::try_from(status_code).map_err(|_| {
+        Error::with_message(ErrorKind::Parse, || {
+            format!("invalid status code '{status_code}'")
+        })
+    })
 }
 
 /// Get the status code canonical reason
 pub fn get_status_code_name(status_code: &StatusCode) -> Result<&'static str> {
     match status_code {
         StatusCode::Code(status_code) => Ok(try_from_u16(*status_code)?.canonical_reason()),
-        StatusCode::Default => Err(Error::with_message(ErrorKind::Parse, || "no status code name for default")),
+        StatusCode::Default => Err(Error::with_message(ErrorKind::Parse, || {
+            "no status code name for default"
+        })),
     }
 }
 
@@ -63,7 +68,10 @@ mod tests {
 
     #[test]
     fn test_get_status_code_name() -> Result<()> {
-        assert_eq!("Loop Detected", get_status_code_name(&StatusCode::Code(508))?);
+        assert_eq!(
+            "Loop Detected",
+            get_status_code_name(&StatusCode::Code(508))?
+        );
         Ok(())
     }
 }

@@ -9,7 +9,8 @@ use spec::TypedReference;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-const COMMON_TYPES_SPEC: &str = "../../../../azure-rest-api-specs/specification/security/resource-manager/common/v1/types.json";
+const COMMON_TYPES_SPEC: &str =
+    "../../../../azure-rest-api-specs/specification/security/resource-manager/common/v1/types.json";
 const VMWARE_SPEC: &str =
     "../../../../azure-rest-api-specs/specification/vmware/resource-manager/Microsoft.AVS/stable/2020-03-20/vmware.json";
 
@@ -55,7 +56,10 @@ fn read_spec_avs() -> Result<()> {
 fn test_resolve_schema_ref() -> Result<()> {
     let file = Utf8PathBuf::from(VMWARE_SPEC);
     let spec = &Spec::read_files(&[&file])?;
-    spec.resolve_schema_ref(&file, &Reference::parse("#/definitions/OperationList").unwrap())?;
+    spec.resolve_schema_ref(
+        &file,
+        &Reference::parse("#/definitions/OperationList").unwrap(),
+    )?;
     spec.resolve_schema_ref(
         &file,
         &Reference::parse("../../../../../common-types/resource-management/v1/types.json#/definitions/ErrorResponse").unwrap(),

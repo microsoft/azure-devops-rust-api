@@ -86,7 +86,10 @@ mod tests {
     #[test]
     fn basic_serializes() {
         let json = r#"{"type":"basic"}"#;
-        assert_eq!(json, serde_json::to_string(&Security::Basic { description: None }).unwrap());
+        assert_eq!(
+            json,
+            serde_json::to_string(&Security::Basic { description: None }).unwrap()
+        );
     }
 
     #[test]

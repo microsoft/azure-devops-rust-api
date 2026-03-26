@@ -143,7 +143,10 @@ pub struct Pageable {
 /// Creating a function name from the path and verb when an operationId is not specified.
 /// All azure-rest-api-specs operations should have an operationId.
 fn create_function_name(verb: &WebVerb, path: &str) -> String {
-    let mut path = path.split('/').filter(|&x| !x.is_empty()).collect::<Vec<_>>();
+    let mut path = path
+        .split('/')
+        .filter(|&x| !x.is_empty())
+        .collect::<Vec<_>>();
     path.insert(0, verb.as_str());
     path.join("_")
 }
@@ -165,7 +168,10 @@ mod tests {
             verb: WebVerb::Get,
             ..Default::default()
         });
-        assert_eq!(Some("private_clouds".to_owned()), operation.rust_module_name());
+        assert_eq!(
+            Some("private_clouds".to_owned()),
+            operation.rust_module_name()
+        );
         assert_eq!("create_or_update", operation.rust_function_name());
     }
 

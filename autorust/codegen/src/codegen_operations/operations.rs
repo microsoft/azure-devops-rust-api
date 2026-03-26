@@ -34,11 +34,19 @@ impl OperationCode {
         // get the content-types from the operation, else the spec, else default to json
         let consumes = operation
             .pick_consumes()
-            .unwrap_or_else(|| cg.spec.pick_consumes().unwrap_or(content_type::APPLICATION_JSON))
+            .unwrap_or_else(|| {
+                cg.spec
+                    .pick_consumes()
+                    .unwrap_or(content_type::APPLICATION_JSON)
+            })
             .to_string();
         let produces = operation
             .pick_produces()
-            .unwrap_or_else(|| cg.spec.pick_produces().unwrap_or(content_type::APPLICATION_JSON))
+            .unwrap_or_else(|| {
+                cg.spec
+                    .pick_produces()
+                    .unwrap_or(content_type::APPLICATION_JSON)
+            })
             .to_string();
 
         let lro = operation.0.long_running_operation;
@@ -46,12 +54,16 @@ impl OperationCode {
 
         let request_builder = SetRequestCode::new(operation, parameters, consumes);
         let in_operation_group = operation.0.in_group();
-        let client_function_code = ClientFunctionCode::new(operation, parameters, in_operation_group)?;
-        let request_builder_struct_code = RequestBuilderStructCode::new(parameters, in_operation_group, lro, lro_options.clone());
+        let client_function_code =
+            ClientFunctionCode::new(operation, parameters, in_operation_group)?;
+        let request_builder_struct_code =
+            RequestBuilderStructCode::new(parameters, in_operation_group, lro, lro_options.clone());
         let request_builder_setters_code = RequestBuilderSettersCode::new(parameters);
         let response_code = ResponseCode::new(cg, operation, produces)?;
-        let request_builder_send_code = RequestBuilderSendCode::new(new_request_code, request_builder, response_code.clone())?;
-        let request_builder_intofuture_code = RequestBuilderIntoFutureCode::new(response_code.clone(), lro, lro_options)?;
+        let request_builder_send_code =
+            RequestBuilderSendCode::new(new_request_code, request_builder, response_code.clone())?;
+        let request_builder_intofuture_code =
+            RequestBuilderIntoFutureCode::new(response_code.clone(), lro, lro_options)?;
 
         let module_code = OperationModuleCode {
             module_name: operation.function_name()?,

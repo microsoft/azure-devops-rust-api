@@ -62,7 +62,8 @@ pub fn id(text: &str) -> String {
 }
 
 pub fn parse_ident(text: &str) -> Result<Ident> {
-    syn::parse_str::<Ident>(&id(text)).with_context(ErrorKind::Parse, || format!("parse ident {text}"))
+    syn::parse_str::<Ident>(&id(text))
+        .with_context(ErrorKind::Parse, || format!("parse ident {text}"))
 }
 
 pub fn raw_str_to_ident(text: &str) -> Result<Ident> {
@@ -234,7 +235,10 @@ mod tests {
 
     #[test]
     fn test_system_assigned_user_assigned() -> Result<()> {
-        assert_eq!("SystemAssigned, UserAssigned".to_camel_case_id(), "SystemAssignedUserAssigned");
+        assert_eq!(
+            "SystemAssigned, UserAssigned".to_camel_case_id(),
+            "SystemAssignedUserAssigned"
+        );
         Ok(())
     }
 
@@ -261,7 +265,10 @@ mod tests {
 
     #[test]
     fn test_microsoft_key_vault_vaults() -> Result<()> {
-        assert_eq!("Microsoft.KeyVault/vaults".to_camel_case_id(), "MicrosoftKeyVaultVaults");
+        assert_eq!(
+            "Microsoft.KeyVault/vaults".to_camel_case_id(),
+            "MicrosoftKeyVaultVaults"
+        );
         Ok(())
     }
 
@@ -288,7 +295,10 @@ mod tests {
 
     #[test]
     fn test_attr_qualified_name() -> Result<()> {
-        assert_eq!("attr:qualifiedName".to_snake_case_id(), "attr_qualified_name");
+        assert_eq!(
+            "attr:qualifiedName".to_snake_case_id(),
+            "attr_qualified_name"
+        );
         Ok(())
     }
 

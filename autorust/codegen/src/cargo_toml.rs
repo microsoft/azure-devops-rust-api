@@ -2,7 +2,13 @@ use crate::Result;
 use crate::{config_parser::Tag, jinja::CargoToml};
 use camino::Utf8Path;
 
-pub fn create(package_name: &str, tags: &[&Tag], default_tag: &Tag, has_xml: bool, path: &Utf8Path) -> Result<()> {
+pub fn create(
+    package_name: &str,
+    tags: &[&Tag],
+    default_tag: &Tag,
+    has_xml: bool,
+    path: &Utf8Path,
+) -> Result<()> {
     let default_tag = &default_tag.rust_feature_name();
 
     // https://docs.rs/about/metadata
@@ -22,7 +28,9 @@ pub fn create(package_name: &str, tags: &[&Tag], default_tag: &Tag, has_xml: boo
 
 pub fn get_default_tag<'a>(tags: &[&'a Tag], default_tag: Option<&str>) -> &'a Tag {
     let default_tag = tags.iter().find(|tag| Some(tag.name()) == default_tag);
-    let is_preview = default_tag.map(|tag| tag.name().contains("preview")).unwrap_or_default();
+    let is_preview = default_tag
+        .map(|tag| tag.name().contains("preview"))
+        .unwrap_or_default();
     let stable_tag = tags.iter().find(|tag| !tag.name().contains("preview"));
     match (default_tag, is_preview, stable_tag) {
         (Some(default_tag), false, _) => default_tag,
@@ -94,13 +102,20 @@ mod tests {
         ];
         let tags: Vec<_> = tags.into_iter().map(Tag::new).collect();
         let tags: Vec<_> = tags.iter().collect();
-        assert_eq!("package-2020-04", get_default_tag(&tags, Some("package-2020-04")).name());
+        assert_eq!(
+            "package-2020-04",
+            get_default_tag(&tags, Some("package-2020-04")).name()
+        );
         Ok(())
     }
 
     #[test]
     fn specified_preview() -> Result<()> {
-        let tags = vec!["package-preview-2022-05", "package-2019-06-preview", "package-2019-04-preview"];
+        let tags = vec![
+            "package-preview-2022-05",
+            "package-2019-06-preview",
+            "package-2019-04-preview",
+        ];
         let tags: Vec<_> = tags.into_iter().map(Tag::new).collect();
         let tags: Vec<_> = tags.iter().collect();
         assert_eq!(

@@ -25,6 +25,9 @@ pub struct Header {
     pub enum_: Vec<serde_json::Value>,
 
     /// https://github.com/Azure/autorest/blob/main/docs/extensions/readme.md#x-ms-header-collection-prefix
-    #[serde(rename = "x-ms-header-collection-prefix", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "x-ms-header-collection-prefix",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub x_ms_header_collection_prefix: Option<String>,
 }

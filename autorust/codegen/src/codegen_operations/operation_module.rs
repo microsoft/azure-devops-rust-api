@@ -2,8 +2,10 @@ use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 
 use super::{
-    request_builder_into_future::RequestBuilderIntoFutureCode, request_builder_send::RequestBuilderSendCode,
-    request_builder_setter::RequestBuilderSettersCode, request_builder_struct::RequestBuilderStructCode, response_code::ResponseCode,
+    request_builder_into_future::RequestBuilderIntoFutureCode,
+    request_builder_send::RequestBuilderSendCode,
+    request_builder_setter::RequestBuilderSettersCode,
+    request_builder_struct::RequestBuilderStructCode, response_code::ResponseCode,
 };
 pub struct OperationModuleCode {
     pub module_name: Ident,

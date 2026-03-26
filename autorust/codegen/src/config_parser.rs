@@ -77,15 +77,21 @@ impl Tag {
 /// Receives the AutoRest configuration file and parses it to its various configurations (by tags/API versions),
 /// according to its extension.
 /// e.g. for "path/to/config.md", it will get parsed as CommonMark [Literate Tag](http://azure.github.io/autorest/user/literate-file-formats/configuration.html).
-pub fn parse_configurations_from_autorest_config_file(config_file: &Utf8Path) -> Result<Configuration> {
-    let extension = config_file
-        .extension()
-        .ok_or_else(|| Error::with_message(ErrorKind::Parse, || format!("expected md extension {config_file}")))?;
+pub fn parse_configurations_from_autorest_config_file(
+    config_file: &Utf8Path,
+) -> Result<Configuration> {
+    let extension = config_file.extension().ok_or_else(|| {
+        Error::with_message(ErrorKind::Parse, || {
+            format!("expected md extension {config_file}")
+        })
+    })?;
     match extension.to_lowercase().as_str() {
         "md" => {
             use literate_config::*;
-            let cmark_content =
-                std::fs::read_to_string(config_file).with_context(ErrorKind::Io, || format!("reading the md file {config_file}"))?;
+            let cmark_content = std::fs::read_to_string(config_file)
+                .with_context(ErrorKind::Io, || {
+                    format!("reading the md file {config_file}")
+                })?;
             Ok(parse_configuration(&cmark_content)?)
         }
         _ => Err(Error::with_message(ErrorKind::Io, || {
@@ -118,12 +124,13 @@ mod literate_config {
         let root = parse_document(&arena, cmark_content, &ComrakOptions::default());
 
         // Get the AST node corresponding with "## Configuration".
-        let configuration_heading_node = get_configuration_section_heading_node(root).ok_or_else(|| {
-            Error::message(
-                ErrorKind::Parse,
-                "no `## Configuration` heading in the AutoRest literate configuration file",
-            )
-        })?;
+        let configuration_heading_node =
+            get_configuration_section_heading_node(root).ok_or_else(|| {
+                Error::message(
+                    ErrorKind::Parse,
+                    "no `## Configuration` heading in the AutoRest literate configuration file",
+                )
+            })?;
 
         let mut tags = Vec::new();
         let mut basic_info = BasicInformation::default();
@@ -133,15 +140,27 @@ mod literate_config {
         let mut current_node = configuration_heading_node.next_sibling();
         while let Some(node) = current_node {
             if is_basic_information(node) {
-                let yaml = extract_yaml(node)?
-                    .ok_or_else(|| Error::message(ErrorKind::Parse, "expected configuration tag to contain a YAML code block"))?;
-                basic_info = serde_yaml::from_str(&yaml).context(ErrorKind::DataConversion, "reading basic information block yaml")?;
+                let yaml = extract_yaml(node)?.ok_or_else(|| {
+                    Error::message(
+                        ErrorKind::Parse,
+                        "expected configuration tag to contain a YAML code block",
+                    )
+                })?;
+                basic_info = serde_yaml::from_str(&yaml).context(
+                    ErrorKind::DataConversion,
+                    "reading basic information block yaml",
+                )?;
             } else if let Some(tag_name) = get_tag_name(node) {
                 // Extract the configuration from the first node inside the tag heading ("Tag: ..."),
                 // by looking at the first YAML code block.
-                let yaml = extract_yaml(node)?
-                    .ok_or_else(|| Error::message(ErrorKind::Parse, "Expected configuration tag to contain a YAML code block."))?;
-                let mut tag: Tag = serde_yaml::from_str(&yaml).context(ErrorKind::Parse, "reading configuration block yaml")?;
+                let yaml = extract_yaml(node)?.ok_or_else(|| {
+                    Error::message(
+                        ErrorKind::Parse,
+                        "Expected configuration tag to contain a YAML code block.",
+                    )
+                })?;
+                let mut tag: Tag = serde_yaml::from_str(&yaml)
+                    .context(ErrorKind::Parse, "reading configuration block yaml")?;
                 for input_file in tag.input_files.iter_mut() {
                     *input_file = input_file.replace('\\', "/");
                 }
@@ -167,7 +186,9 @@ mod literate_config {
     // from https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
     fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut String) {
         match node.data.borrow().value {
-            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => output.push_str(literal),
+            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => {
+                output.push_str(literal)
+            }
             NodeValue::LineBreak | NodeValue::SoftBreak => output.push(' '),
             _ => {
                 for n in node.children() {
@@ -179,7 +200,9 @@ mod literate_config {
 
     /// Returns the first "## Configuration" AST Node.
     /// There should only be one per Literate Configuration file.
-    fn get_configuration_section_heading_node<'a>(root: &'a AstNode<'a>) -> Option<&'a AstNode<'a>> {
+    fn get_configuration_section_heading_node<'a>(
+        root: &'a AstNode<'a>,
+    ) -> Option<&'a AstNode<'a>> {
         root.children().find(|node| {
             if is_header_at_level(node, 2) {
                 let mut text = String::new();
@@ -220,9 +243,20 @@ mod literate_config {
     fn extract_yaml<'a>(configuration_tag_heading_node: &'a AstNode<'a>) -> Result<Option<String>> {
         let mut current_node = configuration_tag_heading_node
             .next_sibling()
-            .ok_or_else(|| Error::message(ErrorKind::Parse, "markdown ended unexpectedly after configuration tag heading"))?;
+            .ok_or_else(|| {
+                Error::message(
+                    ErrorKind::Parse,
+                    "markdown ended unexpectedly after configuration tag heading",
+                )
+            })?;
         loop {
-            if let NodeValue::CodeBlock(NodeCodeBlock { info, literal, fenced, .. }) = &current_node.data.borrow().value {
+            if let NodeValue::CodeBlock(NodeCodeBlock {
+                info,
+                literal,
+                fenced,
+                ..
+            }) = &current_node.data.borrow().value
+            {
                 if !fenced {
                     continue;
                 }
@@ -230,9 +264,12 @@ mod literate_config {
                     return Ok(Some(literal.to_owned()));
                 }
             }
-            current_node = current_node
-                .next_sibling()
-                .ok_or_else(|| Error::message(ErrorKind::Parse, "markdown ended unexpectedly after configuration tag heading"))?;
+            current_node = current_node.next_sibling().ok_or_else(|| {
+                Error::message(
+                    ErrorKind::Parse,
+                    "markdown ended unexpectedly after configuration tag heading",
+                )
+            })?;
         }
     }
 }
@@ -277,7 +314,9 @@ mod tests {
     fn test_get_input_file_api_version() {
         assert_eq!(
             Some("2019-05-05-preview".to_owned()),
-            get_input_file_api_version("Microsoft.AlertsManagement/preview/2019-05-05-preview/ActionRules.json")
+            get_input_file_api_version(
+                "Microsoft.AlertsManagement/preview/2019-05-05-preview/ActionRules.json"
+            )
         );
     }
 
@@ -317,8 +356,14 @@ input-file:
         assert_eq!(1, tags.len());
         assert_eq!("package-2019-06", tags[0].tag);
         assert_eq!(5, tags[0].input_files.len());
-        assert_eq!("Microsoft.Storage/stable/2019-06-01/storage.json", tags[0].input_files[0]);
-        assert_eq!("Microsoft.Storage/stable/2019-06-01/blob.json", tags[0].input_files[1]);
+        assert_eq!(
+            "Microsoft.Storage/stable/2019-06-01/storage.json",
+            tags[0].input_files[0]
+        );
+        assert_eq!(
+            "Microsoft.Storage/stable/2019-06-01/blob.json",
+            tags[0].input_files[1]
+        );
         Ok(())
     }
 
@@ -354,12 +399,21 @@ input-file:
         assert_eq!(2, tags.len());
         assert_eq!("package-2019-06", tags[0].tag);
         assert_eq!(5, tags[0].input_files.len());
-        assert_eq!("Microsoft.Storage/stable/2019-06-01/storage.json", tags[0].input_files[0]);
-        assert_eq!("Microsoft.Storage/stable/2019-06-01/blob.json", tags[0].input_files[1]);
+        assert_eq!(
+            "Microsoft.Storage/stable/2019-06-01/storage.json",
+            tags[0].input_files[0]
+        );
+        assert_eq!(
+            "Microsoft.Storage/stable/2019-06-01/blob.json",
+            tags[0].input_files[1]
+        );
 
         assert_eq!("package-2015-05-preview", tags[1].tag);
         assert_eq!(1, tags[1].input_files.len());
-        assert_eq!("Microsoft.Storage/preview/2015-05-01-preview/storage.json", tags[1].input_files[0]);
+        assert_eq!(
+            "Microsoft.Storage/preview/2015-05-01-preview/storage.json",
+            tags[1].input_files[0]
+        );
         Ok(())
     }
 

@@ -57,11 +57,7 @@ fn parse_args() -> Result<Args> {
                 i += 2;
             }
             "--path" => {
-                path = Some(
-                    args.get(i + 1)
-                        .context("--path requires a value")?
-                        .clone(),
-                );
+                path = Some(args.get(i + 1).context("--path requires a value")?.clone());
                 i += 2;
             }
             _ => {

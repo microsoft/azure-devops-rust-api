@@ -3,7 +3,10 @@ use quote::{quote, ToTokens};
 
 use crate::spec::WebVerb;
 
-use super::{function_params::FunctionParams, set_request_param_code::SetRequestParamsCode, web_operation_gen::WebOperationGen};
+use super::{
+    function_params::FunctionParams, set_request_param_code::SetRequestParamsCode,
+    web_operation_gen::WebOperationGen,
+};
 /// Set all body and parameters for the request.
 pub struct SetRequestCode {
     pub has_param_api_version: bool,
