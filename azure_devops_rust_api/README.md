@@ -134,7 +134,10 @@ Example usage (from [examples/download_artifact.rs](examples/download_artifact.r
         )
         .await?;
 
-    println!("Downloaded {} v{} ({} bytes)", metadata.version, metadata.package_size, output_path.display());
+    println!(
+        "Downloaded {} v{} ({} bytes) to {:?}",
+        package_name, metadata.version, metadata.package_size, output_path
+    );
 ```
 
 Run the example:
