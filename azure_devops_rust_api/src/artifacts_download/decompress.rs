@@ -18,7 +18,7 @@ use azure_core::error::{Error, ErrorKind, Result};
 /// - Nibble-based extended length encoding
 pub fn decompress_chunk(compressed: &[u8]) -> Result<Vec<u8>> {
     if compressed.len() < 5 {
-        return Err(Error::message(
+        return Err(Error::with_message(
             ErrorKind::DataConversion,
             format!("Compressed data too small: {} bytes", compressed.len()),
         ));
@@ -165,7 +165,7 @@ fn process_match(
             (compressed[nib_idx] >> 4) as usize
         } else {
             if *ci >= compressed.len() {
-                return Err(Error::message(
+                return Err(Error::with_message(
                     ErrorKind::DataConversion,
                     "Unexpected end of compressed data in nibble read",
                 ));
@@ -179,7 +179,7 @@ fn process_match(
         match_len = nibble_val;
         if match_len == 15 {
             if *ci >= compressed.len() {
-                return Err(Error::message(
+                return Err(Error::with_message(
                     ErrorKind::DataConversion,
                     "Unexpected end of compressed data in length extension",
                 ));
@@ -188,7 +188,7 @@ fn process_match(
             *ci += 1;
             if match_len == 255 {
                 if *ci + 1 >= compressed.len() {
-                    return Err(Error::message(
+                    return Err(Error::with_message(
                         ErrorKind::DataConversion,
                         "Unexpected end of compressed data in 16-bit length",
                     ));
@@ -198,7 +198,7 @@ fn process_match(
                 *ci += 2;
                 if match_len == 0 {
                     if *ci + 3 >= compressed.len() {
-                        return Err(Error::message(
+                        return Err(Error::with_message(
                             ErrorKind::DataConversion,
                             "Unexpected end of compressed data in 32-bit length",
                         ));
@@ -208,7 +208,7 @@ fn process_match(
                     *ci += 4;
                 }
                 if match_len < 22 {
-                    return Err(Error::message(
+                    return Err(Error::with_message(
                         ErrorKind::DataConversion,
                         format!("Invalid extended match length: {}", match_len),
                     ));
@@ -222,7 +222,7 @@ fn process_match(
     match_len += 3;
 
     if offset > output.len() {
-        return Err(Error::message(
+        return Err(Error::with_message(
             ErrorKind::DataConversion,
             format!(
                 "Match offset {} exceeds output size {} at compressed pos {}",

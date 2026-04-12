@@ -17,8 +17,8 @@
 mod decompress;
 
 use azure_core::error::{Error, ErrorKind, Result, ResultExt};
-use azure_core::headers::{self, HeaderValue};
-use azure_core::{Method, Request, Url};
+use azure_core::http::headers::{self, HeaderValue};
+use azure_core::http::{Method, Request, Url};
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::io::Write;
@@ -88,7 +88,7 @@ pub struct Manifest {
 pub struct Client {
     credential: crate::Credential,
     scopes: Vec<String>,
-    pipeline: azure_core::Pipeline,
+    pipeline: azure_core::http::Pipeline,
 }
 
 /// Builder for creating an artifacts download [`Client`].
@@ -96,7 +96,7 @@ pub struct Client {
 pub struct ClientBuilder {
     credential: crate::Credential,
     scopes: Option<Vec<String>>,
-    options: azure_core::ClientOptions,
+    options: azure_core::http::ClientOptions,
 }
 
 impl ClientBuilder {
@@ -106,7 +106,7 @@ impl ClientBuilder {
         Self {
             credential,
             scopes: None,
-            options: azure_core::ClientOptions::default(),
+            options: azure_core::http::ClientOptions::default(),
         }
     }
 
@@ -119,15 +119,15 @@ impl ClientBuilder {
 
     /// Set the retry options.
     #[must_use]
-    pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
-        self.options = self.options.retry(retry);
+    pub fn retry(mut self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+        self.options.retry = retry.into();
         self
     }
 
     /// Set the transport options.
     #[must_use]
-    pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
-        self.options = self.options.transport(transport);
+    pub fn transport(mut self, transport: impl Into<azure_core::http::Transport>) -> Self {
+        self.options.transport = Some(transport.into());
         self
     }
 
@@ -136,12 +136,13 @@ impl ClientBuilder {
         let scopes = self
             .scopes
             .unwrap_or_else(|| vec![crate::ADO_SCOPE.to_string()]);
-        let pipeline = azure_core::Pipeline::new(
+        let pipeline = azure_core::http::Pipeline::new(
             option_env!("CARGO_PKG_NAME"),
             option_env!("CARGO_PKG_VERSION"),
             self.options,
             Vec::new(),
             Vec::new(),
+            None,
         );
         Client {
             credential: self.credential,
@@ -164,13 +165,13 @@ impl Client {
         self.credential
             .http_authorization_header(&scopes)
             .await?
-            .ok_or_else(|| Error::message(ErrorKind::Credential, "No credential configured"))
+            .ok_or_else(|| Error::with_message(ErrorKind::Credential, "No credential configured"))
     }
 
     /// Send a request through the pipeline.
-    async fn send(&self, request: &mut Request) -> Result<azure_core::Response> {
-        let context = azure_core::Context::default();
-        self.pipeline.send(&context, request).await
+    async fn send(&self, request: &mut Request) -> Result<azure_core::http::RawResponse> {
+        let context = azure_core::http::Context::default();
+        self.pipeline.send(&context, request, None).await
     }
 
     /// Send an authenticated GET request and parse the JSON response.
@@ -183,17 +184,17 @@ impl Client {
             HeaderValue::from("application/json; api-version=7.1-preview.1"),
         );
         req.insert_header("x-tfs-fedauthredirect", HeaderValue::from("Suppress"));
-        req.set_body(azure_core::EMPTY_BODY);
+        req.set_body(azure_core::Bytes::new());
 
         let resp = self.send(&mut req).await?;
-        let bytes = resp.into_body().collect().await?;
-        serde_json::from_slice(&bytes).map_err(|e| {
-            Error::full(
+        let body = resp.into_body();
+        serde_json::from_slice(&body).map_err(|e| {
+            Error::with_error(
                 ErrorKind::DataConversion,
                 e,
                 format!(
                     "Failed to deserialize response:\n{}",
-                    String::from_utf8_lossy(&bytes)
+                    String::from_utf8_lossy(&body)
                 ),
             )
         })
@@ -202,10 +203,10 @@ impl Client {
     /// Send an unauthenticated GET request and return the raw bytes.
     async fn get_bytes(&self, url: Url) -> Result<Vec<u8>> {
         let mut req = Request::new(url, Method::Get);
-        req.set_body(azure_core::EMPTY_BODY);
+        req.set_body(azure_core::Bytes::new());
         let resp = self.send(&mut req).await?;
-        let bytes = resp.into_body().collect().await?;
-        Ok(bytes.to_vec())
+        let body = resp.into_body();
+        Ok(body.to_vec())
     }
 
     // --- Service discovery ---
@@ -217,7 +218,7 @@ impl Client {
             "https://dev.azure.com/{}/_apis/ResourceAreas",
             organization
         ))
-        .context(ErrorKind::DataConversion, "invalid organization URL")?;
+        .with_context(ErrorKind::DataConversion, "invalid organization URL")?;
 
         let areas: ResourceAreasResponse = self.get_json(url).await?;
         let map: HashMap<String, String> = areas
@@ -240,7 +241,7 @@ impl Client {
     /// Find the blob/dedup service URL from discovered services.
     pub fn find_blob_url(services: &HashMap<String, String>) -> Result<String> {
         services.get("dedup").cloned().ok_or_else(|| {
-            Error::message(
+            Error::with_message(
                 ErrorKind::Other,
                 "Could not find 'dedup' service in ResourceAreas",
             )
@@ -266,7 +267,7 @@ impl Client {
             name,
             version,
         ))
-        .context(ErrorKind::DataConversion, "invalid package metadata URL")?;
+        .with_context(ErrorKind::DataConversion, "invalid package metadata URL")?;
 
         url.query_pairs_mut().append_pair("intent", "Download");
         self.get_json(url).await
@@ -284,7 +285,7 @@ impl Client {
             "{}/_apis/dedup/urls",
             blob_service_url.trim_end_matches('/')
         ))
-        .context(ErrorKind::DataConversion, "invalid dedup URL")?;
+        .with_context(ErrorKind::DataConversion, "invalid dedup URL")?;
 
         url.query_pairs_mut().append_pair("allowEdge", "true");
 
@@ -300,13 +301,13 @@ impl Client {
             HeaderValue::from("application/json; api-version=1.0"),
         );
         req.insert_header("x-tfs-fedauthredirect", HeaderValue::from("Suppress"));
-        let body = azure_core::to_json(blob_ids)?;
+        let body = azure_core::json::to_json(blob_ids)?;
         req.set_body(body);
 
         let resp = self.send(&mut req).await?;
-        let bytes = resp.into_body().collect().await?;
-        serde_json::from_slice(&bytes).map_err(|e| {
-            Error::full(
+        let body = resp.into_body();
+        serde_json::from_slice(&body).map_err(|e| {
+            Error::with_error(
                 ErrorKind::DataConversion,
                 e,
                 "Failed to parse blob URL response",
@@ -317,7 +318,7 @@ impl Client {
     /// Download a blob from a SAS URL (no auth required).
     pub async fn download_blob(&self, url: &str) -> Result<Vec<u8>> {
         let parsed =
-            Url::parse(url).context(ErrorKind::DataConversion, "invalid blob download URL")?;
+            Url::parse(url).with_context(ErrorKind::DataConversion, "invalid blob download URL")?;
         self.get_bytes(parsed).await
     }
 
@@ -326,7 +327,7 @@ impl Client {
     /// Parse the dedup manifest blob (JSON) to extract file entries.
     pub fn parse_manifest(data: &[u8]) -> Result<Manifest> {
         serde_json::from_slice(data).map_err(|e| {
-            Error::full(
+            Error::with_error(
                 ErrorKind::DataConversion,
                 e,
                 "Failed to parse manifest JSON",
@@ -350,7 +351,7 @@ impl Client {
         const ENTRY_SIZE: usize = METADATA_SIZE + HASH_SIZE;
 
         if data.len() < HEADER_SIZE + ENTRY_SIZE {
-            return Err(Error::message(
+            return Err(Error::with_message(
                 ErrorKind::DataConversion,
                 format!(
                     "Dedup node blob too small: {} bytes (minimum {})",
@@ -362,7 +363,7 @@ impl Client {
 
         let data_portion = data.len() - HEADER_SIZE;
         if data_portion % ENTRY_SIZE != 0 {
-            return Err(Error::message(
+            return Err(Error::with_message(
                 ErrorKind::DataConversion,
                 format!(
                     "Dedup node blob has unexpected size: {} bytes \
@@ -385,7 +386,7 @@ impl Client {
         }
 
         if chunk_ids.is_empty() {
-            return Err(Error::message(
+            return Err(Error::with_message(
                 ErrorKind::DataConversion,
                 format!(
                     "No chunk references found in dedup node blob ({} bytes)",
@@ -426,14 +427,14 @@ impl Client {
             .resolve_blob_urls(&blob_service_url, &[metadata.manifest_id.clone()])
             .await?;
         let manifest_url = manifest_urls.get(&metadata.manifest_id).ok_or_else(|| {
-            Error::message(ErrorKind::Other, "Manifest URL not found in response")
+            Error::with_message(ErrorKind::Other, "Manifest URL not found in response")
         })?;
         let manifest_data = self.download_blob(manifest_url).await?;
         let manifest = Self::parse_manifest(&manifest_data)?;
 
         // Step 4: Create output directory
         std::fs::create_dir_all(output_path).map_err(|e| {
-            Error::full(
+            Error::with_error(
                 ErrorKind::Io,
                 e,
                 format!("Failed to create output directory: {:?}", output_path),
@@ -447,7 +448,7 @@ impl Client {
                 .await?;
             let file_root_url = file_root_urls
                 .get(&item.blob.id)
-                .ok_or_else(|| Error::message(ErrorKind::Other, "File root URL not found"))?;
+                .ok_or_else(|| Error::with_message(ErrorKind::Other, "File root URL not found"))?;
             let file_root_data = self.download_blob(file_root_url).await?;
 
             let is_node = item.blob.id.ends_with("02");
@@ -461,7 +462,7 @@ impl Client {
                 let mut file_data = Vec::with_capacity(item.blob.size as usize);
                 for chunk_id in &chunk_ids {
                     let chunk_url = chunk_urls.get(chunk_id).ok_or_else(|| {
-                        Error::message(
+                        Error::with_message(
                             ErrorKind::Other,
                             format!("Chunk URL not found for {}", chunk_id),
                         )
@@ -479,7 +480,7 @@ impl Client {
             let file_path = output_path.join(relative_path);
             if let Some(parent) = file_path.parent() {
                 std::fs::create_dir_all(parent).map_err(|e| {
-                    Error::full(
+                    Error::with_error(
                         ErrorKind::Io,
                         e,
                         format!("Failed to create directory: {:?}", parent),
@@ -487,14 +488,14 @@ impl Client {
                 })?;
             }
             let mut file = std::fs::File::create(&file_path).map_err(|e| {
-                Error::full(
+                Error::with_error(
                     ErrorKind::Io,
                     e,
                     format!("Failed to create file: {:?}", file_path),
                 )
             })?;
             file.write_all(&file_data)
-                .map_err(|e| Error::full(ErrorKind::Io, e, "Failed to write file data"))?;
+                .map_err(|e| Error::with_error(ErrorKind::Io, e, "Failed to write file data"))?;
         }
 
         Ok(metadata)
