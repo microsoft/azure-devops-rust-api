@@ -65,7 +65,7 @@ pub fn gen_crate(
         let input_files: Result<Vec<_>> = tag
             .input_files()
             .iter()
-            .map(|input_file| io::join(spec.readme(), input_file).map_err(Error::from))
+            .map(|input_file| io::join(spec.readme(), input_file))
             .collect();
         let input_files = input_files.with_context(ErrorKind::CodeGen, || {
             format!("collecting input files for tag {name}")
