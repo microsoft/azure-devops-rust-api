@@ -67,7 +67,7 @@ Example application `Cargo.toml` dependency spec showing how to specify desired 
 ```toml
 [dependencies]
 ...
-azure_devops_rust_api = { version = "0.35.0", features = ["git", "pipelines"] }
+azure_devops_rust_api = { version = "0.36.0", features = ["git", "pipelines"] }
 ```
 
 ## Examples
@@ -115,7 +115,7 @@ Enable it with the `artifacts_download` feature:
 
 ```toml
 [dependencies]
-azure_devops_rust_api = { version = "0.35.0", features = ["artifacts_download"] }
+azure_devops_rust_api = { version = "0.36.0", features = ["artifacts_download"] }
 ```
 
 Example usage (from [examples/download_artifact.rs](examples/download_artifact.rs)):
