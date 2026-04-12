@@ -101,7 +101,7 @@ impl<'a> CodeGen<'a> {
             || self
                 .spec
                 .operations()
-                .map_or(false, |f| f.iter().any(|op| op.has_xml()))
+                .is_ok_and(|f| f.iter().any(|op| op.has_xml()))
     }
 }
 

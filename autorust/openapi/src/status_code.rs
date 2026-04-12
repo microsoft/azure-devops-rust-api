@@ -74,7 +74,7 @@ impl<'de> Deserialize<'de> for StatusCode {
                 if let Ok(number) = value.parse::<i64>() {
                     self.visit_i64(number)
                 } else {
-                    return Err(E::invalid_value(Unexpected::Str(value), &"not i64"));
+                    Err(E::invalid_value(Unexpected::Str(value), &"not i64"))
                 }
             }
         }
