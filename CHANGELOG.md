@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Improved README: added badges, quickstart guide, authentication section, feature table, MSRV, and updated links to learn.microsoft.com.
+
 ## [0.36.0]
 
 ### Added
