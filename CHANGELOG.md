@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- New `artifacts_download` higher-level module for downloading Universal Packages from Azure DevOps Artifacts.
+- Add example for downloading universal packages (`artifacts_download`).
+
 ## [0.35.0]
 
 ### Changes
