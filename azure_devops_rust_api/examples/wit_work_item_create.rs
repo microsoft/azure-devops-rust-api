@@ -44,7 +44,7 @@ async fn main() -> Result<()> {
         .create(organization, body, project, work_item_type)
         .await?;
 
-    println!("{:#?}", work_item);
+    println!("{work_item:#?}");
 
     Ok(())
 }

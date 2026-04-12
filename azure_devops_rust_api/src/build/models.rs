@@ -14,20 +14,22 @@ pub struct AgentPoolQueue {
     #[doc = "The ID of the queue."]
     pub id: i32,
     #[doc = "The name of the queue."]
-    pub name: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     #[doc = "Represents a reference to an agent pool."]
-    pub pool: TaskAgentPoolReference,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pool: Option<TaskAgentPoolReference>,
     #[doc = "The full http link to the resource."]
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 }
 impl AgentPoolQueue {
-    pub fn new(id: i32, name: String, pool: TaskAgentPoolReference) -> Self {
+    pub fn new(id: i32) -> Self {
         Self {
             links: None,
             id,
-            name,
-            pool,
+            name: None,
+            pool: None,
             url: None,
         }
     }
@@ -67,7 +69,7 @@ pub struct AgentPoolQueueTarget {
     pub allow_scripts_auth_access_option: Option<bool>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<Demand>,
@@ -422,7 +424,7 @@ pub struct AttachmentList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Attachment>,
@@ -505,7 +507,7 @@ pub struct Build {
     #[doc = "A list of demands that represents the agent capabilities required by this build."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<Demand>,
@@ -549,7 +551,7 @@ pub struct Build {
     #[doc = "Orchestration plans associated with the build (build, cleanup)"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub plans: Vec<TaskOrchestrationPlanReference>,
@@ -642,7 +644,7 @@ pub struct Build {
     pub status: Option<build::Status>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
@@ -676,7 +678,7 @@ pub struct Build {
     #[serde(
         rename = "validationResults",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub validation_results: Vec<BuildRequestValidationResult>,
@@ -946,7 +948,7 @@ pub struct BuildArtifactList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildArtifact>,
@@ -978,7 +980,7 @@ pub struct BuildCompletedEvent {
     #[doc = "Changes associated with a build used for build notifications"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub changes: Vec<Change>,
@@ -999,7 +1001,7 @@ pub struct BuildCompletedEvent {
     #[serde(
         rename = "timelineRecords",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub timeline_records: Vec<TimelineRecord>,
@@ -1007,7 +1009,7 @@ pub struct BuildCompletedEvent {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<AssociatedWorkItem>,
@@ -1025,7 +1027,7 @@ pub struct BuildCompletionTrigger {
     #[serde(
         rename = "branchFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub branch_filters: Vec<String>,
@@ -1104,7 +1106,7 @@ pub struct BuildControllerList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildController>,
@@ -1138,7 +1140,7 @@ pub struct BuildDefinition {
     pub comment: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<Demand>,
@@ -1175,7 +1177,7 @@ pub struct BuildDefinition {
     pub job_timeout_in_minutes: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub options: Vec<BuildOption>,
@@ -1197,26 +1199,26 @@ pub struct BuildDefinition {
     #[serde(
         rename = "retentionRules",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub retention_rules: Vec<RetentionPolicy>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub triggers: Vec<BuildTrigger>,
     #[serde(
         rename = "variableGroups",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub variable_groups: Vec<VariableGroup>,
@@ -1274,7 +1276,7 @@ pub struct BuildDefinition32 {
     pub badge_enabled: Option<bool>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub build: Vec<BuildDefinitionStep>,
@@ -1290,7 +1292,7 @@ pub struct BuildDefinition32 {
     pub comment: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub demands: Vec<Demand>,
@@ -1341,7 +1343,7 @@ pub struct BuildDefinition32 {
     pub latest_completed_build: Option<Build>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub options: Vec<BuildOption>,
@@ -1360,19 +1362,19 @@ pub struct BuildDefinition32 {
     #[serde(
         rename = "retentionRules",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub retention_rules: Vec<RetentionPolicy>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub triggers: Vec<BuildTrigger>,
@@ -1437,7 +1439,7 @@ pub struct BuildDefinitionReference {
     #[doc = "The list of drafts associated with this definition, if this is not a draft definition."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub drafts: Vec<DefinitionReference>,
@@ -1457,7 +1459,7 @@ pub struct BuildDefinitionReference {
     pub latest_completed_build: Option<Build>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub metrics: Vec<BuildMetric>,
@@ -1515,13 +1517,13 @@ pub struct BuildDefinitionReference32 {
     #[doc = "The list of drafts associated with this definition, if this is not a draft definition."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub drafts: Vec<DefinitionReference>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub metrics: Vec<BuildMetric>,
@@ -1563,7 +1565,7 @@ pub struct BuildDefinitionReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildDefinitionReference>,
@@ -1634,7 +1636,7 @@ pub struct BuildDefinitionRevisionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildDefinitionRevision>,
@@ -1849,7 +1851,7 @@ pub struct BuildDefinitionTemplateList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildDefinitionTemplate>,
@@ -1914,7 +1916,7 @@ impl BuildDeployment {
 pub struct BuildEvent {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub data: Vec<String>,
@@ -1932,7 +1934,7 @@ pub struct BuildList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Build>,
@@ -1983,7 +1985,7 @@ pub struct BuildLogList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildLog>,
@@ -2040,7 +2042,7 @@ pub struct BuildMetricList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildMetric>,
@@ -2078,14 +2080,14 @@ pub struct BuildOptionDefinition {
     #[doc = "The list of input groups defined for the build option."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub groups: Vec<BuildOptionGroupDefinition>,
     #[doc = "The list of inputs defined for the build option."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub inputs: Vec<BuildOptionInputDefinition>,
@@ -2107,7 +2109,7 @@ pub struct BuildOptionDefinitionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<BuildOptionDefinition>,
@@ -2235,26 +2237,26 @@ impl BuildProcess {
 pub struct BuildProcessResources {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub endpoints: Vec<ServiceEndpointReference>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<SecureFileReference>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub queues: Vec<AgentPoolQueueReference>,
     #[serde(
         rename = "variableGroups",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub variable_groups: Vec<VariableGroupReference>,
@@ -2607,7 +2609,7 @@ pub struct BuildRetentionHistory {
     #[serde(
         rename = "buildRetentionSamples",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub build_retention_samples: Vec<BuildRetentionSample>,
@@ -2647,7 +2649,7 @@ impl BuildRetentionSample {
 pub struct BuildServer {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub agents: Vec<BuildAgentReference>,
@@ -2832,14 +2834,14 @@ pub struct BuildTagsAddedEvent {
     #[serde(
         rename = "allTags",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub all_tags: Vec<String>,
     #[serde(
         rename = "newTags",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub new_tags: Vec<String>,
@@ -2908,7 +2910,7 @@ impl BuildUpdatedEvent {
 pub struct BuildWorkspace {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<MappingDetails>,
@@ -2933,7 +2935,7 @@ pub struct BuildsDeletedEvent1 {
     #[serde(
         rename = "buildIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub build_ids: Vec<i32>,
@@ -3006,7 +3008,7 @@ pub struct ChangeList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Change>,
@@ -3022,7 +3024,7 @@ pub struct ConsoleLogEvent {
     pub realtime_build_event: RealtimeBuildEvent,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub lines: Vec<String>,
@@ -3114,7 +3116,7 @@ pub struct ContinuousIntegrationTrigger {
     #[serde(
         rename = "branchFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub branch_filters: Vec<String>,
@@ -3128,7 +3130,7 @@ pub struct ContinuousIntegrationTrigger {
     #[serde(
         rename = "pathFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub path_filters: Vec<String>,
@@ -3199,7 +3201,7 @@ pub struct DataSourceBindingBase {
     #[doc = "Gets or sets the authorization headers."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub headers: Vec<AuthorizationHeader>,
@@ -3354,7 +3356,7 @@ pub struct DefinitionResourceReferenceList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<DefinitionResourceReference>,
@@ -3451,7 +3453,7 @@ pub struct DesignerProcess {
     pub build_process: BuildProcess,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub phases: Vec<Phase>,
@@ -3552,7 +3554,7 @@ pub struct FolderList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Folder>,
@@ -3596,7 +3598,7 @@ pub struct GatedCheckInTrigger {
     #[serde(
         rename = "pathFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub path_filters: Vec<String>,
@@ -3644,7 +3646,7 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -3655,7 +3657,8 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    pub id: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -3690,23 +3693,16 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(rename = "uniqueName")]
-    pub unique_name: String,
+    #[serde(
+        rename = "uniqueName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_name: Option<String>,
 }
 impl IdentityRef {
-    pub fn new(id: String, unique_name: String) -> Self {
-        Self {
-            graph_subject_base: GraphSubjectBase::default(),
-            directory_alias: None,
-            id,
-            image_url: None,
-            inactive: None,
-            is_aad_identity: None,
-            is_container: None,
-            is_deleted_in_origin: None,
-            profile_url: None,
-            unique_name,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Data representation of an information node associated with a build"]
@@ -3971,7 +3967,7 @@ pub struct Phase {
     pub condition: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<Dependency>,
@@ -4004,7 +4000,7 @@ pub struct Phase {
     pub ref_name: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub steps: Vec<BuildDefinitionStep>,
@@ -4299,20 +4295,20 @@ pub struct ProcessParameters {
     #[serde(
         rename = "dataSourceBindings",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub data_source_bindings: Vec<DataSourceBindingBase>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub inputs: Vec<TaskInputDefinitionBase>,
     #[serde(
         rename = "sourceDefinitions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub source_definitions: Vec<TaskSourceDefinitionBase>,
@@ -4366,14 +4362,14 @@ pub struct PropertiesCollection {
     #[doc = "The set of keys in the collection."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub keys: Vec<String>,
     #[doc = "The set of values in the collection."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
@@ -4466,7 +4462,7 @@ pub struct PullRequestTrigger {
     #[serde(
         rename = "branchFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub branch_filters: Vec<String>,
@@ -4482,7 +4478,7 @@ pub struct PullRequestTrigger {
     #[serde(
         rename = "pathFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub path_filters: Vec<String>,
@@ -4632,7 +4628,7 @@ pub struct RepositoryWebhook {
     pub name: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub types: Vec<serde_json::Value>,
@@ -4651,7 +4647,7 @@ pub struct RepositoryWebhookList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<RepositoryWebhook>,
@@ -4679,7 +4675,7 @@ pub struct ResourceRefList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<ResourceRef>,
@@ -4755,7 +4751,7 @@ pub struct RetentionLeaseList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<RetentionLease>,
@@ -4789,20 +4785,20 @@ impl RetentionLeaseUpdate {
 pub struct RetentionPolicy {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub artifacts: Vec<String>,
     #[serde(
         rename = "artifactTypesToDelete",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub artifact_types_to_delete: Vec<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub branches: Vec<String>,
@@ -4860,7 +4856,7 @@ pub struct Schedule {
     #[serde(
         rename = "branchFilters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub branch_filters: Vec<String>,
@@ -4944,7 +4940,7 @@ pub struct ScheduleTrigger {
     pub build_trigger: BuildTrigger,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub schedules: Vec<Schedule>,
@@ -5028,7 +5024,7 @@ pub struct SourceProviderAttributes {
     #[serde(
         rename = "supportedTriggers",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_triggers: Vec<SupportedTrigger>,
@@ -5044,7 +5040,7 @@ pub struct SourceProviderAttributesList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SourceProviderAttributes>,
@@ -5118,7 +5114,7 @@ pub struct SourceRepositories {
     #[doc = "A list of repositories"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub repositories: Vec<SourceRepository>,
@@ -5203,7 +5199,7 @@ pub struct SourceRepositoryItemList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SourceRepositoryItem>,
@@ -5322,7 +5318,7 @@ impl SvnMappingDetails {
 pub struct SvnWorkspace {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<SvnMappingDetails>,
@@ -5382,7 +5378,7 @@ impl TaskDefinitionReference {
 pub struct TaskInputDefinitionBase {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub aliases: Vec<String>,
@@ -5460,7 +5456,7 @@ pub struct TaskOrchestrationPlanGroupsStartedEvent {
     #[serde(
         rename = "planGroups",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub plan_groups: Vec<TaskOrchestrationPlanGroupReference>,
@@ -5683,7 +5679,7 @@ pub struct Timeline {
     pub last_changed_on: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub records: Vec<TimelineRecord>,
@@ -5759,7 +5755,7 @@ pub struct TimelineRecord {
     pub identifier: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub issues: Vec<Issue>,
@@ -5793,7 +5789,7 @@ pub struct TimelineRecord {
     #[serde(
         rename = "previousAttempts",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub previous_attempts: Vec<TimelineAttempt>,
@@ -5886,7 +5882,7 @@ pub struct TimelineRecordsUpdatedEvent {
     #[serde(
         rename = "timelineRecords",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub timeline_records: Vec<TimelineRecord>,
@@ -5988,14 +5984,14 @@ pub struct UpdateTagParameters {
     #[serde(
         rename = "tagsToAdd",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags_to_add: Vec<String>,
     #[serde(
         rename = "tagsToRemove",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags_to_remove: Vec<String>,
@@ -6063,7 +6059,7 @@ pub struct VariableMultipliersAgentExecutionOptions {
     pub max_concurrency: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub multipliers: Vec<String>,
@@ -6094,7 +6090,7 @@ pub struct VariableMultipliersServerExecutionOptions {
     pub max_concurrency: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub multipliers: Vec<String>,
@@ -6222,7 +6218,7 @@ pub struct WorkspaceTemplate {
     #[doc = "List of workspace mappings"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mappings: Vec<WorkspaceMapping>,
@@ -6461,7 +6457,7 @@ pub struct YamlProcess {
     pub build_process: BuildProcess,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub errors: Vec<String>,

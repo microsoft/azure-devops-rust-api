@@ -27,7 +27,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?;
 
-    println!("All work item queries:\n{:#?}", work_item_queries);
+    println!("All work item queries:\n{work_item_queries:#?}");
 
     Ok(())
 }

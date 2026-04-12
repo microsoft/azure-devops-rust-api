@@ -32,15 +32,17 @@ async fn main() -> Result<()> {
     // Display the returned service endpoints
     for endpoint in service_endpoints.iter() {
         println!(
-            "{:38} {:40} {}",
-            endpoint.id, endpoint.name, endpoint.description
+            "{:38} {:40} {:?}",
+            endpoint.id,
+            endpoint.name,
+            endpoint.description.as_deref().unwrap_or("")
         );
     }
 
     // Display an example service endpoint struct
     if let Some(endpoint) = service_endpoints.first() {
         println!("\nExample service_endpoint struct:");
-        println!("{:#?}", endpoint);
+        println!("{endpoint:#?}");
     }
 
     Ok(())

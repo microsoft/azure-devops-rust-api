@@ -3,7 +3,7 @@ use quote::{quote, ToTokens};
 
 use crate::spec::WebVerb;
 
-/// Calls `azure_core::Request::new` and set the authentication.
+/// Calls `azure_core::http::Request::new` and set the authentication.
 pub struct NewRequestCode {
     pub auth: AuthCode,
     pub verb: WebVerb,
@@ -15,7 +15,7 @@ impl ToTokens for NewRequestCode {
         let auth = &self.auth;
         let verb = verb_to_tokens(&self.verb);
         tokens.extend(quote! {
-            let mut req = azure_core::Request::new(url, #verb);
+            let mut req = azure_core::http::Request::new(url, #verb);
             #auth
         })
     }
@@ -31,7 +31,7 @@ impl ToTokens for AuthCode {
         tokens.extend(quote! {
             // Note: Changed for azure-devops-rust-api
             if let Some(auth_header) = this.client.token_credential().http_authorization_header(&this.client.scopes()).await? {
-                req.insert_header(azure_core::headers::AUTHORIZATION, auth_header);
+                req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
             }
         })
     }
@@ -39,12 +39,12 @@ impl ToTokens for AuthCode {
 
 fn verb_to_tokens(verb: &WebVerb) -> TokenStream {
     match verb {
-        WebVerb::Get => quote! { azure_core::Method::Get },
-        WebVerb::Post => quote! { azure_core::Method::Post },
-        WebVerb::Put => quote! { azure_core::Method::Put },
-        WebVerb::Patch => quote! { azure_core::Method::Patch },
-        WebVerb::Delete => quote! { azure_core::Method::Delete },
-        WebVerb::Options => quote! { azure_core::Method::Option },
-        WebVerb::Head => quote! { azure_core::Method::Head },
+        WebVerb::Get => quote! { azure_core::http::Method::Get },
+        WebVerb::Post => quote! { azure_core::http::Method::Post },
+        WebVerb::Put => quote! { azure_core::http::Method::Put },
+        WebVerb::Patch => quote! { azure_core::http::Method::Patch },
+        WebVerb::Delete => quote! { azure_core::http::Method::Delete },
+        WebVerb::Options => quote! { azure_core::http::Method::Option },
+        WebVerb::Head => quote! { azure_core::http::Method::Head },
     }
 }

@@ -7,7 +7,168 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### [0.21.1]
+## [0.35.0]
+
+### Changes
+
+- Update `azure_core` and `azure_identity` to 0.33.
+
+## [0.34.0]
+
+### Changes
+
+- Update `azure_core` and `azure_identity` to 0.32.
+
+## [0.33.0]
+
+### Changes
+
+- Update `azure_core` and `azure_identity` to 0.30.
+- Changes to handle API changes in `azure_core`:
+  - Replace `azure_core::http::BufResponse` with `azure_core::http::RawResponse` / `AsyncRawResponse`
+  - Change `Response::into_body().await` to `Response::into_model()` (now synchronous)
+  - Update `ClientOptions::retry` field to be `RetryOptions` (no longer `Option<RetryOptions>`)
+  - Add required `PipelineSendOptions` parameter to `Pipeline::send()`
+  - Update `transport()` method to use `Transport` type (replaces `TransportOptions`)
+  - Fix `API_VERSION` reference to use string literal `"api-version"` instead of non-existent `query_param` module
+- Changes to handle API changes in manually written code:
+  - Update `auth.rs` to remove deprecated `ResultExt::context()` method
+  - Update `date_time.rs` to use direct error construction instead of `with_context()` closure
+  - Update `telemetry.rs` to use `AsyncRawResponse` and new construction API
+
+## [0.32.0]
+
+### Changes
+
+- Update `azure_core` and `azure_identity` to 0.28.
+- Changes to handle API changes in `azure_core`:
+  - Replace `azure_core::http::RawResponse` with `azure_core::http::BufResponse`
+  - Add extra parameter when creating new `azure_core::http::Pipeline`
+- Changes to handle API changes in `azure_identity`:
+  - Updated examples to replace `DefaultAzureCredential` with `AzureCliCredential`
+
+## [0.31.0]
+
+### Changes
+
+- Change `AgentPoolQueue` field to be optional:
+  - `name`
+- Change `ProjectReference` field to be optional:
+  - `name`
+- Change `ServiceEndpointProjectReference` fields to be optional:
+  - `description`
+  - `name`
+
+## [0.30.1]
+
+### Changes
+
+- Change `ServiceEndpoint` field to be optional:
+  - `description`
+- Change `AgentPoolQueue` field to be optional:
+  - `pool`
+
+## [0.30.0]
+
+### Changes
+
+- Update `azure_core`, `azure_identity` to 0.27
+- Clippy fixes for `needless_lifetime` warnings.
+
+## [0.29.0]
+
+### Breaking changes
+
+- Update `azure_core`, `azure_identity` to 0.26
+  - Some significant updates needed to handle changes to `azure_core::http::Response`
+    - `Response::into_raw_body()` renamed `Response::into_body()`
+    - `Response::into_raw_response()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
+    - `Client::send()` now returns `azure_core::http::RawResponse` rather than `azure_core::http::Response`
+    - Fix up examples to work with response changes.
+- Disable wasm32 CI build due to issues with `getrandom`
+
+## [0.28.0]
+
+### Changes
+
+- Update `azure_core`, `azure_identity` to 0.24
+- Fix formatting of date-time parameters
+  - Reapplying a previous fix that was lost
+
+## [0.27.0]
+
+### Changes
+
+- Update `azure_core`, `azure_identity` to 0.23
+  - Update minimum rust-version to 1.80.0 (required by `azure_core`)
+
+## [0.26.1]
+
+### Changes
+
+- Add missing `completionOptions` field to `GitPullRequestUpdateOptions`.
+
+## [0.26.0]
+
+This is a significant change due to updating to the first offical releases of
+`azure_core` (0.22) and `azure_identity` (0.22).  These crates have a number of
+breaking changes over previous versions.
+
+### Breaking changes
+- Update `azure_core`, `azure_identity` to 0.22.
+- `ClientBuilder::per_retry_policies()` renamed to `per_try_policies()` to align with
+  `azure_core` API naming.
+- `Response::into_body()` renamed to `Response::into_raw_body()` to align with
+  `azure_core` API naming.
+- Renamed crate features to align with `azure_core`:
+  - `enable_reqwest` => `reqwest`
+  - `enable_reqwest_rustls` => `reqwest_rustls`
+
+- Notes on changes to `azure_core` API:
+  - `Response::into_body()` is renamed `Response::into_raw_body()`
+- Notes on changes to `azure_identity` API:
+  - The credential creation functions now return values wrapped in `Arc<_>`,
+    so you no longer need to do this in your client code.
+    - Example: `DefaultAzureCredential::new()` previously returned
+      `Result<DefaultAzureCredential>` but now returns a
+      `Result<Arc<DefaultAzureCredential>>`.
+
+## [0.25.0]
+
+### Breaking change
+- Change git 'Change::item' field to be optional.
+  - Discovered that in some returned values this field is not present.
+    Any code accessing this field now needs to wrap it in an `Option`, or deal with the returned value being wrapped in an `Option`.
+
+### Changes
+- Clippy fixes for `needless_lifetime` warnings.
+
+## [0.24.0]
+
+### Breaking change
+- Update `azure_core`, `azure_identity` to 0.21.
+
+
+## [0.23.0]
+
+### Breaking change
+- Change `IdentityRef` `id` to be optional
+  - Discovered that in some returned values this field is not present.
+    Any code accessing this field now needs to wrap it in an `Option`, or deal with
+    the returned value being wrapped in an `Option`.
+
+## [0.22.0]
+
+### Breaking change
+- Change `IdentityRef` `unique_name` to be optional
+  - Discovered that in some returned values this field is not present.
+    Any code accessing this field now needs to wrap it in an `Option`, or deal with
+    the returned value being wrapped in an `Option`.
+
+### Changes
+- Update `search_code` example to demonstrate use of filters.
+
+## [0.21.1]
 
 ### Changes
 
@@ -15,13 +176,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix clippy failure with empty doc comments.
 - Cleanup vsts-api-patcher structure.
 
-### [0.21.0]
+## [0.21.0]
 
 ### Changes
 
 - Update `autorust` code generator to latest version from `azure-sdk-for-rust`.
 
-### [0.20.1]
+## [0.20.1]
 
 ### Changes
 
@@ -32,7 +193,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `records`
 - Add missing `artifacts` SBOM-related data structures.
 
-### [0.20.0]
+## [0.20.0]
 
 ### Changes
 
@@ -40,7 +201,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Change example code `util::get_credential` return type from `Credential` to `Result<Credential>`,
     as `DefaultAzureCredentialBuilder::build()` is now fallible.
   - Reinstate wasm build in CI pipeline.
-  - Fix `telemetry` code wasm build. 
+  - Fix `telemetry` code wasm build.
 - Update `vsts-rest-api-specs` to latest version
   - Additional parameters in `approvals_and_checks::ApprovalQueryParameters`
     - `approver_status`
@@ -60,7 +221,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Additional field in `git::IdentityRefWithVote`
     - `is_reapprove`
 
-### [0.19.2]
+## [0.19.2]
 
 ### Changes
 
@@ -69,7 +230,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     even if they do not return a value.
   - Replace deprecated `time::Instant` with `std::time::Instant`.
 
-### [0.19.1]
+## [0.19.1]
 
 ### Changes
 
@@ -77,7 +238,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New example:
   - `telemetry_git_repo_get`
 
-### [0.19.0]
+## [0.19.0]
 
 ### Breaking change
 
@@ -90,7 +251,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New example:
   - `git_push`
 
-### [0.18.0]
+## [0.18.0]
 
 ### Breaking change
 
@@ -100,7 +261,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `state`
   - `lastUpdateTime`
 
-### [0.17.0]
+## [0.17.0]
 
 ### Breaking change
 
@@ -121,14 +282,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `source_server_item`
     - `url`
 
-### [0.16.0]
+## [0.16.0]
 
 ### Changes
 
 - Upgrade `azure_core`, `azure_identity` to 0.19
 - Change `ADO_SCOPE` definition to add `/.default`, as `TokenCredential::get_token(...)` has changed to take a scope rather than a resource
 
-### [0.15.2]
+## [0.15.2]
 
 ### Changes
 
@@ -138,26 +299,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New example: `git_items_get_items_batch`
 
-### [0.15.1]
+## [0.15.1]
 
 ### Added
 
 - New `headers` module with Azure DevOps custom rate-limiting response header definitions.
 
-### [0.15.0]
+## [0.15.0]
 
 ### Changes
 
 - Upgrade `azure_core`, `azure_identity` to 0.18
   - Note: `AutoRefreshingTokenCredential` is no longer required (and has been removed from `azure_identity`), as token refreshing is now built in to each credential provider
 
-### [0.14.3]
+## [0.14.3]
 
 ### Added
 
 - New value added to git `ChangeType` enum: `edit, rename`
 
-### [0.14.2]
+## [0.14.2]
 
 ### Added
 
@@ -507,7 +668,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.35.0...HEAD
+[0.35.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.34.0...0.35.0
+[0.34.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.33.0...0.34.0
+[0.33.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.32.0...0.33.0
+[0.32.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.31.0...0.32.0
+[0.31.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.1...0.31.0
+[0.30.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.30.0...0.30.1
+[0.30.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.29.0...0.30.0
+[0.29.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.28.0...0.29.0
+[0.28.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.27.0...0.28.0
+[0.27.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.1...0.27.0
+[0.26.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.26.0...0.26.1
+[0.26.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.25.0...0.26.0
+[0.25.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.24.0...0.25.0
+[0.24.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.23.0...0.24.0
+[0.23.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.22.0...0.23.0
+[0.22.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.1...0.22.0
 [0.21.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.21.0...0.21.1
 [0.21.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.1...0.21.0
 [0.20.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.20.0...0.20.1

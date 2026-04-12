@@ -52,7 +52,7 @@ async fn main() -> Result<()> {
             Some(comment) => comment.clone(),
             _ => "".to_string(),
         };
-        println!("{} {}", commit_id, comment);
+        println!("{commit_id} {comment}");
 
         // Get the commit changes in a commit
         let pr_commits_changes = git_client
@@ -63,20 +63,21 @@ async fn main() -> Result<()> {
 
         // Get files changed in the commit
         for change in pr_commits_changes.iter() {
-            let item = &change.change.item;
-            // We are only interested in files not directories.
-            // files are "blob" type, directories are "folder" type.
-            if let (Some("blob"), Some(filename)) =
-                (item["git_object_type"].as_str(), item["path"].as_str())
-            {
-                files_changed.insert(filename.to_string());
+            if let Some(item) = &change.change.item {
+                // We are only interested in files not directories.
+                // files are "blob" type, directories are "folder" type.
+                if let (Some("blob"), Some(filename)) =
+                    (item["git_object_type"].as_str(), item["path"].as_str())
+                {
+                    files_changed.insert(filename.to_string());
+                }
             }
         }
     }
     println!("\nChanged files:");
     // Unique files changed in the PR
     for filename in files_changed.iter() {
-        println!("{}", filename)
+        println!("{filename}")
     }
 
     Ok(())

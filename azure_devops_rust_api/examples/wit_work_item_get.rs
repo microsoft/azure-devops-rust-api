@@ -77,7 +77,7 @@ async fn main() -> Result<()> {
         .expand("All")
         .await?;
 
-    println!("Work item [{work_item_id}]:\n{:#?}", work_item);
+    println!("Work item [{work_item_id}]:\n{work_item:#?}");
 
     // Show work item type
     println!("Work item type: {}", work_item_type(&work_item));

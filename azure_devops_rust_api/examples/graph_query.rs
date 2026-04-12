@@ -38,7 +38,7 @@ async fn main() -> Result<()> {
 
     println!("Found {} subjects", subjects.len());
     if let Some(subject) = subjects.first() {
-        println!("subject: {:#?}", subject);
+        println!("subject: {subject:#?}");
     }
 
     Ok(())

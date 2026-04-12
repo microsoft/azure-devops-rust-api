@@ -56,7 +56,7 @@ pub struct SessionToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,
@@ -193,7 +193,7 @@ pub struct TokenAdminPagedSessionTokens {
     #[doc = "The list of all session tokens in the current page."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SessionToken>,

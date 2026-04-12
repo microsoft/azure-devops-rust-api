@@ -3,29 +3,19 @@
 
 use anyhow::Result;
 use async_trait::async_trait;
-use azure_core::{Context, Policy, PolicyResult, Request};
+use azure_core::http::{
+    policies::{Policy, PolicyResult},
+    Context, Request,
+};
 use azure_devops_rust_api::Credential;
-use azure_identity::DefaultAzureCredentialBuilder;
+use azure_identity::AzureCliCredential;
 use std::sync::Arc;
 
-fn authenticate_with_default_credential() -> Result<Credential> {
-    println!("Authenticate using auto-refreshing DefaultAzureCredential");
-    // `DefaultAzureCredential` can authenticate using one of:
-    // - `EnvironmentCredential`
-    // - `ManagedIdentityCredential`
-    // - `AzureCliCredential`
-    // For examples we just want to use AzureCliCredential, so exclude the
-    // other mechanisms.
-    // It would be simpler to directly create `AzureCliCredential` here, but I want to
-    // demonstrate use of `DefaultAzureCredentialBuilder`.
-    let default_azure_credential = Arc::new(
-        DefaultAzureCredentialBuilder::new()
-            .exclude_environment_credential()
-            .exclude_managed_identity_credential()
-            .build()?,
-    );
+fn authenticate_with_cli_credential() -> Result<Credential> {
+    println!("Authenticate using Azure CLI credential");
+    let azure_cli_credential = AzureCliCredential::new(None)?;
 
-    Ok(Credential::from_token_credential(default_azure_credential))
+    Ok(Credential::from_token_credential(azure_cli_credential))
 }
 
 #[allow(dead_code)]
@@ -36,7 +26,7 @@ pub fn get_credential() -> Result<Credential> {
             println!("Authenticate using PAT provided via $ADO_TOKEN");
             Ok(Credential::from_pat(token))
         }
-        _ => authenticate_with_default_credential(),
+        _ => authenticate_with_cli_credential(),
     }
 }
 
@@ -53,7 +43,7 @@ impl AcceptZipPolicy {
 
 /// Always set the `accept` header to `application/zip`
 #[async_trait]
-impl azure_core::Policy for AcceptZipPolicy {
+impl Policy for AcceptZipPolicy {
     async fn send(
         &self,
         ctx: &Context,

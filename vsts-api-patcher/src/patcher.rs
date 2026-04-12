@@ -826,6 +826,10 @@ impl Patcher {
                           "autoCompleteSetBy": {
                             "description": "If set, auto-complete is enabled for this pull request and this is the identity that enabled it.",
                             "$ref": "#/definitions/IdentityRef"
+                          },
+                          "completionOptions": {
+                            "description": "Options which affect how the pull request will be merged when it is completed.",
+                            "$ref": "#/definitions/GitPullRequestCompletionOptions"
                           }
                         }
                     },
@@ -1038,11 +1042,11 @@ impl Patcher {
                 // Excluded
                 //   administratorsGroup
                 //   operationStatus
+                //   description
                 r#"[
                     "authorization",
                     "createdBy",
                     "data",
-                    "description",
                     "id",
                     "isReady",
                     "isShared",
@@ -1055,18 +1059,20 @@ impl Patcher {
             (
                 "serviceEndpoint.json",
                 "ServiceEndpointProjectReference",
+                // Excluded:
+                //   description
+                //   name
                 r#"[
-                    "description",
-                    "name",
                     "projectReference"
                 ]"#,
             ),
             (
                 "serviceEndpoint.json",
                 "ProjectReference",
+                // Excluded:
+                //   name
                 r#"[
-                    "id",
-                    "name"
+                    "id"
                 ]"#,
             ),
             // (
@@ -1186,8 +1192,7 @@ impl Patcher {
                 "git.json",
                 "Change",
                 r#"[
-                    "changeType",
-                    "item"
+                    "changeType"
                 ]"#,
             ),
             (
@@ -1310,10 +1315,10 @@ impl Patcher {
                 // Excluded
                 //   _links
                 //   url
+                //   name
+                //   pool
                 r#"[
-                    "id",
-                    "pool",
-                    "name"
+                    "id"
                 ]"#,
             ),
             (
@@ -1362,14 +1367,15 @@ impl Patcher {
             //     r#"[
             //     ]"#,
             // ),
-            (
-                "*",
-                "IdentityRef",
-                r#"[
-                    "id",
-                    "uniqueName"
-                ]"#,
-            ),
+            // (
+            //     "*",
+            //     "IdentityRef",
+            //     // Excluded
+            //     //   uniqueName
+            //     //   id
+            //     r#"[
+            //     ]"#,
+            // ),
             (
                 "workItemTracking.json",
                 "Link",
@@ -1626,7 +1632,6 @@ impl Patcher {
         let regex = regex::Regex::new(r"\s(?P<url>(http|https)://[_A-Za-z0-9/]+)").unwrap();
         let patched_s = regex.replace_all(&patched_s, "<${url}>");
         if patched_s != s {
-            format!("[patched]{}", patched_s);
             println!("patch_docstring: {} => {}", s, patched_s);
         }
         patched_s.to_string()

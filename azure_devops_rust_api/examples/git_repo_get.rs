@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
         .repositories_client()
         .get_repository(&organization, &repo_name, &project)
         .await?;
-    println!("{:#?}", repo);
+    println!("{repo:#?}");
 
     // Get up to 10 pull requests on the specified repo
     let prs = git_client
@@ -46,7 +46,7 @@ async fn main() -> Result<()> {
 
     if let Some(pr) = prs.first() {
         println!("\nExample PR struct:");
-        println!("{:#?}", pr);
+        println!("{pr:#?}");
     }
 
     // Get up to 10 refs on the specified repo
@@ -64,7 +64,7 @@ async fn main() -> Result<()> {
 
     if let Some(git_ref) = git_refs.first() {
         println!("\nExample ref struct:");
-        println!("{:#?}", git_ref);
+        println!("{git_ref:#?}");
     }
 
     Ok(())

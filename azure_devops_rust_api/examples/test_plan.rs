@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", test_plans);
+    println!("{test_plans:#?}");
 
     // Get all suites for a test plan for a project
     println!("The suites for the a plan for project are:");
@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
         .get_test_suites_for_plan(&organization, &project, test_plan_id)
         .await?
         .value;
-    println!("{:#?}", test_suites);
+    println!("{test_suites:#?}");
 
     // Get all test plan variables for project
     println!("The test plans variables for project are:");
@@ -49,7 +49,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", test_plan_variables);
+    println!("{test_plan_variables:#?}");
 
     // Get all test plan configuration for project
     println!("The test plan configuration for project are:");
@@ -58,7 +58,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", test_plan_configuration);
+    println!("{test_plan_configuration:#?}");
 
     Ok(())
 }

@@ -33,6 +33,6 @@ async fn main() -> Result<()> {
         .get(organization, project, repository_name)
         .await?;
 
-    println!("{:#?}", search_results);
+    println!("{search_results:#?}");
     Ok(())
 }

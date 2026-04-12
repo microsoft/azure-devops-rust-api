@@ -40,7 +40,7 @@ async fn main() -> Result<()> {
         .await?
         .value;
 
-    println!("Policies:\n{:#?}", policies);
+    println!("Policies:\n{policies:#?}");
 
     Ok(())
 }

@@ -36,7 +36,7 @@ async fn main() -> Result<()> {
     // Display the raw response details
     println!("status: {:#?}", rsp.status());
     println!("headers:\n{:#?}", rsp.headers());
-    println!("body:\n{:#?}", rsp.into_body().collect_string().await?);
+    println!("body:\n{:#?}", rsp.into_body().into_string()?);
 
     Ok(())
 }

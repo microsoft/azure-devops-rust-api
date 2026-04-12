@@ -204,7 +204,7 @@ pub struct PagedPatTokens {
     #[serde(
         rename = "patTokens",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub pat_tokens: Vec<PatToken>,
@@ -238,7 +238,7 @@ pub struct PatToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,
@@ -489,7 +489,7 @@ pub struct SessionToken {
     #[serde(
         rename = "targetAccounts",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub target_accounts: Vec<String>,

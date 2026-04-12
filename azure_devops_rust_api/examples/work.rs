@@ -32,14 +32,14 @@ async fn main() -> Result<()> {
         .teamsettings_client()
         .get(&organization, &project, &team)
         .await?;
-    println!("Team settings:\n{:#?}", team_settings);
+    println!("Team settings:\n{team_settings:#?}");
 
     // Get all iterations
     let iterations = work_client
         .iterations_client()
         .list(&organization, &project, &team)
         .await?;
-    println!("\nIterations:\n{:#?}", iterations);
+    println!("\nIterations:\n{iterations:#?}");
 
     // Get current iteration
     let current_iteration = work_client
@@ -47,7 +47,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project, &team)
         .timeframe("current")
         .await?;
-    println!("\nCurrent iteration:\n{:#?}", current_iteration);
+    println!("\nCurrent iteration:\n{current_iteration:#?}");
 
     // Get current iteration id
     let current_iteration_id = current_iteration
@@ -64,10 +64,7 @@ async fn main() -> Result<()> {
         .iterations_client()
         .get_iteration_work_items(&organization, &project, current_iteration_id, &team)
         .await?;
-    println!(
-        "\nCurrent iteration workitems:\n{:#?}",
-        current_iteration_workitems
-    );
+    println!("\nCurrent iteration workitems:\n{current_iteration_workitems:#?}");
 
     println!(
         "\nCurrent iteration work_item_relations length: {}",

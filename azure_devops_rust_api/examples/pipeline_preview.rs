@@ -61,7 +61,7 @@ async fn main() -> Result<()> {
 
         // Display the full pipeline YAML
         if let Some(final_yaml) = preview.final_yaml {
-            println!("Pipeline preview:\n{}", final_yaml);
+            println!("Pipeline preview:\n{final_yaml}");
         }
     }
 

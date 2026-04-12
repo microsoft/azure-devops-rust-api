@@ -25,7 +25,7 @@ async fn main() -> Result<()> {
         .list(&organization)
         .await?
         .value;
-    println!("{:#?}", service_hook_consumers);
+    println!("{service_hook_consumers:#?}");
 
     // Get all publishers
     println!("The service hook publishers are:");
@@ -34,7 +34,7 @@ async fn main() -> Result<()> {
         .list(&organization)
         .await?
         .value;
-    println!("{:#?}", service_hook_publishers);
+    println!("{service_hook_publishers:#?}");
 
     // Get all subscriptions
     println!("The service hook subscriptions are:");
@@ -43,7 +43,7 @@ async fn main() -> Result<()> {
         .list(&organization)
         .await?
         .value;
-    println!("{:#?}", service_hook_subscriptions);
+    println!("{service_hook_subscriptions:#?}");
 
     Ok(())
 }

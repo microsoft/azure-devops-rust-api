@@ -1166,7 +1166,7 @@ fn create_struct(
                 serde.add_with("azure_core::date::rfc1123::option");
             } else if type_name.is_vec() {
                 serde.add_default();
-                serde.add_deserialize_with("azure_core::util::deserialize_null_as_default");
+                serde.add_deserialize_with("crate::serde::deserialize_null_as_default");
                 serde.add_skip_serializing_if("Vec::is_empty");
             } else {
                 serde.add_default();

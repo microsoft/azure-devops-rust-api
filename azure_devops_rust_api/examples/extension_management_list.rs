@@ -37,12 +37,12 @@ async fn main() -> Result<()> {
             ..
         } = extension
         {
-            println!("{:65}{:24}{:40}", name, version, publisher);
+            println!("{name:65}{version:24}{publisher:40}");
         }
     }
 
     if let Some(extension) = installed_extensions.first() {
-        println!("\nExample extension:\n{:#?}", extension);
+        println!("\nExample extension:\n{extension:#?}");
     }
 
     Ok(())

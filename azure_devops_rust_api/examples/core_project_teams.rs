@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
     println!("\nProject teams:");
     for team in project_teams.iter() {
         if let Some(name) = &team.web_api_team_ref.name {
-            println!("{}", name);
+            println!("{name}");
         }
     }
 

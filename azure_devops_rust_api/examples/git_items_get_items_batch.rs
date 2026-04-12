@@ -51,7 +51,7 @@ async fn main() -> Result<()> {
         )
         .await?;
 
-    println!("\n{file_path} metadata items batch:\n{:#?}", items_batch);
+    println!("\n{file_path} metadata items batch:\n{items_batch:#?}");
 
     Ok(())
 }

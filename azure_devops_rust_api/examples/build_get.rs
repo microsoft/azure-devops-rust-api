@@ -33,7 +33,7 @@ async fn main() -> Result<()> {
         .get(organization, project, build_id)
         .await?;
 
-    println!("Build:\n{:#?}", build);
+    println!("Build:\n{build:#?}");
 
     Ok(())
 }

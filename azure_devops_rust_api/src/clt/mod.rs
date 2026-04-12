@@ -87,8 +87,8 @@ impl Client {
     }
     pub(crate) async fn send(
         &self,
-        request: &mut azure_core::Request,
-    ) -> azure_core::Result<azure_core::Response> {
+        request: &mut azure_core::http::Request,
+    ) -> azure_core::Result<azure_core::http::RawResponse> {
         let mut context = azure_core::Context::default();
         self.pipeline.send(&mut context, request).await
     }

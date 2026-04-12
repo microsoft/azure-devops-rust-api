@@ -54,7 +54,7 @@ async fn main() -> Result<()> {
     println!("Found {} results", search_results.len());
 
     if let Some(result) = search_results.first() {
-        println!("Example search work item result:\n{:#?}", result);
+        println!("Example search work item result:\n{result:#?}");
     }
 
     Ok(())

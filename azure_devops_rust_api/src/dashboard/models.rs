@@ -158,7 +158,7 @@ pub struct Dashboard {
     #[doc = "The set of Widgets on the dashboard."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub widgets: Vec<Widget>,
@@ -191,7 +191,7 @@ pub struct DashboardGroup {
     #[serde(
         rename = "dashboardEntries",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dashboard_entries: Vec<DashboardGroupEntry>,
@@ -272,7 +272,7 @@ pub struct DashboardList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Dashboard>,
@@ -396,7 +396,7 @@ pub struct Widget {
     #[serde(
         rename = "allowedSizes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_sizes: Vec<WidgetSize>,
@@ -498,7 +498,7 @@ pub struct WidgetList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Widget>,
@@ -515,7 +515,7 @@ pub struct WidgetMetadata {
     #[serde(
         rename = "allowedSizes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub allowed_sizes: Vec<WidgetSize>,
@@ -605,7 +605,7 @@ pub struct WidgetMetadata {
     #[doc = "Keywords associated with this widget, non-filterable and invisible"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub keywords: Vec<String>,
@@ -637,21 +637,21 @@ pub struct WidgetMetadata {
     #[serde(
         rename = "supportedScopes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub supported_scopes: Vec<serde_json::Value>,
     #[doc = "Tags associated with this widget, visible on each widget and filterable."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
     #[doc = "Contribution target IDs"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub targets: Vec<String>,
@@ -732,7 +732,7 @@ pub struct WidgetTypesResponse {
     #[serde(
         rename = "widgetTypes",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub widget_types: Vec<WidgetMetadata>,
@@ -748,13 +748,13 @@ pub struct WidgetsVersionedList {
     #[serde(
         rename = "eTag",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub e_tag: Vec<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub widgets: Vec<Widget>,

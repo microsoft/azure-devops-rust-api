@@ -34,18 +34,18 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
 
         #[derive(Clone)]
         pub struct Client {
-            endpoint: azure_core::Url,
+            endpoint: azure_core::http::Url,
             credential: crate::Credential,
             scopes: Vec<String>,
-            pipeline: azure_core::Pipeline,
+            pipeline: azure_core::http::Pipeline,
         }
 
         #[derive(Clone)]
         pub struct ClientBuilder {
             credential: crate::Credential,
-            endpoint: Option<azure_core::Url>,
+            endpoint: Option<azure_core::http::Url>,
             scopes: Option<Vec<String>>,
-            options: azure_core::ClientOptions,
+            options: azure_core::http::ClientOptions,
         }
 
         #default_endpoint_code
@@ -58,13 +58,13 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
                     credential,
                     endpoint: None,
                     scopes: None,
-                    options: azure_core::ClientOptions::default(),
+                    options: azure_core::http::ClientOptions::default(),
                 }
             }
 
             #[doc = "Set the endpoint."]
             #[must_use]
-            pub fn endpoint(mut self, endpoint: impl Into<azure_core::Url>) -> Self {
+            pub fn endpoint(mut self, endpoint: impl Into<azure_core::http::Url>) -> Self {
                 self.endpoint = Some(endpoint.into());
                 self
             }
@@ -78,32 +78,32 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
 
             #[doc = "Set the retry options."]
             #[must_use]
-            pub fn retry(mut self, retry: impl Into<azure_core::RetryOptions>) -> Self {
-                self.options = self.options.retry(retry);
+            pub fn retry(mut self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+                self.options.retry = retry.into();
                 self
             }
 
             #[doc = "Set the transport options."]
             #[must_use]
-            pub fn transport(mut self, transport: impl Into<azure_core::TransportOptions>) -> Self {
-                self.options = self.options.transport(transport);
+            pub fn transport(mut self, transport: impl Into<azure_core::http::Transport>) -> Self {
+                self.options.transport = Some(transport.into());
                 self
             }
 
             #[doc = "Set per-call policies."]
             #[must_use]
-            pub fn per_call_policies(mut self, policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>) -> Self {
-                self.options = self.options.per_call_policies(policies);
+            pub fn per_call_policies(mut self, policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>) -> Self {
+                self.options.per_call_policies = policies.into();
                 self
             }
 
-            #[doc = "Set per-retry policies."]
+            #[doc = "Set per-try policies."]
             #[must_use]
-            pub fn per_retry_policies(
+            pub fn per_try_policies(
                 mut self,
-                policies: impl Into<Vec<std::sync::Arc<dyn azure_core::Policy>>>,
+                policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
             ) -> Self {
-                self.options = self.options.per_retry_policies(policies);
+                self.options.per_try_policies = policies.into();
                 self
             }
 
@@ -125,7 +125,7 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             //     Ok(response.token)
             // }
 
-            pub(crate) fn endpoint(&self) -> &azure_core::Url {
+            pub(crate) fn endpoint(&self) -> &azure_core::http::Url {
                 &self.endpoint
             }
             pub(crate) fn token_credential(&self) -> &crate::Credential {
@@ -134,9 +134,9 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
             pub(crate) fn scopes(&self) -> Vec<&str> {
                 self.scopes.iter().map(String::as_str).collect()
             }
-            pub(crate) async fn send(&self, request: &mut azure_core::Request) -> azure_core::Result<azure_core::Response> {
-                let context = azure_core::Context::default();
-                self.pipeline.send(&context, request).await
+            pub(crate) async fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::RawResponse> {
+                let context = azure_core::http::Context::default();
+                self.pipeline.send(&context, request, None).await
             }
 
             #[doc = "Create a new `ClientBuilder`."]
@@ -147,14 +147,15 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
 
             #[doc = "Create a new `Client`."]
             #[must_use]
-            pub fn new(endpoint: impl Into<azure_core::Url>, credential: crate::Credential, scopes: Vec<String>, options: azure_core::ClientOptions) -> Self {
+            pub fn new(endpoint: impl Into<azure_core::http::Url>, credential: crate::Credential, scopes: Vec<String>, options: azure_core::http::ClientOptions) -> Self {
                 let endpoint = endpoint.into();
-                let pipeline = azure_core::Pipeline::new(
+                let pipeline = azure_core::http::Pipeline::new(
                     option_env!("CARGO_PKG_NAME"),
                     option_env!("CARGO_PKG_VERSION"),
                     options,
                     Vec::new(),
                     Vec::new(),
+                    None
                 );
                 Self {
                     endpoint,

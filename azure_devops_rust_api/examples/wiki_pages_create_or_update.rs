@@ -64,7 +64,7 @@ async fn main() -> Result<()> {
                 .await
             {
                 Ok(p) => println!("Page updated: {:?}", p.remote_url),
-                Err(e) => panic!("Failed to update wiki page: {}", e),
+                Err(e) => panic!("Failed to update wiki page: {e}"),
             }
         }
         None => {
@@ -81,7 +81,7 @@ async fn main() -> Result<()> {
                 .await
             {
                 Ok(p) => println!("Page created: {:?}", p.remote_url),
-                Err(e) => panic!("Failed to create wiki page: {}", e),
+                Err(e) => panic!("Failed to create wiki page: {e}"),
             }
         }
     }
@@ -108,21 +108,20 @@ async fn get_wiki_page_etag(
     {
         Ok(r) => {
             let etag = r.headers().e_tag().unwrap().to_owned();
-            println!("Etag for page {}, {}", page_path, etag);
+            println!("Etag for page {page_path}, {etag}");
             Some(etag)
         }
         Err(e) => {
             // If the response is a 404 then we need to create the page
-            if e.as_http_error()
-                .expect("Failed cast to http error")
-                .status()
+            if e.http_status()
+                .expect("Failed to retrieve HTTP status")
                 .canonical_reason()
                 == "Not Found"
             {
                 println!("Wiki page does not exist");
                 None
             } else {
-                panic!("Failed to retrieve etag: {}", e)
+                panic!("Failed to retrieve etag")
             }
         }
     }

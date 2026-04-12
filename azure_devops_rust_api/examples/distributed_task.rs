@@ -27,7 +27,7 @@ async fn main() -> Result<()> {
         .get_agent_pools(&organization)
         .await?
         .value;
-    println!("{:#?}", distributed_task_agents_pools);
+    println!("{distributed_task_agents_pools:#?}");
 
     //  Get a list of agent queues for the project
     println!("Agents queues for the project are:");
@@ -36,7 +36,7 @@ async fn main() -> Result<()> {
         .get_agent_queues(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", distributed_task_agent_queues);
+    println!("{distributed_task_agent_queues:#?}");
 
     // Get all variable groups for the project
     println!("Variable groups for the project are:");
@@ -45,7 +45,7 @@ async fn main() -> Result<()> {
         .get_variable_groups(&organization, &project)
         .await?
         .value;
-    println!("{:#?}", distributed_task_variable_groups);
+    println!("{distributed_task_variable_groups:#?}");
 
     Ok(())
 }

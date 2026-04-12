@@ -279,7 +279,7 @@ pub struct CloneTestCaseParams {
     #[serde(
         rename = "testCaseIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_case_ids: Vec<i32>,
@@ -482,7 +482,7 @@ pub struct ExportTestCaseParams {
     #[serde(
         rename = "testCaseIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_case_ids: Vec<i32>,
@@ -530,7 +530,7 @@ impl GraphSubjectBase {
         Self::default()
     }
 }
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IdentityRef {
     #[serde(flatten)]
     pub graph_subject_base: GraphSubjectBase,
@@ -541,7 +541,8 @@ pub struct IdentityRef {
         skip_serializing_if = "Option::is_none"
     )]
     pub directory_alias: Option<String>,
-    pub id: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
     #[doc = "Deprecated - Available in the \"avatar\" entry of the IdentityRef \"_links\" dictionary"]
     #[serde(rename = "imageUrl", default, skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
@@ -576,23 +577,16 @@ pub struct IdentityRef {
     )]
     pub profile_url: Option<String>,
     #[doc = "Deprecated - use Domain+PrincipalName instead"]
-    #[serde(rename = "uniqueName")]
-    pub unique_name: String,
+    #[serde(
+        rename = "uniqueName",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_name: Option<String>,
 }
 impl IdentityRef {
-    pub fn new(id: String, unique_name: String) -> Self {
-        Self {
-            graph_subject_base: GraphSubjectBase::default(),
-            directory_alias: None,
-            id,
-            image_url: None,
-            inactive: None,
-            is_aad_identity: None,
-            is_container: None,
-            is_deleted_in_origin: None,
-            profile_url: None,
-            unique_name,
-        }
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 #[doc = "Last result details of test point."]
@@ -624,7 +618,7 @@ pub struct LibraryWorkItemsData {
     #[serde(
         rename = "columnOptions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub column_options: Vec<String>,
@@ -660,7 +654,7 @@ pub struct LibraryWorkItemsData {
     #[serde(
         rename = "workItemIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_ids: Vec<i32>,
@@ -668,7 +662,7 @@ pub struct LibraryWorkItemsData {
     #[serde(
         rename = "workItems",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_items: Vec<WorkItemDetails>,
@@ -696,7 +690,7 @@ pub struct LibraryWorkItemsDataProviderRequest {
     #[serde(
         rename = "columnOptions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub column_options: Vec<String>,
@@ -711,7 +705,7 @@ pub struct LibraryWorkItemsDataProviderRequest {
     #[serde(
         rename = "filterValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub filter_values: Vec<TestPlansLibraryWorkItemFilter>,
@@ -740,7 +734,7 @@ pub struct LibraryWorkItemsDataProviderRequest {
     #[serde(
         rename = "workItemIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_ids: Vec<i32>,
@@ -905,7 +899,7 @@ pub struct SourceTestPlanInfo {
     #[serde(
         rename = "suiteIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub suite_ids: Vec<i32>,
@@ -939,7 +933,7 @@ pub struct SourceTestSuiteResponse {
     #[serde(
         rename = "testCaseIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_case_ids: Vec<i32>,
@@ -961,7 +955,7 @@ pub struct SourceTestplanResponse {
     #[serde(
         rename = "suiteIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub suite_ids: Vec<i32>,
@@ -991,7 +985,7 @@ pub struct SuiteEntryList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<SuiteEntry>,
@@ -1045,7 +1039,7 @@ pub struct SuiteTestCaseCreateUpdateParameters {
     #[serde(
         rename = "pointAssignments",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub point_assignments: Vec<Configuration>,
@@ -1161,7 +1155,7 @@ pub struct TestCase {
     #[serde(
         rename = "pointAssignments",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub point_assignments: Vec<PointAssignment>,
@@ -1265,7 +1259,7 @@ pub struct TestCaseList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestCase>,
@@ -1311,7 +1305,7 @@ pub struct TestCaseResultsData {
     #[doc = "Use to store the results displayed in the table"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<TestCaseAssociatedResult>,
@@ -1363,7 +1357,7 @@ pub struct TestConfigurationCreateUpdateParameters {
     #[doc = "Dictionary of Test Variable, Selected Value"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<NameValuePair>,
@@ -1390,7 +1384,7 @@ pub struct TestConfigurationList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestConfiguration>,
@@ -1639,7 +1633,7 @@ pub struct TestPlanList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestPlan>,
@@ -1684,7 +1678,7 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "defineColumnOptionFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub define_column_option_fields: Vec<String>,
@@ -1703,7 +1697,7 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "executeColumnOptionFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub execute_column_option_fields: Vec<String>,
@@ -1740,7 +1734,7 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "testCases",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_cases: Vec<TestCase>,
@@ -1762,7 +1756,7 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "testPoints",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_points: Vec<TestPoint>,
@@ -1775,7 +1769,7 @@ pub struct TestPlansHubRefreshData {
     #[serde(
         rename = "testSuites",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub test_suites: Vec<TestSuite>,
@@ -1801,7 +1795,7 @@ pub struct TestPlansLibraryWorkItemFilter {
     #[serde(
         rename = "fieldValues",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub field_values: Vec<String>,
@@ -1930,7 +1924,7 @@ pub struct TestPointList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestPoint>,
@@ -2190,7 +2184,7 @@ pub struct TestSuite {
     #[doc = "Child test suites of current test suite."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<TestSuite>,
@@ -2287,7 +2281,7 @@ pub struct TestSuiteCreateUpdateCommonParams {
     #[serde(
         rename = "defaultConfigurations",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub default_configurations: Vec<TestConfigurationReference>,
@@ -2295,7 +2289,7 @@ pub struct TestSuiteCreateUpdateCommonParams {
     #[serde(
         rename = "defaultTesters",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub default_testers: Vec<IdentityRef>,
@@ -2335,7 +2329,7 @@ pub struct TestSuiteList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestSuite>,
@@ -2417,7 +2411,7 @@ pub struct TestVariableCreateUpdateParameters {
     #[doc = "List of allowed values"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub values: Vec<String>,
@@ -2433,7 +2427,7 @@ pub struct TestVariableList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<TestVariable>,
@@ -2493,7 +2487,7 @@ pub struct WorkItemDetails {
     #[serde(
         rename = "workItemFields",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub work_item_fields: Vec<serde_json::Value>,

@@ -48,7 +48,7 @@ pub struct BoardSearchResponse {
     #[doc = "List of top matched Board documents."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<BoardResult>,
@@ -97,7 +97,7 @@ pub struct CodeResult {
     #[doc = "Versions of the result file."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<Version>,
@@ -136,7 +136,7 @@ pub struct CodeSearchResponse {
     #[doc = "List of matched files."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<CodeResult>,
@@ -202,7 +202,7 @@ pub struct CustomRepositoryStatusResponse {
     #[serde(
         rename = "indexedTopLevelFolders",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub indexed_top_level_folders: Vec<DepotInfo>,
@@ -236,7 +236,7 @@ pub struct EntitySearchRequest {
     #[serde(
         rename = "$orderBy",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub order_by: Vec<SortOption>,
@@ -340,7 +340,7 @@ pub struct FeedInfo {
     #[doc = "List of views which contain the matched package."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub views: Vec<String>,
@@ -420,7 +420,7 @@ pub struct PackageHit {
     #[doc = "Matched/highlighted snippets of the field."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub highlights: Vec<String>,
@@ -439,14 +439,14 @@ pub struct PackageResult {
     #[doc = "List of feeds which contain the matching package."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub feeds: Vec<FeedInfo>,
     #[doc = "List of highlighted fields for the match."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub hits: Vec<PackageHit>,
@@ -485,7 +485,7 @@ pub struct PackageSearchResponse {
     #[serde(
         rename = "activityId",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub activity_id: Vec<String>,
@@ -509,7 +509,7 @@ pub struct PackageSearchResponseContent {
     #[doc = "List of matched packages."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<PackageResult>,
@@ -593,7 +593,7 @@ pub struct RepositoryStatusResponse {
     #[serde(
         rename = "indexedBranches",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub indexed_branches: Vec<BranchInfo>,
@@ -695,7 +695,7 @@ pub struct SettingSearchResponse {
     #[doc = "List of top matched setting documents."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<SettingResult>,
@@ -745,7 +745,7 @@ pub struct TfvcRepositoryStatusResponse {
     #[serde(
         rename = "indexingInformation",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub indexing_information: Vec<BranchInfo>,
@@ -815,7 +815,7 @@ pub struct WikiHit {
     #[doc = "Matched/highlighted snippets of the field."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub highlights: Vec<String>,
@@ -840,7 +840,7 @@ pub struct WikiResult {
     #[doc = "Highlighted snippets of fields that match the search request. The list is sorted by relevance of the snippets."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub hits: Vec<WikiHit>,
@@ -881,7 +881,7 @@ pub struct WikiSearchResponse {
     #[doc = "List of top matched wiki documents."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<WikiResult>,
@@ -904,7 +904,7 @@ pub struct WorkItemHit {
     #[doc = "Matched/highlighted snippets of the field."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub highlights: Vec<String>,
@@ -923,7 +923,7 @@ pub struct WorkItemResult {
     #[doc = "Highlighted snippets of fields that match the search request. The list is sorted by relevance of the snippets."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub hits: Vec<WorkItemHit>,
@@ -961,7 +961,7 @@ pub struct WorkItemSearchResponse {
     #[doc = "List of top matched work items."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub results: Vec<WorkItemResult>,

@@ -47,10 +47,7 @@ async fn main() -> Result<()> {
             }
         })
         .unwrap();
-    println!(
-        "Work item linking policy id: {}",
-        work_item_linking_policy_id
-    );
+    println!("Work item linking policy id: {work_item_linking_policy_id}");
 
     let configs = policy_client
         .configurations_client()
@@ -61,7 +58,7 @@ async fn main() -> Result<()> {
     println!("{} work item policy configurations found", configs.len());
 
     if let Some(config) = configs.first() {
-        println!("Example config:\n{:#?}", config);
+        println!("Example config:\n{config:#?}");
     }
 
     Ok(())

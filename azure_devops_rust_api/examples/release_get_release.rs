@@ -33,7 +33,7 @@ async fn main() -> Result<()> {
         .releases_client()
         .get_release(&organization, &project, release_id)
         .await?;
-    println!("{:#?}", release);
+    println!("{release:#?}");
 
     // Get manual interventions on a release
     println!("\nManual interventions:");
@@ -42,7 +42,7 @@ async fn main() -> Result<()> {
         .list(&organization, &project, release_id)
         .await?
         .value;
-    println!("{:#?}", manual_interventions);
+    println!("{manual_interventions:#?}");
 
     Ok(())
 }

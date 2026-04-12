@@ -26,7 +26,7 @@ async fn main() -> Result<()> {
         .list(&organization)
         .await?
         .value;
-    println!("{:#?}", permissions_reports);
+    println!("{permissions_reports:#?}");
 
     Ok(())
 }

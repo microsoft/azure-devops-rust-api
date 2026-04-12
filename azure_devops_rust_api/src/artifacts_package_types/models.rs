@@ -221,7 +221,7 @@ pub struct MavenPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MavenMinimalPackageDetails>,
@@ -250,7 +250,7 @@ pub mod maven_packages_batch_request {
 pub struct MavenPomBuild {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub plugins: Vec<Plugin>,
@@ -264,7 +264,7 @@ impl MavenPomBuild {
 pub struct MavenPomCi {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub notifiers: Vec<MavenPomCiNotifier>,
@@ -282,7 +282,7 @@ impl MavenPomCi {
 pub struct MavenPomCiNotifier {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub configuration: Vec<String>,
@@ -338,7 +338,7 @@ impl MavenPomDependency {
 pub struct MavenPomDependencyManagement {
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<MavenPomDependency>,
@@ -399,7 +399,7 @@ pub struct MavenPomMailingList {
     #[serde(
         rename = "otherArchives",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub other_archives: Vec<String>,
@@ -429,13 +429,13 @@ pub struct MavenPomMetadata {
     pub ci_management: Option<MavenPomCi>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub contributors: Vec<MavenPomPerson>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<MavenPomDependency>,
@@ -449,7 +449,7 @@ pub struct MavenPomMetadata {
     pub description: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub developers: Vec<MavenPomPerson>,
@@ -473,14 +473,14 @@ pub struct MavenPomMetadata {
     pub issue_management: Option<MavenPomIssueManagement>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub licenses: Vec<MavenPomLicense>,
     #[serde(
         rename = "mailingLists",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub mailing_lists: Vec<MavenPomMailingList>,
@@ -492,7 +492,7 @@ pub struct MavenPomMetadata {
     pub model_version: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub modules: Vec<String>,
@@ -564,7 +564,7 @@ pub struct MavenPomPerson {
     pub organization_url: Option<String>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub roles: Vec<String>,
@@ -683,7 +683,7 @@ pub struct NpmPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
@@ -758,7 +758,7 @@ pub struct NuGetPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
@@ -828,7 +828,7 @@ pub struct Package {
     #[serde(
         rename = "sourceChain",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub source_chain: Vec<UpstreamSourceInfo>,
@@ -913,7 +913,7 @@ pub struct PyPiPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,
@@ -1007,7 +1007,7 @@ pub struct UPackPackagesBatchRequest {
     #[doc = "The packages onto which the operation will be performed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub packages: Vec<MinimalPackageDetails>,

@@ -32,7 +32,7 @@ async fn main() -> Result<()> {
         .top(top_test_runs)
         .await?
         .value;
-    println!("{:#?}", test_runs);
+    println!("{test_runs:#?}");
 
     Ok(())
 }

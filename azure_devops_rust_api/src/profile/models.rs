@@ -69,7 +69,7 @@ pub struct Avatar {
     pub time_stamp: Option<time::OffsetDateTime>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<String>,
@@ -320,7 +320,7 @@ pub struct ProfileRegions {
     #[serde(
         rename = "noticeContactConsentRequirementRegions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub notice_contact_consent_requirement_regions: Vec<String>,
@@ -328,14 +328,14 @@ pub struct ProfileRegions {
     #[serde(
         rename = "optOutContactConsentRequirementRegions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub opt_out_contact_consent_requirement_regions: Vec<String>,
     #[doc = "List of country/regions"]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub regions: Vec<ProfileRegion>,

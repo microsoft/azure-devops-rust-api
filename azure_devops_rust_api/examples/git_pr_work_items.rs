@@ -36,7 +36,7 @@ async fn main() -> Result<()> {
         .await?;
 
     println!("PR work items:");
-    println!("{:#?}", pr_work_items);
+    println!("{pr_work_items:#?}");
 
     Ok(())
 }

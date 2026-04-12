@@ -266,7 +266,7 @@ pub struct Feed {
     #[doc = "Explicit permissions for the feed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub permissions: Vec<FeedPermission>,
@@ -381,7 +381,7 @@ pub struct FeedChangesResponse {
     #[serde(
         rename = "feedChanges",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub feed_changes: Vec<FeedChange>,
@@ -444,7 +444,7 @@ pub struct FeedCore {
     #[serde(
         rename = "upstreamSources",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
@@ -504,7 +504,7 @@ pub struct FeedList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Feed>,
@@ -579,7 +579,7 @@ pub struct FeedPermissionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<FeedPermission>,
@@ -670,7 +670,7 @@ pub struct FeedUpdate {
     #[serde(
         rename = "upstreamSources",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub upstream_sources: Vec<UpstreamSource>,
@@ -738,7 +738,7 @@ pub struct FeedViewList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<FeedView>,
@@ -817,7 +817,7 @@ pub struct GlobalPermissionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<GlobalPermission>,
@@ -969,7 +969,7 @@ pub struct MinimalPackageVersion {
     #[doc = "List of views containing this package version."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub views: Vec<FeedView>,
@@ -1057,7 +1057,7 @@ pub struct Package {
     #[doc = "All versions for this package within its feed."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub versions: Vec<MinimalPackageVersion>,
@@ -1106,7 +1106,7 @@ pub struct PackageChangesResponse {
     #[serde(
         rename = "packageChanges",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub package_changes: Vec<PackageChange>,
@@ -1148,7 +1148,7 @@ pub struct PackageFile {
     #[doc = "Hierarchical representation of files."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub children: Vec<PackageFile>,
@@ -1174,7 +1174,7 @@ pub struct PackageList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<Package>,
@@ -1224,7 +1224,7 @@ pub struct PackageMetricsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageMetrics>,
@@ -1241,7 +1241,7 @@ pub struct PackageMetricsQuery {
     #[serde(
         rename = "packageIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub package_ids: Vec<String>,
@@ -1273,7 +1273,7 @@ pub struct PackageVersion {
     #[doc = "List of dependencies for this package version."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub dependencies: Vec<PackageDependency>,
@@ -1283,7 +1283,7 @@ pub struct PackageVersion {
     #[doc = "Files associated with this package version, only relevant for multi-file package types."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub files: Vec<PackageFile>,
@@ -1291,7 +1291,7 @@ pub struct PackageVersion {
     #[serde(
         rename = "otherVersions",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub other_versions: Vec<MinimalPackageVersion>,
@@ -1306,7 +1306,7 @@ pub struct PackageVersion {
     #[serde(
         rename = "sourceChain",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub source_chain: Vec<UpstreamSource>,
@@ -1316,7 +1316,7 @@ pub struct PackageVersion {
     #[doc = "Package version tags."]
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub tags: Vec<String>,
@@ -1378,7 +1378,7 @@ pub struct PackageVersionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageVersion>,
@@ -1435,7 +1435,7 @@ pub struct PackageVersionMetricsList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<PackageVersionMetrics>,
@@ -1452,7 +1452,7 @@ pub struct PackageVersionMetricsQuery {
     #[serde(
         rename = "packageVersionIds",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub package_version_ids: Vec<String>,
@@ -1577,7 +1577,7 @@ pub struct RecycleBinPackageVersionList {
     pub count: Option<i32>,
     #[serde(
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub value: Vec<RecycleBinPackageVersion>,
@@ -1655,7 +1655,7 @@ pub struct SbomTelemetry {
     #[serde(
         rename = "sbomFormatsUsed",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub sbom_formats_used: Vec<SbomFile>,
@@ -1697,14 +1697,14 @@ pub struct SaveCachedPackagesData {
     #[serde(
         rename = "normalizedPackageNames",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub normalized_package_names: Vec<String>,
     #[serde(
         rename = "viewsForPromotion",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub views_for_promotion: Vec<String>,
@@ -1883,7 +1883,7 @@ pub struct UpstreamSource {
     #[serde(
         rename = "statusDetails",
         default,
-        deserialize_with = "azure_core::util::deserialize_null_as_default",
+        deserialize_with = "crate::serde::deserialize_null_as_default",
         skip_serializing_if = "Vec::is_empty"
     )]
     pub status_details: Vec<UpstreamStatusDetail>,

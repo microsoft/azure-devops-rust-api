@@ -51,6 +51,11 @@ impl ToTokens for SetRequestParamsCode {
                             quote! {
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, #param_name_var);
                             }
+                        } else if param.type_name.is_date_time() {
+                            quote! {
+                                let formatted_date_time = crate::date_time::format_date_time(#param_name_var)?;
+                                req.url_mut().query_pairs_mut().append_pair(#param_name, &formatted_date_time);
+                            }
                         } else {
                             quote! {
                                 req.url_mut().query_pairs_mut().append_pair(#param_name, &#param_name_var.to_string());
@@ -116,7 +121,7 @@ impl ToTokens for SetRequestParamsCode {
                     {
                         quote! {azure_core::xml::to_xml}
                     } else {
-                        quote! { azure_core::to_json }
+                        quote! { azure_core::json::to_json }
                     };
 
                     if !param.is_optional() || is_vec {
@@ -131,7 +136,7 @@ impl ToTokens for SetRequestParamsCode {
                                     #set_content_type
                                     #encoder(#param_name_var)?
                                 } else {
-                                    azure_core::EMPTY_BODY
+                                    azure_core::Bytes::new()
                                 };
                         });
                     }

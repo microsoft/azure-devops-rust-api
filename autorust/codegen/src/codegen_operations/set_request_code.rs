@@ -38,7 +38,7 @@ impl ToTokens for SetRequestCode {
         if self.has_param_x_ms_version {
             let api_version = &self.api_version;
             tokens.extend(quote! {
-                req.insert_header(azure_core::headers::VERSION, #api_version);
+                req.insert_header(azure_core::http::headers::VERSION, #api_version);
             });
         }
 
@@ -51,14 +51,14 @@ impl ToTokens for SetRequestCode {
 
         if !self.has_body_parameter {
             tokens.extend(quote! {
-                let req_body = azure_core::EMPTY_BODY;
+                let req_body = azure_core::Bytes::new();
             });
         }
 
         // if it is a post and there is no body, set the Content-Length to 0
         if self.is_post && !self.has_body_parameter {
             tokens.extend(quote! {
-                req.insert_header(azure_core::headers::CONTENT_LENGTH, "0");
+                req.insert_header(azure_core::http::headers::CONTENT_LENGTH, "0");
             });
         }
     }

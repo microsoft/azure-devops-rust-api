@@ -29,7 +29,7 @@ async fn main() -> Result<()> {
         .top(top_projects)
         .await?;
 
-    println!("{:#?}", org_projects);
+    println!("{org_projects:#?}");
 
     Ok(())
 }
