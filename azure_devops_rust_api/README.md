@@ -100,6 +100,50 @@ Example:
 cargo run --example git_repo_get --features="git" <repo-name>
 ```
 
+## Artifact downloads
+
+In addition to the auto-generated REST API wrappers, the crate includes a higher-level
+`artifacts_download` module for downloading [Universal Packages](https://docs.microsoft.com/en-us/azure/devops/artifacts/universal-packages/universal-packages-overview)
+from Azure Artifacts.
+
+Unlike the other modules, `artifacts_download` is not a thin wrapper around a single REST
+endpoint. It implements the full dedup-based download protocol used by Azure Artifacts:
+discovering service URLs, fetching package metadata, resolving blob IDs, downloading and
+decompressing content chunks, and reassembling them into files on disk.
+
+Enable it with the `artifacts_download` feature:
+
+```toml
+[dependencies]
+azure_devops_rust_api = { version = "0.35.0", features = ["artifacts_download"] }
+```
+
+Example usage (from [examples/download_artifact.rs](examples/download_artifact.rs)):
+
+```rust
+    let client = artifacts_download::ClientBuilder::new(credential).build();
+
+    let metadata = client
+        .download_universal_package(
+            &organization,
+            &project,
+            &feed,
+            &package_name,
+            &version,
+            &output_path,
+        )
+        .await?;
+
+    println!("Downloaded {} v{} ({} bytes)", metadata.version, metadata.package_size, output_path.display());
+```
+
+Run the example:
+
+```sh
+cargo run --example download_artifact --features="artifacts_download" -- \
+    --feed <feed> --name <package-name> --version <version> --path <output-dir>
+```
+
 ## Issue reporting
 
 If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
