@@ -424,7 +424,10 @@ impl Client {
 
         // Step 3: Download the manifest blob
         let manifest_urls = self
-            .resolve_blob_urls(&blob_service_url, std::slice::from_ref(&metadata.manifest_id))
+            .resolve_blob_urls(
+                &blob_service_url,
+                std::slice::from_ref(&metadata.manifest_id),
+            )
             .await?;
         let manifest_url = manifest_urls.get(&metadata.manifest_id).ok_or_else(|| {
             Error::with_message(ErrorKind::Other, "Manifest URL not found in response")
