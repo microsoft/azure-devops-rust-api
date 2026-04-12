@@ -186,8 +186,11 @@ mod literate_config {
     // from https://github.com/kivikakk/comrak/blob/main/examples/headers.rs
     fn collect_text<'a>(node: &'a AstNode<'a>, output: &mut String) {
         match node.data.borrow().value {
-            NodeValue::Text(ref literal) | NodeValue::Code(NodeCode { ref literal, .. }) => {
-                output.push_str(literal)
+            NodeValue::Text(ref literal) => {
+                output.push_str(literal.as_ref())
+            }
+            NodeValue::Code(NodeCode { ref literal, .. }) => {
+                output.push_str(literal.as_ref())
             }
             NodeValue::LineBreak | NodeValue::SoftBreak => output.push(' '),
             _ => {
