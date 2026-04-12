@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-
-- Improved README: added badges, quickstart guide, authentication section, feature table, MSRV, and updated links to learn.microsoft.com.
-
 ## [0.36.0]
 
 ### Added
@@ -21,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 
 - Update `azure_core` and `azure_identity` to 0.34.
+- Improved README: added badges, quickstart guide, authentication section, feature table, MSRV, and updated links to learn.microsoft.com.
 
 ## [0.35.0]
 
