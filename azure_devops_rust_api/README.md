@@ -140,7 +140,7 @@ See the `[features]` section of [Cargo.toml](Cargo.toml) for the complete list.
 ## Artifact downloads
 
 In addition to the auto-generated REST API wrappers, the crate includes a higher-level
-`artifacts_download` module for downloading [Universal Packages](https://learn.microsoft.com/en-us/azure/devops/artifacts/universal-packages/universal-packages-overview)
+`artifacts_download` module for downloading [Universal Packages](https://learn.microsoft.com/en-us/azure/devops/artifacts/quickstarts/universal-packages?view=azure-devops)
 from Azure Artifacts.
 
 Unlike the other modules, `artifacts_download` is not a thin wrapper around a single REST
