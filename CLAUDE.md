@@ -60,6 +60,7 @@ cargo check --all-features --examples
 - `azure_devops_rust_api/src/date_time.rs` — datetime serde helpers
 - `azure_devops_rust_api/src/telemetry.rs` — telemetry pipeline policy
 - `azure_devops_rust_api/src/headers.rs` — common header helpers
+- `azure_devops_rust_api/src/artifacts_download/` — Universal Package download client (dedup protocol)
 
 ### Code generator internals (`autorust/`)
 
