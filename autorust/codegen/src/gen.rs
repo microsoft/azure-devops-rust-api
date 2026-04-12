@@ -1,7 +1,7 @@
 use crate::{
     autorust_toml, cargo_toml, io, lib_rs,
     readme_md::{self, ReadmeMd},
-    run, CrateConfig, Error, ErrorKind, Result, ResultExt, RunConfig, SpecReadme,
+    run, CrateConfig, ErrorKind, Result, ResultExt, RunConfig, SpecReadme,
 };
 use std::{collections::HashMap, fs};
 
