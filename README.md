@@ -37,7 +37,7 @@ The generated crate is manually published to the public Rust crate registry ([cr
 Most of `azure_devops_rust_api` is auto-generated from the OpenAPI spec and provides thin wrappers
 around the Azure DevOps REST API endpoints. The `artifacts_download` module is different: it is a
 hand-written, higher-level module that implements the full protocol for downloading
-[Universal Packages](https://docs.microsoft.com/en-us/azure/devops/artifacts/universal-packages/universal-packages-overview)
+[Universal Packages](https://learn.microsoft.com/en-us/azure/devops/artifacts/quickstarts/universal-packages?view=azure-devops)
 from Azure Artifacts.
 
 It handles the entire download flow — service URL discovery, package metadata retrieval, blob URL
