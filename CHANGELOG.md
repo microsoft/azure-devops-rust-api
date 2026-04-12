@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.36.0]
+
 ### Added
 
 - New `artifacts_download` higher-level module for downloading Universal Packages from Azure DevOps Artifacts.
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 
 - Update `azure_core` and `azure_identity` to 0.34.
+- Improved README: added badges, quickstart guide, authentication section, feature table, MSRV, and updated links to learn.microsoft.com.
 
 ## [0.35.0]
 
@@ -677,7 +680,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.35.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.36.0...HEAD
+[0.36.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.35.0...0.36.0
 [0.35.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.34.0...0.35.0
 [0.34.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.33.0...0.34.0
 [0.33.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.32.0...0.33.0
