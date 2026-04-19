@@ -6,8 +6,8 @@
 use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::git::models::git_item::GitObjectType;
-use azure_devops_rust_api::git::models::VersionControlRecursionType;
 use azure_devops_rust_api::git::models::GitItem;
+use azure_devops_rust_api::git::models::VersionControlRecursionType;
 use std::env;
 use std::io::Write;
 
