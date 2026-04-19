@@ -252,6 +252,18 @@ pub mod policy_evaluation_record {
         #[serde(rename = "broken")]
         Broken,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::Running => write!(f, "running"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Broken => write!(f, "broken"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PolicyEvaluationRecordList {

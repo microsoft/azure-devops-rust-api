@@ -80,6 +80,15 @@ pub mod consumer {
         #[serde(rename = "external")]
         External,
     }
+    impl std::fmt::Display for AuthenticationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::OAuth => write!(f, "oAuth"),
+                Self::External => write!(f, "external"),
+            }
+        }
+    }
 }
 #[doc = "Defines the data contract of a consumer action."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -517,6 +526,19 @@ pub mod input_descriptor {
         #[serde(rename = "textArea")]
         TextArea,
     }
+    impl std::fmt::Display for InputMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TextBox => write!(f, "textBox"),
+                Self::PasswordBox => write!(f, "passwordBox"),
+                Self::Combo => write!(f, "combo"),
+                Self::RadioButtons => write!(f, "radioButtons"),
+                Self::CheckBox => write!(f, "checkBox"),
+                Self::TextArea => write!(f, "textArea"),
+            }
+        }
+    }
 }
 #[doc = "Defines a filter for subscription inputs. The filter matches a set of inputs if any (one or more) of the groups evaluates to true."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -572,6 +594,14 @@ pub mod input_filter_condition {
         Equals,
         #[serde(rename = "notEquals")]
         NotEquals,
+    }
+    impl std::fmt::Display for Operator {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Equals => write!(f, "equals"),
+                Self::NotEquals => write!(f, "notEquals"),
+            }
+        }
     }
 }
 #[doc = "Describes what values are valid for a subscription input"]
@@ -632,6 +662,18 @@ pub mod input_validation {
         Guid,
         #[serde(rename = "uri")]
         Uri,
+    }
+    impl std::fmt::Display for DataType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::String => write!(f, "string"),
+                Self::Number => write!(f, "number"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Guid => write!(f, "guid"),
+                Self::Uri => write!(f, "uri"),
+            }
+        }
     }
 }
 #[doc = "Information about a single value for an input"]
@@ -812,6 +854,16 @@ pub mod notification {
         #[serde(rename = "filtered")]
         Filtered,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Pending => write!(f, "pending"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Filtered => write!(f, "filtered"),
+            }
+        }
+    }
     #[doc = "Status of the notification"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -823,6 +875,16 @@ pub mod notification {
         RequestInProgress,
         #[serde(rename = "completed")]
         Completed,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::Processing => write!(f, "processing"),
+                Self::RequestInProgress => write!(f, "requestInProgress"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
     }
 }
 #[doc = "Defines the data contract of notification details."]
@@ -990,6 +1052,16 @@ pub mod notification_results_summary_detail {
         #[serde(rename = "filtered")]
         Filtered,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Pending => write!(f, "pending"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Filtered => write!(f, "filtered"),
+            }
+        }
+    }
 }
 #[doc = "Summary of the notifications for a subscription."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1121,6 +1193,16 @@ pub mod notifications_query {
         #[serde(rename = "filtered")]
         Filtered,
     }
+    impl std::fmt::Display for ResultType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Pending => write!(f, "pending"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Filtered => write!(f, "filtered"),
+            }
+        }
+    }
     #[doc = "Optional notification status to filter results to"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -1132,6 +1214,16 @@ pub mod notifications_query {
         RequestInProgress,
         #[serde(rename = "completed")]
         Completed,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::Processing => write!(f, "processing"),
+                Self::RequestInProgress => write!(f, "requestInProgress"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
     }
 }
 #[doc = "Defines the data contract of an event publisher."]
@@ -1454,6 +1546,17 @@ pub mod subscription {
         #[serde(rename = "disabledByInactiveIdentity")]
         DisabledByInactiveIdentity,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Enabled => write!(f, "enabled"),
+                Self::OnProbation => write!(f, "onProbation"),
+                Self::DisabledByUser => write!(f, "disabledByUser"),
+                Self::DisabledBySystem => write!(f, "disabledBySystem"),
+                Self::DisabledByInactiveIdentity => write!(f, "disabledByInactiveIdentity"),
+            }
+        }
+    }
 }
 #[doc = "Contains all the diagnostics settings for a subscription."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1517,6 +1620,14 @@ pub mod subscription_input_values_query {
         Publisher,
         #[serde(rename = "consumer")]
         Consumer,
+    }
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Publisher => write!(f, "publisher"),
+                Self::Consumer => write!(f, "consumer"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

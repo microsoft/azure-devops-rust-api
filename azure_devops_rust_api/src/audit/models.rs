@@ -40,6 +40,18 @@ pub mod audit_action_info {
         #[serde(rename = "execute")]
         Execute,
     }
+    impl std::fmt::Display for Category {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Modify => write!(f, "modify"),
+                Self::Remove => write!(f, "remove"),
+                Self::Create => write!(f, "create"),
+                Self::Access => write!(f, "access"),
+                Self::Execute => write!(f, "execute"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuditActionInfoList {
@@ -153,6 +165,17 @@ pub mod audit_log_entry {
         #[serde(rename = "project")]
         Project,
     }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Deployment => write!(f, "deployment"),
+                Self::Enterprise => write!(f, "enterprise"),
+                Self::Organization => write!(f, "organization"),
+                Self::Project => write!(f, "project"),
+            }
+        }
+    }
 }
 #[doc = "The object returned when the audit log is queried. It contains the log and the information needed to query more audit entries."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -257,6 +280,18 @@ pub mod audit_stream {
         Deleted,
         #[serde(rename = "backfilling")]
         Backfilling,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Enabled => write!(f, "enabled"),
+                Self::DisabledByUser => write!(f, "disabledByUser"),
+                Self::DisabledBySystem => write!(f, "disabledBySystem"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Backfilling => write!(f, "backfilling"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -417,6 +452,18 @@ pub mod decorated_audit_log_entry {
         #[serde(rename = "execute")]
         Execute,
     }
+    impl std::fmt::Display for Category {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Modify => write!(f, "modify"),
+                Self::Remove => write!(f, "remove"),
+                Self::Create => write!(f, "create"),
+                Self::Access => write!(f, "access"),
+                Self::Execute => write!(f, "execute"),
+            }
+        }
+    }
     #[doc = "The type of the scope (Organization is only scope currently supported)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ScopeType {
@@ -430,6 +477,17 @@ pub mod decorated_audit_log_entry {
         Organization,
         #[serde(rename = "project")]
         Project,
+    }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Deployment => write!(f, "deployment"),
+                Self::Enterprise => write!(f, "enterprise"),
+                Self::Organization => write!(f, "organization"),
+                Self::Project => write!(f, "project"),
+            }
+        }
     }
 }
 #[doc = "This class is used to serialize collections as a single JSON object on the wire."]

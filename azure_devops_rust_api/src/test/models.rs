@@ -186,6 +186,27 @@ pub mod aggregated_result_details_by_outcome {
         #[serde(rename = "notImpacted")]
         NotImpacted,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsAnalysis {
@@ -306,6 +327,27 @@ pub mod aggregated_results_by_outcome {
         #[serde(rename = "notImpacted")]
         NotImpacted,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsDifference {
@@ -376,6 +418,16 @@ pub mod aggregated_runs_by_outcome {
         #[serde(rename = "others")]
         Others,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+                Self::Others => write!(f, "others"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByState {
@@ -413,6 +465,19 @@ pub mod aggregated_runs_by_state {
         Waiting,
         #[serde(rename = "needsInvestigation")]
         NeedsInvestigation,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Waiting => write!(f, "waiting"),
+                Self::NeedsInvestigation => write!(f, "needsInvestigation"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -531,6 +596,59 @@ pub mod batch_response {
         GatewayTimeout,
         #[serde(rename = "httpVersionNotSupported")]
         HttpVersionNotSupported,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Continue => write!(f, "continue"),
+                Self::SwitchingProtocols => write!(f, "switchingProtocols"),
+                Self::Ok => write!(f, "ok"),
+                Self::Created => write!(f, "created"),
+                Self::Accepted => write!(f, "accepted"),
+                Self::NonAuthoritativeInformation => write!(f, "nonAuthoritativeInformation"),
+                Self::NoContent => write!(f, "noContent"),
+                Self::ResetContent => write!(f, "resetContent"),
+                Self::PartialContent => write!(f, "partialContent"),
+                Self::MultipleChoices => write!(f, "multipleChoices"),
+                Self::Ambiguous => write!(f, "ambiguous"),
+                Self::MovedPermanently => write!(f, "movedPermanently"),
+                Self::Moved => write!(f, "moved"),
+                Self::Found => write!(f, "found"),
+                Self::Redirect => write!(f, "redirect"),
+                Self::SeeOther => write!(f, "seeOther"),
+                Self::RedirectMethod => write!(f, "redirectMethod"),
+                Self::NotModified => write!(f, "notModified"),
+                Self::UseProxy => write!(f, "useProxy"),
+                Self::Unused => write!(f, "unused"),
+                Self::TemporaryRedirect => write!(f, "temporaryRedirect"),
+                Self::RedirectKeepVerb => write!(f, "redirectKeepVerb"),
+                Self::BadRequest => write!(f, "badRequest"),
+                Self::Unauthorized => write!(f, "unauthorized"),
+                Self::PaymentRequired => write!(f, "paymentRequired"),
+                Self::Forbidden => write!(f, "forbidden"),
+                Self::NotFound => write!(f, "notFound"),
+                Self::MethodNotAllowed => write!(f, "methodNotAllowed"),
+                Self::NotAcceptable => write!(f, "notAcceptable"),
+                Self::ProxyAuthenticationRequired => write!(f, "proxyAuthenticationRequired"),
+                Self::RequestTimeout => write!(f, "requestTimeout"),
+                Self::Conflict => write!(f, "conflict"),
+                Self::Gone => write!(f, "gone"),
+                Self::LengthRequired => write!(f, "lengthRequired"),
+                Self::PreconditionFailed => write!(f, "preconditionFailed"),
+                Self::RequestEntityTooLarge => write!(f, "requestEntityTooLarge"),
+                Self::RequestUriTooLong => write!(f, "requestUriTooLong"),
+                Self::UnsupportedMediaType => write!(f, "unsupportedMediaType"),
+                Self::RequestedRangeNotSatisfiable => write!(f, "requestedRangeNotSatisfiable"),
+                Self::ExpectationFailed => write!(f, "expectationFailed"),
+                Self::UpgradeRequired => write!(f, "upgradeRequired"),
+                Self::InternalServerError => write!(f, "internalServerError"),
+                Self::NotImplemented => write!(f, "notImplemented"),
+                Self::BadGateway => write!(f, "badGateway"),
+                Self::ServiceUnavailable => write!(f, "serviceUnavailable"),
+                Self::GatewayTimeout => write!(f, "gatewayTimeout"),
+                Self::HttpVersionNotSupported => write!(f, "httpVersionNotSupported"),
+            }
+        }
     }
 }
 #[doc = "BuildConfiguration Details."]
@@ -919,6 +1037,14 @@ pub mod clone_operation_information {
         #[serde(rename = "testPlan")]
         TestPlan,
     }
+    impl std::fmt::Display for ResultObjectType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::TestSuite => write!(f, "testSuite"),
+                Self::TestPlan => write!(f, "testPlan"),
+            }
+        }
+    }
     #[doc = "Current state of the operation. When State reaches Succeeded or Failed, the operation is complete"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -930,6 +1056,16 @@ pub mod clone_operation_information {
         Queued,
         #[serde(rename = "succeeded")]
         Succeeded,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Failed => write!(f, "failed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Queued => write!(f, "queued"),
+                Self::Succeeded => write!(f, "succeeded"),
+            }
+        }
     }
 }
 #[doc = "Clone options for cloning the test suite."]
@@ -1206,6 +1342,35 @@ pub mod code_coverage_summary {
         #[serde(rename = "invalidCoverageInput")]
         InvalidCoverageInput,
     }
+    impl std::fmt::Display for CoverageDetailedSummaryStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Finalized => write!(f, "finalized"),
+                Self::Pending => write!(f, "pending"),
+                Self::UpdateRequestQueued => write!(f, "updateRequestQueued"),
+                Self::NoModulesFound => write!(f, "noModulesFound"),
+                Self::NumberOfFilesExceeded => write!(f, "numberOfFilesExceeded"),
+                Self::NoInputFiles => write!(f, "noInputFiles"),
+                Self::BuildCancelled => write!(f, "buildCancelled"),
+                Self::FailedJobs => write!(f, "failedJobs"),
+                Self::ModuleMergeJobTimeout => write!(f, "moduleMergeJobTimeout"),
+                Self::CodeCoverageSuccess => write!(f, "codeCoverageSuccess"),
+                Self::InvalidBuildConfiguration => write!(f, "invalidBuildConfiguration"),
+                Self::CoverageAnalyzerBuildNotFound => write!(f, "coverageAnalyzerBuildNotFound"),
+                Self::FailedToRequeue => write!(f, "failedToRequeue"),
+                Self::BuildBailedOut => write!(f, "buildBailedOut"),
+                Self::NoCodeCoverageTask => write!(f, "noCodeCoverageTask"),
+                Self::MergeJobFailed => write!(f, "mergeJobFailed"),
+                Self::MergeInvokerJobFailed => write!(f, "mergeInvokerJobFailed"),
+                Self::MonitorJobFailed => write!(f, "monitorJobFailed"),
+                Self::ModuleMergeInvokerJobTimeout => write!(f, "moduleMergeInvokerJobTimeout"),
+                Self::MonitorJobTimeout => write!(f, "monitorJobTimeout"),
+                Self::InvalidCoverageInput => write!(f, "invalidCoverageInput"),
+            }
+        }
+    }
     #[doc = "Uri of build against which difference in coverage is computed"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -1221,6 +1386,18 @@ pub mod code_coverage_summary {
         Pending,
         #[serde(rename = "updateRequestQueued")]
         UpdateRequestQueued,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Finalized => write!(f, "finalized"),
+                Self::Pending => write!(f, "pending"),
+                Self::UpdateRequestQueued => write!(f, "updateRequestQueued"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1436,6 +1613,18 @@ pub mod custom_test_field_definition {
         #[serde(rename = "guid")]
         Guid,
     }
+    impl std::fmt::Display for FieldType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bit => write!(f, "bit"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::Int => write!(f, "int"),
+                Self::Float => write!(f, "float"),
+                Self::String => write!(f, "string"),
+                Self::Guid => write!(f, "guid"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Scope {
         #[serde(rename = "none")]
@@ -1448,6 +1637,17 @@ pub mod custom_test_field_definition {
         System,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TestRun => write!(f, "testRun"),
+                Self::TestResult => write!(f, "testResult"),
+                Self::System => write!(f, "system"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1775,6 +1975,14 @@ pub mod flaky_detection {
         Custom,
         #[serde(rename = "system")]
         System,
+    }
+    impl std::fmt::Display for FlakyDetectionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::System => write!(f, "system"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2565,6 +2773,17 @@ pub mod legacy_test_case_result {
         OrderedTest,
         #[serde(rename = "generic")]
         Generic,
+    }
+    impl std::fmt::Display for ResultGroupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Rerun => write!(f, "rerun"),
+                Self::DataDriven => write!(f, "dataDriven"),
+                Self::OrderedTest => write!(f, "orderedTest"),
+                Self::Generic => write!(f, "generic"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4173,6 +4392,59 @@ pub mod response {
         #[serde(rename = "httpVersionNotSupported")]
         HttpVersionNotSupported,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Continue => write!(f, "continue"),
+                Self::SwitchingProtocols => write!(f, "switchingProtocols"),
+                Self::Ok => write!(f, "ok"),
+                Self::Created => write!(f, "created"),
+                Self::Accepted => write!(f, "accepted"),
+                Self::NonAuthoritativeInformation => write!(f, "nonAuthoritativeInformation"),
+                Self::NoContent => write!(f, "noContent"),
+                Self::ResetContent => write!(f, "resetContent"),
+                Self::PartialContent => write!(f, "partialContent"),
+                Self::MultipleChoices => write!(f, "multipleChoices"),
+                Self::Ambiguous => write!(f, "ambiguous"),
+                Self::MovedPermanently => write!(f, "movedPermanently"),
+                Self::Moved => write!(f, "moved"),
+                Self::Found => write!(f, "found"),
+                Self::Redirect => write!(f, "redirect"),
+                Self::SeeOther => write!(f, "seeOther"),
+                Self::RedirectMethod => write!(f, "redirectMethod"),
+                Self::NotModified => write!(f, "notModified"),
+                Self::UseProxy => write!(f, "useProxy"),
+                Self::Unused => write!(f, "unused"),
+                Self::TemporaryRedirect => write!(f, "temporaryRedirect"),
+                Self::RedirectKeepVerb => write!(f, "redirectKeepVerb"),
+                Self::BadRequest => write!(f, "badRequest"),
+                Self::Unauthorized => write!(f, "unauthorized"),
+                Self::PaymentRequired => write!(f, "paymentRequired"),
+                Self::Forbidden => write!(f, "forbidden"),
+                Self::NotFound => write!(f, "notFound"),
+                Self::MethodNotAllowed => write!(f, "methodNotAllowed"),
+                Self::NotAcceptable => write!(f, "notAcceptable"),
+                Self::ProxyAuthenticationRequired => write!(f, "proxyAuthenticationRequired"),
+                Self::RequestTimeout => write!(f, "requestTimeout"),
+                Self::Conflict => write!(f, "conflict"),
+                Self::Gone => write!(f, "gone"),
+                Self::LengthRequired => write!(f, "lengthRequired"),
+                Self::PreconditionFailed => write!(f, "preconditionFailed"),
+                Self::RequestEntityTooLarge => write!(f, "requestEntityTooLarge"),
+                Self::RequestUriTooLong => write!(f, "requestUriTooLong"),
+                Self::UnsupportedMediaType => write!(f, "unsupportedMediaType"),
+                Self::RequestedRangeNotSatisfiable => write!(f, "requestedRangeNotSatisfiable"),
+                Self::ExpectationFailed => write!(f, "expectationFailed"),
+                Self::UpgradeRequired => write!(f, "upgradeRequired"),
+                Self::InternalServerError => write!(f, "internalServerError"),
+                Self::NotImplemented => write!(f, "notImplemented"),
+                Self::BadGateway => write!(f, "badGateway"),
+                Self::ServiceUnavailable => write!(f, "serviceUnavailable"),
+                Self::GatewayTimeout => write!(f, "gatewayTimeout"),
+                Self::HttpVersionNotSupported => write!(f, "httpVersionNotSupported"),
+            }
+        }
+    }
 }
 #[doc = "Test result retention settings"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4538,6 +4810,15 @@ pub mod results_filter {
         #[serde(rename = "tfs")]
         Tfs,
     }
+    impl std::fmt::Display for ExecutedIn {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Any => write!(f, "any"),
+                Self::Tcm => write!(f, "tcm"),
+                Self::Tfs => write!(f, "tfs"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultsStoreQuery {
@@ -4873,6 +5154,14 @@ pub mod run_statistic {
         #[serde(rename = "flaky")]
         Flaky,
     }
+    impl std::fmt::Display for ResultMetadata {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Rerun => write!(f, "rerun"),
+                Self::Flaky => write!(f, "flaky"),
+            }
+        }
+    }
 }
 #[doc = "Summary of runs for a pipeline instance."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4975,6 +5264,27 @@ pub mod run_summary_model {
         InProgress,
         #[serde(rename = "notImpacted")]
         NotImpacted,
+    }
+    impl std::fmt::Display for TestOutcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5160,6 +5470,21 @@ pub mod run_update_model {
         Analyzed,
         #[serde(rename = "cancellationInProgress")]
         CancellationInProgress,
+    }
+    impl std::fmt::Display for Substate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::CreatingEnvironment => write!(f, "creatingEnvironment"),
+                Self::RunningTests => write!(f, "runningTests"),
+                Self::CanceledByUser => write!(f, "canceledByUser"),
+                Self::AbortedBySystem => write!(f, "abortedBySystem"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::PendingAnalysis => write!(f, "pendingAnalysis"),
+                Self::Analyzed => write!(f, "analyzed"),
+                Self::CancellationInProgress => write!(f, "cancellationInProgress"),
+            }
+        }
     }
 }
 #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
@@ -5574,6 +5899,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -5585,6 +5923,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5839,6 +6187,15 @@ pub mod test_attachment {
         #[serde(rename = "consoleLog")]
         ConsoleLog,
     }
+    impl std::fmt::Display for AttachmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::GeneralAttachment => write!(f, "generalAttachment"),
+                Self::CodeCoverage => write!(f, "codeCoverage"),
+                Self::ConsoleLog => write!(f, "consoleLog"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestAttachmentList {
@@ -5951,6 +6308,18 @@ pub mod test_authoring_details {
         InProgress,
         #[serde(rename = "maxValue")]
         MaxValue,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Ready => write!(f, "ready"),
+                Self::Completed => write!(f, "completed"),
+                Self::NotReady => write!(f, "notReady"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6376,6 +6745,17 @@ pub mod test_case_result {
         #[serde(rename = "generic")]
         Generic,
     }
+    impl std::fmt::Display for ResultGroupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Rerun => write!(f, "rerun"),
+                Self::DataDriven => write!(f, "dataDriven"),
+                Self::OrderedTest => write!(f, "orderedTest"),
+                Self::Generic => write!(f, "generic"),
+            }
+        }
+    }
 }
 #[doc = "Test attachment information in a test iteration."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6625,6 +7005,14 @@ pub mod test_configuration {
         #[serde(rename = "inactive")]
         Inactive,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Inactive => write!(f, "inactive"),
+            }
+        }
+    }
 }
 #[doc = "Test environment Detail."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6774,6 +7162,43 @@ pub mod test_extension_field_details {
         DateTime2,
         #[serde(rename = "dateTimeOffset")]
         DateTimeOffset,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::BigInt => write!(f, "bigInt"),
+                Self::Binary => write!(f, "binary"),
+                Self::Bit => write!(f, "bit"),
+                Self::Char => write!(f, "char"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::Decimal => write!(f, "decimal"),
+                Self::Float => write!(f, "float"),
+                Self::Image => write!(f, "image"),
+                Self::Int => write!(f, "int"),
+                Self::Money => write!(f, "money"),
+                Self::NChar => write!(f, "nChar"),
+                Self::NText => write!(f, "nText"),
+                Self::NVarChar => write!(f, "nVarChar"),
+                Self::Real => write!(f, "real"),
+                Self::UniqueIdentifier => write!(f, "uniqueIdentifier"),
+                Self::SmallDateTime => write!(f, "smallDateTime"),
+                Self::SmallInt => write!(f, "smallInt"),
+                Self::SmallMoney => write!(f, "smallMoney"),
+                Self::Text => write!(f, "text"),
+                Self::Timestamp => write!(f, "timestamp"),
+                Self::TinyInt => write!(f, "tinyInt"),
+                Self::VarBinary => write!(f, "varBinary"),
+                Self::VarChar => write!(f, "varChar"),
+                Self::Variant => write!(f, "variant"),
+                Self::Xml => write!(f, "xml"),
+                Self::Udt => write!(f, "udt"),
+                Self::Structured => write!(f, "structured"),
+                Self::Date => write!(f, "date"),
+                Self::Time => write!(f, "time"),
+                Self::DateTime2 => write!(f, "dateTime2"),
+                Self::DateTimeOffset => write!(f, "dateTimeOffset"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6984,6 +7409,14 @@ pub mod test_history_query {
         #[serde(rename = "environment")]
         Environment,
     }
+    impl std::fmt::Display for GroupBy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Environment => write!(f, "environment"),
+            }
+        }
+    }
 }
 #[doc = "Represents a test iteration result."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -7156,11 +7589,25 @@ pub mod test_log_reference {
         #[serde(rename = "run")]
         Run,
     }
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Run => write!(f, "run"),
+            }
+        }
+    }
     #[doc = "Log Type"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Type {
         #[serde(rename = "generalAttachment")]
         GeneralAttachment,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::GeneralAttachment => write!(f, "generalAttachment"),
+            }
+        }
     }
 }
 #[doc = "Represents Test Log Status object."]
@@ -7225,6 +7672,29 @@ pub mod test_log_status {
         #[serde(rename = "storageCapacityExceeded")]
         StorageCapacityExceeded,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Success => write!(f, "success"),
+                Self::Failed => write!(f, "failed"),
+                Self::FileAlreadyExists => write!(f, "fileAlreadyExists"),
+                Self::InvalidInput => write!(f, "invalidInput"),
+                Self::InvalidFileName => write!(f, "invalidFileName"),
+                Self::InvalidContainer => write!(f, "invalidContainer"),
+                Self::TransferFailed => write!(f, "transferFailed"),
+                Self::FeatureDisabled => write!(f, "featureDisabled"),
+                Self::BuildDoesNotExist => write!(f, "buildDoesNotExist"),
+                Self::RunDoesNotExist => write!(f, "runDoesNotExist"),
+                Self::ContainerNotCreated => write!(f, "containerNotCreated"),
+                Self::ApiNotSupported => write!(f, "apiNotSupported"),
+                Self::FileSizeExceeds => write!(f, "fileSizeExceeds"),
+                Self::ContainerNotFound => write!(f, "containerNotFound"),
+                Self::FileNotFound => write!(f, "fileNotFound"),
+                Self::DirectoryNotFound => write!(f, "directoryNotFound"),
+                Self::StorageCapacityExceeded => write!(f, "storageCapacityExceeded"),
+            }
+        }
+    }
 }
 #[doc = "Attachment metadata for test attachments from LogStore."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -7273,6 +7743,15 @@ pub mod test_log_store_attachment {
         CodeCoverage,
         #[serde(rename = "consoleLog")]
         ConsoleLog,
+    }
+    impl std::fmt::Display for AttachmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::GeneralAttachment => write!(f, "generalAttachment"),
+                Self::CodeCoverage => write!(f, "codeCoverage"),
+                Self::ConsoleLog => write!(f, "consoleLog"),
+            }
+        }
     }
 }
 #[doc = "Reference to test attachment."]
@@ -7323,6 +7802,14 @@ pub mod test_log_store_endpoint_details {
         #[serde(rename = "file")]
         File,
     }
+    impl std::fmt::Display for EndpointType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Root => write!(f, "root"),
+                Self::File => write!(f, "file"),
+            }
+        }
+    }
     #[doc = "Test log store status code"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -7360,6 +7847,29 @@ pub mod test_log_store_endpoint_details {
         DirectoryNotFound,
         #[serde(rename = "storageCapacityExceeded")]
         StorageCapacityExceeded,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Success => write!(f, "success"),
+                Self::Failed => write!(f, "failed"),
+                Self::FileAlreadyExists => write!(f, "fileAlreadyExists"),
+                Self::InvalidInput => write!(f, "invalidInput"),
+                Self::InvalidFileName => write!(f, "invalidFileName"),
+                Self::InvalidContainer => write!(f, "invalidContainer"),
+                Self::TransferFailed => write!(f, "transferFailed"),
+                Self::FeatureDisabled => write!(f, "featureDisabled"),
+                Self::BuildDoesNotExist => write!(f, "buildDoesNotExist"),
+                Self::RunDoesNotExist => write!(f, "runDoesNotExist"),
+                Self::ContainerNotCreated => write!(f, "containerNotCreated"),
+                Self::ApiNotSupported => write!(f, "apiNotSupported"),
+                Self::FileSizeExceeds => write!(f, "fileSizeExceeds"),
+                Self::ContainerNotFound => write!(f, "containerNotFound"),
+                Self::FileNotFound => write!(f, "fileNotFound"),
+                Self::DirectoryNotFound => write!(f, "directoryNotFound"),
+                Self::StorageCapacityExceeded => write!(f, "storageCapacityExceeded"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -7925,6 +8435,18 @@ pub mod test_point_reference {
         #[serde(rename = "maxValue")]
         MaxValue,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Ready => write!(f, "ready"),
+                Self::Completed => write!(f, "completed"),
+                Self::NotReady => write!(f, "notReady"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestPointsEvent {
@@ -8208,6 +8730,15 @@ pub mod test_result_attachment {
         CodeCoverage,
         #[serde(rename = "consoleLog")]
         ConsoleLog,
+    }
+    impl std::fmt::Display for AttachmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::GeneralAttachment => write!(f, "generalAttachment"),
+                Self::CodeCoverage => write!(f, "codeCoverage"),
+                Self::ConsoleLog => write!(f, "consoleLog"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -8915,6 +9446,15 @@ pub mod test_results_context {
         #[serde(rename = "pipeline")]
         Pipeline,
     }
+    impl std::fmt::Display for ContextType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Build => write!(f, "build"),
+                Self::Release => write!(f, "release"),
+                Self::Pipeline => write!(f, "pipeline"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsDetails {
@@ -9444,6 +9984,21 @@ pub mod test_run {
         Analyzed,
         #[serde(rename = "cancellationInProgress")]
         CancellationInProgress,
+    }
+    impl std::fmt::Display for Substate {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::CreatingEnvironment => write!(f, "creatingEnvironment"),
+                Self::RunningTests => write!(f, "runningTests"),
+                Self::CanceledByUser => write!(f, "canceledByUser"),
+                Self::AbortedBySystem => write!(f, "abortedBySystem"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::PendingAnalysis => write!(f, "pendingAnalysis"),
+                Self::Analyzed => write!(f, "analyzed"),
+                Self::CancellationInProgress => write!(f, "cancellationInProgress"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -10110,6 +10665,19 @@ pub mod test_session {
         #[serde(rename = "sessionInsightsForAll")]
         SessionInsightsForAll,
     }
+    impl std::fmt::Display for Source {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::XtDesktop => write!(f, "xtDesktop"),
+                Self::FeedbackDesktop => write!(f, "feedbackDesktop"),
+                Self::XtWeb => write!(f, "xtWeb"),
+                Self::FeedbackWeb => write!(f, "feedbackWeb"),
+                Self::XtDesktop2 => write!(f, "xtDesktop2"),
+                Self::SessionInsightsForAll => write!(f, "sessionInsightsForAll"),
+            }
+        }
+    }
     #[doc = "State of the test session"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -10125,6 +10693,18 @@ pub mod test_session {
         Completed,
         #[serde(rename = "declined")]
         Declined,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Paused => write!(f, "paused"),
+                Self::Completed => write!(f, "completed"),
+                Self::Declined => write!(f, "declined"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -10459,6 +11039,17 @@ pub mod test_sub_result {
         OrderedTest,
         #[serde(rename = "generic")]
         Generic,
+    }
+    impl std::fmt::Display for ResultGroupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Rerun => write!(f, "rerun"),
+                Self::DataDriven => write!(f, "dataDriven"),
+                Self::OrderedTest => write!(f, "orderedTest"),
+                Self::Generic => write!(f, "generic"),
+            }
+        }
     }
 }
 #[doc = "Test suite"]
@@ -10919,5 +11510,14 @@ pub mod work_item_to_test_links {
         Tcm,
         #[serde(rename = "tfs")]
         Tfs,
+    }
+    impl std::fmt::Display for ExecutedIn {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Any => write!(f, "any"),
+                Self::Tcm => write!(f, "tcm"),
+                Self::Tfs => write!(f, "tfs"),
+            }
+        }
     }
 }

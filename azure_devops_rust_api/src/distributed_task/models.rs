@@ -678,6 +678,14 @@ pub mod demand_source {
         #[serde(rename = "feature")]
         Feature,
     }
+    impl std::fmt::Display for SourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Task => write!(f, "task"),
+                Self::Feature => write!(f, "feature"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DependencyBinding {
@@ -1181,6 +1189,16 @@ pub mod elastic_node {
         #[serde(rename = "assigned")]
         Assigned,
     }
+    impl std::fmt::Display for AgentState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Enabled => write!(f, "enabled"),
+                Self::Online => write!(f, "online"),
+                Self::Assigned => write!(f, "assigned"),
+            }
+        }
+    }
     #[doc = "State of the compute host"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ComputeState {
@@ -1202,6 +1220,21 @@ pub mod elastic_node {
         UnhealthyVm,
         #[serde(rename = "unhealthyVmssVm")]
         UnhealthyVmssVm,
+    }
+    impl std::fmt::Display for ComputeState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Healthy => write!(f, "healthy"),
+                Self::Creating => write!(f, "creating"),
+                Self::Deleting => write!(f, "deleting"),
+                Self::Failed => write!(f, "failed"),
+                Self::Stopped => write!(f, "stopped"),
+                Self::Reimaging => write!(f, "reimaging"),
+                Self::UnhealthyVm => write!(f, "unhealthyVm"),
+                Self::UnhealthyVmssVm => write!(f, "unhealthyVmssVm"),
+            }
+        }
     }
     #[doc = "Users can force state changes to specific states (ToReimage, ToDelete, Save)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1251,6 +1284,34 @@ pub mod elastic_node {
         #[serde(rename = "unhealthyVmPendingDelete")]
         UnhealthyVmPendingDelete,
     }
+    impl std::fmt::Display for DesiredState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::New => write!(f, "new"),
+                Self::CreatingCompute => write!(f, "creatingCompute"),
+                Self::StartingAgent => write!(f, "startingAgent"),
+                Self::Idle => write!(f, "idle"),
+                Self::Assigned => write!(f, "assigned"),
+                Self::Offline => write!(f, "offline"),
+                Self::PendingReimage => write!(f, "pendingReimage"),
+                Self::PendingDelete => write!(f, "pendingDelete"),
+                Self::Saved => write!(f, "saved"),
+                Self::DeletingCompute => write!(f, "deletingCompute"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Lost => write!(f, "lost"),
+                Self::ReimagingCompute => write!(f, "reimagingCompute"),
+                Self::RestartingAgent => write!(f, "restartingAgent"),
+                Self::FailedToStartPendingDelete => write!(f, "failedToStartPendingDelete"),
+                Self::FailedToRestartPendingDelete => write!(f, "failedToRestartPendingDelete"),
+                Self::FailedVmPendingDelete => write!(f, "failedVMPendingDelete"),
+                Self::AssignedPendingDelete => write!(f, "assignedPendingDelete"),
+                Self::RetryDelete => write!(f, "retryDelete"),
+                Self::UnhealthyVm => write!(f, "unhealthyVm"),
+                Self::UnhealthyVmPendingDelete => write!(f, "unhealthyVmPendingDelete"),
+            }
+        }
+    }
     #[doc = "State of the ElasticNode"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -1298,6 +1359,34 @@ pub mod elastic_node {
         UnhealthyVm,
         #[serde(rename = "unhealthyVmPendingDelete")]
         UnhealthyVmPendingDelete,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::New => write!(f, "new"),
+                Self::CreatingCompute => write!(f, "creatingCompute"),
+                Self::StartingAgent => write!(f, "startingAgent"),
+                Self::Idle => write!(f, "idle"),
+                Self::Assigned => write!(f, "assigned"),
+                Self::Offline => write!(f, "offline"),
+                Self::PendingReimage => write!(f, "pendingReimage"),
+                Self::PendingDelete => write!(f, "pendingDelete"),
+                Self::Saved => write!(f, "saved"),
+                Self::DeletingCompute => write!(f, "deletingCompute"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Lost => write!(f, "lost"),
+                Self::ReimagingCompute => write!(f, "reimagingCompute"),
+                Self::RestartingAgent => write!(f, "restartingAgent"),
+                Self::FailedToStartPendingDelete => write!(f, "failedToStartPendingDelete"),
+                Self::FailedToRestartPendingDelete => write!(f, "failedToRestartPendingDelete"),
+                Self::FailedVmPendingDelete => write!(f, "failedVMPendingDelete"),
+                Self::AssignedPendingDelete => write!(f, "assignedPendingDelete"),
+                Self::RetryDelete => write!(f, "retryDelete"),
+                Self::UnhealthyVm => write!(f, "unhealthyVm"),
+                Self::UnhealthyVmPendingDelete => write!(f, "unhealthyVmPendingDelete"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1377,6 +1466,34 @@ pub mod elastic_node_settings {
         UnhealthyVm,
         #[serde(rename = "unhealthyVmPendingDelete")]
         UnhealthyVmPendingDelete,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::New => write!(f, "new"),
+                Self::CreatingCompute => write!(f, "creatingCompute"),
+                Self::StartingAgent => write!(f, "startingAgent"),
+                Self::Idle => write!(f, "idle"),
+                Self::Assigned => write!(f, "assigned"),
+                Self::Offline => write!(f, "offline"),
+                Self::PendingReimage => write!(f, "pendingReimage"),
+                Self::PendingDelete => write!(f, "pendingDelete"),
+                Self::Saved => write!(f, "saved"),
+                Self::DeletingCompute => write!(f, "deletingCompute"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Lost => write!(f, "lost"),
+                Self::ReimagingCompute => write!(f, "reimagingCompute"),
+                Self::RestartingAgent => write!(f, "restartingAgent"),
+                Self::FailedToStartPendingDelete => write!(f, "failedToStartPendingDelete"),
+                Self::FailedToRestartPendingDelete => write!(f, "failedToRestartPendingDelete"),
+                Self::FailedVmPendingDelete => write!(f, "failedVMPendingDelete"),
+                Self::AssignedPendingDelete => write!(f, "assignedPendingDelete"),
+                Self::RetryDelete => write!(f, "retryDelete"),
+                Self::UnhealthyVm => write!(f, "unhealthyVm"),
+                Self::UnhealthyVmPendingDelete => write!(f, "unhealthyVmPendingDelete"),
+            }
+        }
     }
 }
 #[doc = "Data and settings for an elastic pool"]
@@ -1495,6 +1612,14 @@ pub mod elastic_pool {
         #[serde(rename = "flexible")]
         Flexible,
     }
+    impl std::fmt::Display for OrchestrationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Uniform => write!(f, "uniform"),
+                Self::Flexible => write!(f, "flexible"),
+            }
+        }
+    }
     #[doc = "Operating system type of the nodes in the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OsType {
@@ -1502,6 +1627,14 @@ pub mod elastic_pool {
         Windows,
         #[serde(rename = "linux")]
         Linux,
+    }
+    impl std::fmt::Display for OsType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Windows => write!(f, "windows"),
+                Self::Linux => write!(f, "linux"),
+            }
+        }
     }
     #[doc = "State of the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1514,6 +1647,16 @@ pub mod elastic_pool {
         Unhealthy,
         #[serde(rename = "new")]
         New,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Online => write!(f, "online"),
+                Self::Offline => write!(f, "offline"),
+                Self::Unhealthy => write!(f, "unhealthy"),
+                Self::New => write!(f, "new"),
+            }
+        }
     }
 }
 #[doc = "Returned result from creating a new elastic pool"]
@@ -1601,6 +1744,15 @@ pub mod elastic_pool_log {
         #[serde(rename = "info")]
         Info,
     }
+    impl std::fmt::Display for Level {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Error => write!(f, "error"),
+                Self::Warning => write!(f, "warning"),
+                Self::Info => write!(f, "info"),
+            }
+        }
+    }
     #[doc = "Operation that triggered the message being logged"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Operation {
@@ -1614,6 +1766,17 @@ pub mod elastic_pool_log {
         Reimage,
         #[serde(rename = "deleteVMs")]
         DeleteVMs,
+    }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ConfigurationJob => write!(f, "configurationJob"),
+                Self::SizingJob => write!(f, "sizingJob"),
+                Self::IncreaseCapacity => write!(f, "increaseCapacity"),
+                Self::Reimage => write!(f, "reimage"),
+                Self::DeleteVMs => write!(f, "deleteVMs"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1720,6 +1883,14 @@ pub mod elastic_pool_settings {
         #[serde(rename = "flexible")]
         Flexible,
     }
+    impl std::fmt::Display for OrchestrationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Uniform => write!(f, "uniform"),
+                Self::Flexible => write!(f, "flexible"),
+            }
+        }
+    }
     #[doc = "Operating system type of the machines in the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OsType {
@@ -1727,6 +1898,14 @@ pub mod elastic_pool_settings {
         Windows,
         #[serde(rename = "linux")]
         Linux,
+    }
+    impl std::fmt::Display for OsType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Windows => write!(f, "windows"),
+                Self::Linux => write!(f, "linux"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1903,6 +2082,18 @@ pub mod environment_deployment_execution_record {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentDeploymentExecutionRecordList {
@@ -2077,6 +2268,16 @@ pub mod environment_resource {
         #[serde(rename = "kubernetes")]
         Kubernetes,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Generic => write!(f, "generic"),
+                Self::VirtualMachine => write!(f, "virtualMachine"),
+                Self::Kubernetes => write!(f, "kubernetes"),
+            }
+        }
+    }
 }
 #[doc = "EnvironmentResourceDeploymentExecutionRecord."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2141,6 +2342,18 @@ pub mod environment_resource_deployment_execution_record {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[doc = "EnvironmentResourceReference."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2180,6 +2393,16 @@ pub mod environment_resource_reference {
         VirtualMachine,
         #[serde(rename = "kubernetes")]
         Kubernetes,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Generic => write!(f, "generic"),
+                Self::VirtualMachine => write!(f, "virtualMachine"),
+                Self::Kubernetes => write!(f, "kubernetes"),
+            }
+        }
     }
 }
 #[doc = "Properties to update Environment."]
@@ -2408,6 +2631,19 @@ pub mod input_descriptor {
         #[serde(rename = "textArea")]
         TextArea,
     }
+    impl std::fmt::Display for InputMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TextBox => write!(f, "textBox"),
+                Self::PasswordBox => write!(f, "passwordBox"),
+                Self::Combo => write!(f, "combo"),
+                Self::RadioButtons => write!(f, "radioButtons"),
+                Self::CheckBox => write!(f, "checkBox"),
+                Self::TextArea => write!(f, "textArea"),
+            }
+        }
+    }
 }
 #[doc = "Describes what values are valid for a subscription input"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2467,6 +2703,18 @@ pub mod input_validation {
         Guid,
         #[serde(rename = "uri")]
         Uri,
+    }
+    impl std::fmt::Display for DataType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::String => write!(f, "string"),
+                Self::Number => write!(f, "number"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Guid => write!(f, "guid"),
+                Self::Uri => write!(f, "uri"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2607,6 +2855,14 @@ pub mod issue {
         #[serde(rename = "warning")]
         Warning,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Error => write!(f, "error"),
+                Self::Warning => write!(f, "warning"),
+            }
+        }
+    }
 }
 #[doc = "Represents a JSON object."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2742,6 +2998,18 @@ pub mod job_completed_event {
         Skipped,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[doc = "Represents the context of variables and vectors for a job request."]
@@ -3077,6 +3345,14 @@ pub mod mask_hint {
         Variable,
         #[serde(rename = "regex")]
         Regex,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Variable => write!(f, "variable"),
+                Self::Regex => write!(f, "regex"),
+            }
+        }
     }
 }
 #[doc = "Meta data for a metrics column."]
@@ -3528,6 +3804,14 @@ pub mod resource_lock_request {
         #[serde(rename = "sequential")]
         Sequential,
     }
+    impl std::fmt::Display for LockType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::RunLatest => write!(f, "runLatest"),
+                Self::Sequential => write!(f, "sequential"),
+            }
+        }
+    }
     #[doc = "The result of this request."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -3545,6 +3829,19 @@ pub mod resource_lock_request {
         Abandoned,
         #[serde(rename = "waitingOnChecks")]
         WaitingOnChecks,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::InUse => write!(f, "inUse"),
+                Self::Finished => write!(f, "finished"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Abandoned => write!(f, "abandoned"),
+                Self::WaitingOnChecks => write!(f, "waitingOnChecks"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3914,6 +4211,18 @@ pub mod service_endpoint_execution_data {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointExecutionRecord {
@@ -4098,6 +4407,59 @@ pub mod service_endpoint_request_result {
         GatewayTimeout,
         #[serde(rename = "httpVersionNotSupported")]
         HttpVersionNotSupported,
+    }
+    impl std::fmt::Display for StatusCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Continue => write!(f, "continue"),
+                Self::SwitchingProtocols => write!(f, "switchingProtocols"),
+                Self::Ok => write!(f, "ok"),
+                Self::Created => write!(f, "created"),
+                Self::Accepted => write!(f, "accepted"),
+                Self::NonAuthoritativeInformation => write!(f, "nonAuthoritativeInformation"),
+                Self::NoContent => write!(f, "noContent"),
+                Self::ResetContent => write!(f, "resetContent"),
+                Self::PartialContent => write!(f, "partialContent"),
+                Self::MultipleChoices => write!(f, "multipleChoices"),
+                Self::Ambiguous => write!(f, "ambiguous"),
+                Self::MovedPermanently => write!(f, "movedPermanently"),
+                Self::Moved => write!(f, "moved"),
+                Self::Found => write!(f, "found"),
+                Self::Redirect => write!(f, "redirect"),
+                Self::SeeOther => write!(f, "seeOther"),
+                Self::RedirectMethod => write!(f, "redirectMethod"),
+                Self::NotModified => write!(f, "notModified"),
+                Self::UseProxy => write!(f, "useProxy"),
+                Self::Unused => write!(f, "unused"),
+                Self::TemporaryRedirect => write!(f, "temporaryRedirect"),
+                Self::RedirectKeepVerb => write!(f, "redirectKeepVerb"),
+                Self::BadRequest => write!(f, "badRequest"),
+                Self::Unauthorized => write!(f, "unauthorized"),
+                Self::PaymentRequired => write!(f, "paymentRequired"),
+                Self::Forbidden => write!(f, "forbidden"),
+                Self::NotFound => write!(f, "notFound"),
+                Self::MethodNotAllowed => write!(f, "methodNotAllowed"),
+                Self::NotAcceptable => write!(f, "notAcceptable"),
+                Self::ProxyAuthenticationRequired => write!(f, "proxyAuthenticationRequired"),
+                Self::RequestTimeout => write!(f, "requestTimeout"),
+                Self::Conflict => write!(f, "conflict"),
+                Self::Gone => write!(f, "gone"),
+                Self::LengthRequired => write!(f, "lengthRequired"),
+                Self::PreconditionFailed => write!(f, "preconditionFailed"),
+                Self::RequestEntityTooLarge => write!(f, "requestEntityTooLarge"),
+                Self::RequestUriTooLong => write!(f, "requestUriTooLong"),
+                Self::UnsupportedMediaType => write!(f, "unsupportedMediaType"),
+                Self::RequestedRangeNotSatisfiable => write!(f, "requestedRangeNotSatisfiable"),
+                Self::ExpectationFailed => write!(f, "expectationFailed"),
+                Self::UpgradeRequired => write!(f, "upgradeRequired"),
+                Self::InternalServerError => write!(f, "internalServerError"),
+                Self::NotImplemented => write!(f, "notImplemented"),
+                Self::BadGateway => write!(f, "badGateway"),
+                Self::ServiceUnavailable => write!(f, "serviceUnavailable"),
+                Self::GatewayTimeout => write!(f, "gatewayTimeout"),
+                Self::HttpVersionNotSupported => write!(f, "httpVersionNotSupported"),
+            }
+        }
     }
 }
 #[doc = "Represents type of the service endpoint."]
@@ -4702,6 +5064,18 @@ pub mod task_agent_job_request {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobStep {
@@ -4753,6 +5127,14 @@ pub mod task_agent_job_step {
         Task,
         #[serde(rename = "action")]
         Action,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Task => write!(f, "task"),
+                Self::Action => write!(f, "action"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5082,6 +5464,15 @@ pub mod task_agent_pool_maintenance_job {
         #[serde(rename = "canceled")]
         Canceled,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
+    }
     #[doc = "Status of the maintenance job"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -5093,6 +5484,16 @@ pub mod task_agent_pool_maintenance_job {
         Cancelling,
         #[serde(rename = "queued")]
         Queued,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::Queued => write!(f, "queued"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5123,6 +5524,15 @@ pub mod task_agent_pool_maintenance_job_target_agent {
         #[serde(rename = "canceled")]
         Canceled,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
         #[serde(rename = "inProgress")]
@@ -5133,6 +5543,16 @@ pub mod task_agent_pool_maintenance_job_target_agent {
         Cancelling,
         #[serde(rename = "queued")]
         Queued,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::Queued => write!(f, "queued"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5232,6 +5652,21 @@ pub mod task_agent_pool_maintenance_schedule {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for DaysToBuild {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Monday => write!(f, "monday"),
+                Self::Tuesday => write!(f, "tuesday"),
+                Self::Wednesday => write!(f, "wednesday"),
+                Self::Thursday => write!(f, "thursday"),
+                Self::Friday => write!(f, "friday"),
+                Self::Saturday => write!(f, "saturday"),
+                Self::Sunday => write!(f, "sunday"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPoolReference {
@@ -5276,6 +5711,16 @@ pub mod task_agent_pool_reference {
         #[serde(rename = "preserveAgentOnJobFailure")]
         PreserveAgentOnJobFailure,
     }
+    impl std::fmt::Display for Options {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ElasticPool => write!(f, "elasticPool"),
+                Self::SingleUseAgents => write!(f, "singleUseAgents"),
+                Self::PreserveAgentOnJobFailure => write!(f, "preserveAgentOnJobFailure"),
+            }
+        }
+    }
     #[doc = "Gets or sets the type of the pool"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum PoolType {
@@ -5283,6 +5728,14 @@ pub mod task_agent_pool_reference {
         Automation,
         #[serde(rename = "deployment")]
         Deployment,
+    }
+    impl std::fmt::Display for PoolType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Automation => write!(f, "automation"),
+                Self::Deployment => write!(f, "deployment"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5469,6 +5922,14 @@ pub mod task_agent_reference {
         #[serde(rename = "online")]
         Online,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Offline => write!(f, "offline"),
+                Self::Online => write!(f, "online"),
+            }
+        }
+    }
 }
 #[doc = "Represents a session for performing message exchanges from an agent."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5585,6 +6046,15 @@ pub mod task_agent_update_reason {
         #[serde(rename = "downgrade")]
         Downgrade,
     }
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Manual => write!(f, "manual"),
+                Self::MinAgentVersionRequired => write!(f, "minAgentVersionRequired"),
+                Self::Downgrade => write!(f, "downgrade"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAssignedEvent {
@@ -5658,6 +6128,14 @@ pub mod task_command_restrictions {
         #[serde(rename = "restricted")]
         Restricted,
     }
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Any => write!(f, "any"),
+                Self::Restricted => write!(f, "restricted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskCompletedEvent {
@@ -5696,6 +6174,18 @@ pub mod task_completed_event {
         Skipped,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6254,6 +6744,16 @@ pub mod task_group_revision {
         #[serde(rename = "undelete")]
         Undelete,
     }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Update => write!(f, "update"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+            }
+        }
+    }
 }
 #[doc = "Represents tasks in the task group."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6731,6 +7231,14 @@ pub mod task_orchestration_item {
         #[serde(rename = "job")]
         Job,
     }
+    impl std::fmt::Display for ItemType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Container => write!(f, "container"),
+                Self::Job => write!(f, "job"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskOrchestrationJob {
@@ -6879,6 +7387,18 @@ pub mod task_orchestration_plan {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
         #[serde(rename = "inProgress")]
@@ -6889,6 +7409,16 @@ pub mod task_orchestration_plan {
         Completed,
         #[serde(rename = "throttled")]
         Throttled,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Queued => write!(f, "queued"),
+                Self::Completed => write!(f, "completed"),
+                Self::Throttled => write!(f, "throttled"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6932,6 +7462,15 @@ pub mod task_orchestration_plan_groups_queue_metrics {
         Queued,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Running => write!(f, "running"),
+                Self::Queued => write!(f, "queued"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -7402,6 +7941,18 @@ pub mod timeline_record {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
     #[doc = "The state of the record."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -7411,6 +7962,15 @@ pub mod timeline_record {
         InProgress,
         #[serde(rename = "completed")]
         Completed,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Pending => write!(f, "pending"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

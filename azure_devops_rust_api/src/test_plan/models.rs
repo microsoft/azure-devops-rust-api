@@ -78,6 +78,16 @@ pub mod clone_operation_common_response {
         #[serde(rename = "succeeded")]
         Succeeded,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Failed => write!(f, "failed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Queued => write!(f, "queued"),
+                Self::Succeeded => write!(f, "succeeded"),
+            }
+        }
+    }
 }
 #[doc = "Clone options for cloning the test suite."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -682,6 +692,14 @@ pub mod library_work_items_data {
         #[serde(rename = "error")]
         Error,
     }
+    impl std::fmt::Display for ReturnCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Success => write!(f, "success"),
+                Self::Error => write!(f, "error"),
+            }
+        }
+    }
 }
 #[doc = "This is the request data contract for LibraryTestCaseDataProvider."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -763,6 +781,23 @@ pub mod library_work_items_data_provider_request {
         AllSharedSteps,
         #[serde(rename = "sharedStepsNotLinkedToRequirement")]
         SharedStepsNotLinkedToRequirement,
+    }
+    impl std::fmt::Display for LibraryQueryType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::AllTestCases => write!(f, "allTestCases"),
+                Self::TestCasesWithActiveBugs => write!(f, "testCasesWithActiveBugs"),
+                Self::TestCasesNotLinkedToRequirements => {
+                    write!(f, "testCasesNotLinkedToRequirements")
+                }
+                Self::TestCasesLinkedToRequirements => write!(f, "testCasesLinkedToRequirements"),
+                Self::AllSharedSteps => write!(f, "allSharedSteps"),
+                Self::SharedStepsNotLinkedToRequirement => {
+                    write!(f, "sharedStepsNotLinkedToRequirement")
+                }
+            }
+        }
     }
 }
 #[doc = "Name value pair"]
@@ -887,6 +922,28 @@ pub mod results {
         NotImpacted,
         #[serde(rename = "maxValue")]
         MaxValue,
+    }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
     }
 }
 #[doc = "Source Test Plan information for Test Plan clone operation"]
@@ -1031,6 +1088,14 @@ pub mod suite_entry_update_params {
         #[serde(rename = "suite")]
         Suite,
     }
+    impl std::fmt::Display for SuiteEntryType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::TestCase => write!(f, "testCase"),
+                Self::Suite => write!(f, "suite"),
+            }
+        }
+    }
 }
 #[doc = "Create and Update Suite Test Case Parameters"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1129,6 +1194,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -1140,6 +1218,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[doc = "Test Case Class"]
@@ -1251,6 +1339,29 @@ pub mod test_case_associated_result {
         Unspecified,
         #[serde(rename = "maxValue")]
         MaxValue,
+    }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::Failed => write!(f, "failed"),
+                Self::Passed => write!(f, "passed"),
+                Self::Ready => write!(f, "ready"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::None => write!(f, "none"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1376,6 +1487,14 @@ pub mod test_configuration_create_update_parameters {
         Active,
         #[serde(rename = "inactive")]
         Inactive,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Inactive => write!(f, "inactive"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1822,6 +1941,14 @@ pub mod test_plans_library_work_item_filter {
         #[serde(rename = "and")]
         And,
     }
+    impl std::fmt::Display for FilterMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Or => write!(f, "or"),
+                Self::And => write!(f, "and"),
+            }
+        }
+    }
 }
 #[doc = "Test Point Class"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2018,6 +2145,19 @@ pub mod test_point_results {
         #[serde(rename = "maxValue")]
         MaxValue,
     }
+    impl std::fmt::Display for FailureType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Regression => write!(f, "regression"),
+                Self::NewIssue => write!(f, "new_Issue"),
+                Self::KnownIssue => write!(f, "known_Issue"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::NullValue => write!(f, "null_Value"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
+    }
     #[doc = "Last Resolution State Id for the Test Point"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum LastResolutionState {
@@ -2036,6 +2176,19 @@ pub mod test_point_results {
         #[serde(rename = "maxValue")]
         MaxValue,
     }
+    impl std::fmt::Display for LastResolutionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::NeedsInvestigation => write!(f, "needsInvestigation"),
+                Self::TestIssue => write!(f, "testIssue"),
+                Self::ProductIssue => write!(f, "productIssue"),
+                Self::ConfigurationIssue => write!(f, "configurationIssue"),
+                Self::NullValue => write!(f, "nullValue"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
+    }
     #[doc = "Last Result State of the Test Point"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum LastResultState {
@@ -2053,6 +2206,19 @@ pub mod test_point_results {
         Completed,
         #[serde(rename = "maxValue")]
         MaxValue,
+    }
+    impl std::fmt::Display for LastResultState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::Pending => write!(f, "pending"),
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Paused => write!(f, "paused"),
+                Self::Completed => write!(f, "completed"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
     }
     #[doc = "Outcome of the Test Point"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -2090,6 +2256,28 @@ pub mod test_point_results {
         #[serde(rename = "maxValue")]
         MaxValue,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
+    }
     #[doc = "State of the Test Point"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -2105,6 +2293,18 @@ pub mod test_point_results {
         InProgress,
         #[serde(rename = "maxValue")]
         MaxValue,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Ready => write!(f, "ready"),
+                Self::Completed => write!(f, "completed"),
+                Self::NotReady => write!(f, "notReady"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::MaxValue => write!(f, "maxValue"),
+            }
+        }
     }
 }
 #[doc = "Test Point Update Parameters"]
@@ -2272,6 +2472,16 @@ pub mod test_suite_create_params {
         StaticTestSuite,
         #[serde(rename = "requirementTestSuite")]
         RequirementTestSuite,
+    }
+    impl std::fmt::Display for SuiteType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::DynamicTestSuite => write!(f, "dynamicTestSuite"),
+                Self::StaticTestSuite => write!(f, "staticTestSuite"),
+                Self::RequirementTestSuite => write!(f, "requirementTestSuite"),
+            }
+        }
     }
 }
 #[doc = "Test Suite Create/Update Common Parameters"]

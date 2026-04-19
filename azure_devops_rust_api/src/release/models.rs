@@ -60,6 +60,23 @@ pub mod agent_artifact_definition {
         #[serde(rename = "tfvc")]
         Tfvc,
     }
+    impl std::fmt::Display for ArtifactType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::XamlBuild => write!(f, "xamlBuild"),
+                Self::Build => write!(f, "build"),
+                Self::Jenkins => write!(f, "jenkins"),
+                Self::FileShare => write!(f, "fileShare"),
+                Self::Nuget => write!(f, "nuget"),
+                Self::TfsOnPrem => write!(f, "tfsOnPrem"),
+                Self::GitHub => write!(f, "gitHub"),
+                Self::TfGit => write!(f, "tfGit"),
+                Self::ExternalTfsBuild => write!(f, "externalTfsBuild"),
+                Self::Custom => write!(f, "custom"),
+                Self::Tfvc => write!(f, "tfvc"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AgentBasedDeployPhase {
@@ -190,6 +207,15 @@ pub mod approval_options {
         AfterSuccessfulGates,
         #[serde(rename = "afterGatesAlways")]
         AfterGatesAlways,
+    }
+    impl std::fmt::Display for ExecutionOrder {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::BeforeGates => write!(f, "beforeGates"),
+                Self::AfterSuccessfulGates => write!(f, "afterSuccessfulGates"),
+                Self::AfterGatesAlways => write!(f, "afterGatesAlways"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -750,6 +776,15 @@ pub mod auto_trigger_issue {
         #[serde(rename = "system")]
         System,
     }
+    impl std::fmt::Display for IssueSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::User => write!(f, "user"),
+                Self::System => write!(f, "system"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ReleaseTriggerType {
         #[serde(rename = "undefined")]
@@ -766,6 +801,19 @@ pub mod auto_trigger_issue {
         Package,
         #[serde(rename = "pullRequest")]
         PullRequest,
+    }
+    impl std::fmt::Display for ReleaseTriggerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::ArtifactSource => write!(f, "artifactSource"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::SourceRepo => write!(f, "sourceRepo"),
+                Self::ContainerImage => write!(f, "containerImage"),
+                Self::Package => write!(f, "package"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1016,6 +1064,15 @@ pub mod code_repository_reference {
         #[serde(rename = "gitHub")]
         GitHub,
     }
+    impl std::fmt::Display for SystemType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TfsGit => write!(f, "tfsGit"),
+                Self::GitHub => write!(f, "gitHub"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ComplianceSettings {
@@ -1066,6 +1123,16 @@ pub mod condition {
         EnvironmentState,
         #[serde(rename = "artifact")]
         Artifact,
+    }
+    impl std::fmt::Display for ConditionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Event => write!(f, "event"),
+                Self::EnvironmentState => write!(f, "environmentState"),
+                Self::Artifact => write!(f, "artifact"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1460,6 +1527,17 @@ pub mod deploy_phase {
         #[serde(rename = "deploymentGates")]
         DeploymentGates,
     }
+    impl std::fmt::Display for PhaseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::AgentBasedDeployment => write!(f, "agentBasedDeployment"),
+                Self::RunOnServer => write!(f, "runOnServer"),
+                Self::MachineGroupBasedDeployment => write!(f, "machineGroupBasedDeployment"),
+                Self::DeploymentGates => write!(f, "deploymentGates"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Deployment {
@@ -1620,6 +1698,19 @@ pub mod deployment {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for DeploymentStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotDeployed => write!(f, "notDeployed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "Gets operation status of deployment."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationStatus {
@@ -1644,6 +1735,32 @@ pub mod deployment {
         GateFailed,
         All,
     }
+    impl std::fmt::Display for OperationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "Undefined"),
+                Self::Queued => write!(f, "Queued"),
+                Self::Scheduled => write!(f, "Scheduled"),
+                Self::Pending => write!(f, "Pending"),
+                Self::Approved => write!(f, "Approved"),
+                Self::Rejected => write!(f, "Rejected"),
+                Self::Deferred => write!(f, "Deferred"),
+                Self::QueuedForAgent => write!(f, "QueuedForAgent"),
+                Self::PhaseInProgress => write!(f, "PhaseInProgress"),
+                Self::PhaseSucceeded => write!(f, "PhaseSucceeded"),
+                Self::PhasePartiallySucceeded => write!(f, "PhasePartiallySucceeded"),
+                Self::PhaseFailed => write!(f, "PhaseFailed"),
+                Self::Canceled => write!(f, "Canceled"),
+                Self::PhaseCanceled => write!(f, "PhaseCanceled"),
+                Self::ManualInterventionPending => write!(f, "ManualInterventionPending"),
+                Self::QueuedForPipeline => write!(f, "QueuedForPipeline"),
+                Self::Cancelling => write!(f, "Cancelling"),
+                Self::EvaluatingGates => write!(f, "EvaluatingGates"),
+                Self::GateFailed => write!(f, "GateFailed"),
+                Self::All => write!(f, "All"),
+            }
+        }
+    }
     #[doc = "Gets reason of deployment."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Reason {
@@ -1657,6 +1774,17 @@ pub mod deployment {
         Scheduled,
         #[serde(rename = "redeployTrigger")]
         RedeployTrigger,
+    }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::Automated => write!(f, "automated"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::RedeployTrigger => write!(f, "redeployTrigger"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1849,6 +1977,32 @@ pub mod deployment_attempt {
         GateFailed,
         All,
     }
+    impl std::fmt::Display for OperationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "Undefined"),
+                Self::Queued => write!(f, "Queued"),
+                Self::Scheduled => write!(f, "Scheduled"),
+                Self::Pending => write!(f, "Pending"),
+                Self::Approved => write!(f, "Approved"),
+                Self::Rejected => write!(f, "Rejected"),
+                Self::Deferred => write!(f, "Deferred"),
+                Self::QueuedForAgent => write!(f, "QueuedForAgent"),
+                Self::PhaseInProgress => write!(f, "PhaseInProgress"),
+                Self::PhaseSucceeded => write!(f, "PhaseSucceeded"),
+                Self::PhasePartiallySucceeded => write!(f, "PhasePartiallySucceeded"),
+                Self::PhaseFailed => write!(f, "PhaseFailed"),
+                Self::Canceled => write!(f, "Canceled"),
+                Self::PhaseCanceled => write!(f, "PhaseCanceled"),
+                Self::ManualInterventionPending => write!(f, "ManualInterventionPending"),
+                Self::QueuedForPipeline => write!(f, "QueuedForPipeline"),
+                Self::Cancelling => write!(f, "Cancelling"),
+                Self::EvaluatingGates => write!(f, "EvaluatingGates"),
+                Self::GateFailed => write!(f, "GateFailed"),
+                Self::All => write!(f, "All"),
+            }
+        }
+    }
     #[doc = "Reason for the deployment."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Reason {
@@ -1862,6 +2016,17 @@ pub mod deployment_attempt {
         Scheduled,
         #[serde(rename = "redeployTrigger")]
         RedeployTrigger,
+    }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::Automated => write!(f, "automated"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::RedeployTrigger => write!(f, "redeployTrigger"),
+            }
+        }
     }
     #[doc = "status of the deployment."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1880,6 +2045,19 @@ pub mod deployment_attempt {
         Failed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotDeployed => write!(f, "notDeployed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1923,6 +2101,14 @@ pub mod deployment_authorization_info {
         RevalidateApproverIdentity,
         #[serde(rename = "onBehalfOf")]
         OnBehalfOf,
+    }
+    impl std::fmt::Display for AuthorizationHeaderFor {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::RevalidateApproverIdentity => write!(f, "revalidateApproverIdentity"),
+                Self::OnBehalfOf => write!(f, "onBehalfOf"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2161,6 +2347,19 @@ pub mod deployment_query_parameters {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for DeploymentStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotDeployed => write!(f, "notDeployed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "Query deployments based specified expands."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Expands {
@@ -2172,6 +2371,16 @@ pub mod deployment_query_parameters {
         Approvals,
         #[serde(rename = "artifacts")]
         Artifacts,
+    }
+    impl std::fmt::Display for Expands {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::All => write!(f, "all"),
+                Self::DeploymentOnly => write!(f, "deploymentOnly"),
+                Self::Approvals => write!(f, "approvals"),
+                Self::Artifacts => write!(f, "artifacts"),
+            }
+        }
     }
     #[doc = "Query deployment based on deployment operation status."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -2197,6 +2406,32 @@ pub mod deployment_query_parameters {
         GateFailed,
         All,
     }
+    impl std::fmt::Display for OperationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "Undefined"),
+                Self::Queued => write!(f, "Queued"),
+                Self::Scheduled => write!(f, "Scheduled"),
+                Self::Pending => write!(f, "Pending"),
+                Self::Approved => write!(f, "Approved"),
+                Self::Rejected => write!(f, "Rejected"),
+                Self::Deferred => write!(f, "Deferred"),
+                Self::QueuedForAgent => write!(f, "QueuedForAgent"),
+                Self::PhaseInProgress => write!(f, "PhaseInProgress"),
+                Self::PhaseSucceeded => write!(f, "PhaseSucceeded"),
+                Self::PhasePartiallySucceeded => write!(f, "PhasePartiallySucceeded"),
+                Self::PhaseFailed => write!(f, "PhaseFailed"),
+                Self::Canceled => write!(f, "Canceled"),
+                Self::PhaseCanceled => write!(f, "PhaseCanceled"),
+                Self::ManualInterventionPending => write!(f, "ManualInterventionPending"),
+                Self::QueuedForPipeline => write!(f, "QueuedForPipeline"),
+                Self::Cancelling => write!(f, "Cancelling"),
+                Self::EvaluatingGates => write!(f, "EvaluatingGates"),
+                Self::GateFailed => write!(f, "GateFailed"),
+                Self::All => write!(f, "All"),
+            }
+        }
+    }
     #[doc = "Query deployments based query type."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum QueryType {
@@ -2204,6 +2439,14 @@ pub mod deployment_query_parameters {
         Regular,
         #[serde(rename = "failingSince")]
         FailingSince,
+    }
+    impl std::fmt::Display for QueryType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Regular => write!(f, "regular"),
+                Self::FailingSince => write!(f, "failingSince"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2382,6 +2625,15 @@ pub mod environment_trigger {
         #[serde(rename = "rollbackRedeploy")]
         RollbackRedeploy,
     }
+    impl std::fmt::Display for TriggerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::DeploymentGroupRedeploy => write!(f, "deploymentGroupRedeploy"),
+                Self::RollbackRedeploy => write!(f, "rollbackRedeploy"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct EnvironmentTriggerContent {
@@ -2428,6 +2680,15 @@ pub mod execution_input {
         MultiConfiguration,
         #[serde(rename = "multiMachine")]
         MultiMachine,
+    }
+    impl std::fmt::Display for ParallelExecutionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::MultiConfiguration => write!(f, "multiConfiguration"),
+                Self::MultiMachine => write!(f, "multiMachine"),
+            }
+        }
     }
 }
 #[doc = "Class to represent favorite entry."]
@@ -2781,6 +3042,19 @@ pub mod input_descriptor {
         #[serde(rename = "textArea")]
         TextArea,
     }
+    impl std::fmt::Display for InputMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TextBox => write!(f, "textBox"),
+                Self::PasswordBox => write!(f, "passwordBox"),
+                Self::Combo => write!(f, "combo"),
+                Self::RadioButtons => write!(f, "radioButtons"),
+                Self::CheckBox => write!(f, "checkBox"),
+                Self::TextArea => write!(f, "textArea"),
+            }
+        }
+    }
 }
 #[doc = "Describes what values are valid for a subscription input"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2840,6 +3114,18 @@ pub mod input_validation {
         Guid,
         #[serde(rename = "uri")]
         Uri,
+    }
+    impl std::fmt::Display for DataType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::String => write!(f, "string"),
+                Self::Number => write!(f, "number"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Guid => write!(f, "guid"),
+                Self::Uri => write!(f, "uri"),
+            }
+        }
     }
 }
 #[doc = "Information about a single value for an input"]
@@ -3084,6 +3370,14 @@ pub mod mail_message {
         #[serde(rename = "requestingUser")]
         RequestingUser,
     }
+    impl std::fmt::Display for SenderType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ServiceAccount => write!(f, "serviceAccount"),
+                Self::RequestingUser => write!(f, "requestingUser"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ManualIntervention {
@@ -3166,6 +3460,17 @@ pub mod manual_intervention {
         #[serde(rename = "canceled")]
         Canceled,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Pending => write!(f, "pending"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Approved => write!(f, "approved"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ManualInterventionList {
@@ -3212,6 +3517,17 @@ pub mod manual_intervention_update_metadata {
         Approved,
         #[serde(rename = "canceled")]
         Canceled,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Pending => write!(f, "pending"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Approved => write!(f, "approved"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3355,6 +3671,14 @@ pub mod pipeline_process {
         Designer,
         #[serde(rename = "yaml")]
         Yaml,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Designer => write!(f, "designer"),
+                Self::Yaml => write!(f, "yaml"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3509,6 +3833,14 @@ pub mod property_selector {
         Inclusion,
         #[serde(rename = "exclusion")]
         Exclusion,
+    }
+    impl std::fmt::Display for SelectorType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Inclusion => write!(f, "inclusion"),
+                Self::Exclusion => write!(f, "exclusion"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3825,6 +4157,17 @@ pub mod release {
         #[serde(rename = "pullRequest")]
         PullRequest,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
+    }
     #[doc = "Gets status."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -3836,6 +4179,16 @@ pub mod release {
         Active,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Draft => write!(f, "draft"),
+                Self::Active => write!(f, "active"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3954,6 +4307,16 @@ pub mod release_approval {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for ApprovalType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::PreDeploy => write!(f, "preDeploy"),
+                Self::PostDeploy => write!(f, "postDeploy"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "Gets or sets the status of the approval."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -3971,6 +4334,19 @@ pub mod release_approval {
         Canceled,
         #[serde(rename = "skipped")]
         Skipped,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Reassigned => write!(f, "reassigned"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4298,6 +4674,17 @@ pub mod release_definition {
         Ibiza,
         #[serde(rename = "portalExtensionApi")]
         PortalExtensionApi,
+    }
+    impl std::fmt::Display for Source {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::RestApi => write!(f, "restApi"),
+                Self::UserInterface => write!(f, "userInterface"),
+                Self::Ibiza => write!(f, "ibiza"),
+                Self::PortalExtensionApi => write!(f, "portalExtensionApi"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4731,6 +5118,16 @@ pub mod release_definition_revision {
         #[serde(rename = "undelete")]
         Undelete,
     }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Update => write!(f, "update"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionRevisionList {
@@ -4885,6 +5282,17 @@ pub mod release_deploy_phase {
         #[serde(rename = "deploymentGates")]
         DeploymentGates,
     }
+    impl std::fmt::Display for PhaseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::AgentBasedDeployment => write!(f, "agentBasedDeployment"),
+                Self::RunOnServer => write!(f, "runOnServer"),
+                Self::MachineGroupBasedDeployment => write!(f, "machineGroupBasedDeployment"),
+                Self::DeploymentGates => write!(f, "deploymentGates"),
+            }
+        }
+    }
     #[doc = "Status of the phase."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -4906,6 +5314,21 @@ pub mod release_deploy_phase {
         Skipped,
         #[serde(rename = "cancelling")]
         Cancelling,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Cancelling => write!(f, "cancelling"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5117,6 +5540,21 @@ pub mod release_environment {
         #[serde(rename = "partiallySucceeded")]
         PartiallySucceeded,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Queued => write!(f, "queued"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentCompletedEvent {
@@ -5203,6 +5641,17 @@ pub mod release_environment_completed_event {
         #[serde(rename = "redeployTrigger")]
         RedeployTrigger,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::Automated => write!(f, "automated"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::RedeployTrigger => write!(f, "redeployTrigger"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentShallowReference {
@@ -5285,6 +5734,21 @@ pub mod release_environment_status_updated_event {
         #[serde(rename = "partiallySucceeded")]
         PartiallySucceeded,
     }
+    impl std::fmt::Display for EnvironmentStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Queued => write!(f, "queued"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum LatestDeploymentOperationStatus {
         #[serde(rename = "undefined")]
@@ -5328,6 +5792,32 @@ pub mod release_environment_status_updated_event {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for LatestDeploymentOperationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Queued => write!(f, "queued"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Deferred => write!(f, "deferred"),
+                Self::QueuedForAgent => write!(f, "queuedForAgent"),
+                Self::PhaseInProgress => write!(f, "phaseInProgress"),
+                Self::PhaseSucceeded => write!(f, "phaseSucceeded"),
+                Self::PhasePartiallySucceeded => write!(f, "phasePartiallySucceeded"),
+                Self::PhaseFailed => write!(f, "phaseFailed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::PhaseCanceled => write!(f, "phaseCanceled"),
+                Self::ManualInterventionPending => write!(f, "manualInterventionPending"),
+                Self::QueuedForPipeline => write!(f, "queuedForPipeline"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::EvaluatingGates => write!(f, "evaluatingGates"),
+                Self::GateFailed => write!(f, "gateFailed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum LatestDeploymentStatus {
         #[serde(rename = "undefined")]
@@ -5344,6 +5834,19 @@ pub mod release_environment_status_updated_event {
         Failed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for LatestDeploymentStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotDeployed => write!(f, "notDeployed"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5394,6 +5897,21 @@ pub mod release_environment_update_metadata {
         Scheduled,
         #[serde(rename = "partiallySucceeded")]
         PartiallySucceeded,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Queued => write!(f, "queued"),
+                Self::Scheduled => write!(f, "scheduled"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5490,6 +6008,18 @@ pub mod release_gates {
         Failed,
         #[serde(rename = "canceled")]
         Canceled,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Pending => write!(f, "pending"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5603,6 +6133,17 @@ pub mod release_not_created_event {
         #[serde(rename = "pullRequest")]
         PullRequest,
     }
+    impl std::fmt::Display for ReleaseReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseReference {
@@ -5671,6 +6212,17 @@ pub mod release_reference {
         Schedule,
         #[serde(rename = "pullRequest")]
         PullRequest,
+    }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5787,6 +6339,21 @@ pub mod release_schedule {
         Sunday,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for DaysToRelease {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Monday => write!(f, "monday"),
+                Self::Tuesday => write!(f, "tuesday"),
+                Self::Wednesday => write!(f, "wednesday"),
+                Self::Thursday => write!(f, "thursday"),
+                Self::Friday => write!(f, "friday"),
+                Self::Saturday => write!(f, "saturday"),
+                Self::Sunday => write!(f, "sunday"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5916,6 +6483,17 @@ pub mod release_start_metadata {
         #[serde(rename = "pullRequest")]
         PullRequest,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseTask {
@@ -6017,6 +6595,22 @@ pub mod release_task {
         Failed,
         #[serde(rename = "partiallySucceeded")]
         PartiallySucceeded,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Pending => write!(f, "pending"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Success => write!(f, "success"),
+                Self::Failure => write!(f, "failure"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6173,6 +6767,19 @@ pub mod release_trigger_base {
         #[serde(rename = "pullRequest")]
         PullRequest,
     }
+    impl std::fmt::Display for TriggerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::ArtifactSource => write!(f, "artifactSource"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::SourceRepo => write!(f, "sourceRepo"),
+                Self::ContainerImage => write!(f, "containerImage"),
+                Self::Package => write!(f, "package"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseUpdateMetadata {
@@ -6219,6 +6826,16 @@ pub mod release_update_metadata {
         Active,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Draft => write!(f, "draft"),
+                Self::Active => write!(f, "active"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6501,6 +7118,18 @@ pub mod summary_mail_section {
         WorkItems,
         #[serde(rename = "releaseInfo")]
         ReleaseInfo,
+    }
+    impl std::fmt::Display for SectionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Details => write!(f, "details"),
+                Self::Environments => write!(f, "environments"),
+                Self::Issues => write!(f, "issues"),
+                Self::TestResults => write!(f, "testResults"),
+                Self::WorkItems => write!(f, "workItems"),
+                Self::ReleaseInfo => write!(f, "releaseInfo"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6927,6 +7556,14 @@ pub mod yaml_file_source {
         None,
         #[serde(rename = "tfsGit")]
         TfsGit,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TfsGit => write!(f, "tfsGit"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

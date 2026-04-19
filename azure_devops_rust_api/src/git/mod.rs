@@ -2721,7 +2721,7 @@ pub mod items {
             pub(crate) path: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_content_metadata: Option<bool>,
             pub(crate) latest_processed_change: Option<bool>,
             pub(crate) download: Option<bool>,
@@ -2740,7 +2740,10 @@ pub mod items {
                 self
             }
             #[doc = "The recursion level of this request. The default is 'none', no recursion."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -2836,7 +2839,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_content_metadata) = &this.include_content_metadata {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -2973,7 +2976,7 @@ pub mod items {
             pub(crate) repository_id: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_content_metadata: Option<bool>,
             pub(crate) latest_processed_change: Option<bool>,
             pub(crate) download: Option<bool>,
@@ -2991,7 +2994,10 @@ pub mod items {
                 self
             }
             #[doc = "The recursion level of this request. The default is 'none', no recursion."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -3080,7 +3086,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_content_metadata) = &this.include_content_metadata {
                             req.url_mut().query_pairs_mut().append_pair(

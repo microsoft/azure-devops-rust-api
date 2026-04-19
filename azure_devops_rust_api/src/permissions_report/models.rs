@@ -64,6 +64,17 @@ pub mod permissions_report {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for ReportStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Created => write!(f, "created"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::CompletedWithErrors => write!(f, "completedWithErrors"),
+                Self::CompletedSuccessfully => write!(f, "completedSuccessfully"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PermissionsReportList {
@@ -156,6 +167,17 @@ pub mod permissions_report_resource {
         Release,
         #[serde(rename = "tfvc")]
         Tfvc,
+    }
+    impl std::fmt::Display for ResourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Repo => write!(f, "repo"),
+                Self::Ref => write!(f, "ref"),
+                Self::ProjectGit => write!(f, "projectGit"),
+                Self::Release => write!(f, "release"),
+                Self::Tfvc => write!(f, "tfvc"),
+            }
+        }
     }
 }
 #[doc = "The class to represent a collection of REST reference links."]

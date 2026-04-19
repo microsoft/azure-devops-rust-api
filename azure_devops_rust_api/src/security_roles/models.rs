@@ -132,6 +132,14 @@ pub mod role_assignment {
         #[serde(rename = "inherited")]
         Inherited,
     }
+    impl std::fmt::Display for Access {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Assigned => write!(f, "assigned"),
+                Self::Inherited => write!(f, "inherited"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RoleAssignmentList {

@@ -60,6 +60,17 @@ pub mod geography_with_health {
         #[serde(rename = "healthy")]
         Healthy,
     }
+    impl std::fmt::Display for Health {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Unhealthy => write!(f, "unhealthy"),
+                Self::Degraded => write!(f, "degraded"),
+                Self::Advisory => write!(f, "advisory"),
+                Self::Healthy => write!(f, "healthy"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct LiveSiteEvent {
@@ -129,12 +140,29 @@ pub mod live_site_event {
         #[serde(rename = "advisory")]
         Advisory,
     }
+    impl std::fmt::Display for Severity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unhealthy => write!(f, "unhealthy"),
+                Self::Degraded => write!(f, "degraded"),
+                Self::Advisory => write!(f, "advisory"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
         #[serde(rename = "active")]
         Active,
         #[serde(rename = "resolved")]
         Resolved,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Resolved => write!(f, "resolved"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -175,6 +203,14 @@ pub mod live_site_event_impact {
         Geography,
         #[serde(rename = "organization")]
         Organization,
+    }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Geography => write!(f, "geography"),
+                Self::Organization => write!(f, "organization"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -226,6 +262,14 @@ pub mod live_site_event_log {
         #[serde(rename = "organization")]
         Organization,
     }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Geography => write!(f, "geography"),
+                Self::Organization => write!(f, "organization"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Type {
         #[serde(rename = "event")]
@@ -234,6 +278,15 @@ pub mod live_site_event_log {
         Postmortem,
         #[serde(rename = "notification")]
         Notification,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Event => write!(f, "event"),
+                Self::Postmortem => write!(f, "postmortem"),
+                Self::Notification => write!(f, "notification"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -275,6 +328,14 @@ pub mod live_site_event_log_attachment {
         Geography,
         #[serde(rename = "organization")]
         Organization,
+    }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Geography => write!(f, "geography"),
+                Self::Organization => write!(f, "organization"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -413,6 +474,15 @@ pub mod service {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Hidden => write!(f, "hidden"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceHealth {
@@ -477,6 +547,17 @@ pub mod service_with_health {
         Advisory,
         #[serde(rename = "healthy")]
         Healthy,
+    }
+    impl std::fmt::Display for Health {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Unhealthy => write!(f, "unhealthy"),
+                Self::Degraded => write!(f, "degraded"),
+                Self::Advisory => write!(f, "advisory"),
+                Self::Healthy => write!(f, "healthy"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -544,6 +625,17 @@ pub mod status_summary {
         Advisory,
         #[serde(rename = "healthy")]
         Healthy,
+    }
+    impl std::fmt::Display for Health {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Unhealthy => write!(f, "unhealthy"),
+                Self::Degraded => write!(f, "degraded"),
+                Self::Advisory => write!(f, "advisory"),
+                Self::Healthy => write!(f, "healthy"),
+            }
+        }
     }
 }
 #[doc = "This class is used to serialize collections as a single JSON object on the wire."]

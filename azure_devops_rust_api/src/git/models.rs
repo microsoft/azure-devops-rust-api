@@ -423,6 +423,29 @@ pub mod change {
         #[serde(rename = "edit, rename")]
         EditRename,
     }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Add => write!(f, "add"),
+                Self::Edit => write!(f, "edit"),
+                Self::Encoding => write!(f, "encoding"),
+                Self::Rename => write!(f, "rename"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+                Self::Branch => write!(f, "branch"),
+                Self::Merge => write!(f, "merge"),
+                Self::Lock => write!(f, "lock"),
+                Self::Rollback => write!(f, "rollback"),
+                Self::SourceRename => write!(f, "sourceRename"),
+                Self::TargetRename => write!(f, "targetRename"),
+                Self::Property => write!(f, "property"),
+                Self::All => write!(f, "all"),
+                Self::DeleteSourceRename => write!(f, "delete, sourceRename"),
+                Self::EditRename => write!(f, "edit, rename"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ChangeCountDictionary {}
@@ -665,6 +688,16 @@ pub mod comment {
         #[serde(rename = "system")]
         System,
     }
+    impl std::fmt::Display for CommentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Text => write!(f, "text"),
+                Self::CodeChange => write!(f, "codeChange"),
+                Self::System => write!(f, "system"),
+            }
+        }
+    }
 }
 #[doc = "Comment iteration context is used to identify which diff was being viewed when the thread was created."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -794,6 +827,19 @@ pub mod comment_thread {
         ByDesign,
         #[serde(rename = "pending")]
         Pending,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Active => write!(f, "active"),
+                Self::Fixed => write!(f, "fixed"),
+                Self::WontFix => write!(f, "wontFix"),
+                Self::Closed => write!(f, "closed"),
+                Self::ByDesign => write!(f, "byDesign"),
+                Self::Pending => write!(f, "pending"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1088,6 +1134,17 @@ pub mod git_async_ref_operation {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[doc = "Information about the progress of a cherry pick or revert operation."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1151,6 +1208,23 @@ pub mod git_async_ref_operation_detail {
         Other,
         #[serde(rename = "emptyCommitterSignature")]
         EmptyCommitterSignature,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InvalidRefName => write!(f, "invalidRefName"),
+                Self::RefNameConflict => write!(f, "refNameConflict"),
+                Self::CreateBranchPermissionRequired => write!(f, "createBranchPermissionRequired"),
+                Self::WritePermissionRequired => write!(f, "writePermissionRequired"),
+                Self::TargetBranchDeleted => write!(f, "targetBranchDeleted"),
+                Self::GitObjectTooLarge => write!(f, "gitObjectTooLarge"),
+                Self::OperationIndentityNotFound => write!(f, "operationIndentityNotFound"),
+                Self::AsyncOperationNotFound => write!(f, "asyncOperationNotFound"),
+                Self::Other => write!(f, "other"),
+                Self::EmptyCommitterSignature => write!(f, "emptyCommitterSignature"),
+            }
+        }
     }
 }
 #[doc = "Parameters that are provided in the request body when requesting to cherry pick or revert."]
@@ -1248,6 +1322,15 @@ pub mod git_base_version_descriptor {
         #[serde(rename = "firstParent")]
         FirstParent,
     }
+    impl std::fmt::Display for BaseVersionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::PreviousChange => write!(f, "previousChange"),
+                Self::FirstParent => write!(f, "firstParent"),
+            }
+        }
+    }
     #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum BaseVersionType {
@@ -1257,6 +1340,15 @@ pub mod git_base_version_descriptor {
         Tag,
         #[serde(rename = "commit")]
         Commit,
+    }
+    impl std::fmt::Display for BaseVersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Tag => write!(f, "tag"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1700,6 +1792,27 @@ pub mod git_conflict {
         #[serde(rename = "renameRename")]
         RenameRename,
     }
+    impl std::fmt::Display for ConflictType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::AddAdd => write!(f, "addAdd"),
+                Self::AddRename => write!(f, "addRename"),
+                Self::DeleteEdit => write!(f, "deleteEdit"),
+                Self::DeleteRename => write!(f, "deleteRename"),
+                Self::DirectoryFile => write!(f, "directoryFile"),
+                Self::DirectoryChild => write!(f, "directoryChild"),
+                Self::EditDelete => write!(f, "editDelete"),
+                Self::EditEdit => write!(f, "editEdit"),
+                Self::FileDirectory => write!(f, "fileDirectory"),
+                Self::Rename1to2 => write!(f, "rename1to2"),
+                Self::Rename2to1 => write!(f, "rename2to1"),
+                Self::RenameAdd => write!(f, "renameAdd"),
+                Self::RenameDelete => write!(f, "renameDelete"),
+                Self::RenameRename => write!(f, "renameRename"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ResolutionError {
         #[serde(rename = "none")]
@@ -1717,6 +1830,19 @@ pub mod git_conflict {
         #[serde(rename = "otherError")]
         OtherError,
     }
+    impl std::fmt::Display for ResolutionError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::MergeContentNotFound => write!(f, "mergeContentNotFound"),
+                Self::PathInUse => write!(f, "pathInUse"),
+                Self::InvalidPath => write!(f, "invalidPath"),
+                Self::UnknownAction => write!(f, "unknownAction"),
+                Self::UnknownMergeType => write!(f, "unknownMergeType"),
+                Self::OtherError => write!(f, "otherError"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ResolutionStatus {
         #[serde(rename = "unresolved")]
@@ -1725,6 +1851,15 @@ pub mod git_conflict {
         PartiallyResolved,
         #[serde(rename = "resolved")]
         Resolved,
+    }
+    impl std::fmt::Display for ResolutionStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unresolved => write!(f, "unresolved"),
+                Self::PartiallyResolved => write!(f, "partiallyResolved"),
+                Self::Resolved => write!(f, "resolved"),
+            }
+        }
     }
 }
 #[doc = "Data object for AddAdd conflict"]
@@ -2163,6 +2298,17 @@ pub mod git_conflict_update_result {
         #[serde(rename = "notFound")]
         NotFound,
     }
+    impl std::fmt::Display for UpdateStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::BadRequest => write!(f, "badRequest"),
+                Self::InvalidResolution => write!(f, "invalidResolution"),
+                Self::UnsupportedConflictType => write!(f, "unsupportedConflictType"),
+                Self::NotFound => write!(f, "notFound"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitDeletedRepository {
@@ -2330,6 +2476,17 @@ pub mod git_fork_sync_request {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitForkSyncRequestList {
@@ -2466,6 +2623,17 @@ pub mod git_import_request {
         Failed,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2653,6 +2821,20 @@ pub mod git_item {
         #[serde(rename = "refDelta")]
         RefDelta,
     }
+    impl std::fmt::Display for GitObjectType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bad => write!(f, "bad"),
+                Self::Commit => write!(f, "commit"),
+                Self::Tree => write!(f, "tree"),
+                Self::Blob => write!(f, "blob"),
+                Self::Tag => write!(f, "tag"),
+                Self::Ext2 => write!(f, "ext2"),
+                Self::OfsDelta => write!(f, "ofsDelta"),
+                Self::RefDelta => write!(f, "refDelta"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitItemDescriptor {
@@ -2703,6 +2885,16 @@ pub mod git_item_descriptor {
         #[serde(rename = "full")]
         Full,
     }
+    impl std::fmt::Display for RecursionLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::OneLevel => write!(f, "oneLevel"),
+                Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+                Self::Full => write!(f, "full"),
+            }
+        }
+    }
     #[doc = "Version modifiers (e.g. previous)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionOptions {
@@ -2713,6 +2905,15 @@ pub mod git_item_descriptor {
         #[serde(rename = "firstParent")]
         FirstParent,
     }
+    impl std::fmt::Display for VersionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::PreviousChange => write!(f, "previousChange"),
+                Self::FirstParent => write!(f, "firstParent"),
+            }
+        }
+    }
     #[doc = "How to interpret version (branch,tag,commit)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionType {
@@ -2722,6 +2923,15 @@ pub mod git_item_descriptor {
         Tag,
         #[serde(rename = "commit")]
         Commit,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Tag => write!(f, "tag"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2884,6 +3094,17 @@ pub mod git_merge {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
 }
 #[doc = "Status information about a requested merge operation."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2990,6 +3211,20 @@ pub mod git_object {
         #[serde(rename = "refDelta")]
         RefDelta,
     }
+    impl std::fmt::Display for ObjectType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bad => write!(f, "bad"),
+                Self::Commit => write!(f, "commit"),
+                Self::Tree => write!(f, "tree"),
+                Self::Blob => write!(f, "blob"),
+                Self::Tag => write!(f, "tag"),
+                Self::Ext2 => write!(f, "ext2"),
+                Self::OfsDelta => write!(f, "ofsDelta"),
+                Self::RefDelta => write!(f, "refDelta"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPathAction {
@@ -3035,6 +3270,17 @@ pub mod git_path_action {
         Add,
         #[serde(rename = "rename")]
         Rename,
+    }
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Edit => write!(f, "edit"),
+                Self::Delete => write!(f, "delete"),
+                Self::Add => write!(f, "add"),
+                Self::Rename => write!(f, "rename"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3319,6 +3565,16 @@ pub mod git_pull_request {
         #[serde(rename = "objectTooLarge")]
         ObjectTooLarge,
     }
+    impl std::fmt::Display for MergeFailureType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::CaseSensitive => write!(f, "caseSensitive"),
+                Self::ObjectTooLarge => write!(f, "objectTooLarge"),
+            }
+        }
+    }
     #[doc = "The current status of the pull request merge."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum MergeStatus {
@@ -3335,6 +3591,18 @@ pub mod git_pull_request {
         #[serde(rename = "failure")]
         Failure,
     }
+    impl std::fmt::Display for MergeStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Queued => write!(f, "queued"),
+                Self::Conflicts => write!(f, "conflicts"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::RejectedByPolicy => write!(f, "rejectedByPolicy"),
+                Self::Failure => write!(f, "failure"),
+            }
+        }
+    }
     #[doc = "The status of the pull request."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -3348,6 +3616,17 @@ pub mod git_pull_request {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Active => write!(f, "active"),
+                Self::Abandoned => write!(f, "abandoned"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Change made in a pull request."]
@@ -3521,6 +3800,16 @@ pub mod git_pull_request_completion_options {
         Rebase,
         #[serde(rename = "rebaseMerge")]
         RebaseMerge,
+    }
+    impl std::fmt::Display for MergeStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NoFastForward => write!(f, "noFastForward"),
+                Self::Squash => write!(f, "squash"),
+                Self::Rebase => write!(f, "rebase"),
+                Self::RebaseMerge => write!(f, "rebaseMerge"),
+            }
+        }
     }
 }
 #[doc = "Pull Request create options"]
@@ -3711,6 +4000,19 @@ pub mod git_pull_request_iteration {
         #[serde(rename = "resolveConflicts")]
         ResolveConflicts,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Push => write!(f, "push"),
+                Self::ForcePush => write!(f, "forcePush"),
+                Self::Create => write!(f, "create"),
+                Self::Rebase => write!(f, "rebase"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::Retarget => write!(f, "retarget"),
+                Self::ResolveConflicts => write!(f, "resolveConflicts"),
+            }
+        }
+    }
 }
 #[doc = "Collection of changes made in a pull request."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3850,6 +4152,15 @@ pub mod git_pull_request_query_input {
         #[serde(rename = "commit")]
         Commit,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::LastMergeCommit => write!(f, "lastMergeCommit"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitPullRequestReviewFileContentInfo {
@@ -3958,6 +4269,14 @@ pub mod git_pull_request_search_criteria {
         #[serde(rename = "closed")]
         Closed,
     }
+    impl std::fmt::Display for QueryTimeRangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Created => write!(f, "created"),
+                Self::Closed => write!(f, "closed"),
+            }
+        }
+    }
     #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -3971,6 +4290,17 @@ pub mod git_pull_request_search_criteria {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Active => write!(f, "active"),
+                Self::Abandoned => write!(f, "abandoned"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "This class contains the metadata of a service/extension posting pull request status. Status can be associated with a pull request or an iteration."]
@@ -4326,6 +4656,16 @@ pub mod git_query_commits_criteria {
         #[serde(rename = "fullHistorySimplifyMerges")]
         FullHistorySimplifyMerges,
     }
+    impl std::fmt::Display for HistoryMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::SimplifiedHistory => write!(f, "simplifiedHistory"),
+                Self::FirstParent => write!(f, "firstParent"),
+                Self::FullHistory => write!(f, "fullHistory"),
+                Self::FullHistorySimplifyMerges => write!(f, "fullHistorySimplifyMerges"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitQueryRefsCriteria {
@@ -4369,6 +4709,15 @@ pub mod git_query_refs_criteria {
         StartsWith,
         #[serde(rename = "contains")]
         Contains,
+    }
+    impl std::fmt::Display for SearchType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Exact => write!(f, "exact"),
+                Self::StartsWith => write!(f, "startsWith"),
+                Self::Contains => write!(f, "contains"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4471,6 +4820,15 @@ pub mod git_ref_favorite {
         Folder,
         #[serde(rename = "ref")]
         Ref,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Invalid => write!(f, "invalid"),
+                Self::Folder => write!(f, "folder"),
+                Self::Ref => write!(f, "ref"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4631,6 +4989,28 @@ pub mod git_ref_update_result {
         SucceededNonExistentRef,
         #[serde(rename = "succeededCorruptRef")]
         SucceededCorruptRef,
+    }
+    impl std::fmt::Display for UpdateStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::ForcePushRequired => write!(f, "forcePushRequired"),
+                Self::StaleOldObjectId => write!(f, "staleOldObjectId"),
+                Self::InvalidRefName => write!(f, "invalidRefName"),
+                Self::Unprocessed => write!(f, "unprocessed"),
+                Self::UnresolvableToCommit => write!(f, "unresolvableToCommit"),
+                Self::WritePermissionRequired => write!(f, "writePermissionRequired"),
+                Self::ManageNotePermissionRequired => write!(f, "manageNotePermissionRequired"),
+                Self::CreateBranchPermissionRequired => write!(f, "createBranchPermissionRequired"),
+                Self::CreateTagPermissionRequired => write!(f, "createTagPermissionRequired"),
+                Self::RejectedByPlugin => write!(f, "rejectedByPlugin"),
+                Self::Locked => write!(f, "locked"),
+                Self::RefNameConflict => write!(f, "refNameConflict"),
+                Self::RejectedByPolicy => write!(f, "rejectedByPolicy"),
+                Self::SucceededNonExistentRef => write!(f, "succeededNonExistentRef"),
+                Self::SucceededCorruptRef => write!(f, "succeededCorruptRef"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4886,6 +5266,17 @@ pub mod git_resolution_merge_content {
         #[serde(rename = "userMerged")]
         UserMerged,
     }
+    impl std::fmt::Display for MergeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undecided => write!(f, "undecided"),
+                Self::TakeSourceContent => write!(f, "takeSourceContent"),
+                Self::TakeTargetContent => write!(f, "takeTargetContent"),
+                Self::AutoMerged => write!(f, "autoMerged"),
+                Self::UserMerged => write!(f, "userMerged"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionPathConflict {
@@ -4920,6 +5311,17 @@ pub mod git_resolution_path_conflict {
         #[serde(rename = "keepTargetDeleteSource")]
         KeepTargetDeleteSource,
     }
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undecided => write!(f, "undecided"),
+                Self::KeepSourceRenameTarget => write!(f, "keepSourceRenameTarget"),
+                Self::KeepSourceDeleteTarget => write!(f, "keepSourceDeleteTarget"),
+                Self::KeepTargetRenameSource => write!(f, "keepTargetRenameSource"),
+                Self::KeepTargetDeleteSource => write!(f, "keepTargetDeleteSource"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitResolutionPickOneAction {
@@ -4943,6 +5345,15 @@ pub mod git_resolution_pick_one_action {
         PickSourceAction,
         #[serde(rename = "pickTargetAction")]
         PickTargetAction,
+    }
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undecided => write!(f, "undecided"),
+                Self::PickSourceAction => write!(f, "pickSourceAction"),
+                Self::PickTargetAction => write!(f, "pickTargetAction"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4969,6 +5380,16 @@ pub mod git_resolution_rename1to2 {
         KeepTargetPath,
         #[serde(rename = "keepBothFiles")]
         KeepBothFiles,
+    }
+    impl std::fmt::Display for Action {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undecided => write!(f, "undecided"),
+                Self::KeepSourcePath => write!(f, "keepSourcePath"),
+                Self::KeepTargetPath => write!(f, "keepTargetPath"),
+                Self::KeepBothFiles => write!(f, "keepBothFiles"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5045,6 +5466,18 @@ pub mod git_status {
         Error,
         #[serde(rename = "notApplicable")]
         NotApplicable,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Pending => write!(f, "pending"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+            }
+        }
     }
 }
 #[doc = "Status context that uniquely identifies the status."]
@@ -5152,6 +5585,15 @@ pub mod git_target_version_descriptor {
         #[serde(rename = "firstParent")]
         FirstParent,
     }
+    impl std::fmt::Display for TargetVersionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::PreviousChange => write!(f, "previousChange"),
+                Self::FirstParent => write!(f, "firstParent"),
+            }
+        }
+    }
     #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum TargetVersionType {
@@ -5161,6 +5603,15 @@ pub mod git_target_version_descriptor {
         Tag,
         #[serde(rename = "commit")]
         Commit,
+    }
+    impl std::fmt::Display for TargetVersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Tag => write!(f, "tag"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5285,6 +5736,27 @@ pub mod git_tree_diff_entry {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Add => write!(f, "add"),
+                Self::Edit => write!(f, "edit"),
+                Self::Encoding => write!(f, "encoding"),
+                Self::Rename => write!(f, "rename"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+                Self::Branch => write!(f, "branch"),
+                Self::Merge => write!(f, "merge"),
+                Self::Lock => write!(f, "lock"),
+                Self::Rollback => write!(f, "rollback"),
+                Self::SourceRename => write!(f, "sourceRename"),
+                Self::TargetRename => write!(f, "targetRename"),
+                Self::Property => write!(f, "property"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "Object type of the tree entry. Blob, Tree or Commit(\"submodule\")"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ObjectType {
@@ -5304,6 +5776,20 @@ pub mod git_tree_diff_entry {
         OfsDelta,
         #[serde(rename = "refDelta")]
         RefDelta,
+    }
+    impl std::fmt::Display for ObjectType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bad => write!(f, "bad"),
+                Self::Commit => write!(f, "commit"),
+                Self::Tree => write!(f, "tree"),
+                Self::Blob => write!(f, "blob"),
+                Self::Tag => write!(f, "tag"),
+                Self::Ext2 => write!(f, "ext2"),
+                Self::OfsDelta => write!(f, "ofsDelta"),
+                Self::RefDelta => write!(f, "refDelta"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5379,6 +5865,20 @@ pub mod git_tree_entry_ref {
         OfsDelta,
         #[serde(rename = "refDelta")]
         RefDelta,
+    }
+    impl std::fmt::Display for GitObjectType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Bad => write!(f, "bad"),
+                Self::Commit => write!(f, "commit"),
+                Self::Tree => write!(f, "tree"),
+                Self::Blob => write!(f, "blob"),
+                Self::Tag => write!(f, "tag"),
+                Self::Ext2 => write!(f, "ext2"),
+                Self::OfsDelta => write!(f, "ofsDelta"),
+                Self::RefDelta => write!(f, "refDelta"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5471,6 +5971,15 @@ pub mod git_version_descriptor {
         #[serde(rename = "firstParent")]
         FirstParent,
     }
+    impl std::fmt::Display for VersionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::PreviousChange => write!(f, "previousChange"),
+                Self::FirstParent => write!(f, "firstParent"),
+            }
+        }
+    }
     #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionType {
@@ -5480,6 +5989,15 @@ pub mod git_version_descriptor {
         Tag,
         #[serde(rename = "commit")]
         Commit,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Tag => write!(f, "tag"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
     }
 }
 #[doc = "Globally unique key for a repository."]
@@ -5595,6 +6113,27 @@ pub mod history_entry {
         Property,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for ItemChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Add => write!(f, "add"),
+                Self::Edit => write!(f, "edit"),
+                Self::Encoding => write!(f, "encoding"),
+                Self::Rename => write!(f, "rename"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+                Self::Branch => write!(f, "branch"),
+                Self::Merge => write!(f, "merge"),
+                Self::Lock => write!(f, "lock"),
+                Self::Rollback => write!(f, "rollback"),
+                Self::SourceRename => write!(f, "sourceRename"),
+                Self::TargetRename => write!(f, "targetRename"),
+                Self::Property => write!(f, "property"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Identity id"]
@@ -5857,6 +6396,14 @@ pub mod item_content {
         #[serde(rename = "base64Encoded")]
         Base64Encoded,
     }
+    impl std::fmt::Display for ContentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::RawText => write!(f, "rawText"),
+                Self::Base64Encoded => write!(f, "base64Encoded"),
+            }
+        }
+    }
 }
 #[doc = "Optional details to include when returning an item model"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5894,6 +6441,16 @@ pub mod item_details_options {
         OneLevelPlusNestedEmptyFolders,
         #[serde(rename = "full")]
         Full,
+    }
+    impl std::fmt::Display for RecursionLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::OneLevel => write!(f, "oneLevel"),
+                Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+                Self::Full => write!(f, "full"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5970,6 +6527,18 @@ pub mod json_patch_operation {
         #[serde(rename = "test")]
         Test,
     }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
+    }
 }
 #[doc = "Real time event (SignalR) for updated labels on a pull request"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6039,6 +6608,16 @@ pub mod line_diff_block {
         Delete,
         #[serde(rename = "edit")]
         Edit,
+    }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Add => write!(f, "add"),
+                Self::Delete => write!(f, "delete"),
+                Self::Edit => write!(f, "edit"),
+            }
+        }
     }
 }
 #[doc = "Link URL"]
@@ -6226,6 +6805,16 @@ pub enum PullRequestStatus {
     Abandoned,
     #[serde(rename = "completed")]
     Completed,
+}
+impl std::fmt::Display for PullRequestStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::NotSet => write!(f, "notSet"),
+            Self::Active => write!(f, "active"),
+            Self::Abandoned => write!(f, "abandoned"),
+            Self::Completed => write!(f, "completed"),
+        }
+    }
 }
 #[doc = "Initial config contract sent to extensions creating tabs on the pull request page"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6518,6 +7107,27 @@ pub mod supported_ide {
         #[serde(rename = "webStorm")]
         WebStorm,
     }
+    impl std::fmt::Display for IdeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::AndroidStudio => write!(f, "androidStudio"),
+                Self::AppCode => write!(f, "appCode"),
+                Self::CLion => write!(f, "cLion"),
+                Self::DataGrip => write!(f, "dataGrip"),
+                Self::Eclipse => write!(f, "eclipse"),
+                Self::IntelliJ => write!(f, "intelliJ"),
+                Self::Mps => write!(f, "mps"),
+                Self::PhpStorm => write!(f, "phpStorm"),
+                Self::PyCharm => write!(f, "pyCharm"),
+                Self::RubyMine => write!(f, "rubyMine"),
+                Self::Tower => write!(f, "tower"),
+                Self::VisualStudio => write!(f, "visualStudio"),
+                Self::VsCode => write!(f, "vsCode"),
+                Self::WebStorm => write!(f, "webStorm"),
+            }
+        }
+    }
 }
 #[doc = "Reference object for a TeamProjectCollection."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6617,6 +7227,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -6628,6 +7251,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[doc = "Class representing a branch object."]
@@ -7071,6 +7704,16 @@ pub mod tfvc_item_descriptor {
         #[serde(rename = "full")]
         Full,
     }
+    impl std::fmt::Display for RecursionLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::OneLevel => write!(f, "oneLevel"),
+                Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+                Self::Full => write!(f, "full"),
+            }
+        }
+    }
     #[doc = "Defaults to None."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionOption {
@@ -7080,6 +7723,15 @@ pub mod tfvc_item_descriptor {
         Previous,
         #[serde(rename = "useRename")]
         UseRename,
+    }
+    impl std::fmt::Display for VersionOption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Previous => write!(f, "previous"),
+                Self::UseRename => write!(f, "useRename"),
+            }
+        }
     }
     #[doc = "Defaults to Latest."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -7100,6 +7752,20 @@ pub mod tfvc_item_descriptor {
         Tip,
         #[serde(rename = "mergeSource")]
         MergeSource,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Changeset => write!(f, "changeset"),
+                Self::Shelveset => write!(f, "shelveset"),
+                Self::Change => write!(f, "change"),
+                Self::Date => write!(f, "date"),
+                Self::Latest => write!(f, "latest"),
+                Self::Tip => write!(f, "tip"),
+                Self::MergeSource => write!(f, "mergeSource"),
+            }
+        }
     }
 }
 #[doc = "Metadata for an item including the previous hash value for files."]
@@ -7531,6 +8197,15 @@ pub mod tfvc_version_descriptor {
         #[serde(rename = "useRename")]
         UseRename,
     }
+    impl std::fmt::Display for VersionOption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Previous => write!(f, "previous"),
+                Self::UseRename => write!(f, "useRename"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionType {
         #[serde(rename = "none")]
@@ -7549,6 +8224,20 @@ pub mod tfvc_version_descriptor {
         Tip,
         #[serde(rename = "mergeSource")]
         MergeSource,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Changeset => write!(f, "changeset"),
+                Self::Shelveset => write!(f, "shelveset"),
+                Self::Change => write!(f, "change"),
+                Self::Date => write!(f, "date"),
+                Self::Latest => write!(f, "latest"),
+                Self::Tip => write!(f, "tip"),
+                Self::MergeSource => write!(f, "mergeSource"),
+            }
+        }
     }
 }
 #[doc = "Real time event (SignalR) for a title/description update on a pull request"]
@@ -7592,6 +8281,14 @@ pub mod update_refs_request {
         #[serde(rename = "allOrNone")]
         AllOrNone,
     }
+    impl std::fmt::Display for UpdateMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::BestEffort => write!(f, "bestEffort"),
+                Self::AllOrNone => write!(f, "allOrNone"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VersionControlProjectInfo {
@@ -7630,6 +8327,36 @@ pub mod version_control_project_info {
         Tfvc,
         #[serde(rename = "git")]
         Git,
+    }
+    impl std::fmt::Display for DefaultSourceControlType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Tfvc => write!(f, "tfvc"),
+                Self::Git => write!(f, "git"),
+            }
+        }
+    }
+}
+#[doc = "The recursion level for a request."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VersionControlRecursionType {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "oneLevel")]
+    OneLevel,
+    #[serde(rename = "oneLevelPlusNestedEmptyFolders")]
+    OneLevelPlusNestedEmptyFolders,
+    #[serde(rename = "full")]
+    Full,
+}
+impl std::fmt::Display for VersionControlRecursionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::OneLevel => write!(f, "oneLevel"),
+            Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+            Self::Full => write!(f, "full"),
+        }
     }
 }
 #[doc = "A particular revision for a policy configuration."]

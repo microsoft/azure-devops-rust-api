@@ -123,6 +123,27 @@ pub mod change {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Add => write!(f, "add"),
+                Self::Edit => write!(f, "edit"),
+                Self::Encoding => write!(f, "encoding"),
+                Self::Rename => write!(f, "rename"),
+                Self::Delete => write!(f, "delete"),
+                Self::Undelete => write!(f, "undelete"),
+                Self::Branch => write!(f, "branch"),
+                Self::Merge => write!(f, "merge"),
+                Self::Lock => write!(f, "lock"),
+                Self::Rollback => write!(f, "rollback"),
+                Self::SourceRename => write!(f, "sourceRename"),
+                Self::TargetRename => write!(f, "targetRename"),
+                Self::Property => write!(f, "property"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckinNote {
@@ -362,6 +383,14 @@ pub mod item_content {
         #[serde(rename = "base64Encoded")]
         Base64Encoded,
     }
+    impl std::fmt::Display for ContentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::RawText => write!(f, "rawText"),
+                Self::Base64Encoded => write!(f, "base64Encoded"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ItemModel {
@@ -500,6 +529,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -511,6 +553,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[doc = "Class representing a branch object."]
@@ -984,6 +1036,16 @@ pub mod tfvc_item_descriptor {
         #[serde(rename = "full")]
         Full,
     }
+    impl std::fmt::Display for RecursionLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::OneLevel => write!(f, "oneLevel"),
+                Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+                Self::Full => write!(f, "full"),
+            }
+        }
+    }
     #[doc = "Defaults to None."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionOption {
@@ -993,6 +1055,15 @@ pub mod tfvc_item_descriptor {
         Previous,
         #[serde(rename = "useRename")]
         UseRename,
+    }
+    impl std::fmt::Display for VersionOption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Previous => write!(f, "previous"),
+                Self::UseRename => write!(f, "useRename"),
+            }
+        }
     }
     #[doc = "Defaults to Latest."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1013,6 +1084,20 @@ pub mod tfvc_item_descriptor {
         Tip,
         #[serde(rename = "mergeSource")]
         MergeSource,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Changeset => write!(f, "changeset"),
+                Self::Shelveset => write!(f, "shelveset"),
+                Self::Change => write!(f, "change"),
+                Self::Date => write!(f, "date"),
+                Self::Latest => write!(f, "latest"),
+                Self::Tip => write!(f, "tip"),
+                Self::MergeSource => write!(f, "mergeSource"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1474,6 +1559,15 @@ pub mod tfvc_version_descriptor {
         #[serde(rename = "useRename")]
         UseRename,
     }
+    impl std::fmt::Display for VersionOption {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Previous => write!(f, "previous"),
+                Self::UseRename => write!(f, "useRename"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionType {
         #[serde(rename = "none")]
@@ -1492,6 +1586,20 @@ pub mod tfvc_version_descriptor {
         Tip,
         #[serde(rename = "mergeSource")]
         MergeSource,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Changeset => write!(f, "changeset"),
+                Self::Shelveset => write!(f, "shelveset"),
+                Self::Change => write!(f, "change"),
+                Self::Date => write!(f, "date"),
+                Self::Latest => write!(f, "latest"),
+                Self::Tip => write!(f, "tip"),
+                Self::MergeSource => write!(f, "mergeSource"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1531,6 +1639,14 @@ pub mod version_control_project_info {
         Tfvc,
         #[serde(rename = "git")]
         Git,
+    }
+    impl std::fmt::Display for DefaultSourceControlType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Tfvc => write!(f, "tfvc"),
+                Self::Git => write!(f, "git"),
+            }
+        }
     }
 }
 #[doc = "This class is used to serialize collections as a single JSON object on the wire."]

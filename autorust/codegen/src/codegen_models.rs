@@ -926,6 +926,29 @@ fn create_enum(
         quote! {}
     };
 
+    let mut display_arms = TokenStream::new();
+    for enum_value in &enum_values {
+        let value = &enum_value.value;
+        let variant_nm = value.to_camel_case_ident()?;
+        display_arms.extend(quote! {
+            Self::#variant_nm => write!(f, #value),
+        });
+    }
+    if property.is_model_as_string_enum() {
+        display_arms.extend(quote! {
+            Self::UnknownValue(s) => write!(f, "{}", s),
+        });
+    }
+    let display_code = quote! {
+        impl std::fmt::Display for #nm {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                match self {
+                    #display_arms
+                }
+            }
+        }
+    };
+
     let doc_comment = DocCommentCode::from(&property.schema.common.description);
 
     let code = quote! {
@@ -937,6 +960,7 @@ fn create_enum(
         }
         #custom_serde_code
         #default_code
+        #display_code
     };
     let type_name = TypeNameCode::from(vec![namespace, Some(id)]);
 

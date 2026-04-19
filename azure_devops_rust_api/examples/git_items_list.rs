@@ -5,6 +5,7 @@
 // Git items (files and folders) list example.
 use anyhow::Result;
 use azure_devops_rust_api::git;
+use azure_devops_rust_api::git::models::VersionControlRecursionType;
 use std::env;
 
 mod utils;
@@ -28,7 +29,7 @@ async fn main() -> Result<()> {
     let items = git_client
         .items_client()
         .list(organization, repository_name, project)
-        .recursion_level("Full")
+        .recursion_level(VersionControlRecursionType::Full)
         .await?
         .value;
 

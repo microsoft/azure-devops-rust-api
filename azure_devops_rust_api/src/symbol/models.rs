@@ -77,6 +77,21 @@ pub mod debug_entry {
         #[serde(rename = "sourceIndexed")]
         SourceIndexed,
     }
+    impl std::fmt::Display for InformationLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Binary => write!(f, "binary"),
+                Self::Publics => write!(f, "publics"),
+                Self::TraceFormatPresent => write!(f, "traceFormatPresent"),
+                Self::TypeInfo => write!(f, "typeInfo"),
+                Self::LineNumbers => write!(f, "lineNumbers"),
+                Self::GlobalSymbols => write!(f, "globalSymbols"),
+                Self::Private => write!(f, "private"),
+                Self::SourceIndexed => write!(f, "sourceIndexed"),
+            }
+        }
+    }
     #[doc = "The status of debug entry."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -86,6 +101,15 @@ pub mod debug_entry {
         Created,
         #[serde(rename = "blobMissing")]
         BlobMissing,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Created => write!(f, "created"),
+                Self::BlobMissing => write!(f, "blobMissing"),
+            }
+        }
     }
 }
 #[doc = "A batch of debug entry to create."]
@@ -131,6 +155,15 @@ pub mod debug_entry_create_batch {
         SkipIfExists,
         #[serde(rename = "overwriteIfExists")]
         OverwriteIfExists,
+    }
+    impl std::fmt::Display for CreateBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ThrowIfExists => write!(f, "throwIfExists"),
+                Self::SkipIfExists => write!(f, "skipIfExists"),
+                Self::OverwriteIfExists => write!(f, "overwriteIfExists"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -262,6 +295,16 @@ pub mod request {
         Sealed,
         #[serde(rename = "unavailable")]
         Unavailable,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Created => write!(f, "created"),
+                Self::Sealed => write!(f, "sealed"),
+                Self::Unavailable => write!(f, "unavailable"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

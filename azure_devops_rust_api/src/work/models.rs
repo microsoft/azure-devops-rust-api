@@ -116,6 +116,15 @@ pub mod backlog_configuration {
         #[serde(rename = "asTasks")]
         AsTasks,
     }
+    impl std::fmt::Display for BugsBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Off => write!(f, "off"),
+                Self::AsRequirements => write!(f, "asRequirements"),
+                Self::AsTasks => write!(f, "asTasks"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BacklogFields {
@@ -246,6 +255,15 @@ pub mod backlog_level_configuration {
         Requirement,
         #[serde(rename = "task")]
         Task,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Portfolio => write!(f, "portfolio"),
+                Self::Requirement => write!(f, "requirement"),
+                Self::Task => write!(f, "task"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -446,6 +464,15 @@ pub mod board_column {
         InProgress,
         #[serde(rename = "outgoing")]
         Outgoing,
+    }
+    impl std::fmt::Display for ColumnType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Incoming => write!(f, "incoming"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Outgoing => write!(f, "outgoing"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -716,6 +743,15 @@ pub mod card_field_settings {
         #[serde(rename = "avatarAndFullName")]
         AvatarAndFullName,
     }
+    impl std::fmt::Display for AssignedToDisplayFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::AvatarOnly => write!(f, "avatarOnly"),
+                Self::FullName => write!(f, "fullName"),
+                Self::AvatarAndFullName => write!(f, "avatarAndFullName"),
+            }
+        }
+    }
 }
 #[doc = "Card settings, such as fields and rules"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -783,6 +819,13 @@ pub mod create_plan {
     pub enum Type {
         #[serde(rename = "deliveryTimelineView")]
         DeliveryTimelineView,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::DeliveryTimelineView => write!(f, "deliveryTimelineView"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -991,6 +1034,19 @@ pub mod field_info {
         Boolean,
         #[serde(rename = "double")]
         Double,
+    }
+    impl std::fmt::Display for FieldType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::String => write!(f, "string"),
+                Self::PlainText => write!(f, "plainText"),
+                Self::Integer => write!(f, "integer"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::TreePath => write!(f, "treePath"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Double => write!(f, "double"),
+            }
+        }
     }
 }
 #[doc = "An abstracted reference to a field"]
@@ -1388,6 +1444,13 @@ pub mod plan {
         #[serde(rename = "deliveryTimelineView")]
         DeliveryTimelineView,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::DeliveryTimelineView => write!(f, "deliveryTimelineView"),
+            }
+        }
+    }
     #[doc = "Bit flag indicating set of permissions a user has to the plan."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum UserPermissions {
@@ -1403,6 +1466,18 @@ pub mod plan {
         Manage,
         #[serde(rename = "allPermissions")]
         AllPermissions,
+    }
+    impl std::fmt::Display for UserPermissions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::View => write!(f, "view"),
+                Self::Edit => write!(f, "edit"),
+                Self::Delete => write!(f, "delete"),
+                Self::Manage => write!(f, "manage"),
+                Self::AllPermissions => write!(f, "allPermissions"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1471,6 +1546,18 @@ pub mod plan_metadata {
         Manage,
         #[serde(rename = "allPermissions")]
         AllPermissions,
+    }
+    impl std::fmt::Display for UserPermissions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::View => write!(f, "view"),
+                Self::Edit => write!(f, "edit"),
+                Self::Delete => write!(f, "delete"),
+                Self::Manage => write!(f, "manage"),
+                Self::AllPermissions => write!(f, "allPermissions"),
+            }
+        }
     }
 }
 #[doc = "Base class for plan view data contracts. Anything common goes here."]
@@ -1975,6 +2062,15 @@ pub mod team_iteration_attributes {
         #[serde(rename = "future")]
         Future,
     }
+    impl std::fmt::Display for TimeFrame {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Past => write!(f, "past"),
+                Self::Current => write!(f, "current"),
+                Self::Future => write!(f, "future"),
+            }
+        }
+    }
 }
 #[doc = "Represents capacity for a specific team member"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2091,6 +2187,15 @@ pub mod team_setting {
         AsRequirements,
         #[serde(rename = "asTasks")]
         AsTasks,
+    }
+    impl std::fmt::Display for BugsBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Off => write!(f, "off"),
+                Self::AsRequirements => write!(f, "asRequirements"),
+                Self::AsTasks => write!(f, "asTasks"),
+            }
+        }
     }
 }
 #[doc = "Base class for TeamSettings data contracts. Anything common goes here."]
@@ -2235,6 +2340,15 @@ pub mod team_settings_patch {
         #[serde(rename = "asTasks")]
         AsTasks,
     }
+    impl std::fmt::Display for BugsBehavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Off => write!(f, "off"),
+                Self::AsRequirements => write!(f, "asRequirements"),
+                Self::AsTasks => write!(f, "asTasks"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineCriteriaStatus {
@@ -2259,6 +2373,15 @@ pub mod timeline_criteria_status {
         #[serde(rename = "unknown")]
         Unknown,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Ok => write!(f, "ok"),
+                Self::InvalidFilterClause => write!(f, "invalidFilterClause"),
+                Self::Unknown => write!(f, "unknown"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TimelineIterationStatus {
@@ -2280,6 +2403,14 @@ pub mod timeline_iteration_status {
         Ok,
         #[serde(rename = "isOverlapping")]
         IsOverlapping,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Ok => write!(f, "ok"),
+                Self::IsOverlapping => write!(f, "isOverlapping"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2476,6 +2607,19 @@ pub mod timeline_team_status {
         #[serde(rename = "noIterationsExist")]
         NoIterationsExist,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Ok => write!(f, "ok"),
+                Self::DoesntExistOrAccessDenied => write!(f, "doesntExistOrAccessDenied"),
+                Self::MaxTeamsExceeded => write!(f, "maxTeamsExceeded"),
+                Self::MaxTeamFieldsExceeded => write!(f, "maxTeamFieldsExceeded"),
+                Self::BacklogInError => write!(f, "backlogInError"),
+                Self::MissingTeamFieldValue => write!(f, "missingTeamFieldValue"),
+                Self::NoIterationsExist => write!(f, "noIterationsExist"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UpdatePlan {
@@ -2507,6 +2651,13 @@ pub mod update_plan {
     pub enum Type {
         #[serde(rename = "deliveryTimelineView")]
         DeliveryTimelineView,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::DeliveryTimelineView => write!(f, "deliveryTimelineView"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

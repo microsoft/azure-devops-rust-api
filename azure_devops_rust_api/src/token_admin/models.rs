@@ -179,6 +179,45 @@ pub mod session_token_result {
         #[serde(rename = "deploymentHostNotSupported")]
         DeploymentHostNotSupported,
     }
+    impl std::fmt::Display for SessionTokenError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::DisplayNameRequired => write!(f, "displayNameRequired"),
+                Self::InvalidDisplayName => write!(f, "invalidDisplayName"),
+                Self::InvalidValidTo => write!(f, "invalidValidTo"),
+                Self::InvalidScope => write!(f, "invalidScope"),
+                Self::UserIdRequired => write!(f, "userIdRequired"),
+                Self::InvalidUserId => write!(f, "invalidUserId"),
+                Self::InvalidUserType => write!(f, "invalidUserType"),
+                Self::AccessDenied => write!(f, "accessDenied"),
+                Self::FailedToIssueAccessToken => write!(f, "failedToIssueAccessToken"),
+                Self::InvalidClient => write!(f, "invalidClient"),
+                Self::InvalidClientType => write!(f, "invalidClientType"),
+                Self::InvalidClientId => write!(f, "invalidClientId"),
+                Self::InvalidTargetAccounts => write!(f, "invalidTargetAccounts"),
+                Self::HostAuthorizationNotFound => write!(f, "hostAuthorizationNotFound"),
+                Self::AuthorizationNotFound => write!(f, "authorizationNotFound"),
+                Self::FailedToUpdateAccessToken => write!(f, "failedToUpdateAccessToken"),
+                Self::SourceNotSupported => write!(f, "sourceNotSupported"),
+                Self::InvalidSourceIp => write!(f, "invalidSourceIP"),
+                Self::InvalidSource => write!(f, "invalidSource"),
+                Self::DuplicateHash => write!(f, "duplicateHash"),
+                Self::SshPolicyDisabled => write!(f, "sshPolicyDisabled"),
+                Self::InvalidToken => write!(f, "invalidToken"),
+                Self::TokenNotFound => write!(f, "tokenNotFound"),
+                Self::InvalidAuthorizationId => write!(f, "invalidAuthorizationId"),
+                Self::FailedToReadTenantPolicy => write!(f, "failedToReadTenantPolicy"),
+                Self::GlobalPatPolicyViolation => write!(f, "globalPatPolicyViolation"),
+                Self::FullScopePatPolicyViolation => write!(f, "fullScopePatPolicyViolation"),
+                Self::PatLifespanPolicyViolation => write!(f, "patLifespanPolicyViolation"),
+                Self::InvalidTokenType => write!(f, "invalidTokenType"),
+                Self::InvalidAudience => write!(f, "invalidAudience"),
+                Self::InvalidSubject => write!(f, "invalidSubject"),
+                Self::DeploymentHostNotSupported => write!(f, "deploymentHostNotSupported"),
+            }
+        }
+    }
 }
 #[doc = "A paginated list of session tokens. Session tokens correspond to OAuth credentials such as personal access tokens (PATs) and other OAuth authorizations."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

@@ -221,6 +221,14 @@ pub mod validation_issue {
         #[serde(rename = "error")]
         Error,
     }
+    impl std::fmt::Display for IssueType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+            }
+        }
+    }
 }
 #[doc = "This class is used to serialize collections as a single JSON object on the wire."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

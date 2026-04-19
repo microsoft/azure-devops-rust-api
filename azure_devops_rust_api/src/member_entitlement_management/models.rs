@@ -104,6 +104,18 @@ pub mod access_level {
         #[serde(rename = "stakeholder")]
         Stakeholder,
     }
+    impl std::fmt::Display for AccountLicenseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::EarlyAdopter => write!(f, "earlyAdopter"),
+                Self::Express => write!(f, "express"),
+                Self::Professional => write!(f, "professional"),
+                Self::Advanced => write!(f, "advanced"),
+                Self::Stakeholder => write!(f, "stakeholder"),
+            }
+        }
+    }
     #[doc = "Assignment Source of the License (e.g. Group, Unknown etc."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum AssignmentSource {
@@ -113,6 +125,15 @@ pub mod access_level {
         Unknown,
         #[serde(rename = "groupRule")]
         GroupRule,
+    }
+    impl std::fmt::Display for AssignmentSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::GroupRule => write!(f, "groupRule"),
+            }
+        }
     }
     #[doc = "Licensing Source (e.g. Account. MSDN etc.)"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -129,6 +150,18 @@ pub mod access_level {
         Auto,
         #[serde(rename = "trial")]
         Trial,
+    }
+    impl std::fmt::Display for LicensingSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Account => write!(f, "account"),
+                Self::Msdn => write!(f, "msdn"),
+                Self::Profile => write!(f, "profile"),
+                Self::Auto => write!(f, "auto"),
+                Self::Trial => write!(f, "trial"),
+            }
+        }
     }
     #[doc = "Type of MSDN License (e.g. Visual Studio Professional, Visual Studio Enterprise etc.). To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -150,6 +183,20 @@ pub mod access_level {
         #[serde(rename = "enterprise")]
         Enterprise,
     }
+    impl std::fmt::Display for MsdnLicenseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Eligible => write!(f, "eligible"),
+                Self::Professional => write!(f, "professional"),
+                Self::Platforms => write!(f, "platforms"),
+                Self::TestProfessional => write!(f, "testProfessional"),
+                Self::Premium => write!(f, "premium"),
+                Self::Ultimate => write!(f, "ultimate"),
+                Self::Enterprise => write!(f, "enterprise"),
+            }
+        }
+    }
     #[doc = "User status in the account"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -167,6 +214,19 @@ pub mod access_level {
         Expired,
         #[serde(rename = "pendingDisabled")]
         PendingDisabled,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Active => write!(f, "active"),
+                Self::Disabled => write!(f, "disabled"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Pending => write!(f, "pending"),
+                Self::Expired => write!(f, "expired"),
+                Self::PendingDisabled => write!(f, "pendingDisabled"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -295,6 +355,15 @@ pub mod extension {
         #[serde(rename = "groupRule")]
         GroupRule,
     }
+    impl std::fmt::Display for AssignmentSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::GroupRule => write!(f, "groupRule"),
+            }
+        }
+    }
     #[doc = "Source of this extension assignment. Ex: msdn, account, none, etc."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Source {
@@ -310,6 +379,18 @@ pub mod extension {
         Auto,
         #[serde(rename = "trial")]
         Trial,
+    }
+    impl std::fmt::Display for Source {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Account => write!(f, "account"),
+                Self::Msdn => write!(f, "msdn"),
+                Self::Profile => write!(f, "profile"),
+                Self::Auto => write!(f, "auto"),
+                Self::Trial => write!(f, "trial"),
+            }
+        }
     }
 }
 #[doc = "Summary of Extensions in the organization."]
@@ -388,6 +469,17 @@ pub mod extension_summary_data {
         AdvancedPlus,
         #[serde(rename = "stakeholder")]
         Stakeholder,
+    }
+    impl std::fmt::Display for MinimumLicenseRequired {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Express => write!(f, "express"),
+                Self::Advanced => write!(f, "advanced"),
+                Self::AdvancedPlus => write!(f, "advancedPlus"),
+                Self::Stakeholder => write!(f, "stakeholder"),
+            }
+        }
     }
 }
 #[doc = "Graph group entity"]
@@ -547,6 +639,17 @@ pub mod group {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for GroupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ProjectStakeholder => write!(f, "projectStakeholder"),
+                Self::ProjectReader => write!(f, "projectReader"),
+                Self::ProjectContributor => write!(f, "projectContributor"),
+                Self::ProjectAdministrator => write!(f, "projectAdministrator"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[doc = "A group entity with additional properties including its license, extensions, and project membership"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -609,6 +712,16 @@ pub mod group_entitlement {
         Incompatible,
         #[serde(rename = "unableToApply")]
         UnableToApply,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ApplyPending => write!(f, "applyPending"),
+                Self::Applied => write!(f, "applied"),
+                Self::Incompatible => write!(f, "incompatible"),
+                Self::UnableToApply => write!(f, "unableToApply"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -736,6 +849,18 @@ pub mod json_patch_operation {
         #[serde(rename = "test")]
         Test,
     }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
+    }
 }
 #[doc = "Summary of Licenses in the organization."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -815,6 +940,18 @@ pub mod license_summary_data {
         #[serde(rename = "stakeholder")]
         Stakeholder,
     }
+    impl std::fmt::Display for AccountLicenseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::EarlyAdopter => write!(f, "earlyAdopter"),
+                Self::Express => write!(f, "express"),
+                Self::Professional => write!(f, "professional"),
+                Self::Advanced => write!(f, "advanced"),
+                Self::Stakeholder => write!(f, "stakeholder"),
+            }
+        }
+    }
     #[doc = "Type of MSDN License. To use the MsdnLicenseType, LicensingSource should be defined as 'msdn' in the request body."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum MsdnLicenseType {
@@ -835,6 +972,20 @@ pub mod license_summary_data {
         #[serde(rename = "enterprise")]
         Enterprise,
     }
+    impl std::fmt::Display for MsdnLicenseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Eligible => write!(f, "eligible"),
+                Self::Professional => write!(f, "professional"),
+                Self::Platforms => write!(f, "platforms"),
+                Self::TestProfessional => write!(f, "testProfessional"),
+                Self::Premium => write!(f, "premium"),
+                Self::Ultimate => write!(f, "ultimate"),
+                Self::Enterprise => write!(f, "enterprise"),
+            }
+        }
+    }
     #[doc = "Source of the License."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Source {
@@ -850,6 +1001,18 @@ pub mod license_summary_data {
         Auto,
         #[serde(rename = "trial")]
         Trial,
+    }
+    impl std::fmt::Display for Source {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Account => write!(f, "account"),
+                Self::Msdn => write!(f, "msdn"),
+                Self::Profile => write!(f, "profile"),
+                Self::Auto => write!(f, "auto"),
+                Self::Trial => write!(f, "trial"),
+            }
+        }
     }
 }
 #[doc = "Deprecated: Use UserEntitlement instead"]
@@ -1088,6 +1251,18 @@ pub mod operation_reference {
         #[serde(rename = "failed")]
         Failed,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Cancelled => write!(f, "cancelled"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct OperationResult {
@@ -1229,6 +1404,15 @@ pub mod project_entitlement {
         #[serde(rename = "groupRule")]
         GroupRule,
     }
+    impl std::fmt::Display for AssignmentSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Unknown => write!(f, "unknown"),
+                Self::GroupRule => write!(f, "groupRule"),
+            }
+        }
+    }
     #[doc = "Whether the user is inheriting permissions to a project through a Azure DevOps or AAD group membership."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum ProjectPermissionInherited {
@@ -1238,6 +1422,15 @@ pub mod project_entitlement {
         NotInherited,
         #[serde(rename = "inherited")]
         Inherited,
+    }
+    impl std::fmt::Display for ProjectPermissionInherited {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::NotInherited => write!(f, "notInherited"),
+                Self::Inherited => write!(f, "inherited"),
+            }
+        }
     }
 }
 #[doc = "A reference to a project"]
