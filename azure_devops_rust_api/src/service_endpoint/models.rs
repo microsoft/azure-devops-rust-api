@@ -864,6 +864,19 @@ pub mod input_descriptor {
         #[serde(rename = "textArea")]
         TextArea,
     }
+    impl std::fmt::Display for InputMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::TextBox => write!(f, "textBox"),
+                Self::PasswordBox => write!(f, "passwordBox"),
+                Self::Combo => write!(f, "combo"),
+                Self::RadioButtons => write!(f, "radioButtons"),
+                Self::CheckBox => write!(f, "checkBox"),
+                Self::TextArea => write!(f, "textArea"),
+            }
+        }
+    }
 }
 #[doc = "Describes what values are valid for a subscription input"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -923,6 +936,18 @@ pub mod input_validation {
         Guid,
         #[serde(rename = "uri")]
         Uri,
+    }
+    impl std::fmt::Display for DataType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::String => write!(f, "string"),
+                Self::Number => write!(f, "number"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Guid => write!(f, "guid"),
+                Self::Uri => write!(f, "uri"),
+            }
+        }
     }
 }
 #[doc = "Information about a single value for an input"]
@@ -1394,6 +1419,28 @@ impl ServiceEndpoint {
         }
     }
 }
+#[doc = "The \"actionFilter\" parameter allows users to evaluate requestor permissions and retrieve a list of endpoints that match the specified conditions, ensuring that only relevant endpoints are returned based on their permissions"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ServiceEndpointActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+    #[serde(rename = "view")]
+    View,
+}
+impl std::fmt::Display for ServiceEndpointActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+            Self::View => write!(f, "view"),
+        }
+    }
+}
 #[doc = "Represents the authentication scheme used to authenticate the endpoint."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointAuthenticationScheme {
@@ -1547,6 +1594,18 @@ pub mod service_endpoint_execution_data {
         Skipped,
         #[serde(rename = "abandoned")]
         Abandoned,
+    }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
     }
 }
 #[doc = "Represents execution owner of the service endpoint."]
@@ -1850,6 +1909,59 @@ pub mod service_endpoint_request_result {
         GatewayTimeout,
         #[serde(rename = "httpVersionNotSupported")]
         HttpVersionNotSupported,
+    }
+    impl std::fmt::Display for StatusCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Continue => write!(f, "continue"),
+                Self::SwitchingProtocols => write!(f, "switchingProtocols"),
+                Self::Ok => write!(f, "ok"),
+                Self::Created => write!(f, "created"),
+                Self::Accepted => write!(f, "accepted"),
+                Self::NonAuthoritativeInformation => write!(f, "nonAuthoritativeInformation"),
+                Self::NoContent => write!(f, "noContent"),
+                Self::ResetContent => write!(f, "resetContent"),
+                Self::PartialContent => write!(f, "partialContent"),
+                Self::MultipleChoices => write!(f, "multipleChoices"),
+                Self::Ambiguous => write!(f, "ambiguous"),
+                Self::MovedPermanently => write!(f, "movedPermanently"),
+                Self::Moved => write!(f, "moved"),
+                Self::Found => write!(f, "found"),
+                Self::Redirect => write!(f, "redirect"),
+                Self::SeeOther => write!(f, "seeOther"),
+                Self::RedirectMethod => write!(f, "redirectMethod"),
+                Self::NotModified => write!(f, "notModified"),
+                Self::UseProxy => write!(f, "useProxy"),
+                Self::Unused => write!(f, "unused"),
+                Self::TemporaryRedirect => write!(f, "temporaryRedirect"),
+                Self::RedirectKeepVerb => write!(f, "redirectKeepVerb"),
+                Self::BadRequest => write!(f, "badRequest"),
+                Self::Unauthorized => write!(f, "unauthorized"),
+                Self::PaymentRequired => write!(f, "paymentRequired"),
+                Self::Forbidden => write!(f, "forbidden"),
+                Self::NotFound => write!(f, "notFound"),
+                Self::MethodNotAllowed => write!(f, "methodNotAllowed"),
+                Self::NotAcceptable => write!(f, "notAcceptable"),
+                Self::ProxyAuthenticationRequired => write!(f, "proxyAuthenticationRequired"),
+                Self::RequestTimeout => write!(f, "requestTimeout"),
+                Self::Conflict => write!(f, "conflict"),
+                Self::Gone => write!(f, "gone"),
+                Self::LengthRequired => write!(f, "lengthRequired"),
+                Self::PreconditionFailed => write!(f, "preconditionFailed"),
+                Self::RequestEntityTooLarge => write!(f, "requestEntityTooLarge"),
+                Self::RequestUriTooLong => write!(f, "requestUriTooLong"),
+                Self::UnsupportedMediaType => write!(f, "unsupportedMediaType"),
+                Self::RequestedRangeNotSatisfiable => write!(f, "requestedRangeNotSatisfiable"),
+                Self::ExpectationFailed => write!(f, "expectationFailed"),
+                Self::UpgradeRequired => write!(f, "upgradeRequired"),
+                Self::InternalServerError => write!(f, "internalServerError"),
+                Self::NotImplemented => write!(f, "notImplemented"),
+                Self::BadGateway => write!(f, "badGateway"),
+                Self::ServiceUnavailable => write!(f, "serviceUnavailable"),
+                Self::GatewayTimeout => write!(f, "gatewayTimeout"),
+                Self::HttpVersionNotSupported => write!(f, "httpVersionNotSupported"),
+            }
+        }
     }
 }
 #[doc = "Represents type of the service endpoint."]

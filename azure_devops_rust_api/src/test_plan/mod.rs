@@ -480,7 +480,7 @@ pub mod suite_test_case {
             pub(crate) continuation_token: Option<String>,
             pub(crate) return_identity_ref: Option<bool>,
             pub(crate) expand: Option<bool>,
-            pub(crate) exclude_flags: Option<String>,
+            pub(crate) exclude_flags: Option<models::ExcludeFlags>,
             pub(crate) is_recursive: Option<bool>,
         }
         impl RequestBuilder {
@@ -515,7 +515,7 @@ pub mod suite_test_case {
                 self
             }
             #[doc = "Flag to exclude various values from payload. For example to remove point assignments pass exclude = 1. To remove extra information (links, test plan , test suite) pass exclude = 2. To remove both extra information and point assignments pass exclude = 3 (1 + 2)."]
-            pub fn exclude_flags(mut self, exclude_flags: impl Into<String>) -> Self {
+            pub fn exclude_flags(mut self, exclude_flags: impl Into<models::ExcludeFlags>) -> Self {
                 self.exclude_flags = Some(exclude_flags.into());
                 self
             }
@@ -578,7 +578,7 @@ pub mod suite_test_case {
                         if let Some(exclude_flags) = &this.exclude_flags {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("excludeFlags", exclude_flags);
+                                .append_pair("excludeFlags", &exclude_flags.to_string());
                         }
                         if let Some(is_recursive) = &this.is_recursive {
                             req.url_mut()
@@ -1842,13 +1842,13 @@ pub mod test_suites {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) plan_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::SuiteExpand>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) as_tree_view: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "Include the children suites and testers details."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::SuiteExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1887,7 +1887,7 @@ pub mod test_suites {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("expand", expand);
+                                .append_pair("expand", &expand.to_string());
                         }
                         if let Some(continuation_token) = &this.continuation_token {
                             req.url_mut()
@@ -2074,11 +2074,11 @@ pub mod test_suites {
             pub(crate) project: String,
             pub(crate) plan_id: i32,
             pub(crate) suite_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::SuiteExpand>,
         }
         impl RequestBuilder {
             #[doc = "Include the children suites and testers details"]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::SuiteExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -2107,7 +2107,7 @@ pub mod test_suites {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("expand", expand);
+                                .append_pair("expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -3955,10 +3955,13 @@ pub mod test_suite_entry {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) suite_id: i32,
-            pub(crate) suite_entry_type: Option<String>,
+            pub(crate) suite_entry_type: Option<models::SuiteEntryTypes>,
         }
         impl RequestBuilder {
-            pub fn suite_entry_type(mut self, suite_entry_type: impl Into<String>) -> Self {
+            pub fn suite_entry_type(
+                mut self,
+                suite_entry_type: impl Into<models::SuiteEntryTypes>,
+            ) -> Self {
                 self.suite_entry_type = Some(suite_entry_type.into());
                 self
             }
@@ -3987,7 +3990,7 @@ pub mod test_suite_entry {
                         if let Some(suite_entry_type) = &this.suite_entry_type {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("suiteEntryType", suite_entry_type);
+                                .append_pair("suiteEntryType", &suite_entry_type.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

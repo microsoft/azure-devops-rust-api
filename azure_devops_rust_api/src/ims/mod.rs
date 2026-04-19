@@ -204,7 +204,7 @@ pub mod identities {
             pub(crate) subject_descriptors: Option<String>,
             pub(crate) search_filter: Option<String>,
             pub(crate) filter_value: Option<String>,
-            pub(crate) query_membership: Option<String>,
+            pub(crate) query_membership: Option<models::QueryMembership>,
         }
         impl RequestBuilder {
             #[doc = "A comma separated list of identity descriptors to resolve"]
@@ -233,7 +233,10 @@ pub mod identities {
                 self
             }
             #[doc = "The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)"]
-            pub fn query_membership(mut self, query_membership: impl Into<String>) -> Self {
+            pub fn query_membership(
+                mut self,
+                query_membership: impl Into<models::QueryMembership>,
+            ) -> Self {
                 self.query_membership = Some(query_membership.into());
                 self
             }
@@ -287,7 +290,7 @@ pub mod identities {
                         if let Some(query_membership) = &this.query_membership {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryMembership", query_membership);
+                                .append_pair("queryMembership", &query_membership.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

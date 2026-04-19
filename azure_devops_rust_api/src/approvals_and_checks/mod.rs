@@ -694,7 +694,7 @@ pub mod check_configurations {
             pub(crate) project: String,
             pub(crate) resource_type: Option<String>,
             pub(crate) resource_id: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CheckConfigurationExpandParameter>,
         }
         impl RequestBuilder {
             #[doc = "resource type"]
@@ -707,7 +707,10 @@ pub mod check_configurations {
                 self.resource_id = Some(resource_id.into());
                 self
             }
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::CheckConfigurationExpandParameter>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -746,7 +749,7 @@ pub mod check_configurations {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -920,10 +923,13 @@ pub mod check_configurations {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CheckConfigurationExpandParameter>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::CheckConfigurationExpandParameter>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -952,7 +958,7 @@ pub mod check_configurations {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1227,11 +1233,14 @@ pub mod check_configurations {
             pub(crate) organization: String,
             pub(crate) body: Vec<models::Resource>,
             pub(crate) project: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CheckConfigurationExpandParameter>,
         }
         impl RequestBuilder {
             #[doc = "The properties that should be expanded in the list of check configurations."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::CheckConfigurationExpandParameter>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1262,7 +1271,7 @@ pub mod check_configurations {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -1385,10 +1394,10 @@ pub mod check_evaluations {
             pub(crate) organization: String,
             pub(crate) body: models::CheckSuiteRequest,
             pub(crate) project: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CheckSuiteExpandParameter>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::CheckSuiteExpandParameter>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1419,7 +1428,7 @@ pub mod check_evaluations {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -1493,10 +1502,10 @@ pub mod check_evaluations {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) check_suite_id: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CheckSuiteExpandParameter>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::CheckSuiteExpandParameter>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1525,7 +1534,7 @@ pub mod check_evaluations {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1670,9 +1679,9 @@ pub mod approvals {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) approval_ids: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ApprovalDetailsExpandParameter>,
             pub(crate) user_ids: Option<String>,
-            pub(crate) state: Option<String>,
+            pub(crate) state: Option<models::ApprovalStatus>,
             pub(crate) top: Option<i32>,
         }
         impl RequestBuilder {
@@ -1682,7 +1691,10 @@ pub mod approvals {
                 self
             }
             #[doc = "Include these additional details in the returned objects."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::ApprovalDetailsExpandParameter>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1692,7 +1704,7 @@ pub mod approvals {
                 self
             }
             #[doc = "Approval status. Returns approvals of any status if not provided"]
-            pub fn state(mut self, state: impl Into<String>) -> Self {
+            pub fn state(mut self, state: impl Into<models::ApprovalStatus>) -> Self {
                 self.state = Some(state.into());
                 self
             }
@@ -1731,7 +1743,7 @@ pub mod approvals {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(user_ids) = &this.user_ids {
                             req.url_mut()
@@ -1739,7 +1751,9 @@ pub mod approvals {
                                 .append_pair("userIds", user_ids);
                         }
                         if let Some(state) = &this.state {
-                            req.url_mut().query_pairs_mut().append_pair("state", state);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("state", &state.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -1917,10 +1931,13 @@ pub mod approvals {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) approval_id: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ApprovalDetailsExpandParameter>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::ApprovalDetailsExpandParameter>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1949,7 +1966,7 @@ pub mod approvals {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

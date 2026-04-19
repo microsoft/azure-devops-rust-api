@@ -1667,12 +1667,13 @@ pub mod commits {
             pub(crate) search_criteria_top: Option<i32>,
             pub(crate) search_criteria_author: Option<String>,
             pub(crate) search_criteria_compare_version_version: Option<String>,
-            pub(crate) search_criteria_compare_version_version_options: Option<String>,
-            pub(crate) search_criteria_compare_version_version_type: Option<String>,
+            pub(crate) search_criteria_compare_version_version_options:
+                Option<models::GitVersionOptions>,
+            pub(crate) search_criteria_compare_version_version_type: Option<models::GitVersionType>,
             pub(crate) search_criteria_exclude_deletes: Option<bool>,
             pub(crate) search_criteria_from_commit_id: Option<String>,
             pub(crate) search_criteria_from_date: Option<String>,
-            pub(crate) search_criteria_history_mode: Option<String>,
+            pub(crate) search_criteria_history_mode: Option<models::GitHistoryMode>,
             pub(crate) search_criteria_ids: Vec<String>,
             pub(crate) search_criteria_include_links: Option<bool>,
             pub(crate) search_criteria_include_push_data: Option<bool>,
@@ -1680,8 +1681,9 @@ pub mod commits {
             pub(crate) search_criteria_include_work_items: Option<bool>,
             pub(crate) search_criteria_item_path: Option<String>,
             pub(crate) search_criteria_item_version_version: Option<String>,
-            pub(crate) search_criteria_item_version_version_options: Option<String>,
-            pub(crate) search_criteria_item_version_version_type: Option<String>,
+            pub(crate) search_criteria_item_version_version_options:
+                Option<models::GitVersionOptions>,
+            pub(crate) search_criteria_item_version_version_type: Option<models::GitVersionType>,
             pub(crate) search_criteria_show_oldest_commits_first: Option<bool>,
             pub(crate) search_criteria_to_commit_id: Option<String>,
             pub(crate) search_criteria_to_date: Option<String>,
@@ -1718,7 +1720,7 @@ pub mod commits {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn search_criteria_compare_version_version_options(
                 mut self,
-                search_criteria_compare_version_version_options: impl Into<String>,
+                search_criteria_compare_version_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.search_criteria_compare_version_version_options =
                     Some(search_criteria_compare_version_version_options.into());
@@ -1727,7 +1729,7 @@ pub mod commits {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn search_criteria_compare_version_version_type(
                 mut self,
-                search_criteria_compare_version_version_type: impl Into<String>,
+                search_criteria_compare_version_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.search_criteria_compare_version_version_type =
                     Some(search_criteria_compare_version_version_type.into());
@@ -1760,7 +1762,7 @@ pub mod commits {
             #[doc = "What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified."]
             pub fn search_criteria_history_mode(
                 mut self,
-                search_criteria_history_mode: impl Into<String>,
+                search_criteria_history_mode: impl Into<models::GitHistoryMode>,
             ) -> Self {
                 self.search_criteria_history_mode = Some(search_criteria_history_mode.into());
                 self
@@ -1823,7 +1825,7 @@ pub mod commits {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn search_criteria_item_version_version_options(
                 mut self,
-                search_criteria_item_version_version_options: impl Into<String>,
+                search_criteria_item_version_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.search_criteria_item_version_version_options =
                     Some(search_criteria_item_version_version_options.into());
@@ -1832,7 +1834,7 @@ pub mod commits {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn search_criteria_item_version_version_type(
                 mut self,
-                search_criteria_item_version_version_type: impl Into<String>,
+                search_criteria_item_version_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.search_criteria_item_version_version_type =
                     Some(search_criteria_item_version_version_type.into());
@@ -1920,7 +1922,7 @@ pub mod commits {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.compareVersion.versionOptions",
-                                search_criteria_compare_version_version_options,
+                                &search_criteria_compare_version_version_options.to_string(),
                             );
                         }
                         if let Some(search_criteria_compare_version_version_type) =
@@ -1928,7 +1930,7 @@ pub mod commits {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.compareVersion.versionType",
-                                search_criteria_compare_version_version_type,
+                                &search_criteria_compare_version_version_type.to_string(),
                             );
                         }
                         if let Some(search_criteria_exclude_deletes) =
@@ -1957,7 +1959,7 @@ pub mod commits {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.historyMode",
-                                search_criteria_history_mode,
+                                &search_criteria_history_mode.to_string(),
                             );
                         }
                         if let Some(search_criteria_include_links) =
@@ -2010,7 +2012,7 @@ pub mod commits {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.itemVersion.versionOptions",
-                                search_criteria_item_version_version_options,
+                                &search_criteria_item_version_version_options.to_string(),
                             );
                         }
                         if let Some(search_criteria_item_version_version_type) =
@@ -2018,7 +2020,7 @@ pub mod commits {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.itemVersion.versionType",
-                                search_criteria_item_version_version_type,
+                                &search_criteria_item_version_version_type.to_string(),
                             );
                         }
                         if let Some(search_criteria_show_oldest_commits_first) =
@@ -2721,14 +2723,14 @@ pub mod items {
             pub(crate) path: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_content_metadata: Option<bool>,
             pub(crate) latest_processed_change: Option<bool>,
             pub(crate) download: Option<bool>,
             pub(crate) format: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
             pub(crate) include_content: Option<bool>,
             pub(crate) resolve_lfs: Option<bool>,
             pub(crate) sanitize: Option<bool>,
@@ -2740,7 +2742,10 @@ pub mod items {
                 self
             }
             #[doc = "The recursion level of this request. The default is 'none', no recursion."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -2775,7 +2780,7 @@ pub mod items {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -2784,7 +2789,7 @@ pub mod items {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -2836,7 +2841,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_content_metadata) = &this.include_content_metadata {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -2871,7 +2876,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -2879,7 +2884,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         if let Some(include_content) = &this.include_content {
@@ -2973,15 +2978,15 @@ pub mod items {
             pub(crate) repository_id: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_content_metadata: Option<bool>,
             pub(crate) latest_processed_change: Option<bool>,
             pub(crate) download: Option<bool>,
             pub(crate) include_links: Option<bool>,
             pub(crate) format: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
             pub(crate) zip_for_unix: Option<bool>,
         }
         impl RequestBuilder {
@@ -2991,7 +2996,10 @@ pub mod items {
                 self
             }
             #[doc = "The recursion level of this request. The default is 'none', no recursion."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -3031,7 +3039,7 @@ pub mod items {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -3040,7 +3048,7 @@ pub mod items {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -3080,7 +3088,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_content_metadata) = &this.include_content_metadata {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -3120,7 +3128,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -3128,7 +3136,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         if let Some(zip_for_unix) = &this.zip_for_unix {
@@ -3369,8 +3377,8 @@ pub mod stats {
             pub(crate) name: String,
             pub(crate) project: String,
             pub(crate) base_version_descriptor_version: Option<String>,
-            pub(crate) base_version_descriptor_version_options: Option<String>,
-            pub(crate) base_version_descriptor_version_type: Option<String>,
+            pub(crate) base_version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) base_version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -3384,7 +3392,7 @@ pub mod stats {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn base_version_descriptor_version_options(
                 mut self,
-                base_version_descriptor_version_options: impl Into<String>,
+                base_version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.base_version_descriptor_version_options =
                     Some(base_version_descriptor_version_options.into());
@@ -3393,7 +3401,7 @@ pub mod stats {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn base_version_descriptor_version_type(
                 mut self,
-                base_version_descriptor_version_type: impl Into<String>,
+                base_version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.base_version_descriptor_version_type =
                     Some(base_version_descriptor_version_type.into());
@@ -3436,7 +3444,7 @@ pub mod stats {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "baseVersionDescriptor.versionOptions",
-                                base_version_descriptor_version_options,
+                                &base_version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(base_version_descriptor_version_type) =
@@ -3444,7 +3452,7 @@ pub mod stats {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "baseVersionDescriptor.versionType",
-                                base_version_descriptor_version_type,
+                                &base_version_descriptor_version_type.to_string(),
                             );
                         }
                         let req_body = azure_core::Bytes::new();
@@ -3523,8 +3531,8 @@ pub mod stats {
             pub(crate) repository_id: String,
             pub(crate) project: String,
             pub(crate) base_version_descriptor_version: Option<String>,
-            pub(crate) base_version_descriptor_version_options: Option<String>,
-            pub(crate) base_version_descriptor_version_type: Option<String>,
+            pub(crate) base_version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) base_version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -3538,7 +3546,7 @@ pub mod stats {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn base_version_descriptor_version_options(
                 mut self,
-                base_version_descriptor_version_options: impl Into<String>,
+                base_version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.base_version_descriptor_version_options =
                     Some(base_version_descriptor_version_options.into());
@@ -3547,7 +3555,7 @@ pub mod stats {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn base_version_descriptor_version_type(
                 mut self,
-                base_version_descriptor_version_type: impl Into<String>,
+                base_version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.base_version_descriptor_version_type =
                     Some(base_version_descriptor_version_type.into());
@@ -3588,7 +3596,7 @@ pub mod stats {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "baseVersionDescriptor.versionOptions",
-                                base_version_descriptor_version_options,
+                                &base_version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(base_version_descriptor_version_type) =
@@ -3596,7 +3604,7 @@ pub mod stats {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "baseVersionDescriptor.versionType",
-                                base_version_descriptor_version_type,
+                                &base_version_descriptor_version_type.to_string(),
                             );
                         }
                         let req_body = azure_core::Bytes::new();
@@ -4538,12 +4546,13 @@ pub mod pull_requests {
             pub(crate) search_criteria_include_links: Option<bool>,
             pub(crate) search_criteria_max_time: Option<time::OffsetDateTime>,
             pub(crate) search_criteria_min_time: Option<time::OffsetDateTime>,
-            pub(crate) search_criteria_query_time_range_type: Option<String>,
+            pub(crate) search_criteria_query_time_range_type:
+                Option<models::PullRequestTimeRangeType>,
             pub(crate) search_criteria_repository_id: Option<String>,
             pub(crate) search_criteria_reviewer_id: Option<String>,
             pub(crate) search_criteria_source_ref_name: Option<String>,
             pub(crate) search_criteria_source_repository_id: Option<String>,
-            pub(crate) search_criteria_status: Option<String>,
+            pub(crate) search_criteria_status: Option<models::PullRequestStatus>,
             pub(crate) search_criteria_target_ref_name: Option<String>,
             pub(crate) max_comment_length: Option<i32>,
             pub(crate) skip: Option<i32>,
@@ -4585,7 +4594,7 @@ pub mod pull_requests {
             #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
             pub fn search_criteria_query_time_range_type(
                 mut self,
-                search_criteria_query_time_range_type: impl Into<String>,
+                search_criteria_query_time_range_type: impl Into<models::PullRequestTimeRangeType>,
             ) -> Self {
                 self.search_criteria_query_time_range_type =
                     Some(search_criteria_query_time_range_type.into());
@@ -4627,7 +4636,7 @@ pub mod pull_requests {
             #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
             pub fn search_criteria_status(
                 mut self,
-                search_criteria_status: impl Into<String>,
+                search_criteria_status: impl Into<models::PullRequestStatus>,
             ) -> Self {
                 self.search_criteria_status = Some(search_criteria_status.into());
                 self
@@ -4710,7 +4719,7 @@ pub mod pull_requests {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.queryTimeRangeType",
-                                search_criteria_query_time_range_type,
+                                &search_criteria_query_time_range_type.to_string(),
                             );
                         }
                         if let Some(search_criteria_repository_id) =
@@ -4745,9 +4754,10 @@ pub mod pull_requests {
                             );
                         }
                         if let Some(search_criteria_status) = &this.search_criteria_status {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("searchCriteria.status", search_criteria_status);
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "searchCriteria.status",
+                                &search_criteria_status.to_string(),
+                            );
                         }
                         if let Some(search_criteria_target_ref_name) =
                             &this.search_criteria_target_ref_name
@@ -4947,12 +4957,13 @@ pub mod pull_requests {
             pub(crate) search_criteria_include_links: Option<bool>,
             pub(crate) search_criteria_max_time: Option<time::OffsetDateTime>,
             pub(crate) search_criteria_min_time: Option<time::OffsetDateTime>,
-            pub(crate) search_criteria_query_time_range_type: Option<String>,
+            pub(crate) search_criteria_query_time_range_type:
+                Option<models::PullRequestTimeRangeType>,
             pub(crate) search_criteria_repository_id: Option<String>,
             pub(crate) search_criteria_reviewer_id: Option<String>,
             pub(crate) search_criteria_source_ref_name: Option<String>,
             pub(crate) search_criteria_source_repository_id: Option<String>,
-            pub(crate) search_criteria_status: Option<String>,
+            pub(crate) search_criteria_status: Option<models::PullRequestStatus>,
             pub(crate) search_criteria_target_ref_name: Option<String>,
             pub(crate) max_comment_length: Option<i32>,
             pub(crate) skip: Option<i32>,
@@ -4994,7 +5005,7 @@ pub mod pull_requests {
             #[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
             pub fn search_criteria_query_time_range_type(
                 mut self,
-                search_criteria_query_time_range_type: impl Into<String>,
+                search_criteria_query_time_range_type: impl Into<models::PullRequestTimeRangeType>,
             ) -> Self {
                 self.search_criteria_query_time_range_type =
                     Some(search_criteria_query_time_range_type.into());
@@ -5036,7 +5047,7 @@ pub mod pull_requests {
             #[doc = "If set, search for pull requests that are in this state. Defaults to Active if unset."]
             pub fn search_criteria_status(
                 mut self,
-                search_criteria_status: impl Into<String>,
+                search_criteria_status: impl Into<models::PullRequestStatus>,
             ) -> Self {
                 self.search_criteria_status = Some(search_criteria_status.into());
                 self
@@ -5119,7 +5130,7 @@ pub mod pull_requests {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "searchCriteria.queryTimeRangeType",
-                                search_criteria_query_time_range_type,
+                                &search_criteria_query_time_range_type.to_string(),
                             );
                         }
                         if let Some(search_criteria_repository_id) =
@@ -5154,9 +5165,10 @@ pub mod pull_requests {
                             );
                         }
                         if let Some(search_criteria_status) = &this.search_criteria_status {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("searchCriteria.status", search_criteria_status);
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "searchCriteria.status",
+                                &search_criteria_status.to_string(),
+                            );
                         }
                         if let Some(search_criteria_target_ref_name) =
                             &this.search_criteria_target_ref_name
@@ -6928,11 +6940,11 @@ pub mod diffs {
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
             pub(crate) base_version: Option<String>,
-            pub(crate) base_version_options: Option<String>,
-            pub(crate) base_version_type: Option<String>,
+            pub(crate) base_version_options: Option<models::GitVersionOptions>,
+            pub(crate) base_version_type: Option<models::GitVersionType>,
             pub(crate) target_version: Option<String>,
-            pub(crate) target_version_options: Option<String>,
-            pub(crate) target_version_type: Option<String>,
+            pub(crate) target_version_options: Option<models::GitVersionOptions>,
+            pub(crate) target_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "If true, diff between common and target commits. If false, diff between base and target commits."]
@@ -6956,12 +6968,18 @@ pub mod diffs {
                 self
             }
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
-            pub fn base_version_options(mut self, base_version_options: impl Into<String>) -> Self {
+            pub fn base_version_options(
+                mut self,
+                base_version_options: impl Into<models::GitVersionOptions>,
+            ) -> Self {
                 self.base_version_options = Some(base_version_options.into());
                 self
             }
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
-            pub fn base_version_type(mut self, base_version_type: impl Into<String>) -> Self {
+            pub fn base_version_type(
+                mut self,
+                base_version_type: impl Into<models::GitVersionType>,
+            ) -> Self {
                 self.base_version_type = Some(base_version_type.into());
                 self
             }
@@ -6973,13 +6991,16 @@ pub mod diffs {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn target_version_options(
                 mut self,
-                target_version_options: impl Into<String>,
+                target_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.target_version_options = Some(target_version_options.into());
                 self
             }
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
-            pub fn target_version_type(mut self, target_version_type: impl Into<String>) -> Self {
+            pub fn target_version_type(
+                mut self,
+                target_version_type: impl Into<models::GitVersionType>,
+            ) -> Self {
                 self.target_version_type = Some(target_version_type.into());
                 self
             }
@@ -7026,14 +7047,15 @@ pub mod diffs {
                                 .append_pair("baseVersion", base_version);
                         }
                         if let Some(base_version_options) = &this.base_version_options {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("baseVersionOptions", base_version_options);
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "baseVersionOptions",
+                                &base_version_options.to_string(),
+                            );
                         }
                         if let Some(base_version_type) = &this.base_version_type {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("baseVersionType", base_version_type);
+                                .append_pair("baseVersionType", &base_version_type.to_string());
                         }
                         if let Some(target_version) = &this.target_version {
                             req.url_mut()
@@ -7041,14 +7063,15 @@ pub mod diffs {
                                 .append_pair("targetVersion", target_version);
                         }
                         if let Some(target_version_options) = &this.target_version_options {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("targetVersionOptions", target_version_options);
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "targetVersionOptions",
+                                &target_version_options.to_string(),
+                            );
                         }
                         if let Some(target_version_type) = &this.target_version_type {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("targetVersionType", target_version_type);
+                                .append_pair("targetVersionType", &target_version_type.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

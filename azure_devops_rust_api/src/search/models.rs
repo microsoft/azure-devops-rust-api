@@ -582,6 +582,15 @@ pub mod repository {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Git => write!(f, "git"),
+                Self::Tfvc => write!(f, "tfvc"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[doc = "Defines the repository status."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -671,6 +680,16 @@ pub mod setting_result {
         Project,
         #[serde(rename = "user")]
         User,
+    }
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Organization => write!(f, "organization"),
+                Self::Project => write!(f, "project"),
+                Self::User => write!(f, "user"),
+            }
+        }
     }
 }
 #[doc = "Defines a setting search request"]

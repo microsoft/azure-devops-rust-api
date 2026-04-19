@@ -289,6 +289,26 @@ pub mod field_model {
         #[serde(rename = "picklistDouble")]
         PicklistDouble,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::String => write!(f, "string"),
+                Self::Integer => write!(f, "integer"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::PlainText => write!(f, "plainText"),
+                Self::Html => write!(f, "html"),
+                Self::TreePath => write!(f, "treePath"),
+                Self::History => write!(f, "history"),
+                Self::Double => write!(f, "double"),
+                Self::Guid => write!(f, "guid"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Identity => write!(f, "identity"),
+                Self::PicklistInteger => write!(f, "picklistInteger"),
+                Self::PicklistString => write!(f, "picklistString"),
+                Self::PicklistDouble => write!(f, "picklistDouble"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FieldRuleModel {
@@ -355,6 +375,61 @@ pub struct FormLayout {
 impl FormLayout {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetBehaviorsExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "fields")]
+    Fields,
+    #[serde(rename = "combinedFields")]
+    CombinedFields,
+}
+impl std::fmt::Display for GetBehaviorsExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Fields => write!(f, "fields"),
+            Self::CombinedFields => write!(f, "combinedFields"),
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetProcessExpandLevel {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "projects")]
+    Projects,
+}
+impl std::fmt::Display for GetProcessExpandLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Projects => write!(f, "projects"),
+        }
+    }
+}
+#[doc = "Flag to determine what properties of work item type to return"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetWorkItemTypeExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "states")]
+    States,
+    #[serde(rename = "behaviors")]
+    Behaviors,
+    #[serde(rename = "layout")]
+    Layout,
+}
+impl std::fmt::Display for GetWorkItemTypeExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::States => write!(f, "states"),
+            Self::Behaviors => write!(f, "behaviors"),
+            Self::Layout => write!(f, "layout"),
+        }
     }
 }
 #[doc = "Represent a group in the form that holds controls in it."]
@@ -480,6 +555,16 @@ pub mod page {
         #[serde(rename = "attachments")]
         Attachments,
     }
+    impl std::fmt::Display for PageType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::History => write!(f, "history"),
+                Self::Links => write!(f, "links"),
+                Self::Attachments => write!(f, "attachments"),
+            }
+        }
+    }
 }
 #[doc = "Picklist."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -598,6 +683,15 @@ pub mod process_behavior {
         Inherited,
         #[serde(rename = "custom")]
         Custom,
+    }
+    impl std::fmt::Display for Customization {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
     }
 }
 #[doc = "Process Behavior Create Payload."]
@@ -761,6 +855,15 @@ pub mod process_info {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for CustomizationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessInfoList {
@@ -852,6 +955,15 @@ pub mod process_properties {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for Class {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Derived => write!(f, "derived"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[doc = "Process Rule Response."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -888,6 +1000,15 @@ pub mod process_rule {
         Inherited,
         #[serde(rename = "custom")]
         Custom,
+    }
+    impl std::fmt::Display for CustomizationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -977,6 +1098,15 @@ pub mod process_work_item_type {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for Customization {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[doc = "Class that describes a field in a work item type and its properties."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1052,6 +1182,15 @@ pub mod process_work_item_type_field {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for Customization {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
     #[doc = "Type of the field."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Type {
@@ -1084,6 +1223,26 @@ pub mod process_work_item_type_field {
         #[serde(rename = "picklistDouble")]
         PicklistDouble,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::String => write!(f, "string"),
+                Self::Integer => write!(f, "integer"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::PlainText => write!(f, "plainText"),
+                Self::Html => write!(f, "html"),
+                Self::TreePath => write!(f, "treePath"),
+                Self::History => write!(f, "history"),
+                Self::Double => write!(f, "double"),
+                Self::Guid => write!(f, "guid"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Identity => write!(f, "identity"),
+                Self::PicklistInteger => write!(f, "picklistInteger"),
+                Self::PicklistString => write!(f, "picklistString"),
+                Self::PicklistDouble => write!(f, "picklistDouble"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ProcessWorkItemTypeFieldList {
@@ -1099,6 +1258,24 @@ pub struct ProcessWorkItemTypeFieldList {
 impl ProcessWorkItemTypeFieldList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ProcessWorkItemTypeFieldsExpandLevel {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "allowedValues")]
+    AllowedValues,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ProcessWorkItemTypeFieldsExpandLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::AllowedValues => write!(f, "allowedValues"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1200,6 +1377,27 @@ pub mod rule_action {
         #[serde(rename = "disallowValue")]
         DisallowValue,
     }
+    impl std::fmt::Display for ActionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::MakeRequired => write!(f, "makeRequired"),
+                Self::MakeReadOnly => write!(f, "makeReadOnly"),
+                Self::SetDefaultValue => write!(f, "setDefaultValue"),
+                Self::SetDefaultFromClock => write!(f, "setDefaultFromClock"),
+                Self::SetDefaultFromCurrentUser => write!(f, "setDefaultFromCurrentUser"),
+                Self::SetDefaultFromField => write!(f, "setDefaultFromField"),
+                Self::CopyValue => write!(f, "copyValue"),
+                Self::CopyFromClock => write!(f, "copyFromClock"),
+                Self::CopyFromCurrentUser => write!(f, "copyFromCurrentUser"),
+                Self::CopyFromField => write!(f, "copyFromField"),
+                Self::SetValueToEmpty => write!(f, "setValueToEmpty"),
+                Self::CopyFromServerClock => write!(f, "copyFromServerClock"),
+                Self::CopyFromServerCurrentUser => write!(f, "copyFromServerCurrentUser"),
+                Self::HideTargetField => write!(f, "hideTargetField"),
+                Self::DisallowValue => write!(f, "disallowValue"),
+            }
+        }
+    }
 }
 #[doc = "Action to take when the rule is triggered."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1275,6 +1473,26 @@ pub mod rule_condition {
         WhenCurrentUserIsMemberOfGroup,
         #[serde(rename = "whenCurrentUserIsNotMemberOfGroup")]
         WhenCurrentUserIsNotMemberOfGroup,
+    }
+    impl std::fmt::Display for ConditionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::When => write!(f, "when"),
+                Self::WhenNot => write!(f, "whenNot"),
+                Self::WhenChanged => write!(f, "whenChanged"),
+                Self::WhenNotChanged => write!(f, "whenNotChanged"),
+                Self::WhenWas => write!(f, "whenWas"),
+                Self::WhenStateChangedTo => write!(f, "whenStateChangedTo"),
+                Self::WhenStateChangedFromAndTo => write!(f, "whenStateChangedFromAndTo"),
+                Self::WhenWorkItemIsCreated => write!(f, "whenWorkItemIsCreated"),
+                Self::WhenValueIsDefined => write!(f, "whenValueIsDefined"),
+                Self::WhenValueIsNotDefined => write!(f, "whenValueIsNotDefined"),
+                Self::WhenCurrentUserIsMemberOfGroup => write!(f, "whenCurrentUserIsMemberOfGroup"),
+                Self::WhenCurrentUserIsNotMemberOfGroup => {
+                    write!(f, "whenCurrentUserIsNotMemberOfGroup")
+                }
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1612,6 +1830,15 @@ pub mod work_item_state_result_model {
         #[serde(rename = "custom")]
         Custom,
     }
+    impl std::fmt::Display for CustomizationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Inherited => write!(f, "inherited"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkItemStateResultModelList {
@@ -1726,5 +1953,14 @@ pub mod work_item_type_model {
         Derived,
         #[serde(rename = "custom")]
         Custom,
+    }
+    impl std::fmt::Display for Class {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Derived => write!(f, "derived"),
+                Self::Custom => write!(f, "custom"),
+            }
+        }
     }
 }

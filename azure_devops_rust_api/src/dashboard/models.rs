@@ -66,6 +66,15 @@ pub mod copy_dashboard_options {
         #[serde(rename = "project")]
         Project,
     }
+    impl std::fmt::Display for CopyDashboardScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::CollectionUser => write!(f, "collection_User"),
+                Self::ProjectTeam => write!(f, "project_Team"),
+                Self::Project => write!(f, "project"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CopyDashboardResponse {
@@ -180,6 +189,15 @@ pub mod dashboard {
         #[serde(rename = "project")]
         Project,
     }
+    impl std::fmt::Display for DashboardScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::CollectionUser => write!(f, "collection_User"),
+                Self::ProjectTeam => write!(f, "project_Team"),
+                Self::Project => write!(f, "project"),
+            }
+        }
+    }
 }
 #[doc = "Describes a list of dashboards associated to an owner. Currently, teams own dashboard groups."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -227,6 +245,16 @@ pub mod dashboard_group {
         #[serde(rename = "managePermissions")]
         ManagePermissions,
     }
+    impl std::fmt::Display for Permission {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Edit => write!(f, "edit"),
+                Self::Manage => write!(f, "manage"),
+                Self::ManagePermissions => write!(f, "managePermissions"),
+            }
+        }
+    }
     #[doc = "A permissions bit mask describing the security permissions of the current team for dashboards. When this permission is the value None, use GroupMemberPermission. Permissions are evaluated based on the presence of a value other than None, else the GroupMemberPermission will be saved."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum TeamDashboardPermission {
@@ -242,6 +270,18 @@ pub mod dashboard_group {
         Delete,
         #[serde(rename = "managePermissions")]
         ManagePermissions,
+    }
+    impl std::fmt::Display for TeamDashboardPermission {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Read => write!(f, "read"),
+                Self::Create => write!(f, "create"),
+                Self::Edit => write!(f, "edit"),
+                Self::Delete => write!(f, "delete"),
+                Self::ManagePermissions => write!(f, "managePermissions"),
+            }
+        }
     }
 }
 #[doc = "Dashboard group entry, wrapping around Dashboard (needed?)"]
@@ -702,6 +742,21 @@ pub struct WidgetResponse {
 impl WidgetResponse {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum WidgetScope {
+    #[serde(rename = "collection_User")]
+    CollectionUser,
+    #[serde(rename = "project_Team")]
+    ProjectTeam,
+}
+impl std::fmt::Display for WidgetScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CollectionUser => write!(f, "collection_User"),
+            Self::ProjectTeam => write!(f, "project_Team"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

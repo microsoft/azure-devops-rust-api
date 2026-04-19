@@ -74,7 +74,7 @@ async fn main() -> Result<()> {
     let work_item = wit_client
         .work_items_client()
         .get_work_item(&organization, work_item_id, &project)
-        .expand("All")
+        .expand(wit::models::WorkItemExpand::All)
         .await?;
 
     println!("Work item [{work_item_id}]:\n{work_item:#?}");

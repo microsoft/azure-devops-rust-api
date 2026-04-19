@@ -137,6 +137,47 @@ pub mod access_token_result {
         #[serde(rename = "invalidScope")]
         InvalidScope,
     }
+    impl std::fmt::Display for AccessTokenError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::GrantTypeRequired => write!(f, "grantTypeRequired"),
+                Self::AuthorizationGrantRequired => write!(f, "authorizationGrantRequired"),
+                Self::ClientSecretRequired => write!(f, "clientSecretRequired"),
+                Self::RedirectUriRequired => write!(f, "redirectUriRequired"),
+                Self::InvalidAuthorizationGrant => write!(f, "invalidAuthorizationGrant"),
+                Self::InvalidAuthorizationScopes => write!(f, "invalidAuthorizationScopes"),
+                Self::InvalidRefreshToken => write!(f, "invalidRefreshToken"),
+                Self::AuthorizationNotFound => write!(f, "authorizationNotFound"),
+                Self::AuthorizationGrantExpired => write!(f, "authorizationGrantExpired"),
+                Self::AccessAlreadyIssued => write!(f, "accessAlreadyIssued"),
+                Self::InvalidRedirectUri => write!(f, "invalidRedirectUri"),
+                Self::AccessTokenNotFound => write!(f, "accessTokenNotFound"),
+                Self::InvalidAccessToken => write!(f, "invalidAccessToken"),
+                Self::AccessTokenAlreadyRefreshed => write!(f, "accessTokenAlreadyRefreshed"),
+                Self::InvalidClientSecret => write!(f, "invalidClientSecret"),
+                Self::ClientSecretExpired => write!(f, "clientSecretExpired"),
+                Self::ServerError => write!(f, "serverError"),
+                Self::AccessDenied => write!(f, "accessDenied"),
+                Self::AccessTokenKeyRequired => write!(f, "accessTokenKeyRequired"),
+                Self::InvalidAccessTokenKey => write!(f, "invalidAccessTokenKey"),
+                Self::FailedToGetAccessToken => write!(f, "failedToGetAccessToken"),
+                Self::InvalidClientId => write!(f, "invalidClientId"),
+                Self::InvalidClient => write!(f, "invalidClient"),
+                Self::InvalidValidTo => write!(f, "invalidValidTo"),
+                Self::InvalidUserId => write!(f, "invalidUserId"),
+                Self::FailedToIssueAccessToken => write!(f, "failedToIssueAccessToken"),
+                Self::AuthorizationGrantScopeMissing => write!(f, "authorizationGrantScopeMissing"),
+                Self::InvalidPublicAccessTokenKey => write!(f, "invalidPublicAccessTokenKey"),
+                Self::InvalidPublicAccessToken => write!(f, "invalidPublicAccessToken"),
+                Self::PublicFeatureFlagNotEnabled => write!(f, "publicFeatureFlagNotEnabled"),
+                Self::SshPolicyDisabled => write!(f, "sshPolicyDisabled"),
+                Self::HostAuthorizationNotFound => write!(f, "hostAuthorizationNotFound"),
+                Self::HostAuthorizationIsNotValid => write!(f, "hostAuthorizationIsNotValid"),
+                Self::InvalidScope => write!(f, "invalidScope"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationGrant {
@@ -162,6 +203,17 @@ pub mod authorization_grant {
         Implicit,
         #[serde(rename = "clientCredentials")]
         ClientCredentials,
+    }
+    impl std::fmt::Display for GrantType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::JwtBearer => write!(f, "jwtBearer"),
+                Self::RefreshToken => write!(f, "refreshToken"),
+                Self::Implicit => write!(f, "implicit"),
+                Self::ClientCredentials => write!(f, "clientCredentials"),
+            }
+        }
     }
 }
 #[doc = "Container class for changed identities"]
@@ -266,6 +318,15 @@ pub mod create_scope_info {
         #[serde(rename = "teamProject")]
         TeamProject,
     }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Generic => write!(f, "generic"),
+                Self::ServiceHost => write!(f, "serviceHost"),
+                Self::TeamProject => write!(f, "teamProject"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FrameworkIdentityInfo {
@@ -303,6 +364,16 @@ pub mod framework_identity_info {
         AggregateIdentity,
         #[serde(rename = "importedIdentity")]
         ImportedIdentity,
+    }
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ServiceIdentity => write!(f, "serviceIdentity"),
+                Self::AggregateIdentity => write!(f, "aggregateIdentity"),
+                Self::ImportedIdentity => write!(f, "importedIdentity"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -496,6 +567,17 @@ pub mod identity_batch_info {
         #[serde(rename = "expandedDown")]
         ExpandedDown,
     }
+    impl std::fmt::Display for QueryMembership {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Direct => write!(f, "direct"),
+                Self::Expanded => write!(f, "expanded"),
+                Self::ExpandedUp => write!(f, "expandedUp"),
+                Self::ExpandedDown => write!(f, "expandedDown"),
+            }
+        }
+    }
 }
 #[doc = "An Identity descriptor is a wrapper for the identity type (Windows SID, Passport) along with a unique identifier such as the SID or PUID."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -596,6 +678,15 @@ pub mod identity_scope {
         ServiceHost,
         #[serde(rename = "teamProject")]
         TeamProject,
+    }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Generic => write!(f, "generic"),
+                Self::ServiceHost => write!(f, "serviceHost"),
+                Self::TeamProject => write!(f, "teamProject"),
+            }
+        }
     }
 }
 #[doc = "Identity information."]
@@ -766,6 +857,18 @@ pub mod json_patch_operation {
         #[serde(rename = "test")]
         Test,
     }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct JsonWebToken {
@@ -824,6 +927,31 @@ pub struct PropertiesCollection {
 impl PropertiesCollection {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum QueryMembership {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "direct")]
+    Direct,
+    #[serde(rename = "expanded")]
+    Expanded,
+    #[serde(rename = "expandedUp")]
+    ExpandedUp,
+    #[serde(rename = "expandedDown")]
+    ExpandedDown,
+}
+impl std::fmt::Display for QueryMembership {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Direct => write!(f, "direct"),
+            Self::Expanded => write!(f, "expanded"),
+            Self::ExpandedUp => write!(f, "expandedUp"),
+            Self::ExpandedDown => write!(f, "expandedDown"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

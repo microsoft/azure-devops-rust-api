@@ -232,6 +232,27 @@ pub mod aggregated_results_by_outcome {
         #[serde(rename = "notImpacted")]
         NotImpacted,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::None => write!(f, "none"),
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::Inconclusive => write!(f, "inconclusive"),
+                Self::Timeout => write!(f, "timeout"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Blocked => write!(f, "blocked"),
+                Self::NotExecuted => write!(f, "notExecuted"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+                Self::NotApplicable => write!(f, "notApplicable"),
+                Self::Paused => write!(f, "paused"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedResultsDifference {
@@ -302,6 +323,16 @@ pub mod aggregated_runs_by_outcome {
         #[serde(rename = "others")]
         Others,
     }
+    impl std::fmt::Display for Outcome {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Passed => write!(f, "passed"),
+                Self::Failed => write!(f, "failed"),
+                Self::NotImpacted => write!(f, "notImpacted"),
+                Self::Others => write!(f, "others"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AggregatedRunsByState {
@@ -339,6 +370,19 @@ pub mod aggregated_runs_by_state {
         Waiting,
         #[serde(rename = "needsInvestigation")]
         NeedsInvestigation,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unspecified => write!(f, "unspecified"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Aborted => write!(f, "aborted"),
+                Self::Waiting => write!(f, "waiting"),
+                Self::NeedsInvestigation => write!(f, "needsInvestigation"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -756,6 +800,17 @@ pub mod build {
         #[serde(rename = "high")]
         High,
     }
+    impl std::fmt::Display for Priority {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Low => write!(f, "low"),
+                Self::BelowNormal => write!(f, "belowNormal"),
+                Self::Normal => write!(f, "normal"),
+                Self::AboveNormal => write!(f, "aboveNormal"),
+                Self::High => write!(f, "high"),
+            }
+        }
+    }
     #[doc = "Additional options for queueing the build."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum QueueOptions {
@@ -763,6 +818,14 @@ pub mod build {
         None,
         #[serde(rename = "doNotRun")]
         DoNotRun,
+    }
+    impl std::fmt::Display for QueueOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::DoNotRun => write!(f, "doNotRun"),
+            }
+        }
     }
     #[doc = "The reason that the build was created."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -796,6 +859,26 @@ pub mod build {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::IndividualCi => write!(f, "individualCI"),
+                Self::BatchedCi => write!(f, "batchedCI"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::ScheduleForced => write!(f, "scheduleForced"),
+                Self::UserCreated => write!(f, "userCreated"),
+                Self::ValidateShelveset => write!(f, "validateShelveset"),
+                Self::CheckInShelveset => write!(f, "checkInShelveset"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::ResourceTrigger => write!(f, "resourceTrigger"),
+                Self::Triggered => write!(f, "triggered"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "The build result."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Result {
@@ -809,6 +892,17 @@ pub mod build {
         Failed,
         #[serde(rename = "canceled")]
         Canceled,
+    }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
     }
     #[doc = "The status of the build."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -827,6 +921,19 @@ pub mod build {
         NotStarted,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::Postponed => write!(f, "postponed"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -903,6 +1010,15 @@ pub mod build_agent {
         Available,
         #[serde(rename = "offline")]
         Offline,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unavailable => write!(f, "unavailable"),
+                Self::Available => write!(f, "available"),
+                Self::Offline => write!(f, "offline"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1099,6 +1215,15 @@ pub mod build_controller {
         #[serde(rename = "offline")]
         Offline,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unavailable => write!(f, "unavailable"),
+                Self::Available => write!(f, "available"),
+                Self::Offline => write!(f, "offline"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildControllerList {
@@ -1261,6 +1386,14 @@ pub mod build_definition {
         #[serde(rename = "project")]
         Project,
     }
+    impl std::fmt::Display for JobAuthorizationScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ProjectCollection => write!(f, "projectCollection"),
+                Self::Project => write!(f, "project"),
+            }
+        }
+    }
 }
 #[doc = "For back-compat with extensions that use the old Steps format instead of Process and Phases"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1418,6 +1551,14 @@ pub mod build_definition3_2 {
         #[serde(rename = "project")]
         Project,
     }
+    impl std::fmt::Display for JobAuthorizationScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ProjectCollection => write!(f, "projectCollection"),
+                Self::Project => write!(f, "project"),
+            }
+        }
+    }
 }
 #[doc = "Represents a reference to a build definition."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1496,6 +1637,14 @@ pub mod build_definition_reference {
         #[serde(rename = "draft")]
         Draft,
     }
+    impl std::fmt::Display for Quality {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Definition => write!(f, "definition"),
+                Self::Draft => write!(f, "draft"),
+            }
+        }
+    }
 }
 #[doc = "For back-compat with extensions that use the old Steps format instead of Process and Phases"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1557,6 +1706,14 @@ pub mod build_definition_reference3_2 {
         Definition,
         #[serde(rename = "draft")]
         Draft,
+    }
+    impl std::fmt::Display for Quality {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Definition => write!(f, "definition"),
+                Self::Draft => write!(f, "draft"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1628,6 +1785,15 @@ pub mod build_definition_revision {
         Update,
         #[serde(rename = "delete")]
         Delete,
+    }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Update => write!(f, "update"),
+                Self::Delete => write!(f, "delete"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1708,6 +1874,21 @@ pub mod build_definition_source_provider {
         BuildCompletion,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for SupportedTriggerTypes {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::BatchedContinuousIntegration => write!(f, "batchedContinuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::GatedCheckIn => write!(f, "gatedCheckIn"),
+                Self::BatchedGatedCheckIn => write!(f, "batchedGatedCheckIn"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Represents a step in a build phase."]
@@ -2219,6 +2400,19 @@ pub mod build_option_input_definition {
         #[serde(rename = "branchFilter")]
         BranchFilter,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::String => write!(f, "string"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::StringList => write!(f, "stringList"),
+                Self::Radio => write!(f, "radio"),
+                Self::PickList => write!(f, "pickList"),
+                Self::MultiLine => write!(f, "multiLine"),
+                Self::BranchFilter => write!(f, "branchFilter"),
+            }
+        }
+    }
 }
 #[doc = "Represents a build process."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2347,6 +2541,26 @@ pub mod build_process_template {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for SupportedReasons {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::IndividualCi => write!(f, "individualCI"),
+                Self::BatchedCi => write!(f, "batchedCI"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::ScheduleForced => write!(f, "scheduleForced"),
+                Self::UserCreated => write!(f, "userCreated"),
+                Self::ValidateShelveset => write!(f, "validateShelveset"),
+                Self::CheckInShelveset => write!(f, "checkInShelveset"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::ResourceTrigger => write!(f, "resourceTrigger"),
+                Self::Triggered => write!(f, "triggered"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum TemplateType {
         #[serde(rename = "custom")]
@@ -2355,6 +2569,43 @@ pub mod build_process_template {
         Default,
         #[serde(rename = "upgrade")]
         Upgrade,
+    }
+    impl std::fmt::Display for TemplateType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::Default => write!(f, "default"),
+                Self::Upgrade => write!(f, "upgrade"),
+            }
+        }
+    }
+}
+#[doc = "The order in which builds should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildQueryOrder {
+    #[serde(rename = "finishTimeAscending")]
+    FinishTimeAscending,
+    #[serde(rename = "finishTimeDescending")]
+    FinishTimeDescending,
+    #[serde(rename = "queueTimeDescending")]
+    QueueTimeDescending,
+    #[serde(rename = "queueTimeAscending")]
+    QueueTimeAscending,
+    #[serde(rename = "startTimeDescending")]
+    StartTimeDescending,
+    #[serde(rename = "startTimeAscending")]
+    StartTimeAscending,
+}
+impl std::fmt::Display for BuildQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::FinishTimeAscending => write!(f, "finishTimeAscending"),
+            Self::FinishTimeDescending => write!(f, "finishTimeDescending"),
+            Self::QueueTimeDescending => write!(f, "queueTimeDescending"),
+            Self::QueueTimeAscending => write!(f, "queueTimeAscending"),
+            Self::StartTimeDescending => write!(f, "startTimeDescending"),
+            Self::StartTimeAscending => write!(f, "startTimeAscending"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2365,6 +2616,58 @@ pub struct BuildQueuedEvent {
 impl BuildQueuedEvent {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "If specified, filters to builds that match this reason."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildReason {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manual")]
+    Manual,
+    #[serde(rename = "individualCI")]
+    IndividualCi,
+    #[serde(rename = "batchedCI")]
+    BatchedCi,
+    #[serde(rename = "schedule")]
+    Schedule,
+    #[serde(rename = "scheduleForced")]
+    ScheduleForced,
+    #[serde(rename = "userCreated")]
+    UserCreated,
+    #[serde(rename = "validateShelveset")]
+    ValidateShelveset,
+    #[serde(rename = "checkInShelveset")]
+    CheckInShelveset,
+    #[serde(rename = "pullRequest")]
+    PullRequest,
+    #[serde(rename = "buildCompletion")]
+    BuildCompletion,
+    #[serde(rename = "resourceTrigger")]
+    ResourceTrigger,
+    #[serde(rename = "triggered")]
+    Triggered,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for BuildReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manual => write!(f, "manual"),
+            Self::IndividualCi => write!(f, "individualCI"),
+            Self::BatchedCi => write!(f, "batchedCI"),
+            Self::Schedule => write!(f, "schedule"),
+            Self::ScheduleForced => write!(f, "scheduleForced"),
+            Self::UserCreated => write!(f, "userCreated"),
+            Self::ValidateShelveset => write!(f, "validateShelveset"),
+            Self::CheckInShelveset => write!(f, "checkInShelveset"),
+            Self::PullRequest => write!(f, "pullRequest"),
+            Self::BuildCompletion => write!(f, "buildCompletion"),
+            Self::ResourceTrigger => write!(f, "resourceTrigger"),
+            Self::Triggered => write!(f, "triggered"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Represents a reference to a build."]
@@ -2444,6 +2747,17 @@ pub mod build_reference {
         #[serde(rename = "canceled")]
         Canceled,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
+    }
     #[doc = "The build status."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -2461,6 +2775,19 @@ pub mod build_reference {
         NotStarted,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::Postponed => write!(f, "postponed"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Represents information about a build report."]
@@ -2564,6 +2891,15 @@ pub mod build_request_validation_result {
         #[serde(rename = "error")]
         Error,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Ok => write!(f, "ok"),
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+            }
+        }
+    }
 }
 #[doc = "Represents information about resources used by builds in the system."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2600,6 +2936,31 @@ pub struct BuildResourceUsage {
 impl BuildResourceUsage {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "If specified, filters to builds that match this result."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildResult {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "succeeded")]
+    Succeeded,
+    #[serde(rename = "partiallySucceeded")]
+    PartiallySucceeded,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "canceled")]
+    Canceled,
+}
+impl std::fmt::Display for BuildResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Succeeded => write!(f, "succeeded"),
+            Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            Self::Failed => write!(f, "failed"),
+            Self::Canceled => write!(f, "canceled"),
+        }
     }
 }
 #[doc = "A historical overview of build retention information. This includes a list of snapshots taken about build retention usage, and a list of builds that have exceeded the default 30 day retention policy."]
@@ -2703,6 +3064,14 @@ pub mod build_server {
         #[serde(rename = "offline")]
         Offline,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Online => write!(f, "online"),
+                Self::Offline => write!(f, "offline"),
+            }
+        }
+    }
 }
 #[doc = "Represents system-wide build settings."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2732,6 +3101,37 @@ pub struct BuildSettings {
 impl BuildSettings {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "If specified, filters to builds that match this status."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildStatus {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "inProgress")]
+    InProgress,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "cancelling")]
+    Cancelling,
+    #[serde(rename = "postponed")]
+    Postponed,
+    #[serde(rename = "notStarted")]
+    NotStarted,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for BuildStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::InProgress => write!(f, "inProgress"),
+            Self::Completed => write!(f, "completed"),
+            Self::Cancelling => write!(f, "cancelling"),
+            Self::Postponed => write!(f, "postponed"),
+            Self::NotStarted => write!(f, "notStarted"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2809,6 +3209,26 @@ pub mod build_summary {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::IndividualCi => write!(f, "individualCI"),
+                Self::BatchedCi => write!(f, "batchedCI"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::ScheduleForced => write!(f, "scheduleForced"),
+                Self::UserCreated => write!(f, "userCreated"),
+                Self::ValidateShelveset => write!(f, "validateShelveset"),
+                Self::CheckInShelveset => write!(f, "checkInShelveset"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::ResourceTrigger => write!(f, "resourceTrigger"),
+                Self::Triggered => write!(f, "triggered"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
         #[serde(rename = "none")]
@@ -2825,6 +3245,19 @@ pub mod build_summary {
         NotStarted,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+                Self::Cancelling => write!(f, "cancelling"),
+                Self::Postponed => write!(f, "postponed"),
+                Self::NotStarted => write!(f, "notStarted"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2890,6 +3323,21 @@ pub mod build_trigger {
         BuildCompletion,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for TriggerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::BatchedContinuousIntegration => write!(f, "batchedContinuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::GatedCheckIn => write!(f, "gatedCheckIn"),
+                Self::BatchedGatedCheckIn => write!(f, "batchedGatedCheckIn"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3252,6 +3700,31 @@ impl DataSourceBindingBase {
         Self::default()
     }
 }
+#[doc = "Indicates the order in which definitions should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DefinitionQueryOrder {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "lastModifiedAscending")]
+    LastModifiedAscending,
+    #[serde(rename = "lastModifiedDescending")]
+    LastModifiedDescending,
+    #[serde(rename = "definitionNameAscending")]
+    DefinitionNameAscending,
+    #[serde(rename = "definitionNameDescending")]
+    DefinitionNameDescending,
+}
+impl std::fmt::Display for DefinitionQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::LastModifiedAscending => write!(f, "lastModifiedAscending"),
+            Self::LastModifiedDescending => write!(f, "lastModifiedDescending"),
+            Self::DefinitionNameAscending => write!(f, "definitionNameAscending"),
+            Self::DefinitionNameDescending => write!(f, "definitionNameDescending"),
+        }
+    }
+}
 #[doc = "Represents a reference to a definition."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DefinitionReference {
@@ -3321,6 +3794,15 @@ pub mod definition_reference {
         #[serde(rename = "disabled")]
         Disabled,
     }
+    impl std::fmt::Display for QueueStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Enabled => write!(f, "enabled"),
+                Self::Paused => write!(f, "paused"),
+                Self::Disabled => write!(f, "disabled"),
+            }
+        }
+    }
     #[doc = "The type of the definition."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Type {
@@ -3328,6 +3810,14 @@ pub mod definition_reference {
         Xaml,
         #[serde(rename = "build")]
         Build,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Xaml => write!(f, "xaml"),
+                Self::Build => write!(f, "build"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3564,6 +4054,25 @@ impl FolderList {
         Self::default()
     }
 }
+#[doc = "The order in which folders should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum FolderQueryOrder {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "folderAscending")]
+    FolderAscending,
+    #[serde(rename = "folderDescending")]
+    FolderDescending,
+}
+impl std::fmt::Display for FolderQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::FolderAscending => write!(f, "folderAscending"),
+            Self::FolderDescending => write!(f, "folderDescending"),
+        }
+    }
+}
 #[doc = "Represents the ability to build forks of the selected repository."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Forks {
@@ -3771,6 +4280,14 @@ pub mod issue {
         #[serde(rename = "warning")]
         Warning,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Error => write!(f, "error"),
+                Self::Warning => write!(f, "warning"),
+            }
+        }
+    }
 }
 #[doc = "Job in pipeline. This is related to matrixing in YAML."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3833,6 +4350,18 @@ pub mod json_patch_operation {
         Copy,
         #[serde(rename = "test")]
         Test,
+    }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4024,6 +4553,14 @@ pub mod phase {
         ProjectCollection,
         #[serde(rename = "project")]
         Project,
+    }
+    impl std::fmt::Display for JobAuthorizationScope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ProjectCollection => write!(f, "projectCollection"),
+                Self::Project => write!(f, "project"),
+            }
+        }
     }
 }
 #[doc = "Phase in pipeline"]
@@ -4513,6 +5050,25 @@ impl PullRequestTrigger {
         Self::default()
     }
 }
+#[doc = "Indicates whether to exclude, include, or only return deleted builds."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum QueryDeletedOption {
+    #[serde(rename = "excludeDeleted")]
+    ExcludeDeleted,
+    #[serde(rename = "includeDeleted")]
+    IncludeDeleted,
+    #[serde(rename = "onlyDeleted")]
+    OnlyDeleted,
+}
+impl std::fmt::Display for QueryDeletedOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ExcludeDeleted => write!(f, "excludeDeleted"),
+            Self::IncludeDeleted => write!(f, "includeDeleted"),
+            Self::OnlyDeleted => write!(f, "onlyDeleted"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RealtimeBuildEvent {
     #[serde(rename = "buildId", default, skip_serializing_if = "Option::is_none")]
@@ -4695,6 +5251,22 @@ pub struct ResourceReference {
 impl ResourceReference {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ResultSet {
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "top")]
+    Top,
+}
+impl std::fmt::Display for ResultSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::All => write!(f, "all"),
+            Self::Top => write!(f, "top"),
+        }
     }
 }
 #[doc = "A valid retention lease prevents automated systems from deleting a pipeline run."]
@@ -4931,6 +5503,21 @@ pub mod schedule {
         Sunday,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for DaysToBuild {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Monday => write!(f, "monday"),
+                Self::Tuesday => write!(f, "tuesday"),
+                Self::Wednesday => write!(f, "wednesday"),
+                Self::Thursday => write!(f, "thursday"),
+                Self::Friday => write!(f, "friday"),
+                Self::Saturday => write!(f, "saturday"),
+                Self::Sunday => write!(f, "sunday"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Represents a schedule trigger."]
@@ -5280,6 +5867,21 @@ pub mod supported_trigger {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::BatchedContinuousIntegration => write!(f, "batchedContinuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::GatedCheckIn => write!(f, "gatedCheckIn"),
+                Self::BatchedGatedCheckIn => write!(f, "batchedGatedCheckIn"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[doc = "Represents a Subversion mapping entry."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5605,6 +6207,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -5616,6 +6231,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5655,6 +6280,15 @@ pub mod test_results_context {
         Release,
         #[serde(rename = "pipeline")]
         Pipeline,
+    }
+    impl std::fmt::Display for ContextType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Build => write!(f, "build"),
+                Self::Release => write!(f, "release"),
+                Self::Pipeline => write!(f, "pipeline"),
+            }
+        }
     }
 }
 #[doc = "Represents the timeline of a build."]
@@ -5864,6 +6498,18 @@ pub mod timeline_record {
         #[serde(rename = "abandoned")]
         Abandoned,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::SucceededWithIssues => write!(f, "succeededWithIssues"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Abandoned => write!(f, "abandoned"),
+            }
+        }
+    }
     #[doc = "The state of the record."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
@@ -5873,6 +6519,15 @@ pub mod timeline_record {
         InProgress,
         #[serde(rename = "completed")]
         Completed,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Pending => write!(f, "pending"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5977,6 +6632,14 @@ pub mod update_stage_parameters {
         Cancel,
         #[serde(rename = "retry")]
         Retry,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Cancel => write!(f, "cancel"),
+                Self::Retry => write!(f, "retry"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -6190,6 +6853,14 @@ pub mod workspace_mapping {
         #[serde(rename = "cloak")]
         Cloak,
     }
+    impl std::fmt::Display for MappingType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Map => write!(f, "map"),
+                Self::Cloak => write!(f, "cloak"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WorkspaceTemplate {
@@ -6364,6 +7035,26 @@ pub mod xaml_build_definition {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for SupportedReasons {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Manual => write!(f, "manual"),
+                Self::IndividualCi => write!(f, "individualCI"),
+                Self::BatchedCi => write!(f, "batchedCI"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::ScheduleForced => write!(f, "scheduleForced"),
+                Self::UserCreated => write!(f, "userCreated"),
+                Self::ValidateShelveset => write!(f, "validateShelveset"),
+                Self::CheckInShelveset => write!(f, "checkInShelveset"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::ResourceTrigger => write!(f, "resourceTrigger"),
+                Self::Triggered => write!(f, "triggered"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "How builds are triggered from this definition"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum TriggerType {
@@ -6385,6 +7076,21 @@ pub mod xaml_build_definition {
         BuildCompletion,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for TriggerType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::ContinuousIntegration => write!(f, "continuousIntegration"),
+                Self::BatchedContinuousIntegration => write!(f, "batchedContinuousIntegration"),
+                Self::Schedule => write!(f, "schedule"),
+                Self::GatedCheckIn => write!(f, "gatedCheckIn"),
+                Self::BatchedGatedCheckIn => write!(f, "batchedGatedCheckIn"),
+                Self::PullRequest => write!(f, "pullRequest"),
+                Self::BuildCompletion => write!(f, "buildCompletion"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

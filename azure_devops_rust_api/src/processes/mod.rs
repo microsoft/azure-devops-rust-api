@@ -954,10 +954,10 @@ pub mod processes {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetProcessExpandLevel>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetProcessExpandLevel>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -986,7 +986,7 @@ pub mod processes {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1155,10 +1155,10 @@ pub mod processes {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) process_type_id: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetProcessExpandLevel>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetProcessExpandLevel>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1187,7 +1187,7 @@ pub mod processes {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1558,10 +1558,10 @@ pub mod behaviors {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) process_id: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetBehaviorsExpand>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetBehaviorsExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1590,7 +1590,7 @@ pub mod behaviors {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1763,10 +1763,10 @@ pub mod behaviors {
             pub(crate) organization: String,
             pub(crate) process_id: String,
             pub(crate) behavior_ref_name: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetBehaviorsExpand>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetBehaviorsExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1795,7 +1795,7 @@ pub mod behaviors {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2174,11 +2174,11 @@ pub mod work_item_types {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) process_id: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetWorkItemTypeExpand>,
         }
         impl RequestBuilder {
             #[doc = "Flag to determine what properties of work item type to return"]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetWorkItemTypeExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -2207,7 +2207,7 @@ pub mod work_item_types {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2381,11 +2381,11 @@ pub mod work_item_types {
             pub(crate) organization: String,
             pub(crate) process_id: String,
             pub(crate) wit_ref_name: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetWorkItemTypeExpand>,
         }
         impl RequestBuilder {
             #[doc = "Flag to determine what properties of work item type to return"]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetWorkItemTypeExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -2414,7 +2414,7 @@ pub mod work_item_types {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -3015,10 +3015,13 @@ pub mod fields {
             pub(crate) process_id: String,
             pub(crate) wit_ref_name: String,
             pub(crate) field_ref_name: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ProcessWorkItemTypeFieldsExpandLevel>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::ProcessWorkItemTypeFieldsExpandLevel>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -3047,7 +3050,7 @@ pub mod fields {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

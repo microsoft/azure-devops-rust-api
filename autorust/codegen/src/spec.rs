@@ -322,6 +322,61 @@ impl Spec {
         Ok(resolved)
     }
 
+    /// Collect synthetic schemas for inline enum parameters across all operations.
+    ///
+    /// Parameters with `type: string`, a non-empty `enum` field, and an `x-ms-enum`
+    /// extension carry enough information to generate a proper named Rust enum type.
+    /// This method extracts those and returns them as schemas so the models codegen
+    /// can emit a top-level enum definition for each one.
+    pub fn inline_parameter_enum_schemas(&self) -> Result<Vec<(RefKey, Schema)>> {
+        let mut result: Vec<(RefKey, Schema)> = Vec::new();
+        let mut seen: std::collections::HashSet<String> = std::collections::HashSet::new();
+        for (doc_file, doc) in self.docs() {
+            if !self.is_input_file(doc_file) {
+                continue;
+            }
+            let paths = self.resolve_path_map(doc_file, &doc.paths())?;
+            for (_path, item) in &paths {
+                let all_params: Vec<&autorust_openapi::Parameter> = item
+                    .parameters
+                    .iter()
+                    .filter_map(|p| match p {
+                        ReferenceOr::Item(p) => Some(p),
+                        _ => None,
+                    })
+                    .chain(item.operations().flat_map(|op| {
+                        op.parameters.iter().filter_map(|p| match p {
+                            ReferenceOr::Item(p) => Some(p),
+                            _ => None,
+                        })
+                    }))
+                    .collect();
+                for param in all_params {
+                    if param.common.enum_.is_empty() {
+                        continue;
+                    }
+                    if let Some(x_ms_enum) = &param.common.x_ms_enum {
+                        let name = x_ms_enum.name.clone();
+                        if seen.insert(name.clone()) {
+                            let schema = Schema {
+                                common: param.common.clone(),
+                                ..Default::default()
+                            };
+                            result.push((
+                                RefKey {
+                                    file_path: doc_file.clone(),
+                                    name,
+                                },
+                                schema,
+                            ));
+                        }
+                    }
+                }
+            }
+        }
+        Ok(result)
+    }
+
     // only operations from listed input files
     fn operations_unresolved(&self) -> Result<Vec<WebOperationUnresolved>> {
         let mut operations: Vec<WebOperationUnresolved> = Vec::new();
@@ -629,6 +684,13 @@ impl WebParameter {
     }
 
     pub fn type_name(&self) -> Result<TypeName> {
+        // Inline enum parameters with an x-ms-enum name are generated as a named
+        // enum type in models, referenced here by that name.
+        if !self.0.common.enum_.is_empty() {
+            if let Some(x_ms_enum) = &self.0.common.x_ms_enum {
+                return Ok(TypeName::Reference(x_ms_enum.name.clone()));
+            }
+        }
         Ok(if let Some(_data_type) = self.data_type() {
             get_type_name_for_schema(&self.0.common)?
         } else if let Some(schema) = &self.0.schema {

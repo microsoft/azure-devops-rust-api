@@ -391,6 +391,17 @@ fn all_schemas(spec: &Spec) -> Result<IndexMap<RefKey, SchemaGen>> {
         }
     }
 
+    // synthetic schemas for inline enum query parameters (e.g. `type: string` + `enum` + `x-ms-enum`)
+    for (ref_key, schema) in spec.inline_parameter_enum_schemas()? {
+        if !all_schemas.contains_key(&ref_key) {
+            let doc_file = ref_key.file_path.clone();
+            all_schemas.insert(
+                ref_key.clone(),
+                SchemaGen::new(Some(ref_key), schema, doc_file),
+            );
+        }
+    }
+
     Ok(all_schemas)
 }
 
@@ -926,6 +937,29 @@ fn create_enum(
         quote! {}
     };
 
+    let mut display_arms = TokenStream::new();
+    for enum_value in &enum_values {
+        let value = &enum_value.value;
+        let variant_nm = value.to_camel_case_ident()?;
+        display_arms.extend(quote! {
+            Self::#variant_nm => write!(f, #value),
+        });
+    }
+    if property.is_model_as_string_enum() {
+        display_arms.extend(quote! {
+            Self::UnknownValue(s) => write!(f, "{}", s),
+        });
+    }
+    let display_code = quote! {
+        impl std::fmt::Display for #nm {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                match self {
+                    #display_arms
+                }
+            }
+        }
+    };
+
     let doc_comment = DocCommentCode::from(&property.schema.common.description);
 
     let code = quote! {
@@ -937,6 +971,7 @@ fn create_enum(
         }
         #custom_serde_code
         #default_code
+        #display_code
     };
     let type_name = TypeNameCode::from(vec![namespace, Some(id)]);
 

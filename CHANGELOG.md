@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- All generated enum types now implement `std::fmt::Display`.
+
+### Changed
+
+- **Breaking:** Query and path parameters that accept a fixed set of values are
+  now typed as enums instead of `impl Into<String>`. This affects 105 parameters
+  across all API areas. Examples:
+  - `git::items::list` / `git::items::get`: `recursion_level` now takes
+    `models::VersionControlRecursionType` (also applies to `tfvc` and `wiki`)
+  - `build::builds::list`: `status_filter` takes `models::BuildStatus`,
+    `result_filter` takes `models::BuildResult`, `reason_filter` takes
+    `models::BuildReason`, `query_order` takes `models::BuildQueryOrder`
+  - `release`: `status_filter` takes `models::ReleaseStatus`, `query_order`
+    takes `models::ReleaseQueryOrder`, `deployment_status` takes
+    `models::DeploymentStatus`
+  - `git::pull_requests::list`: `search_criteria_status` takes
+    `models::PullRequestStatus`
+  - `wit::work_items::get_work_item`: `expand` takes `models::WorkItemExpand`
+
+  The enum types are defined in each module's `models` and carry the same
+  variant names as the API documentation (e.g. `VersionControlRecursionType::Full`,
+  `BuildStatus::InProgress`).
+
 ## [0.36.0]
 
 ### Added

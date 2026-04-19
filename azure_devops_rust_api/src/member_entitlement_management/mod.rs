@@ -376,11 +376,11 @@ pub mod group_entitlements {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) body: models::GroupEntitlement,
-            pub(crate) rule_option: Option<String>,
+            pub(crate) rule_option: Option<models::RuleOption>,
         }
         impl RequestBuilder {
             #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be created and applied to it’s members (default option) or just be tested"]
-            pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
+            pub fn rule_option(mut self, rule_option: impl Into<models::RuleOption>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
             }
@@ -411,7 +411,7 @@ pub mod group_entitlements {
                         if let Some(rule_option) = &this.rule_option {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("ruleOption", rule_option);
+                                .append_pair("ruleOption", &rule_option.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -586,11 +586,11 @@ pub mod group_entitlements {
             pub(crate) organization: String,
             pub(crate) body: models::JsonPatchDocument,
             pub(crate) group_id: String,
-            pub(crate) rule_option: Option<String>,
+            pub(crate) rule_option: Option<models::RuleOption>,
         }
         impl RequestBuilder {
             #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be updated and the changes are applied to it’s members (default option) or just be tested"]
-            pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
+            pub fn rule_option(mut self, rule_option: impl Into<models::RuleOption>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
             }
@@ -621,7 +621,7 @@ pub mod group_entitlements {
                         if let Some(rule_option) = &this.rule_option {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("ruleOption", rule_option);
+                                .append_pair("ruleOption", &rule_option.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -700,12 +700,12 @@ pub mod group_entitlements {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) group_id: String,
-            pub(crate) rule_option: Option<String>,
+            pub(crate) rule_option: Option<models::RuleOption>,
             pub(crate) remove_group_membership: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be deleted and the changes are applied to it’s members (default option) or just be tested"]
-            pub fn rule_option(mut self, rule_option: impl Into<String>) -> Self {
+            pub fn rule_option(mut self, rule_option: impl Into<models::RuleOption>) -> Self {
                 self.rule_option = Some(rule_option.into());
                 self
             }
@@ -739,7 +739,7 @@ pub mod group_entitlements {
                         if let Some(rule_option) = &this.rule_option {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("ruleOption", rule_option);
+                                .append_pair("ruleOption", &rule_option.to_string());
                         }
                         if let Some(remove_group_membership) = &this.remove_group_membership {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -1221,7 +1221,7 @@ pub mod member_entitlements {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) continuation_token: Option<String>,
-            pub(crate) select: Option<String>,
+            pub(crate) select: Option<models::UserEntitlementProperty>,
             pub(crate) filter: Option<String>,
             pub(crate) order_by: Option<String>,
         }
@@ -1230,7 +1230,7 @@ pub mod member_entitlements {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
-            pub fn select(mut self, select: impl Into<String>) -> Self {
+            pub fn select(mut self, select: impl Into<models::UserEntitlementProperty>) -> Self {
                 self.select = Some(select.into());
                 self
             }
@@ -1272,7 +1272,7 @@ pub mod member_entitlements {
                         if let Some(select) = &this.select {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("select", select);
+                                .append_pair("select", &select.to_string());
                         }
                         if let Some(filter) = &this.filter {
                             req.url_mut()
@@ -2071,7 +2071,7 @@ pub mod user_entitlements {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) continuation_token: Option<String>,
-            pub(crate) select: Option<String>,
+            pub(crate) select: Option<models::UserEntitlementProperty>,
             pub(crate) filter: Option<String>,
             pub(crate) order_by: Option<String>,
         }
@@ -2082,7 +2082,7 @@ pub mod user_entitlements {
                 self
             }
             #[doc = "Comma (\",\") separated list of properties to select in the result entitlements. names of the properties are - 'Projects, 'Extensions' and 'Grouprules'."]
-            pub fn select(mut self, select: impl Into<String>) -> Self {
+            pub fn select(mut self, select: impl Into<models::UserEntitlementProperty>) -> Self {
                 self.select = Some(select.into());
                 self
             }
@@ -2126,7 +2126,7 @@ pub mod user_entitlements {
                         if let Some(select) = &this.select {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("select", select);
+                                .append_pair("select", &select.to_string());
                         }
                         if let Some(filter) = &this.filter {
                             req.url_mut()

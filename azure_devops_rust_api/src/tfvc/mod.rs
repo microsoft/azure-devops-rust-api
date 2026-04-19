@@ -1450,10 +1450,10 @@ pub mod items {
             pub(crate) file_name: Option<String>,
             pub(crate) download: Option<bool>,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_option: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_option: Option<models::TfvcVersionOption>,
+            pub(crate) version_descriptor_version_type: Option<models::TfvcVersionType>,
             pub(crate) include_content: Option<bool>,
         }
         impl RequestBuilder {
@@ -1473,7 +1473,10 @@ pub mod items {
                 self
             }
             #[doc = "None (just the item), or OneLevel (contents of a folder)."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -1488,7 +1491,7 @@ pub mod items {
             #[doc = "Version descriptor.  Default is null."]
             pub fn version_descriptor_version_option(
                 mut self,
-                version_descriptor_version_option: impl Into<String>,
+                version_descriptor_version_option: impl Into<models::TfvcVersionOption>,
             ) -> Self {
                 self.version_descriptor_version_option =
                     Some(version_descriptor_version_option.into());
@@ -1497,7 +1500,7 @@ pub mod items {
             #[doc = "Version descriptor.  Default is null."]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::TfvcVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1549,7 +1552,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(version_descriptor_version) = &this.version_descriptor_version {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -1562,7 +1565,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOption",
-                                version_descriptor_version_option,
+                                &version_descriptor_version_option.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1570,7 +1573,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         if let Some(include_content) = &this.include_content {
@@ -1748,11 +1751,11 @@ pub mod items {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_links: Option<bool>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_option: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_option: Option<models::TfvcVersionOption>,
+            pub(crate) version_descriptor_version_type: Option<models::TfvcVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Version control path of a folder to return multiple items."]
@@ -1761,7 +1764,10 @@ pub mod items {
                 self
             }
             #[doc = "None (just the item), or OneLevel (contents of a folder)."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -1780,7 +1786,7 @@ pub mod items {
             }
             pub fn version_descriptor_version_option(
                 mut self,
-                version_descriptor_version_option: impl Into<String>,
+                version_descriptor_version_option: impl Into<models::TfvcVersionOption>,
             ) -> Self {
                 self.version_descriptor_version_option =
                     Some(version_descriptor_version_option.into());
@@ -1788,7 +1794,7 @@ pub mod items {
             }
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::TfvcVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1823,7 +1829,7 @@ pub mod items {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_links) = &this.include_links {
                             req.url_mut()
@@ -1841,7 +1847,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOption",
-                                version_descriptor_version_option,
+                                &version_descriptor_version_option.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1849,7 +1855,7 @@ pub mod items {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         let req_body = azure_core::Bytes::new();

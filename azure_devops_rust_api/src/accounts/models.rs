@@ -125,6 +125,17 @@ pub mod account {
         #[serde(rename = "moved")]
         Moved,
     }
+    impl std::fmt::Display for AccountStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Enabled => write!(f, "enabled"),
+                Self::Disabled => write!(f, "disabled"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Moved => write!(f, "moved"),
+            }
+        }
+    }
     #[doc = "Type of account: Personal, Organization"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum AccountType {
@@ -132,6 +143,14 @@ pub mod account {
         Personal,
         #[serde(rename = "organization")]
         Organization,
+    }
+    impl std::fmt::Display for AccountType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Personal => write!(f, "personal"),
+                Self::Organization => write!(f, "organization"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

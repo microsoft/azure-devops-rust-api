@@ -49,6 +49,15 @@ pub mod acquisition_operation {
         #[serde(rename = "completed")]
         Completed,
     }
+    impl std::fmt::Display for OperationState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Disallow => write!(f, "disallow"),
+                Self::Allow => write!(f, "allow"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
+    }
     #[doc = "AcquisitionOperationType: install, request, buy, etc..."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationType {
@@ -66,6 +75,19 @@ pub mod acquisition_operation {
         None,
         #[serde(rename = "purchaseRequest")]
         PurchaseRequest,
+    }
+    impl std::fmt::Display for OperationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Get => write!(f, "get"),
+                Self::Install => write!(f, "install"),
+                Self::Buy => write!(f, "buy"),
+                Self::Try => write!(f, "try"),
+                Self::Request => write!(f, "request"),
+                Self::None => write!(f, "none"),
+                Self::PurchaseRequest => write!(f, "purchaseRequest"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -372,6 +394,18 @@ pub mod contribution_node_query {
         #[serde(rename = "ignoreConstraints")]
         IgnoreConstraints,
     }
+    impl std::fmt::Display for QueryOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::IncludeSelf => write!(f, "includeSelf"),
+                Self::IncludeChildren => write!(f, "includeChildren"),
+                Self::IncludeSubTree => write!(f, "includeSubTree"),
+                Self::IncludeAll => write!(f, "includeAll"),
+                Self::IgnoreConstraints => write!(f, "ignoreConstraints"),
+            }
+        }
+    }
 }
 #[doc = "Result of a contribution node query.  Wraps the resulting contribution nodes and provider details."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -440,6 +474,23 @@ pub mod contribution_property_description {
         Array,
         #[serde(rename = "object")]
         Object,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::String => write!(f, "string"),
+                Self::Uri => write!(f, "uri"),
+                Self::Guid => write!(f, "guid"),
+                Self::Boolean => write!(f, "boolean"),
+                Self::Integer => write!(f, "integer"),
+                Self::Double => write!(f, "double"),
+                Self::DateTime => write!(f, "dateTime"),
+                Self::Dictionary => write!(f, "dictionary"),
+                Self::Array => write!(f, "array"),
+                Self::Object => write!(f, "object"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -645,6 +696,15 @@ pub mod extension_acquisition_request {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for AssignmentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Me => write!(f, "me"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "The type of operation, such as install, request, purchase"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum OperationType {
@@ -662,6 +722,19 @@ pub mod extension_acquisition_request {
         None,
         #[serde(rename = "purchaseRequest")]
         PurchaseRequest,
+    }
+    impl std::fmt::Display for OperationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Get => write!(f, "get"),
+                Self::Install => write!(f, "install"),
+                Self::Buy => write!(f, "buy"),
+                Self::Try => write!(f, "try"),
+                Self::Request => write!(f, "request"),
+                Self::None => write!(f, "none"),
+                Self::PurchaseRequest => write!(f, "purchaseRequest"),
+            }
+        }
     }
 }
 #[doc = "Audit log for an extension"]
@@ -855,6 +928,19 @@ pub mod extension_event {
         ActionRequired,
         #[serde(rename = "actionResolved")]
         ActionResolved,
+    }
+    impl std::fmt::Display for UpdateType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Installed => write!(f, "installed"),
+                Self::Uninstalled => write!(f, "uninstalled"),
+                Self::Enabled => write!(f, "enabled"),
+                Self::Disabled => write!(f, "disabled"),
+                Self::VersionUpdated => write!(f, "versionUpdated"),
+                Self::ActionRequired => write!(f, "actionRequired"),
+                Self::ActionResolved => write!(f, "actionResolved"),
+            }
+        }
     }
 }
 #[doc = "Base class for an event callback for an extension"]
@@ -1134,6 +1220,19 @@ pub mod extension_policy {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Install {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Preview => write!(f, "preview"),
+                Self::Released => write!(f, "released"),
+                Self::FirstParty => write!(f, "firstParty"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
     #[doc = "Permission on 'Request' operation"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Request {
@@ -1151,6 +1250,19 @@ pub mod extension_policy {
         FirstParty,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Request {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Preview => write!(f, "preview"),
+                Self::Released => write!(f, "released"),
+                Self::FirstParty => write!(f, "firstParty"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "A request for an extension (to be installed or have a license assigned)"]
@@ -1223,6 +1335,15 @@ pub mod extension_request {
         #[serde(rename = "rejected")]
         Rejected,
     }
+    impl std::fmt::Display for RequestState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Open => write!(f, "open"),
+                Self::Accepted => write!(f, "accepted"),
+                Self::Rejected => write!(f, "rejected"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExtensionRequestEvent {
@@ -1264,6 +1385,16 @@ pub mod extension_request_event {
         Rejected,
         #[serde(rename = "deleted")]
         Deleted,
+    }
+    impl std::fmt::Display for UpdateType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Created => write!(f, "created"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1324,6 +1455,16 @@ pub mod extension_requests_event {
         Rejected,
         #[serde(rename = "deleted")]
         Deleted,
+    }
+    impl std::fmt::Display for UpdateType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Created => write!(f, "created"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1760,6 +1901,14 @@ pub mod installed_extension_state_issue {
         #[serde(rename = "error")]
         Error,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Warning => write!(f, "warning"),
+                Self::Error => write!(f, "error"),
+            }
+        }
+    }
 }
 #[doc = "Represents a JSON object."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1801,6 +1950,15 @@ pub mod licensing_override {
         OnlyIfUnlicensed,
         #[serde(rename = "alwaysInclude")]
         AlwaysInclude,
+    }
+    impl std::fmt::Display for Behavior {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::OnlyIfLicensed => write!(f, "onlyIfLicensed"),
+                Self::OnlyIfUnlicensed => write!(f, "onlyIfUnlicensed"),
+                Self::AlwaysInclude => write!(f, "alwaysInclude"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1932,6 +2090,16 @@ pub mod published_extension {
         Vsix,
         #[serde(rename = "referralLink")]
         ReferralLink,
+    }
+    impl std::fmt::Display for DeploymentType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Exe => write!(f, "exe"),
+                Self::Msi => write!(f, "msi"),
+                Self::Vsix => write!(f, "vsix"),
+                Self::ReferralLink => write!(f, "referralLink"),
+            }
+        }
     }
 }
 #[doc = "High-level information about the publisher, like id's and names"]

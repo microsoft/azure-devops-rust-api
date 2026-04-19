@@ -7,6 +7,7 @@ use anyhow::Result;
 use azure_devops_rust_api::git;
 use azure_devops_rust_api::git::models::git_item::GitObjectType;
 use azure_devops_rust_api::git::models::GitItem;
+use azure_devops_rust_api::git::models::VersionControlRecursionType;
 use std::env;
 use std::io::Write;
 
@@ -23,7 +24,7 @@ async fn all_repo_items(
     let items = git_client
         .items_client()
         .list(organization, repository_name, project)
-        .recursion_level("Full")
+        .recursion_level(VersionControlRecursionType::Full)
         .await?
         .value;
     Ok(items)

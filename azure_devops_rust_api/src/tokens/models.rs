@@ -137,6 +137,47 @@ pub mod access_token_result {
         #[serde(rename = "invalidScope")]
         InvalidScope,
     }
+    impl std::fmt::Display for AccessTokenError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::GrantTypeRequired => write!(f, "grantTypeRequired"),
+                Self::AuthorizationGrantRequired => write!(f, "authorizationGrantRequired"),
+                Self::ClientSecretRequired => write!(f, "clientSecretRequired"),
+                Self::RedirectUriRequired => write!(f, "redirectUriRequired"),
+                Self::InvalidAuthorizationGrant => write!(f, "invalidAuthorizationGrant"),
+                Self::InvalidAuthorizationScopes => write!(f, "invalidAuthorizationScopes"),
+                Self::InvalidRefreshToken => write!(f, "invalidRefreshToken"),
+                Self::AuthorizationNotFound => write!(f, "authorizationNotFound"),
+                Self::AuthorizationGrantExpired => write!(f, "authorizationGrantExpired"),
+                Self::AccessAlreadyIssued => write!(f, "accessAlreadyIssued"),
+                Self::InvalidRedirectUri => write!(f, "invalidRedirectUri"),
+                Self::AccessTokenNotFound => write!(f, "accessTokenNotFound"),
+                Self::InvalidAccessToken => write!(f, "invalidAccessToken"),
+                Self::AccessTokenAlreadyRefreshed => write!(f, "accessTokenAlreadyRefreshed"),
+                Self::InvalidClientSecret => write!(f, "invalidClientSecret"),
+                Self::ClientSecretExpired => write!(f, "clientSecretExpired"),
+                Self::ServerError => write!(f, "serverError"),
+                Self::AccessDenied => write!(f, "accessDenied"),
+                Self::AccessTokenKeyRequired => write!(f, "accessTokenKeyRequired"),
+                Self::InvalidAccessTokenKey => write!(f, "invalidAccessTokenKey"),
+                Self::FailedToGetAccessToken => write!(f, "failedToGetAccessToken"),
+                Self::InvalidClientId => write!(f, "invalidClientId"),
+                Self::InvalidClient => write!(f, "invalidClient"),
+                Self::InvalidValidTo => write!(f, "invalidValidTo"),
+                Self::InvalidUserId => write!(f, "invalidUserId"),
+                Self::FailedToIssueAccessToken => write!(f, "failedToIssueAccessToken"),
+                Self::AuthorizationGrantScopeMissing => write!(f, "authorizationGrantScopeMissing"),
+                Self::InvalidPublicAccessTokenKey => write!(f, "invalidPublicAccessTokenKey"),
+                Self::InvalidPublicAccessToken => write!(f, "invalidPublicAccessToken"),
+                Self::PublicFeatureFlagNotEnabled => write!(f, "publicFeatureFlagNotEnabled"),
+                Self::SshPolicyDisabled => write!(f, "sshPolicyDisabled"),
+                Self::HostAuthorizationNotFound => write!(f, "hostAuthorizationNotFound"),
+                Self::HostAuthorizationIsNotValid => write!(f, "hostAuthorizationIsNotValid"),
+                Self::InvalidScope => write!(f, "invalidScope"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct AuthorizationGrant {
@@ -162,6 +203,39 @@ pub mod authorization_grant {
         Implicit,
         #[serde(rename = "clientCredentials")]
         ClientCredentials,
+    }
+    impl std::fmt::Display for GrantType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::JwtBearer => write!(f, "jwtBearer"),
+                Self::RefreshToken => write!(f, "refreshToken"),
+                Self::Implicit => write!(f, "implicit"),
+                Self::ClientCredentials => write!(f, "clientCredentials"),
+            }
+        }
+    }
+}
+#[doc = "(Optional) Refers to the status of the personal access token (PAT)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DisplayFilterOptions {
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "revoked")]
+    Revoked,
+    #[serde(rename = "expired")]
+    Expired,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for DisplayFilterOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Active => write!(f, "active"),
+            Self::Revoked => write!(f, "revoked"),
+            Self::Expired => write!(f, "expired"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -388,6 +462,45 @@ pub mod pat_token_result {
         #[serde(rename = "deploymentHostNotSupported")]
         DeploymentHostNotSupported,
     }
+    impl std::fmt::Display for PatTokenError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::DisplayNameRequired => write!(f, "displayNameRequired"),
+                Self::InvalidDisplayName => write!(f, "invalidDisplayName"),
+                Self::InvalidValidTo => write!(f, "invalidValidTo"),
+                Self::InvalidScope => write!(f, "invalidScope"),
+                Self::UserIdRequired => write!(f, "userIdRequired"),
+                Self::InvalidUserId => write!(f, "invalidUserId"),
+                Self::InvalidUserType => write!(f, "invalidUserType"),
+                Self::AccessDenied => write!(f, "accessDenied"),
+                Self::FailedToIssueAccessToken => write!(f, "failedToIssueAccessToken"),
+                Self::InvalidClient => write!(f, "invalidClient"),
+                Self::InvalidClientType => write!(f, "invalidClientType"),
+                Self::InvalidClientId => write!(f, "invalidClientId"),
+                Self::InvalidTargetAccounts => write!(f, "invalidTargetAccounts"),
+                Self::HostAuthorizationNotFound => write!(f, "hostAuthorizationNotFound"),
+                Self::AuthorizationNotFound => write!(f, "authorizationNotFound"),
+                Self::FailedToUpdateAccessToken => write!(f, "failedToUpdateAccessToken"),
+                Self::SourceNotSupported => write!(f, "sourceNotSupported"),
+                Self::InvalidSourceIp => write!(f, "invalidSourceIP"),
+                Self::InvalidSource => write!(f, "invalidSource"),
+                Self::DuplicateHash => write!(f, "duplicateHash"),
+                Self::SshPolicyDisabled => write!(f, "sshPolicyDisabled"),
+                Self::InvalidToken => write!(f, "invalidToken"),
+                Self::TokenNotFound => write!(f, "tokenNotFound"),
+                Self::InvalidAuthorizationId => write!(f, "invalidAuthorizationId"),
+                Self::FailedToReadTenantPolicy => write!(f, "failedToReadTenantPolicy"),
+                Self::GlobalPatPolicyViolation => write!(f, "globalPatPolicyViolation"),
+                Self::FullScopePatPolicyViolation => write!(f, "fullScopePatPolicyViolation"),
+                Self::PatLifespanPolicyViolation => write!(f, "patLifespanPolicyViolation"),
+                Self::InvalidTokenType => write!(f, "invalidTokenType"),
+                Self::InvalidAudience => write!(f, "invalidAudience"),
+                Self::InvalidSubject => write!(f, "invalidSubject"),
+                Self::DeploymentHostNotSupported => write!(f, "deploymentHostNotSupported"),
+            }
+        }
+    }
 }
 #[doc = "Encapsulates the request parameters for updating a personal access token (PAT)"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -516,5 +629,24 @@ pub struct SessionToken {
 impl SessionToken {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "(Optional) Which field to sort by"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum SortByOptions {
+    #[serde(rename = "displayName")]
+    DisplayName,
+    #[serde(rename = "displayDate")]
+    DisplayDate,
+    #[serde(rename = "status")]
+    Status,
+}
+impl std::fmt::Display for SortByOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::DisplayName => write!(f, "displayName"),
+            Self::DisplayDate => write!(f, "displayDate"),
+            Self::Status => write!(f, "status"),
+        }
     }
 }

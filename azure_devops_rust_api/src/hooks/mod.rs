@@ -857,8 +857,8 @@ pub mod notifications {
             pub(crate) organization: String,
             pub(crate) subscription_id: String,
             pub(crate) max_results: Option<i32>,
-            pub(crate) status: Option<String>,
-            pub(crate) result: Option<String>,
+            pub(crate) status: Option<models::NotificationStatus>,
+            pub(crate) result: Option<models::NotificationResult>,
         }
         impl RequestBuilder {
             #[doc = "Maximum number of notifications to return. Default is **100**."]
@@ -867,12 +867,12 @@ pub mod notifications {
                 self
             }
             #[doc = "Get only notifications with this status."]
-            pub fn status(mut self, status: impl Into<String>) -> Self {
+            pub fn status(mut self, status: impl Into<models::NotificationStatus>) -> Self {
                 self.status = Some(status.into());
                 self
             }
             #[doc = "Get only notifications with this result type."]
-            pub fn result(mut self, result: impl Into<String>) -> Self {
+            pub fn result(mut self, result: impl Into<models::NotificationResult>) -> Self {
                 self.result = Some(result.into());
                 self
             }
@@ -906,12 +906,12 @@ pub mod notifications {
                         if let Some(status) = &this.status {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("status", status);
+                                .append_pair("status", &status.to_string());
                         }
                         if let Some(result) = &this.result {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("result", result);
+                                .append_pair("result", &result.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

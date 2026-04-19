@@ -76,6 +76,18 @@ pub mod json_patch_operation {
         #[serde(rename = "test")]
         Test,
     }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct MavenDistributionManagement {
@@ -244,6 +256,16 @@ pub mod maven_packages_batch_request {
         PermanentDelete,
         #[serde(rename = "restoreToFeed")]
         RestoreToFeed,
+    }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Promote => write!(f, "promote"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+                Self::RestoreToFeed => write!(f, "restoreToFeed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -711,6 +733,18 @@ pub mod npm_packages_batch_request {
         #[serde(rename = "delete")]
         Delete,
     }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Promote => write!(f, "promote"),
+                Self::Deprecate => write!(f, "deprecate"),
+                Self::Unpublish => write!(f, "unpublish"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+                Self::RestoreToFeed => write!(f, "restoreToFeed"),
+                Self::Delete => write!(f, "delete"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NpmRecycleBinPackageVersionDetails {
@@ -783,6 +817,17 @@ pub mod nu_get_packages_batch_request {
         PermanentDelete,
         #[serde(rename = "restoreToFeed")]
         RestoreToFeed,
+    }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Promote => write!(f, "promote"),
+                Self::List => write!(f, "list"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+                Self::RestoreToFeed => write!(f, "restoreToFeed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -937,6 +982,16 @@ pub mod py_pi_packages_batch_request {
         #[serde(rename = "restoreToFeed")]
         RestoreToFeed,
     }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Promote => write!(f, "promote"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+                Self::RestoreToFeed => write!(f, "restoreToFeed"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PyPiRecycleBinPackageVersionDetails {
@@ -1031,6 +1086,16 @@ pub mod u_pack_packages_batch_request {
         #[serde(rename = "restoreToFeed")]
         RestoreToFeed,
     }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Promote => write!(f, "promote"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+                Self::RestoreToFeed => write!(f, "restoreToFeed"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct UPackRecycleBinPackageVersionDetails {
@@ -1085,6 +1150,14 @@ pub mod upstream_source_info {
         #[serde(rename = "internal")]
         Internal,
     }
+    impl std::fmt::Display for SourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Public => write!(f, "public"),
+                Self::Internal => write!(f, "internal"),
+            }
+        }
+    }
 }
 #[doc = "Describes upstreaming behavior for a given feed/protocol/package"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1112,5 +1185,13 @@ pub mod upstreaming_behavior {
         Auto,
         #[serde(rename = "allowExternalVersions")]
         AllowExternalVersions,
+    }
+    impl std::fmt::Display for VersionsFromExternalUpstreams {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Auto => write!(f, "auto"),
+                Self::AllowExternalVersions => write!(f, "allowExternalVersions"),
+            }
+        }
     }
 }

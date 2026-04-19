@@ -90,6 +90,15 @@ pub mod avatar {
         #[serde(rename = "large")]
         Large,
     }
+    impl std::fmt::Display for Size {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Small => write!(f, "small"),
+                Self::Medium => write!(f, "medium"),
+                Self::Large => write!(f, "large"),
+            }
+        }
+    }
 }
 #[doc = "A profile attribute which always has a value for each profile."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -168,6 +177,15 @@ pub mod create_profile_context {
         CustomReadOnly,
         #[serde(rename = "readOnly")]
         ReadOnly,
+    }
+    impl std::fmt::Display for ProfileState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::CustomReadOnly => write!(f, "customReadOnly"),
+                Self::ReadOnly => write!(f, "readOnly"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -260,6 +278,15 @@ pub mod profile {
         CustomReadOnly,
         #[serde(rename = "readOnly")]
         ReadOnly,
+    }
+    impl std::fmt::Display for ProfileState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::CustomReadOnly => write!(f, "customReadOnly"),
+                Self::ReadOnly => write!(f, "readOnly"),
+            }
+        }
     }
 }
 #[doc = "A named object associated with a profile."]

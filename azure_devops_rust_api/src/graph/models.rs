@@ -72,6 +72,33 @@ pub mod avatar {
         #[serde(rename = "large")]
         Large,
     }
+    impl std::fmt::Display for Size {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Small => write!(f, "small"),
+                Self::Medium => write!(f, "medium"),
+                Self::Large => write!(f, "large"),
+            }
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum AvatarSize {
+    #[serde(rename = "small")]
+    Small,
+    #[serde(rename = "medium")]
+    Medium,
+    #[serde(rename = "large")]
+    Large,
+}
+impl std::fmt::Display for AvatarSize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Small => write!(f, "small"),
+            Self::Medium => write!(f, "medium"),
+            Self::Large => write!(f, "large"),
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphCachePolicies {
@@ -473,6 +500,15 @@ pub mod graph_scope {
         #[serde(rename = "teamProject")]
         TeamProject,
     }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Generic => write!(f, "generic"),
+                Self::ServiceHost => write!(f, "serviceHost"),
+                Self::TeamProject => write!(f, "teamProject"),
+            }
+        }
+    }
 }
 #[doc = "This type is the subset of fields that can be provided by the user to create a Vsts scope. Scope creation is currently limited to internal back-compat scenarios. End users that attempt to create a scope with this API will fail."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -524,6 +560,15 @@ pub mod graph_scope_creation_context {
         ServiceHost,
         #[serde(rename = "teamProject")]
         TeamProject,
+    }
+    impl std::fmt::Display for ScopeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Generic => write!(f, "generic"),
+                Self::ServiceHost => write!(f, "serviceHost"),
+                Self::TeamProject => write!(f, "teamProject"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -754,6 +799,25 @@ pub struct GraphSystemSubject {
 impl GraphSystemSubject {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Defaults to Up."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GraphTraversalDirection {
+    #[serde(rename = "unknown")]
+    Unknown,
+    #[serde(rename = "down")]
+    Down,
+    #[serde(rename = "up")]
+    Up,
+}
+impl std::fmt::Display for GraphTraversalDirection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Unknown => write!(f, "unknown"),
+            Self::Down => write!(f, "down"),
+            Self::Up => write!(f, "up"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -998,6 +1062,18 @@ pub mod json_patch_operation {
         Copy,
         #[serde(rename = "test")]
         Test,
+    }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

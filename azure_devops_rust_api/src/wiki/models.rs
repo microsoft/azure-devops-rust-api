@@ -101,6 +101,15 @@ pub mod comment {
         #[serde(rename = "closed")]
         Closed,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Resolved => write!(f, "resolved"),
+                Self::Closed => write!(f, "closed"),
+            }
+        }
+    }
 }
 #[doc = "Represents an attachment to a comment."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -221,6 +230,15 @@ pub mod comment_mention {
         #[serde(rename = "pullRequest")]
         PullRequest,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Person => write!(f, "person"),
+                Self::WorkItem => write!(f, "workItem"),
+                Self::PullRequest => write!(f, "pullRequest"),
+            }
+        }
+    }
 }
 #[doc = "Contains information about comment reaction for a particular reaction type."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -267,6 +285,18 @@ pub mod comment_reaction {
         #[serde(rename = "confused")]
         Confused,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Like => write!(f, "like"),
+                Self::Dislike => write!(f, "dislike"),
+                Self::Heart => write!(f, "heart"),
+                Self::Hooray => write!(f, "hooray"),
+                Self::Smile => write!(f, "smile"),
+                Self::Confused => write!(f, "confused"),
+            }
+        }
+    }
 }
 #[doc = "Base class for comment resource references"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -305,6 +335,15 @@ pub mod comment_update_parameters {
         Resolved,
         #[serde(rename = "closed")]
         Closed,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Active => write!(f, "active"),
+                Self::Resolved => write!(f, "resolved"),
+                Self::Closed => write!(f, "closed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -433,6 +472,15 @@ pub mod git_version_descriptor {
         #[serde(rename = "firstParent")]
         FirstParent,
     }
+    impl std::fmt::Display for VersionOptions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::PreviousChange => write!(f, "previousChange"),
+                Self::FirstParent => write!(f, "firstParent"),
+            }
+        }
+    }
     #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum VersionType {
@@ -442,6 +490,53 @@ pub mod git_version_descriptor {
         Tag,
         #[serde(rename = "commit")]
         Commit,
+    }
+    impl std::fmt::Display for VersionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Branch => write!(f, "branch"),
+                Self::Tag => write!(f, "tag"),
+                Self::Commit => write!(f, "commit"),
+            }
+        }
+    }
+}
+#[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "previousChange")]
+    PreviousChange,
+    #[serde(rename = "firstParent")]
+    FirstParent,
+}
+impl std::fmt::Display for GitVersionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::PreviousChange => write!(f, "previousChange"),
+            Self::FirstParent => write!(f, "firstParent"),
+        }
+    }
+}
+#[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionType {
+    #[serde(rename = "branch")]
+    Branch,
+    #[serde(rename = "tag")]
+    Tag,
+    #[serde(rename = "commit")]
+    Commit,
+}
+impl std::fmt::Display for GitVersionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Branch => write!(f, "branch"),
+            Self::Tag => write!(f, "tag"),
+            Self::Commit => write!(f, "commit"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -620,6 +715,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
         #[serde(rename = "private")]
@@ -630,6 +738,38 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
+    }
+}
+#[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VersionControlRecursionType {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "oneLevel")]
+    OneLevel,
+    #[serde(rename = "oneLevelPlusNestedEmptyFolders")]
+    OneLevelPlusNestedEmptyFolders,
+    #[serde(rename = "full")]
+    Full,
+}
+impl std::fmt::Display for VersionControlRecursionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::OneLevel => write!(f, "oneLevel"),
+            Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+            Self::Full => write!(f, "full"),
+        }
     }
 }
 #[doc = "This class is used to serialize collections as a single JSON object on the wire."]
@@ -756,6 +896,14 @@ pub mod wiki_create_base_parameters {
         ProjectWiki,
         #[serde(rename = "codeWiki")]
         CodeWiki,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::ProjectWiki => write!(f, "projectWiki"),
+                Self::CodeWiki => write!(f, "codeWiki"),
+            }
+        }
     }
 }
 #[doc = "Wiki creations parameters."]

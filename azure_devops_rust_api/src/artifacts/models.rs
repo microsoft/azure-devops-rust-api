@@ -199,6 +199,16 @@ pub mod configuration {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for ManifestToolAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Validate => write!(f, "validate"),
+                Self::Generate => write!(f, "generate"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[doc = "Encapsulates a configuration setting to provide metadata about the setting source and type."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -314,6 +324,13 @@ pub mod feed_batch_data {
         #[serde(rename = "saveCachedPackages")]
         SaveCachedPackages,
     }
+    impl std::fmt::Display for Operation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::SaveCachedPackages => write!(f, "saveCachedPackages"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedBatchOperationData {}
@@ -366,6 +383,15 @@ pub mod feed_change {
         Delete,
         #[serde(rename = "permanentDelete")]
         PermanentDelete,
+    }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::AddOrUpdate => write!(f, "addOrUpdate"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+            }
+        }
     }
 }
 #[doc = "A result set containing the feed changes for the range that was requested."]
@@ -477,6 +503,16 @@ pub mod feed_core {
         #[serde(rename = "defaultCapabilities")]
         DefaultCapabilities,
     }
+    impl std::fmt::Display for Capabilities {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::UpstreamV2 => write!(f, "upstreamV2"),
+                Self::UnderMaintenance => write!(f, "underMaintenance"),
+                Self::DefaultCapabilities => write!(f, "defaultCapabilities"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedIdsResult {
@@ -572,6 +608,18 @@ pub mod feed_permission {
         #[serde(rename = "collaborator")]
         Collaborator,
     }
+    impl std::fmt::Display for Role {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::None => write!(f, "none"),
+                Self::Reader => write!(f, "reader"),
+                Self::Contributor => write!(f, "contributor"),
+                Self::Administrator => write!(f, "administrator"),
+                Self::Collaborator => write!(f, "collaborator"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedPermissionList {
@@ -617,6 +665,34 @@ pub struct FeedRetentionPolicy {
 impl FeedRetentionPolicy {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum FeedRole {
+    #[serde(rename = "custom")]
+    Custom,
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "reader")]
+    Reader,
+    #[serde(rename = "contributor")]
+    Contributor,
+    #[serde(rename = "administrator")]
+    Administrator,
+    #[serde(rename = "collaborator")]
+    Collaborator,
+}
+impl std::fmt::Display for FeedRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Custom => write!(f, "custom"),
+            Self::None => write!(f, "none"),
+            Self::Reader => write!(f, "reader"),
+            Self::Contributor => write!(f, "contributor"),
+            Self::Administrator => write!(f, "administrator"),
+            Self::Collaborator => write!(f, "collaborator"),
+        }
     }
 }
 #[doc = "Update a feed definition with these new values."]
@@ -719,6 +795,15 @@ pub mod feed_view {
         #[serde(rename = "implicit")]
         Implicit,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Release => write!(f, "release"),
+                Self::Implicit => write!(f, "implicit"),
+            }
+        }
+    }
     #[doc = "Visibility status of the view."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -730,6 +815,16 @@ pub mod feed_view {
         Organization,
         #[serde(rename = "aadTenant")]
         AadTenant,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Collection => write!(f, "collection"),
+                Self::Organization => write!(f, "organization"),
+                Self::AadTenant => write!(f, "aadTenant"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -809,6 +904,16 @@ pub mod global_permission {
         FeedCreator,
         #[serde(rename = "administrator")]
         Administrator,
+    }
+    impl std::fmt::Display for Role {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Custom => write!(f, "custom"),
+                Self::None => write!(f, "none"),
+                Self::FeedCreator => write!(f, "feedCreator"),
+                Self::Administrator => write!(f, "administrator"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -892,6 +997,18 @@ pub mod json_patch_operation {
         Copy,
         #[serde(rename = "test")]
         Test,
+    }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
     }
 }
 #[doc = "Defines a manifest name and version."]
@@ -1017,6 +1134,18 @@ pub mod operation_reference {
         Succeeded,
         #[serde(rename = "failed")]
         Failed,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Cancelled => write!(f, "cancelled"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+            }
+        }
     }
 }
 #[doc = "A package, which is a container for one or more package versions."]
@@ -1370,6 +1499,15 @@ pub mod package_version_change {
         Delete,
         #[serde(rename = "permanentDelete")]
         PermanentDelete,
+    }
+    impl std::fmt::Display for ChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::AddOrUpdate => write!(f, "addOrUpdate"),
+                Self::Delete => write!(f, "delete"),
+                Self::PermanentDelete => write!(f, "permanentDelete"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1785,6 +1923,16 @@ pub mod sign_response_base {
         #[serde(rename = "failCanRetry")]
         FailCanRetry,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Success => write!(f, "success"),
+                Self::Failure => write!(f, "failure"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::FailCanRetry => write!(f, "failCanRetry"),
+            }
+        }
+    }
 }
 #[doc = "The response returned by the sign status api."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1910,6 +2058,14 @@ pub mod upstream_source {
         #[serde(rename = "disabled")]
         Disabled,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Ok => write!(f, "ok"),
+                Self::Disabled => write!(f, "disabled"),
+            }
+        }
+    }
     #[doc = "Source type, such as Public or Internal."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum UpstreamSourceType {
@@ -1917,6 +2073,14 @@ pub mod upstream_source {
         Public,
         #[serde(rename = "internal")]
         Internal,
+    }
+    impl std::fmt::Display for UpstreamSourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Public => write!(f, "public"),
+                Self::Internal => write!(f, "internal"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

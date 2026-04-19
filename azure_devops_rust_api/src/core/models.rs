@@ -298,6 +298,18 @@ pub mod json_patch_operation {
         #[serde(rename = "test")]
         Test,
     }
+    impl std::fmt::Display for Op {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Add => write!(f, "add"),
+                Self::Remove => write!(f, "remove"),
+                Self::Replace => write!(f, "replace"),
+                Self::Move => write!(f, "move"),
+                Self::Copy => write!(f, "copy"),
+                Self::Test => write!(f, "test"),
+            }
+        }
+    }
 }
 #[doc = "Reference for an async operation."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -338,6 +350,18 @@ pub mod operation_reference {
         #[serde(rename = "failed")]
         Failed,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::NotSet => write!(f, "notSet"),
+                Self::Queued => write!(f, "queued"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Cancelled => write!(f, "cancelled"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Process {
@@ -370,6 +394,15 @@ pub mod process {
         Custom,
         #[serde(rename = "inherited")]
         Inherited,
+    }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::System => write!(f, "system"),
+                Self::Custom => write!(f, "custom"),
+                Self::Inherited => write!(f, "inherited"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -487,6 +520,19 @@ pub mod project_info {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Indicates whom the project is visible to."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -494,6 +540,14 @@ pub mod project_info {
         Private,
         #[serde(rename = "public")]
         Public,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -529,6 +583,15 @@ pub mod project_message {
         Deleted,
         #[serde(rename = "added")]
         Added,
+    }
+    impl std::fmt::Display for ProjectChangeType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Modified => write!(f, "modified"),
+                Self::Deleted => write!(f, "deleted"),
+                Self::Added => write!(f, "added"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -578,6 +641,37 @@ pub struct ProjectPropertyList {
 impl ProjectPropertyList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Filter on team projects in a specific team project state (default: WellFormed)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ProjectState {
+    #[serde(rename = "deleting")]
+    Deleting,
+    #[serde(rename = "new")]
+    New,
+    #[serde(rename = "wellFormed")]
+    WellFormed,
+    #[serde(rename = "createPending")]
+    CreatePending,
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "unchanged")]
+    Unchanged,
+    #[serde(rename = "deleted")]
+    Deleted,
+}
+impl std::fmt::Display for ProjectState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Deleting => write!(f, "deleting"),
+            Self::New => write!(f, "new"),
+            Self::WellFormed => write!(f, "wellFormed"),
+            Self::CreatePending => write!(f, "createPending"),
+            Self::All => write!(f, "all"),
+            Self::Unchanged => write!(f, "unchanged"),
+            Self::Deleted => write!(f, "deleted"),
+        }
     }
 }
 #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
@@ -825,6 +919,15 @@ pub mod team_project_collection {
         #[serde(rename = "inherited")]
         Inherited,
     }
+    impl std::fmt::Display for ProcessCustomizationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Xml => write!(f, "xml"),
+                Self::Inherited => write!(f, "inherited"),
+            }
+        }
+    }
 }
 #[doc = "Reference object for a TeamProjectCollection."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -924,6 +1027,19 @@ pub mod team_project_reference {
         #[serde(rename = "deleted")]
         Deleted,
     }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Deleting => write!(f, "deleting"),
+                Self::New => write!(f, "new"),
+                Self::WellFormed => write!(f, "wellFormed"),
+                Self::CreatePending => write!(f, "createPending"),
+                Self::All => write!(f, "all"),
+                Self::Unchanged => write!(f, "unchanged"),
+                Self::Deleted => write!(f, "deleted"),
+            }
+        }
+    }
     #[doc = "Project visibility."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Visibility {
@@ -935,6 +1051,16 @@ pub mod team_project_reference {
         Organization,
         #[serde(rename = "unchanged")]
         Unchanged,
+    }
+    impl std::fmt::Display for Visibility {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Private => write!(f, "private"),
+                Self::Public => write!(f, "public"),
+                Self::Organization => write!(f, "organization"),
+                Self::Unchanged => write!(f, "unchanged"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

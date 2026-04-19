@@ -83,6 +83,14 @@ pub mod approval {
         #[serde(rename = "inSequence")]
         InSequence,
     }
+    impl std::fmt::Display for ExecutionOrder {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::AnyOrder => write!(f, "anyOrder"),
+                Self::InSequence => write!(f, "inSequence"),
+            }
+        }
+    }
     #[doc = "Current user permissions for approval object."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Permissions {
@@ -98,6 +106,18 @@ pub mod approval {
         ResourceAdmin,
         #[serde(rename = "queueBuild")]
         QueueBuild,
+    }
+    impl std::fmt::Display for Permissions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::View => write!(f, "view"),
+                Self::Update => write!(f, "update"),
+                Self::Reassign => write!(f, "reassign"),
+                Self::ResourceAdmin => write!(f, "resourceAdmin"),
+                Self::QueueBuild => write!(f, "queueBuild"),
+            }
+        }
     }
     #[doc = "Overall status of the approval."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -124,6 +144,23 @@ pub mod approval {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Uninitiated => write!(f, "uninitiated"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -200,6 +237,14 @@ pub mod approval_config {
         #[serde(rename = "inSequence")]
         InSequence,
     }
+    impl std::fmt::Display for ExecutionOrder {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::AnyOrder => write!(f, "anyOrder"),
+                Self::InSequence => write!(f, "inSequence"),
+            }
+        }
+    }
 }
 #[doc = "Config to create a new approval."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -217,6 +262,25 @@ pub struct ApprovalConfigSettings {
 impl ApprovalConfigSettings {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Include these additional details in the returned objects."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalDetailsExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "steps")]
+    Steps,
+    #[serde(rename = "permissions")]
+    Permissions,
+}
+impl std::fmt::Display for ApprovalDetailsExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Steps => write!(f, "steps"),
+            Self::Permissions => write!(f, "permissions"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -265,6 +329,49 @@ pub struct ApprovalRequest {
 impl ApprovalRequest {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Approval status. Returns approvals of any status if not provided"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "uninitiated")]
+    Uninitiated,
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "approved")]
+    Approved,
+    #[serde(rename = "rejected")]
+    Rejected,
+    #[serde(rename = "skipped")]
+    Skipped,
+    #[serde(rename = "canceled")]
+    Canceled,
+    #[serde(rename = "timedOut")]
+    TimedOut,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ApprovalStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::Uninitiated => write!(f, "uninitiated"),
+            Self::Pending => write!(f, "pending"),
+            Self::Approved => write!(f, "approved"),
+            Self::Rejected => write!(f, "rejected"),
+            Self::Skipped => write!(f, "skipped"),
+            Self::Canceled => write!(f, "canceled"),
+            Self::TimedOut => write!(f, "timedOut"),
+            Self::Failed => write!(f, "failed"),
+            Self::Completed => write!(f, "completed"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Data for a single approval step."]
@@ -347,6 +454,18 @@ pub mod approval_step {
         #[serde(rename = "queueBuild")]
         QueueBuild,
     }
+    impl std::fmt::Display for Permissions {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::View => write!(f, "view"),
+                Self::Update => write!(f, "update"),
+                Self::Reassign => write!(f, "reassign"),
+                Self::ResourceAdmin => write!(f, "resourceAdmin"),
+                Self::QueueBuild => write!(f, "queueBuild"),
+            }
+        }
+    }
     #[doc = "Current status of this step."]
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum Status {
@@ -372,6 +491,23 @@ pub mod approval_step {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Uninitiated => write!(f, "uninitiated"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[doc = "Data for a single approval step history."]
@@ -464,6 +600,23 @@ pub mod approval_update_parameters {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Uninitiated => write!(f, "uninitiated"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalsQueryParameters {
@@ -526,6 +679,23 @@ pub mod approvals_query_parameters {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for ApproverStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Undefined => write!(f, "undefined"),
+                Self::Uninitiated => write!(f, "uninitiated"),
+                Self::Pending => write!(f, "pending"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Skipped => write!(f, "skipped"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -597,6 +767,21 @@ pub struct CheckConfigurationData {
 impl CheckConfigurationData {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CheckConfigurationExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "settings")]
+    Settings,
+}
+impl std::fmt::Display for CheckConfigurationExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Settings => write!(f, "settings"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -780,6 +965,14 @@ pub mod check_issue {
         #[serde(rename = "warning")]
         Warning,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Error => write!(f, "error"),
+                Self::Warning => write!(f, "warning"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckIssueData {
@@ -877,6 +1070,22 @@ pub mod check_run_result {
         #[serde(rename = "all")]
         All,
     }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Queued => write!(f, "queued"),
+                Self::Running => write!(f, "running"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckSuite {
@@ -938,6 +1147,37 @@ pub mod check_suite {
         Completed,
         #[serde(rename = "all")]
         All,
+    }
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::None => write!(f, "none"),
+                Self::Queued => write!(f, "queued"),
+                Self::Running => write!(f, "running"),
+                Self::Approved => write!(f, "approved"),
+                Self::Rejected => write!(f, "rejected"),
+                Self::Canceled => write!(f, "canceled"),
+                Self::TimedOut => write!(f, "timedOut"),
+                Self::Failed => write!(f, "failed"),
+                Self::Completed => write!(f, "completed"),
+                Self::All => write!(f, "all"),
+            }
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CheckSuiteExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "resources")]
+    Resources,
+}
+impl std::fmt::Display for CheckSuiteExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Resources => write!(f, "resources"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

@@ -117,6 +117,17 @@ pub mod create_pipeline_configuration_parameters {
         #[serde(rename = "designerHyphenJson")]
         DesignerHyphenJson,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Yaml => write!(f, "yaml"),
+                Self::DesignerJson => write!(f, "designerJson"),
+                Self::JustInTime => write!(f, "justInTime"),
+                Self::DesignerHyphenJson => write!(f, "designerHyphenJson"),
+            }
+        }
+    }
 }
 #[doc = "Parameters to create a pipeline."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -134,6 +145,38 @@ pub struct CreatePipelineParameters {
 impl CreatePipelineParameters {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Expand options. Default is None."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetArtifactExpandOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "signedContent")]
+    SignedContent,
+}
+impl std::fmt::Display for GetArtifactExpandOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::SignedContent => write!(f, "signedContent"),
+        }
+    }
+}
+#[doc = "Expand options. Default is None."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetLogExpandOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "signedContent")]
+    SignedContent,
+}
+impl std::fmt::Display for GetLogExpandOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::SignedContent => write!(f, "signedContent"),
+        }
     }
 }
 #[doc = "Link URL"]
@@ -317,6 +360,17 @@ pub mod pipeline_configuration {
         #[serde(rename = "designerHyphenJson")]
         DesignerHyphenJson,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Yaml => write!(f, "yaml"),
+                Self::DesignerJson => write!(f, "designerJson"),
+                Self::JustInTime => write!(f, "justInTime"),
+                Self::DesignerHyphenJson => write!(f, "designerHyphenJson"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
     pub struct Repository {
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -435,6 +489,17 @@ pub mod repository {
         #[serde(rename = "azureReposGitHyphenated")]
         AzureReposGitHyphenated,
     }
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::GitHub => write!(f, "gitHub"),
+                Self::AzureReposGit => write!(f, "azureReposGit"),
+                Self::GitHubEnterprise => write!(f, "gitHubEnterprise"),
+                Self::AzureReposGitHyphenated => write!(f, "azureReposGitHyphenated"),
+            }
+        }
+    }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RepositoryResource {
@@ -541,6 +606,16 @@ pub mod run {
         #[serde(rename = "canceled")]
         Canceled,
     }
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::Succeeded => write!(f, "succeeded"),
+                Self::Failed => write!(f, "failed"),
+                Self::Canceled => write!(f, "canceled"),
+            }
+        }
+    }
     #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
     pub enum State {
         #[serde(rename = "unknown")]
@@ -551,6 +626,16 @@ pub mod run {
         Canceling,
         #[serde(rename = "completed")]
         Completed,
+    }
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            match self {
+                Self::Unknown => write!(f, "unknown"),
+                Self::InProgress => write!(f, "inProgress"),
+                Self::Canceling => write!(f, "canceling"),
+                Self::Completed => write!(f, "completed"),
+            }
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

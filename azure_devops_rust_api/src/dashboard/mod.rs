@@ -156,7 +156,7 @@ pub mod widget_types {
         pub fn get_widget_types(
             &self,
             organization: impl Into<String>,
-            scope: impl Into<String>,
+            scope: impl Into<models::WidgetScope>,
             project: impl Into<String>,
         ) -> get_widget_types::RequestBuilder {
             get_widget_types::RequestBuilder {
@@ -223,7 +223,7 @@ pub mod widget_types {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) scope: String,
+            pub(crate) scope: models::WidgetScope,
             pub(crate) project: String,
         }
         impl RequestBuilder {
@@ -250,7 +250,9 @@ pub mod widget_types {
                             );
                         }
                         let scope = &this.scope;
-                        req.url_mut().query_pairs_mut().append_pair("$scope", scope);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("$scope", &scope.to_string());
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))

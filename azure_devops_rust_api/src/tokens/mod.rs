@@ -257,8 +257,8 @@ pub mod pats {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) display_filter_option: Option<String>,
-            pub(crate) sort_by_option: Option<String>,
+            pub(crate) display_filter_option: Option<models::DisplayFilterOptions>,
+            pub(crate) sort_by_option: Option<models::SortByOptions>,
             pub(crate) is_sort_ascending: Option<bool>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) top: Option<i32>,
@@ -267,13 +267,16 @@ pub mod pats {
             #[doc = "(Optional) Refers to the status of the personal access token (PAT)"]
             pub fn display_filter_option(
                 mut self,
-                display_filter_option: impl Into<String>,
+                display_filter_option: impl Into<models::DisplayFilterOptions>,
             ) -> Self {
                 self.display_filter_option = Some(display_filter_option.into());
                 self
             }
             #[doc = "(Optional) Which field to sort by"]
-            pub fn sort_by_option(mut self, sort_by_option: impl Into<String>) -> Self {
+            pub fn sort_by_option(
+                mut self,
+                sort_by_option: impl Into<models::SortByOptions>,
+            ) -> Self {
                 self.sort_by_option = Some(sort_by_option.into());
                 self
             }
@@ -315,14 +318,15 @@ pub mod pats {
                             );
                         }
                         if let Some(display_filter_option) = &this.display_filter_option {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("displayFilterOption", display_filter_option);
+                            req.url_mut().query_pairs_mut().append_pair(
+                                "displayFilterOption",
+                                &display_filter_option.to_string(),
+                            );
                         }
                         if let Some(sort_by_option) = &this.sort_by_option {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("sortByOption", sort_by_option);
+                                .append_pair("sortByOption", &sort_by_option.to_string());
                         }
                         if let Some(is_sort_ascending) = &this.is_sort_ascending {
                             req.url_mut()
