@@ -297,6 +297,22 @@ impl AttachmentReference {
         Self::default()
     }
 }
+#[doc = "Flag to handle errors in getting some nodes. Possible options are Fail and Omit."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ClassificationNodesErrorPolicy {
+    #[serde(rename = "fail")]
+    Fail,
+    #[serde(rename = "omit")]
+    Omit,
+}
+impl std::fmt::Display for ClassificationNodesErrorPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Fail => write!(f, "fail"),
+            Self::Omit => write!(f, "omit"),
+        }
+    }
+}
 #[doc = "Comment on a Work Item."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Comment {
@@ -435,6 +451,47 @@ pub struct CommentCreate {
 impl CommentCreate {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Specifies the additional data retrieval options for work item comments."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CommentExpandOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "reactions")]
+    Reactions,
+    #[serde(rename = "renderedText")]
+    RenderedText,
+    #[serde(rename = "renderedTextOnly")]
+    RenderedTextOnly,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for CommentExpandOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Reactions => write!(f, "reactions"),
+            Self::RenderedText => write!(f, "renderedText"),
+            Self::RenderedTextOnly => write!(f, "renderedTextOnly"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
+#[doc = "Format of a work item comment (Markdown or Html)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CommentFormat {
+    #[serde(rename = "markdown")]
+    Markdown,
+    #[serde(rename = "html")]
+    Html,
+}
+impl std::fmt::Display for CommentFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Markdown => write!(f, "markdown"),
+            Self::Html => write!(f, "html"),
+        }
     }
 }
 #[doc = "Represents a list of work item comments."]
@@ -596,6 +653,50 @@ pub struct CommentReactionList {
 impl CommentReactionList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Type of the reaction"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CommentReactionType {
+    #[serde(rename = "like")]
+    Like,
+    #[serde(rename = "dislike")]
+    Dislike,
+    #[serde(rename = "heart")]
+    Heart,
+    #[serde(rename = "hooray")]
+    Hooray,
+    #[serde(rename = "smile")]
+    Smile,
+    #[serde(rename = "confused")]
+    Confused,
+}
+impl std::fmt::Display for CommentReactionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Like => write!(f, "like"),
+            Self::Dislike => write!(f, "dislike"),
+            Self::Heart => write!(f, "heart"),
+            Self::Hooray => write!(f, "hooray"),
+            Self::Smile => write!(f, "smile"),
+            Self::Confused => write!(f, "confused"),
+        }
+    }
+}
+#[doc = "Order in which the comments should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CommentSortOrder {
+    #[serde(rename = "asc")]
+    Asc,
+    #[serde(rename = "desc")]
+    Desc,
+}
+impl std::fmt::Display for CommentSortOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Asc => write!(f, "asc"),
+            Self::Desc => write!(f, "desc"),
+        }
     }
 }
 #[doc = "Represents a request to update a work item comment."]
@@ -866,6 +967,25 @@ pub struct FieldUpdate {
 impl FieldUpdate {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Use ExtensionFields to include extension fields, otherwise exclude them. Unless the feature flag for this parameter is enabled, extension fields are always included."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetFieldsExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "extensionFields")]
+    ExtensionFields,
+    #[serde(rename = "includeDeleted")]
+    IncludeDeleted,
+}
+impl std::fmt::Display for GetFieldsExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::ExtensionFields => write!(f, "extensionFields"),
+            Self::IncludeDeleted => write!(f, "includeDeleted"),
+        }
     }
 }
 #[doc = "Describes Github connection."]
@@ -1347,6 +1467,30 @@ pub mod query_batch_get_request {
         }
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum QueryExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "wiql")]
+    Wiql,
+    #[serde(rename = "clauses")]
+    Clauses,
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "minimal")]
+    Minimal,
+}
+impl std::fmt::Display for QueryExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Wiql => write!(f, "wiql"),
+            Self::Clauses => write!(f, "clauses"),
+            Self::All => write!(f, "all"),
+            Self::Minimal => write!(f, "minimal"),
+        }
+    }
+}
 #[doc = "Represents an item in the work item query hierarchy. This can be either a query or a folder."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QueryHierarchyItem {
@@ -1639,6 +1783,22 @@ impl ReferenceLinks {
         Self::default()
     }
 }
+#[doc = "Return all the fields in work item revisions, including long text fields which are not returned by default"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReportingRevisionsExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "fields")]
+    Fields,
+}
+impl std::fmt::Display for ReportingRevisionsExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Fields => write!(f, "fields"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReportingWorkItemLinksBatch {
     #[serde(flatten)]
@@ -1836,6 +1996,22 @@ pub struct TemporaryQueryResponseModel {
 impl TemporaryQueryResponseModel {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Structure group of the classification node, area or iteration."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TreeStructureGroup {
+    #[serde(rename = "areas")]
+    Areas,
+    #[serde(rename = "iterations")]
+    Iterations,
+}
+impl std::fmt::Display for TreeStructureGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Areas => write!(f, "areas"),
+            Self::Iterations => write!(f, "iterations"),
+        }
     }
 }
 #[doc = "Describes an update request for a work item field."]
@@ -2440,6 +2616,47 @@ pub struct WorkItemDeleteUpdate {
 impl WorkItemDeleteUpdate {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "The flag to control error policy in a bulk get work items request. Possible options are {Fail, Omit}."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum WorkItemErrorPolicy {
+    #[serde(rename = "fail")]
+    Fail,
+    #[serde(rename = "omit")]
+    Omit,
+}
+impl std::fmt::Display for WorkItemErrorPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Fail => write!(f, "fail"),
+            Self::Omit => write!(f, "omit"),
+        }
+    }
+}
+#[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum WorkItemExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "relations")]
+    Relations,
+    #[serde(rename = "fields")]
+    Fields,
+    #[serde(rename = "links")]
+    Links,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for WorkItemExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Relations => write!(f, "relations"),
+            Self::Fields => write!(f, "fields"),
+            Self::Links => write!(f, "links"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Describes a field on a work item and it's properties specific to that work item type."]
@@ -3628,6 +3845,28 @@ pub struct WorkItemTypeFieldWithReferencesList {
 impl WorkItemTypeFieldWithReferencesList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Expand level for the API response. Properties: to include allowedvalues, default value, isRequired etc. as a part of response; None: to skip these properties."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum WorkItemTypeFieldsExpandLevel {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "allowedValues")]
+    AllowedValues,
+    #[serde(rename = "dependentFields")]
+    DependentFields,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for WorkItemTypeFieldsExpandLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::AllowedValues => write!(f, "allowedValues"),
+            Self::DependentFields => write!(f, "dependentFields"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

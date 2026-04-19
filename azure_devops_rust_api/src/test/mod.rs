@@ -372,10 +372,10 @@ pub mod runs {
             pub(crate) project: String,
             pub(crate) min_last_updated_date: time::OffsetDateTime,
             pub(crate) max_last_updated_date: time::OffsetDateTime,
-            pub(crate) state: Option<String>,
+            pub(crate) state: Option<models::TestRunState>,
             pub(crate) plan_ids: Option<String>,
             pub(crate) is_automated: Option<bool>,
-            pub(crate) publish_context: Option<String>,
+            pub(crate) publish_context: Option<models::TestRunPublishContext>,
             pub(crate) build_ids: Option<String>,
             pub(crate) build_def_ids: Option<String>,
             pub(crate) branch_name: Option<String>,
@@ -389,7 +389,7 @@ pub mod runs {
         }
         impl RequestBuilder {
             #[doc = "Current state of the Runs to be queried."]
-            pub fn state(mut self, state: impl Into<String>) -> Self {
+            pub fn state(mut self, state: impl Into<models::TestRunState>) -> Self {
                 self.state = Some(state.into());
                 self
             }
@@ -404,7 +404,10 @@ pub mod runs {
                 self
             }
             #[doc = "PublishContext of the Runs to be queried."]
-            pub fn publish_context(mut self, publish_context: impl Into<String>) -> Self {
+            pub fn publish_context(
+                mut self,
+                publish_context: impl Into<models::TestRunPublishContext>,
+            ) -> Self {
                 self.publish_context = Some(publish_context.into());
                 self
             }
@@ -493,7 +496,9 @@ pub mod runs {
                             .query_pairs_mut()
                             .append_pair("maxLastUpdatedDate", &formatted_date_time);
                         if let Some(state) = &this.state {
-                            req.url_mut().query_pairs_mut().append_pair("state", state);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("state", &state.to_string());
                         }
                         if let Some(plan_ids) = &this.plan_ids {
                             req.url_mut()
@@ -508,7 +513,7 @@ pub mod runs {
                         if let Some(publish_context) = &this.publish_context {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("publishContext", publish_context);
+                                .append_pair("publishContext", &publish_context.to_string());
                         }
                         if let Some(build_ids) = &this.build_ids {
                             req.url_mut()
@@ -4483,14 +4488,17 @@ pub mod results {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) run_id: i32,
-            pub(crate) details_to_include: Option<String>,
+            pub(crate) details_to_include: Option<models::ResultDetails>,
             pub(crate) skip: Option<i32>,
             pub(crate) top: Option<i32>,
             pub(crate) outcomes: Option<String>,
         }
         impl RequestBuilder {
             #[doc = "Details to include with test results. Default is None. Other values are Iterations and WorkItems."]
-            pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
+            pub fn details_to_include(
+                mut self,
+                details_to_include: impl Into<models::ResultDetails>,
+            ) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
@@ -4534,7 +4542,7 @@ pub mod results {
                         if let Some(details_to_include) = &this.details_to_include {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("detailsToInclude", details_to_include);
+                                .append_pair("detailsToInclude", &details_to_include.to_string());
                         }
                         if let Some(skip) = &this.skip {
                             req.url_mut()
@@ -4826,11 +4834,14 @@ pub mod results {
             pub(crate) project: String,
             pub(crate) run_id: i32,
             pub(crate) test_case_result_id: i32,
-            pub(crate) details_to_include: Option<String>,
+            pub(crate) details_to_include: Option<models::ResultDetails>,
         }
         impl RequestBuilder {
             #[doc = "Details to include with test results. Default is None. Other values are Iterations, WorkItems and SubResults."]
-            pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
+            pub fn details_to_include(
+                mut self,
+                details_to_include: impl Into<models::ResultDetails>,
+            ) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
@@ -4859,7 +4870,7 @@ pub mod results {
                         if let Some(details_to_include) = &this.details_to_include {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("detailsToInclude", details_to_include);
+                                .append_pair("detailsToInclude", &details_to_include.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -5435,7 +5446,7 @@ pub mod session {
             pub(crate) period: Option<i32>,
             pub(crate) all_sessions: Option<bool>,
             pub(crate) include_all_properties: Option<bool>,
-            pub(crate) source: Option<String>,
+            pub(crate) source: Option<models::TestSessionSource>,
             pub(crate) include_only_completed_sessions: Option<bool>,
         }
         impl RequestBuilder {
@@ -5455,7 +5466,7 @@ pub mod session {
                 self
             }
             #[doc = "Source of the test session."]
-            pub fn source(mut self, source: impl Into<String>) -> Self {
+            pub fn source(mut self, source: impl Into<models::TestSessionSource>) -> Self {
                 self.source = Some(source.into());
                 self
             }
@@ -5508,7 +5519,7 @@ pub mod session {
                         if let Some(source) = &this.source {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("source", source);
+                                .append_pair("source", &source.to_string());
                         }
                         if let Some(include_only_completed_sessions) =
                             &this.include_only_completed_sessions

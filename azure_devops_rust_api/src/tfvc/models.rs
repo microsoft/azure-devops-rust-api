@@ -1602,6 +1602,59 @@ pub mod tfvc_version_descriptor {
         }
     }
 }
+#[doc = "Version descriptor.  Default is null."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TfvcVersionOption {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "previous")]
+    Previous,
+    #[serde(rename = "useRename")]
+    UseRename,
+}
+impl std::fmt::Display for TfvcVersionOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Previous => write!(f, "previous"),
+            Self::UseRename => write!(f, "useRename"),
+        }
+    }
+}
+#[doc = "Version descriptor.  Default is null."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TfvcVersionType {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "changeset")]
+    Changeset,
+    #[serde(rename = "shelveset")]
+    Shelveset,
+    #[serde(rename = "change")]
+    Change,
+    #[serde(rename = "date")]
+    Date,
+    #[serde(rename = "latest")]
+    Latest,
+    #[serde(rename = "tip")]
+    Tip,
+    #[serde(rename = "mergeSource")]
+    MergeSource,
+}
+impl std::fmt::Display for TfvcVersionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Changeset => write!(f, "changeset"),
+            Self::Shelveset => write!(f, "shelveset"),
+            Self::Change => write!(f, "change"),
+            Self::Date => write!(f, "date"),
+            Self::Latest => write!(f, "latest"),
+            Self::Tip => write!(f, "tip"),
+            Self::MergeSource => write!(f, "mergeSource"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VersionControlProjectInfo {
     #[serde(
@@ -1646,6 +1699,28 @@ pub mod version_control_project_info {
                 Self::Tfvc => write!(f, "tfvc"),
                 Self::Git => write!(f, "git"),
             }
+        }
+    }
+}
+#[doc = "None (just the item), or OneLevel (contents of a folder)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VersionControlRecursionType {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "oneLevel")]
+    OneLevel,
+    #[serde(rename = "oneLevelPlusNestedEmptyFolders")]
+    OneLevelPlusNestedEmptyFolders,
+    #[serde(rename = "full")]
+    Full,
+}
+impl std::fmt::Display for VersionControlRecursionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::OneLevel => write!(f, "oneLevel"),
+            Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+            Self::Full => write!(f, "full"),
         }
     }
 }

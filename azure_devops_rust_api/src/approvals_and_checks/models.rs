@@ -264,6 +264,25 @@ impl ApprovalConfigSettings {
         Self::default()
     }
 }
+#[doc = "Include these additional details in the returned objects."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalDetailsExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "steps")]
+    Steps,
+    #[serde(rename = "permissions")]
+    Permissions,
+}
+impl std::fmt::Display for ApprovalDetailsExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Steps => write!(f, "steps"),
+            Self::Permissions => write!(f, "permissions"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -310,6 +329,49 @@ pub struct ApprovalRequest {
 impl ApprovalRequest {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Approval status. Returns approvals of any status if not provided"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "uninitiated")]
+    Uninitiated,
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "approved")]
+    Approved,
+    #[serde(rename = "rejected")]
+    Rejected,
+    #[serde(rename = "skipped")]
+    Skipped,
+    #[serde(rename = "canceled")]
+    Canceled,
+    #[serde(rename = "timedOut")]
+    TimedOut,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ApprovalStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::Uninitiated => write!(f, "uninitiated"),
+            Self::Pending => write!(f, "pending"),
+            Self::Approved => write!(f, "approved"),
+            Self::Rejected => write!(f, "rejected"),
+            Self::Skipped => write!(f, "skipped"),
+            Self::Canceled => write!(f, "canceled"),
+            Self::TimedOut => write!(f, "timedOut"),
+            Self::Failed => write!(f, "failed"),
+            Self::Completed => write!(f, "completed"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Data for a single approval step."]
@@ -707,6 +769,21 @@ impl CheckConfigurationData {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CheckConfigurationExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "settings")]
+    Settings,
+}
+impl std::fmt::Display for CheckConfigurationExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Settings => write!(f, "settings"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct CheckConfigurationList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -1085,6 +1162,21 @@ pub mod check_suite {
                 Self::Completed => write!(f, "completed"),
                 Self::All => write!(f, "all"),
             }
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum CheckSuiteExpandParameter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "resources")]
+    Resources,
+}
+impl std::fmt::Display for CheckSuiteExpandParameter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Resources => write!(f, "resources"),
         }
     }
 }

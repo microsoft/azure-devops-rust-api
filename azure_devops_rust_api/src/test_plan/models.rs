@@ -485,6 +485,25 @@ impl DestinationTestSuiteInfo {
         Self::default()
     }
 }
+#[doc = "Flag to exclude various values from payload. For example to remove point assignments pass exclude = 1. To remove extra information (links, test plan , test suite) pass exclude = 2. To remove both extra information and point assignments pass exclude = 3 (1 + 2)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ExcludeFlags {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "pointAssignments")]
+    PointAssignments,
+    #[serde(rename = "extraInformation")]
+    ExtraInformation,
+}
+impl std::fmt::Display for ExcludeFlags {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::PointAssignments => write!(f, "pointAssignments"),
+            Self::ExtraInformation => write!(f, "extraInformation"),
+        }
+    }
+}
 #[doc = "Parameters for test case export operation"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ExportTestCaseParams {
@@ -1052,6 +1071,21 @@ impl SuiteEntryList {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum SuiteEntryTypes {
+    #[serde(rename = "testCase")]
+    TestCase,
+    #[serde(rename = "suite")]
+    Suite,
+}
+impl std::fmt::Display for SuiteEntryTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::TestCase => write!(f, "testCase"),
+            Self::Suite => write!(f, "suite"),
+        }
+    }
+}
 #[doc = "A suite entry defines properties for a test suite."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct SuiteEntryUpdateParams {
@@ -1094,6 +1128,25 @@ pub mod suite_entry_update_params {
                 Self::TestCase => write!(f, "testCase"),
                 Self::Suite => write!(f, "suite"),
             }
+        }
+    }
+}
+#[doc = "Include the children suites and testers details."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum SuiteExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "children")]
+    Children,
+    #[serde(rename = "defaultTesters")]
+    DefaultTesters,
+}
+impl std::fmt::Display for SuiteExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Children => write!(f, "children"),
+            Self::DefaultTesters => write!(f, "defaultTesters"),
         }
     }
 }

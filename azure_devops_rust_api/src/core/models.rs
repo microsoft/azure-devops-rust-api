@@ -643,6 +643,37 @@ impl ProjectPropertyList {
         Self::default()
     }
 }
+#[doc = "Filter on team projects in a specific team project state (default: WellFormed)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ProjectState {
+    #[serde(rename = "deleting")]
+    Deleting,
+    #[serde(rename = "new")]
+    New,
+    #[serde(rename = "wellFormed")]
+    WellFormed,
+    #[serde(rename = "createPending")]
+    CreatePending,
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "unchanged")]
+    Unchanged,
+    #[serde(rename = "deleted")]
+    Deleted,
+}
+impl std::fmt::Display for ProjectState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Deleting => write!(f, "deleting"),
+            Self::New => write!(f, "new"),
+            Self::WellFormed => write!(f, "wellFormed"),
+            Self::CreatePending => write!(f, "createPending"),
+            Self::All => write!(f, "all"),
+            Self::Unchanged => write!(f, "unchanged"),
+            Self::Deleted => write!(f, "deleted"),
+        }
+    }
+}
 #[doc = "The class represents a property bag as a collection of key-value pairs. Values of all primitive types (any type with a `TypeCode != TypeCode.Object`) except for `DBNull` are accepted. Values of type Byte[], Int32, Double, DateType and String preserve their type, other primitives are retuned as a String. Byte[] expected as base64 encoded string."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct PropertiesCollection {

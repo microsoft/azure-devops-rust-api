@@ -501,6 +501,44 @@ pub mod git_version_descriptor {
         }
     }
 }
+#[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "previousChange")]
+    PreviousChange,
+    #[serde(rename = "firstParent")]
+    FirstParent,
+}
+impl std::fmt::Display for GitVersionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::PreviousChange => write!(f, "previousChange"),
+            Self::FirstParent => write!(f, "firstParent"),
+        }
+    }
+}
+#[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionType {
+    #[serde(rename = "branch")]
+    Branch,
+    #[serde(rename = "tag")]
+    Tag,
+    #[serde(rename = "commit")]
+    Commit,
+}
+impl std::fmt::Display for GitVersionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Branch => write!(f, "branch"),
+            Self::Tag => write!(f, "tag"),
+            Self::Commit => write!(f, "commit"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphSubjectBase {
     #[doc = "Links"]
@@ -709,6 +747,28 @@ pub mod team_project_reference {
                 Self::Organization => write!(f, "organization"),
                 Self::Unchanged => write!(f, "unchanged"),
             }
+        }
+    }
+}
+#[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VersionControlRecursionType {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "oneLevel")]
+    OneLevel,
+    #[serde(rename = "oneLevelPlusNestedEmptyFolders")]
+    OneLevelPlusNestedEmptyFolders,
+    #[serde(rename = "full")]
+    Full,
+}
+impl std::fmt::Display for VersionControlRecursionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::OneLevel => write!(f, "oneLevel"),
+            Self::OneLevelPlusNestedEmptyFolders => write!(f, "oneLevelPlusNestedEmptyFolders"),
+            Self::Full => write!(f, "full"),
         }
     }
 }

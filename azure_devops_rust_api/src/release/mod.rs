@@ -445,14 +445,17 @@ pub mod releases {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) release_id: i32,
-            pub(crate) approval_filters: Option<String>,
+            pub(crate) approval_filters: Option<models::ApprovalFilters>,
             pub(crate) property_filters: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::SingleReleaseExpands>,
             pub(crate) top_gate_records: Option<i32>,
         }
         impl RequestBuilder {
             #[doc = "A filter which would allow fetching approval steps selectively based on whether it is automated, or manual. This would also decide whether we should fetch pre and post approval snapshots. Assumes All by default"]
-            pub fn approval_filters(mut self, approval_filters: impl Into<String>) -> Self {
+            pub fn approval_filters(
+                mut self,
+                approval_filters: impl Into<models::ApprovalFilters>,
+            ) -> Self {
                 self.approval_filters = Some(approval_filters.into());
                 self
             }
@@ -462,7 +465,7 @@ pub mod releases {
                 self
             }
             #[doc = "A property that should be expanded in the release."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::SingleReleaseExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -496,7 +499,7 @@ pub mod releases {
                         if let Some(approval_filters) = &this.approval_filters {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("approvalFilters", approval_filters);
+                                .append_pair("approvalFilters", &approval_filters.to_string());
                         }
                         if let Some(property_filters) = &this.property_filters {
                             req.url_mut()
@@ -506,7 +509,7 @@ pub mod releases {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(top_gate_records) = &this.top_gate_records {
                             req.url_mut()
@@ -590,14 +593,14 @@ pub mod releases {
             pub(crate) definition_environment_id: Option<i32>,
             pub(crate) search_text: Option<String>,
             pub(crate) created_by: Option<String>,
-            pub(crate) status_filter: Option<String>,
+            pub(crate) status_filter: Option<models::ReleaseStatus>,
             pub(crate) environment_status_filter: Option<i32>,
             pub(crate) min_created_time: Option<time::OffsetDateTime>,
             pub(crate) max_created_time: Option<time::OffsetDateTime>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::ReleaseQueryOrder>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<i32>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ReleaseExpands>,
             pub(crate) artifact_type_id: Option<String>,
             pub(crate) source_id: Option<String>,
             pub(crate) artifact_version_id: Option<String>,
@@ -629,7 +632,10 @@ pub mod releases {
                 self
             }
             #[doc = "Releases that have this status."]
-            pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
+            pub fn status_filter(
+                mut self,
+                status_filter: impl Into<models::ReleaseStatus>,
+            ) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
             }
@@ -654,7 +660,10 @@ pub mod releases {
                 self
             }
             #[doc = "Gets the results in the defined order of created date for releases. Default is descending."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::ReleaseQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -669,7 +678,7 @@ pub mod releases {
                 self
             }
             #[doc = "The property that should be expanded in the list of releases."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::ReleaseExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -764,7 +773,7 @@ pub mod releases {
                         if let Some(status_filter) = &this.status_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("statusFilter", status_filter);
+                                .append_pair("statusFilter", &status_filter.to_string());
                         }
                         if let Some(environment_status_filter) = &this.environment_status_filter {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -789,7 +798,7 @@ pub mod releases {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -804,7 +813,7 @@ pub mod releases {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(artifact_type_id) = &this.artifact_type_id {
                             req.url_mut()
@@ -1323,11 +1332,11 @@ pub mod releases {
             pub(crate) project: String,
             pub(crate) release_id: i32,
             pub(crate) environment_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ReleaseEnvironmentExpands>,
         }
         impl RequestBuilder {
             #[doc = "A property that should be expanded in the environment."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::ReleaseEnvironmentExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1356,7 +1365,7 @@ pub mod releases {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1802,12 +1811,12 @@ pub mod approvals {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) assigned_to_filter: Option<String>,
-            pub(crate) status_filter: Option<String>,
+            pub(crate) status_filter: Option<models::ApprovalStatus>,
             pub(crate) release_ids_filter: Option<String>,
-            pub(crate) type_filter: Option<String>,
+            pub(crate) type_filter: Option<models::ApprovalType>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<i32>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::ReleaseQueryOrder>,
             pub(crate) include_my_group_approvals: Option<bool>,
         }
         impl RequestBuilder {
@@ -1817,7 +1826,10 @@ pub mod approvals {
                 self
             }
             #[doc = "Approvals with this status. Default is 'pending'."]
-            pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
+            pub fn status_filter(
+                mut self,
+                status_filter: impl Into<models::ApprovalStatus>,
+            ) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
             }
@@ -1827,7 +1839,7 @@ pub mod approvals {
                 self
             }
             #[doc = "Approval with this type."]
-            pub fn type_filter(mut self, type_filter: impl Into<String>) -> Self {
+            pub fn type_filter(mut self, type_filter: impl Into<models::ApprovalType>) -> Self {
                 self.type_filter = Some(type_filter.into());
                 self
             }
@@ -1842,7 +1854,10 @@ pub mod approvals {
                 self
             }
             #[doc = "Gets the results in the defined order of created approvals. Default is 'descending'."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::ReleaseQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -1881,7 +1896,7 @@ pub mod approvals {
                         if let Some(status_filter) = &this.status_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("statusFilter", status_filter);
+                                .append_pair("statusFilter", &status_filter.to_string());
                         }
                         if let Some(release_ids_filter) = &this.release_ids_filter {
                             req.url_mut()
@@ -1891,7 +1906,7 @@ pub mod approvals {
                         if let Some(type_filter) = &this.type_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("typeFilter", type_filter);
+                                .append_pair("typeFilter", &type_filter.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -1906,7 +1921,7 @@ pub mod approvals {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(include_my_group_approvals) = &this.include_my_group_approvals {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -2247,12 +2262,12 @@ pub mod definitions {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) search_text: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ReleaseDefinitionExpands>,
             pub(crate) artifact_type: Option<String>,
             pub(crate) artifact_source_id: Option<String>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<String>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::ReleaseDefinitionQueryOrder>,
             pub(crate) path: Option<String>,
             pub(crate) is_exact_name_match: Option<bool>,
             pub(crate) tag_filter: Option<String>,
@@ -2268,7 +2283,7 @@ pub mod definitions {
                 self
             }
             #[doc = "The properties that should be expanded in the list of Release definitions."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::ReleaseDefinitionExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -2293,7 +2308,10 @@ pub mod definitions {
                 self
             }
             #[doc = "Gets the results in the defined order. Default is 'IdAscending'."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::ReleaseDefinitionQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -2365,7 +2383,7 @@ pub mod definitions {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(artifact_type) = &this.artifact_type {
                             req.url_mut()
@@ -2390,7 +2408,7 @@ pub mod definitions {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(path) = &this.path {
                             req.url_mut().query_pairs_mut().append_pair("path", path);
@@ -3167,10 +3185,10 @@ pub mod deployments {
             pub(crate) created_by: Option<String>,
             pub(crate) min_modified_time: Option<time::OffsetDateTime>,
             pub(crate) max_modified_time: Option<time::OffsetDateTime>,
-            pub(crate) deployment_status: Option<String>,
-            pub(crate) operation_status: Option<String>,
+            pub(crate) deployment_status: Option<models::DeploymentStatus>,
+            pub(crate) operation_status: Option<models::DeploymentOperationStatus>,
             pub(crate) latest_attempts_only: Option<bool>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::ReleaseQueryOrder>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<i32>,
             pub(crate) created_for: Option<String>,
@@ -3205,11 +3223,17 @@ pub mod deployments {
                 self.max_modified_time = Some(max_modified_time.into());
                 self
             }
-            pub fn deployment_status(mut self, deployment_status: impl Into<String>) -> Self {
+            pub fn deployment_status(
+                mut self,
+                deployment_status: impl Into<models::DeploymentStatus>,
+            ) -> Self {
                 self.deployment_status = Some(deployment_status.into());
                 self
             }
-            pub fn operation_status(mut self, operation_status: impl Into<String>) -> Self {
+            pub fn operation_status(
+                mut self,
+                operation_status: impl Into<models::DeploymentOperationStatus>,
+            ) -> Self {
                 self.operation_status = Some(operation_status.into());
                 self
             }
@@ -3217,7 +3241,10 @@ pub mod deployments {
                 self.latest_attempts_only = Some(latest_attempts_only);
                 self
             }
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::ReleaseQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -3306,12 +3333,12 @@ pub mod deployments {
                         if let Some(deployment_status) = &this.deployment_status {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("deploymentStatus", deployment_status);
+                                .append_pair("deploymentStatus", &deployment_status.to_string());
                         }
                         if let Some(operation_status) = &this.operation_status {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("operationStatus", operation_status);
+                                .append_pair("operationStatus", &operation_status.to_string());
                         }
                         if let Some(latest_attempts_only) = &this.latest_attempts_only {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -3322,7 +3349,7 @@ pub mod deployments {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -3524,11 +3551,14 @@ pub mod folders {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) path: String,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::FolderPathQueryOrder>,
         }
         impl RequestBuilder {
             #[doc = "Gets the results in the defined order. Default is 'None'."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::FolderPathQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -3557,7 +3587,7 @@ pub mod folders {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

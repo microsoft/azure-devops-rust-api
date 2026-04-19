@@ -833,8 +833,8 @@ pub mod attachments {
             pub(crate) wiki_identifier: String,
             pub(crate) name: String,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -848,7 +848,7 @@ pub mod attachments {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -857,7 +857,7 @@ pub mod attachments {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -899,7 +899,7 @@ pub mod attachments {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -907,7 +907,7 @@ pub mod attachments {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         req.set_body(req_body);
@@ -1032,8 +1032,8 @@ pub mod page_moves {
             pub(crate) wiki_identifier: String,
             pub(crate) comment: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Comment that is to be associated with this page move."]
@@ -1052,7 +1052,7 @@ pub mod page_moves {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -1061,7 +1061,7 @@ pub mod page_moves {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1106,7 +1106,7 @@ pub mod page_moves {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1114,7 +1114,7 @@ pub mod page_moves {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         req.set_body(req_body);
@@ -1370,10 +1370,10 @@ pub mod pages {
             pub(crate) project: String,
             pub(crate) wiki_identifier: String,
             pub(crate) path: Option<String>,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
             pub(crate) include_content: Option<bool>,
         }
         impl RequestBuilder {
@@ -1383,7 +1383,10 @@ pub mod pages {
                 self
             }
             #[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -1398,7 +1401,7 @@ pub mod pages {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -1407,7 +1410,7 @@ pub mod pages {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1445,7 +1448,7 @@ pub mod pages {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(version_descriptor_version) = &this.version_descriptor_version {
                             req.url_mut().query_pairs_mut().append_pair(
@@ -1458,7 +1461,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1466,7 +1469,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         if let Some(include_content) = &this.include_content {
@@ -1563,8 +1566,8 @@ pub mod pages {
             pub(crate) if_match: String,
             pub(crate) comment: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Comment to be associated with the page operation."]
@@ -1583,7 +1586,7 @@ pub mod pages {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -1592,7 +1595,7 @@ pub mod pages {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1640,7 +1643,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1648,7 +1651,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         req.set_body(req_body);
@@ -1737,8 +1740,8 @@ pub mod pages {
             pub(crate) path: String,
             pub(crate) comment: Option<String>,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Comment to be associated with this page delete."]
@@ -1757,7 +1760,7 @@ pub mod pages {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -1766,7 +1769,7 @@ pub mod pages {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -1811,7 +1814,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -1819,7 +1822,7 @@ pub mod pages {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         let req_body = azure_core::Bytes::new();
@@ -1907,12 +1910,15 @@ pub mod pages {
             pub(crate) project: String,
             pub(crate) wiki_identifier: String,
             pub(crate) id: i32,
-            pub(crate) recursion_level: Option<String>,
+            pub(crate) recursion_level: Option<models::VersionControlRecursionType>,
             pub(crate) include_content: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "Recursion level for subpages retrieval. Defaults to `None` (Optional)."]
-            pub fn recursion_level(mut self, recursion_level: impl Into<String>) -> Self {
+            pub fn recursion_level(
+                mut self,
+                recursion_level: impl Into<models::VersionControlRecursionType>,
+            ) -> Self {
                 self.recursion_level = Some(recursion_level.into());
                 self
             }
@@ -1946,7 +1952,7 @@ pub mod pages {
                         if let Some(recursion_level) = &this.recursion_level {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("recursionLevel", recursion_level);
+                                .append_pair("recursionLevel", &recursion_level.to_string());
                         }
                         if let Some(include_content) = &this.include_content {
                             req.url_mut()
@@ -2455,8 +2461,8 @@ pub mod pages_batch {
             pub(crate) project: String,
             pub(crate) wiki_identifier: String,
             pub(crate) version_descriptor_version: Option<String>,
-            pub(crate) version_descriptor_version_options: Option<String>,
-            pub(crate) version_descriptor_version_type: Option<String>,
+            pub(crate) version_descriptor_version_options: Option<models::GitVersionOptions>,
+            pub(crate) version_descriptor_version_type: Option<models::GitVersionType>,
         }
         impl RequestBuilder {
             #[doc = "Version string identifier (name of tag/branch, SHA1 of commit)"]
@@ -2470,7 +2476,7 @@ pub mod pages_batch {
             #[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
             pub fn version_descriptor_version_options(
                 mut self,
-                version_descriptor_version_options: impl Into<String>,
+                version_descriptor_version_options: impl Into<models::GitVersionOptions>,
             ) -> Self {
                 self.version_descriptor_version_options =
                     Some(version_descriptor_version_options.into());
@@ -2479,7 +2485,7 @@ pub mod pages_batch {
             #[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
             pub fn version_descriptor_version_type(
                 mut self,
-                version_descriptor_version_type: impl Into<String>,
+                version_descriptor_version_type: impl Into<models::GitVersionType>,
             ) -> Self {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
@@ -2519,7 +2525,7 @@ pub mod pages_batch {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionOptions",
-                                version_descriptor_version_options,
+                                &version_descriptor_version_options.to_string(),
                             );
                         }
                         if let Some(version_descriptor_version_type) =
@@ -2527,7 +2533,7 @@ pub mod pages_batch {
                         {
                             req.url_mut().query_pairs_mut().append_pair(
                                 "versionDescriptor.versionType",
-                                version_descriptor_version_type,
+                                &version_descriptor_version_type.to_string(),
                             );
                         }
                         req.set_body(req_body);

@@ -287,7 +287,7 @@ pub mod classification_nodes {
             &self,
             organization: impl Into<String>,
             project: impl Into<String>,
-            structure_group: impl Into<String>,
+            structure_group: impl Into<models::TreeStructureGroup>,
             path: impl Into<String>,
         ) -> get::RequestBuilder {
             get::RequestBuilder {
@@ -312,7 +312,7 @@ pub mod classification_nodes {
             organization: impl Into<String>,
             body: impl Into<models::WorkItemClassificationNode>,
             project: impl Into<String>,
-            structure_group: impl Into<String>,
+            structure_group: impl Into<models::TreeStructureGroup>,
             path: impl Into<String>,
         ) -> create_or_update::RequestBuilder {
             create_or_update::RequestBuilder {
@@ -337,7 +337,7 @@ pub mod classification_nodes {
             organization: impl Into<String>,
             body: impl Into<models::WorkItemClassificationNode>,
             project: impl Into<String>,
-            structure_group: impl Into<String>,
+            structure_group: impl Into<models::TreeStructureGroup>,
             path: impl Into<String>,
         ) -> update::RequestBuilder {
             update::RequestBuilder {
@@ -360,7 +360,7 @@ pub mod classification_nodes {
             &self,
             organization: impl Into<String>,
             project: impl Into<String>,
-            structure_group: impl Into<String>,
+            structure_group: impl Into<models::TreeStructureGroup>,
             path: impl Into<String>,
         ) -> delete::RequestBuilder {
             delete::RequestBuilder {
@@ -416,7 +416,7 @@ pub mod classification_nodes {
             pub(crate) project: String,
             pub(crate) ids: String,
             pub(crate) depth: Option<i32>,
-            pub(crate) error_policy: Option<String>,
+            pub(crate) error_policy: Option<models::ClassificationNodesErrorPolicy>,
         }
         impl RequestBuilder {
             #[doc = "Depth of children to fetch."]
@@ -425,7 +425,10 @@ pub mod classification_nodes {
                 self
             }
             #[doc = "Flag to handle errors in getting some nodes. Possible options are Fail and Omit."]
-            pub fn error_policy(mut self, error_policy: impl Into<String>) -> Self {
+            pub fn error_policy(
+                mut self,
+                error_policy: impl Into<models::ClassificationNodesErrorPolicy>,
+            ) -> Self {
                 self.error_policy = Some(error_policy.into());
                 self
             }
@@ -461,7 +464,7 @@ pub mod classification_nodes {
                         if let Some(error_policy) = &this.error_policy {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("errorPolicy", error_policy);
+                                .append_pair("errorPolicy", &error_policy.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -651,7 +654,7 @@ pub mod classification_nodes {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) structure_group: String,
+            pub(crate) structure_group: models::TreeStructureGroup,
             pub(crate) path: String,
             pub(crate) depth: Option<i32>,
         }
@@ -767,7 +770,7 @@ pub mod classification_nodes {
             pub(crate) organization: String,
             pub(crate) body: models::WorkItemClassificationNode,
             pub(crate) project: String,
-            pub(crate) structure_group: String,
+            pub(crate) structure_group: models::TreeStructureGroup,
             pub(crate) path: String,
         }
         impl RequestBuilder {
@@ -873,7 +876,7 @@ pub mod classification_nodes {
             pub(crate) organization: String,
             pub(crate) body: models::WorkItemClassificationNode,
             pub(crate) project: String,
-            pub(crate) structure_group: String,
+            pub(crate) structure_group: models::TreeStructureGroup,
             pub(crate) path: String,
         }
         impl RequestBuilder {
@@ -970,7 +973,7 @@ pub mod classification_nodes {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) structure_group: String,
+            pub(crate) structure_group: models::TreeStructureGroup,
             pub(crate) path: String,
             pub(crate) reclassify_id: Option<i32>,
         }
@@ -1246,7 +1249,7 @@ pub mod queries {
             pub(crate) project: String,
             pub(crate) filter: String,
             pub(crate) top: Option<i32>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::QueryExpand>,
             pub(crate) include_deleted: Option<bool>,
         }
         impl RequestBuilder {
@@ -1255,7 +1258,7 @@ pub mod queries {
                 self.top = Some(top);
                 self
             }
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::QueryExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1298,7 +1301,7 @@ pub mod queries {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(include_deleted) = &this.include_deleted {
                             req.url_mut()
@@ -1382,13 +1385,13 @@ pub mod queries {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::QueryExpand>,
             pub(crate) depth: Option<i32>,
             pub(crate) include_deleted: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "Include the query string (wiql), clauses, query result columns, and sort options in the results."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::QueryExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1427,7 +1430,7 @@ pub mod queries {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(depth) = &this.depth {
                             req.url_mut()
@@ -1513,14 +1516,14 @@ pub mod queries {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) query: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::QueryExpand>,
             pub(crate) depth: Option<i32>,
             pub(crate) include_deleted: Option<bool>,
             pub(crate) use_iso_date_format: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "Include the query string (wiql), clauses, query result columns, and sort options in the results."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::QueryExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1564,7 +1567,7 @@ pub mod queries {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(depth) = &this.depth {
                             req.url_mut()
@@ -2665,7 +2668,7 @@ pub mod comments {
             body: impl Into<models::CommentCreate>,
             project: impl Into<String>,
             work_item_id: i32,
-            format: impl Into<String>,
+            format: impl Into<models::CommentFormat>,
         ) -> add_work_item_comment::RequestBuilder {
             add_work_item_comment::RequestBuilder {
                 client: self.0.clone(),
@@ -2715,7 +2718,7 @@ pub mod comments {
             project: impl Into<String>,
             work_item_id: i32,
             comment_id: i32,
-            format: impl Into<String>,
+            format: impl Into<models::CommentFormat>,
         ) -> update_work_item_comment::RequestBuilder {
             update_work_item_comment::RequestBuilder {
                 client: self.0.clone(),
@@ -2883,7 +2886,7 @@ pub mod comments {
             pub(crate) body: models::CommentCreate,
             pub(crate) project: String,
             pub(crate) work_item_id: i32,
-            pub(crate) format: String,
+            pub(crate) format: models::CommentFormat,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -2913,7 +2916,7 @@ pub mod comments {
                         let format = &this.format;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("format", format);
+                            .append_pair("format", &format.to_string());
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
                     }
@@ -2991,8 +2994,8 @@ pub mod comments {
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) include_deleted: Option<bool>,
-            pub(crate) expand: Option<String>,
-            pub(crate) order: Option<String>,
+            pub(crate) expand: Option<models::CommentExpandOptions>,
+            pub(crate) order: Option<models::CommentSortOrder>,
         }
         impl RequestBuilder {
             #[doc = "Max number of comments to return."]
@@ -3011,12 +3014,12 @@ pub mod comments {
                 self
             }
             #[doc = "Specifies the additional data retrieval options for work item comments."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::CommentExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
             #[doc = "Order in which the comments should be returned."]
-            pub fn order(mut self, order: impl Into<String>) -> Self {
+            pub fn order(mut self, order: impl Into<models::CommentSortOrder>) -> Self {
                 self.order = Some(order.into());
                 self
             }
@@ -3060,10 +3063,12 @@ pub mod comments {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(order) = &this.order {
-                            req.url_mut().query_pairs_mut().append_pair("order", order);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("order", &order.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -3141,7 +3146,7 @@ pub mod comments {
             pub(crate) project: String,
             pub(crate) work_item_id: i32,
             pub(crate) comment_id: i32,
-            pub(crate) format: String,
+            pub(crate) format: models::CommentFormat,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -3171,7 +3176,7 @@ pub mod comments {
                         let format = &this.format;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("format", format);
+                            .append_pair("format", &format.to_string());
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
                     }
@@ -3249,7 +3254,7 @@ pub mod comments {
             pub(crate) work_item_id: i32,
             pub(crate) ids: String,
             pub(crate) include_deleted: Option<bool>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CommentExpandOptions>,
         }
         impl RequestBuilder {
             #[doc = "Specify if the deleted comments should be retrieved."]
@@ -3258,7 +3263,7 @@ pub mod comments {
                 self
             }
             #[doc = "Specifies the additional data retrieval options for work item comments."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::CommentExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -3294,7 +3299,7 @@ pub mod comments {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -3472,7 +3477,7 @@ pub mod comments {
             pub(crate) work_item_id: i32,
             pub(crate) comment_id: i32,
             pub(crate) include_deleted: Option<bool>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::CommentExpandOptions>,
         }
         impl RequestBuilder {
             #[doc = "Specify if the deleted comment should be retrieved."]
@@ -3481,7 +3486,7 @@ pub mod comments {
                 self
             }
             #[doc = "Specifies the additional data retrieval options for work item comments."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::CommentExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -3515,7 +3520,7 @@ pub mod comments {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -5323,11 +5328,11 @@ pub mod fields {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetFieldsExpand>,
         }
         impl RequestBuilder {
             #[doc = "Use ExtensionFields to include extension fields, otherwise exclude them. Unless the feature flag for this parameter is enabled, extension fields are always included."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetFieldsExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -5356,7 +5361,7 @@ pub mod fields {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -6199,7 +6204,7 @@ pub mod reporting_work_item_revisions {
             pub(crate) include_deleted: Option<bool>,
             pub(crate) include_tag_ref: Option<bool>,
             pub(crate) include_latest_only: Option<bool>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ReportingRevisionsExpand>,
             pub(crate) include_discussion_changes_only: Option<bool>,
             pub(crate) max_page_size: Option<i32>,
         }
@@ -6248,7 +6253,7 @@ pub mod reporting_work_item_revisions {
                 self
             }
             #[doc = "Return all the fields in work item revisions, including long text fields which are not returned by default"]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::ReportingRevisionsExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -6331,7 +6336,7 @@ pub mod reporting_work_item_revisions {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(include_discussion_changes_only) =
                             &this.include_discussion_changes_only
@@ -6425,7 +6430,7 @@ pub mod reporting_work_item_revisions {
             pub(crate) project: String,
             pub(crate) continuation_token: Option<String>,
             pub(crate) start_date_time: Option<time::OffsetDateTime>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::ReportingRevisionsExpand>,
         }
         impl RequestBuilder {
             #[doc = "Specifies the watermark to start the batch from. Omit this parameter to get the first batch of revisions."]
@@ -6441,7 +6446,7 @@ pub mod reporting_work_item_revisions {
                 self.start_date_time = Some(start_date_time.into());
                 self
             }
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::ReportingRevisionsExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -6484,7 +6489,7 @@ pub mod reporting_work_item_revisions {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -7626,8 +7631,8 @@ pub mod work_items {
             pub(crate) project: String,
             pub(crate) fields: Option<String>,
             pub(crate) as_of: Option<time::OffsetDateTime>,
-            pub(crate) expand: Option<String>,
-            pub(crate) error_policy: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
+            pub(crate) error_policy: Option<models::WorkItemErrorPolicy>,
         }
         impl RequestBuilder {
             #[doc = "Comma-separated list of requested fields"]
@@ -7641,12 +7646,15 @@ pub mod work_items {
                 self
             }
             #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
             #[doc = "The flag to control error policy in a bulk get work items request. Possible options are {Fail, Omit}."]
-            pub fn error_policy(mut self, error_policy: impl Into<String>) -> Self {
+            pub fn error_policy(
+                mut self,
+                error_policy: impl Into<models::WorkItemErrorPolicy>,
+            ) -> Self {
                 self.error_policy = Some(error_policy.into());
                 self
             }
@@ -7688,12 +7696,12 @@ pub mod work_items {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(error_policy) = &this.error_policy {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("errorPolicy", error_policy);
+                                .append_pair("errorPolicy", &error_policy.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -7770,7 +7778,7 @@ pub mod work_items {
             pub(crate) type_: String,
             pub(crate) fields: Option<String>,
             pub(crate) as_of: Option<time::OffsetDateTime>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
             #[doc = "Comma-separated list of requested fields"]
@@ -7784,7 +7792,7 @@ pub mod work_items {
                 self
             }
             #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -7824,7 +7832,7 @@ pub mod work_items {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -7904,7 +7912,7 @@ pub mod work_items {
             pub(crate) validate_only: Option<bool>,
             pub(crate) bypass_rules: Option<bool>,
             pub(crate) suppress_notifications: Option<bool>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
             #[doc = "Indicate if you only want to validate the changes without saving the work item"]
@@ -7923,7 +7931,7 @@ pub mod work_items {
                 self
             }
             #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -7970,7 +7978,7 @@ pub mod work_items {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -8047,7 +8055,7 @@ pub mod work_items {
             pub(crate) project: String,
             pub(crate) fields: Option<String>,
             pub(crate) as_of: Option<time::OffsetDateTime>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
             #[doc = "Comma-separated list of requested fields"]
@@ -8061,7 +8069,7 @@ pub mod work_items {
                 self
             }
             #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -8101,7 +8109,7 @@ pub mod work_items {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -8181,7 +8189,7 @@ pub mod work_items {
             pub(crate) validate_only: Option<bool>,
             pub(crate) bypass_rules: Option<bool>,
             pub(crate) suppress_notifications: Option<bool>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
             #[doc = "Indicate if you only want to validate the changes without saving the work item"]
@@ -8200,7 +8208,7 @@ pub mod work_items {
                 self
             }
             #[doc = "The expand parameters for work item attributes. Possible options are { None, Relations, Fields, Links, All }."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -8247,7 +8255,7 @@ pub mod work_items {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -8681,7 +8689,7 @@ pub mod revisions {
             pub(crate) project: String,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
             pub fn top(mut self, top: i32) -> Self {
@@ -8692,7 +8700,7 @@ pub mod revisions {
                 self.skip = Some(skip);
                 self
             }
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -8731,7 +8739,7 @@ pub mod revisions {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -8808,10 +8816,10 @@ pub mod revisions {
             pub(crate) id: i32,
             pub(crate) revision_number: i32,
             pub(crate) project: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemExpand>,
         }
         impl RequestBuilder {
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::WorkItemExpand>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -8840,7 +8848,7 @@ pub mod revisions {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -9191,7 +9199,7 @@ pub mod comments_reactions {
             project: impl Into<String>,
             work_item_id: i32,
             comment_id: i32,
-            reaction_type: impl Into<String>,
+            reaction_type: impl Into<models::CommentReactionType>,
         ) -> create::RequestBuilder {
             create::RequestBuilder {
                 client: self.0.clone(),
@@ -9216,7 +9224,7 @@ pub mod comments_reactions {
             project: impl Into<String>,
             work_item_id: i32,
             comment_id: i32,
-            reaction_type: impl Into<String>,
+            reaction_type: impl Into<models::CommentReactionType>,
         ) -> delete::RequestBuilder {
             delete::RequestBuilder {
                 client: self.0.clone(),
@@ -9368,7 +9376,7 @@ pub mod comments_reactions {
             pub(crate) project: String,
             pub(crate) work_item_id: i32,
             pub(crate) comment_id: i32,
-            pub(crate) reaction_type: String,
+            pub(crate) reaction_type: models::CommentReactionType,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -9470,7 +9478,7 @@ pub mod comments_reactions {
             pub(crate) project: String,
             pub(crate) work_item_id: i32,
             pub(crate) comment_id: i32,
-            pub(crate) reaction_type: String,
+            pub(crate) reaction_type: models::CommentReactionType,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -9555,7 +9563,7 @@ pub mod comment_reactions_engaged_users {
             project: impl Into<String>,
             work_item_id: i32,
             comment_id: i32,
-            reaction_type: impl Into<String>,
+            reaction_type: impl Into<models::CommentReactionType>,
         ) -> list::RequestBuilder {
             list::RequestBuilder {
                 client: self.0.clone(),
@@ -9609,7 +9617,7 @@ pub mod comment_reactions_engaged_users {
             pub(crate) project: String,
             pub(crate) work_item_id: i32,
             pub(crate) comment_id: i32,
-            pub(crate) reaction_type: String,
+            pub(crate) reaction_type: models::CommentReactionType,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
         }
@@ -10519,11 +10527,14 @@ pub mod work_item_types_field {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) type_: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemTypeFieldsExpandLevel>,
         }
         impl RequestBuilder {
             #[doc = "Expand level for the API response. Properties: to include allowedvalues, default value, isRequired etc. as a part of response; None: to skip these properties."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::WorkItemTypeFieldsExpandLevel>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -10552,7 +10563,7 @@ pub mod work_item_types_field {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -10633,11 +10644,14 @@ pub mod work_item_types_field {
             pub(crate) project: String,
             pub(crate) type_: String,
             pub(crate) field: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::WorkItemTypeFieldsExpandLevel>,
         }
         impl RequestBuilder {
             #[doc = "Expand level for the API response. Properties: to include allowedvalues, default value, isRequired etc. as a part of response; None: to skip these properties."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(
+                mut self,
+                expand: impl Into<models::WorkItemTypeFieldsExpandLevel>,
+            ) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -10666,7 +10680,7 @@ pub mod work_item_types_field {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

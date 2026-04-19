@@ -310,6 +310,34 @@ impl AuditStreamList {
         Self::default()
     }
 }
+#[doc = "Status of the stream"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum AuditStreamStatus {
+    #[serde(rename = "unknown")]
+    Unknown,
+    #[serde(rename = "enabled")]
+    Enabled,
+    #[serde(rename = "disabledByUser")]
+    DisabledByUser,
+    #[serde(rename = "disabledBySystem")]
+    DisabledBySystem,
+    #[serde(rename = "deleted")]
+    Deleted,
+    #[serde(rename = "backfilling")]
+    Backfilling,
+}
+impl std::fmt::Display for AuditStreamStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Unknown => write!(f, "unknown"),
+            Self::Enabled => write!(f, "enabled"),
+            Self::DisabledByUser => write!(f, "disabledByUser"),
+            Self::DisabledBySystem => write!(f, "disabledBySystem"),
+            Self::Deleted => write!(f, "deleted"),
+            Self::Backfilling => write!(f, "backfilling"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DecoratedAuditLogEntry {
     #[doc = "The action id for the event, i.e Git.CreateRepo, Project.RenameProject"]

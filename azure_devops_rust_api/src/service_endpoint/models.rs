@@ -1419,6 +1419,28 @@ impl ServiceEndpoint {
         }
     }
 }
+#[doc = "The \"actionFilter\" parameter allows users to evaluate requestor permissions and retrieve a list of endpoints that match the specified conditions, ensuring that only relevant endpoints are returned based on their permissions"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ServiceEndpointActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+    #[serde(rename = "view")]
+    View,
+}
+impl std::fmt::Display for ServiceEndpointActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+            Self::View => write!(f, "view"),
+        }
+    }
+}
 #[doc = "Represents the authentication scheme used to authenticate the endpoint."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServiceEndpointAuthenticationScheme {

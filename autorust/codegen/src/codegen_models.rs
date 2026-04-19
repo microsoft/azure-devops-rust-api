@@ -391,6 +391,17 @@ fn all_schemas(spec: &Spec) -> Result<IndexMap<RefKey, SchemaGen>> {
         }
     }
 
+    // synthetic schemas for inline enum query parameters (e.g. `type: string` + `enum` + `x-ms-enum`)
+    for (ref_key, schema) in spec.inline_parameter_enum_schemas()? {
+        if !all_schemas.contains_key(&ref_key) {
+            let doc_file = ref_key.file_path.clone();
+            all_schemas.insert(
+                ref_key.clone(),
+                SchemaGen::new(Some(ref_key), schema, doc_file),
+            );
+        }
+    }
+
     Ok(all_schemas)
 }
 

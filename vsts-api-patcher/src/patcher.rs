@@ -100,7 +100,6 @@ impl Patcher {
         Patcher::patch_identity_descriptors,
         Patcher::patch_security,
         Patcher::patch_response_schema,
-        Patcher::patch_git_items_recursion_level,
         // This must be done after the other patches
         Patcher::patch_definition_required_fields,
     ];
@@ -1931,82 +1930,6 @@ impl Patcher {
                                 )
                                 .unwrap();
                         }
-                    }
-                }
-                Some(value)
-            }
-            _ => None,
-        }
-    }
-
-    // Patch the git items `recursionLevel` query parameter to use a named
-    // `VersionControlRecursionType` enum definition instead of an inline string enum.
-    //
-    // Before patch: `recursionLevel` parameter has `type: "string"` with an inline enum.
-    // After patch: `recursionLevel` parameter has `schema: { $ref: "#/definitions/VersionControlRecursionType" }`.
-    //
-    // This causes the codegen to generate a typed `VersionControlRecursionType` enum in
-    // models.rs and use it as the parameter type in the client builder setter.
-    fn patch_git_items_recursion_level(
-        &mut self,
-        key: &[&str],
-        value: &JsonValue,
-    ) -> Option<JsonValue> {
-        if !self.spec_path.ends_with("git.json") {
-            return None;
-        }
-        match key {
-            ["paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/items", "get", "parameters"]
-            | ["x-ms-paths", "/{organization}/{project}/_apis/git/repositories/{repositoryId}/items?path={path}", "get", "parameters"] =>
-            {
-                let mut value = value.clone();
-                for param in value.members_mut() {
-                    if param["name"].as_str() == Some("recursionLevel")
-                        && param["type"].as_str() == Some("string")
-                    {
-                        println!("Patch git items recursionLevel parameter to use VersionControlRecursionType enum");
-                        self.new_definitions.insert(
-                            "VersionControlRecursionType".to_string(),
-                            json::object! {
-                                "description": "The recursion level for a request.",
-                                "enum": [
-                                    "none",
-                                    "oneLevel",
-                                    "oneLevelPlusNestedEmptyFolders",
-                                    "full"
-                                ],
-                                "x-ms-enum": {
-                                    "name": "VersionControlRecursionType",
-                                    "values": [
-                                        {
-                                            "value": "none",
-                                            "description": "Only return the specified item."
-                                        },
-                                        {
-                                            "value": "oneLevel",
-                                            "description": "Return the specified item and its direct children."
-                                        },
-                                        {
-                                            "value": "oneLevelPlusNestedEmptyFolders",
-                                            "description": "Return the specified item and its direct children, as well as recursive chains of nested child folders that only contain a single folder."
-                                        },
-                                        {
-                                            "value": "full",
-                                            "description": "Return specified item and all descendants."
-                                        }
-                                    ]
-                                }
-                            },
-                        );
-                        param.remove("type");
-                        param.remove("enum");
-                        param.remove("x-ms-enum");
-                        param
-                            .insert(
-                                "schema",
-                                json::object! { "$ref": "#/definitions/VersionControlRecursionType" },
-                            )
-                            .unwrap();
                     }
                 }
                 Some(value)

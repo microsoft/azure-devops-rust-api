@@ -2580,6 +2580,34 @@ pub mod build_process_template {
         }
     }
 }
+#[doc = "The order in which builds should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildQueryOrder {
+    #[serde(rename = "finishTimeAscending")]
+    FinishTimeAscending,
+    #[serde(rename = "finishTimeDescending")]
+    FinishTimeDescending,
+    #[serde(rename = "queueTimeDescending")]
+    QueueTimeDescending,
+    #[serde(rename = "queueTimeAscending")]
+    QueueTimeAscending,
+    #[serde(rename = "startTimeDescending")]
+    StartTimeDescending,
+    #[serde(rename = "startTimeAscending")]
+    StartTimeAscending,
+}
+impl std::fmt::Display for BuildQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::FinishTimeAscending => write!(f, "finishTimeAscending"),
+            Self::FinishTimeDescending => write!(f, "finishTimeDescending"),
+            Self::QueueTimeDescending => write!(f, "queueTimeDescending"),
+            Self::QueueTimeAscending => write!(f, "queueTimeAscending"),
+            Self::StartTimeDescending => write!(f, "startTimeDescending"),
+            Self::StartTimeAscending => write!(f, "startTimeAscending"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildQueuedEvent {
     #[serde(flatten)]
@@ -2588,6 +2616,58 @@ pub struct BuildQueuedEvent {
 impl BuildQueuedEvent {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "If specified, filters to builds that match this reason."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildReason {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manual")]
+    Manual,
+    #[serde(rename = "individualCI")]
+    IndividualCi,
+    #[serde(rename = "batchedCI")]
+    BatchedCi,
+    #[serde(rename = "schedule")]
+    Schedule,
+    #[serde(rename = "scheduleForced")]
+    ScheduleForced,
+    #[serde(rename = "userCreated")]
+    UserCreated,
+    #[serde(rename = "validateShelveset")]
+    ValidateShelveset,
+    #[serde(rename = "checkInShelveset")]
+    CheckInShelveset,
+    #[serde(rename = "pullRequest")]
+    PullRequest,
+    #[serde(rename = "buildCompletion")]
+    BuildCompletion,
+    #[serde(rename = "resourceTrigger")]
+    ResourceTrigger,
+    #[serde(rename = "triggered")]
+    Triggered,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for BuildReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manual => write!(f, "manual"),
+            Self::IndividualCi => write!(f, "individualCI"),
+            Self::BatchedCi => write!(f, "batchedCI"),
+            Self::Schedule => write!(f, "schedule"),
+            Self::ScheduleForced => write!(f, "scheduleForced"),
+            Self::UserCreated => write!(f, "userCreated"),
+            Self::ValidateShelveset => write!(f, "validateShelveset"),
+            Self::CheckInShelveset => write!(f, "checkInShelveset"),
+            Self::PullRequest => write!(f, "pullRequest"),
+            Self::BuildCompletion => write!(f, "buildCompletion"),
+            Self::ResourceTrigger => write!(f, "resourceTrigger"),
+            Self::Triggered => write!(f, "triggered"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Represents a reference to a build."]
@@ -2858,6 +2938,31 @@ impl BuildResourceUsage {
         Self::default()
     }
 }
+#[doc = "If specified, filters to builds that match this result."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildResult {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "succeeded")]
+    Succeeded,
+    #[serde(rename = "partiallySucceeded")]
+    PartiallySucceeded,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "canceled")]
+    Canceled,
+}
+impl std::fmt::Display for BuildResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Succeeded => write!(f, "succeeded"),
+            Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            Self::Failed => write!(f, "failed"),
+            Self::Canceled => write!(f, "canceled"),
+        }
+    }
+}
 #[doc = "A historical overview of build retention information. This includes a list of snapshots taken about build retention usage, and a list of builds that have exceeded the default 30 day retention policy."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct BuildRetentionHistory {
@@ -2996,6 +3101,37 @@ pub struct BuildSettings {
 impl BuildSettings {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "If specified, filters to builds that match this status."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum BuildStatus {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "inProgress")]
+    InProgress,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "cancelling")]
+    Cancelling,
+    #[serde(rename = "postponed")]
+    Postponed,
+    #[serde(rename = "notStarted")]
+    NotStarted,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for BuildStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::InProgress => write!(f, "inProgress"),
+            Self::Completed => write!(f, "completed"),
+            Self::Cancelling => write!(f, "cancelling"),
+            Self::Postponed => write!(f, "postponed"),
+            Self::NotStarted => write!(f, "notStarted"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -3564,6 +3700,31 @@ impl DataSourceBindingBase {
         Self::default()
     }
 }
+#[doc = "Indicates the order in which definitions should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DefinitionQueryOrder {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "lastModifiedAscending")]
+    LastModifiedAscending,
+    #[serde(rename = "lastModifiedDescending")]
+    LastModifiedDescending,
+    #[serde(rename = "definitionNameAscending")]
+    DefinitionNameAscending,
+    #[serde(rename = "definitionNameDescending")]
+    DefinitionNameDescending,
+}
+impl std::fmt::Display for DefinitionQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::LastModifiedAscending => write!(f, "lastModifiedAscending"),
+            Self::LastModifiedDescending => write!(f, "lastModifiedDescending"),
+            Self::DefinitionNameAscending => write!(f, "definitionNameAscending"),
+            Self::DefinitionNameDescending => write!(f, "definitionNameDescending"),
+        }
+    }
+}
 #[doc = "Represents a reference to a definition."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DefinitionReference {
@@ -3891,6 +4052,25 @@ pub struct FolderList {
 impl FolderList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "The order in which folders should be returned."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum FolderQueryOrder {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "folderAscending")]
+    FolderAscending,
+    #[serde(rename = "folderDescending")]
+    FolderDescending,
+}
+impl std::fmt::Display for FolderQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::FolderAscending => write!(f, "folderAscending"),
+            Self::FolderDescending => write!(f, "folderDescending"),
+        }
     }
 }
 #[doc = "Represents the ability to build forks of the selected repository."]
@@ -4870,6 +5050,25 @@ impl PullRequestTrigger {
         Self::default()
     }
 }
+#[doc = "Indicates whether to exclude, include, or only return deleted builds."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum QueryDeletedOption {
+    #[serde(rename = "excludeDeleted")]
+    ExcludeDeleted,
+    #[serde(rename = "includeDeleted")]
+    IncludeDeleted,
+    #[serde(rename = "onlyDeleted")]
+    OnlyDeleted,
+}
+impl std::fmt::Display for QueryDeletedOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ExcludeDeleted => write!(f, "excludeDeleted"),
+            Self::IncludeDeleted => write!(f, "includeDeleted"),
+            Self::OnlyDeleted => write!(f, "onlyDeleted"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RealtimeBuildEvent {
     #[serde(rename = "buildId", default, skip_serializing_if = "Option::is_none")]
@@ -5052,6 +5251,22 @@ pub struct ResourceReference {
 impl ResourceReference {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ResultSet {
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "top")]
+    Top,
+}
+impl std::fmt::Display for ResultSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::All => write!(f, "all"),
+            Self::Top => write!(f, "top"),
+        }
     }
 }
 #[doc = "A valid retention lease prevents automated systems from deleting a pipeline run."]

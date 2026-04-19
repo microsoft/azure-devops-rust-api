@@ -631,7 +631,7 @@ pub mod endpoints {
             pub(crate) owner: Option<String>,
             pub(crate) include_failed: Option<bool>,
             pub(crate) include_details: Option<bool>,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::ServiceEndpointActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Type of the service endpoints."]
@@ -665,7 +665,10 @@ pub mod endpoints {
                 self
             }
             #[doc = "The \"actionFilter\" parameter allows users to evaluate requestor permissions and retrieve a list of endpoints that match the specified conditions, ensuring that only relevant endpoints are returned based on their permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::ServiceEndpointActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -720,7 +723,7 @@ pub mod endpoints {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1557,11 +1560,14 @@ pub mod endpoints {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) endpoint_id: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::ServiceEndpointActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Action filter for the service connection. It specifies the action which can be performed on the service connection."]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::ServiceEndpointActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1590,7 +1596,7 @@ pub mod endpoints {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

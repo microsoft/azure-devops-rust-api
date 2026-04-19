@@ -782,6 +782,25 @@ impl DeploymentGroup {
         Self::default()
     }
 }
+#[doc = "Get only deployment groups on which this action can be performed."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DeploymentGroupActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+}
+impl std::fmt::Display for DeploymentGroupActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+        }
+    }
+}
 #[doc = "Properties to create Deployment group."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentGroupCreateParameter {
@@ -810,6 +829,25 @@ pub struct DeploymentGroupCreateParameterPoolProperty {
 impl DeploymentGroupCreateParameterPoolProperty {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Include these additional details in the returned objects."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DeploymentGroupExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "machines")]
+    Machines,
+    #[serde(rename = "tags")]
+    Tags,
+}
+impl std::fmt::Display for DeploymentGroupExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Machines => write!(f, "machines"),
+            Self::Tags => write!(f, "tags"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -1046,6 +1084,28 @@ pub struct DeploymentPoolSummary {
 impl DeploymentPoolSummary {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Include these additional details in the returned objects."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DeploymentTargetExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "capabilities")]
+    Capabilities,
+    #[serde(rename = "assignedRequest")]
+    AssignedRequest,
+    #[serde(rename = "lastCompletedRequest")]
+    LastCompletedRequest,
+}
+impl std::fmt::Display for DeploymentTargetExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Capabilities => write!(f, "capabilities"),
+            Self::AssignedRequest => write!(f, "assignedRequest"),
+            Self::LastCompletedRequest => write!(f, "lastCompletedRequest"),
+        }
     }
 }
 #[doc = "Deployment target update parameter."]
@@ -1493,6 +1553,82 @@ pub mod elastic_node_settings {
                 Self::UnhealthyVm => write!(f, "unhealthyVm"),
                 Self::UnhealthyVmPendingDelete => write!(f, "unhealthyVmPendingDelete"),
             }
+        }
+    }
+}
+#[doc = "Optional: Filter to only retrieve ElasticNodes in the given ElasticNodeState"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ElasticNodeState {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "new")]
+    New,
+    #[serde(rename = "creatingCompute")]
+    CreatingCompute,
+    #[serde(rename = "startingAgent")]
+    StartingAgent,
+    #[serde(rename = "idle")]
+    Idle,
+    #[serde(rename = "assigned")]
+    Assigned,
+    #[serde(rename = "offline")]
+    Offline,
+    #[serde(rename = "pendingReimage")]
+    PendingReimage,
+    #[serde(rename = "pendingDelete")]
+    PendingDelete,
+    #[serde(rename = "saved")]
+    Saved,
+    #[serde(rename = "deletingCompute")]
+    DeletingCompute,
+    #[serde(rename = "deleted")]
+    Deleted,
+    #[serde(rename = "lost")]
+    Lost,
+    #[serde(rename = "reimagingCompute")]
+    ReimagingCompute,
+    #[serde(rename = "restartingAgent")]
+    RestartingAgent,
+    #[serde(rename = "failedToStartPendingDelete")]
+    FailedToStartPendingDelete,
+    #[serde(rename = "failedToRestartPendingDelete")]
+    FailedToRestartPendingDelete,
+    #[serde(rename = "failedVMPendingDelete")]
+    FailedVmPendingDelete,
+    #[serde(rename = "assignedPendingDelete")]
+    AssignedPendingDelete,
+    #[serde(rename = "retryDelete")]
+    RetryDelete,
+    #[serde(rename = "unhealthyVm")]
+    UnhealthyVm,
+    #[serde(rename = "unhealthyVmPendingDelete")]
+    UnhealthyVmPendingDelete,
+}
+impl std::fmt::Display for ElasticNodeState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::New => write!(f, "new"),
+            Self::CreatingCompute => write!(f, "creatingCompute"),
+            Self::StartingAgent => write!(f, "startingAgent"),
+            Self::Idle => write!(f, "idle"),
+            Self::Assigned => write!(f, "assigned"),
+            Self::Offline => write!(f, "offline"),
+            Self::PendingReimage => write!(f, "pendingReimage"),
+            Self::PendingDelete => write!(f, "pendingDelete"),
+            Self::Saved => write!(f, "saved"),
+            Self::DeletingCompute => write!(f, "deletingCompute"),
+            Self::Deleted => write!(f, "deleted"),
+            Self::Lost => write!(f, "lost"),
+            Self::ReimagingCompute => write!(f, "reimagingCompute"),
+            Self::RestartingAgent => write!(f, "restartingAgent"),
+            Self::FailedToStartPendingDelete => write!(f, "failedToStartPendingDelete"),
+            Self::FailedToRestartPendingDelete => write!(f, "failedToRestartPendingDelete"),
+            Self::FailedVmPendingDelete => write!(f, "failedVMPendingDelete"),
+            Self::AssignedPendingDelete => write!(f, "assignedPendingDelete"),
+            Self::RetryDelete => write!(f, "retryDelete"),
+            Self::UnhealthyVm => write!(f, "unhealthyVm"),
+            Self::UnhealthyVmPendingDelete => write!(f, "unhealthyVmPendingDelete"),
         }
     }
 }
@@ -2109,6 +2245,22 @@ pub struct EnvironmentDeploymentExecutionRecordList {
 impl EnvironmentDeploymentExecutionRecordList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Include these additional details in the returned objects."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum EnvironmentExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "resourceReferences")]
+    ResourceReferences,
+}
+impl std::fmt::Display for EnvironmentExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::ResourceReferences => write!(f, "resourceReferences"),
+        }
     }
 }
 #[doc = "Environment."]
@@ -5077,6 +5229,28 @@ pub mod task_agent_job_request {
         }
     }
 }
+#[doc = "Get only deployment targets that have this last job result."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskAgentJobResultFilter {
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "passed")]
+    Passed,
+    #[serde(rename = "neverDeployed")]
+    NeverDeployed,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for TaskAgentJobResultFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Failed => write!(f, "failed"),
+            Self::Passed => write!(f, "passed"),
+            Self::NeverDeployed => write!(f, "neverDeployed"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentJobStep {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -5299,6 +5473,25 @@ pub struct TaskAgentPool {
 impl TaskAgentPool {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Filter by whether the calling user has use or manage permissions"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskAgentPoolActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+}
+impl std::fmt::Display for TaskAgentPoolActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5805,6 +5998,22 @@ impl TaskAgentPoolSummary {
         Self::default()
     }
 }
+#[doc = "Filter by pool type"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskAgentPoolType {
+    #[serde(rename = "automation")]
+    Automation,
+    #[serde(rename = "deployment")]
+    Deployment,
+}
+impl std::fmt::Display for TaskAgentPoolType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Automation => write!(f, "automation"),
+            Self::Deployment => write!(f, "deployment"),
+        }
+    }
+}
 #[doc = "Represents the public key portion of an RSA asymmetric key."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TaskAgentPublicKey {
@@ -5846,6 +6055,25 @@ pub struct TaskAgentQueue {
 impl TaskAgentQueue {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Filter by whether the calling user has use or manage permissions"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskAgentQueueActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+}
+impl std::fmt::Display for TaskAgentQueueActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5979,6 +6207,25 @@ pub struct TaskAgentSessionKey {
 impl TaskAgentSessionKey {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Get only deployment targets that have this status."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskAgentStatusFilter {
+    #[serde(rename = "offline")]
+    Offline,
+    #[serde(rename = "online")]
+    Online,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for TaskAgentStatusFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Offline => write!(f, "offline"),
+            Self::Online => write!(f, "online"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[doc = "Details about an agent update."]
@@ -6675,6 +6922,22 @@ pub struct TaskGroupPublishPreviewParameter {
 impl TaskGroupPublishPreviewParameter {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Gets the results in the defined order. Default is 'CreatedOnDescending'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TaskGroupQueryOrder {
+    #[serde(rename = "createdOnAscending")]
+    CreatedOnAscending,
+    #[serde(rename = "createdOnDescending")]
+    CreatedOnDescending,
+}
+impl std::fmt::Display for TaskGroupQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CreatedOnAscending => write!(f, "createdOnAscending"),
+            Self::CreatedOnDescending => write!(f, "createdOnDescending"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -8115,6 +8378,25 @@ impl VariableGroup {
         Self::default()
     }
 }
+#[doc = "Action filter for the variable group. It specifies the action which can be performed on the variable groups."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VariableGroupActionFilter {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manage")]
+    Manage,
+    #[serde(rename = "use")]
+    Use,
+}
+impl std::fmt::Display for VariableGroupActionFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Manage => write!(f, "manage"),
+            Self::Use => write!(f, "use"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct VariableGroupList {
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -8192,6 +8474,22 @@ pub struct VariableGroupProviderData {}
 impl VariableGroupProviderData {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Gets the results in the defined order. Default is 'IdDescending'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum VariableGroupQueryOrder {
+    #[serde(rename = "idAscending")]
+    IdAscending,
+    #[serde(rename = "idDescending")]
+    IdDescending,
+}
+impl std::fmt::Display for VariableGroupQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::IdAscending => write!(f, "idAscending"),
+            Self::IdDescending => write!(f, "idDescending"),
+        }
     }
 }
 #[doc = "A wrapper class for a generic variable."]

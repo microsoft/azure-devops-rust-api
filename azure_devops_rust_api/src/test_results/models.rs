@@ -1432,6 +1432,46 @@ impl ReleaseReference {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ResultDetails {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "iterations")]
+    Iterations,
+    #[serde(rename = "workItems")]
+    WorkItems,
+    #[serde(rename = "subResults")]
+    SubResults,
+    #[serde(rename = "point")]
+    Point,
+}
+impl std::fmt::Display for ResultDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Iterations => write!(f, "iterations"),
+            Self::WorkItems => write!(f, "workItems"),
+            Self::SubResults => write!(f, "subResults"),
+            Self::Point => write!(f, "point"),
+        }
+    }
+}
+#[doc = "Details to include with test results metadata. Default is None. Other values are FlakyIdentifiers."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ResultMetaDataDetails {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "flakyIdentifiers")]
+    FlakyIdentifiers,
+}
+impl std::fmt::Display for ResultMetaDataDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::FlakyIdentifiers => write!(f, "flakyIdentifiers"),
+        }
+    }
+}
 #[doc = "Summary of results for a pipeline instance."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ResultSummary {
@@ -3527,6 +3567,32 @@ pub mod test_log_store_endpoint_details {
         }
     }
 }
+#[doc = "Type of operation to perform using sas uri"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TestLogStoreOperationType {
+    #[serde(rename = "read")]
+    Read,
+}
+impl std::fmt::Display for TestLogStoreOperationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Read => write!(f, "read"),
+        }
+    }
+}
+#[doc = "type of the attachments to get"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TestLogType {
+    #[serde(rename = "generalAttachment")]
+    GeneralAttachment,
+}
+impl std::fmt::Display for TestLogType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::GeneralAttachment => write!(f, "generalAttachment"),
+        }
+    }
+}
 #[doc = "An abstracted reference to some other resource. This class is used to provide the build data contracts with a uniform way to reference other resources in a way that provides easy traversal through links."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestMessageLogDetails {
@@ -4218,6 +4284,24 @@ impl TestResultsSettings {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TestResultsSettingsType {
+    #[serde(rename = "all")]
+    All,
+    #[serde(rename = "flaky")]
+    Flaky,
+    #[serde(rename = "newTestLogging")]
+    NewTestLogging,
+}
+impl std::fmt::Display for TestResultsSettingsType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::All => write!(f, "all"),
+            Self::Flaky => write!(f, "flaky"),
+            Self::NewTestLogging => write!(f, "newTestLogging"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct TestResultsUpdateSettings {
     #[serde(
@@ -4596,6 +4680,56 @@ pub struct TestRunList {
 impl TestRunList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "PublishContext of the Runs to be queried."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TestRunPublishContext {
+    #[serde(rename = "build")]
+    Build,
+    #[serde(rename = "release")]
+    Release,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for TestRunPublishContext {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Build => write!(f, "build"),
+            Self::Release => write!(f, "release"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
+#[doc = "Current state of the Runs to be queried."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum TestRunState {
+    #[serde(rename = "unspecified")]
+    Unspecified,
+    #[serde(rename = "notStarted")]
+    NotStarted,
+    #[serde(rename = "inProgress")]
+    InProgress,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "aborted")]
+    Aborted,
+    #[serde(rename = "waiting")]
+    Waiting,
+    #[serde(rename = "needsInvestigation")]
+    NeedsInvestigation,
+}
+impl std::fmt::Display for TestRunState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Unspecified => write!(f, "unspecified"),
+            Self::NotStarted => write!(f, "notStarted"),
+            Self::InProgress => write!(f, "inProgress"),
+            Self::Completed => write!(f, "completed"),
+            Self::Aborted => write!(f, "aborted"),
+            Self::Waiting => write!(f, "waiting"),
+            Self::NeedsInvestigation => write!(f, "needsInvestigation"),
+        }
     }
 }
 #[doc = "Test run statistics."]

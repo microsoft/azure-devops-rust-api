@@ -1467,13 +1467,13 @@ pub mod feed_management {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) feed_role: Option<String>,
+            pub(crate) feed_role: Option<models::FeedRole>,
             pub(crate) include_deleted_upstreams: Option<bool>,
             pub(crate) include_urls: Option<bool>,
         }
         impl RequestBuilder {
             #[doc = "Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions."]
-            pub fn feed_role(mut self, feed_role: impl Into<String>) -> Self {
+            pub fn feed_role(mut self, feed_role: impl Into<models::FeedRole>) -> Self {
                 self.feed_role = Some(feed_role.into());
                 self
             }
@@ -1512,7 +1512,7 @@ pub mod feed_management {
                         if let Some(feed_role) = &this.feed_role {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("feedRole", feed_role);
+                                .append_pair("feedRole", &feed_role.to_string());
                         }
                         if let Some(include_deleted_upstreams) = &this.include_deleted_upstreams {
                             req.url_mut().query_pairs_mut().append_pair(

@@ -2979,16 +2979,16 @@ pub mod builds {
             pub(crate) min_time: Option<time::OffsetDateTime>,
             pub(crate) max_time: Option<time::OffsetDateTime>,
             pub(crate) requested_for: Option<String>,
-            pub(crate) reason_filter: Option<String>,
-            pub(crate) status_filter: Option<String>,
-            pub(crate) result_filter: Option<String>,
+            pub(crate) reason_filter: Option<models::BuildReason>,
+            pub(crate) status_filter: Option<models::BuildStatus>,
+            pub(crate) result_filter: Option<models::BuildResult>,
             pub(crate) tag_filters: Option<String>,
             pub(crate) properties: Option<String>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) max_builds_per_definition: Option<i32>,
-            pub(crate) deleted_filter: Option<String>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) deleted_filter: Option<models::QueryDeletedOption>,
+            pub(crate) query_order: Option<models::BuildQueryOrder>,
             pub(crate) branch_name: Option<String>,
             pub(crate) build_ids: Option<String>,
             pub(crate) repository_id: Option<String>,
@@ -3026,17 +3026,17 @@ pub mod builds {
                 self
             }
             #[doc = "If specified, filters to builds that match this reason."]
-            pub fn reason_filter(mut self, reason_filter: impl Into<String>) -> Self {
+            pub fn reason_filter(mut self, reason_filter: impl Into<models::BuildReason>) -> Self {
                 self.reason_filter = Some(reason_filter.into());
                 self
             }
             #[doc = "If specified, filters to builds that match this status."]
-            pub fn status_filter(mut self, status_filter: impl Into<String>) -> Self {
+            pub fn status_filter(mut self, status_filter: impl Into<models::BuildStatus>) -> Self {
                 self.status_filter = Some(status_filter.into());
                 self
             }
             #[doc = "If specified, filters to builds that match this result."]
-            pub fn result_filter(mut self, result_filter: impl Into<String>) -> Self {
+            pub fn result_filter(mut self, result_filter: impl Into<models::BuildResult>) -> Self {
                 self.result_filter = Some(result_filter.into());
                 self
             }
@@ -3066,12 +3066,15 @@ pub mod builds {
                 self
             }
             #[doc = "Indicates whether to exclude, include, or only return deleted builds."]
-            pub fn deleted_filter(mut self, deleted_filter: impl Into<String>) -> Self {
+            pub fn deleted_filter(
+                mut self,
+                deleted_filter: impl Into<models::QueryDeletedOption>,
+            ) -> Self {
                 self.deleted_filter = Some(deleted_filter.into());
                 self
             }
             #[doc = "The order in which builds should be returned."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(mut self, query_order: impl Into<models::BuildQueryOrder>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -3152,17 +3155,17 @@ pub mod builds {
                         if let Some(reason_filter) = &this.reason_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("reasonFilter", reason_filter);
+                                .append_pair("reasonFilter", &reason_filter.to_string());
                         }
                         if let Some(status_filter) = &this.status_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("statusFilter", status_filter);
+                                .append_pair("statusFilter", &status_filter.to_string());
                         }
                         if let Some(result_filter) = &this.result_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("resultFilter", result_filter);
+                                .append_pair("resultFilter", &result_filter.to_string());
                         }
                         if let Some(tag_filters) = &this.tag_filters {
                             req.url_mut()
@@ -3193,12 +3196,12 @@ pub mod builds {
                         if let Some(deleted_filter) = &this.deleted_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("deletedFilter", deleted_filter);
+                                .append_pair("deletedFilter", &deleted_filter.to_string());
                         }
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(branch_name) = &this.branch_name {
                             req.url_mut()
@@ -7567,7 +7570,7 @@ pub mod definitions {
             pub(crate) name: Option<String>,
             pub(crate) repository_id: Option<String>,
             pub(crate) repository_type: Option<String>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::DefinitionQueryOrder>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) min_metrics_time: Option<time::OffsetDateTime>,
@@ -7598,7 +7601,10 @@ pub mod definitions {
                 self
             }
             #[doc = "Indicates the order in which definitions should be returned."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::DefinitionQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -7706,7 +7712,7 @@ pub mod definitions {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -10141,11 +10147,11 @@ pub mod folders {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) path: String,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::FolderQueryOrder>,
         }
         impl RequestBuilder {
             #[doc = "The order in which folders should be returned."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(mut self, query_order: impl Into<models::FolderQueryOrder>) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -10174,7 +10180,7 @@ pub mod folders {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -12251,7 +12257,7 @@ pub mod source_providers {
             pub(crate) provider_name: String,
             pub(crate) service_endpoint_id: Option<String>,
             pub(crate) repository: Option<String>,
-            pub(crate) result_set: Option<String>,
+            pub(crate) result_set: Option<models::ResultSet>,
             pub(crate) page_results: Option<bool>,
             pub(crate) continuation_token: Option<String>,
         }
@@ -12267,7 +12273,7 @@ pub mod source_providers {
                 self
             }
             #[doc = "'top' for the repositories most relevant for the endpoint. If not set, all repositories are returned. Ignored if 'repository' is set."]
-            pub fn result_set(mut self, result_set: impl Into<String>) -> Self {
+            pub fn result_set(mut self, result_set: impl Into<models::ResultSet>) -> Self {
                 self.result_set = Some(result_set.into());
                 self
             }
@@ -12316,7 +12322,7 @@ pub mod source_providers {
                         if let Some(result_set) = &this.result_set {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("resultSet", result_set);
+                                .append_pair("resultSet", &result_set.to_string());
                         }
                         if let Some(page_results) = &this.page_results {
                             req.url_mut()

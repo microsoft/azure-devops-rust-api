@@ -147,6 +147,38 @@ impl CreatePipelineParameters {
         Self::default()
     }
 }
+#[doc = "Expand options. Default is None."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetArtifactExpandOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "signedContent")]
+    SignedContent,
+}
+impl std::fmt::Display for GetArtifactExpandOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::SignedContent => write!(f, "signedContent"),
+        }
+    }
+}
+#[doc = "Expand options. Default is None."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetLogExpandOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "signedContent")]
+    SignedContent,
+}
+impl std::fmt::Display for GetLogExpandOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::SignedContent => write!(f, "signedContent"),
+        }
+    }
+}
 #[doc = "Link URL"]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Link {

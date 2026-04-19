@@ -1067,12 +1067,15 @@ pub mod memberships {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) subject_descriptor: String,
-            pub(crate) direction: Option<String>,
+            pub(crate) direction: Option<models::GraphTraversalDirection>,
             pub(crate) depth: Option<i32>,
         }
         impl RequestBuilder {
             #[doc = "Defaults to Up."]
-            pub fn direction(mut self, direction: impl Into<String>) -> Self {
+            pub fn direction(
+                mut self,
+                direction: impl Into<models::GraphTraversalDirection>,
+            ) -> Self {
                 self.direction = Some(direction.into());
                 self
             }
@@ -1106,7 +1109,7 @@ pub mod memberships {
                         if let Some(direction) = &this.direction {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("direction", direction);
+                                .append_pair("direction", &direction.to_string());
                         }
                         if let Some(depth) = &this.depth {
                             req.url_mut()
@@ -2730,11 +2733,11 @@ pub mod avatars {
             pub(crate) client: super::super::Client,
             pub(crate) subject_descriptor: String,
             pub(crate) organization: String,
-            pub(crate) size: Option<String>,
+            pub(crate) size: Option<models::AvatarSize>,
             pub(crate) format: Option<String>,
         }
         impl RequestBuilder {
-            pub fn size(mut self, size: impl Into<String>) -> Self {
+            pub fn size(mut self, size: impl Into<models::AvatarSize>) -> Self {
                 self.size = Some(size.into());
                 self
             }
@@ -2765,7 +2768,9 @@ pub mod avatars {
                             );
                         }
                         if let Some(size) = &this.size {
-                            req.url_mut().query_pairs_mut().append_pair("size", size);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("size", &size.to_string());
                         }
                         if let Some(format) = &this.format {
                             req.url_mut()

@@ -1038,8 +1038,8 @@ pub mod pools {
             pub(crate) organization: String,
             pub(crate) pool_name: Option<String>,
             pub(crate) properties: Option<String>,
-            pub(crate) pool_type: Option<String>,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) pool_type: Option<models::TaskAgentPoolType>,
+            pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by name"]
@@ -1053,12 +1053,15 @@ pub mod pools {
                 self
             }
             #[doc = "Filter by pool type"]
-            pub fn pool_type(mut self, pool_type: impl Into<String>) -> Self {
+            pub fn pool_type(mut self, pool_type: impl Into<models::TaskAgentPoolType>) -> Self {
                 self.pool_type = Some(pool_type.into());
                 self
             }
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentPoolActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1097,12 +1100,12 @@ pub mod pools {
                         if let Some(pool_type) = &this.pool_type {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("poolType", pool_type);
+                                .append_pair("poolType", &pool_type.to_string());
                         }
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1175,11 +1178,14 @@ pub mod pools {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) pool_ids: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentPoolActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1212,7 +1218,7 @@ pub mod pools {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1382,7 +1388,7 @@ pub mod pools {
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) properties: Option<String>,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Agent pool properties (comma-separated)"]
@@ -1391,7 +1397,10 @@ pub mod pools {
                 self
             }
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentPoolActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1425,7 +1434,7 @@ pub mod pools {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1839,11 +1848,14 @@ pub mod queues {
             pub(crate) organization: String,
             pub(crate) queue_names: String,
             pub(crate) project: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentQueueActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1876,7 +1888,7 @@ pub mod queues {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1952,11 +1964,14 @@ pub mod queues {
             pub(crate) organization: String,
             pub(crate) queue_ids: String,
             pub(crate) project: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentQueueActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -1989,7 +2004,7 @@ pub mod queues {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2065,7 +2080,7 @@ pub mod queues {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) queue_name: Option<String>,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter on the agent queue name"]
@@ -2074,7 +2089,10 @@ pub mod queues {
                 self
             }
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentQueueActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -2108,7 +2126,7 @@ pub mod queues {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2183,11 +2201,14 @@ pub mod queues {
             pub(crate) organization: String,
             pub(crate) pool_ids: String,
             pub(crate) project: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentQueueActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -2220,7 +2241,7 @@ pub mod queues {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2405,11 +2426,14 @@ pub mod queues {
             pub(crate) organization: String,
             pub(crate) queue_id: i32,
             pub(crate) project: String,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
         impl RequestBuilder {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::TaskAgentQueueActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -2438,7 +2462,7 @@ pub mod queues {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -2747,10 +2771,10 @@ pub mod variablegroups {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) group_name: Option<String>,
-            pub(crate) action_filter: Option<String>,
+            pub(crate) action_filter: Option<models::VariableGroupActionFilter>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<i32>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::VariableGroupQueryOrder>,
         }
         impl RequestBuilder {
             #[doc = "Name of variable group."]
@@ -2759,7 +2783,10 @@ pub mod variablegroups {
                 self
             }
             #[doc = "Action filter for the variable group. It specifies the action which can be performed on the variable groups."]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::VariableGroupActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
@@ -2774,7 +2801,10 @@ pub mod variablegroups {
                 self
             }
             #[doc = "Gets the results in the defined order. Default is 'IdDescending'."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::VariableGroupQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -2808,7 +2838,7 @@ pub mod variablegroups {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()
@@ -2823,7 +2853,7 @@ pub mod variablegroups {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -5368,8 +5398,8 @@ pub mod deploymentgroups {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) name: Option<String>,
-            pub(crate) action_filter: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) action_filter: Option<models::DeploymentGroupActionFilter>,
+            pub(crate) expand: Option<models::DeploymentGroupExpands>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) top: Option<i32>,
             pub(crate) ids: Option<String>,
@@ -5381,12 +5411,15 @@ pub mod deploymentgroups {
                 self
             }
             #[doc = "Get only deployment groups on which this action can be performed."]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::DeploymentGroupActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
             #[doc = "Include these additional details in the returned objects."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::DeploymentGroupExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -5433,12 +5466,12 @@ pub mod deploymentgroups {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(continuation_token) = &this.continuation_token {
                             req.url_mut()
@@ -5624,17 +5657,20 @@ pub mod deploymentgroups {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
-            pub(crate) action_filter: Option<String>,
-            pub(crate) expand: Option<String>,
+            pub(crate) action_filter: Option<models::DeploymentGroupActionFilter>,
+            pub(crate) expand: Option<models::DeploymentGroupExpands>,
         }
         impl RequestBuilder {
             #[doc = "Get the deployment group only if this action can be performed on it."]
-            pub fn action_filter(mut self, action_filter: impl Into<String>) -> Self {
+            pub fn action_filter(
+                mut self,
+                action_filter: impl Into<models::DeploymentGroupActionFilter>,
+            ) -> Self {
                 self.action_filter = Some(action_filter.into());
                 self
             }
             #[doc = "Include these additional details in the returned object."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::DeploymentGroupExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -5663,12 +5699,12 @@ pub mod deploymentgroups {
                         if let Some(action_filter) = &this.action_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("actionFilter", action_filter);
+                                .append_pair("actionFilter", &action_filter.to_string());
                         }
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -6049,9 +6085,9 @@ pub mod targets {
             pub(crate) tags: Option<String>,
             pub(crate) name: Option<String>,
             pub(crate) partial_name_match: Option<bool>,
-            pub(crate) expand: Option<String>,
-            pub(crate) agent_status: Option<String>,
-            pub(crate) agent_job_result: Option<String>,
+            pub(crate) expand: Option<models::DeploymentTargetExpands>,
+            pub(crate) agent_status: Option<models::TaskAgentStatusFilter>,
+            pub(crate) agent_job_result: Option<models::TaskAgentJobResultFilter>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) top: Option<i32>,
             pub(crate) enabled: Option<bool>,
@@ -6074,17 +6110,23 @@ pub mod targets {
                 self
             }
             #[doc = "Include these additional details in the returned objects."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::DeploymentTargetExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
             #[doc = "Get only deployment targets that have this status."]
-            pub fn agent_status(mut self, agent_status: impl Into<String>) -> Self {
+            pub fn agent_status(
+                mut self,
+                agent_status: impl Into<models::TaskAgentStatusFilter>,
+            ) -> Self {
                 self.agent_status = Some(agent_status.into());
                 self
             }
             #[doc = "Get only deployment targets that have this last job result."]
-            pub fn agent_job_result(mut self, agent_job_result: impl Into<String>) -> Self {
+            pub fn agent_job_result(
+                mut self,
+                agent_job_result: impl Into<models::TaskAgentJobResultFilter>,
+            ) -> Self {
                 self.agent_job_result = Some(agent_job_result.into());
                 self
             }
@@ -6143,17 +6185,17 @@ pub mod targets {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         if let Some(agent_status) = &this.agent_status {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("agentStatus", agent_status);
+                                .append_pair("agentStatus", &agent_status.to_string());
                         }
                         if let Some(agent_job_result) = &this.agent_job_result {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("agentJobResult", agent_job_result);
+                                .append_pair("agentJobResult", &agent_job_result.to_string());
                         }
                         if let Some(continuation_token) = &this.continuation_token {
                             req.url_mut()
@@ -6350,11 +6392,11 @@ pub mod targets {
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
             pub(crate) target_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::DeploymentTargetExpands>,
         }
         impl RequestBuilder {
             #[doc = "Include these additional details in the returned objects."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::DeploymentTargetExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -6383,7 +6425,7 @@ pub mod targets {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -6893,11 +6935,11 @@ pub mod environments {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
-            pub(crate) expands: Option<String>,
+            pub(crate) expands: Option<models::EnvironmentExpands>,
         }
         impl RequestBuilder {
             #[doc = "Include these additional details in the returned objects."]
-            pub fn expands(mut self, expands: impl Into<String>) -> Self {
+            pub fn expands(mut self, expands: impl Into<models::EnvironmentExpands>) -> Self {
                 self.expands = Some(expands.into());
                 self
             }
@@ -6926,7 +6968,7 @@ pub mod environments {
                         if let Some(expands) = &this.expands {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("expands", expands);
+                                .append_pair("expands", &expands.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -7915,7 +7957,7 @@ pub mod taskgroups {
             pub(crate) deleted: Option<bool>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<time::OffsetDateTime>,
-            pub(crate) query_order: Option<String>,
+            pub(crate) query_order: Option<models::TaskGroupQueryOrder>,
         }
         impl RequestBuilder {
             #[doc = "'true' to recursively expand task groups. Default is 'false'."]
@@ -7947,7 +7989,10 @@ pub mod taskgroups {
                 self
             }
             #[doc = "Gets the results in the defined order. Default is 'CreatedOnDescending'."]
-            pub fn query_order(mut self, query_order: impl Into<String>) -> Self {
+            pub fn query_order(
+                mut self,
+                query_order: impl Into<models::TaskGroupQueryOrder>,
+            ) -> Self {
                 self.query_order = Some(query_order.into());
                 self
             }
@@ -8003,7 +8048,7 @@ pub mod taskgroups {
                         if let Some(query_order) = &this.query_order {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("queryOrder", query_order);
+                                .append_pair("queryOrder", &query_order.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -8962,11 +9007,11 @@ pub mod nodes {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
-            pub(crate) state: Option<String>,
+            pub(crate) state: Option<models::ElasticNodeState>,
         }
         impl RequestBuilder {
             #[doc = "Optional: Filter to only retrieve ElasticNodes in the given ElasticNodeState"]
-            pub fn state(mut self, state: impl Into<String>) -> Self {
+            pub fn state(mut self, state: impl Into<models::ElasticNodeState>) -> Self {
                 self.state = Some(state.into());
                 self
             }
@@ -8993,7 +9038,9 @@ pub mod nodes {
                             );
                         }
                         if let Some(state) = &this.state {
-                            req.url_mut().query_pairs_mut().append_pair("$state", state);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("$state", &state.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

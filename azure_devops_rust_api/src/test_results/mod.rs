@@ -936,10 +936,10 @@ pub mod runs {
             pub(crate) project: String,
             pub(crate) min_last_updated_date: time::OffsetDateTime,
             pub(crate) max_last_updated_date: time::OffsetDateTime,
-            pub(crate) state: Option<String>,
+            pub(crate) state: Option<models::TestRunState>,
             pub(crate) plan_ids: Option<String>,
             pub(crate) is_automated: Option<bool>,
-            pub(crate) publish_context: Option<String>,
+            pub(crate) publish_context: Option<models::TestRunPublishContext>,
             pub(crate) build_ids: Option<String>,
             pub(crate) build_def_ids: Option<String>,
             pub(crate) branch_name: Option<String>,
@@ -953,7 +953,7 @@ pub mod runs {
         }
         impl RequestBuilder {
             #[doc = "Current state of the Runs to be queried."]
-            pub fn state(mut self, state: impl Into<String>) -> Self {
+            pub fn state(mut self, state: impl Into<models::TestRunState>) -> Self {
                 self.state = Some(state.into());
                 self
             }
@@ -968,7 +968,10 @@ pub mod runs {
                 self
             }
             #[doc = "PublishContext of the Runs to be queried."]
-            pub fn publish_context(mut self, publish_context: impl Into<String>) -> Self {
+            pub fn publish_context(
+                mut self,
+                publish_context: impl Into<models::TestRunPublishContext>,
+            ) -> Self {
                 self.publish_context = Some(publish_context.into());
                 self
             }
@@ -1057,7 +1060,9 @@ pub mod runs {
                             .query_pairs_mut()
                             .append_pair("maxLastUpdatedDate", &formatted_date_time);
                         if let Some(state) = &this.state {
-                            req.url_mut().query_pairs_mut().append_pair("state", state);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("state", &state.to_string());
                         }
                         if let Some(plan_ids) = &this.plan_ids {
                             req.url_mut()
@@ -1072,7 +1077,7 @@ pub mod runs {
                         if let Some(publish_context) = &this.publish_context {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("publishContext", publish_context);
+                                .append_pair("publishContext", &publish_context.to_string());
                         }
                         if let Some(build_ids) = &this.build_ids {
                             req.url_mut()
@@ -1771,7 +1776,7 @@ pub mod testlog {
             run_id: i32,
             result_id: i32,
             sub_result_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
         ) -> get_test_sub_result_logs::RequestBuilder {
             get_test_sub_result_logs::RequestBuilder {
                 client: self.0.clone(),
@@ -1802,7 +1807,7 @@ pub mod testlog {
             project: impl Into<String>,
             run_id: i32,
             result_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
         ) -> get_test_result_logs::RequestBuilder {
             get_test_result_logs::RequestBuilder {
                 client: self.0.clone(),
@@ -1830,7 +1835,7 @@ pub mod testlog {
             organization: impl Into<String>,
             project: impl Into<String>,
             run_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
         ) -> get_test_run_logs::RequestBuilder {
             get_test_run_logs::RequestBuilder {
                 client: self.0.clone(),
@@ -1857,7 +1862,7 @@ pub mod testlog {
             organization: impl Into<String>,
             project: impl Into<String>,
             build_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
         ) -> get_test_logs_for_build::RequestBuilder {
             get_test_logs_for_build::RequestBuilder {
                 client: self.0.clone(),
@@ -1914,7 +1919,7 @@ pub mod testlog {
             pub(crate) run_id: i32,
             pub(crate) result_id: i32,
             pub(crate) sub_result_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) directory_path: Option<String>,
             pub(crate) file_name_prefix: Option<String>,
             pub(crate) fetch_meta_data: Option<bool>,
@@ -1974,7 +1979,9 @@ pub mod testlog {
                             .query_pairs_mut()
                             .append_pair("subResultId", &sub_result_id.to_string());
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         if let Some(directory_path) = &this.directory_path {
                             req.url_mut()
                                 .query_pairs_mut()
@@ -2076,7 +2083,7 @@ pub mod testlog {
             pub(crate) project: String,
             pub(crate) run_id: i32,
             pub(crate) result_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) directory_path: Option<String>,
             pub(crate) file_name_prefix: Option<String>,
             pub(crate) fetch_meta_data: Option<bool>,
@@ -2132,7 +2139,9 @@ pub mod testlog {
                             );
                         }
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         if let Some(directory_path) = &this.directory_path {
                             req.url_mut()
                                 .query_pairs_mut()
@@ -2231,7 +2240,7 @@ pub mod testlog {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) run_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) directory_path: Option<String>,
             pub(crate) file_name_prefix: Option<String>,
             pub(crate) fetch_meta_data: Option<bool>,
@@ -2287,7 +2296,9 @@ pub mod testlog {
                             );
                         }
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         if let Some(directory_path) = &this.directory_path {
                             req.url_mut()
                                 .query_pairs_mut()
@@ -2385,7 +2396,7 @@ pub mod testlog {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) build_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) directory_path: Option<String>,
             pub(crate) file_name_prefix: Option<String>,
             pub(crate) fetch_meta_data: Option<bool>,
@@ -2445,7 +2456,9 @@ pub mod testlog {
                             .query_pairs_mut()
                             .append_pair("buildId", &build_id.to_string());
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         if let Some(directory_path) = &this.directory_path {
                             req.url_mut()
                                 .query_pairs_mut()
@@ -2529,7 +2542,7 @@ pub mod testlogstoreendpoint {
             run_id: i32,
             result_id: i32,
             sub_result_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
             file_path: impl Into<String>,
         ) -> get_test_log_store_endpoint_details_for_sub_result_log::RequestBuilder {
             get_test_log_store_endpoint_details_for_sub_result_log::RequestBuilder {
@@ -2558,7 +2571,7 @@ pub mod testlogstoreendpoint {
             project: impl Into<String>,
             run_id: i32,
             result_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
             file_path: impl Into<String>,
         ) -> get_test_log_store_endpoint_details_for_result_log::RequestBuilder {
             get_test_log_store_endpoint_details_for_result_log::RequestBuilder {
@@ -2589,7 +2602,7 @@ pub mod testlogstoreendpoint {
             result_id: i32,
             sub_result_id: i32,
             file_path: impl Into<String>,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
         ) -> test_log_store_endpoint_details_for_result::RequestBuilder {
             test_log_store_endpoint_details_for_result::RequestBuilder {
                 client: self.0.clone(),
@@ -2615,7 +2628,7 @@ pub mod testlogstoreendpoint {
             organization: impl Into<String>,
             project: impl Into<String>,
             run_id: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
             file_path: impl Into<String>,
         ) -> get_test_log_store_endpoint_details_for_run_log::RequestBuilder {
             get_test_log_store_endpoint_details_for_run_log::RequestBuilder {
@@ -2639,7 +2652,7 @@ pub mod testlogstoreendpoint {
             organization: impl Into<String>,
             project: impl Into<String>,
             run_id: i32,
-            test_log_store_operation_type: impl Into<String>,
+            test_log_store_operation_type: impl Into<models::TestLogStoreOperationType>,
         ) -> test_log_store_endpoint_details_for_run::RequestBuilder {
             test_log_store_endpoint_details_for_run::RequestBuilder {
                 client: self.0.clone(),
@@ -2664,7 +2677,7 @@ pub mod testlogstoreendpoint {
             organization: impl Into<String>,
             project: impl Into<String>,
             build: i32,
-            type_: impl Into<String>,
+            type_: impl Into<models::TestLogType>,
             file_path: impl Into<String>,
         ) -> get_test_log_store_endpoint_details_for_build_log::RequestBuilder {
             get_test_log_store_endpoint_details_for_build_log::RequestBuilder {
@@ -2688,7 +2701,7 @@ pub mod testlogstoreendpoint {
             organization: impl Into<String>,
             project: impl Into<String>,
             build_id: i32,
-            test_log_store_operation_type: impl Into<String>,
+            test_log_store_operation_type: impl Into<models::TestLogStoreOperationType>,
         ) -> test_log_store_endpoint_details_for_build::RequestBuilder {
             test_log_store_endpoint_details_for_build::RequestBuilder {
                 client: self.0.clone(),
@@ -2743,7 +2756,7 @@ pub mod testlogstoreendpoint {
             pub(crate) run_id: i32,
             pub(crate) result_id: i32,
             pub(crate) sub_result_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) file_path: String,
         }
         impl RequestBuilder {
@@ -2774,7 +2787,9 @@ pub mod testlogstoreendpoint {
                             .query_pairs_mut()
                             .append_pair("subResultId", &sub_result_id.to_string());
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         let file_path = &this.file_path;
                         req.url_mut()
                             .query_pairs_mut()
@@ -2852,7 +2867,7 @@ pub mod testlogstoreendpoint {
             pub(crate) project: String,
             pub(crate) run_id: i32,
             pub(crate) result_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) file_path: String,
         }
         impl RequestBuilder {
@@ -2879,7 +2894,9 @@ pub mod testlogstoreendpoint {
                             );
                         }
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         let file_path = &this.file_path;
                         req.url_mut()
                             .query_pairs_mut()
@@ -2966,7 +2983,7 @@ pub mod testlogstoreendpoint {
             pub(crate) result_id: i32,
             pub(crate) sub_result_id: i32,
             pub(crate) file_path: String,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -3000,7 +3017,9 @@ pub mod testlogstoreendpoint {
                             .query_pairs_mut()
                             .append_pair("filePath", file_path);
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         let req_body = azure_core::Bytes::new();
                         req.insert_header(azure_core::http::headers::CONTENT_LENGTH, "0");
                         req.set_body(req_body);
@@ -3081,7 +3100,7 @@ pub mod testlogstoreendpoint {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) run_id: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) file_path: String,
         }
         impl RequestBuilder {
@@ -3108,7 +3127,9 @@ pub mod testlogstoreendpoint {
                             );
                         }
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         let file_path = &this.file_path;
                         req.url_mut()
                             .query_pairs_mut()
@@ -3191,9 +3212,9 @@ pub mod testlogstoreendpoint {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) run_id: i32,
-            pub(crate) test_log_store_operation_type: String,
+            pub(crate) test_log_store_operation_type: models::TestLogStoreOperationType,
             pub(crate) file_path: Option<String>,
-            pub(crate) type_: Option<String>,
+            pub(crate) type_: Option<models::TestLogType>,
         }
         impl RequestBuilder {
             #[doc = "file path to create an empty file"]
@@ -3202,7 +3223,7 @@ pub mod testlogstoreendpoint {
                 self
             }
             #[doc = "Default is GeneralAttachment, type of empty file to be created"]
-            pub fn type_(mut self, type_: impl Into<String>) -> Self {
+            pub fn type_(mut self, type_: impl Into<models::TestLogType>) -> Self {
                 self.type_ = Some(type_.into());
                 self
             }
@@ -3231,7 +3252,7 @@ pub mod testlogstoreendpoint {
                         let test_log_store_operation_type = &this.test_log_store_operation_type;
                         req.url_mut().query_pairs_mut().append_pair(
                             "testLogStoreOperationType",
-                            test_log_store_operation_type,
+                            &test_log_store_operation_type.to_string(),
                         );
                         if let Some(file_path) = &this.file_path {
                             req.url_mut()
@@ -3239,7 +3260,9 @@ pub mod testlogstoreendpoint {
                                 .append_pair("filePath", file_path);
                         }
                         if let Some(type_) = &this.type_ {
-                            req.url_mut().query_pairs_mut().append_pair("type", type_);
+                            req.url_mut()
+                                .query_pairs_mut()
+                                .append_pair("type", &type_.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.insert_header(azure_core::http::headers::CONTENT_LENGTH, "0");
@@ -3320,7 +3343,7 @@ pub mod testlogstoreendpoint {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) build: i32,
-            pub(crate) type_: String,
+            pub(crate) type_: models::TestLogType,
             pub(crate) file_path: String,
         }
         impl RequestBuilder {
@@ -3351,7 +3374,9 @@ pub mod testlogstoreendpoint {
                             .query_pairs_mut()
                             .append_pair("build", &build.to_string());
                         let type_ = &this.type_;
-                        req.url_mut().query_pairs_mut().append_pair("type", type_);
+                        req.url_mut()
+                            .query_pairs_mut()
+                            .append_pair("type", &type_.to_string());
                         let file_path = &this.file_path;
                         req.url_mut()
                             .query_pairs_mut()
@@ -3433,7 +3458,7 @@ pub mod testlogstoreendpoint {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) build_id: i32,
-            pub(crate) test_log_store_operation_type: String,
+            pub(crate) test_log_store_operation_type: models::TestLogStoreOperationType,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -3465,7 +3490,7 @@ pub mod testlogstoreendpoint {
                         let test_log_store_operation_type = &this.test_log_store_operation_type;
                         req.url_mut().query_pairs_mut().append_pair(
                             "testLogStoreOperationType",
-                            test_log_store_operation_type,
+                            &test_log_store_operation_type.to_string(),
                         );
                         let req_body = azure_core::Bytes::new();
                         req.insert_header(azure_core::http::headers::CONTENT_LENGTH, "0");
@@ -8636,14 +8661,17 @@ pub mod results {
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) run_id: i32,
-            pub(crate) details_to_include: Option<String>,
+            pub(crate) details_to_include: Option<models::ResultDetails>,
             pub(crate) skip: Option<i32>,
             pub(crate) top: Option<i32>,
             pub(crate) outcomes: Option<String>,
             pub(crate) new_tests_only: Option<bool>,
         }
         impl RequestBuilder {
-            pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
+            pub fn details_to_include(
+                mut self,
+                details_to_include: impl Into<models::ResultDetails>,
+            ) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
@@ -8688,7 +8716,7 @@ pub mod results {
                         if let Some(details_to_include) = &this.details_to_include {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("detailsToInclude", details_to_include);
+                                .append_pair("detailsToInclude", &details_to_include.to_string());
                         }
                         if let Some(skip) = &this.skip {
                             req.url_mut()
@@ -8985,10 +9013,13 @@ pub mod results {
             pub(crate) project: String,
             pub(crate) run_id: i32,
             pub(crate) test_result_id: i32,
-            pub(crate) details_to_include: Option<String>,
+            pub(crate) details_to_include: Option<models::ResultDetails>,
         }
         impl RequestBuilder {
-            pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
+            pub fn details_to_include(
+                mut self,
+                details_to_include: impl Into<models::ResultDetails>,
+            ) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
@@ -9017,7 +9048,7 @@ pub mod results {
                         if let Some(details_to_include) = &this.details_to_include {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("detailsToInclude", details_to_include);
+                                .append_pair("detailsToInclude", &details_to_include.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -9273,11 +9304,14 @@ pub mod result_meta_data {
             pub(crate) organization: String,
             pub(crate) body: Vec<String>,
             pub(crate) project: String,
-            pub(crate) details_to_include: Option<String>,
+            pub(crate) details_to_include: Option<models::ResultMetaDataDetails>,
         }
         impl RequestBuilder {
             #[doc = "Details to include with test results metadata. Default is None. Other values are FlakyIdentifiers."]
-            pub fn details_to_include(mut self, details_to_include: impl Into<String>) -> Self {
+            pub fn details_to_include(
+                mut self,
+                details_to_include: impl Into<models::ResultMetaDataDetails>,
+            ) -> Self {
                 self.details_to_include = Some(details_to_include.into());
                 self
             }
@@ -9308,7 +9342,7 @@ pub mod result_meta_data {
                         if let Some(details_to_include) = &this.details_to_include {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("detailsToInclude", details_to_include);
+                                .append_pair("detailsToInclude", &details_to_include.to_string());
                         }
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
@@ -12509,10 +12543,13 @@ pub mod settings {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) project: String,
-            pub(crate) settings_type: Option<String>,
+            pub(crate) settings_type: Option<models::TestResultsSettingsType>,
         }
         impl RequestBuilder {
-            pub fn settings_type(mut self, settings_type: impl Into<String>) -> Self {
+            pub fn settings_type(
+                mut self,
+                settings_type: impl Into<models::TestResultsSettingsType>,
+            ) -> Self {
                 self.settings_type = Some(settings_type.into());
                 self
             }
@@ -12541,7 +12578,7 @@ pub mod settings {
                         if let Some(settings_type) = &this.settings_type {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("settingsType", settings_type);
+                                .append_pair("settingsType", &settings_type.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

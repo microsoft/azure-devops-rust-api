@@ -82,6 +82,24 @@ pub mod avatar {
         }
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum AvatarSize {
+    #[serde(rename = "small")]
+    Small,
+    #[serde(rename = "medium")]
+    Medium,
+    #[serde(rename = "large")]
+    Large,
+}
+impl std::fmt::Display for AvatarSize {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Small => write!(f, "small"),
+            Self::Medium => write!(f, "medium"),
+            Self::Large => write!(f, "large"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GraphCachePolicies {
     #[doc = "Size of the cache"]
@@ -781,6 +799,25 @@ pub struct GraphSystemSubject {
 impl GraphSystemSubject {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Defaults to Up."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GraphTraversalDirection {
+    #[serde(rename = "unknown")]
+    Unknown,
+    #[serde(rename = "down")]
+    Down,
+    #[serde(rename = "up")]
+    Up,
+}
+impl std::fmt::Display for GraphTraversalDirection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Unknown => write!(f, "unknown"),
+            Self::Down => write!(f, "down"),
+            Self::Up => write!(f, "up"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

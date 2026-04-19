@@ -2536,6 +2536,28 @@ impl GitForkTeamProjectReference {
         }
     }
 }
+#[doc = "What Git history mode should be used. This only applies to the search criteria when Ids = null and an itemPath is specified."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitHistoryMode {
+    #[serde(rename = "simplifiedHistory")]
+    SimplifiedHistory,
+    #[serde(rename = "firstParent")]
+    FirstParent,
+    #[serde(rename = "fullHistory")]
+    FullHistory,
+    #[serde(rename = "fullHistorySimplifyMerges")]
+    FullHistorySimplifyMerges,
+}
+impl std::fmt::Display for GitHistoryMode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::SimplifiedHistory => write!(f, "simplifiedHistory"),
+            Self::FirstParent => write!(f, "firstParent"),
+            Self::FullHistory => write!(f, "fullHistory"),
+            Self::FullHistorySimplifyMerges => write!(f, "fullHistorySimplifyMerges"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GitImportFailedEvent {
     #[serde(
@@ -6000,6 +6022,44 @@ pub mod git_version_descriptor {
         }
     }
 }
+#[doc = "Version options - Specify additional modifiers to version (e.g Previous)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionOptions {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "previousChange")]
+    PreviousChange,
+    #[serde(rename = "firstParent")]
+    FirstParent,
+}
+impl std::fmt::Display for GitVersionOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::PreviousChange => write!(f, "previousChange"),
+            Self::FirstParent => write!(f, "firstParent"),
+        }
+    }
+}
+#[doc = "Version type (branch, tag, or commit). Determines how Id is interpreted"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GitVersionType {
+    #[serde(rename = "branch")]
+    Branch,
+    #[serde(rename = "tag")]
+    Tag,
+    #[serde(rename = "commit")]
+    Commit,
+}
+impl std::fmt::Display for GitVersionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Branch => write!(f, "branch"),
+            Self::Tag => write!(f, "tag"),
+            Self::Commit => write!(f, "commit"),
+        }
+    }
+}
 #[doc = "Globally unique key for a repository."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlobalGitRepositoryKey {
@@ -6835,6 +6895,22 @@ pub struct PullRequestTabExtensionConfig {
 impl PullRequestTabExtensionConfig {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "The type of time range which should be used for minTime and maxTime. Defaults to Created if unset."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum PullRequestTimeRangeType {
+    #[serde(rename = "created")]
+    Created,
+    #[serde(rename = "closed")]
+    Closed,
+}
+impl std::fmt::Display for PullRequestTimeRangeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Created => write!(f, "created"),
+            Self::Closed => write!(f, "closed"),
+        }
     }
 }
 #[doc = "Base contract for a real time pull request event (SignalR)"]
@@ -8337,7 +8413,7 @@ pub mod version_control_project_info {
         }
     }
 }
-#[doc = "The recursion level for a request."]
+#[doc = "The recursion level of this request. The default is 'none', no recursion."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum VersionControlRecursionType {
     #[serde(rename = "none")]

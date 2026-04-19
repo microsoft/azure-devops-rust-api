@@ -377,6 +377,61 @@ impl FormLayout {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetBehaviorsExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "fields")]
+    Fields,
+    #[serde(rename = "combinedFields")]
+    CombinedFields,
+}
+impl std::fmt::Display for GetBehaviorsExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Fields => write!(f, "fields"),
+            Self::CombinedFields => write!(f, "combinedFields"),
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetProcessExpandLevel {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "projects")]
+    Projects,
+}
+impl std::fmt::Display for GetProcessExpandLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Projects => write!(f, "projects"),
+        }
+    }
+}
+#[doc = "Flag to determine what properties of work item type to return"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum GetWorkItemTypeExpand {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "states")]
+    States,
+    #[serde(rename = "behaviors")]
+    Behaviors,
+    #[serde(rename = "layout")]
+    Layout,
+}
+impl std::fmt::Display for GetWorkItemTypeExpand {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::States => write!(f, "states"),
+            Self::Behaviors => write!(f, "behaviors"),
+            Self::Layout => write!(f, "layout"),
+        }
+    }
+}
 #[doc = "Represent a group in the form that holds controls in it."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct Group {
@@ -1203,6 +1258,24 @@ pub struct ProcessWorkItemTypeFieldList {
 impl ProcessWorkItemTypeFieldList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ProcessWorkItemTypeFieldsExpandLevel {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "allowedValues")]
+    AllowedValues,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ProcessWorkItemTypeFieldsExpandLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::AllowedValues => write!(f, "allowedValues"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

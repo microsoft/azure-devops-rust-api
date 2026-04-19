@@ -678,7 +678,7 @@ pub mod streams {
             &self,
             organization: impl Into<String>,
             stream_id: i32,
-            status: impl Into<String>,
+            status: impl Into<models::AuditStreamStatus>,
         ) -> update_status::RequestBuilder {
             update_status::RequestBuilder {
                 client: self.0.clone(),
@@ -1129,7 +1129,7 @@ pub mod streams {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
             pub(crate) stream_id: i32,
-            pub(crate) status: String,
+            pub(crate) status: models::AuditStreamStatus,
         }
         impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
@@ -1157,7 +1157,7 @@ pub mod streams {
                         let status = &this.status;
                         req.url_mut()
                             .query_pairs_mut()
-                            .append_pair("status", status);
+                            .append_pair("status", &status.to_string());
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))

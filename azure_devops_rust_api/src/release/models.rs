@@ -146,6 +146,31 @@ impl AgentSpecification {
         Self::default()
     }
 }
+#[doc = "A filter which would allow fetching approval steps selectively based on whether it is automated, or manual. This would also decide whether we should fetch pre and post approval snapshots. Assumes All by default"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalFilters {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "manualApprovals")]
+    ManualApprovals,
+    #[serde(rename = "automatedApprovals")]
+    AutomatedApprovals,
+    #[serde(rename = "approvalSnapshots")]
+    ApprovalSnapshots,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ApprovalFilters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::ManualApprovals => write!(f, "manualApprovals"),
+            Self::AutomatedApprovals => write!(f, "automatedApprovals"),
+            Self::ApprovalSnapshots => write!(f, "approvalSnapshots"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ApprovalOptions {
     #[doc = "Specify whether the approval can be skipped if the same approver approved the previous stage."]
@@ -215,6 +240,59 @@ pub mod approval_options {
                 Self::AfterSuccessfulGates => write!(f, "afterSuccessfulGates"),
                 Self::AfterGatesAlways => write!(f, "afterGatesAlways"),
             }
+        }
+    }
+}
+#[doc = "Approvals with this status. Default is 'pending'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "approved")]
+    Approved,
+    #[serde(rename = "rejected")]
+    Rejected,
+    #[serde(rename = "reassigned")]
+    Reassigned,
+    #[serde(rename = "canceled")]
+    Canceled,
+    #[serde(rename = "skipped")]
+    Skipped,
+}
+impl std::fmt::Display for ApprovalStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::Pending => write!(f, "pending"),
+            Self::Approved => write!(f, "approved"),
+            Self::Rejected => write!(f, "rejected"),
+            Self::Reassigned => write!(f, "reassigned"),
+            Self::Canceled => write!(f, "canceled"),
+            Self::Skipped => write!(f, "skipped"),
+        }
+    }
+}
+#[doc = "Approval with this type."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ApprovalType {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "preDeploy")]
+    PreDeploy,
+    #[serde(rename = "postDeploy")]
+    PostDeploy,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for ApprovalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::PreDeploy => write!(f, "preDeploy"),
+            Self::PostDeploy => write!(f, "postDeploy"),
+            Self::All => write!(f, "all"),
         }
     }
 }
@@ -2253,6 +2331,75 @@ impl DeploymentManualInterventionPendingEvent {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DeploymentOperationStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "queued")]
+    Queued,
+    #[serde(rename = "scheduled")]
+    Scheduled,
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "approved")]
+    Approved,
+    #[serde(rename = "rejected")]
+    Rejected,
+    #[serde(rename = "deferred")]
+    Deferred,
+    #[serde(rename = "queuedForAgent")]
+    QueuedForAgent,
+    #[serde(rename = "phaseInProgress")]
+    PhaseInProgress,
+    #[serde(rename = "phaseSucceeded")]
+    PhaseSucceeded,
+    #[serde(rename = "phasePartiallySucceeded")]
+    PhasePartiallySucceeded,
+    #[serde(rename = "phaseFailed")]
+    PhaseFailed,
+    #[serde(rename = "canceled")]
+    Canceled,
+    #[serde(rename = "phaseCanceled")]
+    PhaseCanceled,
+    #[serde(rename = "manualInterventionPending")]
+    ManualInterventionPending,
+    #[serde(rename = "queuedForPipeline")]
+    QueuedForPipeline,
+    #[serde(rename = "cancelling")]
+    Cancelling,
+    #[serde(rename = "evaluatingGates")]
+    EvaluatingGates,
+    #[serde(rename = "gateFailed")]
+    GateFailed,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for DeploymentOperationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::Queued => write!(f, "queued"),
+            Self::Scheduled => write!(f, "scheduled"),
+            Self::Pending => write!(f, "pending"),
+            Self::Approved => write!(f, "approved"),
+            Self::Rejected => write!(f, "rejected"),
+            Self::Deferred => write!(f, "deferred"),
+            Self::QueuedForAgent => write!(f, "queuedForAgent"),
+            Self::PhaseInProgress => write!(f, "phaseInProgress"),
+            Self::PhaseSucceeded => write!(f, "phaseSucceeded"),
+            Self::PhasePartiallySucceeded => write!(f, "phasePartiallySucceeded"),
+            Self::PhaseFailed => write!(f, "phaseFailed"),
+            Self::Canceled => write!(f, "canceled"),
+            Self::PhaseCanceled => write!(f, "phaseCanceled"),
+            Self::ManualInterventionPending => write!(f, "manualInterventionPending"),
+            Self::QueuedForPipeline => write!(f, "queuedForPipeline"),
+            Self::Cancelling => write!(f, "cancelling"),
+            Self::EvaluatingGates => write!(f, "evaluatingGates"),
+            Self::GateFailed => write!(f, "gateFailed"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct DeploymentQueryParameters {
     #[doc = "Query deployments based specified artifact source id."]
@@ -2463,6 +2610,36 @@ pub struct DeploymentStartedEvent {
 impl DeploymentStartedEvent {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DeploymentStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "notDeployed")]
+    NotDeployed,
+    #[serde(rename = "inProgress")]
+    InProgress,
+    #[serde(rename = "succeeded")]
+    Succeeded,
+    #[serde(rename = "partiallySucceeded")]
+    PartiallySucceeded,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for DeploymentStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::NotDeployed => write!(f, "notDeployed"),
+            Self::InProgress => write!(f, "inProgress"),
+            Self::Succeeded => write!(f, "succeeded"),
+            Self::PartiallySucceeded => write!(f, "partiallySucceeded"),
+            Self::Failed => write!(f, "failed"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -2764,6 +2941,25 @@ pub struct FolderList {
 impl FolderList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Gets the results in the defined order. Default is 'None'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum FolderPathQueryOrder {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "ascending")]
+    Ascending,
+    #[serde(rename = "descending")]
+    Descending,
+}
+impl std::fmt::Display for FolderPathQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Ascending => write!(f, "ascending"),
+            Self::Descending => write!(f, "descending"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -4962,6 +5158,37 @@ impl ReleaseDefinitionEnvironmentTemplate {
         Self::default()
     }
 }
+#[doc = "The properties that should be expanded in the list of Release definitions."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseDefinitionExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "environments")]
+    Environments,
+    #[serde(rename = "artifacts")]
+    Artifacts,
+    #[serde(rename = "triggers")]
+    Triggers,
+    #[serde(rename = "variables")]
+    Variables,
+    #[serde(rename = "tags")]
+    Tags,
+    #[serde(rename = "lastRelease")]
+    LastRelease,
+}
+impl std::fmt::Display for ReleaseDefinitionExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Environments => write!(f, "environments"),
+            Self::Artifacts => write!(f, "artifacts"),
+            Self::Triggers => write!(f, "triggers"),
+            Self::Variables => write!(f, "variables"),
+            Self::Tags => write!(f, "tags"),
+            Self::LastRelease => write!(f, "lastRelease"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseDefinitionGate {
     #[doc = "Gets or sets the gates workflow."]
@@ -5050,6 +5277,28 @@ pub struct ReleaseDefinitionList {
 impl ReleaseDefinitionList {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "Gets the results in the defined order. Default is 'IdAscending'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseDefinitionQueryOrder {
+    #[serde(rename = "idAscending")]
+    IdAscending,
+    #[serde(rename = "idDescending")]
+    IdDescending,
+    #[serde(rename = "nameAscending")]
+    NameAscending,
+    #[serde(rename = "nameDescending")]
+    NameDescending,
+}
+impl std::fmt::Display for ReleaseDefinitionQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::IdAscending => write!(f, "idAscending"),
+            Self::IdDescending => write!(f, "idDescending"),
+            Self::NameAscending => write!(f, "nameAscending"),
+            Self::NameDescending => write!(f, "nameDescending"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
@@ -5653,6 +5902,22 @@ pub mod release_environment_completed_event {
         }
     }
 }
+#[doc = "A property that should be expanded in the environment."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseEnvironmentExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "tasks")]
+    Tasks,
+}
+impl std::fmt::Display for ReleaseEnvironmentExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Tasks => write!(f, "tasks"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseEnvironmentShallowReference {
     #[doc = "Links"]
@@ -5926,6 +6191,37 @@ impl ReleaseEvent {
         Self::default()
     }
 }
+#[doc = "The property that should be expanded in the list of releases."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "environments")]
+    Environments,
+    #[serde(rename = "artifacts")]
+    Artifacts,
+    #[serde(rename = "approvals")]
+    Approvals,
+    #[serde(rename = "manualInterventions")]
+    ManualInterventions,
+    #[serde(rename = "variables")]
+    Variables,
+    #[serde(rename = "tags")]
+    Tags,
+}
+impl std::fmt::Display for ReleaseExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Environments => write!(f, "environments"),
+            Self::Artifacts => write!(f, "artifacts"),
+            Self::Approvals => write!(f, "approvals"),
+            Self::ManualInterventions => write!(f, "manualInterventions"),
+            Self::Variables => write!(f, "variables"),
+            Self::Tags => write!(f, "tags"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ReleaseGates {
     #[doc = "Contains the gates job details of each evaluation."]
@@ -6142,6 +6438,22 @@ pub mod release_not_created_event {
                 Self::Schedule => write!(f, "schedule"),
                 Self::PullRequest => write!(f, "pullRequest"),
             }
+        }
+    }
+}
+#[doc = "Gets the results in the defined order of created approvals. Default is 'descending'."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseQueryOrder {
+    #[serde(rename = "descending")]
+    Descending,
+    #[serde(rename = "ascending")]
+    Ascending,
+}
+impl std::fmt::Display for ReleaseQueryOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Descending => write!(f, "descending"),
+            Self::Ascending => write!(f, "ascending"),
         }
     }
 }
@@ -6492,6 +6804,28 @@ pub mod release_start_metadata {
                 Self::Schedule => write!(f, "schedule"),
                 Self::PullRequest => write!(f, "pullRequest"),
             }
+        }
+    }
+}
+#[doc = "Releases that have this status."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum ReleaseStatus {
+    #[serde(rename = "undefined")]
+    Undefined,
+    #[serde(rename = "draft")]
+    Draft,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "abandoned")]
+    Abandoned,
+}
+impl std::fmt::Display for ReleaseStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Undefined => write!(f, "undefined"),
+            Self::Draft => write!(f, "draft"),
+            Self::Active => write!(f, "active"),
+            Self::Abandoned => write!(f, "abandoned"),
         }
     }
 }
@@ -6986,6 +7320,22 @@ pub struct ServiceEndpointReference {
 impl ServiceEndpointReference {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "A property that should be expanded in the release."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum SingleReleaseExpands {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "tasks")]
+    Tasks,
+}
+impl std::fmt::Display for SingleReleaseExpands {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Tasks => write!(f, "tasks"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

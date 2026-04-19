@@ -1460,6 +1460,22 @@ impl ReferenceLinks {
         Self::default()
     }
 }
+#[doc = "RuleOption [ApplyGroupRule/TestApplyGroupRule] - specifies if the rules defined in group entitlement should be created and applied to it’s members (default option) or just be tested"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum RuleOption {
+    #[serde(rename = "applyGroupRule")]
+    ApplyGroupRule,
+    #[serde(rename = "testApplyGroupRule")]
+    TestApplyGroupRule,
+}
+impl std::fmt::Display for RuleOption {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::ApplyGroupRule => write!(f, "applyGroupRule"),
+            Self::TestApplyGroupRule => write!(f, "testApplyGroupRule"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct ServicePrincipalEntitlement {
     #[serde(flatten)]
@@ -1659,6 +1675,30 @@ pub struct UserEntitlementOperationResult {
 impl UserEntitlementOperationResult {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum UserEntitlementProperty {
+    #[serde(rename = "license")]
+    License,
+    #[serde(rename = "extensions")]
+    Extensions,
+    #[serde(rename = "projects")]
+    Projects,
+    #[serde(rename = "groupRules")]
+    GroupRules,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for UserEntitlementProperty {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::License => write!(f, "license"),
+            Self::Extensions => write!(f, "extensions"),
+            Self::Projects => write!(f, "projects"),
+            Self::GroupRules => write!(f, "groupRules"),
+            Self::All => write!(f, "all"),
+        }
     }
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]

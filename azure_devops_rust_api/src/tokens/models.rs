@@ -216,6 +216,28 @@ pub mod authorization_grant {
         }
     }
 }
+#[doc = "(Optional) Refers to the status of the personal access token (PAT)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum DisplayFilterOptions {
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "revoked")]
+    Revoked,
+    #[serde(rename = "expired")]
+    Expired,
+    #[serde(rename = "all")]
+    All,
+}
+impl std::fmt::Display for DisplayFilterOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Active => write!(f, "active"),
+            Self::Revoked => write!(f, "revoked"),
+            Self::Expired => write!(f, "expired"),
+            Self::All => write!(f, "all"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct IssuedToken {
     #[serde(
@@ -607,5 +629,24 @@ pub struct SessionToken {
 impl SessionToken {
     pub fn new() -> Self {
         Self::default()
+    }
+}
+#[doc = "(Optional) Which field to sort by"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum SortByOptions {
+    #[serde(rename = "displayName")]
+    DisplayName,
+    #[serde(rename = "displayDate")]
+    DisplayDate,
+    #[serde(rename = "status")]
+    Status,
+}
+impl std::fmt::Display for SortByOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::DisplayName => write!(f, "displayName"),
+            Self::DisplayDate => write!(f, "displayDate"),
+            Self::Status => write!(f, "status"),
+        }
     }
 }

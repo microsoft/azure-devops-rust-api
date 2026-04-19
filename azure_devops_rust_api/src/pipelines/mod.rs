@@ -1149,11 +1149,11 @@ pub mod artifacts {
             pub(crate) pipeline_id: i32,
             pub(crate) run_id: i32,
             pub(crate) artifact_name: String,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetArtifactExpandOptions>,
         }
         impl RequestBuilder {
             #[doc = "Expand options. Default is None."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetArtifactExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1186,7 +1186,7 @@ pub mod artifacts {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1323,11 +1323,11 @@ pub mod logs {
             pub(crate) project: String,
             pub(crate) pipeline_id: i32,
             pub(crate) run_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetLogExpandOptions>,
         }
         impl RequestBuilder {
             #[doc = "Expand options. Default is None."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetLogExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1356,7 +1356,7 @@ pub mod logs {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);
@@ -1433,11 +1433,11 @@ pub mod logs {
             pub(crate) pipeline_id: i32,
             pub(crate) run_id: i32,
             pub(crate) log_id: i32,
-            pub(crate) expand: Option<String>,
+            pub(crate) expand: Option<models::GetLogExpandOptions>,
         }
         impl RequestBuilder {
             #[doc = "Expand options. Default is None."]
-            pub fn expand(mut self, expand: impl Into<String>) -> Self {
+            pub fn expand(mut self, expand: impl Into<models::GetLogExpandOptions>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
@@ -1466,7 +1466,7 @@ pub mod logs {
                         if let Some(expand) = &this.expand {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("$expand", expand);
+                                .append_pair("$expand", &expand.to_string());
                         }
                         let req_body = azure_core::Bytes::new();
                         req.set_body(req_body);

@@ -667,6 +667,34 @@ impl FeedRetentionPolicy {
         Self::default()
     }
 }
+#[doc = "Filter by this role, either Administrator(4), Contributor(3), or Reader(2) level permissions."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum FeedRole {
+    #[serde(rename = "custom")]
+    Custom,
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "reader")]
+    Reader,
+    #[serde(rename = "contributor")]
+    Contributor,
+    #[serde(rename = "administrator")]
+    Administrator,
+    #[serde(rename = "collaborator")]
+    Collaborator,
+}
+impl std::fmt::Display for FeedRole {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Custom => write!(f, "custom"),
+            Self::None => write!(f, "none"),
+            Self::Reader => write!(f, "reader"),
+            Self::Contributor => write!(f, "contributor"),
+            Self::Administrator => write!(f, "administrator"),
+            Self::Collaborator => write!(f, "collaborator"),
+        }
+    }
+}
 #[doc = "Update a feed definition with these new values."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct FeedUpdate {

@@ -929,6 +929,31 @@ impl PropertiesCollection {
         Self::default()
     }
 }
+#[doc = "The membership information to include with the identities. Values can be None for no membership data or Direct to include the groups that the identity is a member of and the identities that are a member of this identity (groups only)"]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum QueryMembership {
+    #[serde(rename = "none")]
+    None,
+    #[serde(rename = "direct")]
+    Direct,
+    #[serde(rename = "expanded")]
+    Expanded,
+    #[serde(rename = "expandedUp")]
+    ExpandedUp,
+    #[serde(rename = "expandedDown")]
+    ExpandedDown,
+}
+impl std::fmt::Display for QueryMembership {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::None => write!(f, "none"),
+            Self::Direct => write!(f, "direct"),
+            Self::Expanded => write!(f, "expanded"),
+            Self::ExpandedUp => write!(f, "expandedUp"),
+            Self::ExpandedDown => write!(f, "expandedDown"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct RefreshTokenGrant {
     #[serde(flatten)]

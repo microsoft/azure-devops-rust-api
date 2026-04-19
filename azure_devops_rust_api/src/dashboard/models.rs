@@ -744,6 +744,21 @@ impl WidgetResponse {
         Self::default()
     }
 }
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum WidgetScope {
+    #[serde(rename = "collection_User")]
+    CollectionUser,
+    #[serde(rename = "project_Team")]
+    ProjectTeam,
+}
+impl std::fmt::Display for WidgetScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::CollectionUser => write!(f, "collection_User"),
+            Self::ProjectTeam => write!(f, "project_Team"),
+        }
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct WidgetSize {
     #[doc = "The Width of the widget, expressed in dashboard grid columns."]

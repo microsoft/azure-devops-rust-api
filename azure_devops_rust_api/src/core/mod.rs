@@ -540,7 +540,7 @@ pub mod projects {
         pub struct RequestBuilder {
             pub(crate) client: super::super::Client,
             pub(crate) organization: String,
-            pub(crate) state_filter: Option<String>,
+            pub(crate) state_filter: Option<models::ProjectState>,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
             pub(crate) continuation_token: Option<i32>,
@@ -548,7 +548,7 @@ pub mod projects {
         }
         impl RequestBuilder {
             #[doc = "Filter on team projects in a specific team project state (default: WellFormed)."]
-            pub fn state_filter(mut self, state_filter: impl Into<String>) -> Self {
+            pub fn state_filter(mut self, state_filter: impl Into<models::ProjectState>) -> Self {
                 self.state_filter = Some(state_filter.into());
                 self
             }
@@ -594,7 +594,7 @@ pub mod projects {
                         if let Some(state_filter) = &this.state_filter {
                             req.url_mut()
                                 .query_pairs_mut()
-                                .append_pair("stateFilter", state_filter);
+                                .append_pair("stateFilter", &state_filter.to_string());
                         }
                         if let Some(top) = &this.top {
                             req.url_mut()

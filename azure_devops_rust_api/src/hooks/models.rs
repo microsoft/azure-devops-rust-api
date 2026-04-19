@@ -1019,6 +1019,28 @@ impl NotificationList {
         Self::default()
     }
 }
+#[doc = "Get only notifications with this result type."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum NotificationResult {
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "succeeded")]
+    Succeeded,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "filtered")]
+    Filtered,
+}
+impl std::fmt::Display for NotificationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Pending => write!(f, "pending"),
+            Self::Succeeded => write!(f, "succeeded"),
+            Self::Failed => write!(f, "failed"),
+            Self::Filtered => write!(f, "filtered"),
+        }
+    }
+}
 #[doc = "Summary of a particular result and count."]
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
 pub struct NotificationResultsSummaryDetail {
@@ -1060,6 +1082,28 @@ pub mod notification_results_summary_detail {
                 Self::Failed => write!(f, "failed"),
                 Self::Filtered => write!(f, "filtered"),
             }
+        }
+    }
+}
+#[doc = "Get only notifications with this status."]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum NotificationStatus {
+    #[serde(rename = "queued")]
+    Queued,
+    #[serde(rename = "processing")]
+    Processing,
+    #[serde(rename = "requestInProgress")]
+    RequestInProgress,
+    #[serde(rename = "completed")]
+    Completed,
+}
+impl std::fmt::Display for NotificationStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Queued => write!(f, "queued"),
+            Self::Processing => write!(f, "processing"),
+            Self::RequestInProgress => write!(f, "requestInProgress"),
+            Self::Completed => write!(f, "completed"),
         }
     }
 }
