@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - All generated enum types now implement `std::fmt::Display`.
 
+### Dependencies
+
+- Update `azure_core` and `azure_identity` to 0.35.
+
 ### Changed
 
 - **Breaking:** Query and path parameters that accept a fixed set of values are
