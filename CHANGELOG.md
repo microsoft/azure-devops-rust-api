@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `artifacts_download`: use `Url::path_segments_mut` for URL construction to prevent path injection via user-controlled segments.
+- `artifacts_download`: reject manifest entries containing `..` path components to prevent path traversal.
+- `artifacts_download`: normalize blob ID map keys to uppercase for consistent matching against locally-generated IDs.
+- `artifacts_download`: batch-resolve all file root blob URLs in a single request instead of one per file.
+- `artifacts_download`: cap deserialization error message previews at 512 bytes.
+- `artifacts_download`: guard `Vec::with_capacity` against `i64`-to-`usize` overflow on 32-bit targets.
+- `artifacts_download`: simplify `nibble_pos` type in decompressor (unused boolean removed).
+
 ### Added
 
 - All generated enum types now implement `std::fmt::Display`.

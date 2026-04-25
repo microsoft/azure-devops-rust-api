@@ -27,7 +27,7 @@ pub fn decompress_chunk(compressed: &[u8]) -> Result<Vec<u8>> {
     let mut output = Vec::with_capacity(compressed.len() * 4);
     let mut ci = 0usize;
     let mut indicator: i32;
-    let mut nibble_pos: Option<(usize, bool)> = None;
+    let mut nibble_pos: Option<usize> = None;
 
     // When true, the current indicator MSB is a literal-encoding bit (not a
     // decision bit). This happens after reading a fresh indicator whose raw
@@ -152,8 +152,9 @@ fn process_match(
     compressed: &[u8],
     ci: &mut usize,
     output: &mut Vec<u8>,
-    nibble_pos: &mut Option<(usize, bool)>,
+    nibble_pos: &mut Option<usize>,
 ) -> Result<()> {
+    // Caller ensures ci + 1 < compressed.len(), so this 2-byte read is in bounds.
     let v = u16::from_le_bytes(compressed[*ci..*ci + 2].try_into().unwrap());
     *ci += 2;
 
@@ -161,7 +162,7 @@ fn process_match(
     let offset = ((v >> 3) as usize) + 1;
 
     if match_len == 7 {
-        let nibble_val = if let Some((nib_idx, _)) = nibble_pos.take() {
+        let nibble_val = if let Some(nib_idx) = nibble_pos.take() {
             (compressed[nib_idx] >> 4) as usize
         } else {
             if *ci >= compressed.len() {
@@ -172,7 +173,7 @@ fn process_match(
             }
             let nib_idx = *ci;
             *ci += 1;
-            *nibble_pos = Some((nib_idx, true));
+            *nibble_pos = Some(nib_idx);
             (compressed[nib_idx] & 0x0F) as usize
         };
 

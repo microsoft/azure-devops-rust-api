@@ -189,12 +189,16 @@ impl Client {
         let resp = self.send(&mut req).await?;
         let body = resp.into_body();
         serde_json::from_slice(&body).map_err(|e| {
+            const MAX_PREVIEW: usize = 512;
+            let truncated = body.len() > MAX_PREVIEW;
+            let preview = String::from_utf8_lossy(&body[..body.len().min(MAX_PREVIEW)]);
             Error::with_error(
                 ErrorKind::DataConversion,
                 e,
                 format!(
-                    "Failed to deserialize response:\n{}",
-                    String::from_utf8_lossy(&body)
+                    "Failed to deserialize response:\n{}{}",
+                    preview,
+                    if truncated { "…" } else { "" }
                 ),
             )
         })
@@ -214,11 +218,10 @@ impl Client {
     /// Discover Azure DevOps service URLs via the ResourceAreas API.
     /// Returns a map of service name -> location URL.
     pub async fn discover_services(&self, organization: &str) -> Result<HashMap<String, String>> {
-        let url = Url::parse(&format!(
-            "https://dev.azure.com/{}/_apis/ResourceAreas",
-            organization
-        ))
-        .with_context(ErrorKind::DataConversion, "invalid organization URL")?;
+        let mut url = Url::parse("https://dev.azure.com").expect("hardcoded base URL is valid");
+        url.path_segments_mut()
+            .expect("https URL is always a base")
+            .extend(&[organization, "_apis", "ResourceAreas"]);
 
         let areas: ResourceAreasResponse = self.get_json(url).await?;
         let map: HashMap<String, String> = areas
@@ -232,9 +235,9 @@ impl Client {
     /// Find the packages service URL from discovered services.
     pub fn find_packages_url(services: &HashMap<String, String>, organization: &str) -> String {
         services
-            .values()
-            .find(|url| url.contains("pkgs."))
+            .get("packaging")
             .cloned()
+            .or_else(|| services.values().find(|url| url.contains("pkgs.")).cloned())
             .unwrap_or_else(|| format!("https://pkgs.dev.azure.com/{}", organization))
     }
 
@@ -259,15 +262,25 @@ impl Client {
         name: &str,
         version: &str,
     ) -> Result<PackageMetadata> {
-        let mut url = Url::parse(&format!(
-            "{}/{}/_packaging/{}/upack/packages/{}/versions/{}",
-            packages_url.trim_end_matches('/'),
-            project,
-            feed,
-            name,
-            version,
-        ))
-        .with_context(ErrorKind::DataConversion, "invalid package metadata URL")?;
+        let mut url = Url::parse(packages_url.trim_end_matches('/'))
+            .with_context(ErrorKind::DataConversion, "invalid packages URL")?;
+        url.path_segments_mut()
+            .map_err(|()| {
+                Error::with_message(
+                    ErrorKind::DataConversion,
+                    "packages URL is not a valid base URL",
+                )
+            })?
+            .extend(&[
+                project,
+                "_packaging",
+                feed,
+                "upack",
+                "packages",
+                name,
+                "versions",
+                version,
+            ]);
 
         url.query_pairs_mut().append_pair("intent", "Download");
         self.get_json(url).await
@@ -281,11 +294,16 @@ impl Client {
         blob_service_url: &str,
         blob_ids: &[String],
     ) -> Result<HashMap<String, String>> {
-        let mut url = Url::parse(&format!(
-            "{}/_apis/dedup/urls",
-            blob_service_url.trim_end_matches('/')
-        ))
-        .with_context(ErrorKind::DataConversion, "invalid dedup URL")?;
+        let mut url = Url::parse(blob_service_url.trim_end_matches('/'))
+            .with_context(ErrorKind::DataConversion, "invalid dedup URL")?;
+        url.path_segments_mut()
+            .map_err(|()| {
+                Error::with_message(
+                    ErrorKind::DataConversion,
+                    "dedup service URL is not a valid base URL",
+                )
+            })?
+            .extend(&["_apis", "dedup", "urls"]);
 
         url.query_pairs_mut().append_pair("allowEdge", "true");
 
@@ -306,13 +324,18 @@ impl Client {
 
         let resp = self.send(&mut req).await?;
         let body = resp.into_body();
-        serde_json::from_slice(&body).map_err(|e| {
+        let map: HashMap<String, String> = serde_json::from_slice(&body).map_err(|e| {
             Error::with_error(
                 ErrorKind::DataConversion,
                 e,
                 "Failed to parse blob URL response",
             )
-        })
+        })?;
+        // Normalize keys to uppercase so they always match locally-generated blob IDs.
+        Ok(map
+            .into_iter()
+            .map(|(k, v)| (k.to_uppercase(), v))
+            .collect())
     }
 
     /// Download a blob from a SAS URL (no auth required).
@@ -385,15 +408,6 @@ impl Client {
             chunk_ids.push(format!("{}01", hex_hash));
         }
 
-        if chunk_ids.is_empty() {
-            return Err(Error::with_message(
-                ErrorKind::DataConversion,
-                format!(
-                    "No chunk references found in dedup node blob ({} bytes)",
-                    data.len()
-                ),
-            ));
-        }
         Ok(chunk_ids)
     }
 
@@ -444,12 +458,15 @@ impl Client {
             )
         })?;
 
-        // Step 5: Download each file
+        // Step 5: Batch-resolve all file root blob URLs, then download each file
+        let all_file_blob_ids: Vec<String> =
+            manifest.items.iter().map(|i| i.blob.id.clone()).collect();
+        let all_root_urls = self
+            .resolve_blob_urls(&blob_service_url, &all_file_blob_ids)
+            .await?;
+
         for item in &manifest.items {
-            let file_root_urls = self
-                .resolve_blob_urls(&blob_service_url, std::slice::from_ref(&item.blob.id))
-                .await?;
-            let file_root_url = file_root_urls
+            let file_root_url = all_root_urls
                 .get(&item.blob.id)
                 .ok_or_else(|| Error::with_message(ErrorKind::Other, "File root URL not found"))?;
             let file_root_data = self.download_blob(file_root_url).await?;
@@ -462,7 +479,9 @@ impl Client {
                     .resolve_blob_urls(&blob_service_url, &chunk_ids)
                     .await?;
 
-                let mut file_data = Vec::with_capacity(item.blob.size as usize);
+                let mut file_data = usize::try_from(item.blob.size)
+                    .map(Vec::with_capacity)
+                    .unwrap_or_default();
                 for chunk_id in &chunk_ids {
                     let chunk_url = chunk_urls.get(chunk_id).ok_or_else(|| {
                         Error::with_message(
@@ -480,6 +499,12 @@ impl Client {
             };
 
             let relative_path = item.path.trim_start_matches('/');
+            if relative_path.split('/').any(|c| c == "..") {
+                return Err(Error::with_message(
+                    ErrorKind::DataConversion,
+                    format!("Invalid path in manifest: {}", item.path),
+                ));
+            }
             let file_path = output_path.join(relative_path);
             if let Some(parent) = file_path.parent() {
                 std::fs::create_dir_all(parent).map_err(|e| {
