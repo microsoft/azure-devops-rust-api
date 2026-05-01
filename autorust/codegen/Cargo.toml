@@ -23,7 +23,7 @@ http-types = "2"
 once_cell = "1"
 syn = { version = "2", features = ["parsing"] }
 camino = "1"
-askama = "0.15"
+askama = "0.16"
 toml = "1.1"
 qstring = "0.7"
 cargo_toml = "0.22"
