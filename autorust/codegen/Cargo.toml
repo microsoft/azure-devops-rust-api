@@ -26,7 +26,7 @@ camino = "1"
 askama = "0.16"
 toml = "1.1"
 qstring = "0.7"
-cargo_toml = "0.22"
+cargo_toml = "1.0"
 
 [dev-dependencies]
 thiserror = "2"
