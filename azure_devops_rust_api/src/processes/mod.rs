@@ -422,7 +422,7 @@ pub mod groups {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}?removeFromPageId={}&removeFromSectionId={}" , self . client . endpoint () , & self . organization , & self . process_id , & self . wit_ref_name , & self . page_id , & self . section_id , & self . group_id , & self . remove_from_page_id , & self . remove_from_section_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}?removeFromPageId={}&removeFromSectionId={}" , self . client . endpoint () , self . organization , self . process_id , self . wit_ref_name , self . page_id , self . section_id , self . group_id , self . remove_from_page_id , self . remove_from_section_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -518,7 +518,7 @@ pub mod groups {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups" , self . client . endpoint () , & self . organization , & self . process_id , & self . wit_ref_name , & self . page_id , & self . section_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups" , self . client . endpoint () , self . organization , self . process_id , self . wit_ref_name , self . page_id , self . section_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -620,7 +620,7 @@ pub mod groups {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , & self . organization , & self . process_id , & self . wit_ref_name , & self . page_id , & self . section_id , & self . group_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , self . organization , self . process_id , self . wit_ref_name , self . page_id , self . section_id , self . group_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -717,7 +717,7 @@ pub mod groups {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , & self . organization , & self . process_id , & self . wit_ref_name , & self . page_id , & self . section_id , & self . group_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , self . organization , self . process_id , self . wit_ref_name , self . page_id , self . section_id , self . group_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -807,7 +807,7 @@ pub mod groups {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , & self . organization , & self . process_id , & self . wit_ref_name , & self . page_id , & self . section_id , & self . group_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}/sections/{}/groups/{}" , self . client . endpoint () , self . organization , self . process_id , self . wit_ref_name , self . page_id , self . section_id , self . group_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -998,7 +998,7 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1094,7 +1094,7 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1199,8 +1199,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_type_id
+                    self.organization,
+                    self.process_type_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1297,8 +1297,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_type_id
+                    self.organization,
+                    self.process_type_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1388,8 +1388,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_type_id
+                    self.organization,
+                    self.process_type_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1602,8 +1602,8 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1700,8 +1700,8 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1807,9 +1807,9 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/behaviors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1907,9 +1907,9 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/behaviors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2000,9 +2000,9 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/behaviors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2219,8 +2219,8 @@ pub mod work_item_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2318,8 +2318,8 @@ pub mod work_item_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2426,9 +2426,9 @@ pub mod work_item_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2526,9 +2526,9 @@ pub mod work_item_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2619,9 +2619,9 @@ pub mod work_item_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2842,9 +2842,9 @@ pub mod fields {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/fields",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2946,9 +2946,9 @@ pub mod fields {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/fields",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3062,10 +3062,10 @@ pub mod fields {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/fields/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.field_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.field_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3168,10 +3168,10 @@ pub mod fields {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/fields/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.field_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.field_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3264,10 +3264,10 @@ pub mod fields {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/fields/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.field_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.field_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3395,9 +3395,9 @@ pub mod layout {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3613,10 +3613,10 @@ pub mod controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/groups/{}/controls",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.group_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3727,11 +3727,11 @@ pub mod controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/groups/{}/controls/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.group_id,
-                    &self.control_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.group_id,
+                    self.control_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3831,11 +3831,11 @@ pub mod controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/groups/{}/controls/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.group_id,
-                    &self.control_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.group_id,
+                    self.control_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3928,11 +3928,11 @@ pub mod controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/groups/{}/controls/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.group_id,
-                    &self.control_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.group_id,
+                    self.control_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4107,9 +4107,9 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4205,9 +4205,9 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4299,10 +4299,10 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/pages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.page_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.page_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4476,9 +4476,9 @@ pub mod system_controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/systemcontrols",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4577,10 +4577,10 @@ pub mod system_controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/systemcontrols/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.control_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.control_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4677,10 +4677,10 @@ pub mod system_controls {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/layout/systemcontrols/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.control_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.control_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4894,9 +4894,9 @@ pub mod rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/rules",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4994,9 +4994,9 @@ pub mod rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/rules",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5093,10 +5093,10 @@ pub mod rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/rules/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.rule_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.rule_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5195,10 +5195,10 @@ pub mod rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/rules/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.rule_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.rule_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5290,10 +5290,10 @@ pub mod rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/rules/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.rule_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.rule_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5537,9 +5537,9 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5641,9 +5641,9 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5744,10 +5744,10 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.state_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.state_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5850,10 +5850,10 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.state_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.state_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5956,10 +5956,10 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.state_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.state_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6052,10 +6052,10 @@ pub mod states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workItemTypes/{}/states/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name,
-                    &self.state_id
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name,
+                    self.state_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6272,9 +6272,9 @@ pub mod work_item_types_behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypesbehaviors/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name_for_behaviors
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name_for_behaviors
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6373,9 +6373,9 @@ pub mod work_item_types_behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypesbehaviors/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name_for_behaviors
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name_for_behaviors
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6473,9 +6473,9 @@ pub mod work_item_types_behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypesbehaviors/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name_for_behaviors
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name_for_behaviors
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6572,10 +6572,10 @@ pub mod work_item_types_behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypesbehaviors/{}/behaviors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name_for_behaviors,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name_for_behaviors,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6667,10 +6667,10 @@ pub mod work_item_types_behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/{}/workitemtypesbehaviors/{}/behaviors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.wit_ref_name_for_behaviors,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.wit_ref_name_for_behaviors,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6853,7 +6853,7 @@ pub mod lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/lists",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6949,7 +6949,7 @@ pub mod lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/lists",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7044,8 +7044,8 @@ pub mod lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/lists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.list_id
+                    self.organization,
+                    self.list_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7142,8 +7142,8 @@ pub mod lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/lists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.list_id
+                    self.organization,
+                    self.list_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7233,8 +7233,8 @@ pub mod lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processes/lists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.list_id
+                    self.organization,
+                    self.list_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

@@ -338,7 +338,7 @@ pub mod roleassignments {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}?inheritPermissions={}" , self . client . endpoint () , & self . organization , & self . scope_id , & self . resource_id , & self . inherit_permissions)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}?inheritPermissions={}" , self . client . endpoint () , self . organization , self . scope_id , self . resource_id , self . inherit_permissions)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -436,9 +436,9 @@ pub mod roleassignments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id,
-                    &self.resource_id
+                    self.organization,
+                    self.scope_id,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -552,9 +552,9 @@ pub mod roleassignments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id,
-                    &self.resource_id
+                    self.organization,
+                    self.scope_id,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -647,9 +647,9 @@ pub mod roleassignments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id,
-                    &self.resource_id
+                    self.organization,
+                    self.scope_id,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -751,10 +751,10 @@ pub mod roleassignments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id,
-                    &self.resource_id,
-                    &self.identity_id
+                    self.organization,
+                    self.scope_id,
+                    self.resource_id,
+                    self.identity_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -846,10 +846,10 @@ pub mod roleassignments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roleassignments/resources/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id,
-                    &self.resource_id,
-                    &self.identity_id
+                    self.organization,
+                    self.scope_id,
+                    self.resource_id,
+                    self.identity_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -970,8 +970,8 @@ pub mod roledefinitions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securityroles/scopes/{}/roledefinitions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_id
+                    self.organization,
+                    self.scope_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

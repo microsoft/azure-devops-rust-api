@@ -265,8 +265,8 @@ pub mod access_control_entries {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/accesscontrolentries/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -380,8 +380,8 @@ pub mod access_control_entries {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/accesscontrolentries/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -586,8 +586,8 @@ pub mod access_control_lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/accesscontrollists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -679,8 +679,8 @@ pub mod access_control_lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/accesscontrollists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -798,8 +798,8 @@ pub mod access_control_lists {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/accesscontrollists/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1002,9 +1002,9 @@ pub mod permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissions/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id,
-                    &self.permissions
+                    self.organization,
+                    self.security_namespace_id,
+                    self.permissions
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1114,9 +1114,9 @@ pub mod permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissions/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id,
-                    &self.permissions
+                    self.organization,
+                    self.security_namespace_id,
+                    self.permissions
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1215,7 +1215,7 @@ pub mod permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/security/permissionevaluationbatch",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1352,8 +1352,8 @@ pub mod security_namespaces {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/securitynamespaces/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.security_namespace_id
+                    self.organization,
+                    self.security_namespace_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

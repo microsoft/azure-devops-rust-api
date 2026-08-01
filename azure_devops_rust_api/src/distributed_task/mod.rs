@@ -299,10 +299,10 @@ pub mod events {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/events",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_identifier,
-                    &self.hub_name,
-                    &self.plan_id
+                    self.organization,
+                    self.scope_identifier,
+                    self.hub_name,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -452,11 +452,11 @@ pub mod oidctoken {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/jobs/{}/oidctoken",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_identifier,
-                    &self.hub_name,
-                    &self.plan_id,
-                    &self.job_id
+                    self.organization,
+                    self.scope_identifier,
+                    self.hub_name,
+                    self.plan_id,
+                    self.job_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -618,10 +618,10 @@ pub mod logs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/logs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_identifier,
-                    &self.hub_name,
-                    &self.plan_id
+                    self.organization,
+                    self.scope_identifier,
+                    self.hub_name,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -721,11 +721,11 @@ pub mod logs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/logs/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_identifier,
-                    &self.hub_name,
-                    &self.plan_id,
-                    &self.log_id
+                    self.organization,
+                    self.scope_identifier,
+                    self.hub_name,
+                    self.plan_id,
+                    self.log_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -863,11 +863,11 @@ pub mod records {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/hubs/{}/plans/{}/timelines/{}/records",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.scope_identifier,
-                    &self.hub_name,
-                    &self.plan_id,
-                    &self.timeline_id
+                    self.organization,
+                    self.scope_identifier,
+                    self.hub_name,
+                    self.plan_id,
+                    self.timeline_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1117,7 +1117,7 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools?",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1230,7 +1230,7 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1326,7 +1326,7 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1446,8 +1446,8 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1544,8 +1544,8 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1635,8 +1635,8 @@ pub mod pools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1900,9 +1900,9 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues?queueNames={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.queue_names
+                    self.organization,
+                    self.project,
+                    self.queue_names
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2016,9 +2016,9 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues?queueIds={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.queue_ids
+                    self.organization,
+                    self.project,
+                    self.queue_ids
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2138,8 +2138,8 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues?",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2253,8 +2253,8 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2363,8 +2363,8 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2474,9 +2474,9 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.queue_id
+                    self.organization,
+                    self.project,
+                    self.queue_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2567,9 +2567,9 @@ pub mod queues {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/queues/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.queue_id
+                    self.organization,
+                    self.project,
+                    self.queue_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2865,8 +2865,8 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/variablegroups?",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2962,7 +2962,7 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/variablegroups",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3058,7 +3058,7 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/variablegroups",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3158,8 +3158,8 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/variablegroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3254,8 +3254,8 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/variablegroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3358,8 +3358,8 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/variablegroups",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3455,9 +3455,9 @@ pub mod variablegroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/variablegroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.group_id
+                    self.organization,
+                    self.project,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3623,7 +3623,7 @@ pub mod agentclouds {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3719,7 +3719,7 @@ pub mod agentclouds {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3814,8 +3814,8 @@ pub mod agentclouds {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.agent_cloud_id
+                    self.organization,
+                    self.agent_cloud_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3912,8 +3912,8 @@ pub mod agentclouds {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.agent_cloud_id
+                    self.organization,
+                    self.agent_cloud_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4008,8 +4008,8 @@ pub mod agentclouds {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.agent_cloud_id
+                    self.organization,
+                    self.agent_cloud_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4130,8 +4130,8 @@ pub mod requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentclouds/{}/requests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.agent_cloud_id
+                    self.organization,
+                    self.agent_cloud_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4249,7 +4249,7 @@ pub mod agentcloudtypes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/agentcloudtypes",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4552,8 +4552,8 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4650,8 +4650,8 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4799,9 +4799,9 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id,
-                    &self.agent_id
+                    self.organization,
+                    self.pool_id,
+                    self.agent_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4899,9 +4899,9 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id,
-                    &self.agent_id
+                    self.organization,
+                    self.pool_id,
+                    self.agent_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4999,9 +4999,9 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id,
-                    &self.agent_id
+                    self.organization,
+                    self.pool_id,
+                    self.agent_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5092,9 +5092,9 @@ pub mod agents {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/pools/{}/agents/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id,
-                    &self.agent_id
+                    self.organization,
+                    self.pool_id,
+                    self.agent_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5223,7 +5223,7 @@ pub mod yamlschema {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/yamlschema",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5496,8 +5496,8 @@ pub mod deploymentgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5594,8 +5594,8 @@ pub mod deploymentgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5716,9 +5716,9 @@ pub mod deploymentgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5816,9 +5816,9 @@ pub mod deploymentgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5909,9 +5909,9 @@ pub mod deploymentgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6227,9 +6227,9 @@ pub mod targets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}/targets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6327,9 +6327,9 @@ pub mod targets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}/targets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6437,10 +6437,10 @@ pub mod targets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}/targets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id,
-                    &self.target_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id,
+                    self.target_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6532,10 +6532,10 @@ pub mod targets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/deploymentgroups/{}/targets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.deployment_group_id,
-                    &self.target_id
+                    self.organization,
+                    self.project,
+                    self.deployment_group_id,
+                    self.target_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6773,8 +6773,8 @@ pub mod environments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6872,8 +6872,8 @@ pub mod environments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6980,9 +6980,9 @@ pub mod environments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id
+                    self.organization,
+                    self.project,
+                    self.environment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7080,9 +7080,9 @@ pub mod environments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id
+                    self.organization,
+                    self.project,
+                    self.environment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7173,9 +7173,9 @@ pub mod environments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id
+                    self.organization,
+                    self.project,
+                    self.environment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7329,9 +7329,9 @@ pub mod environmentdeployment_records {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}/environmentdeploymentrecords",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id
+                    self.organization,
+                    self.project,
+                    self.environment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7496,9 +7496,9 @@ pub mod kubernetes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}/providers/kubernetes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id
+                    self.organization,
+                    self.project,
+                    self.environment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7595,10 +7595,10 @@ pub mod kubernetes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}/providers/kubernetes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id,
-                    &self.resource_id
+                    self.organization,
+                    self.project,
+                    self.environment_id,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7690,10 +7690,10 @@ pub mod kubernetes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/environments/{}/providers/kubernetes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.environment_id,
-                    &self.resource_id
+                    self.organization,
+                    self.project,
+                    self.environment_id,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7889,8 +7889,8 @@ pub mod taskgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/taskgroups",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8060,9 +8060,9 @@ pub mod taskgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/taskgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.task_group_id
+                    self.organization,
+                    self.project,
+                    self.task_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8160,9 +8160,9 @@ pub mod taskgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/taskgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.task_group_id
+                    self.organization,
+                    self.project,
+                    self.task_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8264,9 +8264,9 @@ pub mod taskgroups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/distributedtask/taskgroups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.task_group_id
+                    self.organization,
+                    self.project,
+                    self.task_group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8435,7 +8435,7 @@ pub mod elasticpools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8579,7 +8579,7 @@ pub mod elasticpools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8675,8 +8675,8 @@ pub mod elasticpools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8773,8 +8773,8 @@ pub mod elasticpools {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8903,8 +8903,8 @@ pub mod elasticpoollogs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools/{}/logs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9052,8 +9052,8 @@ pub mod nodes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools/{}/nodes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id
+                    self.organization,
+                    self.pool_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9151,9 +9151,9 @@ pub mod nodes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/distributedtask/elasticpools/{}/nodes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.pool_id,
-                    &self.elastic_node_id
+                    self.organization,
+                    self.pool_id,
+                    self.elastic_node_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

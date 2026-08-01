@@ -56,7 +56,7 @@ impl Credential {
             // PAT tokens are passed using Basic authentication.
             Credential::Pat(pat) => Ok(Some(format!(
                 "Basic {}",
-                BASE64_STANDARD.encode(format!(":{}", &pat))
+                BASE64_STANDARD.encode(format!(":{}", pat))
             ))),
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {

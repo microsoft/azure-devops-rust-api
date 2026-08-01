@@ -276,8 +276,8 @@ pub mod personal_access_tokens {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokenadmin/personalaccesstokens/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -395,7 +395,7 @@ pub mod revocation_rules {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokenadmin/revocationrules",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -527,7 +527,7 @@ pub mod revocations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokenadmin/revocations",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

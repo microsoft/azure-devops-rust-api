@@ -259,7 +259,7 @@ pub mod permissions_report {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissionsreport",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -355,7 +355,7 @@ pub mod permissions_report {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissionsreport",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -450,8 +450,8 @@ pub mod permissions_report {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissionsreport/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -570,8 +570,8 @@ pub mod permissions_report_download {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/permissionsreport/{}/download",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

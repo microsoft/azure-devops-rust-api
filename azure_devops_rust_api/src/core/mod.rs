@@ -252,7 +252,7 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/process/processes",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -347,8 +347,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/process/processes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -627,7 +627,7 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -724,7 +724,7 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -842,8 +842,8 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -940,8 +940,8 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1036,8 +1036,8 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1141,8 +1141,8 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/properties",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1234,8 +1234,8 @@ pub mod projects {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/properties",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1375,8 +1375,8 @@ pub mod avatar {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/avatar",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1469,8 +1469,8 @@ pub mod avatar {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/avatar",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1633,8 +1633,8 @@ pub mod categorized_teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/categorizedteams/",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1920,8 +1920,8 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2018,8 +2018,8 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id
+                    self.organization,
+                    self.project_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2126,9 +2126,9 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id,
-                    &self.team_id
+                    self.organization,
+                    self.project_id,
+                    self.team_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2226,9 +2226,9 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id,
-                    &self.team_id
+                    self.organization,
+                    self.project_id,
+                    self.team_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2319,9 +2319,9 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id,
-                    &self.team_id
+                    self.organization,
+                    self.project_id,
+                    self.team_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2440,9 +2440,9 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/projects/{}/teams/{}/members",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project_id,
-                    &self.team_id
+                    self.organization,
+                    self.project_id,
+                    self.team_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2580,7 +2580,7 @@ pub mod teams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/teams",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

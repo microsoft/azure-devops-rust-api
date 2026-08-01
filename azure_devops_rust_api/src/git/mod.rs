@@ -521,10 +521,10 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}?includeParent={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.include_parent
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.include_parent
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -622,8 +622,8 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/deletedrepositories",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -722,8 +722,8 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/recycleBin/repositories",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -822,9 +822,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/recycleBin/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -915,9 +915,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/recycleBin/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1048,8 +1048,8 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1157,8 +1157,8 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1254,9 +1254,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1354,9 +1354,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1447,9 +1447,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2059,9 +2059,9 @@ pub mod commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits?",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2195,9 +2195,9 @@ pub mod commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2305,10 +2305,10 @@ pub mod commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.commit_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.commit_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2427,10 +2427,10 @@ pub mod commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits/{}/changes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.commit_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.commit_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2561,9 +2561,9 @@ pub mod commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commitsbatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2912,10 +2912,10 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/items?path={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.path
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.path
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3154,9 +3154,9 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/items",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3254,9 +3254,9 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/itemsbatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3465,10 +3465,10 @@ pub mod stats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/stats/branches?name={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3617,9 +3617,9 @@ pub mod stats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/stats/branches",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3821,8 +3821,8 @@ pub mod refs_favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/favorites/refs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3919,8 +3919,8 @@ pub mod refs_favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/favorites/refs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4016,9 +4016,9 @@ pub mod refs_favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/favorites/refs/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.favorite_id
+                    self.organization,
+                    self.project,
+                    self.favorite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4109,9 +4109,9 @@ pub mod refs_favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/favorites/refs/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.favorite_id
+                    self.organization,
+                    self.project,
+                    self.favorite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4310,8 +4310,8 @@ pub mod policy_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/policy/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4792,8 +4792,8 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/pullrequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4889,9 +4889,9 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/pullrequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5203,9 +5203,9 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullrequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5315,9 +5315,9 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullrequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5470,10 +5470,10 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullrequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5595,10 +5595,10 @@ pub mod pull_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullrequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5750,9 +5750,9 @@ pub mod annotated_tags {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/annotatedtags",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5849,10 +5849,10 @@ pub mod annotated_tags {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/annotatedtags/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.object_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.object_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6017,9 +6017,9 @@ pub mod blobs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/blobs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6160,10 +6160,10 @@ pub mod blobs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/blobs/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.sha1
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.sha1
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6339,9 +6339,9 @@ pub mod cherry_picks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/cherryPicks",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6439,9 +6439,9 @@ pub mod cherry_picks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/cherryPicks",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6538,10 +6538,10 @@ pub mod cherry_picks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/cherryPicks/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.cherry_pick_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.cherry_pick_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6731,10 +6731,10 @@ pub mod statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.commit_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.commit_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -6833,10 +6833,10 @@ pub mod statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.commit_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.commit_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7083,9 +7083,9 @@ pub mod diffs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/diffs/commits",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7291,9 +7291,9 @@ pub mod import_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/importRequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7391,9 +7391,9 @@ pub mod import_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/importRequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7490,10 +7490,10 @@ pub mod import_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/importRequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.import_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.import_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7592,10 +7592,10 @@ pub mod import_requests {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/importRequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.import_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.import_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7725,9 +7725,9 @@ pub mod pull_request_query {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullrequestquery",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -7934,10 +7934,10 @@ pub mod pull_request_attachments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/attachments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8033,11 +8033,11 @@ pub mod pull_request_attachments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/attachments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.file_name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.file_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8137,11 +8137,11 @@ pub mod pull_request_attachments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/attachments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.file_name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.file_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8234,11 +8234,11 @@ pub mod pull_request_attachments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/attachments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.file_name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.file_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8421,10 +8421,10 @@ pub mod pull_request_commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/commits",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8544,11 +8544,11 @@ pub mod pull_request_commits {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/commits",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8717,10 +8717,10 @@ pub mod pull_request_iterations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8822,11 +8822,11 @@ pub mod pull_request_iterations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -8999,11 +8999,11 @@ pub mod pull_request_iteration_changes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/changes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9252,11 +9252,11 @@ pub mod pull_request_iteration_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9357,11 +9357,11 @@ pub mod pull_request_iteration_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9456,11 +9456,11 @@ pub mod pull_request_iteration_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9562,12 +9562,12 @@ pub mod pull_request_iteration_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/statuses/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id,
-                    &self.status_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id,
+                    self.status_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9661,12 +9661,12 @@ pub mod pull_request_iteration_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/iterations/{}/statuses/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.iteration_id,
-                    &self.status_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.iteration_id,
+                    self.status_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -9891,10 +9891,10 @@ pub mod pull_request_labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/labels",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10005,10 +10005,10 @@ pub mod pull_request_labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/labels",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10117,11 +10117,11 @@ pub mod pull_request_labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/labels/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.label_id_or_name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.label_id_or_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10225,11 +10225,11 @@ pub mod pull_request_labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/labels/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.label_id_or_name
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.label_id_or_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10386,10 +10386,10 @@ pub mod pull_request_properties {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/properties",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10488,10 +10488,10 @@ pub mod pull_request_properties {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/properties",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10804,10 +10804,10 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -10910,10 +10910,10 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11013,10 +11013,10 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11110,10 +11110,10 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11214,11 +11214,11 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.reviewer_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.reviewer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11318,11 +11318,11 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.reviewer_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.reviewer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11422,11 +11422,11 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.reviewer_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.reviewer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11519,11 +11519,11 @@ pub mod pull_request_reviewers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/reviewers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.reviewer_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.reviewer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11654,10 +11654,10 @@ pub mod pull_request_share {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/share",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11892,10 +11892,10 @@ pub mod pull_request_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -11995,10 +11995,10 @@ pub mod pull_request_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12092,10 +12092,10 @@ pub mod pull_request_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/statuses",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12196,11 +12196,11 @@ pub mod pull_request_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/statuses/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.status_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.status_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12293,11 +12293,11 @@ pub mod pull_request_statuses {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/statuses/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.status_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.status_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12536,10 +12536,10 @@ pub mod pull_request_threads {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12642,10 +12642,10 @@ pub mod pull_request_threads {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12769,11 +12769,11 @@ pub mod pull_request_threads {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -12877,11 +12877,11 @@ pub mod pull_request_threads {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13130,11 +13130,11 @@ pub mod pull_request_thread_comments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13234,11 +13234,11 @@ pub mod pull_request_thread_comments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13337,12 +13337,12 @@ pub mod pull_request_thread_comments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id,
-                    &self.comment_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id,
+                    self.comment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13443,12 +13443,12 @@ pub mod pull_request_thread_comments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id,
-                    &self.comment_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id,
+                    self.comment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13542,12 +13542,12 @@ pub mod pull_request_thread_comments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id,
-                    &self.thread_id,
-                    &self.comment_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id,
+                    self.thread_id,
+                    self.comment_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -13740,7 +13740,7 @@ pub mod pull_request_comment_likes {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , & self . organization , & self . project , & self . repository_id , & self . pull_request_id , & self . thread_id , & self . comment_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , self . organization , self . project , self . repository_id , self . pull_request_id , self . thread_id , self . comment_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -13831,7 +13831,7 @@ pub mod pull_request_comment_likes {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , & self . organization , & self . project , & self . repository_id , & self . pull_request_id , & self . thread_id , & self . comment_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , self . organization , self . project , self . repository_id , self . pull_request_id , self . thread_id , self . comment_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -13924,7 +13924,7 @@ pub mod pull_request_comment_likes {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , & self . organization , & self . project , & self . repository_id , & self . pull_request_id , & self . thread_id , & self . comment_id)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/threads/{}/comments/{}/likes" , self . client . endpoint () , self . organization , self . project , self . repository_id , self . pull_request_id , self . thread_id , self . comment_id)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -14055,10 +14055,10 @@ pub mod pull_request_work_items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pullRequests/{}/workitems",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.pull_request_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.pull_request_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -14353,9 +14353,9 @@ pub mod pushes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pushes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -14453,9 +14453,9 @@ pub mod pushes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pushes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -14574,10 +14574,10 @@ pub mod pushes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/pushes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.push_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.push_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -14860,9 +14860,9 @@ pub mod refs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/refs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -14974,9 +14974,9 @@ pub mod refs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/refs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15091,9 +15091,9 @@ pub mod refs {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/refs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15269,9 +15269,9 @@ pub mod reverts {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/reverts",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15369,9 +15369,9 @@ pub mod reverts {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/reverts",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15468,10 +15468,10 @@ pub mod reverts {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/reverts/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.revert_id
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.revert_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15596,9 +15596,9 @@ pub mod suggestions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/suggestions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id
+                    self.organization,
+                    self.project,
+                    self.repository_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15775,10 +15775,10 @@ pub mod trees {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/trees/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_id,
-                    &self.sha1
+                    self.organization,
+                    self.project,
+                    self.repository_id,
+                    self.sha1
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -15939,10 +15939,10 @@ pub mod merge_bases {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/commits/{}/mergebases",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id,
-                    &self.commit_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id,
+                    self.commit_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16150,10 +16150,10 @@ pub mod forks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/forks/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id,
-                    &self.collection_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id,
+                    self.collection_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16274,9 +16274,9 @@ pub mod forks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/forkSyncRequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16386,9 +16386,9 @@ pub mod forks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/forkSyncRequests",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16496,10 +16496,10 @@ pub mod forks {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/forkSyncRequests/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id,
-                    &self.fork_sync_operation_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id,
+                    self.fork_sync_operation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16664,9 +16664,9 @@ pub mod merges {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/merges",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -16774,10 +16774,10 @@ pub mod merges {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/git/repositories/{}/merges/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository_name_or_id,
-                    &self.merge_operation_id
+                    self.organization,
+                    self.project,
+                    self.repository_name_or_id,
+                    self.merge_operation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
