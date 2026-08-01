@@ -301,7 +301,7 @@ pub mod consumers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/consumers",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -406,8 +406,8 @@ pub mod consumers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/consumers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.consumer_id
+                    self.organization,
+                    self.consumer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -512,8 +512,8 @@ pub mod consumers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/consumers/{}/actions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.consumer_id
+                    self.organization,
+                    self.consumer_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -619,9 +619,9 @@ pub mod consumers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/consumers/{}/actions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.consumer_id,
-                    &self.consumer_action_id
+                    self.organization,
+                    self.consumer_id,
+                    self.consumer_action_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -795,7 +795,7 @@ pub mod notifications {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/notificationsquery",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -923,8 +923,8 @@ pub mod notifications {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}/notifications",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1020,9 +1020,9 @@ pub mod notifications {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}/notifications/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id,
-                    &self.notification_id
+                    self.organization,
+                    self.subscription_id,
+                    self.notification_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1129,7 +1129,7 @@ pub mod notifications {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/testnotifications",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1323,7 +1323,7 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishers",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1418,8 +1418,8 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishers/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_id
+                    self.organization,
+                    self.publisher_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1517,8 +1517,8 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishers/{}/eventtypes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_id
+                    self.organization,
+                    self.publisher_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1615,9 +1615,9 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishers/{}/eventtypes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_id,
-                    &self.event_type_id
+                    self.organization,
+                    self.publisher_id,
+                    self.event_type_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1714,8 +1714,8 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishers/{}/inputValuesQuery",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_id
+                    self.organization,
+                    self.publisher_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1811,7 +1811,7 @@ pub mod publishers {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/publishersquery",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2053,7 +2053,7 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2149,7 +2149,7 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2244,8 +2244,8 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2342,8 +2342,8 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2433,8 +2433,8 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2533,7 +2533,7 @@ pub mod subscriptions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptionsquery",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2669,8 +2669,8 @@ pub mod diagnostics {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}/diagnostics",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2771,8 +2771,8 @@ pub mod diagnostics {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/hooks/subscriptions/{}/diagnostics",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subscription_id
+                    self.organization,
+                    self.subscription_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

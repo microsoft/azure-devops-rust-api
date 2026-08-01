@@ -245,7 +245,7 @@ pub mod actions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/actions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -422,7 +422,7 @@ pub mod audit_log {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/auditlog",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -572,7 +572,7 @@ pub mod download_log {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/downloadlog",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -775,7 +775,7 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -876,7 +876,7 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -972,7 +972,7 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1067,8 +1067,8 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.stream_id
+                    self.organization,
+                    self.stream_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1168,8 +1168,8 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.stream_id
+                    self.organization,
+                    self.stream_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1259,8 +1259,8 @@ pub mod streams {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/audit/streams/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.stream_id
+                    self.organization,
+                    self.stream_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

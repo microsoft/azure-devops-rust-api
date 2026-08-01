@@ -41,7 +41,7 @@ impl ToTokens for RequestBuilderSendCode {
         let request_builder = &self.request_builder;
 
         let url_args = self.url_args.iter().map(|url_arg| {
-            quote! { &self.#url_arg }
+            quote! { self.#url_arg }
         });
         let url_str_args = quote! { #(#url_args),* };
 

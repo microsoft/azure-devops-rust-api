@@ -310,7 +310,7 @@ pub mod group_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/groupentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -422,7 +422,7 @@ pub mod group_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/groupentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -518,8 +518,8 @@ pub mod group_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/groupentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -632,8 +632,8 @@ pub mod group_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/groupentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -757,8 +757,8 @@ pub mod group_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/groupentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -942,8 +942,8 @@ pub mod members {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/GroupEntitlements/{}/members",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id
+                    self.organization,
+                    self.group_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1034,9 +1034,9 @@ pub mod members {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/GroupEntitlements/{}/members/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id,
-                    &self.member_id
+                    self.organization,
+                    self.group_id,
+                    self.member_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1130,9 +1130,9 @@ pub mod members {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/GroupEntitlements/{}/members/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_id,
-                    &self.member_id
+                    self.organization,
+                    self.group_id,
+                    self.member_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1294,7 +1294,7 @@ pub mod member_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/memberentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1488,7 +1488,7 @@ pub mod service_principal_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/serviceprincipalentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1593,7 +1593,7 @@ pub mod service_principal_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/serviceprincipalentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1694,8 +1694,8 @@ pub mod service_principal_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/serviceprincipalentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.service_principal_id
+                    self.organization,
+                    self.service_principal_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1798,8 +1798,8 @@ pub mod service_principal_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/serviceprincipalentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.service_principal_id
+                    self.organization,
+                    self.service_principal_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1892,8 +1892,8 @@ pub mod service_principal_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/serviceprincipalentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.service_principal_id
+                    self.organization,
+                    self.service_principal_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2148,7 +2148,7 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2248,7 +2248,7 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2367,7 +2367,7 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2463,8 +2463,8 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_id
+                    self.organization,
+                    self.user_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2564,8 +2564,8 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_id
+                    self.organization,
+                    self.user_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2656,8 +2656,8 @@ pub mod user_entitlements {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlements/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_id
+                    self.organization,
+                    self.user_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2786,7 +2786,7 @@ pub mod user_entitlement_summary {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/userentitlementsummary",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

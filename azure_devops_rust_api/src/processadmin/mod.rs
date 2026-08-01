@@ -258,9 +258,9 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processadmin/{}/behaviors?behaviorRefName={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id,
-                    &self.behavior_ref_name
+                    self.organization,
+                    self.process_id,
+                    self.behavior_ref_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -355,8 +355,8 @@ pub mod behaviors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processadmin/{}/behaviors",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.process_id
+                    self.organization,
+                    self.process_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -509,8 +509,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processadmin/processes/export/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -629,7 +629,7 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processadmin/processes/import",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -724,8 +724,8 @@ pub mod processes {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/work/processadmin/processes/status/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

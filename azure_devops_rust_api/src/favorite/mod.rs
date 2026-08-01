@@ -430,9 +430,9 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites?ownerScopeType={}&ownerScopeId={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.owner_scope_type,
-                    &self.owner_scope_id
+                    self.organization,
+                    self.owner_scope_type,
+                    self.owner_scope_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -538,9 +538,9 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites?ownerScopeType={}&ownerScopeId={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.owner_scope_type,
-                    &self.owner_scope_id
+                    self.organization,
+                    self.owner_scope_type,
+                    self.owner_scope_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -667,7 +667,7 @@ pub mod favorites {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites?artifactType={}&artifactId={}&artifactScopeType={}" , self . client . endpoint () , & self . organization , & self . artifact_type , & self . artifact_id , & self . artifact_scope_type)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites?artifactType={}&artifactId={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . artifact_type , self . artifact_id , self . artifact_scope_type)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -783,7 +783,7 @@ pub mod favorites {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactType={}&artifactScopeType={}" , self . client . endpoint () , & self . organization , & self . favorite_id , & self . owner_scope_type , & self . owner_scope_id , & self . artifact_type , & self . artifact_scope_type)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactType={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_type , self . artifact_scope_type)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -918,7 +918,7 @@ pub mod favorites {
                 })
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactScopeType={}&artifactType={}" , self . client . endpoint () , & self . organization , & self . favorite_id , & self . owner_scope_type , & self . owner_scope_id , & self . artifact_scope_type , & self . artifact_type)) ? ;
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactScopeType={}&artifactType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_scope_type , self . artifact_type)) ? ;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
                     url.query_pairs_mut()
@@ -1052,7 +1052,7 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1148,7 +1148,7 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1274,8 +1274,8 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.favorite_id
+                    self.organization,
+                    self.favorite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1385,8 +1385,8 @@ pub mod favorites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/favorite/favorites/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.favorite_id
+                    self.organization,
+                    self.favorite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

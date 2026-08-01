@@ -264,8 +264,8 @@ pub mod descriptors {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/descriptors/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.storage_key
+                    self.organization,
+                    self.storage_key
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -496,7 +496,7 @@ pub mod groups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -614,7 +614,7 @@ pub mod groups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -709,8 +709,8 @@ pub mod groups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_descriptor
+                    self.organization,
+                    self.group_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -807,8 +807,8 @@ pub mod groups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_descriptor
+                    self.organization,
+                    self.group_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -898,8 +898,8 @@ pub mod groups {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/groups/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.group_descriptor
+                    self.organization,
+                    self.group_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1126,8 +1126,8 @@ pub mod memberships {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Memberships/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1223,9 +1223,9 @@ pub mod memberships {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor,
-                    &self.container_descriptor
+                    self.organization,
+                    self.subject_descriptor,
+                    self.container_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1321,9 +1321,9 @@ pub mod memberships {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor,
-                    &self.container_descriptor
+                    self.organization,
+                    self.subject_descriptor,
+                    self.container_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1414,9 +1414,9 @@ pub mod memberships {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor,
-                    &self.container_descriptor
+                    self.organization,
+                    self.subject_descriptor,
+                    self.container_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1510,9 +1510,9 @@ pub mod memberships {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/memberships/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor,
-                    &self.container_descriptor
+                    self.organization,
+                    self.subject_descriptor,
+                    self.container_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1636,8 +1636,8 @@ pub mod membership_states {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/membershipstates/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1751,7 +1751,7 @@ pub mod request_access {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/requestaccess",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1956,7 +1956,7 @@ pub mod service_principals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2064,7 +2064,7 @@ pub mod service_principals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2159,8 +2159,8 @@ pub mod service_principals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.service_principal_descriptor
+                    self.organization,
+                    self.service_principal_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2250,8 +2250,8 @@ pub mod service_principals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/serviceprincipals/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.service_principal_descriptor
+                    self.organization,
+                    self.service_principal_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2374,8 +2374,8 @@ pub mod storage_keys {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/storagekeys/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2497,7 +2497,7 @@ pub mod subject_lookup {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/subjectlookup",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2619,7 +2619,7 @@ pub mod subject_query {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/subjectquery",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2787,8 +2787,8 @@ pub mod avatars {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2880,8 +2880,8 @@ pub mod avatars {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2974,8 +2974,8 @@ pub mod avatars {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Subjects/{}/avatars",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.subject_descriptor
+                    self.organization,
+                    self.subject_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3208,7 +3208,7 @@ pub mod users {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3315,7 +3315,7 @@ pub mod users {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3410,8 +3410,8 @@ pub mod users {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_descriptor
+                    self.organization,
+                    self.user_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3508,8 +3508,8 @@ pub mod users {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_descriptor
+                    self.organization,
+                    self.user_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3599,8 +3599,8 @@ pub mod users {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/users/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_descriptor
+                    self.organization,
+                    self.user_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3721,8 +3721,8 @@ pub mod provider_info {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/graph/Users/{}/providerinfo",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.user_descriptor
+                    self.organization,
+                    self.user_descriptor
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

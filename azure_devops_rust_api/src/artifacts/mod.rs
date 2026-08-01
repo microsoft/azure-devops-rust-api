@@ -276,7 +276,7 @@ pub mod service_settings {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/packaging/globalpermissions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -372,7 +372,7 @@ pub mod service_settings {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/packaging/globalpermissions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -569,8 +569,8 @@ pub mod change_tracking {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feedchanges",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -666,9 +666,9 @@ pub mod change_tracking {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feedchanges/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -789,9 +789,9 @@ pub mod change_tracking {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/packagechanges",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -947,8 +947,8 @@ pub mod feed_recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feedrecyclebin",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1041,9 +1041,9 @@ pub mod feed_recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feedrecyclebin/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1137,9 +1137,9 @@ pub mod feed_recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feedrecyclebin/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1535,8 +1535,8 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feeds",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1631,8 +1631,8 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feeds",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1738,9 +1738,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feeds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1836,9 +1836,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feeds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1929,9 +1929,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/feeds/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2081,9 +2081,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/permissions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2181,9 +2181,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/permissions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2279,9 +2279,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/views",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2379,9 +2379,9 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/views",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2478,10 +2478,10 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/views/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.view_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.view_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2580,10 +2580,10 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/views/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.view_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.view_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2675,10 +2675,10 @@ pub mod feed_management {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/views/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.view_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.view_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2988,9 +2988,9 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/packagemetricsbatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3246,9 +3246,9 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/packages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3413,10 +3413,10 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/packages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3518,10 +3518,10 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/Packages/{}/versionmetricsbatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3652,10 +3652,10 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/Packages/{}/versions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3786,11 +3786,11 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/Packages/{}/versions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id,
-                    &self.package_version_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id,
+                    self.package_version_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3891,11 +3891,11 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/Packages/{}/Versions/{}/provenance",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id,
-                    &self.package_version_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id,
+                    self.package_version_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3991,10 +3991,10 @@ pub mod artifact_details {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/public/packaging/Feeds/{}/Packages/{}/badge",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4283,9 +4283,9 @@ pub mod recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/RecycleBin/Packages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4381,9 +4381,9 @@ pub mod recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/RecycleBin/Packages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4491,10 +4491,10 @@ pub mod recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/RecycleBin/Packages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4605,10 +4605,10 @@ pub mod recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/RecycleBin/Packages/{}/Versions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4721,11 +4721,11 @@ pub mod recycle_bin {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/RecycleBin/Packages/{}/Versions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id,
-                    &self.package_id,
-                    &self.package_version_id
+                    self.organization,
+                    self.project,
+                    self.feed_id,
+                    self.package_id,
+                    self.package_version_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4892,9 +4892,9 @@ pub mod retention_policies {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/retentionpolicies",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4992,9 +4992,9 @@ pub mod retention_policies {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/retentionpolicies",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5085,9 +5085,9 @@ pub mod retention_policies {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/packaging/Feeds/{}/retentionpolicies",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.feed_id
+                    self.organization,
+                    self.project,
+                    self.feed_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5220,9 +5220,9 @@ pub mod provenance {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/provenance/session/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.protocol
+                    self.organization,
+                    self.project,
+                    self.protocol
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

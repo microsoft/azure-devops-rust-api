@@ -353,7 +353,7 @@ pub mod pats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokens/pats?",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -452,7 +452,7 @@ pub mod pats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokens/pats",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -548,7 +548,7 @@ pub mod pats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokens/pats",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -644,7 +644,7 @@ pub mod pats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokens/pats",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -738,7 +738,7 @@ pub mod pats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tokens/pats",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

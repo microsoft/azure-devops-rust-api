@@ -289,8 +289,8 @@ pub mod pipeline_permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/pipelinepermissions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -391,10 +391,10 @@ pub mod pipeline_permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/pipelinepermissions/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.resource_type,
-                    &self.resource_id
+                    self.organization,
+                    self.project,
+                    self.resource_type,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -497,10 +497,10 @@ pub mod pipeline_permissions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/pipelinepermissions/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.resource_type,
-                    &self.resource_id
+                    self.organization,
+                    self.project,
+                    self.resource_type,
+                    self.resource_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -761,8 +761,8 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -860,8 +860,8 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -970,9 +970,9 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1070,9 +1070,9 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1163,9 +1163,9 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1282,8 +1282,8 @@ pub mod check_configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/queryconfigurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1439,8 +1439,8 @@ pub mod check_evaluations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/runs",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1546,9 +1546,9 @@ pub mod check_evaluations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/checks/runs/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.check_suite_id
+                    self.organization,
+                    self.project,
+                    self.check_suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1770,8 +1770,8 @@ pub mod approvals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/approvals",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1868,8 +1868,8 @@ pub mod approvals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/approvals",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1978,9 +1978,9 @@ pub mod approvals {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/pipelines/approvals/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.approval_id
+                    self.organization,
+                    self.project,
+                    self.approval_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
