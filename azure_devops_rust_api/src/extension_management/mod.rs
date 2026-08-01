@@ -361,7 +361,7 @@ pub mod installed_extensions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/extensionmanagement/installedextensions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -458,7 +458,7 @@ pub mod installed_extensions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/extensionmanagement/installedextensions",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -565,9 +565,9 @@ pub mod installed_extensions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/extensionmanagement/installedextensionsbyname/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_name,
-                    &self.extension_name
+                    self.organization,
+                    self.publisher_name,
+                    self.extension_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -678,9 +678,9 @@ pub mod installed_extensions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/extensionmanagement/installedextensionsbyname/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_name,
-                    &self.extension_name
+                    self.organization,
+                    self.publisher_name,
+                    self.extension_name
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -781,10 +781,10 @@ pub mod installed_extensions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/extensionmanagement/installedextensionsbyname/{}/{}/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.publisher_name,
-                    &self.extension_name,
-                    &self.version
+                    self.organization,
+                    self.publisher_name,
+                    self.extension_name,
+                    self.version
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

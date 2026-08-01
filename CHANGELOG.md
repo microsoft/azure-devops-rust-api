@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changes
+
+- Fix `clippy::useless_borrows_in_formatting` warnings from the updated Rust
+  toolchain by removing redundant references in `format!` arguments (codegen,
+  hand-written source, and regenerated modules).
+
 ## [0.38.0]
 
 ### Changes

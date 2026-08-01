@@ -302,7 +302,7 @@ pub mod identities {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/identities",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

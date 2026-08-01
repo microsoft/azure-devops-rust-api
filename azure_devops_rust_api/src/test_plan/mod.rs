@@ -404,11 +404,11 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase?testCaseIds={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id,
-                    &self.test_case_ids
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id,
+                    self.test_case_ids
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -595,10 +595,10 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -697,10 +697,10 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -799,10 +799,10 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -899,10 +899,10 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1025,11 +1025,11 @@ pub mod suite_test_case {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestCase/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id,
-                    &self.test_case_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id,
+                    self.test_case_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1285,10 +1285,10 @@ pub mod test_point {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestPoint?",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1413,10 +1413,10 @@ pub mod test_point {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestPoint",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1538,10 +1538,10 @@ pub mod test_point {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/Suites/{}/TestPoint",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1780,7 +1780,7 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/testplan/suites",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1909,9 +1909,9 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/suites",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id
+                    self.organization,
+                    self.project,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2009,9 +2009,9 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/suites",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id
+                    self.organization,
+                    self.project,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2119,10 +2119,10 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/suites/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2221,10 +2221,10 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/suites/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2316,10 +2316,10 @@ pub mod test_suites {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/{}/suites/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.plan_id,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2534,8 +2534,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2632,8 +2632,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2735,8 +2735,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2831,8 +2831,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2931,9 +2931,9 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.test_configuration_id
+                    self.organization,
+                    self.project,
+                    self.test_configuration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3180,8 +3180,8 @@ pub mod test_plans {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/plans",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3278,8 +3278,8 @@ pub mod test_plans {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/plans",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3375,9 +3375,9 @@ pub mod test_plans {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/plans/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id
+                    self.organization,
+                    self.project,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3475,9 +3475,9 @@ pub mod test_plans {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/plans/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id
+                    self.organization,
+                    self.project,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3568,9 +3568,9 @@ pub mod test_plans {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/plans/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.plan_id
+                    self.organization,
+                    self.project,
+                    self.plan_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3735,8 +3735,8 @@ pub mod test_plan_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/CloneOperation",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3838,9 +3838,9 @@ pub mod test_plan_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Plans/CloneOperation/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.clone_operation_id
+                    self.organization,
+                    self.project,
+                    self.clone_operation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4002,9 +4002,9 @@ pub mod test_suite_entry {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/suiteentry/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4102,9 +4102,9 @@ pub mod test_suite_entry {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/suiteentry/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.suite_id
+                    self.organization,
+                    self.project,
+                    self.suite_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4266,8 +4266,8 @@ pub mod test_suite_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Suites/CloneOperation",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4369,9 +4369,9 @@ pub mod test_suite_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/Suites/CloneOperation/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.clone_operation_id
+                    self.organization,
+                    self.project,
+                    self.clone_operation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4492,9 +4492,9 @@ pub mod test_cases {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/testcases/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.test_case_id
+                    self.organization,
+                    self.project,
+                    self.test_case_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4644,8 +4644,8 @@ pub mod test_case_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/TestCases/CloneTestCaseOperation",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4747,9 +4747,9 @@ pub mod test_case_clone {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/TestCases/CloneTestCaseOperation/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.clone_operation_id
+                    self.organization,
+                    self.project,
+                    self.clone_operation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -4962,8 +4962,8 @@ pub mod variables {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/variables",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5060,8 +5060,8 @@ pub mod variables {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/variables",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5157,9 +5157,9 @@ pub mod variables {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/variables/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.test_variable_id
+                    self.organization,
+                    self.project,
+                    self.test_variable_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5257,9 +5257,9 @@ pub mod variables {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/variables/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.test_variable_id
+                    self.organization,
+                    self.project,
+                    self.test_variable_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -5350,9 +5350,9 @@ pub mod variables {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/testplan/variables/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.test_variable_id
+                    self.organization,
+                    self.project,
+                    self.test_variable_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

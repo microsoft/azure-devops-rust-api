@@ -262,7 +262,7 @@ pub mod package_search_results {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/search/packagesearchresults",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -389,8 +389,8 @@ pub mod code_search_results {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/search/codesearchresults",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -518,9 +518,9 @@ pub mod repositories {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/search/status/repositories/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.repository
+                    self.organization,
+                    self.project,
+                    self.repository
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -645,8 +645,8 @@ pub mod tfvc {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/search/status/tfvc",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -773,8 +773,8 @@ pub mod wiki_search_results {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/search/wikisearchresults",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -903,8 +903,8 @@ pub mod work_item_search_results {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/search/workitemsearchresults",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

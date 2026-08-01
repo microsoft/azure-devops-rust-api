@@ -263,8 +263,8 @@ pub mod widget_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/dashboard/widgettypes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -363,9 +363,9 @@ pub mod widget_types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/dashboard/widgettypes/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.contribution_id
+                    self.organization,
+                    self.project,
+                    self.contribution_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -602,9 +602,9 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team
+                    self.organization,
+                    self.project,
+                    self.team
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -702,9 +702,9 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team
+                    self.organization,
+                    self.project,
+                    self.team
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -802,9 +802,9 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team
+                    self.organization,
+                    self.project,
+                    self.team
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -901,10 +901,10 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1003,10 +1003,10 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1098,10 +1098,10 @@ pub mod dashboards {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1436,10 +1436,10 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1538,10 +1538,10 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1659,10 +1659,10 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1780,10 +1780,10 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1881,11 +1881,11 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id,
-                    &self.widget_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id,
+                    self.widget_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1985,11 +1985,11 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id,
-                    &self.widget_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id,
+                    self.widget_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2089,11 +2089,11 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id,
-                    &self.widget_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id,
+                    self.widget_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2191,11 +2191,11 @@ pub mod widgets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/{}/_apis/dashboard/dashboards/{}/widgets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.team,
-                    &self.dashboard_id,
-                    &self.widget_id
+                    self.organization,
+                    self.project,
+                    self.team,
+                    self.dashboard_id,
+                    self.widget_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

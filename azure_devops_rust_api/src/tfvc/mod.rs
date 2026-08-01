@@ -426,7 +426,7 @@ pub mod shelvesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/shelvesets?",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -627,7 +627,7 @@ pub mod shelvesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/shelvesets",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -748,7 +748,7 @@ pub mod shelvesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/shelvesets/changes",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -850,7 +850,7 @@ pub mod shelvesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/shelvesets/workitems",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1043,9 +1043,9 @@ pub mod branches {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/branches?path={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.path
+                    self.organization,
+                    self.project,
+                    self.path
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1184,8 +1184,8 @@ pub mod branches {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/branches?",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1307,8 +1307,8 @@ pub mod branches {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/branches",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1591,9 +1591,9 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/items?path={}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.path
+                    self.organization,
+                    self.project,
+                    self.path
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1688,8 +1688,8 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/itembatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1868,8 +1868,8 @@ pub mod items {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/items",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2141,8 +2141,8 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/changesets/{}/changes",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2240,8 +2240,8 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/changesets/{}/workItems",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.id
+                    self.organization,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2338,7 +2338,7 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/changesetsbatch",
                     self.client.endpoint(),
-                    &self.organization
+                    self.organization
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2600,8 +2600,8 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/changesets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2698,8 +2698,8 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/changesets",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3007,9 +3007,9 @@ pub mod changesets {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/changesets/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3203,8 +3203,8 @@ pub mod labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/_apis/tfvc/labels/{}/items",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.label_id
+                    self.organization,
+                    self.label_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3399,8 +3399,8 @@ pub mod labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/labels",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -3574,9 +3574,9 @@ pub mod labels {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/tfvc/labels/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.label_id
+                    self.organization,
+                    self.project,
+                    self.label_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

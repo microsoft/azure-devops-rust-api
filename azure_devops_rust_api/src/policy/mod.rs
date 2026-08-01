@@ -368,8 +368,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -467,8 +467,8 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -564,9 +564,9 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.configuration_id
+                    self.organization,
+                    self.project,
+                    self.configuration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -664,9 +664,9 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.configuration_id
+                    self.organization,
+                    self.project,
+                    self.configuration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -757,9 +757,9 @@ pub mod configurations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.configuration_id
+                    self.organization,
+                    self.project,
+                    self.configuration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -936,9 +936,9 @@ pub mod revisions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations/{}/revisions",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.configuration_id
+                    self.organization,
+                    self.project,
+                    self.configuration_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1036,10 +1036,10 @@ pub mod revisions {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/configurations/{}/revisions/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.configuration_id,
-                    &self.revision_id
+                    self.organization,
+                    self.project,
+                    self.configuration_id,
+                    self.revision_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1246,8 +1246,8 @@ pub mod evaluations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/evaluations",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1347,9 +1347,9 @@ pub mod evaluations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/evaluations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.evaluation_id
+                    self.organization,
+                    self.project,
+                    self.evaluation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1449,9 +1449,9 @@ pub mod evaluations {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/evaluations/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.evaluation_id
+                    self.organization,
+                    self.project,
+                    self.evaluation_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1592,8 +1592,8 @@ pub mod types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/types",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1689,9 +1689,9 @@ pub mod types {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/policy/types/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.type_id
+                    self.organization,
+                    self.project,
+                    self.type_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {

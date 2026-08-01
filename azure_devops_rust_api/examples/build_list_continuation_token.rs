@@ -42,7 +42,7 @@ async fn get_builds(
 
     let body_data = body.into_string()?;
     let build_list: BuildList = serde_json::from_str(&body_data)
-        .with_context(|| format!("Failed to parse BuildList: {}", &body_data))?;
+        .with_context(|| format!("Failed to parse BuildList: {}", body_data))?;
 
     println!("Received {} builds", build_list.count.unwrap_or(0));
 

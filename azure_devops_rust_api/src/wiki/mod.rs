@@ -325,8 +325,8 @@ pub mod wikis {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -423,8 +423,8 @@ pub mod wikis {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project
+                    self.organization,
+                    self.project
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -520,9 +520,9 @@ pub mod wikis {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -620,9 +620,9 @@ pub mod wikis {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -718,9 +718,9 @@ pub mod wikis {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -919,9 +919,9 @@ pub mod attachments {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/attachments",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1126,9 +1126,9 @@ pub mod page_moves {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pagemoves",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1487,9 +1487,9 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1663,9 +1663,9 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1835,9 +1835,9 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -1969,10 +1969,10 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2094,10 +2094,10 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2215,10 +2215,10 @@ pub mod pages {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages/{}",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier,
-                    &self.id
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier,
+                    self.id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2359,10 +2359,10 @@ pub mod page_stats {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pages/{}/stats",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier,
-                    &self.page_id
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier,
+                    self.page_id
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
@@ -2545,9 +2545,9 @@ pub mod pages_batch {
                 let mut url = azure_core::http::Url::parse(&format!(
                     "{}/{}/{}/_apis/wiki/wikis/{}/pagesbatch",
                     self.client.endpoint(),
-                    &self.organization,
-                    &self.project,
-                    &self.wiki_identifier
+                    self.organization,
+                    self.project,
+                    self.wiki_identifier
                 ))?;
                 let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
                 if !has_api_version_already {
