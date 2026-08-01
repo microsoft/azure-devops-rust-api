@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changes
 
+- Broaden `azure_core` and `azure_identity` version requirements to `1` for
+  maximum compatibility. Builds resolve to azure_core 1.1 (the latest release).
 - Fix `clippy::useless_borrows_in_formatting` warnings from the updated Rust
   toolchain by removing redundant references in `format!` arguments (codegen,
   hand-written source, and regenerated modules).
