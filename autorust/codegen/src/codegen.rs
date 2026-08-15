@@ -16,7 +16,7 @@ use syn::{
     punctuated::Punctuated,
     token::{Gt, Impl, Lt},
     AngleBracketedGenericArguments, GenericArgument, Path, PathArguments, PathSegment, TraitBound,
-    TraitBoundModifier, Type, TypeImplTrait, TypeParamBound, TypePath, TypeReference,
+    TraitBoundModifiers, Type, TypeImplTrait, TypeParamBound, TypePath, TypeReference,
 };
 
 /// code generation context
@@ -299,21 +299,22 @@ impl TypeNameCode {
         if self.allow_qualify_models && self.qualify_models {
             tp.path.segments.insert(0, id_models().into());
         }
-        let mut tp = Type::from(tp);
+        let mut tp = Type::Path(tp);
         for _ in 0..self.vec_count {
             tp = generic_type(tp_vec(), tp);
         }
         if self.force_value {
-            tp = Type::from(tp_json_value())
+            tp = Type::Path(tp_json_value())
         }
         if self.is_reference() {
             let tr = TypeReference {
+                attrs: Vec::new(),
                 and_token: Default::default(),
                 lifetime: Default::default(),
                 mutability: Default::default(),
                 elem: Box::new(tp),
             };
-            tp = Type::from(tr);
+            tp = Type::Reference(tr);
         }
         if self.boxed {
             tp = generic_type(tp_box(), tp);
@@ -327,13 +328,15 @@ impl TypeNameCode {
                 let bound = TraitBound {
                     path: path.path,
                     paren_token: None,
-                    modifier: TraitBoundModifier::None,
+                    modifiers: TraitBoundModifiers::default(),
+                    maybe: None,
                     lifetimes: None,
                 };
                 let bound = TypeParamBound::Trait(bound);
                 let mut bounds = Punctuated::new();
                 bounds.push(bound);
                 tp = Type::ImplTrait(TypeImplTrait {
+                    attrs: Vec::new(),
                     bounds,
                     impl_token: Impl::default(),
                 });
@@ -378,7 +381,7 @@ fn generic_type(mut wrap_tp: TypePath, tp: Type) -> Type {
     if let Some(v) = wrap_tp.path.segments.last_mut() {
         v.arguments = arguments
     }
-    Type::from(wrap_tp)
+    Type::Path(wrap_tp)
 }
 
 impl From<TypePath> for TypeNameCode {
@@ -434,7 +437,11 @@ fn segments_to_type_path(segments: Vec<PathSegment>) -> TypePath {
         segments: punctuated,
         leading_colon: None,
     };
-    TypePath { path, qself: None }
+    TypePath {
+        attrs: Vec::new(),
+        path,
+        qself: None,
+    }
 }
 
 fn idents_to_type_path(idents: Vec<Ident>) -> TypePath {
