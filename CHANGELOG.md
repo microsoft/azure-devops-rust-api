@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.39.1]
+
+### Changes
+
+- Update crates.io package keywords.
+- Migrate the `autorust` code generator to `syn` 3.0, along with routine
+  `autorust` dependency updates. These are build-time only: the generated
+  `azure_devops_rust_api` source is unchanged from 0.39.0.
+
 ## [0.39.0]
 
 ### Changes
@@ -737,7 +746,8 @@ breaking changes over previous versions.
 
 - Initial release.
 
-[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.39.0...HEAD
+[Unreleased]: https://github.com/microsoft/azure-devops-rust-api/compare/0.39.1...HEAD
+[0.39.1]: https://github.com/microsoft/azure-devops-rust-api/compare/0.39.0...0.39.1
 [0.39.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.38.0...0.39.0
 [0.38.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.37.0...0.38.0
 [0.37.0]: https://github.com/microsoft/azure-devops-rust-api/compare/0.36.0...0.37.0
