@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Blocking (non-async) API ([#835](https://github.com/microsoft/azure-devops-rust-api/issues/835)).
+  Each module has a `blocking` submodule with a `ClientBuilder` that takes a
+  `blocking::HttpClient` implementation to send requests. Implementations are provided
+  for `ureq` (`ureq` feature) and `reqwest::blocking` (`reqwest_blocking` feature).
+  Only PAT and unauthenticated credentials are supported.
+- `RequestBuilder::build_request()` to build an operation's HTTP request without sending it.
+
+### Changes
+
+- Operation `RequestBuilder` types now have a client type parameter, which defaults to the
+  async client, so existing code that names `RequestBuilder` is unaffected.
+- `azure_core`'s default features (async `reqwest` transport, `tokio`) are now enabled via
+  this crate's `reqwest` feature (enabled by default), rather than unconditionally. This
+  allows blocking-only builds (`default-features = false, features = ["ureq", ...]`) without
+  `tokio`, `hyper` or async `reqwest`. Default builds are unchanged, but if you disable
+  default features and use the async client, you must now enable the `reqwest` feature or
+  provide your own transport.
+
 ## [0.39.1]
 
 ### Changes

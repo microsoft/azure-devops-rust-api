@@ -1,4 +1,4 @@
-use crate::{content_type, CodeGen, Result};
+use crate::{content_type, CodeGen, Error, ErrorKind, Result};
 
 use super::{
     function_code::ClientFunctionCode,
@@ -56,12 +56,31 @@ impl OperationCode {
         let in_operation_group = operation.0.in_group();
         let client_function_code =
             ClientFunctionCode::new(operation, parameters, in_operation_group)?;
-        let request_builder_struct_code =
-            RequestBuilderStructCode::new(parameters, in_operation_group, lro, lro_options.clone());
+        let generate_blocking = cg.generate_blocking();
+        if generate_blocking && (!in_operation_group || operation.pageable().is_some() || lro) {
+            let operation_id = operation.id().unwrap_or_default().to_owned();
+            return Err(Error::with_message(ErrorKind::CodeGen, || {
+                format!(
+                    "blocking client generation requires operations to be in an operation group, \
+                     and not pageable or long-running: {operation_id}"
+                )
+            }));
+        }
+        let request_builder_struct_code = RequestBuilderStructCode::new(
+            parameters,
+            in_operation_group,
+            lro,
+            lro_options.clone(),
+            generate_blocking,
+        );
         let request_builder_setters_code = RequestBuilderSettersCode::new(parameters);
         let response_code = ResponseCode::new(cg, operation, produces)?;
-        let request_builder_send_code =
-            RequestBuilderSendCode::new(new_request_code, request_builder, response_code.clone())?;
+        let request_builder_send_code = RequestBuilderSendCode::new(
+            new_request_code,
+            request_builder,
+            response_code.clone(),
+            generate_blocking,
+        )?;
         let request_builder_intofuture_code =
             RequestBuilderIntoFutureCode::new(response_code.clone(), lro, lro_options)?;
 
@@ -72,6 +91,7 @@ impl OperationCode {
             request_builder_setters_code,
             request_builder_send_code,
             request_builder_intofuture_code,
+            generate_blocking,
         };
 
         Ok(OperationCode {

@@ -61,6 +61,7 @@ cargo check --all-features --examples
 - `azure_devops_rust_api/src/telemetry.rs` — telemetry pipeline policy
 - `azure_devops_rust_api/src/headers.rs` — common header helpers
 - `azure_devops_rust_api/src/artifacts_download/` — Universal Package download client (dedup protocol)
+- `azure_devops_rust_api/src/blocking.rs` — `HttpClient` trait and `ureq`/`reqwest` implementations used by the generated blocking clients
 
 ### Code generator internals (`autorust/`)
 
@@ -71,6 +72,7 @@ cargo check --all-features --examples
   - `request_builder_into_future.rs` — into_body()/into_model() calls
   - `response_code.rs` — Response type definitions
 - `autorust/codegen/src/codegen_models.rs` — generates model structs/enums
+- Blocking clients: when `RunConfig.generate_blocking` is set (in `ado-autorust/src/main.rs`), each module also gets a `blocking` submodule (`create_client_and_builder.rs`), and request builders become generic over the client type (`request_builder_struct.rs`, `request_builder_send.rs`)
 - `autorust/autorust.toml` — config for boxed/optional/invalid properties (fixes recursive type issues)
 
 ### Patcher (`vsts-api-patcher/`)

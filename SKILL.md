@@ -22,7 +22,7 @@ Edit `azure_devops_rust_api/Cargo.toml`:
 ### 4. Update the README version
 
 Edit `azure_devops_rust_api/README.md`:
-- Update the example `Cargo.toml` snippet: `azure_devops_rust_api = { version = "X.Y.0", ... }`
+- Update the example `Cargo.toml` snippets: `azure_devops_rust_api = { version = "X.Y.0", ... }`
 
 ### 5. Update the CHANGELOG
 

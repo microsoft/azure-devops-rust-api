@@ -45,6 +45,26 @@ impl Credential {
         Credential::TokenCredential(token_credential)
     }
 
+    /// Returns the HTTP authorization header value containing the credential,
+    /// without requiring an async runtime.
+    ///
+    /// Only [`Credential::Unauthenticated`] and [`Credential::Pat`] are supported;
+    /// [`Credential::TokenCredential`] returns an error because acquiring a token is async.
+    pub fn http_authorization_header_blocking(&self) -> Result<Option<String>> {
+        match self {
+            Credential::Unauthenticated => Ok(None),
+            Credential::Pat(pat) => Ok(Some(Self::pat_authorization_header(pat))),
+            Credential::TokenCredential(_) => Err(azure_core::error::Error::with_message(
+                azure_core::error::ErrorKind::Credential,
+                "TokenCredential is not supported for blocking requests",
+            )),
+        }
+    }
+
+    fn pat_authorization_header(pat: &str) -> String {
+        format!("Basic {}", BASE64_STANDARD.encode(format!(":{}", pat)))
+    }
+
     /// Returns the HTTP authorization header value containing the credential.
     #[allow(dead_code)]
     pub(crate) async fn http_authorization_header(
@@ -54,10 +74,7 @@ impl Credential {
         match self {
             Credential::Unauthenticated => Ok(None),
             // PAT tokens are passed using Basic authentication.
-            Credential::Pat(pat) => Ok(Some(format!(
-                "Basic {}",
-                BASE64_STANDARD.encode(format!(":{}", pat))
-            ))),
+            Credential::Pat(pat) => Ok(Some(Self::pat_authorization_header(pat))),
             // OAuth tokens are passed using Bearer authentication.
             Credential::TokenCredential(token_credential) => {
                 let token_response =

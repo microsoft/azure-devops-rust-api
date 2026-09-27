@@ -164,6 +164,48 @@ cargo run --example download_artifact --features="artifacts_download" -- \
     --feed <feed> --name <package-name> --version <version> --path <output-dir>
 ```
 
+## Blocking (non-async) API
+
+Each API module also provides a blocking client, in its `blocking` submodule, for
+applications that don't use an async runtime. Requests are sent using an HTTP client that
+is supplied when the client is created. Enable the `ureq` or `reqwest_blocking` feature for
+a ready-made HTTP client:
+
+```toml
+[dependencies]
+azure_devops_rust_api = { version = "0.39.1", default-features = false, features = ["git", "ureq"] }
+```
+
+Disabling default features removes the async HTTP transport, so that a blocking-only build does
+not depend on `tokio`, `hyper` or async `reqwest`. (Note that `reqwest::blocking` uses `tokio`
+internally, so this only applies when using `ureq` or your own `HttpClient`.)
+
+```rust
+use azure_devops_rust_api::{blocking::UreqClient, git, Credential};
+
+let credential = Credential::from_pat(pat);
+let git_client = git::blocking::ClientBuilder::new(credential, UreqClient::new()).build();
+
+let repos = git_client
+    .repositories_client()
+    .list(organization, project)
+    .send()?
+    .into_body()?
+    .value;
+```
+
+To use a different HTTP client, implement the `blocking::HttpClient` trait and enable the
+`blocking` feature.
+
+Limitations of the blocking API:
+- Only PAT (and unauthenticated) credentials are supported.
+- Requests are not sent through the `azure_core` pipeline, so no retry policy is applied.
+- The `artifacts_download` module is async-only.
+
+See [examples/git_repo_list_blocking.rs](examples/git_repo_list_blocking.rs) (ureq),
+[examples/git_repo_list_reqwest_blocking.rs](examples/git_repo_list_reqwest_blocking.rs) (reqwest), and
+[examples/wit_work_item_create_blocking.rs](examples/wit_work_item_create_blocking.rs) (creating a work item).
+
 ## Examples
 
 The [examples/](examples/) directory contains runnable examples for most API areas.

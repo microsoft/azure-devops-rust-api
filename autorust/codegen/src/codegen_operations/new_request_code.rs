@@ -37,7 +37,7 @@ impl ToTokens for AuthCode {
     }
 }
 
-fn verb_to_tokens(verb: &WebVerb) -> TokenStream {
+pub(crate) fn verb_to_tokens(verb: &WebVerb) -> TokenStream {
     match verb {
         WebVerb::Get => quote! { azure_core::http::Method::Get },
         WebVerb::Post => quote! { azure_core::http::Method::Post },
