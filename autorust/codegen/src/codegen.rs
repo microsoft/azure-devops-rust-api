@@ -76,6 +76,10 @@ impl<'a> CodeGen<'a> {
         &self.crate_config.output_folder
     }
 
+    pub fn generate_blocking(&self) -> bool {
+        self.crate_config.generate_blocking()
+    }
+
     pub fn should_workaround_case(&self) -> bool {
         if let Some(title) = self.spec.title() {
             self.fix_case_properties.contains(title)

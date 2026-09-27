@@ -257,43 +257,31 @@ pub mod events {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::JobEvent,
             pub(crate) scope_identifier: String,
             pub(crate) hub_name: String,
             pub(crate) plan_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -310,6 +298,47 @@ pub mod events {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -396,8 +425,12 @@ pub mod oidctoken {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: serde_json::Value,
             pub(crate) scope_identifier: String,
@@ -406,7 +439,7 @@ pub mod oidctoken {
             pub(crate) job_id: String,
             pub(crate) service_connection_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn service_connection_id(
                 mut self,
                 service_connection_id: impl Into<String>,
@@ -414,39 +447,24 @@ pub mod oidctoken {
                 self.service_connection_id = Some(service_connection_id.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        if let Some(service_connection_id) = &this.service_connection_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("serviceConnectionId", service_connection_id);
-                        }
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                if let Some(service_connection_id) = &this.service_connection_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("serviceConnectionId", service_connection_id);
+                }
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -464,6 +482,47 @@ pub mod oidctoken {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -576,43 +635,31 @@ pub mod logs {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskLog,
             pub(crate) scope_identifier: String,
             pub(crate) hub_name: String,
             pub(crate) plan_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -629,6 +676,47 @@ pub mod logs {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -678,8 +766,12 @@ pub mod logs {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: String,
             pub(crate) scope_identifier: String,
@@ -687,35 +779,19 @@ pub mod logs {
             pub(crate) plan_id: String,
             pub(crate) log_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/octet-stream");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/octet-stream");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -733,6 +809,47 @@ pub mod logs {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -820,8 +937,12 @@ pub mod records {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::VssJsonCollectionWrapper,
             pub(crate) scope_identifier: String,
@@ -829,35 +950,19 @@ pub mod records {
             pub(crate) plan_id: String,
             pub(crate) timeline_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -875,6 +980,47 @@ pub mod records {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1033,15 +1179,19 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_name: Option<String>,
             pub(crate) properties: Option<String>,
             pub(crate) pool_type: Option<models::TaskAgentPoolType>,
             pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by name"]
             pub fn pool_name(mut self, pool_name: impl Into<String>) -> Self {
                 self.pool_name = Some(pool_name.into());
@@ -1065,53 +1215,38 @@ pub mod pools {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(pool_name) = &this.pool_name {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("poolName", pool_name);
-                        }
-                        if let Some(properties) = &this.properties {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("properties", properties);
-                        }
-                        if let Some(pool_type) = &this.pool_type {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("poolType", &pool_type.to_string());
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(pool_name) = &this.pool_name {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("poolName", pool_name);
+                }
+                if let Some(properties) = &this.properties {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("properties", properties);
+                }
+                if let Some(pool_type) = &this.pool_type {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("poolType", &pool_type.to_string());
+                }
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1125,6 +1260,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1174,13 +1350,17 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_ids: String,
             pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(
                 mut self,
@@ -1189,42 +1369,27 @@ pub mod pools {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let pool_ids = &this.pool_ids;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("poolIds", pool_ids);
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let pool_ids = &this.pool_ids;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("poolIds", pool_ids);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1238,6 +1403,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1287,40 +1493,28 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgentPool,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1334,6 +1528,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1383,14 +1618,18 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) properties: Option<String>,
             pub(crate) action_filter: Option<models::TaskAgentPoolActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Agent pool properties (comma-separated)"]
             pub fn properties(mut self, properties: impl Into<String>) -> Self {
                 self.properties = Some(properties.into());
@@ -1404,43 +1643,28 @@ pub mod pools {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(properties) = &this.properties {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("properties", properties);
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(properties) = &this.properties {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("properties", properties);
+                }
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1455,6 +1679,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1504,41 +1769,29 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgentPool,
             pub(crate) pool_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1553,6 +1806,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1597,39 +1891,27 @@ pub mod pools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1644,6 +1926,47 @@ pub mod pools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1843,14 +2166,18 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) queue_names: String,
             pub(crate) project: String,
             pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(
                 mut self,
@@ -1859,42 +2186,27 @@ pub mod queues {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let queue_names = &this.queue_names;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("queueNames", queue_names);
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let queue_names = &this.queue_names;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("queueNames", queue_names);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1910,6 +2222,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1959,14 +2312,18 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) queue_ids: String,
             pub(crate) project: String,
             pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(
                 mut self,
@@ -1975,42 +2332,27 @@ pub mod queues {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let queue_ids = &this.queue_ids;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("queueIds", queue_ids);
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let queue_ids = &this.queue_ids;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("queueIds", queue_ids);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2026,6 +2368,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2075,14 +2458,18 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) queue_name: Option<String>,
             pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter on the agent queue name"]
             pub fn queue_name(mut self, queue_name: impl Into<String>) -> Self {
                 self.queue_name = Some(queue_name.into());
@@ -2096,43 +2483,28 @@ pub mod queues {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(queue_name) = &this.queue_name {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("queueName", queue_name);
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(queue_name) = &this.queue_name {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("queueName", queue_name);
+                }
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2147,6 +2519,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2196,14 +2609,18 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_ids: String,
             pub(crate) project: String,
             pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(
                 mut self,
@@ -2212,42 +2629,27 @@ pub mod queues {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let pool_ids = &this.pool_ids;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("poolIds", pool_ids);
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let pool_ids = &this.pool_ids;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("poolIds", pool_ids);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2262,6 +2664,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2311,53 +2754,41 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgentQueue,
             pub(crate) project: String,
             pub(crate) authorize_pipelines: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Automatically authorize this queue when using YAML"]
             pub fn authorize_pipelines(mut self, authorize_pipelines: bool) -> Self {
                 self.authorize_pipelines = Some(authorize_pipelines);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        if let Some(authorize_pipelines) = &this.authorize_pipelines {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "authorizePipelines",
-                                &authorize_pipelines.to_string(),
-                            );
-                        }
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                if let Some(authorize_pipelines) = &this.authorize_pipelines {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("authorizePipelines", &authorize_pipelines.to_string());
+                }
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2372,6 +2803,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2421,14 +2893,18 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) queue_id: i32,
             pub(crate) project: String,
             pub(crate) action_filter: Option<models::TaskAgentQueueActionFilter>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter by whether the calling user has use or manage permissions"]
             pub fn action_filter(
                 mut self,
@@ -2437,38 +2913,23 @@ pub mod queues {
                 self.action_filter = Some(action_filter.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2484,6 +2945,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2528,40 +3030,28 @@ pub mod queues {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) queue_id: i32,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2577,6 +3067,47 @@ pub mod queues {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2766,8 +3297,12 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) group_name: Option<String>,
@@ -2776,7 +3311,7 @@ pub mod variablegroups {
             pub(crate) continuation_token: Option<i32>,
             pub(crate) query_order: Option<models::VariableGroupQueryOrder>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Name of variable group."]
             pub fn group_name(mut self, group_name: impl Into<String>) -> Self {
                 self.group_name = Some(group_name.into());
@@ -2808,58 +3343,43 @@ pub mod variablegroups {
                 self.query_order = Some(query_order.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(group_name) = &this.group_name {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("groupName", group_name);
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", &continuation_token.to_string());
-                        }
-                        if let Some(query_order) = &this.query_order {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("queryOrder", &query_order.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(group_name) = &this.group_name {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("groupName", group_name);
+                }
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                if let Some(continuation_token) = &this.continuation_token {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", &continuation_token.to_string());
+                }
+                if let Some(query_order) = &this.query_order {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("queryOrder", &query_order.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2874,6 +3394,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2923,40 +3484,28 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::VariableGroupParameters,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -2970,6 +3519,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3014,45 +3604,33 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: Vec<models::VariableGroupProjectReference>,
             pub(crate) variable_group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        let variable_group_id = &this.variable_group_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("variableGroupId", &variable_group_id.to_string());
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                let variable_group_id = &this.variable_group_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("variableGroupId", &variable_group_id.to_string());
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3066,6 +3644,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3118,41 +3737,29 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::VariableGroupParameters,
             pub(crate) group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Put);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Put);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3167,6 +3774,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3211,44 +3859,32 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) group_id: i32,
             pub(crate) project_ids: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let project_ids = &this.project_ids;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("projectIds", project_ids);
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let project_ids = &this.project_ids;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("projectIds", project_ids);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3263,6 +3899,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3315,44 +3992,32 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) group_ids: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let group_ids = &this.group_ids;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("groupIds", group_ids);
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let group_ids = &this.group_ids;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("groupIds", group_ids);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3367,6 +4032,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3416,40 +4122,28 @@ pub mod variablegroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3465,6 +4159,47 @@ pub mod variablegroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3586,38 +4321,26 @@ pub mod agentclouds {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3631,6 +4354,47 @@ pub mod agentclouds {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3680,40 +4444,28 @@ pub mod agentclouds {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgentCloud,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3727,6 +4479,47 @@ pub mod agentclouds {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3776,39 +4569,27 @@ pub mod agentclouds {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) agent_cloud_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3823,6 +4604,47 @@ pub mod agentclouds {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3872,41 +4694,29 @@ pub mod agentclouds {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgentCloud,
             pub(crate) agent_cloud_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -3921,6 +4731,47 @@ pub mod agentclouds {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3970,39 +4821,27 @@ pub mod agentclouds {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) agent_cloud_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4017,6 +4856,47 @@ pub mod agentclouds {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4092,39 +4972,27 @@ pub mod requests {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) agent_cloud_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4139,6 +5007,47 @@ pub mod requests {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4212,38 +5121,26 @@ pub mod agentcloudtypes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4257,6 +5154,47 @@ pub mod agentcloudtypes {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4440,8 +5378,12 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) agent_name: Option<String>,
@@ -4451,7 +5393,7 @@ pub mod agents {
             pub(crate) property_filters: Option<String>,
             pub(crate) demands: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Filter on agent name"]
             pub fn agent_name(mut self, agent_name: impl Into<String>) -> Self {
                 self.agent_name = Some(agent_name.into());
@@ -4485,68 +5427,50 @@ pub mod agents {
                 self.demands = Some(demands.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(agent_name) = &this.agent_name {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("agentName", agent_name);
-                        }
-                        if let Some(include_capabilities) = &this.include_capabilities {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeCapabilities",
-                                &include_capabilities.to_string(),
-                            );
-                        }
-                        if let Some(include_assigned_request) = &this.include_assigned_request {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeAssignedRequest",
-                                &include_assigned_request.to_string(),
-                            );
-                        }
-                        if let Some(include_last_completed_request) =
-                            &this.include_last_completed_request
-                        {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeLastCompletedRequest",
-                                &include_last_completed_request.to_string(),
-                            );
-                        }
-                        if let Some(property_filters) = &this.property_filters {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("propertyFilters", property_filters);
-                        }
-                        if let Some(demands) = &this.demands {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("demands", demands);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(agent_name) = &this.agent_name {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("agentName", agent_name);
+                }
+                if let Some(include_capabilities) = &this.include_capabilities {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("includeCapabilities", &include_capabilities.to_string());
+                }
+                if let Some(include_assigned_request) = &this.include_assigned_request {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeAssignedRequest",
+                        &include_assigned_request.to_string(),
+                    );
+                }
+                if let Some(include_last_completed_request) = &this.include_last_completed_request {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeLastCompletedRequest",
+                        &include_last_completed_request.to_string(),
+                    );
+                }
+                if let Some(property_filters) = &this.property_filters {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("propertyFilters", property_filters);
+                }
+                if let Some(demands) = &this.demands {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("demands", demands);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4561,6 +5485,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4610,41 +5575,29 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgent,
             pub(crate) pool_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4659,6 +5612,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4708,8 +5702,12 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) agent_id: i32,
@@ -4718,7 +5716,7 @@ pub mod agents {
             pub(crate) include_last_completed_request: Option<bool>,
             pub(crate) property_filters: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Whether to include the agent's capabilities in the response"]
             pub fn include_capabilities(mut self, include_capabilities: bool) -> Self {
                 self.include_capabilities = Some(include_capabilities);
@@ -4742,58 +5740,40 @@ pub mod agents {
                 self.property_filters = Some(property_filters.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(include_capabilities) = &this.include_capabilities {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeCapabilities",
-                                &include_capabilities.to_string(),
-                            );
-                        }
-                        if let Some(include_assigned_request) = &this.include_assigned_request {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeAssignedRequest",
-                                &include_assigned_request.to_string(),
-                            );
-                        }
-                        if let Some(include_last_completed_request) =
-                            &this.include_last_completed_request
-                        {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeLastCompletedRequest",
-                                &include_last_completed_request.to_string(),
-                            );
-                        }
-                        if let Some(property_filters) = &this.property_filters {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("propertyFilters", property_filters);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(include_capabilities) = &this.include_capabilities {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("includeCapabilities", &include_capabilities.to_string());
+                }
+                if let Some(include_assigned_request) = &this.include_assigned_request {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeAssignedRequest",
+                        &include_assigned_request.to_string(),
+                    );
+                }
+                if let Some(include_last_completed_request) = &this.include_last_completed_request {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeLastCompletedRequest",
+                        &include_last_completed_request.to_string(),
+                    );
+                }
+                if let Some(property_filters) = &this.property_filters {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("propertyFilters", property_filters);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4809,6 +5789,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4858,42 +5879,30 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgent,
             pub(crate) pool_id: i32,
             pub(crate) agent_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Put);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Put);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -4909,6 +5918,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -4958,42 +6008,30 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskAgent,
             pub(crate) pool_id: i32,
             pub(crate) agent_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5009,6 +6047,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5053,40 +6132,28 @@ pub mod agents {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) agent_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5102,6 +6169,47 @@ pub mod agents {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5175,49 +6283,38 @@ pub mod yamlschema {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) validate_task_names: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Whether the schema should validate that tasks are actually installed (useful for offline tools where you don't want validation)."]
             pub fn validate_task_names(mut self, validate_task_names: bool) -> Self {
                 self.validate_task_names = Some(validate_task_names);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(validate_task_names) = &this.validate_task_names {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("validateTaskNames", &validate_task_names.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(validate_task_names) = &this.validate_task_names {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("validateTaskNames", &validate_task_names.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5231,6 +6328,47 @@ pub mod yamlschema {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5393,8 +6531,12 @@ pub mod deploymentgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) name: Option<String>,
@@ -5404,7 +6546,7 @@ pub mod deploymentgroups {
             pub(crate) top: Option<i32>,
             pub(crate) ids: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Name of the deployment group."]
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
@@ -5438,59 +6580,44 @@ pub mod deploymentgroups {
                 self.ids = Some(ids.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(name) = &this.name {
-                            req.url_mut().query_pairs_mut().append_pair("name", name);
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        if let Some(expand) = &this.expand {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$expand", &expand.to_string());
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", continuation_token);
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        if let Some(ids) = &this.ids {
-                            req.url_mut().query_pairs_mut().append_pair("ids", ids);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(name) = &this.name {
+                    req.url_mut().query_pairs_mut().append_pair("name", name);
+                }
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                if let Some(expand) = &this.expand {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$expand", &expand.to_string());
+                }
+                if let Some(continuation_token) = &this.continuation_token {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", continuation_token);
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                if let Some(ids) = &this.ids {
+                    req.url_mut().query_pairs_mut().append_pair("ids", ids);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5505,6 +6632,47 @@ pub mod deploymentgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5554,41 +6722,29 @@ pub mod deploymentgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::DeploymentGroupCreateParameter,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5603,6 +6759,47 @@ pub mod deploymentgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5652,15 +6849,19 @@ pub mod deploymentgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
             pub(crate) action_filter: Option<models::DeploymentGroupActionFilter>,
             pub(crate) expand: Option<models::DeploymentGroupExpands>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Get the deployment group only if this action can be performed on it."]
             pub fn action_filter(
                 mut self,
@@ -5674,43 +6875,28 @@ pub mod deploymentgroups {
                 self.expand = Some(expand.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(action_filter) = &this.action_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("actionFilter", &action_filter.to_string());
-                        }
-                        if let Some(expand) = &this.expand {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$expand", &expand.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(action_filter) = &this.action_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("actionFilter", &action_filter.to_string());
+                }
+                if let Some(expand) = &this.expand {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$expand", &expand.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5726,6 +6912,47 @@ pub mod deploymentgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5775,42 +7002,30 @@ pub mod deploymentgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::DeploymentGroupUpdateParameter,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5826,6 +7041,47 @@ pub mod deploymentgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -5870,40 +7126,28 @@ pub mod deploymentgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -5919,6 +7163,47 @@ pub mod deploymentgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6077,8 +7362,12 @@ pub mod targets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
@@ -6093,7 +7382,7 @@ pub mod targets {
             pub(crate) enabled: Option<bool>,
             pub(crate) property_filters: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Get only the deployment targets that contain all these comma separted list of tags."]
             pub fn tags(mut self, tags: impl Into<String>) -> Self {
                 self.tags = Some(tags.into());
@@ -6149,79 +7438,64 @@ pub mod targets {
                 self.property_filters = Some(property_filters.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(tags) = &this.tags {
-                            req.url_mut().query_pairs_mut().append_pair("tags", tags);
-                        }
-                        if let Some(name) = &this.name {
-                            req.url_mut().query_pairs_mut().append_pair("name", name);
-                        }
-                        if let Some(partial_name_match) = &this.partial_name_match {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("partialNameMatch", &partial_name_match.to_string());
-                        }
-                        if let Some(expand) = &this.expand {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$expand", &expand.to_string());
-                        }
-                        if let Some(agent_status) = &this.agent_status {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("agentStatus", &agent_status.to_string());
-                        }
-                        if let Some(agent_job_result) = &this.agent_job_result {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("agentJobResult", &agent_job_result.to_string());
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", continuation_token);
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        if let Some(enabled) = &this.enabled {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("enabled", &enabled.to_string());
-                        }
-                        if let Some(property_filters) = &this.property_filters {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("propertyFilters", property_filters);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(tags) = &this.tags {
+                    req.url_mut().query_pairs_mut().append_pair("tags", tags);
+                }
+                if let Some(name) = &this.name {
+                    req.url_mut().query_pairs_mut().append_pair("name", name);
+                }
+                if let Some(partial_name_match) = &this.partial_name_match {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("partialNameMatch", &partial_name_match.to_string());
+                }
+                if let Some(expand) = &this.expand {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$expand", &expand.to_string());
+                }
+                if let Some(agent_status) = &this.agent_status {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("agentStatus", &agent_status.to_string());
+                }
+                if let Some(agent_job_result) = &this.agent_job_result {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("agentJobResult", &agent_job_result.to_string());
+                }
+                if let Some(continuation_token) = &this.continuation_token {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", continuation_token);
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                if let Some(enabled) = &this.enabled {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("enabled", &enabled.to_string());
+                }
+                if let Some(property_filters) = &this.property_filters {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("propertyFilters", property_filters);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6237,6 +7511,47 @@ pub mod targets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6286,42 +7601,30 @@ pub mod targets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: Vec<models::DeploymentTargetUpdateParameter>,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6337,6 +7640,47 @@ pub mod targets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6386,52 +7730,41 @@ pub mod targets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
             pub(crate) target_id: i32,
             pub(crate) expand: Option<models::DeploymentTargetExpands>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Include these additional details in the returned objects."]
             pub fn expand(mut self, expand: impl Into<models::DeploymentTargetExpands>) -> Self {
                 self.expand = Some(expand.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(expand) = &this.expand {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$expand", &expand.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(expand) = &this.expand {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$expand", &expand.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6448,6 +7781,47 @@ pub mod targets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6492,41 +7866,29 @@ pub mod targets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) deployment_group_id: i32,
             pub(crate) target_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6543,6 +7905,47 @@ pub mod targets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6707,15 +8110,19 @@ pub mod environments {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) name: Option<String>,
             pub(crate) continuation_token: Option<String>,
             pub(crate) top: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn name(mut self, name: impl Into<String>) -> Self {
                 self.name = Some(name.into());
                 self
@@ -6728,46 +8135,31 @@ pub mod environments {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(name) = &this.name {
-                            req.url_mut().query_pairs_mut().append_pair("name", name);
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", continuation_token);
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(name) = &this.name {
+                    req.url_mut().query_pairs_mut().append_pair("name", name);
+                }
+                if let Some(continuation_token) = &this.continuation_token {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", continuation_token);
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6782,6 +8174,47 @@ pub mod environments {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6832,41 +8265,29 @@ pub mod environments {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::EnvironmentCreateParameter,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6881,6 +8302,47 @@ pub mod environments {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -6930,51 +8392,40 @@ pub mod environments {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
             pub(crate) expands: Option<models::EnvironmentExpands>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Include these additional details in the returned objects."]
             pub fn expands(mut self, expands: impl Into<models::EnvironmentExpands>) -> Self {
                 self.expands = Some(expands.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(expands) = &this.expands {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("expands", &expands.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(expands) = &this.expands {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("expands", &expands.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -6990,6 +8441,47 @@ pub mod environments {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7039,42 +8531,30 @@ pub mod environments {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::EnvironmentUpdateParameter,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7090,6 +8570,47 @@ pub mod environments {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7134,40 +8655,28 @@ pub mod environments {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7183,6 +8692,47 @@ pub mod environments {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7270,15 +8820,19 @@ pub mod environmentdeployment_records {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
             pub(crate) continuation_token: Option<String>,
             pub(crate) top: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn continuation_token(mut self, continuation_token: impl Into<String>) -> Self {
                 self.continuation_token = Some(continuation_token.into());
                 self
@@ -7287,43 +8841,28 @@ pub mod environmentdeployment_records {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", continuation_token);
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("top", &top.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(continuation_token) = &this.continuation_token {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", continuation_token);
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("top", &top.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7339,6 +8878,47 @@ pub mod environmentdeployment_records {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7455,42 +9035,30 @@ pub mod kubernetes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::KubernetesResourceCreateParameters,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7506,6 +9074,47 @@ pub mod kubernetes {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7555,41 +9164,29 @@ pub mod kubernetes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
             pub(crate) resource_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7606,6 +9203,47 @@ pub mod kubernetes {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7650,41 +9288,29 @@ pub mod kubernetes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) environment_id: i32,
             pub(crate) resource_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7701,6 +9327,47 @@ pub mod kubernetes {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7849,41 +9516,29 @@ pub mod taskgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskGroupCreateParameter,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -7898,6 +9553,47 @@ pub mod taskgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -7947,8 +9643,12 @@ pub mod taskgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) task_group_id: String,
@@ -7959,7 +9659,7 @@ pub mod taskgroups {
             pub(crate) continuation_token: Option<time::OffsetDateTime>,
             pub(crate) query_order: Option<models::TaskGroupQueryOrder>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "'true' to recursively expand task groups. Default is 'false'."]
             pub fn expanded(mut self, expanded: bool) -> Self {
                 self.expanded = Some(expanded);
@@ -7996,65 +9696,50 @@ pub mod taskgroups {
                 self.query_order = Some(query_order.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(expanded) = &this.expanded {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("expanded", &expanded.to_string());
-                        }
-                        if let Some(task_id_filter) = &this.task_id_filter {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("taskIdFilter", task_id_filter);
-                        }
-                        if let Some(deleted) = &this.deleted {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("deleted", &deleted.to_string());
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        if let Some(continuation_token) = &this.continuation_token {
-                            let formatted_date_time =
-                                crate::date_time::format_date_time(continuation_token)?;
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("continuationToken", &formatted_date_time);
-                        }
-                        if let Some(query_order) = &this.query_order {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("queryOrder", &query_order.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(expanded) = &this.expanded {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("expanded", &expanded.to_string());
+                }
+                if let Some(task_id_filter) = &this.task_id_filter {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("taskIdFilter", task_id_filter);
+                }
+                if let Some(deleted) = &this.deleted {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("deleted", &deleted.to_string());
+                }
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                if let Some(continuation_token) = &this.continuation_token {
+                    let formatted_date_time =
+                        crate::date_time::format_date_time(continuation_token)?;
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("continuationToken", &formatted_date_time);
+                }
+                if let Some(query_order) = &this.query_order {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("queryOrder", &query_order.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8070,6 +9755,47 @@ pub mod taskgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8119,42 +9845,30 @@ pub mod taskgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::TaskGroupUpdateParameter,
             pub(crate) project: String,
             pub(crate) task_group_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Put);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Put);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8170,6 +9884,47 @@ pub mod taskgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8214,51 +9969,40 @@ pub mod taskgroups {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) task_group_id: String,
             pub(crate) comment: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Comments to delete."]
             pub fn comment(mut self, comment: impl Into<String>) -> Self {
                 self.comment = Some(comment.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(comment) = &this.comment {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("comment", comment);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                if let Some(comment) = &this.comment {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("comment", comment);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8274,6 +10018,47 @@ pub mod taskgroups {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8398,38 +10183,26 @@ pub mod elasticpools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8443,6 +10216,47 @@ pub mod elasticpools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8495,8 +10309,12 @@ pub mod elasticpools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::ElasticPool,
             pub(crate) pool_name: String,
@@ -8504,7 +10322,7 @@ pub mod elasticpools {
             pub(crate) auto_provision_project_pools: Option<bool>,
             pub(crate) project_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Setting to determine if all pipelines are authorized to use this TaskAgentPool by default."]
             pub fn authorize_all_pipelines(mut self, authorize_all_pipelines: bool) -> Self {
                 self.authorize_all_pipelines = Some(authorize_all_pipelines);
@@ -8523,57 +10341,40 @@ pub mod elasticpools {
                 self.project_id = Some(project_id.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        let pool_name = &this.pool_name;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("poolName", pool_name);
-                        if let Some(authorize_all_pipelines) = &this.authorize_all_pipelines {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "authorizeAllPipelines",
-                                &authorize_all_pipelines.to_string(),
-                            );
-                        }
-                        if let Some(auto_provision_project_pools) =
-                            &this.auto_provision_project_pools
-                        {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "autoProvisionProjectPools",
-                                &auto_provision_project_pools.to_string(),
-                            );
-                        }
-                        if let Some(project_id) = &this.project_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("projectId", project_id);
-                        }
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                let pool_name = &this.pool_name;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("poolName", pool_name);
+                if let Some(authorize_all_pipelines) = &this.authorize_all_pipelines {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "authorizeAllPipelines",
+                        &authorize_all_pipelines.to_string(),
+                    );
+                }
+                if let Some(auto_provision_project_pools) = &this.auto_provision_project_pools {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "autoProvisionProjectPools",
+                        &auto_provision_project_pools.to_string(),
+                    );
+                }
+                if let Some(project_id) = &this.project_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("projectId", project_id);
+                }
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8587,6 +10388,47 @@ pub mod elasticpools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8637,39 +10479,27 @@ pub mod elasticpools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8684,6 +10514,47 @@ pub mod elasticpools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8733,41 +10604,29 @@ pub mod elasticpools {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::ElasticPoolSettings,
             pub(crate) pool_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8782,6 +10641,47 @@ pub mod elasticpools {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -8854,50 +10754,39 @@ pub mod elasticpoollogs {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) top: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Number of elastic pool logs to retrieve"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(top) = &this.top {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$top", &top.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(top) = &this.top {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$top", &top.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -8912,6 +10801,47 @@ pub mod elasticpoollogs {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -9003,50 +10933,39 @@ pub mod nodes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) pool_id: i32,
             pub(crate) state: Option<models::ElasticNodeState>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             #[doc = "Optional: Filter to only retrieve ElasticNodes in the given ElasticNodeState"]
             pub fn state(mut self, state: impl Into<models::ElasticNodeState>) -> Self {
                 self.state = Some(state.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(state) = &this.state {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("$state", &state.to_string());
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(state) = &this.state {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("$state", &state.to_string());
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -9061,6 +10980,47 @@ pub mod nodes {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -9110,42 +11070,30 @@ pub mod nodes {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::ElasticNodeSettings,
             pub(crate) pool_id: i32,
             pub(crate) elastic_node_id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Patch);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Patch);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -9163,6 +11111,47 @@ pub mod nodes {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::ElasticNode>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::ElasticNode>>;
@@ -9173,6 +11162,1429 @@ pub mod nodes {
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body() })
+            }
+        }
+    }
+}
+impl crate::ClientEndpoint for Client {
+    fn endpoint(&self) -> &azure_core::http::Url {
+        Client::endpoint(self)
+    }
+}
+#[doc = "Blocking (non-async) client."]
+#[doc = ""]
+#[doc = "Requests are sent using the [`HttpClient`](crate::blocking::HttpClient) supplied to [`ClientBuilder::new`]."]
+#[doc = "Only PAT and unauthenticated credentials are supported, and requests do not go through"]
+#[doc = "the `azure_core` pipeline, so no retry policy is applied."]
+#[cfg(feature = "blocking")]
+pub mod blocking {
+    #[derive(Clone)]
+    pub struct Client {
+        endpoint: azure_core::http::Url,
+        credential: crate::Credential,
+        http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+    }
+    #[derive(Clone)]
+    pub struct ClientBuilder {
+        credential: crate::Credential,
+        http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+        endpoint: Option<azure_core::http::Url>,
+    }
+    impl ClientBuilder {
+        #[doc = "Create a new instance of `ClientBuilder`, using `http_client` to send requests."]
+        #[must_use]
+        pub fn new(
+            credential: crate::Credential,
+            http_client: impl crate::blocking::HttpClient + 'static,
+        ) -> Self {
+            Self {
+                credential,
+                http_client: std::sync::Arc::new(http_client),
+                endpoint: None,
+            }
+        }
+        #[doc = "Set the endpoint."]
+        #[must_use]
+        pub fn endpoint(mut self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+            self.endpoint = Some(endpoint.into());
+            self
+        }
+        #[doc = "Convert the builder into a `Client` instance."]
+        pub fn build(self) -> Client {
+            Client {
+                endpoint: self
+                    .endpoint
+                    .unwrap_or_else(|| super::DEFAULT_ENDPOINT.to_owned()),
+                credential: self.credential,
+                http_client: self.http_client,
+            }
+        }
+    }
+    impl Client {
+        pub(crate) fn token_credential(&self) -> &crate::Credential {
+            &self.credential
+        }
+        pub(crate) fn send(
+            &self,
+            request: &mut azure_core::http::Request,
+        ) -> azure_core::Result<azure_core::http::RawResponse> {
+            crate::blocking::send(self.http_client.as_ref(), request)
+        }
+        #[doc = "Create a new `ClientBuilder`."]
+        #[must_use]
+        pub fn builder(
+            credential: crate::Credential,
+            http_client: impl crate::blocking::HttpClient + 'static,
+        ) -> ClientBuilder {
+            ClientBuilder::new(credential, http_client)
+        }
+        pub fn agentclouds_client(&self) -> agentclouds::Client {
+            agentclouds::Client(self.clone())
+        }
+        pub fn agentcloudtypes_client(&self) -> agentcloudtypes::Client {
+            agentcloudtypes::Client(self.clone())
+        }
+        pub fn agents_client(&self) -> agents::Client {
+            agents::Client(self.clone())
+        }
+        pub fn deploymentgroups_client(&self) -> deploymentgroups::Client {
+            deploymentgroups::Client(self.clone())
+        }
+        pub fn elasticpoollogs_client(&self) -> elasticpoollogs::Client {
+            elasticpoollogs::Client(self.clone())
+        }
+        pub fn elasticpools_client(&self) -> elasticpools::Client {
+            elasticpools::Client(self.clone())
+        }
+        pub fn environmentdeployment_records_client(
+            &self,
+        ) -> environmentdeployment_records::Client {
+            environmentdeployment_records::Client(self.clone())
+        }
+        pub fn environments_client(&self) -> environments::Client {
+            environments::Client(self.clone())
+        }
+        pub fn events_client(&self) -> events::Client {
+            events::Client(self.clone())
+        }
+        pub fn kubernetes_client(&self) -> kubernetes::Client {
+            kubernetes::Client(self.clone())
+        }
+        pub fn logs_client(&self) -> logs::Client {
+            logs::Client(self.clone())
+        }
+        pub fn nodes_client(&self) -> nodes::Client {
+            nodes::Client(self.clone())
+        }
+        pub fn oidctoken_client(&self) -> oidctoken::Client {
+            oidctoken::Client(self.clone())
+        }
+        pub fn pools_client(&self) -> pools::Client {
+            pools::Client(self.clone())
+        }
+        pub fn queues_client(&self) -> queues::Client {
+            queues::Client(self.clone())
+        }
+        pub fn records_client(&self) -> records::Client {
+            records::Client(self.clone())
+        }
+        pub fn requests_client(&self) -> requests::Client {
+            requests::Client(self.clone())
+        }
+        pub fn targets_client(&self) -> targets::Client {
+            targets::Client(self.clone())
+        }
+        pub fn taskgroups_client(&self) -> taskgroups::Client {
+            taskgroups::Client(self.clone())
+        }
+        pub fn variablegroups_client(&self) -> variablegroups::Client {
+            variablegroups::Client(self.clone())
+        }
+        pub fn yamlschema_client(&self) -> yamlschema::Client {
+            yamlschema::Client(self.clone())
+        }
+    }
+    impl crate::ClientEndpoint for Client {
+        fn endpoint(&self) -> &azure_core::http::Url {
+            &self.endpoint
+        }
+    }
+    pub mod events {
+        use super::super::events::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Send a pipeline job event to be processed by the execution plan."]
+            #[doc = ""]
+            #[doc = "See [`post_event`](super::super::events::Client::post_event) for details of the arguments."]
+            pub fn post_event(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::JobEvent>,
+                scope_identifier: impl Into<String>,
+                hub_name: impl Into<String>,
+                plan_id: impl Into<String>,
+            ) -> post_event::RequestBuilder<super::Client> {
+                post_event::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    scope_identifier: scope_identifier.into(),
+                    hub_name: hub_name.into(),
+                    plan_id: plan_id.into(),
+                }
+            }
+        }
+    }
+    pub mod oidctoken {
+        use super::super::models;
+        use super::super::oidctoken::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`create`](super::super::oidctoken::Client::create) for details of the arguments."]
+            pub fn create(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<serde_json::Value>,
+                scope_identifier: impl Into<String>,
+                hub_name: impl Into<String>,
+                plan_id: impl Into<String>,
+                job_id: impl Into<String>,
+            ) -> create::RequestBuilder<super::Client> {
+                create::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    scope_identifier: scope_identifier.into(),
+                    hub_name: hub_name.into(),
+                    plan_id: plan_id.into(),
+                    job_id: job_id.into(),
+                    service_connection_id: None,
+                }
+            }
+        }
+    }
+    pub mod logs {
+        use super::super::logs::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Create a log and connect it to a pipeline run's execution plan."]
+            #[doc = ""]
+            #[doc = "See [`create`](super::super::logs::Client::create) for details of the arguments."]
+            pub fn create(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskLog>,
+                scope_identifier: impl Into<String>,
+                hub_name: impl Into<String>,
+                plan_id: impl Into<String>,
+            ) -> create::RequestBuilder<super::Client> {
+                create::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    scope_identifier: scope_identifier.into(),
+                    hub_name: hub_name.into(),
+                    plan_id: plan_id.into(),
+                }
+            }
+            #[doc = "Append a log to a task's log. The log should be sent in the body of the request as a TaskLog object stream."]
+            #[doc = ""]
+            #[doc = "See [`append_log_content`](super::super::logs::Client::append_log_content) for details of the arguments."]
+            pub fn append_log_content(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<String>,
+                scope_identifier: impl Into<String>,
+                hub_name: impl Into<String>,
+                plan_id: impl Into<String>,
+                log_id: i32,
+            ) -> append_log_content::RequestBuilder<super::Client> {
+                append_log_content::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    scope_identifier: scope_identifier.into(),
+                    hub_name: hub_name.into(),
+                    plan_id: plan_id.into(),
+                    log_id,
+                }
+            }
+        }
+    }
+    pub mod records {
+        use super::super::models;
+        use super::super::records::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Update timeline records if they already exist, otherwise create new ones for the same timeline."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::records::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::VssJsonCollectionWrapper>,
+                scope_identifier: impl Into<String>,
+                hub_name: impl Into<String>,
+                plan_id: impl Into<String>,
+                timeline_id: impl Into<String>,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    scope_identifier: scope_identifier.into(),
+                    hub_name: hub_name.into(),
+                    plan_id: plan_id.into(),
+                    timeline_id: timeline_id.into(),
+                }
+            }
+        }
+    }
+    pub mod pools {
+        use super::super::models;
+        use super::super::pools::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of agent pools."]
+            #[doc = ""]
+            #[doc = "See [`get_agent_pools`](super::super::pools::Client::get_agent_pools) for details of the arguments."]
+            pub fn get_agent_pools(
+                &self,
+                organization: impl Into<String>,
+            ) -> get_agent_pools::RequestBuilder<super::Client> {
+                get_agent_pools::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_name: None,
+                    properties: None,
+                    pool_type: None,
+                    action_filter: None,
+                }
+            }
+            #[doc = "Get a list of agent pools."]
+            #[doc = ""]
+            #[doc = "See [`get_agent_pools_by_ids`](super::super::pools::Client::get_agent_pools_by_ids) for details of the arguments."]
+            pub fn get_agent_pools_by_ids(
+                &self,
+                organization: impl Into<String>,
+                pool_ids: impl Into<String>,
+            ) -> get_agent_pools_by_ids::RequestBuilder<super::Client> {
+                get_agent_pools_by_ids::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_ids: pool_ids.into(),
+                    action_filter: None,
+                }
+            }
+            #[doc = "Create an agent pool."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::pools::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgentPool>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "Get information about an agent pool."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::pools::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    properties: None,
+                    action_filter: None,
+                }
+            }
+            #[doc = "Update properties on an agent pool"]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::pools::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgentPool>,
+                pool_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                }
+            }
+            #[doc = "Delete an agent pool."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::pools::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                }
+            }
+        }
+    }
+    pub mod queues {
+        use super::super::models;
+        use super::super::queues::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of agent queues by their names"]
+            #[doc = ""]
+            #[doc = "See [`get_agent_queues_by_names`](super::super::queues::Client::get_agent_queues_by_names) for details of the arguments."]
+            pub fn get_agent_queues_by_names(
+                &self,
+                organization: impl Into<String>,
+                queue_names: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_agent_queues_by_names::RequestBuilder<super::Client> {
+                get_agent_queues_by_names::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    queue_names: queue_names.into(),
+                    project: project.into(),
+                    action_filter: None,
+                }
+            }
+            #[doc = "Get a list of agent queues by their IDs"]
+            #[doc = ""]
+            #[doc = "See [`get_agent_queues_by_ids`](super::super::queues::Client::get_agent_queues_by_ids) for details of the arguments."]
+            pub fn get_agent_queues_by_ids(
+                &self,
+                organization: impl Into<String>,
+                queue_ids: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_agent_queues_by_ids::RequestBuilder<super::Client> {
+                get_agent_queues_by_ids::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    queue_ids: queue_ids.into(),
+                    project: project.into(),
+                    action_filter: None,
+                }
+            }
+            #[doc = "Get a list of agent queues."]
+            #[doc = ""]
+            #[doc = "See [`get_agent_queues`](super::super::queues::Client::get_agent_queues) for details of the arguments."]
+            pub fn get_agent_queues(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_agent_queues::RequestBuilder<super::Client> {
+                get_agent_queues::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    queue_name: None,
+                    action_filter: None,
+                }
+            }
+            #[doc = "Get a list of agent queues by pool ids"]
+            #[doc = ""]
+            #[doc = "See [`get_agent_queues_for_pools`](super::super::queues::Client::get_agent_queues_for_pools) for details of the arguments."]
+            pub fn get_agent_queues_for_pools(
+                &self,
+                organization: impl Into<String>,
+                pool_ids: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_agent_queues_for_pools::RequestBuilder<super::Client> {
+                get_agent_queues_for_pools::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_ids: pool_ids.into(),
+                    project: project.into(),
+                    action_filter: None,
+                }
+            }
+            #[doc = "Create a new agent queue to connect a project to an agent pool."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::queues::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgentQueue>,
+                project: impl Into<String>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                    authorize_pipelines: None,
+                }
+            }
+            #[doc = "Get information about an agent queue."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::queues::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                queue_id: i32,
+                project: impl Into<String>,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    queue_id,
+                    project: project.into(),
+                    action_filter: None,
+                }
+            }
+            #[doc = "Removes an agent queue from a project."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::queues::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                queue_id: i32,
+                project: impl Into<String>,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    queue_id,
+                    project: project.into(),
+                }
+            }
+        }
+    }
+    pub mod variablegroups {
+        use super::super::models;
+        use super::super::variablegroups::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get variable groups."]
+            #[doc = ""]
+            #[doc = "See [`get_variable_groups`](super::super::variablegroups::Client::get_variable_groups) for details of the arguments."]
+            pub fn get_variable_groups(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_variable_groups::RequestBuilder<super::Client> {
+                get_variable_groups::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    group_name: None,
+                    action_filter: None,
+                    top: None,
+                    continuation_token: None,
+                    query_order: None,
+                }
+            }
+            #[doc = "Add a variable group."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::variablegroups::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::VariableGroupParameters>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "Add a variable group."]
+            #[doc = ""]
+            #[doc = "See [`share_variable_group`](super::super::variablegroups::Client::share_variable_group) for details of the arguments."]
+            pub fn share_variable_group(
+                &self,
+                organization: impl Into<String>,
+                body: Vec<models::VariableGroupProjectReference>,
+                variable_group_id: i32,
+            ) -> share_variable_group::RequestBuilder<super::Client> {
+                share_variable_group::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body,
+                    variable_group_id,
+                }
+            }
+            #[doc = "Update a variable group."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::variablegroups::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::VariableGroupParameters>,
+                group_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    group_id,
+                }
+            }
+            #[doc = "Delete a variable group"]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::variablegroups::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                group_id: i32,
+                project_ids: impl Into<String>,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    group_id,
+                    project_ids: project_ids.into(),
+                }
+            }
+            #[doc = "Get variable groups by ids."]
+            #[doc = ""]
+            #[doc = "See [`get_variable_groups_by_id`](super::super::variablegroups::Client::get_variable_groups_by_id) for details of the arguments."]
+            pub fn get_variable_groups_by_id(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                group_ids: impl Into<String>,
+            ) -> get_variable_groups_by_id::RequestBuilder<super::Client> {
+                get_variable_groups_by_id::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    group_ids: group_ids.into(),
+                }
+            }
+            #[doc = "Get a variable group."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::variablegroups::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                group_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    group_id,
+                }
+            }
+        }
+    }
+    pub mod agentclouds {
+        use super::super::agentclouds::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`list`](super::super::agentclouds::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                }
+            }
+            #[doc = "See [`add`](super::super::agentclouds::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgentCloud>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "See [`get`](super::super::agentclouds::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                agent_cloud_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    agent_cloud_id,
+                }
+            }
+            #[doc = "See [`update`](super::super::agentclouds::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgentCloud>,
+                agent_cloud_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    agent_cloud_id,
+                }
+            }
+            #[doc = "See [`delete`](super::super::agentclouds::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                agent_cloud_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    agent_cloud_id,
+                }
+            }
+        }
+    }
+    pub mod requests {
+        use super::super::models;
+        use super::super::requests::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`list`](super::super::requests::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                agent_cloud_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    agent_cloud_id,
+                }
+            }
+        }
+    }
+    pub mod agentcloudtypes {
+        use super::super::agentcloudtypes::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get agent cloud types."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::agentcloudtypes::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                }
+            }
+        }
+    }
+    pub mod agents {
+        use super::super::agents::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of agents."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::agents::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    agent_name: None,
+                    include_capabilities: None,
+                    include_assigned_request: None,
+                    include_last_completed_request: None,
+                    property_filters: None,
+                    demands: None,
+                }
+            }
+            #[doc = "Adds an agent to a pool.  You probably don't want to call this endpoint directly. Instead, [configure an agent](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) using the agent download package."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::agents::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgent>,
+                pool_id: i32,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                }
+            }
+            #[doc = "Get information about an agent."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::agents::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+                agent_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    agent_id,
+                    include_capabilities: None,
+                    include_assigned_request: None,
+                    include_last_completed_request: None,
+                    property_filters: None,
+                }
+            }
+            #[doc = "Replace an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove and reconfigure an agent from your organization."]
+            #[doc = ""]
+            #[doc = "See [`replace_agent`](super::super::agents::Client::replace_agent) for details of the arguments."]
+            pub fn replace_agent(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgent>,
+                pool_id: i32,
+                agent_id: i32,
+            ) -> replace_agent::RequestBuilder<super::Client> {
+                replace_agent::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                    agent_id,
+                }
+            }
+            #[doc = "Update agent details."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::agents::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskAgent>,
+                pool_id: i32,
+                agent_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                    agent_id,
+                }
+            }
+            #[doc = "Delete an agent.  You probably don't want to call this endpoint directly. Instead, [use the agent configuration script](https://docs.microsoft.com/azure/devops/pipelines/agents/agents) to remove an agent from your organization."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::agents::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+                agent_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    agent_id,
+                }
+            }
+        }
+    }
+    pub mod yamlschema {
+        use super::super::models;
+        use super::super::yamlschema::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "GET the Yaml schema used for Yaml file validation."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::yamlschema::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    validate_task_names: None,
+                }
+            }
+        }
+    }
+    pub mod deploymentgroups {
+        use super::super::deploymentgroups::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of deployment groups by name or IDs."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::deploymentgroups::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    name: None,
+                    action_filter: None,
+                    expand: None,
+                    continuation_token: None,
+                    top: None,
+                    ids: None,
+                }
+            }
+            #[doc = "Create a deployment group."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::deploymentgroups::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::DeploymentGroupCreateParameter>,
+                project: impl Into<String>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                }
+            }
+            #[doc = "Get a deployment group by its ID."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::deploymentgroups::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                    action_filter: None,
+                    expand: None,
+                }
+            }
+            #[doc = "Update a deployment group."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::deploymentgroups::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::DeploymentGroupUpdateParameter>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                }
+            }
+            #[doc = "Delete a deployment group."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::deploymentgroups::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                }
+            }
+        }
+    }
+    pub mod targets {
+        use super::super::models;
+        use super::super::targets::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of deployment targets in a deployment group."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::targets::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                    tags: None,
+                    name: None,
+                    partial_name_match: None,
+                    expand: None,
+                    agent_status: None,
+                    agent_job_result: None,
+                    continuation_token: None,
+                    top: None,
+                    enabled: None,
+                    property_filters: None,
+                }
+            }
+            #[doc = "Update tags of a list of deployment targets in a deployment group."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::targets::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: Vec<models::DeploymentTargetUpdateParameter>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body,
+                    project: project.into(),
+                    deployment_group_id,
+                }
+            }
+            #[doc = "Get a deployment target by its ID in a deployment group"]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::targets::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+                target_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                    target_id,
+                    expand: None,
+                }
+            }
+            #[doc = "Delete a deployment target in a deployment group. This deletes the agent from associated deployment pool too."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::targets::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                deployment_group_id: i32,
+                target_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    deployment_group_id,
+                    target_id,
+                }
+            }
+        }
+    }
+    pub mod environments {
+        use super::super::environments::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get all environments."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::environments::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    name: None,
+                    continuation_token: None,
+                    top: None,
+                }
+            }
+            #[doc = "Create an environment."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::environments::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::EnvironmentCreateParameter>,
+                project: impl Into<String>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                }
+            }
+            #[doc = "Get an environment by its ID."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::environments::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                environment_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    environment_id,
+                    expands: None,
+                }
+            }
+            #[doc = "Update the specified environment."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::environments::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::EnvironmentUpdateParameter>,
+                project: impl Into<String>,
+                environment_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                    environment_id,
+                }
+            }
+            #[doc = "Delete the specified environment."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::environments::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                environment_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    environment_id,
+                }
+            }
+        }
+    }
+    pub mod environmentdeployment_records {
+        use super::super::environmentdeployment_records::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get environment deployment execution history"]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::environmentdeployment_records::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                environment_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    environment_id,
+                    continuation_token: None,
+                    top: None,
+                }
+            }
+        }
+    }
+    pub mod kubernetes {
+        use super::super::kubernetes::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`add`](super::super::kubernetes::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::KubernetesResourceCreateParameters>,
+                project: impl Into<String>,
+                environment_id: i32,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                    environment_id,
+                }
+            }
+            #[doc = "See [`get`](super::super::kubernetes::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                environment_id: i32,
+                resource_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    environment_id,
+                    resource_id,
+                }
+            }
+            #[doc = "See [`delete`](super::super::kubernetes::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                environment_id: i32,
+                resource_id: i32,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    environment_id,
+                    resource_id,
+                }
+            }
+        }
+    }
+    pub mod taskgroups {
+        use super::super::models;
+        use super::super::taskgroups::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Create a task group."]
+            #[doc = ""]
+            #[doc = "See [`add`](super::super::taskgroups::Client::add) for details of the arguments."]
+            pub fn add(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskGroupCreateParameter>,
+                project: impl Into<String>,
+            ) -> add::RequestBuilder<super::Client> {
+                add::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                }
+            }
+            #[doc = "List task groups."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::taskgroups::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                task_group_id: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    task_group_id: task_group_id.into(),
+                    expanded: None,
+                    task_id_filter: None,
+                    deleted: None,
+                    top: None,
+                    continuation_token: None,
+                    query_order: None,
+                }
+            }
+            #[doc = "Update a task group."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::taskgroups::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TaskGroupUpdateParameter>,
+                project: impl Into<String>,
+                task_group_id: impl Into<String>,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                    task_group_id: task_group_id.into(),
+                }
+            }
+            #[doc = "Delete a task group."]
+            #[doc = ""]
+            #[doc = "See [`delete`](super::super::taskgroups::Client::delete) for details of the arguments."]
+            pub fn delete(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+                task_group_id: impl Into<String>,
+            ) -> delete::RequestBuilder<super::Client> {
+                delete::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    project: project.into(),
+                    task_group_id: task_group_id.into(),
+                    comment: None,
+                }
+            }
+        }
+    }
+    pub mod elasticpools {
+        use super::super::elasticpools::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of all Elastic Pools."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::elasticpools::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                }
+            }
+            #[doc = "Create a new elastic pool. This will create a new TaskAgentPool at the organization level. If a project id is provided, this will create a new TaskAgentQueue in the specified project."]
+            #[doc = ""]
+            #[doc = "See [`create`](super::super::elasticpools::Client::create) for details of the arguments."]
+            pub fn create(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::ElasticPool>,
+                pool_name: impl Into<String>,
+            ) -> create::RequestBuilder<super::Client> {
+                create::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_name: pool_name.into(),
+                    authorize_all_pipelines: None,
+                    auto_provision_project_pools: None,
+                    project_id: None,
+                }
+            }
+            #[doc = "Returns the Elastic Pool with the specified Pool Id."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::elasticpools::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> get::RequestBuilder<super::Client> {
+                get::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                }
+            }
+            #[doc = "Update settings on a specified Elastic Pool."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::elasticpools::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::ElasticPoolSettings>,
+                pool_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                }
+            }
+        }
+    }
+    pub mod elasticpoollogs {
+        use super::super::elasticpoollogs::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get elastic pool diagnostics logs for a specified Elastic Pool."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::elasticpoollogs::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    top: None,
+                }
+            }
+        }
+    }
+    pub mod nodes {
+        use super::super::models;
+        use super::super::nodes::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a list of ElasticNodes currently in the ElasticPool"]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::nodes::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                pool_id: i32,
+            ) -> list::RequestBuilder<super::Client> {
+                list::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    pool_id,
+                    state: None,
+                }
+            }
+            #[doc = "Update properties on a specified ElasticNode"]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::nodes::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::ElasticNodeSettings>,
+                pool_id: i32,
+                elastic_node_id: i32,
+            ) -> update::RequestBuilder<super::Client> {
+                update::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    pool_id,
+                    elastic_node_id,
+                }
             }
         }
     }

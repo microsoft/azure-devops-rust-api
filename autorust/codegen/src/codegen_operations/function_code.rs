@@ -6,6 +6,12 @@ use super::{
     function_params::{FunctionCallParamsCode, FunctionParam, FunctionParams},
     web_operation_gen::WebOperationGen,
 };
+#[derive(Clone)]
+struct BlockingClientFunction {
+    client_type: TokenStream,
+    async_client: String,
+}
+
 /// Create the client function that produces the request builder instance.
 #[derive(Clone)]
 pub(crate) struct ClientFunctionCode {
@@ -14,6 +20,8 @@ pub(crate) struct ClientFunctionCode {
     fname: Ident,
     parameters: FunctionParams,
     in_operation_group: bool,
+    /// Set for a blocking client function (see `with_blocking_client`).
+    blocking: Option<BlockingClientFunction>,
 }
 
 impl ClientFunctionCode {
@@ -31,7 +39,22 @@ impl ClientFunctionCode {
             fname,
             parameters: parameters.clone(),
             in_operation_group,
+            blocking: None,
         })
+    }
+
+    /// Returns a copy of this function for a blocking client.
+    ///
+    /// `client_type` is the blocking client type, and `async_client` is the path of the
+    /// corresponding async client, whose documentation is linked to rather than repeated.
+    pub fn with_blocking_client(&self, client_type: TokenStream, async_client: String) -> Self {
+        Self {
+            blocking: Some(BlockingClientFunction {
+                client_type,
+                async_client,
+            }),
+            ..self.clone()
+        }
     }
 }
 
@@ -98,11 +121,31 @@ impl ToTokens for ClientFunctionCode {
 
         let fname = &self.fname;
         let parameters = FunctionCallParamsCode(self.parameters.clone());
+        let generics = match &self.blocking {
+            Some(BlockingClientFunction { client_type, .. }) => quote! { <#client_type> },
+            None => quote! {},
+        };
+        // Blocking client functions link to the async function's documentation,
+        // rather than repeating the argument descriptions.
+        let param_descriptions = match &self.blocking {
+            Some(BlockingClientFunction { async_client, .. }) => {
+                let doc = format!(
+                    "See [`{fname}`]({async_client}::{fname}) for details of the arguments."
+                );
+                let blank = if summary.is_empty() && description.is_empty() {
+                    quote! {}
+                } else {
+                    quote! { #[doc = ""] }
+                };
+                vec![quote! { #blank #[doc = #doc] }]
+            }
+            None => param_descriptions,
+        };
         tokens.extend(quote! {
             #summary
             #description
             #(#param_descriptions)*
-            pub fn #fname(#parameters) -> #fname::RequestBuilder {
+            pub fn #fname(#parameters) -> #fname::RequestBuilder #generics {
                 #fname::RequestBuilder {
                     #(#params),*
                 }

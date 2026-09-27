@@ -137,6 +137,16 @@ pub mod work;
 mod auth;
 pub use auth::Credential;
 
+#[cfg(feature = "blocking")]
+pub mod blocking;
+
+/// Access to a client's endpoint, used by request builders that are shared by
+/// async and blocking clients.
+#[doc(hidden)]
+pub trait ClientEndpoint {
+    fn endpoint(&self) -> &azure_core::http::Url;
+}
+
 pub mod date_time;
 pub mod headers;
 pub mod telemetry;

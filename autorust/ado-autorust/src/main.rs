@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-// gen_ado.rs
+// ado-autorust main.rs
 // Main Azure DevOps crate code generation entry point
 use autorust_codegen::autorust_toml;
 use autorust_codegen::{self, CrateConfig, Result, RunConfig};
@@ -14,6 +14,8 @@ fn main() -> Result<()> {
     let package_config = autorust_toml::read("autorust.toml".into())?;
 
     let run_config = &mut RunConfig::new("azure_devops_rust_api_");
+    // Also generate a blocking (non-async) client for each module.
+    run_config.generate_blocking = true;
     let root_spec_folder: Utf8PathBuf = ROOT_SPEC_DIR.into();
     let root_output_folder: Utf8PathBuf = "../azure_devops_rust_api/src".into();
     let modules = [

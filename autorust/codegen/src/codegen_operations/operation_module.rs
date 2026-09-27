@@ -14,6 +14,7 @@ pub struct OperationModuleCode {
     pub request_builder_setters_code: RequestBuilderSettersCode,
     pub request_builder_send_code: RequestBuilderSendCode,
     pub request_builder_intofuture_code: RequestBuilderIntoFutureCode,
+    pub generate_blocking: bool,
 }
 impl ToTokens for OperationModuleCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
@@ -24,7 +25,25 @@ impl ToTokens for OperationModuleCode {
             request_builder_setters_code,
             request_builder_send_code,
             request_builder_intofuture_code,
+            generate_blocking,
         } = &self;
+        // With a blocking client the request builder is generic over the client type,
+        // and the send code provides its own (client-specific) impl blocks.
+        let request_builder_impls = if *generate_blocking {
+            quote! {
+                impl<C> RequestBuilder<C> {
+                    #request_builder_setters_code
+                }
+                #request_builder_send_code
+            }
+        } else {
+            quote! {
+                impl RequestBuilder {
+                    #request_builder_setters_code
+                    #request_builder_send_code
+                }
+            }
+        };
         tokens.extend(quote! {
             pub mod #module_name {
                 use super::models;
@@ -37,10 +56,7 @@ impl ToTokens for OperationModuleCode {
 
                 #request_builder_struct_code
 
-                impl RequestBuilder {
-                    #request_builder_setters_code
-                    #request_builder_send_code
-                }
+                #request_builder_impls
 
                 #request_builder_intofuture_code
             }

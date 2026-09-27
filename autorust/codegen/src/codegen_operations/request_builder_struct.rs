@@ -11,6 +11,7 @@ pub struct RequestBuilderStructCode {
     in_operation_group: bool,
     lro: bool,
     lro_options: Option<MsLongRunningOperationOptions>,
+    generate_blocking: bool,
 }
 
 impl RequestBuilderStructCode {
@@ -19,12 +20,14 @@ impl RequestBuilderStructCode {
         in_operation_group: bool,
         lro: bool,
         lro_options: Option<MsLongRunningOperationOptions>,
+        generate_blocking: bool,
     ) -> Self {
         Self {
             parameters: parameters.clone(),
             in_operation_group,
             lro,
             lro_options,
+            generate_blocking,
         }
     }
 }
@@ -32,7 +35,11 @@ impl RequestBuilderStructCode {
 impl ToTokens for RequestBuilderStructCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut params: Vec<TokenStream> = Vec::new();
-        if self.in_operation_group {
+        if self.generate_blocking {
+            // The request builder is generic over the client type, so that it can
+            // be created by either the async or the blocking client.
+            params.push(quote! { pub(crate) client: C });
+        } else if self.in_operation_group {
             params.push(quote! { pub(crate) client: super::super::Client });
         } else {
             params.push(quote! { pub(crate) client: super::Client });
@@ -120,6 +127,20 @@ impl ToTokens for RequestBuilderStructCode {
             }
         };
 
+        let (blocking_docs, generics) = if self.generate_blocking {
+            (
+                quote! {
+                    ///
+                    /// When created from a [`blocking::Client`](super::super::blocking::Client),
+                    /// finalize and submit the request using [`RequestBuilder::send()`], which
+                    /// blocks until the request completes.
+                },
+                quote! { <C = super::super::Client> },
+            )
+        } else {
+            (quote! {}, quote! {})
+        };
+
         tokens.extend(quote! {
             #[derive(Clone)]
             /// `RequestBuilder` provides a mechanism for setting optional parameters on a request.
@@ -128,7 +149,8 @@ impl ToTokens for RequestBuilderStructCode {
             /// parameters can be chained.
             ///
             #lro_docs
-            pub struct RequestBuilder {
+            #blocking_docs
+            pub struct RequestBuilder #generics {
                 #(#params),*
             }
         });

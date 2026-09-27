@@ -342,8 +342,12 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) owner_scope_type: String,
             pub(crate) owner_scope_id: String,
@@ -352,7 +356,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_type(mut self, artifact_type: impl Into<String>) -> Self {
                 self.artifact_type = Some(artifact_type.into());
                 self
@@ -369,62 +373,47 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let owner_scope_type = &this.owner_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeType", owner_scope_type);
-                        let owner_scope_id = &this.owner_scope_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeId", owner_scope_id);
-                        if let Some(artifact_type) = &this.artifact_type {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactType", artifact_type);
-                        }
-                        if let Some(artifact_scope_type) = &this.artifact_scope_type {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeType", artifact_scope_type);
-                        }
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        if let Some(include_extended_details) = &this.include_extended_details {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeExtendedDetails",
-                                &include_extended_details.to_string(),
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let owner_scope_type = &this.owner_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeType", owner_scope_type);
+                let owner_scope_id = &this.owner_scope_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeId", owner_scope_id);
+                if let Some(artifact_type) = &this.artifact_type {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactType", artifact_type);
+                }
+                if let Some(artifact_scope_type) = &this.artifact_scope_type {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeType", artifact_scope_type);
+                }
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                if let Some(include_extended_details) = &this.include_extended_details {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeExtendedDetails",
+                        &include_extended_details.to_string(),
+                    );
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -440,6 +429,47 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -489,50 +519,38 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::FavoriteCreateParameters,
             pub(crate) owner_scope_type: String,
             pub(crate) owner_scope_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        let owner_scope_type = &this.owner_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeType", owner_scope_type);
-                        let owner_scope_id = &this.owner_scope_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeId", owner_scope_id);
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                let owner_scope_type = &this.owner_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeType", owner_scope_type);
+                let owner_scope_id = &this.owner_scope_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeId", owner_scope_id);
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -548,6 +566,47 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -597,8 +656,12 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) artifact_type: String,
             pub(crate) artifact_id: String,
@@ -606,7 +669,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -615,6 +678,53 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
+            #[doc = ""]
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let artifact_type = &this.artifact_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactType", artifact_type);
+                let artifact_id = &this.artifact_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactId", artifact_id);
+                let artifact_scope_type = &this.artifact_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactScopeType", artifact_scope_type);
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                if let Some(include_extended_details) = &this.include_extended_details {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeExtendedDetails",
+                        &include_extended_details.to_string(),
+                    );
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
+            }
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites?artifactType={}&artifactId={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . artifact_type , self . artifact_id , self . artifact_scope_type)) ? ;
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
+                if !has_api_version_already {
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
+                }
+                Ok(url)
+            }
+        }
+        impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
             #[doc = ""]
             #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
@@ -623,9 +733,7 @@ pub mod favorites {
                 Box::pin({
                     let this = self.clone();
                     async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                        let mut req = this.build_request()?;
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
@@ -637,43 +745,24 @@ pub mod favorites {
                                 auth_header,
                             );
                         }
-                        let artifact_type = &this.artifact_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactType", artifact_type);
-                        let artifact_id = &this.artifact_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactId", artifact_id);
-                        let artifact_scope_type = &this.artifact_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactScopeType", artifact_scope_type);
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        if let Some(include_extended_details) = &this.include_extended_details {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeExtendedDetails",
-                                &include_extended_details.to_string(),
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites?artifactType={}&artifactId={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . artifact_type , self . artifact_id , self . artifact_scope_type)) ? ;
-                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
-                if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair("api-version", "7.1-preview");
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                 }
-                Ok(url)
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -718,8 +807,12 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) owner_scope_type: String,
@@ -728,11 +821,56 @@ pub mod favorites {
             pub(crate) artifact_scope_type: String,
             pub(crate) artifact_scope_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
             }
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
+            #[doc = ""]
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let owner_scope_type = &this.owner_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeType", owner_scope_type);
+                let owner_scope_id = &this.owner_scope_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeId", owner_scope_id);
+                let artifact_type = &this.artifact_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactType", artifact_type);
+                let artifact_scope_type = &this.artifact_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactScopeType", artifact_scope_type);
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
+            }
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactType={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_type , self . artifact_scope_type)) ? ;
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
+                if !has_api_version_already {
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
+                }
+                Ok(url)
+            }
+        }
+        impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
             #[doc = ""]
             #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
@@ -741,9 +879,7 @@ pub mod favorites {
                 Box::pin({
                     let this = self.clone();
                     async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                        let mut req = this.build_request()?;
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
@@ -755,41 +891,24 @@ pub mod favorites {
                                 auth_header,
                             );
                         }
-                        let owner_scope_type = &this.owner_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeType", owner_scope_type);
-                        let owner_scope_id = &this.owner_scope_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeId", owner_scope_id);
-                        let artifact_type = &this.artifact_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactType", artifact_type);
-                        let artifact_scope_type = &this.artifact_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactScopeType", artifact_scope_type);
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactType={}&artifactScopeType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_type , self . artifact_scope_type)) ? ;
-                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
-                if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair("api-version", "7.1-preview");
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                 }
-                Ok(url)
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -842,8 +961,12 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) owner_scope_type: String,
@@ -853,7 +976,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -862,6 +985,57 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
+            #[doc = ""]
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let owner_scope_type = &this.owner_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeType", owner_scope_type);
+                let owner_scope_id = &this.owner_scope_id;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("ownerScopeId", owner_scope_id);
+                let artifact_scope_type = &this.artifact_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactScopeType", artifact_scope_type);
+                let artifact_type = &this.artifact_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactType", artifact_type);
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                if let Some(include_extended_details) = &this.include_extended_details {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeExtendedDetails",
+                        &include_extended_details.to_string(),
+                    );
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
+            }
+            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
+                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactScopeType={}&artifactType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_scope_type , self . artifact_type)) ? ;
+                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
+                if !has_api_version_already {
+                    url.query_pairs_mut()
+                        .append_pair("api-version", "7.1-preview");
+                }
+                Ok(url)
+            }
+        }
+        impl RequestBuilder {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
             #[doc = ""]
             #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
@@ -870,9 +1044,7 @@ pub mod favorites {
                 Box::pin({
                     let this = self.clone();
                     async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                        let mut req = this.build_request()?;
                         if let Some(auth_header) = this
                             .client
                             .token_credential()
@@ -884,47 +1056,24 @@ pub mod favorites {
                                 auth_header,
                             );
                         }
-                        let owner_scope_type = &this.owner_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeType", owner_scope_type);
-                        let owner_scope_id = &this.owner_scope_id;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("ownerScopeId", owner_scope_id);
-                        let artifact_scope_type = &this.artifact_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactScopeType", artifact_scope_type);
-                        let artifact_type = &this.artifact_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactType", artifact_type);
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        if let Some(include_extended_details) = &this.include_extended_details {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeExtendedDetails",
-                                &include_extended_details.to_string(),
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
                         Ok(Response(this.client.send(&mut req).await?.into()))
                     }
                 })
             }
-            fn url(&self) -> azure_core::Result<azure_core::http::Url> {
-                let mut url = azure_core :: http :: Url :: parse (& format ! ("{}/{}/_apis/favorite/favorites/{}?ownerScopeType={}&ownerScopeId={}&artifactScopeType={}&artifactType={}" , self . client . endpoint () , self . organization , self . favorite_id , self . owner_scope_type , self . owner_scope_id , self . artifact_scope_type , self . artifact_type)) ? ;
-                let has_api_version_already = url.query_pairs().any(|(k, _)| k == "api-version");
-                if !has_api_version_already {
-                    url.query_pairs_mut()
-                        .append_pair("api-version", "7.1-preview");
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
                 }
-                Ok(url)
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -974,15 +1123,19 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) artifact_type: Option<String>,
             pub(crate) artifact_scope_type: Option<String>,
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_type(mut self, artifact_type: impl Into<String>) -> Self {
                 self.artifact_type = Some(artifact_type.into());
                 self
@@ -999,54 +1152,39 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        if let Some(artifact_type) = &this.artifact_type {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactType", artifact_type);
-                        }
-                        if let Some(artifact_scope_type) = &this.artifact_scope_type {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeType", artifact_scope_type);
-                        }
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        if let Some(include_extended_details) = &this.include_extended_details {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeExtendedDetails",
-                                &include_extended_details.to_string(),
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                if let Some(artifact_type) = &this.artifact_type {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactType", artifact_type);
+                }
+                if let Some(artifact_scope_type) = &this.artifact_scope_type {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeType", artifact_scope_type);
+                }
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                if let Some(include_extended_details) = &this.include_extended_details {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeExtendedDetails",
+                        &include_extended_details.to_string(),
+                    );
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1060,6 +1198,47 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1109,40 +1288,28 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) body: models::FavoriteCreateParameters,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        impl<C> RequestBuilder<C> {}
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Post);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        req.insert_header("content-type", "application/json");
-                        let req_body = azure_core::json::to_json(&this.body)?;
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Post);
+                req.insert_header("content-type", "application/json");
+                let req_body = azure_core::json::to_json(&this.body)?;
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1156,6 +1323,47 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1205,8 +1413,12 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) artifact_scope_type: String,
@@ -1214,7 +1426,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -1223,52 +1435,37 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Get);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let artifact_scope_type = &this.artifact_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactScopeType", artifact_scope_type);
-                        let artifact_type = &this.artifact_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactType", artifact_type);
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        if let Some(include_extended_details) = &this.include_extended_details {
-                            req.url_mut().query_pairs_mut().append_pair(
-                                "includeExtendedDetails",
-                                &include_extended_details.to_string(),
-                            );
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Get);
+                let artifact_scope_type = &this.artifact_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactScopeType", artifact_scope_type);
+                let artifact_type = &this.artifact_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactType", artifact_type);
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                if let Some(include_extended_details) = &this.include_extended_details {
+                    req.url_mut().query_pairs_mut().append_pair(
+                        "includeExtendedDetails",
+                        &include_extended_details.to_string(),
+                    );
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1283,6 +1480,47 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1327,59 +1565,48 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
-            pub(crate) client: super::super::Client,
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<C = super::super::Client> {
+            pub(crate) client: C,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) artifact_type: String,
             pub(crate) artifact_scope_type: String,
             pub(crate) artifact_scope_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<C> RequestBuilder<C> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+        }
+        impl<C: crate::ClientEndpoint> RequestBuilder<C> {
+            #[doc = "Builds the HTTP request for this operation without sending it."]
             #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
-                Box::pin({
-                    let this = self.clone();
-                    async move {
-                        let url = this.url()?;
-                        let mut req =
-                            azure_core::http::Request::new(url, azure_core::http::Method::Delete);
-                        if let Some(auth_header) = this
-                            .client
-                            .token_credential()
-                            .http_authorization_header(&this.client.scopes())
-                            .await?
-                        {
-                            req.insert_header(
-                                azure_core::http::headers::AUTHORIZATION,
-                                auth_header,
-                            );
-                        }
-                        let artifact_type = &this.artifact_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactType", artifact_type);
-                        let artifact_scope_type = &this.artifact_scope_type;
-                        req.url_mut()
-                            .query_pairs_mut()
-                            .append_pair("artifactScopeType", artifact_scope_type);
-                        if let Some(artifact_scope_id) = &this.artifact_scope_id {
-                            req.url_mut()
-                                .query_pairs_mut()
-                                .append_pair("artifactScopeId", artifact_scope_id);
-                        }
-                        let req_body = azure_core::Bytes::new();
-                        req.set_body(req_body);
-                        Ok(Response(this.client.send(&mut req).await?.into()))
-                    }
-                })
+            #[doc = "The returned request does not include an `Authorization` header."]
+            pub fn build_request(&self) -> azure_core::Result<azure_core::http::Request> {
+                let this = self;
+                let url = this.url()?;
+                let mut req = azure_core::http::Request::new(url, azure_core::http::Method::Delete);
+                let artifact_type = &this.artifact_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactType", artifact_type);
+                let artifact_scope_type = &this.artifact_scope_type;
+                req.url_mut()
+                    .query_pairs_mut()
+                    .append_pair("artifactScopeType", artifact_scope_type);
+                if let Some(artifact_scope_id) = &this.artifact_scope_id {
+                    req.url_mut()
+                        .query_pairs_mut()
+                        .append_pair("artifactScopeId", artifact_scope_id);
+                }
+                let req_body = azure_core::Bytes::new();
+                req.set_body(req_body);
+                Ok(req)
             }
             fn url(&self) -> azure_core::Result<azure_core::http::Url> {
                 let mut url = azure_core::http::Url::parse(&format!(
@@ -1396,6 +1623,47 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                Box::pin({
+                    let this = self.clone();
+                    async move {
+                        let mut req = this.build_request()?;
+                        if let Some(auth_header) = this
+                            .client
+                            .token_credential()
+                            .http_authorization_header(&this.client.scopes())
+                            .await?
+                        {
+                            req.insert_header(
+                                azure_core::http::headers::AUTHORIZATION,
+                                auth_header,
+                            );
+                        }
+                        Ok(Response(this.client.send(&mut req).await?.into()))
+                    }
+                })
+            }
+        }
+        #[cfg(feature = "blocking")]
+        impl RequestBuilder<super::super::blocking::Client> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                let mut req = self.build_request()?;
+                if let Some(auth_header) = self
+                    .client
+                    .token_credential()
+                    .http_authorization_header_blocking()?
+                {
+                    req.insert_header(azure_core::http::headers::AUTHORIZATION, auth_header);
+                }
+                Ok(Response(self.client.send(&mut req)?.into()))
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
@@ -1409,6 +1677,251 @@ pub mod favorites {
                     let _rsp = self.send().await?;
                     Ok(())
                 })
+            }
+        }
+    }
+}
+impl crate::ClientEndpoint for Client {
+    fn endpoint(&self) -> &azure_core::http::Url {
+        Client::endpoint(self)
+    }
+}
+#[doc = "Blocking (non-async) client."]
+#[doc = ""]
+#[doc = "Requests are sent using the [`HttpClient`](crate::blocking::HttpClient) supplied to [`ClientBuilder::new`]."]
+#[doc = "Only PAT and unauthenticated credentials are supported, and requests do not go through"]
+#[doc = "the `azure_core` pipeline, so no retry policy is applied."]
+#[cfg(feature = "blocking")]
+pub mod blocking {
+    #[derive(Clone)]
+    pub struct Client {
+        endpoint: azure_core::http::Url,
+        credential: crate::Credential,
+        http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+    }
+    #[derive(Clone)]
+    pub struct ClientBuilder {
+        credential: crate::Credential,
+        http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+        endpoint: Option<azure_core::http::Url>,
+    }
+    impl ClientBuilder {
+        #[doc = "Create a new instance of `ClientBuilder`, using `http_client` to send requests."]
+        #[must_use]
+        pub fn new(
+            credential: crate::Credential,
+            http_client: impl crate::blocking::HttpClient + 'static,
+        ) -> Self {
+            Self {
+                credential,
+                http_client: std::sync::Arc::new(http_client),
+                endpoint: None,
+            }
+        }
+        #[doc = "Set the endpoint."]
+        #[must_use]
+        pub fn endpoint(mut self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+            self.endpoint = Some(endpoint.into());
+            self
+        }
+        #[doc = "Convert the builder into a `Client` instance."]
+        pub fn build(self) -> Client {
+            Client {
+                endpoint: self
+                    .endpoint
+                    .unwrap_or_else(|| super::DEFAULT_ENDPOINT.to_owned()),
+                credential: self.credential,
+                http_client: self.http_client,
+            }
+        }
+    }
+    impl Client {
+        pub(crate) fn token_credential(&self) -> &crate::Credential {
+            &self.credential
+        }
+        pub(crate) fn send(
+            &self,
+            request: &mut azure_core::http::Request,
+        ) -> azure_core::Result<azure_core::http::RawResponse> {
+            crate::blocking::send(self.http_client.as_ref(), request)
+        }
+        #[doc = "Create a new `ClientBuilder`."]
+        #[must_use]
+        pub fn builder(
+            credential: crate::Credential,
+            http_client: impl crate::blocking::HttpClient + 'static,
+        ) -> ClientBuilder {
+            ClientBuilder::new(credential, http_client)
+        }
+        pub fn favorites_client(&self) -> favorites::Client {
+            favorites::Client(self.clone())
+        }
+    }
+    impl crate::ClientEndpoint for Client {
+        fn endpoint(&self) -> &azure_core::http::Url {
+            &self.endpoint
+        }
+    }
+    pub mod favorites {
+        use super::super::favorites::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`get_favorites_of_owner`](super::super::favorites::Client::get_favorites_of_owner) for details of the arguments."]
+            pub fn get_favorites_of_owner(
+                &self,
+                organization: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+            ) -> get_favorites_of_owner::RequestBuilder<super::Client> {
+                get_favorites_of_owner::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_type: None,
+                    artifact_scope_type: None,
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`create_favorite_of_owner`](super::super::favorites::Client::create_favorite_of_owner) for details of the arguments."]
+            pub fn create_favorite_of_owner(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::FavoriteCreateParameters>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+            ) -> create_favorite_of_owner::RequestBuilder<super::Client> {
+                create_favorite_of_owner::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                }
+            }
+            #[doc = "See [`get_favorite_by_artifact`](super::super::favorites::Client::get_favorite_by_artifact) for details of the arguments."]
+            pub fn get_favorite_by_artifact(
+                &self,
+                organization: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> get_favorite_by_artifact::RequestBuilder<super::Client> {
+                get_favorite_by_artifact::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_id: artifact_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`delete_favorite_of_owner_by_id`](super::super::favorites::Client::delete_favorite_of_owner_by_id) for details of the arguments."]
+            pub fn delete_favorite_of_owner_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> delete_favorite_of_owner_by_id::RequestBuilder<super::Client> {
+                delete_favorite_of_owner_by_id::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                }
+            }
+            #[doc = "See [`get_favorite_of_owner_by_id`](super::super::favorites::Client::get_favorite_of_owner_by_id) for details of the arguments."]
+            pub fn get_favorite_of_owner_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+                artifact_type: impl Into<String>,
+            ) -> get_favorite_of_owner_by_id::RequestBuilder<super::Client> {
+                get_favorite_of_owner_by_id::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`get_favorites`](super::super::favorites::Client::get_favorites) for details of the arguments."]
+            pub fn get_favorites(
+                &self,
+                organization: impl Into<String>,
+            ) -> get_favorites::RequestBuilder<super::Client> {
+                get_favorites::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    artifact_type: None,
+                    artifact_scope_type: None,
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`create_favorite`](super::super::favorites::Client::create_favorite) for details of the arguments."]
+            pub fn create_favorite(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::FavoriteCreateParameters>,
+            ) -> create_favorite::RequestBuilder<super::Client> {
+                create_favorite::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "See [`get_favorite_by_id`](super::super::favorites::Client::get_favorite_by_id) for details of the arguments."]
+            pub fn get_favorite_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+                artifact_type: impl Into<String>,
+            ) -> get_favorite_by_id::RequestBuilder<super::Client> {
+                get_favorite_by_id::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`delete_favorite_by_id`](super::super::favorites::Client::delete_favorite_by_id) for details of the arguments."]
+            pub fn delete_favorite_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> delete_favorite_by_id::RequestBuilder<super::Client> {
+                delete_favorite_by_id::RequestBuilder {
+                    client: self.0.clone(),
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                }
             }
         }
     }

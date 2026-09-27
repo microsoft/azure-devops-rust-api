@@ -170,3 +170,113 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
     });
     Ok(code)
 }
+
+/// Create the blocking (non-async) `Client` and `ClientBuilder`, placed in a `blocking` submodule.
+///
+/// Also implements `crate::ClientEndpoint` for the async client (in the parent module), which is
+/// required by the request builders shared by both clients.
+/// `group_modules` contains the blocking client for each operation group.
+pub fn create_blocking_client(
+    modules: &[String],
+    group_modules: TokenStream,
+) -> Result<TokenStream> {
+    let mut clients = TokenStream::new();
+    for md in modules {
+        let client = format!("{md}_client").to_snake_case_ident()?;
+        let md = md.to_snake_case_ident()?;
+        clients.extend(quote! {
+            pub fn #client(&self) -> #md::Client {
+                #md::Client(self.clone())
+            }
+        });
+    }
+
+    Ok(quote! {
+        impl crate::ClientEndpoint for Client {
+            fn endpoint(&self) -> &azure_core::http::Url {
+                Client::endpoint(self)
+            }
+        }
+
+        #[doc = "Blocking (non-async) client."]
+        #[doc = ""]
+        #[doc = "Requests are sent using the [`HttpClient`](crate::blocking::HttpClient) supplied to [`ClientBuilder::new`]."]
+        #[doc = "Only PAT and unauthenticated credentials are supported, and requests do not go through"]
+        #[doc = "the `azure_core` pipeline, so no retry policy is applied."]
+        #[cfg(feature = "blocking")]
+        pub mod blocking {
+            #[derive(Clone)]
+            pub struct Client {
+                endpoint: azure_core::http::Url,
+                credential: crate::Credential,
+                http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+            }
+
+            #[derive(Clone)]
+            pub struct ClientBuilder {
+                credential: crate::Credential,
+                http_client: std::sync::Arc<dyn crate::blocking::HttpClient>,
+                endpoint: Option<azure_core::http::Url>,
+            }
+
+            impl ClientBuilder {
+                #[doc = "Create a new instance of `ClientBuilder`, using `http_client` to send requests."]
+                #[must_use]
+                pub fn new(
+                    credential: crate::Credential,
+                    http_client: impl crate::blocking::HttpClient + 'static,
+                ) -> Self {
+                    Self {
+                        credential,
+                        http_client: std::sync::Arc::new(http_client),
+                        endpoint: None,
+                    }
+                }
+
+                #[doc = "Set the endpoint."]
+                #[must_use]
+                pub fn endpoint(mut self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+                    self.endpoint = Some(endpoint.into());
+                    self
+                }
+
+                #[doc = "Convert the builder into a `Client` instance."]
+                pub fn build(self) -> Client {
+                    Client {
+                        endpoint: self.endpoint.unwrap_or_else(|| super::DEFAULT_ENDPOINT.to_owned()),
+                        credential: self.credential,
+                        http_client: self.http_client,
+                    }
+                }
+            }
+
+            impl Client {
+                pub(crate) fn token_credential(&self) -> &crate::Credential {
+                    &self.credential
+                }
+                pub(crate) fn send(&self, request: &mut azure_core::http::Request) -> azure_core::Result<azure_core::http::RawResponse> {
+                    crate::blocking::send(self.http_client.as_ref(), request)
+                }
+
+                #[doc = "Create a new `ClientBuilder`."]
+                #[must_use]
+                pub fn builder(
+                    credential: crate::Credential,
+                    http_client: impl crate::blocking::HttpClient + 'static,
+                ) -> ClientBuilder {
+                    ClientBuilder::new(credential, http_client)
+                }
+
+                #clients
+            }
+
+            impl crate::ClientEndpoint for Client {
+                fn endpoint(&self) -> &azure_core::http::Url {
+                    &self.endpoint
+                }
+            }
+
+            #group_modules
+        }
+    })
+}
