@@ -39,6 +39,15 @@ jobs:
       run: cd azure_devops_rust_api && cargo clippy --all-features --examples -- --deny warnings
     - name: azure_devops_rust_api build
       run: cd azure_devops_rust_api && cargo build --all-features
+    - name: blocking-only build excludes async runtime
+      run: |
+        cd azure_devops_rust_api
+        cargo clippy --no-default-features --features git,ureq -- --deny warnings
+        deps=$(cargo tree -e normal --prefix none --no-default-features --features git,ureq)
+        if echo "$deps" | grep -E "^(tokio|hyper|reqwest) v"; then
+          echo "::error::blocking-only (ureq) build depends on an async runtime/HTTP stack"
+          exit 1
+        fi
     - name: cleanup azure_devops_rust_api build artifacts
       run: rm -rf azure_devops_rust_api/target
     # Remove wasm32 build due to issues with getrandom

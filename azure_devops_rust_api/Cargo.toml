@@ -21,7 +21,9 @@ rust-version = "1.80.0"
 doctest = false
 
 [dependencies]
-azure_core = { version = "1", default-features = true }
+# azure_core's default features (async reqwest transport, tokio) are enabled via this
+# crate's `reqwest` feature, so that blocking-only builds can avoid them.
+azure_core = { version = "1", default-features = false }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 bytes = "1"
@@ -50,7 +52,14 @@ tracing-subscriber = "0.3"
 
 [features]
 default = ["reqwest"]
-reqwest = ["azure_core/reqwest"]
+# Async HTTP transport (azure_core's default features).
+reqwest = [
+    "azure_core/reqwest",
+    "azure_core/reqwest_rustls",
+    "azure_core/reqwest_gzip",
+    "azure_core/reqwest_deflate",
+    "azure_core/tokio",
+]
 # Blocking (non-async) clients, in each module's `blocking` submodule.
 # Enable `ureq` or `reqwest_blocking` to also get an `HttpClient` implementation.
 blocking = []

@@ -173,8 +173,12 @@ a ready-made HTTP client:
 
 ```toml
 [dependencies]
-azure_devops_rust_api = { version = "0.39.1", features = ["git", "ureq"] }
+azure_devops_rust_api = { version = "0.39.1", default-features = false, features = ["git", "ureq"] }
 ```
+
+Disabling default features removes the async HTTP transport, so that a blocking-only build does
+not depend on `tokio`, `hyper` or async `reqwest`. (Note that `reqwest::blocking` uses `tokio`
+internally, so this only applies when using `ureq` or your own `HttpClient`.)
 
 ```rust
 use azure_devops_rust_api::{blocking::UreqClient, git, Credential};
