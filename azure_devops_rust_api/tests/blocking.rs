@@ -111,7 +111,7 @@ fn query_returns_parsed_body(http_client: impl HttpClient + 'static) {
     assert!(req
         .header("user-agent")
         .unwrap()
-        .starts_with("azsdk-rust-azure_devops_rust_api/"));
+        .starts_with("azsdk-rust-devops_rust_api/"));
 }
 
 fn post_sends_json_body(http_client: impl HttpClient + 'static) {

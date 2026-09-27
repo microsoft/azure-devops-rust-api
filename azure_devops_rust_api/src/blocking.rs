@@ -33,9 +33,12 @@ use std::sync::LazyLock;
 
 /// `User-Agent` header value, in the same format as `azure_core` uses.
 static USER_AGENT: LazyLock<String> = LazyLock::new(|| {
+    // Like `azure_core`, omit the `azure_` crate name prefix.
+    let crate_name = env!("CARGO_PKG_NAME");
+    let crate_name = crate_name.strip_prefix("azure_").unwrap_or(crate_name);
     format!(
         "azsdk-rust-{}/{} (blocking; {}; {})",
-        env!("CARGO_PKG_NAME"),
+        crate_name,
         env!("CARGO_PKG_VERSION"),
         std::env::consts::OS,
         std::env::consts::ARCH
