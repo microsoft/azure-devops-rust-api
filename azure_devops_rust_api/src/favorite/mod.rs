@@ -152,6 +152,7 @@ pub mod favorites {
         ) -> get_favorites_of_owner::RequestBuilder {
             get_favorites_of_owner::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 owner_scope_type: owner_scope_type.into(),
                 owner_scope_id: owner_scope_id.into(),
@@ -172,6 +173,7 @@ pub mod favorites {
         ) -> create_favorite_of_owner::RequestBuilder {
             create_favorite_of_owner::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
                 owner_scope_type: owner_scope_type.into(),
@@ -189,6 +191,7 @@ pub mod favorites {
         ) -> get_favorite_by_artifact::RequestBuilder {
             get_favorite_by_artifact::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 artifact_type: artifact_type.into(),
                 artifact_id: artifact_id.into(),
@@ -210,6 +213,7 @@ pub mod favorites {
         ) -> delete_favorite_of_owner_by_id::RequestBuilder {
             delete_favorite_of_owner_by_id::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 favorite_id: favorite_id.into(),
                 owner_scope_type: owner_scope_type.into(),
@@ -232,6 +236,7 @@ pub mod favorites {
         ) -> get_favorite_of_owner_by_id::RequestBuilder {
             get_favorite_of_owner_by_id::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 favorite_id: favorite_id.into(),
                 owner_scope_type: owner_scope_type.into(),
@@ -250,6 +255,7 @@ pub mod favorites {
         ) -> get_favorites::RequestBuilder {
             get_favorites::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 artifact_type: None,
                 artifact_scope_type: None,
@@ -266,6 +272,7 @@ pub mod favorites {
         ) -> create_favorite::RequestBuilder {
             create_favorite::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
             }
@@ -281,6 +288,7 @@ pub mod favorites {
         ) -> get_favorite_by_id::RequestBuilder {
             get_favorite_by_id::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 favorite_id: favorite_id.into(),
                 artifact_scope_type: artifact_scope_type.into(),
@@ -300,6 +308,7 @@ pub mod favorites {
         ) -> delete_favorite_by_id::RequestBuilder {
             delete_favorite_by_id::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 favorite_id: favorite_id.into(),
                 artifact_type: artifact_type.into(),
@@ -342,8 +351,13 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) owner_scope_type: String,
             pub(crate) owner_scope_id: String,
@@ -352,7 +366,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_type(mut self, artifact_type: impl Into<String>) -> Self {
                 self.artifact_type = Some(artifact_type.into());
                 self
@@ -369,11 +383,9 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -442,6 +454,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::FavoriteList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
@@ -489,19 +517,20 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::FavoriteCreateParameters,
             pub(crate) owner_scope_type: String,
             pub(crate) owner_scope_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -548,6 +577,22 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -597,8 +642,13 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) artifact_type: String,
             pub(crate) artifact_id: String,
@@ -606,7 +656,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -615,11 +665,9 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -676,6 +724,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
@@ -718,8 +782,13 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) owner_scope_type: String,
@@ -728,16 +797,14 @@ pub mod favorites {
             pub(crate) artifact_scope_type: String,
             pub(crate) artifact_scope_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -792,6 +859,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
@@ -842,8 +925,13 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) owner_scope_type: String,
@@ -853,7 +941,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -862,11 +950,9 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -927,6 +1013,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
@@ -974,15 +1076,20 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) artifact_type: Option<String>,
             pub(crate) artifact_scope_type: Option<String>,
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_type(mut self, artifact_type: impl Into<String>) -> Self {
                 self.artifact_type = Some(artifact_type.into());
                 self
@@ -999,11 +1106,9 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1062,6 +1167,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::FavoriteList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::FavoriteList>>;
@@ -1109,17 +1230,18 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::FavoriteCreateParameters,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1156,6 +1278,22 @@ pub mod favorites {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1205,8 +1343,13 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) artifact_scope_type: String,
@@ -1214,7 +1357,7 @@ pub mod favorites {
             pub(crate) artifact_scope_id: Option<String>,
             pub(crate) include_extended_details: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
@@ -1223,11 +1366,9 @@ pub mod favorites {
                 self.include_extended_details = Some(include_extended_details);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1285,6 +1426,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::Favorite>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::Favorite>>;
@@ -1327,24 +1484,27 @@ pub mod favorites {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) favorite_id: String,
             pub(crate) artifact_type: String,
             pub(crate) artifact_scope_type: String,
             pub(crate) artifact_scope_id: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn artifact_scope_id(mut self, artifact_scope_id: impl Into<String>) -> Self {
                 self.artifact_scope_id = Some(artifact_scope_id.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1396,6 +1556,22 @@ pub mod favorites {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<()>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<()>>;
@@ -1409,6 +1585,254 @@ pub mod favorites {
                     let _rsp = self.send().await?;
                     Ok(())
                 })
+            }
+        }
+    }
+}
+#[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+pub mod blocking {
+    #![doc = "Blocking (non-async) client."]
+    #![doc = ""]
+    #![doc = "This wraps the async [`Client`](super::Client), running each request on a hidden tokio runtime."]
+    #![doc = "It must not be used from within an async runtime."]
+    #[derive(Clone)]
+    pub struct Client(pub(crate) super::Client);
+    #[derive(Clone)]
+    pub struct ClientBuilder(super::ClientBuilder);
+    impl ClientBuilder {
+        #[doc = "Create a new instance of `ClientBuilder`."]
+        #[must_use]
+        pub fn new(credential: crate::Credential) -> Self {
+            Self(super::ClientBuilder::new(credential))
+        }
+        #[doc = "Set the endpoint."]
+        #[must_use]
+        pub fn endpoint(self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+            Self(self.0.endpoint(endpoint))
+        }
+        #[doc = "Set the scopes."]
+        #[must_use]
+        pub fn scopes(self, scopes: &[&str]) -> Self {
+            Self(self.0.scopes(scopes))
+        }
+        #[doc = "Set the retry options."]
+        #[must_use]
+        pub fn retry(self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+            Self(self.0.retry(retry))
+        }
+        #[doc = "Set the transport options."]
+        #[must_use]
+        pub fn transport(self, transport: impl Into<azure_core::http::Transport>) -> Self {
+            Self(self.0.transport(transport))
+        }
+        #[doc = "Set per-call policies."]
+        #[must_use]
+        pub fn per_call_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_call_policies(policies))
+        }
+        #[doc = "Set per-try policies."]
+        #[must_use]
+        pub fn per_try_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_try_policies(policies))
+        }
+        #[doc = "Convert the builder into a `Client` instance."]
+        pub fn build(self) -> Client {
+            Client(self.0.build())
+        }
+    }
+    impl Client {
+        #[doc = "Create a new `ClientBuilder`."]
+        #[must_use]
+        pub fn builder(credential: crate::Credential) -> ClientBuilder {
+            ClientBuilder::new(credential)
+        }
+        pub fn favorites_client(&self) -> favorites::Client {
+            favorites::Client(self.clone())
+        }
+    }
+    impl From<super::Client> for Client {
+        #[doc = "Create a blocking client that sends requests using an existing async client."]
+        fn from(client: super::Client) -> Self {
+            Self(client)
+        }
+    }
+    pub mod favorites {
+        use super::super::favorites::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "See [`get_favorites_of_owner`](super::super::favorites::Client::get_favorites_of_owner) for details of the arguments."]
+            pub fn get_favorites_of_owner(
+                &self,
+                organization: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+            ) -> get_favorites_of_owner::RequestBuilder<crate::blocking::Blocking> {
+                get_favorites_of_owner::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_type: None,
+                    artifact_scope_type: None,
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`create_favorite_of_owner`](super::super::favorites::Client::create_favorite_of_owner) for details of the arguments."]
+            pub fn create_favorite_of_owner(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::FavoriteCreateParameters>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+            ) -> create_favorite_of_owner::RequestBuilder<crate::blocking::Blocking> {
+                create_favorite_of_owner::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                }
+            }
+            #[doc = "See [`get_favorite_by_artifact`](super::super::favorites::Client::get_favorite_by_artifact) for details of the arguments."]
+            pub fn get_favorite_by_artifact(
+                &self,
+                organization: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> get_favorite_by_artifact::RequestBuilder<crate::blocking::Blocking> {
+                get_favorite_by_artifact::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_id: artifact_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`delete_favorite_of_owner_by_id`](super::super::favorites::Client::delete_favorite_of_owner_by_id) for details of the arguments."]
+            pub fn delete_favorite_of_owner_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> delete_favorite_of_owner_by_id::RequestBuilder<crate::blocking::Blocking>
+            {
+                delete_favorite_of_owner_by_id::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                }
+            }
+            #[doc = "See [`get_favorite_of_owner_by_id`](super::super::favorites::Client::get_favorite_of_owner_by_id) for details of the arguments."]
+            pub fn get_favorite_of_owner_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                owner_scope_type: impl Into<String>,
+                owner_scope_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+                artifact_type: impl Into<String>,
+            ) -> get_favorite_of_owner_by_id::RequestBuilder<crate::blocking::Blocking>
+            {
+                get_favorite_of_owner_by_id::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    owner_scope_type: owner_scope_type.into(),
+                    owner_scope_id: owner_scope_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`get_favorites`](super::super::favorites::Client::get_favorites) for details of the arguments."]
+            pub fn get_favorites(
+                &self,
+                organization: impl Into<String>,
+            ) -> get_favorites::RequestBuilder<crate::blocking::Blocking> {
+                get_favorites::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    artifact_type: None,
+                    artifact_scope_type: None,
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`create_favorite`](super::super::favorites::Client::create_favorite) for details of the arguments."]
+            pub fn create_favorite(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::FavoriteCreateParameters>,
+            ) -> create_favorite::RequestBuilder<crate::blocking::Blocking> {
+                create_favorite::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "See [`get_favorite_by_id`](super::super::favorites::Client::get_favorite_by_id) for details of the arguments."]
+            pub fn get_favorite_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+                artifact_type: impl Into<String>,
+            ) -> get_favorite_by_id::RequestBuilder<crate::blocking::Blocking> {
+                get_favorite_by_id::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_id: None,
+                    include_extended_details: None,
+                }
+            }
+            #[doc = "See [`delete_favorite_by_id`](super::super::favorites::Client::delete_favorite_by_id) for details of the arguments."]
+            pub fn delete_favorite_by_id(
+                &self,
+                organization: impl Into<String>,
+                favorite_id: impl Into<String>,
+                artifact_type: impl Into<String>,
+                artifact_scope_type: impl Into<String>,
+            ) -> delete_favorite_by_id::RequestBuilder<crate::blocking::Blocking> {
+                delete_favorite_by_id::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    favorite_id: favorite_id.into(),
+                    artifact_type: artifact_type.into(),
+                    artifact_scope_type: artifact_scope_type.into(),
+                    artifact_scope_id: None,
+                }
             }
         }
     }

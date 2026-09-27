@@ -47,6 +47,6 @@ jobs:
     #- name: azure_devops_rust_api check wasm build
     #  run: cd azure_devops_rust_api && cargo check --target wasm32-unknown-unknown --all-features
     - name: azure_devops_rust_api test
-      run: cd azure_devops_rust_api && cargo test
+      run: cd azure_devops_rust_api && cargo test --all-features
     - name: azure_devops_rust_api documentation generation
       run: cd azure_devops_rust_api && cargo doc --all-features --no-deps

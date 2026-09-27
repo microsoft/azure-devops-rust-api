@@ -60,6 +60,8 @@ pub struct RunConfig<'a> {
     pub crate_name_prefix: &'a str,
     pub runs: Vec<Runs>,
     pub print_writing_file: bool,
+    /// Also generate a blocking (non-async) client for each module.
+    pub generate_blocking: bool,
 }
 
 impl<'a> RunConfig<'a> {
@@ -68,6 +70,7 @@ impl<'a> RunConfig<'a> {
             crate_name_prefix,
             runs: vec![Runs::Models, Runs::Operations],
             print_writing_file: false,
+            generate_blocking: false,
         }
     }
 }
@@ -86,6 +89,9 @@ impl<'a> CrateConfig<'a> {
     }
     pub fn print_writing_file(&self) -> bool {
         self.run_config.print_writing_file
+    }
+    pub fn generate_blocking(&self) -> bool {
+        self.run_config.generate_blocking
     }
 }
 

@@ -15,6 +15,7 @@ pub struct RequestBuilderSendCode {
     request_builder: SetRequestCode,
     response_code: ResponseCode,
     url_args: Vec<Ident>,
+    generate_blocking: bool,
 }
 
 impl RequestBuilderSendCode {
@@ -22,6 +23,7 @@ impl RequestBuilderSendCode {
         new_request_code: NewRequestCode,
         request_builder: SetRequestCode,
         response_code: ResponseCode,
+        generate_blocking: bool,
     ) -> Result<Self> {
         let params = parse_path_params(&new_request_code.path);
         let url_args: Result<Vec<_>> = params.iter().map(|s| s.to_snake_case_ident()).collect();
@@ -31,6 +33,7 @@ impl RequestBuilderSendCode {
             request_builder,
             response_code,
             url_args,
+            generate_blocking,
         })
     }
 }
@@ -81,6 +84,46 @@ impl ToTokens for RequestBuilderSendCode {
                 }
             }
         };
+
+        if self.generate_blocking {
+            // The async `send()` and the blocking `send()` (which runs the async request on
+            // a hidden tokio runtime) share `send_future()`.
+            // Pageable and long-running operations are rejected in `OperationCode::new`.
+            tokens.extend(quote! {
+                impl<M: Clone + Send + 'static> RequestBuilder<M> {
+                    fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                        Box::pin({
+                            let this = self.clone();
+                            async move {
+                                let url = this.url()?;
+                                #new_request_code
+                                #request_builder
+                                req.set_body(req_body);
+                                Ok(Response(this.client.send(&mut req).await?.into()))
+                            }
+                        })
+                    }
+                    #urlfn
+                }
+                impl RequestBuilder {
+                    #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+                    #[doc = ""]
+                    #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+                    #[doc = "However, this function can provide more flexibility when required."]
+                    pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                        self.send_future()
+                    }
+                }
+                #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+                impl RequestBuilder<crate::blocking::Blocking> {
+                    #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+                    pub fn send(self) -> azure_core::Result<Response> {
+                        crate::blocking::block_on(self.send_future())
+                    }
+                }
+            });
+            return;
+        }
 
         let send_future = quote! {
             #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]

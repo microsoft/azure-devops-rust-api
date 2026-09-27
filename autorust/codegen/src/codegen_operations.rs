@@ -22,7 +22,7 @@ use proc_macro2::{Ident, TokenStream};
 use quote::{quote, ToTokens};
 use std::collections::BTreeSet;
 
-use self::create_client_and_builder::create_client;
+use self::create_client_and_builder::{create_blocking_client, create_client};
 use self::operations::OperationCode;
 use self::web_operation_gen::WebOperationGen;
 
@@ -89,14 +89,42 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
         }
     }
 
+    let mut blocking_group_modules = TokenStream::new();
     for (module_name, operation_code) in operations_code {
         let OperationCode {
             client_functions,
             module_code,
         } = operation_code;
         let mut builders = TokenStream::new();
+        let mut blocking_builders = TokenStream::new();
         for builder in client_functions {
+            if cg.generate_blocking() {
+                let async_client = format!(
+                    "super::super::{}::Client",
+                    module_name.as_deref().unwrap_or_default()
+                );
+                blocking_builders.extend(
+                    builder
+                        .for_blocking_client(async_client)
+                        .into_token_stream(),
+                );
+            }
             builders.extend(builder.into_token_stream());
+        }
+        if cg.generate_blocking() {
+            // All operations are in a group (checked in `OperationCode::new`).
+            let name = parse_ident(module_name.as_deref().unwrap_or_default())?;
+            blocking_group_modules.extend(quote! {
+                pub mod #name {
+                    use super::super::models;
+                    // The operation modules (containing the shared request builders).
+                    use super::super::#name::*;
+                    pub struct Client(pub(crate) super::Client);
+                    impl Client {
+                        #blocking_builders
+                    }
+                }
+            });
         }
         match module_name {
             Some(module_name) => {
@@ -125,6 +153,12 @@ pub fn create_operations(cg: &CodeGen) -> Result<TokenStream> {
                 });
             }
         }
+    }
+    if cg.generate_blocking() {
+        file.extend(create_blocking_client(
+            &module_names,
+            blocking_group_modules,
+        )?);
     }
     Ok(file)
 }
