@@ -161,6 +161,7 @@ pub mod shelvesets {
         pub fn list(&self, organization: impl Into<String>) -> list::RequestBuilder {
             list::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 request_data_include_details: None,
                 request_data_include_links: None,
@@ -185,6 +186,7 @@ pub mod shelvesets {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 shelveset_id: shelveset_id.into(),
                 request_data_include_details: None,
@@ -208,6 +210,7 @@ pub mod shelvesets {
         ) -> get_shelveset_changes::RequestBuilder {
             get_shelveset_changes::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 shelveset_id: shelveset_id.into(),
                 top: None,
@@ -226,6 +229,7 @@ pub mod shelvesets {
         ) -> get_shelveset_work_items::RequestBuilder {
             get_shelveset_work_items::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 shelveset_id: shelveset_id.into(),
             }
@@ -265,8 +269,13 @@ pub mod shelvesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) request_data_include_details: Option<bool>,
             pub(crate) request_data_include_links: Option<bool>,
@@ -278,7 +287,7 @@ pub mod shelvesets {
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
             pub fn request_data_include_details(
                 mut self,
@@ -336,11 +345,9 @@ pub mod shelvesets {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -436,6 +443,22 @@ pub mod shelvesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcShelvesetRefList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcShelvesetRefList>>;
@@ -483,8 +506,13 @@ pub mod shelvesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) shelveset_id: String,
             pub(crate) request_data_include_details: Option<bool>,
@@ -495,7 +523,7 @@ pub mod shelvesets {
             pub(crate) request_data_name: Option<String>,
             pub(crate) request_data_owner: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Whether to include policyOverride and notes Only applies when requesting a single deep shelveset"]
             pub fn request_data_include_details(
                 mut self,
@@ -543,11 +571,9 @@ pub mod shelvesets {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -637,6 +663,22 @@ pub mod shelvesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcShelveset>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcShelveset>>;
@@ -684,14 +726,19 @@ pub mod shelvesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) shelveset_id: String,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Max number of changes to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
@@ -702,11 +749,9 @@ pub mod shelvesets {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -756,6 +801,22 @@ pub mod shelvesets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -808,17 +869,18 @@ pub mod shelvesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) shelveset_id: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -860,6 +922,22 @@ pub mod shelvesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::AssociatedWorkItemList>;
             type IntoFuture =
@@ -897,6 +975,7 @@ pub mod branches {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 path: path.into(),
                 project: project.into(),
@@ -916,6 +995,7 @@ pub mod branches {
         ) -> get_branches::RequestBuilder {
             get_branches::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 project: project.into(),
                 include_parent: None,
@@ -938,6 +1018,7 @@ pub mod branches {
         ) -> get_branch_refs::RequestBuilder {
             get_branch_refs::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 scope_path: scope_path.into(),
                 project: project.into(),
@@ -980,15 +1061,20 @@ pub mod branches {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) path: String,
             pub(crate) project: String,
             pub(crate) include_parent: Option<bool>,
             pub(crate) include_children: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Return the parent branch, if there is one. Default: False"]
             pub fn include_parent(mut self, include_parent: bool) -> Self {
                 self.include_parent = Some(include_parent);
@@ -999,11 +1085,9 @@ pub mod branches {
                 self.include_children = Some(include_children);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1055,6 +1139,22 @@ pub mod branches {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcBranch>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcBranch>>;
@@ -1102,8 +1202,13 @@ pub mod branches {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) include_parent: Option<bool>,
@@ -1111,7 +1216,7 @@ pub mod branches {
             pub(crate) include_deleted: Option<bool>,
             pub(crate) include_links: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Return the parent branch, if there is one. Default: False"]
             pub fn include_parent(mut self, include_parent: bool) -> Self {
                 self.include_parent = Some(include_parent);
@@ -1132,11 +1237,9 @@ pub mod branches {
                 self.include_links = Some(include_links);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1195,6 +1298,22 @@ pub mod branches {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcBranchList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcBranchList>>;
@@ -1242,15 +1361,20 @@ pub mod branches {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) scope_path: String,
             pub(crate) project: String,
             pub(crate) include_deleted: Option<bool>,
             pub(crate) include_links: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Return deleted branches. Default: False"]
             pub fn include_deleted(mut self, include_deleted: bool) -> Self {
                 self.include_deleted = Some(include_deleted);
@@ -1261,11 +1385,9 @@ pub mod branches {
                 self.include_links = Some(include_links);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1318,6 +1440,22 @@ pub mod branches {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcBranchRefList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcBranchRefList>>;
@@ -1354,6 +1492,7 @@ pub mod items {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 path: path.into(),
                 project: project.into(),
@@ -1380,6 +1519,7 @@ pub mod items {
         ) -> get_items_batch::RequestBuilder {
             get_items_batch::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
                 project: project.into(),
@@ -1397,6 +1537,7 @@ pub mod items {
         ) -> list::RequestBuilder {
             list::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 project: project.into(),
                 scope_path: None,
@@ -1442,8 +1583,13 @@ pub mod items {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) path: String,
             pub(crate) project: String,
@@ -1456,7 +1602,7 @@ pub mod items {
             pub(crate) version_descriptor_version_type: Option<models::TfvcVersionType>,
             pub(crate) include_content: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "File name of item returned."]
             pub fn file_name(mut self, file_name: impl Into<String>) -> Self {
                 self.file_name = Some(file_name.into());
@@ -1510,11 +1656,9 @@ pub mod items {
                 self.include_content = Some(include_content);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1603,6 +1747,22 @@ pub mod items {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcItem>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcItem>>;
@@ -1648,18 +1808,19 @@ pub mod items {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::TfvcItemRequestData,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1697,6 +1858,22 @@ pub mod items {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -1746,8 +1923,13 @@ pub mod items {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) scope_path: Option<String>,
@@ -1757,7 +1939,7 @@ pub mod items {
             pub(crate) version_descriptor_version_option: Option<models::TfvcVersionOption>,
             pub(crate) version_descriptor_version_type: Option<models::TfvcVersionType>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Version control path of a folder to return multiple items."]
             pub fn scope_path(mut self, scope_path: impl Into<String>) -> Self {
                 self.scope_path = Some(scope_path.into());
@@ -1799,11 +1981,9 @@ pub mod items {
                 self.version_descriptor_version_type = Some(version_descriptor_version_type.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -1879,6 +2059,22 @@ pub mod items {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcItemList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcItemList>>;
@@ -1913,6 +2109,7 @@ pub mod changesets {
         ) -> get_changeset_changes::RequestBuilder {
             get_changeset_changes::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 id,
                 skip: None,
@@ -1932,6 +2129,7 @@ pub mod changesets {
         ) -> get_changeset_work_items::RequestBuilder {
             get_changeset_work_items::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 id,
             }
@@ -1948,6 +2146,7 @@ pub mod changesets {
         ) -> get_batched_changesets::RequestBuilder {
             get_batched_changesets::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
             }
@@ -1964,6 +2163,7 @@ pub mod changesets {
         ) -> get_changesets::RequestBuilder {
             get_changesets::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 project: project.into(),
                 max_comment_length: None,
@@ -1994,6 +2194,7 @@ pub mod changesets {
         ) -> create::RequestBuilder {
             create::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
                 project: project.into(),
@@ -2013,6 +2214,7 @@ pub mod changesets {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 id,
                 project: project.into(),
@@ -2070,15 +2272,20 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) id: i32,
             pub(crate) skip: Option<i32>,
             pub(crate) top: Option<i32>,
             pub(crate) continuation_token: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Number of results to skip. Default: null"]
             pub fn skip(mut self, skip: i32) -> Self {
                 self.skip = Some(skip);
@@ -2094,11 +2301,9 @@ pub mod changesets {
                 self.continuation_token = Some(continuation_token.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -2152,6 +2357,22 @@ pub mod changesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcChangeList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcChangeList>>;
@@ -2202,17 +2423,18 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) id: i32,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -2249,6 +2471,22 @@ pub mod changesets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2299,17 +2537,18 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::TfvcChangesetsRequestData,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -2346,6 +2585,22 @@ pub mod changesets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2395,8 +2650,13 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) max_comment_length: Option<i32>,
@@ -2413,7 +2673,7 @@ pub mod changesets {
             pub(crate) search_criteria_to_date: Option<String>,
             pub(crate) search_criteria_to_id: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Include details about associated work items in the response. Default: null"]
             pub fn max_comment_length(mut self, max_comment_length: i32) -> Self {
                 self.max_comment_length = Some(max_comment_length);
@@ -2500,11 +2760,9 @@ pub mod changesets {
                 self.search_criteria_to_id = Some(search_criteria_to_id);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -2611,6 +2869,22 @@ pub mod changesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcChangesetRefList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcChangesetRefList>>;
@@ -2658,18 +2932,19 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::TfvcChangeset,
             pub(crate) project: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -2707,6 +2982,22 @@ pub mod changesets {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -2756,8 +3047,13 @@ pub mod changesets {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) id: i32,
             pub(crate) project: String,
@@ -2779,7 +3075,7 @@ pub mod changesets {
             pub(crate) search_criteria_to_date: Option<String>,
             pub(crate) search_criteria_to_id: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Number of changes to return (maximum 100 changes) Default: 0"]
             pub fn max_change_count(mut self, max_change_count: i32) -> Self {
                 self.max_change_count = Some(max_change_count);
@@ -2886,11 +3182,9 @@ pub mod changesets {
                 self.search_criteria_to_id = Some(search_criteria_to_id);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -3019,6 +3313,22 @@ pub mod changesets {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcChangeset>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcChangeset>>;
@@ -3053,6 +3363,7 @@ pub mod labels {
         ) -> get_label_items::RequestBuilder {
             get_label_items::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 label_id: label_id.into(),
                 top: None,
@@ -3071,6 +3382,7 @@ pub mod labels {
         ) -> list::RequestBuilder {
             list::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 project: project.into(),
                 request_data_include_links: None,
@@ -3097,6 +3409,7 @@ pub mod labels {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 label_id: label_id.into(),
                 project: project.into(),
@@ -3143,14 +3456,19 @@ pub mod labels {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) label_id: String,
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Max number of items to return"]
             pub fn top(mut self, top: i32) -> Self {
                 self.top = Some(top);
@@ -3161,11 +3479,9 @@ pub mod labels {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -3212,6 +3528,22 @@ pub mod labels {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -3261,8 +3593,13 @@ pub mod labels {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) project: String,
             pub(crate) request_data_include_links: Option<bool>,
@@ -3274,7 +3611,7 @@ pub mod labels {
             pub(crate) top: Option<i32>,
             pub(crate) skip: Option<i32>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Whether to include the _links field on the shallow references"]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
@@ -3321,11 +3658,9 @@ pub mod labels {
                 self.skip = Some(skip);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -3410,6 +3745,22 @@ pub mod labels {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcLabelRefList>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcLabelRefList>>;
@@ -3457,8 +3808,13 @@ pub mod labels {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) label_id: String,
             pub(crate) project: String,
@@ -3469,7 +3825,7 @@ pub mod labels {
             pub(crate) request_data_name: Option<String>,
             pub(crate) request_data_owner: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Whether to include the _links field on the shallow references"]
             pub fn request_data_include_links(mut self, request_data_include_links: bool) -> Self {
                 self.request_data_include_links = Some(request_data_include_links);
@@ -3506,11 +3862,9 @@ pub mod labels {
                 self.request_data_owner = Some(request_data_owner.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -3586,6 +3940,22 @@ pub mod labels {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::TfvcLabel>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::TfvcLabel>>;
@@ -3596,6 +3966,513 @@ pub mod labels {
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body() })
+            }
+        }
+    }
+}
+#[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+pub mod blocking {
+    #![doc = "Blocking (non-async) client."]
+    #![doc = ""]
+    #![doc = "This wraps the async [`Client`](super::Client), running each request on a hidden tokio runtime."]
+    #![doc = "It must not be used from within an async runtime."]
+    #[derive(Clone)]
+    pub struct Client(pub(crate) super::Client);
+    #[derive(Clone)]
+    pub struct ClientBuilder(super::ClientBuilder);
+    impl ClientBuilder {
+        #[doc = "Create a new instance of `ClientBuilder`."]
+        #[must_use]
+        pub fn new(credential: crate::Credential) -> Self {
+            Self(super::ClientBuilder::new(credential))
+        }
+        #[doc = "Set the endpoint."]
+        #[must_use]
+        pub fn endpoint(self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+            Self(self.0.endpoint(endpoint))
+        }
+        #[doc = "Set the scopes."]
+        #[must_use]
+        pub fn scopes(self, scopes: &[&str]) -> Self {
+            Self(self.0.scopes(scopes))
+        }
+        #[doc = "Set the retry options."]
+        #[must_use]
+        pub fn retry(self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+            Self(self.0.retry(retry))
+        }
+        #[doc = "Set the transport options."]
+        #[must_use]
+        pub fn transport(self, transport: impl Into<azure_core::http::Transport>) -> Self {
+            Self(self.0.transport(transport))
+        }
+        #[doc = "Set per-call policies."]
+        #[must_use]
+        pub fn per_call_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_call_policies(policies))
+        }
+        #[doc = "Set per-try policies."]
+        #[must_use]
+        pub fn per_try_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_try_policies(policies))
+        }
+        #[doc = "Convert the builder into a `Client` instance."]
+        pub fn build(self) -> Client {
+            Client(self.0.build())
+        }
+    }
+    impl Client {
+        #[doc = "Create a new `ClientBuilder`."]
+        #[must_use]
+        pub fn builder(credential: crate::Credential) -> ClientBuilder {
+            ClientBuilder::new(credential)
+        }
+        pub fn branches_client(&self) -> branches::Client {
+            branches::Client(self.clone())
+        }
+        pub fn changesets_client(&self) -> changesets::Client {
+            changesets::Client(self.clone())
+        }
+        pub fn items_client(&self) -> items::Client {
+            items::Client(self.clone())
+        }
+        pub fn labels_client(&self) -> labels::Client {
+            labels::Client(self.clone())
+        }
+        pub fn shelvesets_client(&self) -> shelvesets::Client {
+            shelvesets::Client(self.clone())
+        }
+    }
+    impl From<super::Client> for Client {
+        #[doc = "Create a blocking client that sends requests using an existing async client."]
+        fn from(client: super::Client) -> Self {
+            Self(client)
+        }
+    }
+    pub mod shelvesets {
+        use super::super::models;
+        use super::super::shelvesets::*;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Return a collection of shallow shelveset references."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::shelvesets::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+            ) -> list::RequestBuilder<crate::blocking::Blocking> {
+                list::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    request_data_include_details: None,
+                    request_data_include_links: None,
+                    request_data_include_work_items: None,
+                    request_data_max_change_count: None,
+                    request_data_max_comment_length: None,
+                    request_data_name: None,
+                    request_data_owner: None,
+                    top: None,
+                    skip: None,
+                }
+            }
+            #[doc = "Get a single deep shelveset."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::shelvesets::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                shelveset_id: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    shelveset_id: shelveset_id.into(),
+                    request_data_include_details: None,
+                    request_data_include_links: None,
+                    request_data_include_work_items: None,
+                    request_data_max_change_count: None,
+                    request_data_max_comment_length: None,
+                    request_data_name: None,
+                    request_data_owner: None,
+                }
+            }
+            #[doc = "Get changes included in a shelveset."]
+            #[doc = ""]
+            #[doc = "See [`get_shelveset_changes`](super::super::shelvesets::Client::get_shelveset_changes) for details of the arguments."]
+            pub fn get_shelveset_changes(
+                &self,
+                organization: impl Into<String>,
+                shelveset_id: impl Into<String>,
+            ) -> get_shelveset_changes::RequestBuilder<crate::blocking::Blocking> {
+                get_shelveset_changes::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    shelveset_id: shelveset_id.into(),
+                    top: None,
+                    skip: None,
+                }
+            }
+            #[doc = "Get work items associated with a shelveset."]
+            #[doc = ""]
+            #[doc = "See [`get_shelveset_work_items`](super::super::shelvesets::Client::get_shelveset_work_items) for details of the arguments."]
+            pub fn get_shelveset_work_items(
+                &self,
+                organization: impl Into<String>,
+                shelveset_id: impl Into<String>,
+            ) -> get_shelveset_work_items::RequestBuilder<crate::blocking::Blocking> {
+                get_shelveset_work_items::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    shelveset_id: shelveset_id.into(),
+                }
+            }
+        }
+    }
+    pub mod branches {
+        use super::super::branches::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get a single branch hierarchy at the given path with parents or children as specified."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::branches::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                path: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    path: path.into(),
+                    project: project.into(),
+                    include_parent: None,
+                    include_children: None,
+                }
+            }
+            #[doc = "Get a collection of branch roots -- first-level children, branches with no parents."]
+            #[doc = ""]
+            #[doc = "See [`get_branches`](super::super::branches::Client::get_branches) for details of the arguments."]
+            pub fn get_branches(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_branches::RequestBuilder<crate::blocking::Blocking> {
+                get_branches::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    project: project.into(),
+                    include_parent: None,
+                    include_children: None,
+                    include_deleted: None,
+                    include_links: None,
+                }
+            }
+            #[doc = "Get branch hierarchies below the specified scopePath"]
+            #[doc = ""]
+            #[doc = "See [`get_branch_refs`](super::super::branches::Client::get_branch_refs) for details of the arguments."]
+            pub fn get_branch_refs(
+                &self,
+                organization: impl Into<String>,
+                scope_path: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_branch_refs::RequestBuilder<crate::blocking::Blocking> {
+                get_branch_refs::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    scope_path: scope_path.into(),
+                    project: project.into(),
+                    include_deleted: None,
+                    include_links: None,
+                }
+            }
+        }
+    }
+    pub mod items {
+        use super::super::items::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get Item Metadata and/or Content for a single item. The download parameter is to indicate whether the content should be available as a download or just sent as a stream in the response. Doesn't apply to zipped content which is always returned as a download."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::items::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                path: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    path: path.into(),
+                    project: project.into(),
+                    file_name: None,
+                    download: None,
+                    scope_path: None,
+                    recursion_level: None,
+                    version_descriptor_version: None,
+                    version_descriptor_version_option: None,
+                    version_descriptor_version_type: None,
+                    include_content: None,
+                }
+            }
+            #[doc = "Post for retrieving a set of items given a list of paths or a long path. Allows for specifying the recursionLevel and version descriptors for each path."]
+            #[doc = ""]
+            #[doc = "See [`get_items_batch`](super::super::items::Client::get_items_batch) for details of the arguments."]
+            pub fn get_items_batch(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TfvcItemRequestData>,
+                project: impl Into<String>,
+            ) -> get_items_batch::RequestBuilder<crate::blocking::Blocking> {
+                get_items_batch::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                }
+            }
+            #[doc = "Get a list of Tfvc items"]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::items::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> list::RequestBuilder<crate::blocking::Blocking> {
+                list::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    project: project.into(),
+                    scope_path: None,
+                    recursion_level: None,
+                    include_links: None,
+                    version_descriptor_version: None,
+                    version_descriptor_version_option: None,
+                    version_descriptor_version_type: None,
+                }
+            }
+        }
+    }
+    pub mod changesets {
+        use super::super::changesets::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Retrieve Tfvc changes for a given changeset."]
+            #[doc = ""]
+            #[doc = "See [`get_changeset_changes`](super::super::changesets::Client::get_changeset_changes) for details of the arguments."]
+            pub fn get_changeset_changes(
+                &self,
+                organization: impl Into<String>,
+                id: i32,
+            ) -> get_changeset_changes::RequestBuilder<crate::blocking::Blocking> {
+                get_changeset_changes::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    id,
+                    skip: None,
+                    top: None,
+                    continuation_token: None,
+                }
+            }
+            #[doc = "Retrieves the work items associated with a particular changeset."]
+            #[doc = ""]
+            #[doc = "See [`get_changeset_work_items`](super::super::changesets::Client::get_changeset_work_items) for details of the arguments."]
+            pub fn get_changeset_work_items(
+                &self,
+                organization: impl Into<String>,
+                id: i32,
+            ) -> get_changeset_work_items::RequestBuilder<crate::blocking::Blocking> {
+                get_changeset_work_items::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    id,
+                }
+            }
+            #[doc = "Returns changesets for a given list of changeset Ids."]
+            #[doc = ""]
+            #[doc = "See [`get_batched_changesets`](super::super::changesets::Client::get_batched_changesets) for details of the arguments."]
+            pub fn get_batched_changesets(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TfvcChangesetsRequestData>,
+            ) -> get_batched_changesets::RequestBuilder<crate::blocking::Blocking> {
+                get_batched_changesets::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "Retrieve Tfvc Changesets\n\nNote: This is a new version of the GetChangesets API that doesn't expose the unneeded queryParams\npresent in the 1.0 version of the API."]
+            #[doc = ""]
+            #[doc = "See [`get_changesets`](super::super::changesets::Client::get_changesets) for details of the arguments."]
+            pub fn get_changesets(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get_changesets::RequestBuilder<crate::blocking::Blocking> {
+                get_changesets::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    project: project.into(),
+                    max_comment_length: None,
+                    skip: None,
+                    top: None,
+                    orderby: None,
+                    search_criteria_author: None,
+                    search_criteria_follow_renames: None,
+                    search_criteria_from_date: None,
+                    search_criteria_from_id: None,
+                    search_criteria_include_links: None,
+                    search_criteria_item_path: None,
+                    search_criteria_mappings: Vec::new(),
+                    search_criteria_to_date: None,
+                    search_criteria_to_id: None,
+                }
+            }
+            #[doc = "Create a new changeset.\n\nAccepts TfvcChangeset as JSON body"]
+            #[doc = ""]
+            #[doc = "See [`create`](super::super::changesets::Client::create) for details of the arguments."]
+            pub fn create(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::TfvcChangeset>,
+                project: impl Into<String>,
+            ) -> create::RequestBuilder<crate::blocking::Blocking> {
+                create::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                    project: project.into(),
+                }
+            }
+            #[doc = "Retrieve a Tfvc Changeset"]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::changesets::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                id: i32,
+                project: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    id,
+                    project: project.into(),
+                    max_change_count: None,
+                    include_details: None,
+                    include_work_items: None,
+                    max_comment_length: None,
+                    include_source_rename: None,
+                    skip: None,
+                    top: None,
+                    orderby: None,
+                    search_criteria_author: None,
+                    search_criteria_follow_renames: None,
+                    search_criteria_from_date: None,
+                    search_criteria_from_id: None,
+                    search_criteria_include_links: None,
+                    search_criteria_item_path: None,
+                    search_criteria_mappings: Vec::new(),
+                    search_criteria_to_date: None,
+                    search_criteria_to_id: None,
+                }
+            }
+        }
+    }
+    pub mod labels {
+        use super::super::labels::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "Get items under a label."]
+            #[doc = ""]
+            #[doc = "See [`get_label_items`](super::super::labels::Client::get_label_items) for details of the arguments."]
+            pub fn get_label_items(
+                &self,
+                organization: impl Into<String>,
+                label_id: impl Into<String>,
+            ) -> get_label_items::RequestBuilder<crate::blocking::Blocking> {
+                get_label_items::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    label_id: label_id.into(),
+                    top: None,
+                    skip: None,
+                }
+            }
+            #[doc = "Get a collection of shallow label references."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::labels::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+                project: impl Into<String>,
+            ) -> list::RequestBuilder<crate::blocking::Blocking> {
+                list::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    project: project.into(),
+                    request_data_include_links: None,
+                    request_data_item_label_filter: None,
+                    request_data_label_scope: None,
+                    request_data_max_item_count: None,
+                    request_data_name: None,
+                    request_data_owner: None,
+                    top: None,
+                    skip: None,
+                }
+            }
+            #[doc = "Get a single deep label."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::labels::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                label_id: impl Into<String>,
+                project: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    label_id: label_id.into(),
+                    project: project.into(),
+                    request_data_include_links: None,
+                    request_data_item_label_filter: None,
+                    request_data_label_scope: None,
+                    request_data_max_item_count: None,
+                    request_data_name: None,
+                    request_data_owner: None,
+                }
             }
         }
     }

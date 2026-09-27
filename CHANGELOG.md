@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Blocking (non-async) API ([#835](https://github.com/microsoft/azure-devops-rust-api/issues/835)),
+  enabled with the `blocking` feature. Each module has a `blocking` submodule with a `Client`
+  and `ClientBuilder` that wrap the async client, running each request on a hidden `tokio`
+  runtime. All credential types, retry options and pipeline policies are supported.
+
+### Changes
+
+- Operation `RequestBuilder` types now have a send mode type parameter, which defaults to
+  async, so existing code that names `RequestBuilder` is unaffected.
+
 ## [0.39.1]
 
 ### Changes

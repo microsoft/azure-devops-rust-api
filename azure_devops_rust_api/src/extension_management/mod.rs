@@ -149,6 +149,7 @@ pub mod installed_extensions {
         pub fn list(&self, organization: impl Into<String>) -> list::RequestBuilder {
             list::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 include_disabled_extensions: None,
                 include_errors: None,
@@ -167,6 +168,7 @@ pub mod installed_extensions {
         ) -> update::RequestBuilder {
             update::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 body: body.into(),
             }
@@ -185,6 +187,7 @@ pub mod installed_extensions {
         ) -> get::RequestBuilder {
             get::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 publisher_name: publisher_name.into(),
                 extension_name: extension_name.into(),
@@ -205,6 +208,7 @@ pub mod installed_extensions {
         ) -> uninstall_extension_by_name::RequestBuilder {
             uninstall_extension_by_name::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 publisher_name: publisher_name.into(),
                 extension_name: extension_name.into(),
@@ -227,6 +231,7 @@ pub mod installed_extensions {
         ) -> install_extension_by_name::RequestBuilder {
             install_extension_by_name::RequestBuilder {
                 client: self.0.clone(),
+                mode: std::marker::PhantomData,
                 organization: organization.into(),
                 publisher_name: publisher_name.into(),
                 extension_name: extension_name.into(),
@@ -271,15 +276,20 @@ pub mod installed_extensions {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) include_disabled_extensions: Option<bool>,
             pub(crate) include_errors: Option<bool>,
             pub(crate) asset_types: Option<String>,
             pub(crate) include_installation_issues: Option<bool>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "If true (the default), include disabled extensions in the results."]
             pub fn include_disabled_extensions(
                 mut self,
@@ -305,11 +315,9 @@ pub mod installed_extensions {
                 self.include_installation_issues = Some(include_installation_issues);
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -371,6 +379,22 @@ pub mod installed_extensions {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::InstalledExtensionList>;
             type IntoFuture =
@@ -419,17 +443,18 @@ pub mod installed_extensions {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) body: models::InstalledExtension,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -466,6 +491,22 @@ pub mod installed_extensions {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -515,24 +556,27 @@ pub mod installed_extensions {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) publisher_name: String,
             pub(crate) extension_name: String,
             pub(crate) asset_types: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             #[doc = "Determines which files are returned in the files array.  Provide the wildcard '*' to return all files, or a colon separated list to retrieve files with specific asset types."]
             pub fn asset_types(mut self, asset_types: impl Into<String>) -> Self {
                 self.asset_types = Some(asset_types.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -577,6 +621,22 @@ pub mod installed_extensions {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::InstalledExtension>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::InstalledExtension>>;
@@ -619,15 +679,20 @@ pub mod installed_extensions {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) publisher_name: String,
             pub(crate) extension_name: String,
             pub(crate) reason: Option<String>,
             pub(crate) reason_code: Option<String>,
         }
-        impl RequestBuilder {
+        impl<M> RequestBuilder<M> {
             pub fn reason(mut self, reason: impl Into<String>) -> Self {
                 self.reason = Some(reason.into());
                 self
@@ -636,11 +701,9 @@ pub mod installed_extensions {
                 self.reason_code = Some(reason_code.into());
                 self
             }
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        }
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -688,6 +751,22 @@ pub mod installed_extensions {
                         .append_pair("api-version", "7.1-preview");
                 }
                 Ok(url)
+            }
+        }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
             }
         }
         impl std::future::IntoFuture for RequestBuilder {
@@ -740,19 +819,20 @@ pub mod installed_extensions {
         #[doc = r" can finalize the request using the"]
         #[doc = r" [`RequestBuilder::send()`] method which returns a future"]
         #[doc = r" that resolves to a lower-level [`Response`] value."]
-        pub struct RequestBuilder {
+        #[doc = r""]
+        #[doc = r" When created from a [`blocking::Client`](super::super::blocking::Client),"]
+        #[doc = r" finalize and submit the request using [`RequestBuilder::send()`], which"]
+        #[doc = r" blocks until the request completes."]
+        pub struct RequestBuilder<M = ()> {
             pub(crate) client: super::super::Client,
+            pub(crate) mode: std::marker::PhantomData<M>,
             pub(crate) organization: String,
             pub(crate) publisher_name: String,
             pub(crate) extension_name: String,
             pub(crate) version: String,
         }
-        impl RequestBuilder {
-            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
-            #[doc = ""]
-            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
-            #[doc = "However, this function can provide more flexibility when required."]
-            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+        impl<M: Clone + Send + 'static> RequestBuilder<M> {
+            fn send_future(self) -> BoxFuture<'static, azure_core::Result<Response>> {
                 Box::pin({
                     let this = self.clone();
                     async move {
@@ -794,6 +874,22 @@ pub mod installed_extensions {
                 Ok(url)
             }
         }
+        impl RequestBuilder {
+            #[doc = "Returns a future that sends the request and returns a [`Response`] object that provides low-level access to full response details."]
+            #[doc = ""]
+            #[doc = "You should typically use `.await` (which implicitly calls `IntoFuture::into_future()`) to finalize and send requests rather than `send()`."]
+            #[doc = "However, this function can provide more flexibility when required."]
+            pub fn send(self) -> BoxFuture<'static, azure_core::Result<Response>> {
+                self.send_future()
+            }
+        }
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        impl RequestBuilder<crate::blocking::Blocking> {
+            #[doc = "Sends the request, blocking until the response is received, and returns a [`Response`] object."]
+            pub fn send(self) -> azure_core::Result<Response> {
+                crate::blocking::block_on(self.send_future())
+            }
+        }
         impl std::future::IntoFuture for RequestBuilder {
             type Output = azure_core::Result<models::InstalledExtension>;
             type IntoFuture = BoxFuture<'static, azure_core::Result<models::InstalledExtension>>;
@@ -804,6 +900,176 @@ pub mod installed_extensions {
             #[doc = "See [IntoFuture documentation](https://doc.rust-lang.org/std/future/trait.IntoFuture.html) for more details."]
             fn into_future(self) -> Self::IntoFuture {
                 Box::pin(async move { self.send().await?.into_body() })
+            }
+        }
+    }
+}
+#[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+pub mod blocking {
+    #![doc = "Blocking (non-async) client."]
+    #![doc = ""]
+    #![doc = "This wraps the async [`Client`](super::Client), running each request on a hidden tokio runtime."]
+    #![doc = "It must not be used from within an async runtime."]
+    #[derive(Clone)]
+    pub struct Client(pub(crate) super::Client);
+    #[derive(Clone)]
+    pub struct ClientBuilder(super::ClientBuilder);
+    impl ClientBuilder {
+        #[doc = "Create a new instance of `ClientBuilder`."]
+        #[must_use]
+        pub fn new(credential: crate::Credential) -> Self {
+            Self(super::ClientBuilder::new(credential))
+        }
+        #[doc = "Set the endpoint."]
+        #[must_use]
+        pub fn endpoint(self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+            Self(self.0.endpoint(endpoint))
+        }
+        #[doc = "Set the scopes."]
+        #[must_use]
+        pub fn scopes(self, scopes: &[&str]) -> Self {
+            Self(self.0.scopes(scopes))
+        }
+        #[doc = "Set the retry options."]
+        #[must_use]
+        pub fn retry(self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+            Self(self.0.retry(retry))
+        }
+        #[doc = "Set the transport options."]
+        #[must_use]
+        pub fn transport(self, transport: impl Into<azure_core::http::Transport>) -> Self {
+            Self(self.0.transport(transport))
+        }
+        #[doc = "Set per-call policies."]
+        #[must_use]
+        pub fn per_call_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_call_policies(policies))
+        }
+        #[doc = "Set per-try policies."]
+        #[must_use]
+        pub fn per_try_policies(
+            self,
+            policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>,
+        ) -> Self {
+            Self(self.0.per_try_policies(policies))
+        }
+        #[doc = "Convert the builder into a `Client` instance."]
+        pub fn build(self) -> Client {
+            Client(self.0.build())
+        }
+    }
+    impl Client {
+        #[doc = "Create a new `ClientBuilder`."]
+        #[must_use]
+        pub fn builder(credential: crate::Credential) -> ClientBuilder {
+            ClientBuilder::new(credential)
+        }
+        pub fn installed_extensions_client(&self) -> installed_extensions::Client {
+            installed_extensions::Client(self.clone())
+        }
+    }
+    impl From<super::Client> for Client {
+        #[doc = "Create a blocking client that sends requests using an existing async client."]
+        fn from(client: super::Client) -> Self {
+            Self(client)
+        }
+    }
+    pub mod installed_extensions {
+        use super::super::installed_extensions::*;
+        use super::super::models;
+        pub struct Client(pub(crate) super::Client);
+        impl Client {
+            #[doc = "List the installed extensions in the account / project collection."]
+            #[doc = ""]
+            #[doc = "See [`list`](super::super::installed_extensions::Client::list) for details of the arguments."]
+            pub fn list(
+                &self,
+                organization: impl Into<String>,
+            ) -> list::RequestBuilder<crate::blocking::Blocking> {
+                list::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    include_disabled_extensions: None,
+                    include_errors: None,
+                    asset_types: None,
+                    include_installation_issues: None,
+                }
+            }
+            #[doc = "Update an installed extension. Typically this API is used to enable or disable an extension."]
+            #[doc = ""]
+            #[doc = "See [`update`](super::super::installed_extensions::Client::update) for details of the arguments."]
+            pub fn update(
+                &self,
+                organization: impl Into<String>,
+                body: impl Into<models::InstalledExtension>,
+            ) -> update::RequestBuilder<crate::blocking::Blocking> {
+                update::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    body: body.into(),
+                }
+            }
+            #[doc = "Get an installed extension by its publisher and extension name."]
+            #[doc = ""]
+            #[doc = "See [`get`](super::super::installed_extensions::Client::get) for details of the arguments."]
+            pub fn get(
+                &self,
+                organization: impl Into<String>,
+                publisher_name: impl Into<String>,
+                extension_name: impl Into<String>,
+            ) -> get::RequestBuilder<crate::blocking::Blocking> {
+                get::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    publisher_name: publisher_name.into(),
+                    extension_name: extension_name.into(),
+                    asset_types: None,
+                }
+            }
+            #[doc = "Uninstall the specified extension from the account / project collection."]
+            #[doc = ""]
+            #[doc = "See [`uninstall_extension_by_name`](super::super::installed_extensions::Client::uninstall_extension_by_name) for details of the arguments."]
+            pub fn uninstall_extension_by_name(
+                &self,
+                organization: impl Into<String>,
+                publisher_name: impl Into<String>,
+                extension_name: impl Into<String>,
+            ) -> uninstall_extension_by_name::RequestBuilder<crate::blocking::Blocking>
+            {
+                uninstall_extension_by_name::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    publisher_name: publisher_name.into(),
+                    extension_name: extension_name.into(),
+                    reason: None,
+                    reason_code: None,
+                }
+            }
+            #[doc = "Install the specified extension into the account / project collection."]
+            #[doc = ""]
+            #[doc = "See [`install_extension_by_name`](super::super::installed_extensions::Client::install_extension_by_name) for details of the arguments."]
+            pub fn install_extension_by_name(
+                &self,
+                organization: impl Into<String>,
+                publisher_name: impl Into<String>,
+                extension_name: impl Into<String>,
+                version: impl Into<String>,
+            ) -> install_extension_by_name::RequestBuilder<crate::blocking::Blocking> {
+                install_extension_by_name::RequestBuilder {
+                    client: self.0 .0.clone(),
+                    mode: std::marker::PhantomData,
+                    organization: organization.into(),
+                    publisher_name: publisher_name.into(),
+                    extension_name: extension_name.into(),
+                    version: version.into(),
+                }
             }
         }
     }

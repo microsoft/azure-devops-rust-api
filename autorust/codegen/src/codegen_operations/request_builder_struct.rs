@@ -11,6 +11,7 @@ pub struct RequestBuilderStructCode {
     in_operation_group: bool,
     lro: bool,
     lro_options: Option<MsLongRunningOperationOptions>,
+    generate_blocking: bool,
 }
 
 impl RequestBuilderStructCode {
@@ -19,12 +20,14 @@ impl RequestBuilderStructCode {
         in_operation_group: bool,
         lro: bool,
         lro_options: Option<MsLongRunningOperationOptions>,
+        generate_blocking: bool,
     ) -> Self {
         Self {
             parameters: parameters.clone(),
             in_operation_group,
             lro,
             lro_options,
+            generate_blocking,
         }
     }
 }
@@ -36,6 +39,10 @@ impl ToTokens for RequestBuilderStructCode {
             params.push(quote! { pub(crate) client: super::super::Client });
         } else {
             params.push(quote! { pub(crate) client: super::Client });
+        }
+        if self.generate_blocking {
+            // Selects async (`()`) or blocking (`crate::blocking::Blocking`) `send()`.
+            params.push(quote! { pub(crate) mode: std::marker::PhantomData<M> });
         }
         for param in self.parameters.required_params() {
             let FunctionParam {
@@ -120,6 +127,20 @@ impl ToTokens for RequestBuilderStructCode {
             }
         };
 
+        let (blocking_docs, generics) = if self.generate_blocking {
+            (
+                quote! {
+                    ///
+                    /// When created from a [`blocking::Client`](super::super::blocking::Client),
+                    /// finalize and submit the request using [`RequestBuilder::send()`], which
+                    /// blocks until the request completes.
+                },
+                quote! { <M = ()> },
+            )
+        } else {
+            (quote! {}, quote! {})
+        };
+
         tokens.extend(quote! {
             #[derive(Clone)]
             /// `RequestBuilder` provides a mechanism for setting optional parameters on a request.
@@ -128,7 +149,8 @@ impl ToTokens for RequestBuilderStructCode {
             /// parameters can be chained.
             ///
             #lro_docs
-            pub struct RequestBuilder {
+            #blocking_docs
+            pub struct RequestBuilder #generics {
                 #(#params),*
             }
         });

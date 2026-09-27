@@ -170,3 +170,107 @@ pub fn create_client(modules: &[String], endpoint: Option<&str>) -> Result<Token
     });
     Ok(code)
 }
+
+/// Create the blocking (non-async) `Client` and `ClientBuilder`, placed in a `blocking` submodule.
+///
+/// These wrap the async `Client` and `ClientBuilder`: requests are sent using the async client,
+/// run on a hidden tokio runtime. `group_modules` contains the blocking client for each
+/// operation group.
+pub fn create_blocking_client(
+    modules: &[String],
+    group_modules: TokenStream,
+) -> Result<TokenStream> {
+    let mut clients = TokenStream::new();
+    for md in modules {
+        let client = format!("{md}_client").to_snake_case_ident()?;
+        let md = md.to_snake_case_ident()?;
+        clients.extend(quote! {
+            pub fn #client(&self) -> #md::Client {
+                #md::Client(self.clone())
+            }
+        });
+    }
+
+    Ok(quote! {
+        #[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+        pub mod blocking {
+            #![doc = "Blocking (non-async) client."]
+            #![doc = ""]
+            #![doc = "This wraps the async [`Client`](super::Client), running each request on a hidden tokio runtime."]
+            #![doc = "It must not be used from within an async runtime."]
+            #[derive(Clone)]
+            pub struct Client(pub(crate) super::Client);
+
+            #[derive(Clone)]
+            pub struct ClientBuilder(super::ClientBuilder);
+
+            impl ClientBuilder {
+                #[doc = "Create a new instance of `ClientBuilder`."]
+                #[must_use]
+                pub fn new(credential: crate::Credential) -> Self {
+                    Self(super::ClientBuilder::new(credential))
+                }
+
+                #[doc = "Set the endpoint."]
+                #[must_use]
+                pub fn endpoint(self, endpoint: impl Into<azure_core::http::Url>) -> Self {
+                    Self(self.0.endpoint(endpoint))
+                }
+
+                #[doc = "Set the scopes."]
+                #[must_use]
+                pub fn scopes(self, scopes: &[&str]) -> Self {
+                    Self(self.0.scopes(scopes))
+                }
+
+                #[doc = "Set the retry options."]
+                #[must_use]
+                pub fn retry(self, retry: impl Into<azure_core::http::RetryOptions>) -> Self {
+                    Self(self.0.retry(retry))
+                }
+
+                #[doc = "Set the transport options."]
+                #[must_use]
+                pub fn transport(self, transport: impl Into<azure_core::http::Transport>) -> Self {
+                    Self(self.0.transport(transport))
+                }
+
+                #[doc = "Set per-call policies."]
+                #[must_use]
+                pub fn per_call_policies(self, policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>) -> Self {
+                    Self(self.0.per_call_policies(policies))
+                }
+
+                #[doc = "Set per-try policies."]
+                #[must_use]
+                pub fn per_try_policies(self, policies: impl Into<Vec<std::sync::Arc<dyn azure_core::http::policies::Policy>>>) -> Self {
+                    Self(self.0.per_try_policies(policies))
+                }
+
+                #[doc = "Convert the builder into a `Client` instance."]
+                pub fn build(self) -> Client {
+                    Client(self.0.build())
+                }
+            }
+
+            impl Client {
+                #[doc = "Create a new `ClientBuilder`."]
+                #[must_use]
+                pub fn builder(credential: crate::Credential) -> ClientBuilder {
+                    ClientBuilder::new(credential)
+                }
+
+                #clients
+            }
+
+            impl From<super::Client> for Client {
+                #[doc = "Create a blocking client that sends requests using an existing async client."]
+                fn from(client: super::Client) -> Self {
+                    Self(client)
+                }
+            }
+
+            #group_modules
+        }
+    })
+}

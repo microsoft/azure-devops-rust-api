@@ -137,6 +137,9 @@ pub mod work;
 mod auth;
 pub use auth::Credential;
 
+#[cfg(all(feature = "blocking", not(target_arch = "wasm32")))]
+pub mod blocking;
+
 pub mod date_time;
 pub mod headers;
 pub mod telemetry;

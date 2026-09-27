@@ -14,6 +14,11 @@ pub(crate) struct ClientFunctionCode {
     fname: Ident,
     parameters: FunctionParams,
     in_operation_group: bool,
+    /// The request builder has a send mode type parameter (see `RequestBuilderStructCode`).
+    generate_blocking: bool,
+    /// For a blocking client function, the path of the corresponding async client,
+    /// whose documentation is linked to rather than repeated.
+    blocking_async_client: Option<String>,
 }
 
 impl ClientFunctionCode {
@@ -21,6 +26,7 @@ impl ClientFunctionCode {
         operation: &WebOperationGen,
         parameters: &FunctionParams,
         in_operation_group: bool,
+        generate_blocking: bool,
     ) -> Result<Self> {
         let fname = operation.function_name()?;
         let summary = operation.0.summary.clone();
@@ -31,17 +37,38 @@ impl ClientFunctionCode {
             fname,
             parameters: parameters.clone(),
             in_operation_group,
+            generate_blocking,
+            blocking_async_client: None,
         })
+    }
+
+    /// Returns a copy of this function for a blocking client.
+    ///
+    /// `async_client` is the path of the corresponding async client.
+    pub fn for_blocking_client(&self, async_client: String) -> Self {
+        Self {
+            blocking_async_client: Some(async_client),
+            ..self.clone()
+        }
     }
 }
 
 impl ToTokens for ClientFunctionCode {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let mut params: Vec<TokenStream> = Vec::new();
-        if self.in_operation_group {
-            params.push(quote! { client: self.0.clone() });
+        if self.blocking_async_client.is_some() {
+            // A blocking group client wraps a blocking client, which wraps the async client.
+            params.push(quote! { client: self.0 .0.clone() });
+            params.push(quote! { mode: std::marker::PhantomData });
         } else {
-            params.push(quote! { client: self.clone() });
+            if self.in_operation_group {
+                params.push(quote! { client: self.0.clone() });
+            } else {
+                params.push(quote! { client: self.clone() });
+            }
+            if self.generate_blocking {
+                params.push(quote! { mode: std::marker::PhantomData });
+            }
         }
         for param in self.parameters.required_params() {
             let FunctionParam {
@@ -98,11 +125,32 @@ impl ToTokens for ClientFunctionCode {
 
         let fname = &self.fname;
         let parameters = FunctionCallParamsCode(self.parameters.clone());
+        let generics = if self.blocking_async_client.is_some() {
+            quote! { <crate::blocking::Blocking> }
+        } else {
+            quote! {}
+        };
+        // Blocking client functions link to the async function's documentation,
+        // rather than repeating the argument descriptions.
+        let param_descriptions = match &self.blocking_async_client {
+            Some(async_client) => {
+                let doc = format!(
+                    "See [`{fname}`]({async_client}::{fname}) for details of the arguments."
+                );
+                let blank = if summary.is_empty() && description.is_empty() {
+                    quote! {}
+                } else {
+                    quote! { #[doc = ""] }
+                };
+                vec![quote! { #blank #[doc = #doc] }]
+            }
+            None => param_descriptions,
+        };
         tokens.extend(quote! {
             #summary
             #description
             #(#param_descriptions)*
-            pub fn #fname(#parameters) -> #fname::RequestBuilder {
+            pub fn #fname(#parameters) -> #fname::RequestBuilder #generics {
                 #fname::RequestBuilder {
                     #(#params),*
                 }

@@ -164,6 +164,41 @@ cargo run --example download_artifact --features="artifacts_download" -- \
     --feed <feed> --name <package-name> --version <version> --path <output-dir>
 ```
 
+## Blocking (non-async) API
+
+Each API module also provides a blocking client, in its `blocking` submodule, for
+applications that don't use async. Enable it with the `blocking` feature:
+
+```toml
+[dependencies]
+azure_devops_rust_api = { version = "0.39.1", features = ["git", "blocking"] }
+```
+
+```rust
+use azure_devops_rust_api::git;
+
+let git_client = git::blocking::ClientBuilder::new(credential).build();
+
+let repos = git_client
+    .repositories_client()
+    .list(organization, project)
+    .send()?
+    .into_body()?
+    .value;
+```
+
+The blocking client wraps the async client, running each request on a hidden `tokio`
+runtime, so all credential types, retry options and pipeline policies are supported. An
+existing async client can be converted with `git::blocking::Client::from(client)`.
+
+Limitations of the blocking API:
+- It must not be used from within an async runtime (it returns an error if it is). Use the
+  async API instead.
+- The `artifacts_download` module is async-only.
+
+See [examples/git_repo_list_blocking.rs](examples/git_repo_list_blocking.rs) and
+[examples/wit_work_item_create_blocking.rs](examples/wit_work_item_create_blocking.rs).
+
 ## Examples
 
 The [examples/](examples/) directory contains runnable examples for most API areas.
