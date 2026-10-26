@@ -1,3 +1,10 @@
+# DEPRECATED
+
+> [!WARNING]
+> This repository is **deprecated** and is no longer actively maintained or supported by Microsoft. No further updates, bug fixes, or security patches will be provided.
+> 
+> If you wish to continue using, modifying, or maintaining this project, please feel free to **fork this repository**.
+
 # Azure DevOps Rust API Generator
 
 > If you find any issues then please raise them via [Github](https://github.com/microsoft/azure-devops-rust-api/issues).
